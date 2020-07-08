@@ -118,12 +118,12 @@ let
 
       # SteamVR libs that need to be preloaded
       cat > ld-nix.so.preload << EOF
-      /steamrt/amd64/lib/x86_64-linux-gnu/libcap.so.2
-      /lib64/libstdc++.so.6
-      /lib64/libpthread.so.0
-      /lib64/libm.so.6
-      /lib64/libgcc_s.so.1
-      /steamrt/amd64/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0
+      ${pkgs.steamPackages.steam-runtime}/lib/x86_64-linux-gnu/libcap.so.2
+      ${pkgs.steamPackages.steam-runtime}/usr/lib/x86_64-linux-gnu/libstdc++.so.6
+      ${pkgs.glibc}/lib/libpthread.so.0
+      ${pkgs.glibc}/lib/libm.so.6
+      ${pkgs.steamPackages.steam-runtime}/lib/x86_64-linux-gnu/libgcc_s.so.1
+      ${pkgs.steamPackages.steam-runtime}/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0
       /home/atemu/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/libsteam_api.so
       EOF
     '';
