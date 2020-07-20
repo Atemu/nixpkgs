@@ -1,0 +1,13 @@
+diff --git a/rspy/Cargo.toml b/rspy/Cargo.toml
+index 54ee955f..2e7bb883 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -11,7 +11,7 @@ readme = "README.md"
+ anki = { path = "../rslib" }
+ 
+ [dependencies.pyo3]
+-version = "0.8.0"
++version = "0.11.1"
+ features = ["extension-module"]
+ 
+ [lib]
