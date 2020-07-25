@@ -17,8 +17,10 @@ rustPlatform.buildRustPackage {
   #   cp -a $src/rspy $out
   # '';
   src = pkgs.runCommand "source" { inherit src; lock = ./Cargo.lock; toml = ./Cargo.toml; } ''
-    mkdir -p $out/rspy
     cp -r $src/. $out
+    # We don't have write permission now for some reason
+    chmod -R u+rw $out
+
     # We need to update pyo3 to a version that builds without experimental Rust features
     cp $toml $out/rspy/Cargo.toml
     # Upstream doesn't ship Cargo.lock and we modified the TOML
