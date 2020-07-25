@@ -16,10 +16,12 @@ rustPlatform.buildRustPackage {
   # src = pkgs.runCommand "mkSubProject" { inherit src; } ''
   #   cp -a $src/rspy $out
   # '';
-  src = pkgs.runCommand "source" { inherit src; lock = ./Cargo.lock; patch = ./pyo3-version.patch; } ''
+  src = pkgs.runCommand "source" { inherit src; lock = ./Cargo.lock; toml = ./Cargo.toml; } ''
     mkdir -p $out/rspy
     cp -r $src/. $out
-    patch < $patch $out/rspy/Cargo.toml
+    # We need to update pyo3 to a version that builds without experimental Rust features
+    cp $toml $out/rspy/Cargo.toml
+    # Upstream doesn't ship Cargo.lock and we modified the TOML
     cp $lock $out/rspy/Cargo.lock
   '';
 
