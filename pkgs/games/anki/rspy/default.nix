@@ -23,9 +23,12 @@ rustPlatform.buildRustPackage {
     cp $toml $out/rspy/Cargo.toml
     # Upstream doesn't ship Cargo.lock and we modified the TOML
     cp $lock $out/rspy/Cargo.lock
+
+    # rspy needs rslib to build but isn't permitted access because it's not in sourceRoot
+    cp -a $out/rslib/ $out/rspy/
   '';
 
-  sourceRoot = "source/rspy";
+  sourceRoot = "source/rspy"; # needed for fetchCargoTarball to work
 
   cargoSha256 = "1yvnpvw3x9irsjgfhgmdrbz1fln6ai1xslfajsxh1xahiz90p6w5";
 
