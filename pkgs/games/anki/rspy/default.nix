@@ -24,6 +24,9 @@ rustPlatform.buildRustPackage {
     # Upstream doesn't ship Cargo.lock and we modified the TOML
     cp $lock $out/rspy/Cargo.lock
 
+    # rslib build.rs needs the paths in FTL_TEMPLATE_DIRS
+    cp -a $out/qt/ $out/rslib/
+
     # rspy needs rslib to build but isn't permitted access because it's not in sourceRoot
     cp -a $out/rslib/ $out/rspy/
   '';
@@ -43,6 +46,6 @@ rustPlatform.buildRustPackage {
 
   buildPhase = ''
     HOME=$NIX_BUILD_TOP
-    FTL_TEMPLATE_DIRS="../qt/ftl" ${pkgs.maturin}/bin/maturin build -i ${pkgs.python3}/bin/python -o $out --release --strip
+    FTL_TEMPLATE_DIRS="./qt/ftl" ${pkgs.maturin}/bin/maturin build -i ${pkgs.python3}/bin/python -o $out --release --strip
   '';
 }
