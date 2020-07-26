@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage {
   inherit pname version;
 
   # TODO copy rspy into main dir and make anki its sub dir, link anki/rspy to main dir
-  src = pkgs.runCommand "source" { inherit src desktopFtl coreI18n; lock = ./Cargo.lock; toml = ./Cargo.toml; } ''
+  src = pkgs.runCommand "source" { inherit src version desktopFtl coreI18n; lock = ./Cargo.lock; toml = ./Cargo.toml; } ''
     cp -r $src/. $out
     # We don't have write permission now for some reason
     chmod -R u+rw $out
@@ -50,6 +50,12 @@ rustPlatform.buildRustPackage {
 
     # rspy needs rslib to build but isn't permitted access because it's not in sourceRoot
     cp -a $out/rslib/ $out/rspy/
+
+    # rslib needs these files
+    mkdir -p $out/rspy/meta
+    echo "$version" > $out/rspy/meta/version
+    echo "7d8818f8" > $out/rspy/meta/buildhash
+    # TODO can the hash be any string? Perhaps echo $version into this aswell
   '';
 
   sourceRoot = "source/rspy"; # needed for fetchCargoTarball to work
