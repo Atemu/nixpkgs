@@ -85,4 +85,7 @@ rustPlatform.buildRustPackage {
     HOME=$NIX_BUILD_TOP
     FTL_TEMPLATE_DIRS="./qt/ftl" QT_FTL_LOCALES="./qt/ftl/repo/desktop" ${pkgs.maturin}/bin/maturin build -i ${pkgs.python3}/bin/python -o $out --release --strip
   '';
+
+  # Maturin installs by itself and this would fail anyways
+  installPhase = "exit 0";
 }
