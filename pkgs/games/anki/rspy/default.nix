@@ -64,6 +64,16 @@ rustPlatform.buildRustPackage {
     perl
   ];
 
+  postPatch = ''
+    # It tries to execute the vendored protoc binary during the build of rslib, we need to replace it with Nix'
+    rm $NIX_BUILD_TOP/$cargoDepsCopy/prost-build/third-party/protobuf/protoc-linux-x86_64
+    ln -s ${pkgs.protobuf}/bin/protoc $NIX_BUILD_TOP/$cargoDepsCopy/prost-build/third-party/protobuf/protoc-linux-x86_64
+
+    # Remove now invalid checksum
+    # Taken from pkgs/development/python-modules/tokenizers/
+    sed -r -i 's|"files":\{[^}]+\}|"files":{}|' \
+      $NIX_BUILD_TOP/$cargoDepsCopy/prost-build/.cargo-checksum.json
+  '';
 
   buildPhase = ''
     HOME=$NIX_BUILD_TOP
