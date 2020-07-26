@@ -45,6 +45,9 @@ rustPlatform.buildRustPackage {
     cp -a $desktopFtl $out/rslib/qt/ftl/repo/
     cp -a $coreI18n $out/rslib/ftl/repo/
 
+    # rspy build.rs needs ../proto
+    cp -a $out/proto/ $out/rspy/
+
     # rspy needs rslib to build but isn't permitted access because it's not in sourceRoot
     cp -a $out/rslib/ $out/rspy/
   '';
