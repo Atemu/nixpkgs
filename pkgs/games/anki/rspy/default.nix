@@ -17,13 +17,19 @@ let
     rev = "8b0520e63b9537d2431c31501c3561e086978648";
     sha256 = "06fyj7lfnvj44zldj8pgs8ik4cs8p3s01hg2ra7kh4dih304ma6h";
   };
+  coreI18n = fetchFromGitHub {
+    owner = "ankitects";
+    repo = "anki-core-i18n";
+    rev = "0f39d0e46502cb31071ea904c39f574409e70d38";
+    sha256 = "0q4n4d5mrxg71s8q41x54j7886bmdchj46hfqnlax7j44xzqklab";
+  };
 in
 
 rustPlatform.buildRustPackage {
   inherit pname version;
 
   # TODO copy rspy into main dir and make anki its sub dir, link anki/rspy to main dir
-  src = pkgs.runCommand "source" { inherit src desktopFtl; lock = ./Cargo.lock; toml = ./Cargo.toml; } ''
+  src = pkgs.runCommand "source" { inherit src desktopFtl coreI18n; lock = ./Cargo.lock; toml = ./Cargo.toml; } ''
     cp -r $src/. $out
     # We don't have write permission now for some reason
     chmod -R u+rw $out
@@ -37,6 +43,7 @@ rustPlatform.buildRustPackage {
     cp -a $out/qt/ $out/rslib/
     # and translations from external repos
     cp -a $desktopFtl $out/rslib/qt/ftl/repo/
+    cp -a $coreI18n $out/rslib/ftl/repo/
 
     # rspy needs rslib to build but isn't permitted access because it's not in sourceRoot
     cp -a $out/rslib/ $out/rspy/
