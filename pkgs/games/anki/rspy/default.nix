@@ -12,10 +12,8 @@ in
 
 rustPlatform.buildRustPackage {
   inherit pname version;
-  # inherit src;
-  # src = pkgs.runCommand "mkSubProject" { inherit src; } ''
-  #   cp -a $src/rspy $out
-  # '';
+
+  # TODO copy rspy into main dir and make anki its sub dir, link anki/rspy to main dir
   src = pkgs.runCommand "source" { inherit src; lock = ./Cargo.lock; toml = ./Cargo.toml; } ''
     cp -r $src/. $out
     # We don't have write permission now for some reason
@@ -42,12 +40,9 @@ rustPlatform.buildRustPackage {
     perl
   ];
 
-  # pyo3 requires Rust nightly.
-  RUSTC_BOOTSTRAP = 1;
 
   buildPhase = ''
     HOME=$NIX_BUILD_TOP
-    RUST_BACKTRACE=full \
     FTL_TEMPLATE_DIRS="../qt/ftl" ${pkgs.maturin}/bin/maturin build -i ${pkgs.python3}/bin/python -o $out --release --strip
   '';
 }
