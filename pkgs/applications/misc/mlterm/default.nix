@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, pkgconfig, autoconf, makeDesktopItem
+{ stdenv, fetchFromGitHub, pkgconfig, autoconf, makeDesktopItem
 , libX11, gdk-pixbuf, cairo, libXft, gtk3, vte
 , harfbuzz #substituting glyphs with opentype fonts
 , fribidi, m17n_lib #bidi and encoding
@@ -9,9 +9,11 @@ stdenv.mkDerivation rec {
   pname = "mlterm";
   version = "3.9.0";
 
-  src = fetchurl {
-    url = "mirror://sourceforge/project/mlterm/01release/${pname}-${version}/${pname}-${version}.tar.gz";
-    sha256 = "17h6j4nmbyvsx2shm8mqm7smzq9i7mbqxjw19c2m0rhf5yzqhr3k";
+  src = fetchFromGitHub {
+    owner = "arakiken";
+    repo = "mlterm";
+    rev = "75bfb89595c6c3eb9f000949f4b93f2468df7cf0";
+    sha256 = "0zg43ixpr9nypkk2jnq1p4p8z47xpqmr4a1lic94qxr22s3sw30p";
   };
 
   nativeBuildInputs = [ pkgconfig autoconf ];
