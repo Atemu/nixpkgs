@@ -20,4 +20,5 @@ buildPythonPackage {
   format = "pyproject";
 
   nativeBuildInputs = [ pkgs.maturin ];
+  buildInputs = [ pkgs.maturin ];
 }
