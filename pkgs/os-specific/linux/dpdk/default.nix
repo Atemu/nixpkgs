@@ -71,5 +71,6 @@ in stdenv.mkDerivation rec {
     license = with licenses; [ lgpl21 gpl2 bsd2 ];
     platforms =  platforms.linux;
     maintainers = with maintainers; [ domenkozar magenbluten orivej ];
+    broken = with kernel; kernelAtLeast "5.9";
   };
 }
