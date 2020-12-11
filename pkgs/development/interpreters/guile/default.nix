@@ -44,7 +44,7 @@
   #
   # re: https://issues.guix.gnu.org/issue/20272
   # re: https://build.opensuse.org/request/show/732638
-  enableParallelBuilding = false;
+  enableParallelBuilding = true; # build speed > reproducibility
 
   patches = [
     ./eai_system.patch
