@@ -3482,13 +3482,13 @@ in {
       p.overrideAttrs (super: {
         meta = super.meta // {
           outputsToInstall = [ "py" ];
-          broken = super.meta.broken or isPy27;
+          broken = (super.meta.broken or false) || pythonAtLeast "3.8";
         };
       }))
     (p:
       p.override {
         enablePython = true;
-        python3 = python;
+        inherit python;
       })
     (p: p.py)
   ];
