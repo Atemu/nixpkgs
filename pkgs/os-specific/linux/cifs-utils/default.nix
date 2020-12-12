@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, autoreconfHook, docutils, pkgconfig
+{ stdenv, lib, fetchurl, autoreconfHook, docutils, pkgconfig
 , kerberos, keyutils, pam, talloc }:
 
 stdenv.mkDerivation rec {
@@ -13,6 +13,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook docutils pkgconfig ];
 
   buildInputs = [ kerberos keyutils pam talloc ];
+
+  patches = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [ ./no-AC_FUNC_MALLOC.patch ];
 
   makeFlags = [ "root_sbindir=$(out)/sbin" ];
 
