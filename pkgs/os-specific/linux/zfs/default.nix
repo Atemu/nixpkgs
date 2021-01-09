@@ -176,7 +176,7 @@ let
         maintainers = with maintainers; [ hmenke jcumming jonringer wizeman fpletz globin mic92 ];
       };
     };
-in rec {
+in {
   # also check if kernel version constraints in
   # ./nixos/modules/tasks/filesystems/zfs.nix needs
   # to be adapted
@@ -192,6 +192,15 @@ in rec {
     extraPatches = [ ];
   };
 
-  # this package should point to a version / git revision compatible with the latest kernel release
-  zfsUnstable = zfsStable;
+  zfsUnstable = common {
+    # comment/uncomment if breaking kernel versions are known
+    # incompatibleKernelVersion = "4.19";
+
+    # this package should point to a version / git revision compatible with the latest kernel release
+    version = "2.0.1";
+
+    sha256 = "0wmw823ildwm9rcfyk22pvzg100yhps3y9hfjlrpspfd1hhkbp0d";
+
+    extraPatches = [ ];
+  };
 }
