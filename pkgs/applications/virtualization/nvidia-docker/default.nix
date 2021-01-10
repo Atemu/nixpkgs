@@ -6,15 +6,23 @@
 , makeWrapper
 , buildGoModule
 , buildGoPackage
-, git
 , glibc
+, docker
+, linkFarm
+, containerRuntimePath ? "${docker}/libexec/docker/runc"
 }:
 
 with lib; let
   libnvidia-container = callPackage ./libnvc.nix { };
+  isolatedContainerRuntimePath = linkFarm "isolated_container_runtime_path" [
+    {
+      name = "runc";
+      path = containerRuntimePath;
+    }
+  ];
 
   nvidia-container-runtime = buildGoPackage rec {
-    pname = "nvidia-container-toolkit";
+    pname = "nvidia-container-runtime";
     version = "3.4.0";
     src = fetchFromGitHub {
       owner = "NVIDIA";
@@ -62,7 +70,10 @@ stdenv.mkDerivation rec {
 
   buildPhase = ''
     mkdir bin
+
     cp nvidia-docker bin
+    substituteInPlace bin/nvidia-docker --subst-var-by VERSION ${version}
+
     cp ${libnvidia-container}/bin/nvidia-container-cli bin
     cp ${nvidia-container-toolkit}/bin/nvidia-container-{toolkit,runtime-hook} bin
     cp ${nvidia-container-runtime}/bin/nvidia-container-runtime bin
@@ -71,10 +82,18 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p $out/{bin,etc}
     cp -r bin $out
+
     wrapProgram $out/bin/nvidia-container-cli \
       --prefix LD_LIBRARY_PATH : /run/opengl-driver/lib:/run/opengl-driver-32/lib
+
+    # nvidia-container-runtime invokes docker-runc or runc if that isn't available on PATH
+    wrapProgram $out/bin/nvidia-container-runtime --prefix PATH : ${isolatedContainerRuntimePath}
+
     cp ${./config.toml} $out/etc/config.toml
     substituteInPlace $out/etc/config.toml --subst-var-by glibcbin ${lib.getBin glibc}
+
+    cp ${./podman-config.toml} $out/etc/podman-config.toml
+    substituteInPlace $out/etc/podman-config.toml --subst-var-by glibcbin ${lib.getBin glibc}
   '';
 
   meta = {

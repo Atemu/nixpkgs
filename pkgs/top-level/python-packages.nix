@@ -173,7 +173,9 @@ in {
 
   addic7ed-cli = callPackage ../development/python-modules/addic7ed-cli { };
 
-  adguardhome= callPackage ../development/python-modules/adguardhome { };
+  adguardhome = callPackage ../development/python-modules/adguardhome { };
+
+  advantage-air = callPackage ../development/python-modules/advantage-air { };
 
   aenum = callPackage ../development/python-modules/aenum { };
 
@@ -262,6 +264,8 @@ in {
   aiosmtpd = callPackage ../development/python-modules/aiosmtpd { };
 
   aiosqlite = callPackage ../development/python-modules/aiosqlite { };
+
+  aiostream = callPackage ../development/python-modules/aiostream { };
 
   aiounifi = callPackage ../development/python-modules/aiounifi { };
 
@@ -370,6 +374,8 @@ in {
   apsw = callPackage ../development/python-modules/apsw { };
 
   arabic-reshaper = callPackage ../development/python-modules/arabic-reshaper { };
+
+  archinfo = callPackage ../development/python-modules/archinfo { };
 
   area = callPackage ../development/python-modules/area { };
 
@@ -3903,6 +3909,8 @@ in {
 
   minidb = callPackage ../development/python-modules/minidb { };
 
+  minidump = callPackage ../development/python-modules/minidump { };
+
   minimock = callPackage ../development/python-modules/minimock { };
 
   mininet-python = (toPythonModule (pkgs.mininet.override { inherit python; })).py;
@@ -5155,6 +5163,8 @@ in {
 
   pydenticon = callPackage ../development/python-modules/pydenticon { };
 
+  pydexcom = callPackage ../development/python-modules/pydexcom { };
+
   pydicom = callPackage ../development/python-modules/pydicom { };
 
   pydispatcher = callPackage ../development/python-modules/pydispatcher { };
@@ -5362,6 +5372,8 @@ in {
   pykka = callPackage ../development/python-modules/pykka { };
 
   pykwalify = callPackage ../development/python-modules/pykwalify { };
+
+  pylacrosse = callPackage ../development/python-modules/pylacrosse { };
 
   pylama = callPackage ../development/python-modules/pylama { };
 
@@ -7352,62 +7364,39 @@ in {
 
   tensorboardx = callPackage ../development/python-modules/tensorboardx { };
 
-  tensorflow-bin_1 = callPackage ../development/python-modules/tensorflow/1/bin.nix {
+  tensorflow-bin_2 = callPackage ../development/python-modules/tensorflow/bin.nix {
     cudaSupport = pkgs.config.cudaSupport or false;
     inherit (pkgs.linuxPackages) nvidia_x11;
-    cudatoolkit = pkgs.cudatoolkit_10;
-    cudnn = pkgs.cudnn_cudatoolkit_10;
+    cudatoolkit = pkgs.cudatoolkit_11_0;
+    cudnn = pkgs.cudnn_cudatoolkit_11_0;
   };
 
-  tensorflow-bin_2 = callPackage ../development/python-modules/tensorflow/2/bin.nix {
-    cudaSupport = pkgs.config.cudaSupport or false;
-    inherit (pkgs.linuxPackages) nvidia_x11;
-    cudatoolkit = pkgs.cudatoolkit_10;
-    cudnn = pkgs.cudnn_cudatoolkit_10;
-  };
+  tensorflow-bin = self.tensorflow-bin_2;
 
-  tensorflow-bin = self.tensorflow-bin_1;
-
-  tensorflow-build_1 = callPackage ../development/python-modules/tensorflow/1 {
+  tensorflow-build_2 = callPackage ../development/python-modules/tensorflow {
     cudaSupport = pkgs.config.cudaSupport or false;
-    inherit (pkgs.linuxPackages) nvidia_x11;
-    cudatoolkit = pkgs.cudatoolkit_10;
-    cudnn = pkgs.cudnn_cudatoolkit_10;
-    nccl = pkgs.nccl_cudatoolkit_10;
-    openssl = pkgs.openssl_1_1;
-    inherit (pkgs.darwin.apple_sdk.frameworks) Foundation Security;
-    inherit (pkgs) flatbuffers;
-  };
-
-  tensorflow-build_2 = callPackage ../development/python-modules/tensorflow/2 {
-    cudaSupport = pkgs.config.cudaSupport or false;
-    cudatoolkit = pkgs.cudatoolkit_11;
-    cudnn = pkgs.cudnn_cudatoolkit_11;
+    cudatoolkit = pkgs.cudatoolkit_11_0;
+    cudnn = pkgs.cudnn_cudatoolkit_11_0;
     nccl = pkgs.nccl_cudatoolkit_11;
     openssl = pkgs.openssl_1_1;
     inherit (pkgs.darwin.apple_sdk.frameworks) Foundation Security;
     inherit (pkgs) flatbuffers;
   };
 
-  tensorflow-build = self.tensorflow-build_1;
+  tensorflow-build = self.tensorflow-build_2;
 
-  tensorflow-estimator_1 = callPackage ../development/python-modules/tensorflow-estimator/1 { };
+  tensorflow-estimator_2 = callPackage ../development/python-modules/tensorflow-estimator { };
 
-  tensorflow-estimator_2 = callPackage ../development/python-modules/tensorflow-estimator/2 { };
-
-  tensorflow-estimator = self.tensorflow-estimator_1;
+  tensorflow-estimator = self.tensorflow-estimator_2;
 
   tensorflow-probability = callPackage ../development/python-modules/tensorflow-probability { };
 
-  tensorflow = self.tensorflow_1;
-  tensorflow_1 = self.tensorflow-build_1;
+  tensorflow = self.tensorflow_2;
   tensorflow_2 = self.tensorflow-build_2;
 
-  tensorflow-tensorboard_1 = callPackage ../development/python-modules/tensorflow-tensorboard/1 { };
+  tensorflow-tensorboard_2 = callPackage ../development/python-modules/tensorflow-tensorboard { };
 
-  tensorflow-tensorboard_2 = callPackage ../development/python-modules/tensorflow-tensorboard/2 { };
-
-  tensorflow-tensorboard = self.tensorflow-tensorboard_1;
+  tensorflow-tensorboard = self.tensorflow-tensorboard_2;
 
   tensorflowWithCuda = self.tensorflow.override { cudaSupport = true; };
 
