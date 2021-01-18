@@ -1,8 +1,8 @@
-{ stdenv, pkgconfig, buildGoPackage, fetchFromGitHub
+{ lib, stdenv, pkgconfig, buildGoPackage, fetchFromGitHub
 , makeWrapper, coreutils, gnupg, gnutar, squashfsTools, debootstrap
 }:
 
-let binPath = stdenv.lib.makeBinPath [
+let binPath = lib.makeBinPath [
   coreutils gnupg gnutar squashfsTools debootstrap
 ];
 in
@@ -27,7 +27,7 @@ buildGoPackage rec {
   '';
   nativeBuildInputs = [ pkgconfig makeWrapper ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "System container image builder for LXC and LXD";
     homepage = "https://github.com/lxc/distrobuilder";
     license = licenses.asl20;

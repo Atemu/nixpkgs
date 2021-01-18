@@ -18,9 +18,9 @@
     }
   },
   "beta": {
-    "version": "88.0.4324.79",
-    "sha256": "1xmssngzg370gazvqngw5mzhfq476fan5y3sp4ggs8fx5anh6jlz",
-    "sha256bin64": "16m2k4kr92236yvfnl276cy77d5324b7ca3grsw990c0b2kgizq7",
+    "version": "88.0.4324.87",
+    "sha256": "0pfrx8b2rmrxx5dfv4kc1ggrgi7kj7gbxrzqzd7rsvjpasyidbxg",
+    "sha256bin64": "07xl02zg5pi89l6dqrbqx2ibl8pm9v6njqfl8p4l2hwsb881hx8g",
     "deps": {
       "gn": {
         "version": "2020-11-05",
@@ -31,9 +31,9 @@
     }
   },
   "dev": {
-    "version": "89.0.4381.6",
-    "sha256": "031w24qf5cn9y30pgh736g67p6c10kwpflhvxa24h0v99gqnah2i",
-    "sha256bin64": "1fssdxllq2ncpy8s7ykbq33456hfjlgj1m5147wbg2c5k36rj78s",
+    "version": "89.0.4385.0",
+    "sha256": "0cwfwkaidxi86n80kcn3lxrwz90zp6ra9dib1nd4xnhpgl7vjjjf",
+    "sha256bin64": "1hvrdvmlqc95qb9gn7iihal4h1kzf6jqrhk9xvv45chsvwl79pmd",
     "deps": {
       "gn": {
         "version": "2020-12-22",

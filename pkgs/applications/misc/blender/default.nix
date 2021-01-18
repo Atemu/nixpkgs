@@ -128,8 +128,6 @@ stdenv.mkDerivation rec {
   # libstdc++ in our RPATH. Sigh.
   NIX_LDFLAGS = optionalString cudaSupport "-rpath ${stdenv.cc.cc.lib}/lib";
 
-  enableParallelBuilding = true;
-
   blenderExecutable =
     placeholder "out" + (if stdenv.isDarwin then "/Blender.app/Contents/MacOS/Blender" else "/bin/blender");
   # --python-expr is used to workaround https://developer.blender.org/T74304
@@ -148,7 +146,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "3D Creation/Animation/Publishing System";
     homepage = "https://www.blender.org";
     # They comment two licenses: GPLv2 and Blender License, but they

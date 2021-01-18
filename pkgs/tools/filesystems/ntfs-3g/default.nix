@@ -1,4 +1,4 @@
-{stdenv, fetchurl, util-linux, libuuid
+{lib, stdenv, fetchurl, util-linux, libuuid
 , crypto ? false, libgcrypt, gnutls, pkgconfig}:
 
 stdenv.mkDerivation rec {
@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "dev" "man" "doc" ];
 
-  buildInputs = [ libuuid ] ++ stdenv.lib.optionals crypto [ gnutls libgcrypt ];
-  nativeBuildInputs = stdenv.lib.optional crypto pkgconfig;
+  buildInputs = [ libuuid ] ++ lib.optionals crypto [ gnutls libgcrypt ];
+  nativeBuildInputs = lib.optional crypto pkgconfig;
 
   src = fetchurl {
     url = "https://tuxera.com/opensource/ntfs-3g_ntfsprogs-${version}.tgz";
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       ln -sv mount.ntfs-3g $out/sbin/mount.ntfs
     '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://www.tuxera.com/community/open-source-ntfs-3g/";
     description = "FUSE-based NTFS driver with full write support";
     maintainers = with maintainers; [ dezgeg ];

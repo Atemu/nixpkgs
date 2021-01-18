@@ -1,4 +1,4 @@
-{ fetchurl, stdenv, pkgconfig, gnome3, glib, gtk3, clutter, dbus, python3, libxml2
+{ fetchurl, lib, stdenv, pkgconfig, gnome3, glib, gtk3, clutter, dbus, python3, libxml2
 , libxklavier, libXtst, gtk2, intltool, libxslt, at-spi2-core, autoreconfHook
 , wrapGAppsHook, libgee }:
 
@@ -10,7 +10,7 @@ in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${name}.tar.xz";
     sha256 = "0mfychh1q3dx0b96pjz9a9y112bm9yqyim40yykzxx1hppsdjhww";
   };
 
@@ -44,7 +44,7 @@ in stdenv.mkDerivation rec {
     };
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "An input assistive technology intended for switch and pointer users";
     homepage = "https://wiki.gnome.org/Projects/Caribou";
     license = licenses.lgpl21;

@@ -41,6 +41,7 @@
 , pkgsi686Linux
 , ps
 , setxkbmap
+, lib
 , stdenv
 , systemd
 , unzip
@@ -71,7 +72,7 @@ let
       cp -r . $out
       wrapProgram $out/bin/studio.sh \
         --set ANDROID_EMULATOR_USE_SYSTEM_LIBS 1 \
-        --prefix PATH : "${stdenv.lib.makeBinPath [
+        --prefix PATH : "${lib.makeBinPath [
 
           # Checked in studio.sh
           coreutils
@@ -94,7 +95,7 @@ let
           git
           ps
         ]}" \
-        --prefix LD_LIBRARY_PATH : "${stdenv.lib.makeLibraryPath [
+        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [
 
           # Crash at startup without these
           fontconfig
@@ -182,7 +183,7 @@ in runCommand
     passthru = {
       unwrapped = androidStudio;
     };
-    meta = with stdenv.lib; {
+    meta = with lib; {
       description = "The Official IDE for Android (${channel} channel)";
       longDescription = ''
         Android Studio is the official IDE for Android app development, based on

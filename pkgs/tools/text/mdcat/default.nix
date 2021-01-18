@@ -1,4 +1,4 @@
-{ stdenv
+{ lib, stdenv
 , fetchFromGitHub
 , rustPlatform
 , pkgconfig
@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
   };
 
   nativeBuildInputs = [ pkgconfig asciidoctor installShellFiles ];
-  buildInputs = [ openssl ] ++ stdenv.lib.optional stdenv.isDarwin Security;
+  buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
 
   cargoSha256 = "sha256-mnDUIJhEGNoh3eq2Vhww1T/tpZh9RP+RxbRsBNrpOzw=";
 
@@ -44,7 +44,7 @@ rustPlatform.buildRustPackage rec {
     installShellCompletion --zsh $releaseDir/build/mdcat-*/out/completions/_mdcat
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "cat for markdown";
     homepage = "https://github.com/lunaryorn/mdcat";
     license = with licenses; [ asl20 ];

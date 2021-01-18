@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub
+{ lib, stdenv, fetchFromGitHub
 , cmake, perl, pkgconfig
 , openssl, curl, libusb1, protobufc
 , enableUnsafe ? false }:
@@ -17,13 +17,13 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ cmake perl pkgconfig ];
   buildInputs = [ openssl curl libusb1 protobufc ];
 
-  cmakeFlags = stdenv.lib.optional enableUnsafe [ "-Dunsafe=on" ];
+  cmakeFlags = lib.optional enableUnsafe [ "-Dunsafe=on" ];
 
   preFixup = ''
     chmod +x $out/bin/ttbin2mysports
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/ryanbinns/ttwatch";
     description = "Linux TomTom GPS Watch Utilities";
     maintainers = with maintainers; [ dotlambda ];

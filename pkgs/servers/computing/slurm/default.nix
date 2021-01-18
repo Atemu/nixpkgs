@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, pkgconfig, libtool, curl
+{ lib, stdenv, fetchFromGitHub, pkgconfig, libtool, curl
 , python3, munge, perl, pam, zlib, shadow, coreutils
 , ncurses, libmysqlclient, gtk2, lua, hwloc, numactl
 , readline, freeipmi, xorg, lz4, rdma-core, nixosTests
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   prePatch = ''
     substituteInPlace src/common/env.c \
         --replace "/bin/echo" "${coreutils}/bin/echo"
-  '' + (stdenv.lib.optionalString enableX11 ''
+  '' + (lib.optionalString enableX11 ''
     substituteInPlace src/common/x11_util.c \
         --replace '"/usr/bin/xauth"' '"${xorg.xauth}/bin/xauth"'
   '');
@@ -50,9 +50,9 @@ stdenv.mkDerivation rec {
       libmysqlclient ncurses gtk2 lz4 rdma-core
       lua hwloc numactl readline freeipmi shadow.su
       pmix
-  ] ++ stdenv.lib.optionals enableX11 [ xorg.xauth ];
+  ] ++ lib.optionals enableX11 [ xorg.xauth ];
 
-  configureFlags = with stdenv.lib;
+  configureFlags = with lib;
     [ "--with-freeipmi=${freeipmi}"
       "--with-hwloc=${hwloc.dev}"
       "--with-lz4=${lz4.dev}"
@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
 
   passthru.tests.slurm = nixosTests.slurm;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "http://www.schedmd.com/";
     description = "Simple Linux Utility for Resource Management";
     platforms = platforms.linux;

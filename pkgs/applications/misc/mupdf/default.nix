@@ -23,7 +23,7 @@ in stdenv.mkDerivation rec {
   };
 
   patches =
-    stdenv.lib.optional stdenv.isDarwin ./darwin.patch ++ [
+    lib.optional stdenv.isDarwin ./darwin.patch ++ [
     (fetchpatch {
         name = "pdfocr.patch";
         url = "http://git.ghostscript.com/?p=mupdf.git;a=patch;h=a507b139adf37d2c742e039815601cdc2aa00a84";
@@ -97,7 +97,7 @@ in stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://mupdf.com";
     repositories.git = "git://git.ghostscript.com/mupdf.git";
     description = "Lightweight PDF, XPS, and E-book viewer and toolkit written in portable C";

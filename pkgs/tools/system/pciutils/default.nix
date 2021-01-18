@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, pkgconfig, zlib, kmod, which
+{ lib, stdenv, fetchurl, pkgconfig, zlib, kmod, which
 , static ? stdenv.hostPlatform.isStatic
 , darwin ? null
 }:
@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ zlib kmod which ] ++
-    stdenv.lib.optional stdenv.hostPlatform.isDarwin darwin.apple_sdk.frameworks.IOKit;
+    lib.optional stdenv.hostPlatform.isDarwin darwin.apple_sdk.frameworks.IOKit;
 
   preConfigure = if stdenv.cc.isGNU then null else ''
     substituteInPlace Makefile --replace 'CC=$(CROSS_COMPILE)gcc' ""
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   # Get rid of update-pciids as it won't work.
   postInstall = "rm $out/sbin/update-pciids $out/man/man8/update-pciids.8";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "http://mj.ucw.cz/pciutils.html";
     description = "A collection of programs for inspecting and manipulating configuration of PCI devices";
     license = licenses.gpl2Plus;

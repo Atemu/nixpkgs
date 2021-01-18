@@ -1,4 +1,4 @@
-{ stdenv
+{ lib, stdenv
 , lightdm_gtk_greeter
 , fetchurl
 , lightdm
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     "--sysconfdir=/etc"
     "--disable-indicator-services-command"
     "--sbindir=${placeholder "out"}/bin" # for wrapGAppsHook to wrap automatically
-  ] ++ stdenv.lib.optional useGTK2 "--with-gtk2";
+  ] ++ lib.optional useGTK2 "--with-gtk2";
 
   preConfigure = ''
     configureFlagsArray+=( --enable-at-spi-command="${at-spi2-core}/libexec/at-spi-bus-launcher --launch-immediately" )
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     name = "lightdm-gtk-greeter.desktop";
   }];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://launchpad.net/lightdm-gtk-greeter";
     platforms = platforms.linux;
     license = licenses.gpl3;

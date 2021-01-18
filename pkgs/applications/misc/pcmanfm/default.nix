@@ -1,10 +1,10 @@
-{ stdenv, fetchurl, glib, intltool, libfm, libX11, pango, pkgconfig
+{ lib, stdenv, fetchurl, glib, intltool, libfm, libX11, pango, pkgconfig
 , wrapGAppsHook, gnome3, withGtk3 ? true, gtk2, gtk3 }:
 
 let
   libfm' = libfm.override { inherit withGtk3; };
   gtk = if withGtk3 then gtk3 else gtk2;
-  inherit (stdenv.lib) optional;
+  inherit (lib) optional;
 in
 stdenv.mkDerivation rec {
   name = "pcmanfm-1.3.1";
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = optional withGtk3 "--with-gtk=3";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://blog.lxde.org/category/pcmanfm/";
     license = licenses.gpl2Plus;
     description = "File manager with GTK interface";

@@ -1,4 +1,4 @@
-{ stdenv, fetchPypi, buildPythonPackage
+{ lib, stdenv, fetchPypi, buildPythonPackage
 , numpy
 , absl-py
 , mock
@@ -6,18 +6,18 @@
 
 buildPythonPackage rec {
   pname = "tensorflow-estimator";
-  version = "2.3.0";
+  version = "2.4.0";
   format = "wheel";
 
   src = fetchPypi {
     pname = "tensorflow_estimator";
     inherit version format;
-    sha256 = "11n4sl9wfr00fv1i837b7a36ink86ggmlsgj7i06kcfc011h6pmp";
+    sha256 = "1w0pkcslm6934qqd6m5gxyjdlnb4pbl47k6s99wsh6dyvvr7nysv";
   };
 
   propagatedBuildInputs = [ mock numpy absl-py ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "TensorFlow Estimator is a high-level API that encapsulates model training, evaluation, prediction, and exporting.";
     homepage = "http://tensorflow.org";
     license = licenses.asl20;

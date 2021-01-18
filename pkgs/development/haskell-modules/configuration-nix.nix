@@ -547,6 +547,12 @@ self: super: builtins.intersectAttrs super {
   # Break infinite recursion cycle between devtools and mprelude.
   devtools = super.devtools.override { mprelude = dontCheck super.mprelude; };
 
+  # Break dependency cycle between tasty-hedgehog and tasty-expected-failure
+  tasty-hedgehog = dontCheck super.tasty-hedgehog;
+
+  # Break dependency cycle between hedgehog, tasty-hedgehog and lifted-async
+  lifted-async = dontCheck super.lifted-async;
+
   # loc and loc-test depend on each other for testing. Break that infinite cycle:
   loc-test = super.loc-test.override { loc = dontCheck self.loc; };
 
@@ -711,7 +717,7 @@ self: super: builtins.intersectAttrs super {
 
   # mplayer-spot uses mplayer at runtime.
   mplayer-spot =
-    let path = pkgs.stdenv.lib.makeBinPath [ pkgs.mplayer ];
+    let path = pkgs.lib.makeBinPath [ pkgs.mplayer ];
     in overrideCabal (addBuildTool super.mplayer-spot pkgs.makeWrapper) (oldAttrs: {
       postInstall = ''
         wrapProgram $out/bin/mplayer-spot --prefix PATH : "${path}"
@@ -723,7 +729,7 @@ self: super: builtins.intersectAttrs super {
   primitive_0_7_1_0 = dontCheck super.primitive_0_7_1_0;
 
   cut-the-crap =
-    let path = pkgs.stdenv.lib.makeBinPath [ pkgs.ffmpeg_3 pkgs.youtube-dl ];
+    let path = pkgs.lib.makeBinPath [ pkgs.ffmpeg_3 pkgs.youtube-dl ];
     in overrideCabal (addBuildTool super.cut-the-crap pkgs.makeWrapper) (_drv: {
       postInstall = ''
         wrapProgram $out/bin/cut-the-crap \
@@ -798,7 +804,4 @@ self: super: builtins.intersectAttrs super {
 
   # tests depend on a specific version of solc
   hevm = dontCheck (doJailbreak super.hevm);
-
-  # waiting for https://github.com/haskell/ThreadScope/pull/115
-  threadscope = doJailbreak super.threadscope;
 }

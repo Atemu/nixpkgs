@@ -1,4 +1,4 @@
-{ stdenv
+{ lib, stdenv
 , fetchFromGitHub
 , cmake
 , python
@@ -48,13 +48,13 @@ stdenv.mkDerivation rec {
     libxml2
   ];
 
-  cmakeFlags = [ "-DPYTHON_DESIRED=${stdenv.lib.substring 0 1 python.pythonVersion}" ];
+  cmakeFlags = [ "-DPYTHON_DESIRED=${lib.substring 0 1 python.pythonVersion}" ];
 
   postFixup = ''
     moveToOutput "lib/${python.libPrefix}" "$py"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Library providing C and Python (libcURL like) API for downloading linux repository metadata and packages";
     homepage = "https://rpm-software-management.github.io/librepo/";
     license = licenses.lgpl2Plus;

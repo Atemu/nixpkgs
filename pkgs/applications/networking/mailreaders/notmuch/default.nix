@@ -1,4 +1,4 @@
-{ fetchurl, fetchgit, stdenv
+{ fetchurl, fetchgit, lib, stdenv
 , pkgconfig, gnupg
 , xapian, gmime, talloc, zlib
 , doxygen, perl, texinfo
@@ -9,7 +9,7 @@
 , withEmacs ? true
 }:
 
-with stdenv.lib;
+with lib;
 
 stdenv.mkDerivation rec {
   version = "0.31";
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
   makeFlags = [ "V=1" ];
 
 
-  outputs = [ "out" "man" "info" ] ++ stdenv.lib.optional withEmacs "emacs";
+  outputs = [ "out" "man" "info" ] ++ lib.optional withEmacs "emacs";
 
   preCheck = let
     test-database = fetchurl {
@@ -86,9 +86,15 @@ stdenv.mkDerivation rec {
     gdb man emacs
   ];
 
+  # Expects there to always be a thread with ID
+  # thread:0000000000000009, but notmuch new is non-deterministic so
+  # this isn't always the case.  Upstream bug report:
+  # https://nmbug.notmuchmail.org/nmweb/show/871reno6g7.fsf%40alyssa.is
+  NOTMUCH_SKIP_TESTS = "lib-thread";
+
   installTargets = [ "install" "install-man" "install-info" ];
 
-  postInstall = stdenv.lib.optionalString withEmacs ''
+  postInstall = lib.optionalString withEmacs ''
     moveToOutput bin/notmuch-emacs-mua $emacs
   '';
 

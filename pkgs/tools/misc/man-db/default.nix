@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, pkgconfig, libpipeline, db, groff, libiconv, makeWrapper, buildPackages }:
+{ lib, stdenv, fetchurl, pkgconfig, libpipeline, db, groff, libiconv, makeWrapper, buildPackages }:
 
 stdenv.mkDerivation rec {
   name = "man-db-2.9.3";
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     "--with-systemdtmpfilesdir=${placeholder "out"}/lib/tmpfiles.d"
     "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
     "--with-pager=less"
-  ] ++ stdenv.lib.optional stdenv.hostPlatform.isDarwin [
+  ] ++ lib.optional stdenv.hostPlatform.isDarwin [
     "ac_cv_func__set_invalid_parameter_handler=no"
     "ac_cv_func_posix_fadvise=no"
     "ac_cv_func_mempcpy=no"
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  postFixup = stdenv.lib.optionalString (buildPackages.groff != groff) ''
+  postFixup = lib.optionalString (buildPackages.groff != groff) ''
     # Check to make sure none of the outputs depend on build-time-only groff:
     for outName in $outputs; do
       out=''${!outName}
@@ -72,10 +72,10 @@ stdenv.mkDerivation rec {
 
   doCheck = !stdenv.hostPlatform.isMusl /* iconv binary */ && !stdenv.hostPlatform.isDarwin;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "http://man-db.nongnu.org";
     description = "An implementation of the standard Unix documentation system accessed using the man command";
     license = licenses.gpl2;
-    platforms = stdenv.lib.platforms.unix;
+    platforms = lib.platforms.unix;
   };
 }

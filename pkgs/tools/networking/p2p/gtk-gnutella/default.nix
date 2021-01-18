@@ -1,4 +1,4 @@
-{ stdenv
+{ lib, stdenv
 , fetchFromGitHub
 , fetchpatch
 , bison
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     zlib
   ]
   ++
-    stdenv.lib.optionals (enableGui) [ gtk2 ]
+    lib.optionals (enableGui) [ gtk2 ]
   ;
 
   configureScript = "./build.sh";
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     # See https://sourceforge.net/p/gtk-gnutella/bugs/555/
     "--disable-malloc"
   ]
-    ++ stdenv.lib.optionals (!enableGui) [ "--topless" ]
+    ++ lib.optionals (!enableGui) [ "--topless" ]
   ;
 
   hardeningDisable = [ "bindnow" "fortify" "pic" "relro" ];
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     install -Dm0444 src/${pname}.man $out/share/man/man1/${pname}.1
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A GTK Gnutella client, optimized for speed and scalability";
     homepage = "http://gtk-gnutella.sourceforge.net/"; # Code: https://github.com/gtk-gnutella/gtk-gnutella
     changelog = "https://raw.githubusercontent.com/gtk-gnutella/gtk-gnutella/v${version}/ChangeLog";

@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, boost165, pkg-config, python36
+{ lib, stdenv, fetchFromGitHub, cmake, boost165, pkg-config, python36
 , tbb, openimageio, libjpeg, libpng, zlib, libtiff, ilmbase
 , freetype, openexr, libXdmcp, libxkbcommon, epoxy, at-spi2-core
 , dbus, doxygen, qt5, c-blosc, libGLU, gnome3, dconf, gtk3, pcre
@@ -30,21 +30,19 @@ in stdenv.mkDerivation {
     inherit sha256;
   };
 
-  nativeBuildInputs = [ cmake pkg-config];
-
+  nativeBuildInputs = [ cmake flex bison doxygen makeWrapper pkg-config ];
   buildInputs = [
     embree2 zlib boost_static libjpeg
     libtiff libpng ilmbase freetype openexr openimageio
-    tbb qt5.full c-blosc libGLU pcre bison
-    flex libX11 libpthreadstubs python libXdmcp libxkbcommon
-    epoxy at-spi2-core dbus doxygen
+    tbb qt5.full c-blosc libGLU pcre
+    libX11 libpthreadstubs python libXdmcp libxkbcommon
+    epoxy at-spi2-core dbus
     # needed for GSETTINGS_SCHEMAS_PATH
     gsettings-desktop-schemas glib gtk3
     # needed for XDG_ICON_DIRS
     gnome3.adwaita-icon-theme
-    makeWrapper
-    (stdenv.lib.getLib dconf)
-   ] ++ stdenv.lib.optionals withOpenCL [ opencl-headers ocl-icd opencl-clhpp rocm-opencl-runtime ];
+    (lib.getLib dconf)
+  ] ++ lib.optionals withOpenCL [ opencl-headers ocl-icd opencl-clhpp rocm-opencl-runtime ];
 
   cmakeFlags = [
     "-DOpenEXR_Iex_INCLUDE_DIR=${openexr.dev}/include/OpenEXR"
@@ -56,7 +54,7 @@ in stdenv.mkDerivation {
     "-DEMBREE_INCLUDE_PATH=${embree2}/include"
     "-DEMBREE_LIBRARY=${embree2}/lib/libembree.so"
     "-DBoost_PYTHON_LIBRARY_RELEASE=${boost_static}/lib/libboost_python3-mt.so"
-  ] ++ stdenv.lib.optional withOpenCL
+  ] ++ lib.optional withOpenCL
     "-DOPENCL_INCLUDE_DIR=${opencl-headers}/include";
 
   preConfigure = ''
@@ -75,10 +73,10 @@ in stdenv.mkDerivation {
     wrapProgram "$out/bin/luxcoreui" \
       --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH" \
       --suffix XDG_DATA_DIRS : '${gnome3.adwaita-icon-theme}/share' \
-      --prefix GIO_EXTRA_MODULES : "${stdenv.lib.getLib dconf}/lib/gio/modules"
+      --prefix GIO_EXTRA_MODULES : "${lib.getLib dconf}/lib/gio/modules"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Open source, physically based, unbiased rendering engine";
     homepage = "https://luxcorerender.org/";
     maintainers = with maintainers; [ hodapp ];

@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, gettext, ncurses }:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, gettext, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "nudoku";
@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook pkgconfig gettext ];
   buildInputs = [ ncurses ];
 
-  configureFlags = stdenv.lib.optional stdenv.hostPlatform.isMusl "--disable-nls";
+  configureFlags = lib.optional stdenv.hostPlatform.isMusl "--disable-nls";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "An ncurses based sudoku game";
     homepage = "http://jubalh.github.io/nudoku/";
     license = licenses.gpl3;

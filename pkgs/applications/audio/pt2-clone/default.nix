@@ -1,4 +1,4 @@
-{ stdenv
+{ lib, stdenv
 , fetchFromGitHub
 , cmake
 , nixosTests
@@ -18,13 +18,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ SDL2 ] ++ stdenv.lib.optional stdenv.isLinux alsaLib;
+  buildInputs = [ SDL2 ] ++ lib.optional stdenv.isLinux alsaLib;
 
   passthru.tests = {
     pt2-clone-opens = nixosTests.pt2-clone;
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A highly accurate clone of the classic ProTracker 2.3D software for Amiga";
     homepage = "https://16-bits.org/pt2.php";
     license = licenses.bsd3;

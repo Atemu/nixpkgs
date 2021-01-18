@@ -1,4 +1,4 @@
-{ stdenv
+{ lib, stdenv
 , pkgconfig
 , fetchurl
 , buildPythonApplication
@@ -40,7 +40,7 @@ buildPythonApplication rec {
   format = "other";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
     sha256 = "UAX/LhHdH3E/WswZA6JwEZvFjDD9uMn4K8rHFJfGwjw=";
   };
 
@@ -97,7 +97,7 @@ buildPythonApplication rec {
     };
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://wiki.gnome.org/Projects/Orca";
     description = "Screen reader";
     longDescription = ''

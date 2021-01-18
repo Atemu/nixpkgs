@@ -1,4 +1,4 @@
-{ stdenv
+{ lib, stdenv
 , meson
 , ninja
 , gettext
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
   version = "3.34.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
     sha256 = "153vknqisjn5f105avzm933fsc3v0pjzzbwxlqxf8vjjksh1cmya";
   };
 
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
     };
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     broken = true; # Tracker 3 not supported and it cannot start Tracker 2.
     homepage = "https://wiki.gnome.org/Apps/Books";
     description = "An e-book manager application for GNOME";

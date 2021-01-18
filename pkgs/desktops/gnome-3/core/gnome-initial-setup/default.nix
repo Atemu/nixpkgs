@@ -1,4 +1,4 @@
-{ stdenv
+{ lib, stdenv
 , fetchurl
 , substituteAll
 , gettext
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
   version = "3.38.2";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
     hash = "sha256-qliJJ0+LC23moFErR3Qrgqw0ANrsgt1O/+LuonRko7g=";
   };
 
@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
     };
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Simple, easy, and safe way to prepare a new system";
     homepage = "https://gitlab.gnome.org/GNOME/gnome-initial-setup";
     license = licenses.gpl2Plus;

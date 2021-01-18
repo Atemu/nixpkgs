@@ -1,4 +1,4 @@
-{ stdenv
+{ lib, stdenv
 , fetchurl
 , substituteAll
 , glib
@@ -25,7 +25,7 @@ in stdenv.mkDerivation {
   name = "${pname}${if withGnome then "-gnome" else ""}-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
     sha256 = "0nlp290nkawc4wqm978n4vhzg3xdqi8kpjjx19l855vab41rh44m";
   };
 
@@ -47,7 +47,7 @@ in stdenv.mkDerivation {
     libxml2
     openconnect
     networkmanager
-  ] ++ stdenv.lib.optionals withGnome [
+  ] ++ lib.optionals withGnome [
     gtk3
     gcr
     libsecret
@@ -72,7 +72,7 @@ in stdenv.mkDerivation {
     };
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "NetworkManager’s OpenConnect plugin";
     inherit (networkmanager.meta) maintainers platforms;
     license = licenses.gpl2Plus;

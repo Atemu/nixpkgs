@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, dbus-glib, libxml2, sqlite, telepathy-glib, pkgconfig
+{ lib, stdenv, fetchurl, dbus-glib, libxml2, sqlite, telepathy-glib, pkgconfig
 , dconf, makeWrapper, intltool, libxslt, gobject-introspection, dbus }:
 
 stdenv.mkDerivation rec {
@@ -22,11 +22,11 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     wrapProgram "$out/libexec/telepathy-logger" \
-      --prefix GIO_EXTRA_MODULES : "${stdenv.lib.getLib dconf}/lib/gio/modules" \
+      --prefix GIO_EXTRA_MODULES : "${lib.getLib dconf}/lib/gio/modules" \
       --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Logger service for Telepathy framework";
     homepage = "https://telepathy.freedesktop.org/components/telepathy-logger/";
     license = licenses.lgpl21;

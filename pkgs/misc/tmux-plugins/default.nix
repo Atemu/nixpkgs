@@ -88,9 +88,9 @@ in rec {
         computer or server restarts, if the machine is on, tmux will be there how
         you left it off the last time it was used.
       '';
-      license = stdenv.lib.licenses.mit;
-      platforms = stdenv.lib.platforms.unix;
-      maintainers = with stdenv.lib.maintainers; [ ronanmacf ];
+      license = lib.licenses.mit;
+      platforms = lib.platforms.unix;
+      maintainers = with lib.maintainers; [ ronanmacf ];
     };
   };
 
@@ -136,7 +136,7 @@ in rec {
       rev = "6757a5329948f00addd66b02ea94f61dd94456f5";
       sha256 = "0wwwzg3bwcrbr2nmf84prz7k4i79yq0960vs6zjp0x8nqn2fvziy";
     };
-    meta = with stdenv.lib; {
+    meta = with lib; {
       homepage = "https://draculatheme.com/tmux";
       description = "A feature packed Dracula theme for tmux!";
       license = licenses.mit;
@@ -213,7 +213,7 @@ in rec {
     '';
     dependencies = [ pkgs.ruby ];
 
-    meta = with stdenv.lib; {
+    meta = with lib; {
       homepage = "https://github.com/schasse/tmux-jump";
       description = "Vimium/Easymotion like navigation for tmux";
       license = licenses.gpl3;
@@ -325,6 +325,18 @@ in rec {
     '';
   };
 
+  power-theme = mkDerivation {
+    pluginName = "power";
+    rtpFilePath = "tmux-power.tmux";
+    version = "unstable-2020-11-18";
+    src = pkgs.fetchFromGitHub {
+      owner = "wfxr";
+      repo = "tmux-power";
+      rev = "aec44aa5e00cc39eb71c668b1d73823270058e7d";
+      sha256 = "11nm8cylx10d565g17acy0bj12n6dcbxp71zca2bmg0j1dq859cm";
+    };
+  };
+
   prefix-highlight = mkDerivation {
     pluginName = "prefix-highlight";
     version = "unstable-2020-03-26";
@@ -367,9 +379,9 @@ in rec {
           * restoring vim and neovim sessions
           * restoring pane contents
       '';
-      license = stdenv.lib.licenses.mit;
-      platforms = stdenv.lib.platforms.unix;
-      maintainers = with stdenv.lib.maintainers; [ ronanmacf ];
+      license = lib.licenses.mit;
+      platforms = lib.platforms.unix;
+      maintainers = with lib.maintainers; [ ronanmacf ];
     };
   };
 
@@ -430,7 +442,7 @@ in rec {
       sha256 = "1x58h3bg9d69j40fh8rcjpxvg0i6j04pj8p3jk57l3cghxis5j05";
     };
 
-    meta = with stdenv.lib; {
+    meta = with lib; {
       homepage = "https://github.com/jabirali/tmux-tilish";
       description = "Plugin which makes tmux work and feel like i3wm";
       license = licenses.mit;
@@ -479,9 +491,9 @@ in rec {
         * User menu.
         * Popup window support.
       '';
-      license = stdenv.lib.licenses.mit;
-      platforms = stdenv.lib.platforms.unix;
-      maintainers = with stdenv.lib.maintainers; [ kyleondy ];
+      license = lib.licenses.mit;
+      platforms = lib.platforms.unix;
+      maintainers = with lib.maintainers; [ kyleondy ];
     };
   };
 
@@ -510,7 +522,7 @@ in rec {
       sha256 = "130l73v18md95djkc4s9d0fr018f8f183sjcgy7dgldwdaxlqdi1";
     };
 
-    meta = with stdenv.lib; {
+    meta = with lib; {
       homepage = "https://github.com/tmux-plugins/vim-tmux-focus-events";
       description = "Makes FocusGained and FocusLost autocommand events work in vim when using tmux";
       license = licenses.mit;

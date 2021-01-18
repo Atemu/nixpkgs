@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, fetchpatch, pkgconfig, udev, runtimeShellPackage,
+{ lib, stdenv, fetchurl, fetchpatch, pkgconfig, udev, runtimeShellPackage,
 runtimeShell }:
 
 stdenv.mkDerivation rec {
@@ -43,9 +43,9 @@ stdenv.mkDerivation rec {
   installFlags = [ "DBDIR=$(TMPDIR)/db" "SYSCONFDIR=${placeholder "out"}/etc" ];
 
   # Check that the udev plugin got built.
-  postInstall = stdenv.lib.optional (udev != null) "[ -e ${placeholder "out"}/lib/dhcpcd/dev/udev.so ]";
+  postInstall = lib.optional (udev != null) "[ -e ${placeholder "out"}/lib/dhcpcd/dev/udev.so ]";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A client for the Dynamic Host Configuration Protocol (DHCP)";
     homepage = "https://roy.marples.name/projects/dhcpcd";
     platforms = platforms.linux;

@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, autoreconfHook
+{ lib, stdenv, fetchurl, autoreconfHook
 , mailutils, inetutils
 , IOKit ? null , ApplicationServices ? null }:
 
@@ -26,14 +26,14 @@ in stdenv.mkDerivation rec {
   postPatch = "cp -v ${driverdb} drivedb.h";
 
   configureFlags = [
-    "--with-scriptpath=${stdenv.lib.makeBinPath [ mailutils inetutils ]}"
+    "--with-scriptpath=${lib.makeBinPath [ mailutils inetutils ]}"
   ];
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [] ++ stdenv.lib.optionals stdenv.isDarwin [IOKit ApplicationServices];
+  buildInputs = [] ++ lib.optionals stdenv.isDarwin [IOKit ApplicationServices];
   enableParallelBuilding = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Tools for monitoring the health of hard drives";
     homepage    = "https://www.smartmontools.org/";
     license     = licenses.gpl2Plus;

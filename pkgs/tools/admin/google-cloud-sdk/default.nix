@@ -21,18 +21,18 @@ let
   sources = name: system: {
     x86_64-darwin = {
       url = "${baseUrl}/${name}-darwin-x86_64.tar.gz";
-      sha256 = "1miqvh2b3mxrrr63q8f5i944mp3rz6685ckmnk5fml2wyc273jiv";
+      sha256 = "0ziz7cipi3m4aiba6ljz8419w2rps20rii6nwv0pyq5j7qvlvnqp";
     };
 
     x86_64-linux = {
       url = "${baseUrl}/${name}-linux-x86_64.tar.gz";
-      sha256 = "15kfsxn6j37rsw97ixj7ixkzcby0pkgc5xj7cpqdq975ym58sgv7";
+      sha256 = "1a9mqhqzmn0zfc1ab6jmac15yn192cmqkijw34di3ld6syqvaziw";
     };
   }.${system};
 
 in stdenv.mkDerivation rec {
   pname = "google-cloud-sdk";
-  version = "321.0.0";
+  version = "323.0.0";
 
   src = fetchurl (sources "${pname}-${version}" stdenv.hostPlatform.system);
 
@@ -93,7 +93,7 @@ in stdenv.mkDerivation rec {
     done
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Tools for the google cloud platform";
     longDescription = "The Google Cloud SDK. This package has the programs: gcloud, gsutil, and bq";
     # This package contains vendored dependencies. All have free licenses.

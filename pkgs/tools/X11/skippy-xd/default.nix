@@ -1,4 +1,4 @@
-{stdenv, fetchgit, xorgproto, libX11, libXft, libXcomposite, libXdamage
+{lib, stdenv, fetchgit, xorgproto, libX11, libXft, libXcomposite, libXdamage
 , libXext, libXinerama, libjpeg, giflib, pkgconfig
 }:
 let
@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
   '';
   meta = {
     inherit version;
-    description = ''Expose-style compositing-based standalone window switcher'';
-    license = stdenv.lib.licenses.gpl2Plus ;
-    maintainers = [stdenv.lib.maintainers.raskin];
-    platforms = stdenv.lib.platforms.linux;
+    description = "Expose-style compositing-based standalone window switcher";
+    license = lib.licenses.gpl2Plus ;
+    maintainers = [lib.maintainers.raskin];
+    platforms = lib.platforms.linux;
   };
 }

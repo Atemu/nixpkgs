@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, vala, pkgconfig, gtk3, gnome3, gdk-pixbuf, librsvg, wrapGAppsHook
+{ lib, stdenv, fetchurl, vala, pkgconfig, gtk3, gnome3, gdk-pixbuf, librsvg, wrapGAppsHook
 , gettext, itstool, clutter, clutter-gtk, libxml2, appstream-glib
 , meson, ninja, python3 }:
 
@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   version = "3.38.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/lightsoff/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/lightsoff/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
     sha256 = "0dpnnw8v1yk1p0y08f9c9xkgswqlm8x83dfn96798nif2zbypdnh";
   };
 
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     };
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Lightsoff";
     description = "Puzzle game, where the objective is to turn off all of the tiles on the board";
     maintainers = teams.gnome.members;

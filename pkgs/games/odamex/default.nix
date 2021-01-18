@@ -1,4 +1,4 @@
-{ stdenv, cmake, fetchurl, pkgconfig, SDL, SDL_mixer, SDL_net, wxGTK30 }:
+{ lib, stdenv, cmake, fetchurl, pkgconfig, SDL, SDL_mixer, SDL_net, wxGTK30 }:
 
 stdenv.mkDerivation rec {
   pname = "odamex";
@@ -12,13 +12,11 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake pkgconfig ];
   buildInputs = [ SDL SDL_mixer SDL_net wxGTK30 ];
 
-  enableParallelBuilding = true;
-
   meta = {
     homepage = "http://odamex.net/";
     description = "A client/server port for playing old-school Doom online";
-    license = stdenv.lib.licenses.gpl2;
-    platforms = stdenv.lib.platforms.linux;
-    maintainers = with stdenv.lib.maintainers; [ MP2E ];
+    license = lib.licenses.gpl2;
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ MP2E ];
   };
 }

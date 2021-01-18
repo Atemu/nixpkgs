@@ -1,4 +1,4 @@
-{ stdenv
+{ lib, stdenv
 , fetchFromGitHub
 , autoreconfHook
 , pkg-config
@@ -40,12 +40,12 @@ stdenv.mkDerivation rec {
   fixupPhase = ''
     runHook preFixup
     wrapProgram $out/bin/germinal \
-     --prefix PATH ":" "${stdenv.lib.makeBinPath [ tmux ]}" \
+     --prefix PATH ":" "${lib.makeBinPath [ tmux ]}" \
       "''${gappsWrapperArgs[@]}"
     runHook postFixup
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A minimal terminal emulator";
     homepage = "https://github.com/Keruspe/Germinal";
     license = with licenses; gpl3Plus;

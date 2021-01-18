@@ -1,10 +1,10 @@
-{ stdenv, fetchurl
+{ lib, stdenv, fetchurl
 , ocaml, findlib, pkgconfig, perl
 , gmp
 }:
 
 let source =
-  if stdenv.lib.versionAtLeast ocaml.version "4.02"
+  if lib.versionAtLeast ocaml.version "4.02"
   then {
     version = "1.11";
     url = "https://github.com/ocaml/Zarith/archive/release-1.11.tar.gz";
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
 
   preInstall = "mkdir -p $out/lib/ocaml/${ocaml.version}/site-lib/stublibs";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Fast, arbitrary precision OCaml integers";
     homepage    = "http://forge.ocamlcore.org/projects/zarith";
     license     = licenses.lgpl2;

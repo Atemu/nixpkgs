@@ -1,4 +1,4 @@
-{ stdenv, fetchurl
+{ lib, stdenv, fetchurl
 , linkStatic ? with stdenv.hostPlatform; isStatic || isCygwin
 , autoreconfHook
 }:
@@ -40,11 +40,11 @@ stdenv.mkDerivation rec {
   outputs = [ "bin" "dev" "out" "man" ];
 
   configureFlags =
-    stdenv.lib.optionals linkStatic [ "--enable-static" "--disable-shared" ];
+    lib.optionals linkStatic [ "--enable-static" "--disable-shared" ];
 
   enableParallelBuilding = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "High-quality data compression program";
     license = licenses.bsdOriginal;
     platforms = platforms.all;

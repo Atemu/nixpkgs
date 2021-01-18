@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, meson, ninja, vala, pkgconfig, wrapGAppsHook, gobject-introspection
+{ lib, stdenv, fetchurl, meson, ninja, vala, pkgconfig, wrapGAppsHook, gobject-introspection
 , gettext, itstool, libxml2, python3, gnome3, glib, gtk3, librsvg }:
 
 stdenv.mkDerivation rec {
@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
   version = "3.38.1";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-chess/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-chess/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
     sha256 = "1bpmi5p5vvjdq2rlm5x9k4gpci8jbrjvdxr1q62h5znzq0vz0w0l";
   };
 
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     };
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Chess";
     description = "Play the classic two-player boardgame of chess";
     maintainers = teams.gnome.members;

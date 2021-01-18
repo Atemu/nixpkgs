@@ -1,4 +1,4 @@
-{ fetchurl, fetchpatch, stdenv, pkgconfig, intltool, libpulseaudio,
+{ fetchurl, fetchpatch, lib, stdenv, pkgconfig, intltool, libpulseaudio,
 gtkmm3 , libcanberra-gtk3, gnome3, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--disable-lynx" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "PulseAudio Volume Control";
 
     longDescription = ''
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
 
     homepage = "http://freedesktop.org/software/pulseaudio/pavucontrol/";
 
-    license = stdenv.lib.licenses.gpl2Plus;
+    license = lib.licenses.gpl2Plus;
 
     maintainers = with maintainers; [ abbradar globin ];
     platforms = platforms.linux;

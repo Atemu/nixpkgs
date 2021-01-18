@@ -1,4 +1,4 @@
-{ stdenv
+{ lib, stdenv
 , fetchurl
 , fetchpatch
 , meson
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
   version = "3.38.2";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
     sha256 = "0SG7NLCLbqYB9du6Q6SxYTpuVJP8Cx4uzJDGZnEakS0=";
   };
 
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
     patchShebangs build-aux/meson/meson_post_install.py
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Calendar";
     description = "Simple and beautiful calendar application for GNOME";
     maintainers = teams.gnome.members;

@@ -1,10 +1,10 @@
-{ stdenv, buildGoPackage, fetchurl, makeWrapper
+{ lib, stdenv, buildGoPackage, fetchurl, makeWrapper
 , git, bash, gzip, openssh, pam
 , sqliteSupport ? true
 , pamSupport ? true
 }:
 
-with stdenv.lib;
+with lib;
 
 buildGoPackage rec {
   pname = "gitea";
@@ -37,7 +37,7 @@ buildGoPackage rec {
 
   preBuild = let
     tags = optional pamSupport "pam"
-        ++ optional sqliteSupport "sqlite";
+        ++ optional sqliteSupport "sqlite sqlite_unlock_notify";
     tagsString = concatStringsSep " " tags;
   in ''
     export buildFlagsArray=(

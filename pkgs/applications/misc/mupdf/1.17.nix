@@ -23,8 +23,8 @@ in stdenv.mkDerivation rec {
 
   patches =
     # Use shared libraries to decrease size
-    stdenv.lib.optional (!stdenv.isDarwin) ./mupdf-1.14-shared_libs.patch
-    ++ stdenv.lib.optional stdenv.isDarwin ./darwin.patch
+    lib.optional (!stdenv.isDarwin) ./mupdf-1.14-shared_libs.patch
+    ++ lib.optional stdenv.isDarwin ./darwin.patch
   ;
 
   postPatch = ''
@@ -80,7 +80,7 @@ in stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://mupdf.com";
     repositories.git = "git://git.ghostscript.com/mupdf.git";
     description = "Lightweight PDF, XPS, and E-book viewer and toolkit written in portable C";

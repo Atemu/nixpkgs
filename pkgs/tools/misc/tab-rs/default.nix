@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, rustPlatform, IOKit }:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, IOKit }:
 
 rustPlatform.buildRustPackage rec {
   pname = "tab-rs";
@@ -13,12 +13,12 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "1clpl9fi07lms0din8f9m4y6br5jg8k5xsklsqmvgdwf83wyn321";
 
-  buildInputs = stdenv.lib.optionals stdenv.isDarwin [ IOKit ];
+  buildInputs = lib.optionals stdenv.isDarwin [ IOKit ];
 
   # many tests are failing
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Intuitive, config-driven terminal multiplexer designed for software & systems engineers";
     homepage = "https://github.com/austinjones/tab-rs";
     license = licenses.mit;

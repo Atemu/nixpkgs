@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkgconfig
 , acl, librsync, ncurses, openssl, zlib, uthash }:
 
 stdenv.mkDerivation rec {
@@ -14,13 +14,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
   buildInputs = [ librsync ncurses openssl zlib uthash ]
-    ++ stdenv.lib.optional (!stdenv.isDarwin) acl;
+    ++ lib.optional (!stdenv.isDarwin) acl;
 
   configureFlags = [ "--localstatedir=/var" ];
 
   installFlags = [ "localstatedir=/tmp" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "BURP - BackUp and Restore Program";
     homepage    = "https://burp.grke.org";
     license     = licenses.agpl3;

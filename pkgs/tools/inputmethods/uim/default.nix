@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, shared-mime-info
+{ lib, stdenv, fetchFromGitHub, shared-mime-info
 , autoconf, automake, intltool, libtool, pkgconfig, cmake
 , ruby, librsvg
 , ncurses, m17n_lib, m17n_db, expat
@@ -18,7 +18,7 @@
 , withMisc ? false, libeb ? null
 }:
 
-with stdenv.lib;
+with lib;
 
 assert withGtk2 -> gtk2 != null;
 assert withGtk3 -> gtk3 != null;
@@ -135,7 +135,7 @@ stdenv.mkDerivation rec {
 
   dontUseCmakeConfigure = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage    = src.meta.homepage;
     description = "A multilingual input method framework";
     license     = licenses.bsd3;

@@ -5,7 +5,7 @@
 , enabledFlavors ? [ "curses" "tty" "gtk2" "qt" "emacs" ] ++ lib.optionals stdenv.isLinux [ "gnome3" ]
 }:
 
-with stdenv.lib;
+with lib;
 
 assert isList enabledFlavors && enabledFlavors != [];
 
@@ -89,7 +89,7 @@ pinentryMkDerivation rec {
 
   passthru = { flavors = enabledFlavors; };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "http://gnupg.org/aegypten2/";
     description = "GnuPG’s interface to passphrase input";
     license = licenses.gpl2Plus;

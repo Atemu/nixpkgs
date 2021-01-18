@@ -1,4 +1,4 @@
-{ stdenv, mkDerivation, fetchFromGitHub, cmake, file, qtbase, qttools, solid }:
+{ lib, stdenv, mkDerivation, fetchFromGitHub, cmake, file, qtbase, qttools, solid }:
 
 mkDerivation {
   pname = "dfilemanager";
@@ -11,14 +11,15 @@ mkDerivation {
     sha256 = "7hIgaWjjOck5i4QbeVeQK7yrjK4yDoAZ5qY9RhM5ABY=";
   };
 
-  buildInputs = [ cmake qtbase qttools file solid ];
+  nativeBuildInputs = [ cmake ];
+  buildInputs = [ qtbase qttools file solid ];
 
   cmakeFlags = [ "-DQT5BUILD=true" ];
 
   meta = {
     homepage = "http://dfilemanager.sourceforge.net/";
     description = "File manager written in Qt/C++";
-    license = stdenv.lib.licenses.gpl2;
-    platforms = stdenv.lib.platforms.unix;
+    license = lib.licenses.gpl2;
+    platforms = lib.platforms.unix;
   };
 }

@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkgconfig
 , tokyocabinet, ncurses
 , cairo ? null, pango ? null
 , enableCairo ? stdenv.isLinux
@@ -19,12 +19,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
   buildInputs = [ tokyocabinet ncurses ] ++
-    stdenv.lib.optionals enableCairo [ cairo pango ];
+    lib.optionals enableCairo [ cairo pango ];
 
   configureFlags =
-    stdenv.lib.optionals (!enableCairo) [ "--disable-x11" "--disable-cairo" ];
+    lib.optionals (!enableCairo) [ "--disable-x11" "--disable-cairo" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "http://duc.zevv.nl/";
     description = "Collection of tools for inspecting and visualizing disk usage";
     license = licenses.gpl2;

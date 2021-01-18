@@ -1,4 +1,4 @@
-{ stdenv
+{ lib, stdenv
 , autoreconfHook
 , fetchFromGitHub
 , fetchpatch
@@ -55,7 +55,7 @@ in stdenv.mkDerivation rec {
       --subst-var-by libpcre_LIBNAME libpcre.so.1
   '';
 
-  preBuild = with stdenv.lib;
+  preBuild = with lib;
     let items = concatMapStringsSep " " (x: "-rpath ${getLib x}/lib") sharedLibs;
     in ''
       export NIX_LDFLAGS="$NIX_LDFLAGS ${items}"
@@ -64,7 +64,7 @@ in stdenv.mkDerivation rec {
   # dlopened libgcc requires the rpath not to be shrinked
   dontPatchELF = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "http://ultrastardx.sourceforge.net/";
     description = "Free and open source karaoke game";
     license = licenses.gpl2Plus;

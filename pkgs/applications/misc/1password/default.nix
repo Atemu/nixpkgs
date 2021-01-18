@@ -1,4 +1,4 @@
-{ stdenv, fetchzip, autoPatchelfHook, fetchurl, xar, cpio }:
+{ lib, stdenv, fetchzip, autoPatchelfHook, fetchurl, xar, cpio }:
 
 stdenv.mkDerivation rec {
   pname = "1password";
@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
       sha256 = "0pycia75vdfh6gxfd2hr32cxrryfxydid804n0v76l2fpr9v9v3d";
     };
 
-  buildInputs = stdenv.lib.optionals stdenv.isDarwin [ xar cpio ];
+  buildInputs = lib.optionals stdenv.isDarwin [ xar cpio ];
 
-  unpackPhase = stdenv.lib.optionalString stdenv.isDarwin ''
+  unpackPhase = lib.optionalString stdenv.isDarwin ''
     xar -xf $src
     zcat Payload | cpio -i
   '';
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
 
   dontStrip = stdenv.isDarwin;
 
-  nativeBuildInputs = stdenv.lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
   doInstallCheck = true;
 
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     $out/bin/op --version
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description  = "1Password command-line tool";
     homepage     = "https://support.1password.com/command-line/";
     downloadPage = "https://app-updates.agilebits.com/product_history/CLI";

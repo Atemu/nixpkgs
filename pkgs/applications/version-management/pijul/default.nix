@@ -1,4 +1,4 @@
-{ stdenv
+{ lib, stdenv
 , fetchCrate
 , rustPlatform
 , pkg-config
@@ -22,17 +22,17 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-Xwk5bX9o41M/1BmkOpAscGQHikhzV+9qAwVz0qI7FRA";
 
-  cargoBuildFlags = stdenv.lib.optional gitImportSupport "--features=git";
+  cargoBuildFlags = lib.optional gitImportSupport "--features=git";
 
   doCheck = false;
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ openssl libsodium xxHash zstd ]
-    ++ (stdenv.lib.optionals gitImportSupport [ libgit2 ])
-    ++ (stdenv.lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+    ++ (lib.optionals gitImportSupport [ libgit2 ])
+    ++ (lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
       CoreServices Security SystemConfiguration
     ]));
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A distributed version control system";
     homepage = "https://pijul.org";
     license = with licenses; [ gpl2Plus ];

@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, intltool, libxml2
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, intltool, libxml2
 , pciutils, pkgconfig, gtk2, ddccontrol-db
 , makeDesktopItem
 }:
@@ -55,11 +55,11 @@ stdenv.mkDerivation rec {
     categories = "Settings;HardwareSettings;";
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A program used to control monitor parameters by software";
     homepage = "https://github.com/ddccontrol/ddccontrol";
     license = licenses.gpl2;
     platforms = [ "i686-linux" "x86_64-linux" ];
-    maintainers = [ stdenv.lib.maintainers.pakhfn ];
+    maintainers = [ lib.maintainers.pakhfn ];
   };
 }

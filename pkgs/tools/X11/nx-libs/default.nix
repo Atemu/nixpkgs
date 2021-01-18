@@ -1,4 +1,4 @@
-{ stdenv, autoconf, automake, fetchFromGitHub, libgcc, libjpeg_turbo
+{ lib, stdenv, autoconf, automake, fetchFromGitHub, libgcc, libjpeg_turbo
 , libpng, libtool, libxml2, pkgconfig, which, xorg
 , libtirpc
 }:
@@ -23,8 +23,6 @@ stdenv.mkDerivation rec {
   NIX_CFLAGS_COMPILE = [ "-I${libtirpc.dev}/include/tirpc" ];
   NIX_LDFLAGS = [ "-ltirpc" ];
 
-  enableParallelBuilding = true;
-
   postPatch = ''
     patchShebangs .
     find . -type f -name Makefile -exec sed -i 's|^\(SHELL:=\)/bin/bash$|\1${stdenv.shell}|g' {} \;
@@ -43,8 +41,8 @@ stdenv.mkDerivation rec {
   meta = {
     description = "NX X server based on Xnest";
     homepage = "https://github.com/ArcticaProject/nx-libs";
-    license = stdenv.lib.licenses.gpl2;
-    maintainers = with stdenv.lib.maintainers; [ jD91mZM2 ];
-    platforms = stdenv.lib.platforms.linux;
+    license = lib.licenses.gpl2;
+    maintainers = with lib.maintainers; [ jD91mZM2 ];
+    platforms = lib.platforms.linux;
   };
 }

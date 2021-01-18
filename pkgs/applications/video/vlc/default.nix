@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, autoreconfHook
+{ lib, stdenv, fetchurl, autoreconfHook
 , libarchive, perl, xorg, libdvdnav, libbluray
 , zlib, a52dec, libmad, faad2, ffmpeg_3, alsaLib
 , pkgconfig, dbus, fribidi, freefont_ttf, libebml, libmatroska
@@ -19,7 +19,7 @@
 # If your firewall is enabled, make sure to have something like:
 #   networking.firewall.allowedTCPPorts = [ 8010 ];
 
-with stdenv.lib;
+with lib;
 
 assert (withQt5 -> qtbase != null && qtsvg != null && qtx11extras != null && wrapQtAppsHook != null);
 
@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
     sed -i 's|^#define CONFIGURE_LINE.*$|#define CONFIGURE_LINE "<removed>"|g' config.h
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Cross-platform media player and streaming server";
     homepage = "http://www.videolan.org/vlc/";
     license = licenses.lgpl21Plus;

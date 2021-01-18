@@ -1,4 +1,4 @@
-{ stdenv
+{ lib, stdenv
 , fetchurl
 , gettext
 , glib
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   version = "3.38.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
     sha256 = "1b0i9sq6qa540f2006cv1p8i6lxg1h6w00apxwzwjpfqn0hk26c1";
   };
 
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Window manager used in Gnome Flashback";
     homepage = "https://wiki.gnome.org/Projects/Metacity";
     license = licenses.gpl2;

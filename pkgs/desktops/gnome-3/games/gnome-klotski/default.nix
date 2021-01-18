@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, pkgconfig, vala, gnome3, gtk3, wrapGAppsHook, appstream-glib, desktop-file-utils
+{ lib, stdenv, fetchurl, pkgconfig, vala, gnome3, gtk3, wrapGAppsHook, appstream-glib, desktop-file-utils
 , glib, librsvg, libxml2, gettext, itstool, libgee, libgnome-games-support
 , meson, ninja, python3
 }:
@@ -10,7 +10,7 @@ in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${name}.tar.xz";
     sha256 = "00rwi6z0068pbq01sq2d389ffcqsh3ylq3i8zkrqvblqid1hvnlv";
   };
 
@@ -33,7 +33,7 @@ in stdenv.mkDerivation rec {
     };
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Klotski";
     description = "Slide blocks to solve the puzzle";
     maintainers = teams.gnome.members;

@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
   # rpm/rpmlib.h includes popt.h, and then the pkg-config file mentions these as linkage requirements
   propagatedBuildInputs = [ popt nss db bzip2 libarchive libbfd ]
-    ++ stdenv.lib.optional stdenv.isLinux elfutils;
+    ++ lib.optional stdenv.isLinux elfutils;
 
   NIX_CFLAGS_COMPILE = "-I${nspr.dev}/include/nspr -I${nss.dev}/include/nss";
 
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     ln -sf $out/bin/{rpm,rpmverify}
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "http://www.rpm.org/";
     license = licenses.gpl2;
     description = "The RPM Package Manager";

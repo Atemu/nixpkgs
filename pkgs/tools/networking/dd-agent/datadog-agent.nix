@@ -34,7 +34,7 @@ in buildGoPackage rec {
 
 
   preBuild = let
-    ldFlags = stdenv.lib.concatStringsSep " " [
+    ldFlags = lib.concatStringsSep " " [
       "-X ${goPackagePath}/pkg/version.Commit=${src.rev}"
       "-X ${goPackagePath}/pkg/version.AgentVersion=${version}"
       "-X ${goPackagePath}/pkg/serializer.AgentPayloadVersion=${payloadVersion}"
@@ -68,7 +68,7 @@ in buildGoPackage rec {
       --prefix LD_LIBRARY_PATH : ${lib.getLib systemd}/lib
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = ''
       Event collector for the DataDog analysis service
       -- v6 new golang implementation.

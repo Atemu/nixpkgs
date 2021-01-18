@@ -1,4 +1,4 @@
-{ stdenv
+{ lib, stdenv
 , autoreconfHook
 , fetchurl
 , gettext
@@ -54,12 +54,12 @@ let
     "org.gnome.SettingsDaemon.Wacom"
     "org.gnome.SettingsDaemon.XSettings"
   ];
-  requiredComponents = wmName: "RequiredComponents=${stdenv.lib.concatStringsSep ";" ([ wmName ] ++ requiredComponentsCommon ++ requiredComponentsGsd)};";
+  requiredComponents = wmName: "RequiredComponents=${lib.concatStringsSep ";" ([ wmName ] ++ requiredComponentsCommon ++ requiredComponentsGsd)};";
   gnome-flashback = stdenv.mkDerivation rec {
     name = "${pname}-${version}";
 
     src = fetchurl {
-      url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+      url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${name}.tar.xz";
       sha256 = "1r51yqdqichp4jv54kiaqrh0xhykngr4ymlvrkjhzdhivwadsg4m";
     };
 
@@ -188,7 +188,7 @@ let
         '';
     };
 
-    meta = with stdenv.lib; {
+    meta = with lib; {
       description = "GNOME 2.x-like session for GNOME 3";
       homepage = "https://wiki.gnome.org/Projects/GnomeFlashback";
       license = licenses.gpl2;

@@ -1,4 +1,4 @@
-{ stdenv
+{ lib, stdenv
 , fetchurl
 , pkgconfig
 , which
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" "doc" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
     sha256 = "161050sx3sdxqcpjkjcpf6wl4kx0jydihga7mcvrj9c2f8ly0g07";
   };
 
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     };
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Python bindings for the Nautilus Extension API";
     homepage = "https://wiki.gnome.org/Projects/NautilusPython";
     license = licenses.gpl2Plus;

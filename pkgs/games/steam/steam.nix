@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, runtimeShell, traceDeps ? false, bash }:
+{ lib, stdenv, fetchurl, runtimeShell, traceDeps ? false, bash }:
 
 let
   traceLog = "/tmp/steam-trace-dependencies.log";
@@ -17,7 +17,7 @@ in stdenv.mkDerivation {
 
   postInstall = ''
     rm $out/bin/steamdeps
-    ${stdenv.lib.optionalString traceDeps ''
+    ${lib.optionalString traceDeps ''
       cat > $out/bin/steamdeps <<EOF
       #!${runtimeShell}
       echo \$1 >> ${traceLog}
@@ -38,7 +38,7 @@ in stdenv.mkDerivation {
     sed -e 's,/usr/bin/steam,steam,g' steam.desktop > $out/share/applications/steam.desktop
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A digital distribution platform";
     homepage = "http://store.steampowered.com/";
     license = licenses.unfreeRedistributable;

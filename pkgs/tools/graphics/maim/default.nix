@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig
+{ lib, stdenv, fetchFromGitHub, cmake, pkgconfig
 , zlib, libpng, libjpeg, libGLU, libGL, glm
 , libX11, libXext, libXfixes, libXrandr, libXcomposite, slop, icu
 }:
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (src.meta) homepage;
     description = "A command-line screenshot utility";
     longDescription = ''
@@ -30,8 +30,8 @@ stdenv.mkDerivation rec {
       supposed to be an improved scrot.
     '';
     changelog = "https://github.com/naelstrof/maim/releases/tag/v${version}";
-    platforms = stdenv.lib.platforms.all;
-    license = stdenv.lib.licenses.gpl3Plus;
+    platforms = lib.platforms.all;
+    license = lib.licenses.gpl3Plus;
     maintainers = with maintainers; [ primeos mbakke ];
   };
 }

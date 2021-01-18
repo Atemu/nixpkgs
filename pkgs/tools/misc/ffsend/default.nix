@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitLab, rustPlatform, cmake, pkgconfig, openssl
+{ lib, stdenv, fetchFromGitLab, rustPlatform, cmake, pkgconfig, openssl
 , darwin, installShellFiles
 
 , x11Support ? stdenv.isLinux || stdenv.hostPlatform.isBSD
@@ -32,7 +32,7 @@ buildRustPackage rec {
     if stdenv.isDarwin then (with darwin.apple_sdk.frameworks; [ CoreFoundation CoreServices Security AppKit ])
     else [ openssl ];
 
-  preBuild = stdenv.lib.optionalString (x11Support && usesX11) (
+  preBuild = lib.optionalString (x11Support && usesX11) (
     if preferXsel && xsel != null then ''
       export XSEL_PATH="${xsel}/bin/xsel"
     '' else ''
@@ -45,7 +45,7 @@ buildRustPackage rec {
   '';
   # There's also .elv and .ps1 completion files but I don't know where to install those
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Easily and securely share files from the command line. A fully featured Firefox Send client";
     longDescription = ''
       Easily and securely share files and directories from the command line through a safe, private

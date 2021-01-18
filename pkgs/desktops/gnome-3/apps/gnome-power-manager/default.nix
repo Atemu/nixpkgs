@@ -1,4 +1,4 @@
-{ stdenv
+{ lib, stdenv
 , gettext
 , fetchurl
 , pkgconfig
@@ -19,7 +19,7 @@ in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${name}.tar.xz";
     sha256 = "0drfn3wcc8l4n07qwv6p0rw2dwcd00hwzda282q62l6sasks2b2g";
   };
 
@@ -50,7 +50,7 @@ in stdenv.mkDerivation rec {
     gnome3.adwaita-icon-theme
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://projects-old.gnome.org/gnome-power-manager/";
     description = "View battery and power statistics provided by UPower";
     maintainers = teams.gnome.members;

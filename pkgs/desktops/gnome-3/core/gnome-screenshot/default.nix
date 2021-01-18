@@ -1,4 +1,4 @@
-{ stdenv, gettext, libxml2, libhandy, fetchurl, pkgconfig, libcanberra-gtk3
+{ lib, stdenv, gettext, libxml2, libhandy, fetchurl, pkgconfig, libcanberra-gtk3
 , gtk3, glib, meson, ninja, python3, wrapGAppsHook, appstream-glib, desktop-file-utils
 , gnome3, gsettings-desktop-schemas }:
 
@@ -9,7 +9,7 @@ in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${name}.tar.xz";
     sha256 = "1h4zsaybjrlkfcrvriyybg4gfr7v9d1ndh2p516k94ad2gfx6mp5";
   };
 
@@ -33,7 +33,7 @@ in stdenv.mkDerivation rec {
     };
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://en.wikipedia.org/wiki/GNOME_Screenshot";
     description = "Utility used in the GNOME desktop environment for taking screenshots";
     maintainers = teams.gnome.members;

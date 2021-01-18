@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, fetchFromGitHub, autoreconfHook
+{ lib, stdenv, fetchurl, fetchFromGitHub, autoreconfHook
 , libtool, pkgconfig, gtk2, libGLU, file
 }:
 
@@ -7,7 +7,7 @@ let
     pname    = "gtkglarea";
     version = "2.1.0";
     src = fetchurl {
-      url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+      url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
       sha256 = "1pl2vdj6l64j864ilhkq1bcggb3hrlxjwk5m029i7xfjfxc587lf";
     };
     nativeBuildInputs = [ pkgconfig ];
@@ -34,7 +34,7 @@ in stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook libtool pkgconfig ];
   buildInputs       = [ file gtk2 libGLU gtkglarea ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description     = "File system visualizer in cyberspace";
     longDescription = ''
       fsv (pronounced eff-ess-vee) is a file system visualizer in cyberspace.

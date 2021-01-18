@@ -31,8 +31,8 @@ in stdenv.mkDerivation rec {
     ${if mediaSupport then wrapVifmMedia else ""}
   '';
 
-  meta = with stdenv.lib; {
-    description = ''A vi-like file manager${if isFullPackage then "; Includes support for optional features" else ""}'';
+  meta = with lib; {
+    description = "A vi-like file manager${if isFullPackage then "; Includes support for optional features" else ""}";
     maintainers = with maintainers; [ raskin ];
     platforms = if mediaSupport then platforms.linux else platforms.unix;
     license = licenses.gpl2;

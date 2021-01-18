@@ -1,4 +1,4 @@
-{ stdenv
+{ lib, stdenv
 , fetchgit
 , cmake
 , pkg-config
@@ -43,10 +43,10 @@ mkDerivation rec {
     qtsvg
     protobuf
     SDL2
-  ] ++ stdenv.lib.optionals stdenv.isLinux [
+  ] ++ lib.optionals stdenv.isLinux [
     libevdev
     udev
-  ] ++ stdenv.lib.optionals stdenv.isDarwin [
+  ] ++ lib.optionals stdenv.isDarwin [
     qtmacextras
   ];
 
@@ -54,7 +54,7 @@ mkDerivation rec {
 
   installCheckPhase = "$out/bin/chiaki --help";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://git.sr.ht/~thestr4ng3r/chiaki";
     description = "Free and Open Source PlayStation Remote Play Client";
     license = licenses.gpl3Plus;

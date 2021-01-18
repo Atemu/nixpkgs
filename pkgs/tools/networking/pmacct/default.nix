@@ -1,4 +1,4 @@
-{ stdenv
+{ lib, stdenv
 , fetchFromGitHub
 , pkgconfig
 , autoreconfHook
@@ -19,7 +19,7 @@ assert withSQLite -> sqlite != null;
 assert withPgSQL -> postgresql != null;
 assert withMysql -> libmysqlclient != null;
 
-let inherit (stdenv.lib) getDev optional optionalString; in
+let inherit (lib) getDev optional optionalString; in
 
 stdenv.mkDerivation rec {
   version = "1.7.5";
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     ++ optional withPgSQL "--enable-pgsql"
     ++ optional withMysql "--enable-mysql";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A small set of multi-purpose passive network monitoring tools";
     longDescription = ''
       pmacct is a small set of multi-purpose passive network monitoring tools

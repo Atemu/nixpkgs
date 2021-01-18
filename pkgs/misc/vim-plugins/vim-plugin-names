@@ -23,6 +23,7 @@ arcticicestudio/nord-vim
 artur-shaik/vim-javacomplete2
 autozimu/LanguageClient-neovim
 ayu-theme/ayu-vim
+bakpakin/fennel.vim
 bazelbuild/vim-bazel
 bbchung/clighter8
 benizi/vim-automkdir
@@ -129,6 +130,7 @@ fszymanski/deoplete-emoji
 garbas/vim-snipmate
 gentoo/gentoo-syntax
 GEverding/vim-hocon
+gfanto/fzf-lsp.nvim@main
 gibiansky/vim-textobj-haskell
 glts/vim-textobj-comment
 godlygeek/csapprox
@@ -158,6 +160,7 @@ hecal3/vim-leader-guide
 henrik/vim-indexed-search
 HerringtonDarkholme/yats.vim
 honza/vim-snippets
+hoob3rt/lualine.nvim
 hotwatermorning/auto-git-diff
 hrsh7th/vim-vsnip
 hrsh7th/vim-vsnip-integ
@@ -203,6 +206,7 @@ jnurmine/zenburn
 jonbri/vim-colorstepper
 jonsmithers/vim-html-template-literals
 joonty/vim-xdebug
+josa42/coc-lua
 josa42/vim-lightline-coc
 joshdick/onedark.vim
 jpalardy/vim-slime@main
@@ -393,6 +397,7 @@ numirias/semshi
 nvie/vim-flake8
 nvim-lua/completion-nvim
 nvim-lua/diagnostic-nvim
+nvim-lua/lsp-status.nvim
 nvim-lua/lsp_extensions.nvim
 nvim-lua/plenary.nvim
 nvim-lua/popup.nvim
@@ -472,6 +477,7 @@ roxma/nvim-yarp
 roxma/vim-tmux-clipboard
 RRethy/vim-hexokinase
 RRethy/vim-illuminate
+rstacruz/vim-closer
 rust-lang/rust.vim
 ryanoasis/vim-devicons
 ryvnf/readline.vim

@@ -1,4 +1,4 @@
-{ stdenv
+{ lib, stdenv
 , intltool
 , fetchurl
 , webkitgtk
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
   version = "3.25.90";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/empathy/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/empathy/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
     sha256 = "0sn10fcymc6lyrabk7vx8lpvlaxxkqnmcwj9zdkfa8qf3388k4nc";
   };
 
@@ -137,7 +137,7 @@ stdenv.mkDerivation rec {
     };
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Empathy";
     description = "Messaging program which supports text, voice, video chat, and file transfers over many different protocols";
     maintainers = teams.gnome.members;

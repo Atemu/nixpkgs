@@ -114,14 +114,14 @@ stdenv.mkDerivation {
       --set PYTHONPATH "$PYTHONPATH"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Node-graph based, open-source compositing software";
     longDescription = ''
       Node-graph based, open-source compositing software. Similar in
       functionalities to Adobe After Effects and Nuke by The Foundry.
     '';
     homepage = "https://natron.fr/";
-    license = stdenv.lib.licenses.gpl2;
+    license = lib.licenses.gpl2;
     maintainers = [ maintainers.puffnfresh ];
     platforms = platforms.linux;
     broken = true;
