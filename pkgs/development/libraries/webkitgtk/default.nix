@@ -7,7 +7,7 @@
 , gperf
 , cmake
 , ninja
-, pkgconfig
+, pkg-config
 , gettext
 , gobject-introspection
 , libnotify
@@ -51,6 +51,8 @@
 , xdg-dbus-proxy
 , substituteAll
 , glib
+, libwpe
+, libwpe-fdo
 }:
 
 assert enableGeoLocation -> geoclue2 != null;
@@ -94,7 +96,7 @@ stdenv.mkDerivation rec {
     gperf
     ninja
     perl
-    pkgconfig
+    pkg-config
     python3
     ruby
     glib # for gdbus-codegen
@@ -120,6 +122,8 @@ stdenv.mkDerivation rec {
     libsecret
     libtasn1
     libwebp
+    libwpe
+    libwpe-fdo
     libxkbcommon
     libxml2
     libxslt
@@ -154,7 +158,6 @@ stdenv.mkDerivation rec {
     "-DENABLE_INTROSPECTION=ON"
     "-DPORT=GTK"
     "-DUSE_LIBHYPHEN=OFF"
-    "-DUSE_WPE_RENDERER=OFF"
   ] ++ optionals stdenv.isDarwin [
     "-DENABLE_GRAPHICS_CONTEXT_3D=OFF"
     "-DENABLE_GTKDOC=OFF"

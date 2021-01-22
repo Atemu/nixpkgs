@@ -1,17 +1,17 @@
-{ lib, stdenv, fetchurl, pkgconfig, glib, which }:
+{ lib, stdenv, fetchurl, pkg-config, glib, which }:
 
 stdenv.mkDerivation rec {
-  name = "nbd-3.20";
+  name = "nbd-3.21";
 
   src = fetchurl {
     url = "mirror://sourceforge/nbd/${name}.tar.xz";
-    sha256 = "1kfnyx52nna2mnw264njk1dl2zc8m78sz031yp65mbmpi99v7qg0";
+    sha256 = "sha256-52iK852Rczu80tsIBixE/lA9AE5RUodAE5xEr/amvvk=";
   };
 
   buildInputs = [ glib ]
     ++ lib.optional (stdenv ? glibc) stdenv.glibc.linuxHeaders;
 
-  nativeBuildInputs = [ pkgconfig which ];
+  nativeBuildInputs = [ pkg-config which ];
 
   postInstall = ''
     mkdir -p "$out/share/doc/${name}"

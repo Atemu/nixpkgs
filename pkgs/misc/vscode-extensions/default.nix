@@ -389,6 +389,18 @@ let
         extractNuGet = callPackage ./python/extract-nuget.nix { };
       };
 
+      msjsdiag.debugger-for-chrome = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "debugger-for-chrome";
+          publisher = "msjsdiag";
+          version = "4.12.11";
+          sha256 = "sha256-9i3TgCFThnFF5ccwzS4ATj5c2Xoe/4tDFGv75jJxeQ4=";
+        };
+        meta = {
+          license = lib.licenses.mit;
+        };
+      };
+
       naumovs.color-highlight = buildVscodeMarketplaceExtension {
         mktplcRef = {
           name = "color-highlight";
@@ -472,8 +484,8 @@ let
         mktplcRef = {
           name = "metals";
           publisher = "scalameta";
-          version = "1.9.7";
-          sha256 = "0v599yssvk358gxfxnyzzkyk0y5krsbp8n4rkp9wb2ncxqsqladr";
+          version = "1.9.10";
+          sha256 = "1afmqzlw3bl9bv59l9b2jrljhbq8djb7vl8rjv58c5wi7nvm2qab";
         };
         meta = {
           license = lib.licenses.asl20;

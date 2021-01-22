@@ -2,7 +2,7 @@
 , python, cmake, meson, vim, ruby
 , which, fetchFromGitHub, fetchgit, fetchurl, fetchzip, fetchpatch
 , llvmPackages, rustPlatform, buildGoModule
-, pkgconfig, curl, openssl, libgit2, libiconv
+, pkg-config, curl, openssl, libgit2, libiconv
 , xkb-switch, fzf, skim, stylish-haskell
 , python3, boost, icu, ncurses
 , ycmd, rake
@@ -642,7 +642,7 @@ self: super: {
         src = old.src;
 
         nativeBuildInputs = [
-          pkgconfig
+          pkg-config
         ];
 
         buildInputs = [
@@ -654,7 +654,7 @@ self: super: {
           libiconv
         ];
 
-        cargoSha256 = "1738hvqzwr4h1bigsqffc6alkzvir8s6f7mr0xyp21qbf5qkxmq2";
+        cargoSha256 = "mq5q+cIWXDMeoZfumX1benulrP/AWKZnd8aI0OzY55c=";
       };
     in ''
       ln -s ${maple-bin}/bin/maple $target/bin/maple
@@ -671,6 +671,31 @@ self: super: {
       ln -s ${tabnine}/bin/TabNine $target/binaries/TabNine_$(uname -s)
     '';
   });
+
+  telescope-fzy-native-nvim = super.telescope-fzy-native-nvim.overrideAttrs (old: {
+    preFixup =
+      let
+        fzy-lua-native-path = "deps/fzy-lua-native";
+        fzy-lua-native =
+          stdenv.mkDerivation {
+            name = "fzy-lua-native";
+            src = "${old.src}/${fzy-lua-native-path}";
+            # remove pre-compiled binaries
+            preBuild = "rm -rf static/*";
+            installPhase = ''
+              install -Dm 444 -t $out/static static/*
+              install -Dm 444 -t $out/lua lua/*
+            '';
+          };
+      in
+      ''
+        rm -rf $target/${fzy-lua-native-path}/*
+        ln -s ${fzy-lua-native}/static $target/${fzy-lua-native-path}/static
+        ln -s ${fzy-lua-native}/lua $target/${fzy-lua-native-path}/lua
+      '';
+    meta.platforms = stdenv.lib.platforms.all;
+  });
+
 } // (
   let
     nodePackageNames = [

@@ -1,18 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, automake, autoconf, pkgconfig, gettext, libtool, pandoc, which, attr, libiconv }:
+{ lib, stdenv, fetchFromGitHub, automake, autoconf, pkg-config, gettext, libtool, pandoc, which, attr, libiconv }:
 
 stdenv.mkDerivation rec {
   pname = "mergerfs";
-  version = "2.32.0";
+  version = "2.32.2";
 
   src = fetchFromGitHub {
     owner = "trapexit";
     repo = pname;
     rev = version;
-    sha256 = "1qmhwkl2ws0hwd7s1mzrdiw4h7jpilzcr0w8dgx465mdzb5d2jad";
+    sha256 = "sha256-ybDVBcPkjsW2OxNxUmn5hG/qLEjxF9vqR8pZdb9tIBs=";
   };
 
   nativeBuildInputs = [
-    automake autoconf pkgconfig gettext libtool pandoc which
+    automake autoconf pkg-config gettext libtool pandoc which
   ];
   prePatch = ''
     sed -i -e '/chown/d' -e '/chmod/d' libfuse/Makefile

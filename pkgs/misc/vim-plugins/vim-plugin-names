@@ -79,6 +79,7 @@ deoplete-plugins/deoplete-clang
 deoplete-plugins/deoplete-dictionary
 deoplete-plugins/deoplete-go
 deoplete-plugins/deoplete-jedi
+deoplete-plugins/deoplete-lsp
 deoplete-plugins/deoplete-zsh
 derekelkins/agda-vim
 derekwyatt/vim-scala
@@ -132,6 +133,7 @@ gentoo/gentoo-syntax
 GEverding/vim-hocon
 gfanto/fzf-lsp.nvim@main
 gibiansky/vim-textobj-haskell
+glepnir/galaxyline.nvim@main
 glts/vim-textobj-comment
 godlygeek/csapprox
 godlygeek/tabular
@@ -273,6 +275,7 @@ leanprover/lean.vim
 ledger/vim-ledger
 lepture/vim-jinja
 lervag/vimtex
+lewis6991/gitsigns.nvim
 lfilho/cosco.vim
 lifepillar/vim-mucomplete
 lighttiger2505/deoplete-vim-lsp
@@ -286,6 +289,7 @@ LucHermitte/lh-brackets
 LucHermitte/lh-vim-lib
 ludovicchabant/vim-gutentags
 ludovicchabant/vim-lawrencium
+lukas-reineke/indent-blankline.nvim
 lukaszkorecki/workflowish
 lumiliet/vim-twig
 luochen1990/rainbow
@@ -330,6 +334,7 @@ mengelbrecht/lightline-bufferline
 metakirby5/codi.vim
 mfukar/robotframework-vim
 mfussenegger/nvim-dap
+mfussenegger/nvim-jdtls
 mg979/vim-visual-multi
 mhartington/oceanic-next
 mhinz/vim-crates
@@ -401,6 +406,8 @@ nvim-lua/lsp-status.nvim
 nvim-lua/lsp_extensions.nvim
 nvim-lua/plenary.nvim
 nvim-lua/popup.nvim
+nvim-telescope/telescope-fzf-writer.nvim
+nvim-telescope/telescope-fzy-native.nvim
 nvim-telescope/telescope.nvim
 nvim-treesitter/completion-treesitter
 nvim-treesitter/nvim-treesitter
@@ -492,7 +499,6 @@ Shougo/context_filetype.vim
 Shougo/defx.nvim
 Shougo/denite.nvim
 Shougo/deol.nvim
-Shougo/deoplete-lsp
 Shougo/deoplete.nvim
 Shougo/echodoc.vim
 Shougo/neco-syntax
@@ -607,6 +613,10 @@ vhda/verilog_systemverilog.vim
 vigoux/LanguageTool.nvim
 vim-airline/vim-airline
 vim-airline/vim-airline-themes
+vim-erlang/vim-erlang-compiler
+vim-erlang/vim-erlang-omnicomplete
+vim-erlang/vim-erlang-runtime
+vim-erlang/vim-erlang-tags
 vim-pandoc/vim-pandoc
 vim-pandoc/vim-pandoc-after
 vim-pandoc/vim-pandoc-syntax

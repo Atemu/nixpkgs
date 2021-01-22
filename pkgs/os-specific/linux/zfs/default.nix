@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, fetchpatch
+{ lib, stdenv, fetchFromGitHub, fetchpatch
 , autoreconfHook269, util-linux, nukeReferences, coreutils
 , perl, buildPackages
 , configFile ? "all"
@@ -9,14 +9,14 @@
 , nfs-utils
 , gawk, gnugrep, gnused, systemd
 , smartmontools, sysstat, sudo
-, pkgconfig
+, pkg-config
 
 # Kernel dependencies
 , kernel ? null
 , enablePython ? true
 }:
 
-with stdenv.lib;
+with lib;
 let
   buildKernel = any (n: n == configFile) [ "kernel" "all" ];
   buildUser = any (n: n == configFile) [ "user" "all" ];
@@ -32,7 +32,7 @@ let
         versionAtLeast kernel.version incompatibleKernelVersion then
        throw ''
          Linux v${kernel.version} is not yet supported by zfsonlinux v${version}.
-         ${stdenv.lib.optionalString (!isUnstable) "Try zfsUnstable or set the NixOS option boot.zfs.enableUnstable."}
+         ${lib.optionalString (!isUnstable) "Try zfsUnstable or set the NixOS option boot.zfs.enableUnstable."}
        ''
     else stdenv.mkDerivation {
       name = "zfs-${configFile}-${version}${optionalString buildKernel "-${kernel.version}"}";
@@ -91,7 +91,7 @@ let
 
       nativeBuildInputs = [ autoreconfHook269 nukeReferences ]
         ++ optionals buildKernel (kernel.moduleBuildDependencies ++ [ perl ])
-        ++ optional buildUser pkgconfig;
+        ++ optional buildUser pkg-config;
       buildInputs = optionals buildUser [ zlib libuuid attr libtirpc ]
         ++ optional buildUser openssl
         ++ optional (buildUser && enablePython) python3;

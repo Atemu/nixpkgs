@@ -2,7 +2,7 @@
 , fetchurl
 , meson
 , ninja
-, pkgconfig
+, pkg-config
 , gobject-introspection
 , vala
 , gtk-doc
@@ -23,14 +23,14 @@
 
 stdenv.mkDerivation rec {
   pname = "libhandy";
-  version = "1.0.2";
+  version = "1.0.3";
 
   outputs = [ "out" "dev" "devdoc" "glade" ];
   outputBin = "dev";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
-    sha256 = "0b8wvjabv5mg8jbng8rsd5g84lk571nm0qpna20pwp0njh2qvmrs";
+    sha256 = "sha256-VZuzrMLDYkiJF+ty7SW9wYH0riaslNF3Y0zF00yGf3o=";
   };
 
   nativeBuildInputs = [
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     libxml2
     meson
     ninja
-    pkgconfig
+    pkg-config
     vala
   ];
 
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     "-Dgtk_doc=true"
   ];
 
-  # Uses define_variable in pkgconfig, but we still need it to use the glade output
+  # Uses define_variable in pkg-config, but we still need it to use the glade output
   PKG_CONFIG_GLADEUI_2_0_MODULEDIR = "${placeholder "glade"}/lib/glade/modules";
   PKG_CONFIG_GLADEUI_2_0_CATALOGDIR = "${placeholder "glade"}/share/glade/catalogs";
 
