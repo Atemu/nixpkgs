@@ -63,7 +63,7 @@ let
   commonBuildInputs = extraBuildInputs: [
     boehmgc libatomic_ops pcre libevent libyaml zlib libxml2 openssl
   ] ++ extraBuildInputs
-    ++ stdenv.lib.optionals stdenv.isDarwin [ libiconv ];
+    ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
   generic = (
     { version
@@ -255,7 +255,13 @@ in rec {
     extraBuildInputs = [ git ];
   };
 
-  crystal = crystal_0_35;
+  crystal_0_36 = generic {
+    version = "0.36.0";
+    sha256  = "0s7g13mrh2jrxxrrrg4hy3gi49rp7fmpn9zg9kj4nbc8w8yir20r";
+    binary = crystal_0_35;
+  };
+
+  crystal = crystal_0_36;
 
   crystal2nix = callPackage ./crystal2nix.nix {};
 }

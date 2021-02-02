@@ -1,4 +1,4 @@
-{ lib, stdenv, buildPythonApplication, fetchPypi, pythonOlder
+{ lib, buildPythonApplication, fetchPypi, pythonOlder
 , installShellFiles
 , mock, pytest, nose
 , pyyaml, backports_ssl_match_hostname, colorama, docopt
@@ -8,12 +8,12 @@
 }:
 
 buildPythonApplication rec {
-  version = "1.27.4";
+  version = "1.28.2";
   pname = "docker-compose";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "5a5690f24c27d4b43dcbe6b3fae91ba680713208e99ee863352b3bae37bcaa83";
+    sha256 = "2f148b590414915d029dad7551f4cdf0b03a774dc9baa674480217236d260cc1";
   };
 
   # lots of networking and other fails

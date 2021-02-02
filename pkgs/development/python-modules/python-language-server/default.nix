@@ -1,4 +1,4 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, pythonOlder, isPy27
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, isPy27
 , backports_functools_lru_cache, configparser, futures, future, jedi, pluggy, python-jsonrpc-server, flake8
 , pytestCheckHook, mock, pytestcov, coverage, setuptools, ujson, flaky
 , # Allow building a limited set of providers, e.g. ["pycodestyle"].
@@ -30,24 +30,25 @@ buildPythonPackage rec {
     sha256 = "07x6jr4z20jxn03bxblwc8vk0ywha492cgwfhj7q97nb5cm7kx0q";
   };
 
-  propagatedBuildInputs = [ setuptools jedi pluggy future python-jsonrpc-server flake8 ujson ]
-    ++ stdenv.lib.optional (withProvider "autopep8") autopep8
-    ++ stdenv.lib.optional (withProvider "mccabe") mccabe
-    ++ stdenv.lib.optional (withProvider "pycodestyle") pycodestyle
-    ++ stdenv.lib.optional (withProvider "pydocstyle") pydocstyle
-    ++ stdenv.lib.optional (withProvider "pyflakes") pyflakes
-    ++ stdenv.lib.optional (withProvider "pylint") pylint
-    ++ stdenv.lib.optional (withProvider "rope") rope
-    ++ stdenv.lib.optional (withProvider "yapf") yapf
-    ++ stdenv.lib.optional isPy27 configparser
-    ++ stdenv.lib.optionals (pythonOlder "3.2") [ backports_functools_lru_cache futures ];
-
+  propagatedBuildInputs = [ setuptools jedi pluggy future python-jsonrpc-server ujson ]
+    ++ lib.optional (withProvider "autopep8") autopep8
+    ++ lib.optional (withProvider "mccabe") mccabe
+    ++ lib.optional (withProvider "pycodestyle") pycodestyle
+    ++ lib.optional (withProvider "pydocstyle") pydocstyle
+    ++ lib.optional (withProvider "pyflakes") pyflakes
+    ++ lib.optional (withProvider "pylint") pylint
+    ++ lib.optional (withProvider "rope") rope
+    ++ lib.optional (withProvider "yapf") yapf
+    ++ lib.optional isPy27 configparser
+    ++ lib.optionals (pythonOlder "3.2") [ backports_functools_lru_cache futures ];
 
   # The tests require all the providers, disable otherwise.
   doCheck = providers == ["*"];
 
   checkInputs = [
     pytestCheckHook mock pytestcov coverage flaky
+    # Do not propagate flake8 or it will enable pyflakes implicitly
+    flake8
     # rope is technically a dependency, but we don't add it by default since we
     # already have jedi, which is the preferred option
     rope
@@ -68,7 +69,7 @@ buildPythonPackage rec {
     "test_snippet_parsing"
     "test_numpy_hover"
     "test_symbols"
-  ] ++ stdenv.lib.optional isPy27 "test_flake8_lint";
+  ] ++ lib.optional isPy27 "test_flake8_lint";
 
   meta = with lib; {
     homepage = "https://github.com/palantir/python-language-server";

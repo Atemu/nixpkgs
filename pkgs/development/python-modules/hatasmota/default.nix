@@ -7,13 +7,13 @@
 
 buildPythonPackage rec {
   pname = "hatasmota";
-  version = "0.2.5";
+  version = "0.2.7";
 
   src = fetchFromGitHub {
     owner = "emontnemery";
     repo = pname;
     rev = version;
-    sha256 = "1xsqrpd0dprjfaa2yrdy1g9n4xyrw6ifnzkrh3sq5fx0yfmxbzqm";
+    sha256 = "sha256-QOireN6uRIa7UBKsE63r6yT+mzfs8uOGzzDcNahELws=";
   };
 
   propagatedBuildInputs = [

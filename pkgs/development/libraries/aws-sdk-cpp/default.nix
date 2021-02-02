@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional (!customMemoryManagement) "-DCUSTOM_MEMORY_MANAGEMENT=0"
   ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
     "-DENABLE_TESTING=OFF"
-    "-DCURL_HAS_H2=0"
+    "-DCURL_HAS_H2=1"
+    "-DCURL_HAS_TLS_PROXY=1"
   ] ++ lib.optional (apis != ["*"])
     "-DBUILD_ONLY=${lib.concatStringsSep ";" apis}";
 
@@ -53,7 +54,7 @@ stdenv.mkDerivation rec {
   postFixupHooks = [
     # This bodge is necessary so that the file that the generated -config.cmake file
     # points to an existing directory.
-    ''mkdir -p $out/include''
+    "mkdir -p $out/include"
   ];
 
   __darwinAllowLocalNetworking = true;

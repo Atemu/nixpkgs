@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, pkg-config, yasm, bzip2, zlib, perl, bash
+{ lib, stdenv, fetchurl, pkg-config, yasm, bzip2, zlib, perl, bash
 , mp3Support    ? true,   lame      ? null
 , speexSupport  ? true,   speex     ? null
 , theoraSupport ? true,   libtheora ? null
@@ -17,7 +17,7 @@
 
 assert faacSupport -> enableUnfree;
 
-let inherit (stdenv.lib) optional hasPrefix enableFeature; in
+let inherit (lib) optional hasPrefix enableFeature; in
 
 /* ToDo:
     - more deps, inspiration: https://packages.ubuntu.com/raring/libav-tools
@@ -43,6 +43,7 @@ let
 
     patches = []
       ++ optional (vpxSupport && hasPrefix "0.8." version) ./vpxenc-0.8.17-libvpx-1.5.patch
+      ++ optional (vpxSupport && hasPrefix "12." version) ./vpx-12.3-libvpx-1.8.patch
       ;
 
     postPatch = ''
@@ -52,7 +53,7 @@ let
     '';
 
     configurePlatforms = [];
-    configureFlags = assert stdenv.lib.all (x: x!=null) buildInputs; [
+    configureFlags = assert lib.all (x: x!=null) buildInputs; [
       "--arch=${stdenv.hostPlatform.parsed.cpu.name}"
       "--target_os=${stdenv.hostPlatform.parsed.kernel.name}"
       #"--enable-postproc" # it's now a separate package in upstream
@@ -120,7 +121,7 @@ let
 
     passthru = { inherit vdpauSupport; };
 
-    meta = with stdenv.lib; {
+    meta = with lib; {
       homepage = "https://libav.org/";
       description = "A complete, cross-platform solution to record, convert and stream audio and video (fork of ffmpeg)";
       license = with licenses; if enableUnfree then unfree #ToDo: redistributable or not?

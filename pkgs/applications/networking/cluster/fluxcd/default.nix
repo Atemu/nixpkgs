@@ -1,17 +1,17 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, installShellFiles }:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "fluxcd";
-  version = "0.6.1";
+  version = "0.7.3";
 
   src = fetchFromGitHub {
     owner = "fluxcd";
     repo = "flux2";
     rev = "v${version}";
-    sha256 = "sha256-A5sEv8d6T0tvhD5UzZ2h2cymtXSO2h68pnD8MGg+Dfo=";
+    sha256 = "1y586704xckhyyqmmgq4g6csnf9iqi7xb2vqv5sqyz96ik3kg9vy";
   };
 
-  vendorSha256 = "sha256-eh5oUOLgZLIODL58WI1trXerHDWrIiclkrv/w0lvzL4=";
+  vendorSha256 = "1kyj65fc2q1sc4aiy87i2wzf7kqybjf08mmmw0ajcxszcr0mcadb";
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -20,6 +20,11 @@ buildGoModule rec {
   subPackages = [ "cmd/flux" ];
 
   buildFlagsArray = [ "-ldflags=-s -w -X main.VERSION=${version}" ];
+
+  doInstallCheck = true;
+  installCheckPhase = ''
+    $out/bin/flux --version | grep ${version} > /dev/null
+  '';
 
   postInstall = ''
     for shell in bash fish zsh; do

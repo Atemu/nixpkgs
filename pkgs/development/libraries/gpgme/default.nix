@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, fetchpatch
+{ lib, stdenv, fetchurl, fetchpatch
 , autoreconfHook, libgpgerror, gnupg, pkg-config, glib, pth, libassuan
 , file, which, ncurses
 , texinfo
@@ -8,7 +8,6 @@
 }:
 
 let
-  inherit (stdenv) lib;
   inherit (stdenv.hostPlatform) system;
 in
 
@@ -72,7 +71,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://gnupg.org/software/gpgme/index.html";
     changelog = "https://git.gnupg.org/cgi-bin/gitweb.cgi?p=gpgme.git;a=blob;f=NEWS;hb=refs/tags/gpgme-${version}";
     description = "Library for making GnuPG easier to use";

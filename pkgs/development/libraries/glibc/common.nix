@@ -42,7 +42,7 @@
 
 let
   version = "2.32";
-  patchSuffix = "-25";
+  patchSuffix = "-35";
   sha256 = "0di848ibffrnwq7g2dvgqrnn4xqhj3h96csn69q4da51ymafl9qn";
 in
 
@@ -62,11 +62,11 @@ stdenv.mkDerivation ({
       /* No tarballs for stable upstream branch, only https://sourceware.org/git/glibc.git
          and using git or something would complicate bootstrapping.
          Fortunately it's not too big.
-          $ git checkout release/2.32/master; git describe
-          glibc-2.32-25-g0d9793e82a
-          $ git show --reverse glibc-2.32.. | gzip -n -9 --rsyncable - > 2.32-25.patch.gz
+          $ git checkout origin/release/2.32/master; git describe
+          glibc-2.32-35-g082798622d
+          $ git show --reverse glibc-2.32.. | gzip -n -9 --rsyncable - > 2.32-35.patch.gz
        */
-      ./2.32-25.patch.gz
+      ./2.32-35.patch.gz
 
       /* Allow NixOS and Nix to handle the locale-archive. */
       ./nix-locale-archive.patch
@@ -158,7 +158,7 @@ stdenv.mkDerivation ({
       "--enable-kernel=3.2.0" # can't get below with glibc >= 2.26
     ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       (lib.flip lib.withFeature "fp"
-         (stdenv.hostPlatform.platform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard") == "soft"))
+         (stdenv.hostPlatform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard") == "soft"))
       "--with-__thread"
     ] ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform && stdenv.hostPlatform.isAarch32) [
       "--host=arm-linux-gnueabi"

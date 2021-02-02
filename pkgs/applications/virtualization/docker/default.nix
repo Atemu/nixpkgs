@@ -1,11 +1,4 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, buildGoPackage
-, makeWrapper, installShellFiles, pkg-config
-, go-md2man, go, containerd, runc, docker-proxy, tini, libtool
-, sqlite, iproute, lvm2, systemd
-, btrfs-progs, iptables, e2fsprogs, xz, util-linux, xfsprogs, git
-, procps, libseccomp
-, nixosTests
-}:
+{ lib, callPackage }:
 
 with lib;
 
@@ -15,8 +8,16 @@ rec {
       , mobyRev, mobySha256
       , runcRev, runcSha256
       , containerdRev, containerdSha256
-      , tiniRev, tiniSha256
-    } :
+      , tiniRev, tiniSha256, buildxSupport ? false
+      # package dependencies
+      , stdenv, fetchFromGitHub, fetchpatch, buildGoPackage
+      , makeWrapper, installShellFiles, pkg-config
+      , go-md2man, go, containerd, runc, docker-proxy, tini, libtool
+      , sqlite, iproute, lvm2, systemd, docker-buildx
+      , btrfs-progs, iptables, e2fsprogs, xz, util-linux, xfsprogs, git
+      , procps, libseccomp
+      , nixosTests
+    }:
   let
     docker-runc = runc.overrideAttrs (oldAttrs: {
       name = "docker-runc-${version}";
@@ -54,8 +55,7 @@ rec {
       };
 
       # Do not remove static from make files as we want a static binary
-      patchPhase = ''
-      '';
+      patchPhase = "";
 
       NIX_CFLAGS_COMPILE = "-DMINIMAL=ON";
     });
@@ -142,7 +142,7 @@ rec {
       makeWrapper
     ] ++ optionals (stdenv.isLinux) [
       sqlite lvm2 btrfs-progs systemd libseccomp
-    ];
+    ] ++ optionals (buildxSupport) [ docker-buildx ];
 
     # Keep eyes on BUILDTIME format - https://github.com/docker/cli/blob/${version}/scripts/build/.variables
     buildPhase = ''
@@ -167,6 +167,9 @@ rec {
       substituteInPlace ./scripts/build/.variables --replace "set -eu" ""
       substituteInPlace ./scripts/docs/generate-man.sh --replace "-v md2man" "-v go-md2man"
       substituteInPlace ./man/md2man-all.sh            --replace md2man go-md2man
+    '' + optionalString buildxSupport ''
+      substituteInPlace ./cli-plugins/manager/manager_unix.go --replace /usr/libexec/docker/cli-plugins \
+          ${lib.strings.makeSearchPathOutput "bin" "libexec/docker/cli-plugins" [docker-buildx]}
     '';
 
     outputs = ["out" "man"];
@@ -212,7 +215,7 @@ rec {
 
   # Get revisions from
   # https://github.com/moby/moby/tree/${version}/hack/dockerfile/install/*
-  docker_20_10 = makeOverridable dockerGen rec {
+  docker_20_10 = callPackage dockerGen rec {
     version = "20.10.2";
     rev = "v${version}";
     sha256 = "0z0hpm5hrqh7p8my8lmiwpym2shs48my6p0zv2cc34wym0hcly51";

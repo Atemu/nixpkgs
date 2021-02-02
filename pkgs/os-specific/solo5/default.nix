@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, pkg-config, libseccomp }:
+{ lib, stdenv, fetchurl, pkg-config, libseccomp, util-linux, qemu }:
 
 let version = "0.6.7";
 in stdenv.mkDerivation {
@@ -36,6 +36,7 @@ in stdenv.mkDerivation {
   '';
 
   doCheck = true;
+  checkInputs = [ util-linux qemu ];
   checkPhase = if stdenv.hostPlatform.isLinux then
     ''
     patchShebangs tests
@@ -49,10 +50,11 @@ in stdenv.mkDerivation {
     homepage = "https://github.com/solo5/solo5";
     license = licenses.isc;
     maintainers = [ maintainers.ehmry ];
-    platforms = lib.crossLists (arch: os: "${arch}-${os}") [
-      [ "aarch64" "x86_64" ]
-      [ "freebsd" "genode" "linux" "openbsd" ]
-    ];
+    platforms = builtins.map ({arch, os}: "${arch}-${os}")
+      (cartesianProductOfSets {
+        arch = [ "aarch64" "x86_64" ];
+        os = [ "freebsd" "genode" "linux" "openbsd" ];
+      });
   };
 
 }

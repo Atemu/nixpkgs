@@ -64,7 +64,7 @@ self: super: {
       name = "git-annex-${super.git-annex.version}-src";
       url = "git://git-annex.branchable.com/";
       rev = "refs/tags/" + super.git-annex.version;
-      sha256 = "0w71kbz127fcli24sxsvd48l5xamwamjwhr18x9alam5cldqkkz1";
+      sha256 = "1m9jfr5b0qwajwwmvcq02263bmnqgcqvpdr06sdwlfz3sxsjfp8r";
     };
   }).override {
     dbus = if pkgs.stdenv.isLinux then self.dbus else null;
@@ -223,7 +223,7 @@ self: super: {
     # https://github.com/haskell-nix/hnix-store/issues/104
     # Until unpin, which may hold off in time due to Stackage maintenence bottleneck
     # the 0_4_0_0 is used
-    hnix-store-core = self.hnix-store-core_0_4_0_0; # at least 1.7
+    hnix-store-core = self.hnix-store-core_0_4_1_0; # at least 1.7
 
   });
 
@@ -232,9 +232,11 @@ self: super: {
   # Until unpin, which may hold off in time due to Stackage maintenence bottleneck
   # the 0_4_0_0 is used
   hnix-store-remote = (super.hnix-store-remote.override {
-    hnix-store-core = self.hnix-store-core_0_4_0_0; # at least 1.7
+    hnix-store-core = self.hnix-store-core_0_4_1_0; # at least 1.7
   });
 
+  # https://github.com/haskell-nix/hnix-store/issues/127
+  hnix-store-core_0_4_1_0 = addTestToolDepend super.hnix-store-core_0_4_1_0 self.tasty-discover;
 
   # Fails for non-obvious reasons while attempting to use doctest.
   search = dontCheck super.search;
@@ -813,8 +815,9 @@ self: super: {
   # https://github.com/haskell-hvr/cryptohash-sha512/pull/5#issuecomment-752796913
   cryptohash-sha512 = dontCheck (doJailbreak super.cryptohash-sha512);
 
-  # Depends on tasty < 1.x, which we don't have.
-  cryptohash-sha256 = doJailbreak super.cryptohash-sha256;
+  # https://github.com/haskell-hvr/cryptohash-sha256/issues/11
+  # Jailbreak is necessary to break out of tasty < 1.x dependency.
+  cryptohash-sha256 = markUnbroken (doJailbreak super.cryptohash-sha256);
 
   # Needs tasty-quickcheck ==0.8.*, which we don't have.
   cryptohash-sha1 = doJailbreak super.cryptohash-sha1;
@@ -1410,17 +1413,19 @@ self: super: {
   # https://github.com/haskell/haskell-language-server/issues/610
   # https://github.com/haskell/haskell-language-server/issues/611
   haskell-language-server = dontCheck (super.haskell-language-server.override {
-    lsp-test = dontCheck self.lsp-test_0_11_0_7;
+    lsp-test = dontCheck self.lsp-test;
     fourmolu = self.fourmolu_0_3_0_0;
   });
+  # 2021-01-20
+  # apply-refact 0.9.0.0 get's a build error with hls-hlint-plugin 0.8.0
+  # https://github.com/haskell/haskell-language-server/issues/1240
+  apply-refact = super.apply-refact_0_8_2_1;
 
   fourmolu = dontCheck super.fourmolu;
+
   # 1. test requires internet
   # 2. dependency shake-bench hasn't been published yet so we also need unmarkBroken and doDistribute
-  ghcide = doDistribute (unmarkBroken (dontCheck
-  (super.ghcide_0_7_0_0.override {
-    lsp-test = dontCheck self.lsp-test_0_11_0_7;
-  })));
+  ghcide = doDistribute (unmarkBroken (dontCheck (super.ghcide_0_7_0_0.override { lsp-test = dontCheck self.lsp-test; })));
   refinery = doDistribute super.refinery_0_3_0_0;
   data-tree-print = doJailbreak super.data-tree-print;
 

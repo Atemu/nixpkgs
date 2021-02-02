@@ -1,4 +1,4 @@
-{ stdenv
+{ lib, stdenv
 , fetchurl
 , perl
 , python3
@@ -51,13 +51,11 @@
 , xdg-dbus-proxy
 , substituteAll
 , glib
-, libwpe
-, libwpe-fdo
 }:
 
 assert enableGeoLocation -> geoclue2 != null;
 
-with stdenv.lib;
+with lib;
 
 stdenv.mkDerivation rec {
   pname = "webkitgtk";
@@ -80,7 +78,7 @@ stdenv.mkDerivation rec {
     ./libglvnd-headers.patch
   ];
 
-  preConfigure = stdenv.lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
+  preConfigure = lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
     # Ignore gettext in cmake_prefix_path so that find_program doesn't
     # pick up the wrong gettext. TODO: Find a better solution for
     # this, maybe make cmake not look up executables in
@@ -100,7 +98,7 @@ stdenv.mkDerivation rec {
     python3
     ruby
     glib # for gdbus-codegen
-  ] ++ stdenv.lib.optionals stdenv.isLinux [
+  ] ++ lib.optionals stdenv.isLinux [
     wayland # for wayland-scanner
   ];
 
@@ -122,8 +120,6 @@ stdenv.mkDerivation rec {
     libsecret
     libtasn1
     libwebp
-    libwpe
-    libwpe-fdo
     libxkbcommon
     libxml2
     libxslt
@@ -158,6 +154,7 @@ stdenv.mkDerivation rec {
     "-DENABLE_INTROSPECTION=ON"
     "-DPORT=GTK"
     "-DUSE_LIBHYPHEN=OFF"
+    "-DUSE_WPE_RENDERER=OFF"
   ] ++ optionals stdenv.isDarwin [
     "-DENABLE_GRAPHICS_CONTEXT_3D=OFF"
     "-DENABLE_GTKDOC=OFF"

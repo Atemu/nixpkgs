@@ -420,6 +420,26 @@ http://some.json-exporter.host:7979/probe?target=https://example.com/some/json/e
    </listitem>
    <listitem>
      <para>
+       The attribute <varname>mpi</varname> is now consistently used to
+       provide a default, system-wide MPI implementation.
+       The default implementation is openmpi, which has been used before by
+       all derivations affects by this change.
+       Note that all packages that have used <varname>mpi ? null</varname> in the input
+       for optional MPI builds, have been changed to the boolean input paramater
+       <varname>useMpi</varname> to enable building with MPI.
+
+       Building all packages with <varname>mpich</varname> instead
+       of the default <varname>openmpi</varname> can now be achived like this:
+       <programlisting>
+self: super:
+{
+ mpi = super.mpich;
+}
+       </programlisting>
+     </para>
+   </listitem>
+   <listitem>
+     <para>
       The Searx module has been updated with the ability to configure the
       service declaratively and uWSGI integration.
       The option <literal>services.searx.configFile</literal> has been renamed
@@ -428,6 +448,22 @@ http://some.json-exporter.host:7979/probe?target=https://example.com/some/json/e
       <literal>searx</literal> uid and gid reservations have been removed
       since they were not necessary: the service is now running with a
       dynamically allocated uid.
+    </para>
+   </listitem>
+   <listitem>
+     <para>
+      The libinput module has been updated with the ability to configure mouse and touchpad settings separately.
+      The options in <literal>services.xserver.libinput</literal> have been renamed to <literal>services.xserver.libinput.touchpad</literal>,
+      while there is a new <literal>services.xserver.libinput.mouse</literal> for mouse related configuration.
+     </para>
+     <para>
+      Since touchpad options no longer apply to all devices, you may want to replicate your touchpad configuration in
+      mouse section.
+     </para>
+   </listitem>
+   <listitem>
+    <para>
+     ALSA OSS emulation (<varname>sound.enableOSSEmulation</varname>) is now disabled by default.
     </para>
    </listitem>
   </itemizedlist>
@@ -441,6 +477,14 @@ http://some.json-exporter.host:7979/probe?target=https://example.com/some/json/e
   <title>Other Notable Changes</title>
 
   <itemizedlist>
+   <listitem>
+    <para>
+     <literal>stdenv.lib</literal> has been deprecated and will break
+     eval in 21.11.  Please use <literal>pkgs.lib</literal> instead.
+     See <link xlink:href="https://github.com/NixOS/nixpkgs/issues/108938">#108938</link>
+     for details.
+    </para>
+   </listitem>
    <listitem>
     <para>
      The Mailman NixOS module (<literal>services.mailman</literal>) has a new
@@ -576,6 +620,15 @@ http://some.json-exporter.host:7979/probe?target=https://example.com/some/json/e
    </listitem>
    <listitem>
     <para>
+     In the ACME module, the data used to build the hash for the account
+     directory has changed to accomodate new features to reduce account
+     rate limit issues. This will trigger new account creation on the first
+     rebuild following this update. No issues are expected to arise from this,
+     thanks to the new account creation handling.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
      <xref linkend="opt-users.users._name_.createHome" /> now always ensures home directory permissions to be <literal>0700</literal>.
      Permissions had previously been ignored for already existing home directories, possibly leaving them readable by others.
      The option's description was incorrect regarding ownership management and has been simplified greatly.
@@ -590,6 +643,27 @@ http://some.json-exporter.host:7979/probe?target=https://example.com/some/json/e
     <para>
      NixOS now generates empty <literal>/etc/netgroup</literal>.
      <literal>/etc/netgroup</literal> defines network-wide groups and may affect to setups using NIS.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Platforms, like <varname>stdenv.hostPlatform</varname>, no longer have a <varname>platform</varname> attribute.
+     It has been (mostly) flattoned away:
+    </para>
+    <itemizedlist>
+     <listitem><para><varname>platform.gcc</varname> is now <varname>gcc</varname></para></listitem>
+     <listitem><para><literal>platform.kernel*</literal> is now <literal>linux-kernel.*</literal></para></listitem>
+    </itemizedlist>
+    <para>
+     Additionally, <varname>platform.kernelArch</varname> moved to the top level as <varname>linuxArch</varname> to match the other <literal>*Arch</literal> variables.
+    </para>
+    <para>
+     The <varname>platform</varname> grouping of these things never meant anything, and was just a historial/implementation artifact that was overdue removal.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     <varname>services.restic</varname> now uses a dedicated cache directory for every backup defined in <varname>services.restic.backups</varname>. The old global cache directory, <literal>/root/.cache/restic</literal>, is now unused and can be removed to free up disk space.
     </para>
    </listitem>
   </itemizedlist>
