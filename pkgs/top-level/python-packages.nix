@@ -204,6 +204,8 @@ in {
 
   aioamqp = callPackage ../development/python-modules/aioamqp { };
 
+  ailment = callPackage ../development/python-modules/ailment { };
+
   aiocoap = callPackage ../development/python-modules/aiocoap { };
 
   aioconsole = callPackage ../development/python-modules/aioconsole { };
@@ -1281,6 +1283,8 @@ in {
 
   class-registry = callPackage ../development/python-modules/class-registry { };
 
+  claripy =  callPackage ../development/python-modules/claripy { };
+
   cld2-cffi = callPackage ../development/python-modules/cld2-cffi { };
 
   cleo = callPackage ../development/python-modules/cleo { };
@@ -1960,6 +1964,8 @@ in {
 
   dpkt = callPackage ../development/python-modules/dpkt { };
 
+  drf-nested-routers = callPackage ../development/python-modules/drf-nested-routers { };
+
   drf-yasg = callPackage ../development/python-modules/drf-yasg { };
 
   drms = callPackage ../development/python-modules/drms { };
@@ -2086,6 +2092,8 @@ in {
   etebase = callPackage ../development/python-modules/etebase {
     inherit (pkgs.darwin.apple_sdk.frameworks) Security;
   };
+
+  etebase-server = callPackage ../servers/etebase { };
 
   etesync = callPackage ../development/python-modules/etesync { };
 
@@ -3656,6 +3664,8 @@ in {
     inherit python;
   })).py;
 
+  libpurecool = callPackage ../development/python-modules/libpurecool { };
+
   libredwg = toPythonModule (pkgs.libredwg.override {
     enablePython = true;
     inherit (self) python libxml2;
@@ -4886,6 +4896,10 @@ in {
     inherit (pkgs.libsForQt5) soqt;
   };
 
+  pixelmatch = callPackage ../development/python-modules/pixelmatch { };
+
+  pkce = callPackage ../development/python-modules/pkce { };
+
   pkgconfig = callPackage ../development/python-modules/pkgconfig { inherit (pkgs) pkg-config; };
 
   pkginfo = callPackage ../development/python-modules/pkginfo { };
@@ -4894,7 +4908,11 @@ in {
 
   pynndescent = callPackage ../development/python-modules/pynndescent { };
 
+  pynuki = callPackage ../development/python-modules/pynuki { };
+
   pysbd = callPackage ../development/python-modules/pysbd { };
+
+  pyshark = callPackage ../development/python-modules/pyshark { };
 
   python-codon-tables = callPackage ../development/python-modules/python-codon-tables { };
 
@@ -5066,6 +5084,8 @@ in {
   progress = callPackage ../development/python-modules/progress { };
 
   prometheus_client = callPackage ../development/python-modules/prometheus_client { };
+
+  prometheus-flask-exporter = callPackage ../development/python-modules/prometheus-flask-exporter { };
 
   promise = callPackage ../development/python-modules/promise { };
 
@@ -5646,6 +5666,8 @@ in {
 
   py-multibase = callPackage ../development/python-modules/py-multibase { };
 
+  py-multicodec = callPackage ../development/python-modules/py-multicodec { };
+
   py-multihash = callPackage ../development/python-modules/py-multihash { };
 
   pymumble = callPackage ../development/python-modules/pymumble { };
@@ -5714,6 +5736,8 @@ in {
   pyopengl-accelerate = callPackage ../development/python-modules/pyopengl-accelerate { };
 
   pyopenssl = callPackage ../development/python-modules/pyopenssl { };
+
+  pyopenuv = callPackage ../development/python-modules/pyopenuv { };
 
   pyopnsense = callPackage ../development/python-modules/pyopnsense { };
 
@@ -5925,6 +5949,8 @@ in {
 
   pyslurm = callPackage ../development/python-modules/pyslurm { slurm = pkgs.slurm; };
 
+  pysma = callPackage ../development/python-modules/pysma { };
+
   pysmb = callPackage ../development/python-modules/pysmb { };
 
   pysmbc = callPackage ../development/python-modules/pysmbc { inherit (pkgs) pkg-config; };
@@ -5932,6 +5958,8 @@ in {
   pysmf = callPackage ../development/python-modules/pysmf { };
 
   pysmi = callPackage ../development/python-modules/pysmi { };
+
+  pysmt = callPackage ../development/python-modules/pysmt { };
 
   pysnmp = callPackage ../development/python-modules/pysnmp { };
 
@@ -6501,6 +6529,8 @@ in {
   pyvcf = callPackage ../development/python-modules/pyvcf { };
 
   pyvera = callPackage ../development/python-modules/pyvera { };
+
+  pyvex = callPackage ../development/python-modules/pyvex { };
 
   pyviz-comms = callPackage ../development/python-modules/pyviz-comms { };
 

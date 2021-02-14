@@ -2279,6 +2279,12 @@
     githubId = 265220;
     name = "David Leung";
   };
+  DianaOlympos = {
+    email = "DianaOlympos@noreply.github.com";
+    github = "DianaOlympos";
+    githubId = 15774340;
+    name = "Thomas Depierre";
+  };
   dipinhora = {
     email = "dipinhora+github@gmail.com";
     github = "dipinhora";
@@ -3043,6 +3049,12 @@
     githubId = 9959940;
     name = "Andreas Fehn";
   };
+  felixsinger = {
+    email = "felixsinger@posteo.net";
+    github = "felixsinger";
+    githubId = 628359;
+    name = "Felix Singer";
+  };
   felschr = {
     email = "dev@felschr.com";
     github = "felschr";
@@ -3064,6 +3076,12 @@
     github = "fgaz";
     githubId = 8182846;
     name = "Francesco Gazzetta";
+  };
+  figsoda = {
+    email = "figsoda@pm.me";
+    github = "figsoda";
+    githubId = 40620903;
+    name = "figsoda";
   };
   fionera = {
     email = "nix@fionera.de";
@@ -3788,6 +3806,12 @@
     github = "hugolgst";
     githubId = 15371828;
     name = "Hugo Lageneste";
+  };
+  hypersw = {
+    email = "baltic@hypersw.net";
+    github = "hypersw";
+    githubId = 2332070;
+    name = "Serge Baltic";
   };
   hyphon81 = {
     email = "zero812n@gmail.com";
@@ -7101,6 +7125,12 @@
     githubId = 15645854;
     name = "Brad Christensen";
   };
+  payas = {
+    email = "relekarpayas@gmail.com";
+    github = "payasrelekar";
+    githubId = 24254289;
+    name = "Payas Relekar";
+  };
   pawelpacana = {
     email = "pawel.pacana@gmail.com";
     github = "pawelpacana";
@@ -7150,7 +7180,7 @@
     name = "Paulus Esterhazy";
   };
   petabyteboy = {
-    email = "me@pbb.lc";
+    email = "milan@petabyte.dev";
     github = "petabyteboy";
     githubId = 3250809;
     name = "Milan Pässler";
@@ -7560,6 +7590,12 @@
     github = "qoelet";
     githubId = 115877;
     name = "Kenny Shen";
+  };
+  queezle = {
+    email = "git@queezle.net";
+    github = "qzle";
+    githubId = 1024891;
+    name = "Jens Nolte";
   };
   quentini = {
     email = "quentini@airmail.cc";
@@ -9969,6 +10005,12 @@
     github = "winpat";
     githubId = 6016963;
     name = "Patrick Winter";
+  };
+  winterqt = {
+    email = "nixos@winter.cafe";
+    github = "winterqt";
+    githubId = 78392041;
+    name = "Winter";
   };
   wishfort36 = {
     email = "42300264+wishfort36@users.noreply.github.com";

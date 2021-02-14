@@ -466,6 +466,34 @@ self: super:
      ALSA OSS emulation (<varname>sound.enableOSSEmulation</varname>) is now disabled by default.
     </para>
    </listitem>
+   <listitem>
+    <para>
+      Thinkfan as been updated to <literal>1.2.x</literal>, which comes with a
+      new YAML based configuration format. For this reason, several NixOS options
+      of the thinkfan module have been changed to non-backward compatible types.
+      In addition, a new <xref linkend="opt-services.thinkfan.settings"/> option has
+      been added.
+    </para>
+    <para>
+      Please read the <link xlink:href="https://github.com/vmatare/thinkfan#readme">
+      thinkfan documentation</link> before updating.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Adobe Flash Player support has been dropped from the tree. In particular,
+     the following packages no longer support it:
+     <itemizedlist>
+      <listitem><simpara><package>chromium</package></simpara></listitem>
+      <listitem><simpara><package>firefox</package></simpara></listitem>
+      <listitem><simpara><package>qt48</package></simpara></listitem>
+      <listitem><simpara><package>qt5.qtwebkit</package></simpara></listitem>
+     </itemizedlist>
+     Additionally, packages <package>flashplayer</package> and
+     <package>hal-flash</package> were removed along with the
+     <varname>services.flashpolicyd</varname> module.
+    </para>
+   </listitem>
   </itemizedlist>
  </section>
 

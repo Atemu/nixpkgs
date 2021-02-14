@@ -150,6 +150,7 @@ mapAliases ({
   dydisnix = throw "dydisnix has been removed."; # added 2021-01-27
   dysnomia = throw "dysnomia has been removed."; # added 2021-01-27
   dwarf_fortress = dwarf-fortress; # added 2016-01-23
+  dwm-git = throw "dwm-git has been removed from nixpkgs, as it had no updates for 2 years not serving it's purpose."; # added 2021-02-07
   elasticmq = throw "elasticmq has been removed in favour of elasticmq-server-bin"; # added 2021-01-17
   emacsPackagesGen = emacsPackagesFor; # added 2018-08-18
   emacsPackagesNgGen = emacsPackagesFor; # added 2018-08-18
@@ -178,6 +179,9 @@ mapAliases ({
   firestr = throw "firestr has been removed."; # added 2019-12-08
   fish-foreign-env = throw "fish-foreign-env has been replaced with fishPlugins.foreign-env"; # added 2020-12-29, modified 2021-01-10
   flameGraph = flamegraph; # added 2018-04-25
+  flashplayer = throw "flashplayer has been removed as Adobe Flash Player is now deprecated."; # added 2021-02-07
+  flashplayer-standalone = throw "flashplayer-standalone has been removed as Adobe Flash Player is now deprecated."; # added 2021-02-07
+  flashplayer-standalone-debugger = throw "flashplayer-standalone-debugger has been removed as Adobe Flash Player is now deprecated."; # added 2021-02-07
   flink_1_5 = throw "flink_1_5 was removed, use flink instead"; # added 2021-01-25
   flutter-beta = throw "Non-stable versions of Flutter have been removed. You can use flutterPackages.mkFlutter to generate a package for other Flutter versions."; # added 2020-01-15
   flutter-dev = throw "Non-stable versions of Flutter have been removed. You can use flutterPackages.mkFlutter to generate a package for other Flutter versions."; # added 2020-01-15
@@ -261,6 +265,7 @@ mapAliases ({
   gupnp_igd = gupnp-igd; # added 2018-02-25
   gupnptools = gupnp-tools;  # added 2015-12-19
   gutenberg = zola;  # added 2018-11-17
+  hal-flash = throw "hal-flash has been removed as Adobe Flash Player is now deprecated."; # added 2021-02-07
   heimdalFull = heimdal; # added 2018-05-01
   hepmc = hepmc2; # added 2019-08-05
   hexen = throw "hexen (SDL port) has been removed: abandoned by upstream."; # added 2019-12-11
@@ -709,6 +714,7 @@ mapAliases ({
   ultrastardx-beta = ultrastardx; # added 2017-08-12
   unicorn-emu = unicorn; # added 2020-10-29
   unifiStable = unifi6; # added 2020-12-28
+  untrunc = untrunc-anthwlock; # added 2021-02-01
   usb_modeswitch = usb-modeswitch; # added 2016-05-10
   usbguard-nox = usbguard; # added 2019-09-04
   utillinux = util-linux; # added 2020-11-24
@@ -717,6 +723,7 @@ mapAliases ({
   v8_3_16_14 = throw "v8_3_16_14 was removed in 2019-11-01: no longer referenced by other packages";
   valadoc = throw "valadoc was deprecated on 2019-10-10: valadoc was merged into vala 0.38";
   vamp = { vampSDK = vamp-plugin-sdk; }; # added 2020-03-26
+  venus = throw "venus has been removed from nixpkgs, as it's unmaintained"; # added 2021-02-05
   vdirsyncerStable  = vdirsyncer; # added 2020-11-08, see https://github.com/NixOS/nixpkgs/issues/103026#issuecomment-723428168
   vimbWrapper = vimb; # added 2015-01
   vimprobable2 = throw "vimprobable2 has been removed from nixpkgs. It relied on webkitgtk24x that has been removed."; # added 2019-12-05
@@ -846,6 +853,8 @@ mapAliases ({
 
   /* Added 2021-01-02 */
   ttyrec = ovh-ttyrec;
+
+  zplugin = zinit; # Added 2021-01-30
 
   /* If these are in the scope of all-packages.nix, they cause collisions
   between mixed versions of qt. See:

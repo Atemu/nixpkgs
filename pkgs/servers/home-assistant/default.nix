@@ -57,7 +57,7 @@ let
   extraBuildInputs = extraPackages py.pkgs;
 
   # Don't forget to run parse-requirements.py after updating
-  hassVersion = "2021.2.0";
+  hassVersion = "2021.2.2";
 
 in with py.pkgs; buildPythonApplication rec {
   pname = "homeassistant";
@@ -76,7 +76,7 @@ in with py.pkgs; buildPythonApplication rec {
     owner = "home-assistant";
     repo = "core";
     rev = version;
-    sha256 = "116aq683wy7sxdbxr43li90irpfbsz0dv8w0r1fghcjpwlj7ihwa";
+    sha256 = "0y7yj3kwk2454yghslvv5s2783rch9pznhxrw4mh3plr6qzi70rp";
   };
 
   # leave this in, so users don't have to constantly update their downstream patch handling
@@ -101,6 +101,7 @@ in with py.pkgs; buildPythonApplication rec {
     astral
     async-timeout
     attrs
+    awesomeversion
     bcrypt
     certifi
     ciso8601
@@ -181,30 +182,27 @@ in with py.pkgs; buildPythonApplication rec {
 
   pytestFlagsArray = [
     "-n auto"
+    # assign tests grouped by file to workers
+    "--dist loadfile"
     # don't bulk test all components
     "--ignore tests/components"
-    # prone to race conditions due to parallel file access
-    "--ignore tests/test_config.py"
     # pyotp since v2.4.0 complains about the short mock keys, hass pins v2.3.0
     "--ignore tests/auth/mfa_modules/test_notify.py"
     "tests"
   ] ++ map (component: "tests/components/" + component) componentTests;
 
   disabledTests = [
-    # AssertionError: assert 'unknown' == 'not_home'
-    "test_device_tracker_not_home"
+    # AssertionError: assert 1 == 0
+    "test_merge"
+    # ModuleNotFoundError: No module named 'pyqwikswitch'
+    "test_merge_id_schema"
     # keyring.errors.NoKeyringError: No recommended backend was available.
     "test_secrets_from_unrelated_fails"
     "test_secrets_credstash"
-    # AssertionError: Expected 'start' to have been called once. Called 0 times.
-    "test_setup_and_stop"
-    # AssertionError: assert {} == {'test': <ANY...ckage': <ANY>}
-    "test_get_custom_components_internal"
-    # assert 0 == 1 where 0 = len([])
+    # system_log/test_init.py: assert 0 == 1 where 0 = len([])
     "test_error_posted_as_event"
-    # RuntimeError: Event loop is closed
-    "test_config_path"
-    "test_info_endpoint_register_callback_timeout"
+    # ssdp/test_init.py: RuntimeError: Event loop is closed
+    "test_scan_match_st"
   ];
 
   preCheck = ''
