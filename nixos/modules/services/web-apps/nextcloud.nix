@@ -368,7 +368,7 @@ in {
         '')
         ++ (optional (versionOlder cfg.package.version "18") (upgradeWarning 17 "20.03"))
         ++ (optional (versionOlder cfg.package.version "19") (upgradeWarning 18 "20.09"))
-        ++ (optional (versionOlder cfg.package.version "20") (upgradeWarning 19 "21.03"));
+        ++ (optional (versionOlder cfg.package.version "20") (upgradeWarning 19 "21.05"));
 
       services.nextcloud.package = with pkgs;
         mkDefault (
@@ -380,6 +380,10 @@ in {
             ''
           else if versionOlder stateVersion "20.03" then nextcloud17
           else if versionOlder stateVersion "20.09" then nextcloud18
+          # 21.03 will not be an official release - it was instead 21.05.
+          # This versionOlder statement remains set to 21.03 for backwards compatibility.
+          # See https://github.com/NixOS/nixpkgs/pull/108899 and
+          # https://github.com/NixOS/rfcs/blob/master/rfcs/0080-nixos-release-schedule.md.
           else if versionOlder stateVersion "21.03" then nextcloud19
           else nextcloud20
         );
@@ -598,11 +602,12 @@ in {
           "^~ /.well-known" = {
             priority = 210;
             extraConfig = ''
+              absolute_redirect off;
               location = /.well-known/carddav {
-                return 301 $scheme://$host/remote.php/dav;
+                return 301 /remote.php/dav;
               }
               location = /.well-known/caldav {
-                return 301 $scheme://$host/remote.php/dav;
+                return 301 /remote.php/dav;
               }
               try_files $uri $uri/ =404;
             '';
@@ -610,7 +615,7 @@ in {
           "~ ^/(?:build|tests|config|lib|3rdparty|templates|data)(?:$|/)".extraConfig = ''
             return 404;
           '';
-          "~ ^/(?:\\.|autotest|occ|issue|indie|db_|console)".extraConfig = ''
+          "~ ^/(?:\\.(?!well-known)|autotest|occ|issue|indie|db_|console)".extraConfig = ''
             return 404;
           '';
           "~ ^\\/(?:index|remote|public|cron|core\\/ajax\\/update|status|ocs\\/v[12]|updater\\/.+|oc[ms]-provider\\/.+|.+\\/richdocumentscode\\/proxy)\\.php(?:$|\\/)" = {

@@ -80,6 +80,7 @@
   ./hardware/video/displaylink.nix
   ./hardware/video/hidpi.nix
   ./hardware/video/nvidia.nix
+  ./hardware/video/switcheroo-control.nix
   ./hardware/video/uvcvideo/default.nix
   ./hardware/video/webcam/facetimehd.nix
   ./hardware/xpadneo.nix
@@ -320,7 +321,8 @@
   ./services/desktops/gsignond.nix
   ./services/desktops/gvfs.nix
   ./services/desktops/malcontent.nix
-  ./services/desktops/pipewire.nix
+  ./services/desktops/pipewire/pipewire.nix
+  ./services/desktops/pipewire/pipewire-media-session.nix
   ./services/desktops/gnome3/at-spi2-core.nix
   ./services/desktops/gnome3/chrome-gnome-shell.nix
   ./services/desktops/gnome3/evolution-data-server.nix
@@ -459,6 +461,7 @@
   ./services/misc/errbot.nix
   ./services/misc/etcd.nix
   ./services/misc/etebase-server.nix
+  ./services/misc/etesync-dav.nix
   ./services/misc/ethminer.nix
   ./services/misc/exhibitor.nix
   ./services/misc/felix.nix
@@ -891,6 +894,7 @@
   ./services/web-apps/jitsi-meet.nix
   ./services/web-apps/keycloak.nix
   ./services/web-apps/limesurvey.nix
+  ./services/web-apps/mastodon.nix
   ./services/web-apps/mattermost.nix
   ./services/web-apps/mediawiki.nix
   ./services/web-apps/miniflux.nix

@@ -1408,12 +1408,23 @@ self: super: {
   # 2020-11-19: Checks nearly fixed, but still disabled because of flaky tests:
   # https://github.com/haskell/haskell-language-server/issues/610
   # https://github.com/haskell/haskell-language-server/issues/611
-  haskell-language-server = dontCheck super.haskell-language-server;
+  haskell-language-server = overrideCabal (dontCheck super.haskell-language-server) {
+    # 2020-02-19: Override is necessary because of wrong bound on upstream, remove after next hackage update
+    preConfigure = ''
+      substituteInPlace haskell-language-server.cabal --replace "hls-explicit-imports-plugin ==0.1.0.1" "hls-explicit-imports-plugin ==0.1.0.0"
+    '';
+  };
 
-  # 2021-01-20
-  # apply-refact 0.9.0.0 get's a build error with hls-hlint-plugin 0.8.0
-  # https://github.com/haskell/haskell-language-server/issues/1240
-  apply-refact = super.apply-refact_0_8_2_1;
+  # 2021-02-08: Jailbreaking because of
+  # https://github.com/haskell/haskell-language-server/issues/1329
+  hls-tactics-plugin = doJailbreak super.hls-tactics-plugin;
+  # 2021-02-11: Jailbreaking because of syntax error on bound revision
+  hls-explicit-imports-plugin = doJailbreak super.hls-explicit-imports-plugin;
+
+  # 2021-02-08: Overrides because nightly is to old for hls 0.9.0
+  lsp-test = doDistribute (dontCheck self.lsp-test_0_11_0_7);
+  haskell-lsp = doDistribute self.haskell-lsp_0_23_0_0;
+  haskell-lsp-types = doDistribute self.haskell-lsp-types_0_23_0_0;
 
   # 1. test requires internet
   # 2. dependency shake-bench hasn't been published yet so we also need unmarkBroken and doDistribute
@@ -1496,6 +1507,8 @@ self: super: {
   # 2020-11-19: Jailbreaking until: https://github.com/snapframework/heist/pull/124
   heist = doJailbreak super.heist;
 
+  hinit = generateOptparseApplicativeCompletion "hi" (super.hinit.override { haskeline = self.haskeline_0_8_1_1; });
+
   # 2020-11-19: Jailbreaking until: https://github.com/snapframework/snap/pull/219
   snap = doJailbreak super.snap;
 
@@ -1567,4 +1580,15 @@ self: super: {
   # Allow building with older versions of http-client.
   http-client-restricted = doJailbreak super.http-client-restricted;
 
+  # 2020-02-11: https://github.com/ekmett/lens/issues/969
+  # A change in vector 0.2.12 broke the lens doctests.
+  # This is fixed on lens master. Remove this override on assert fail.
+  lens = assert super.lens.version == "4.19.2"; doJailbreak (dontCheck super.lens);
+
+  # Test suite fails, upstream not reachable for simple fix (not responsive on github)
+  vivid-osc = dontCheck super.vivid-osc;
+  vivid-supercollider = dontCheck super.vivid-supercollider;
+
+  # Overly strict version bounds: https://github.com/Profpatsch/yarn-lock/issues/8
+  yarn-lock = doJailbreak super.yarn-lock;
 } // import ./configuration-tensorflow.nix {inherit pkgs haskellLib;} self super

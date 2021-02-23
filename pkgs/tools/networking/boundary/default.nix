@@ -14,12 +14,12 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "boundary";
-  version = "0.1.5";
+  version = "0.1.7";
 
   src = fetchsrc version {
-    x86_64-linux = "sha256-A8dfmFjvOHDwotCyRq9QQ9uHJIkq1JkIwtHsqDqTSNo=";
-    aarch64-linux = "sha256-i2qc4bmoSzUwNCQmnXLFQ+W4VZjVwXzEBSF3NeTju3M=";
-    x86_64-darwin = "sha256-lKGTpS2TmgxFdjUsBXKg8Mu6oJA0VidHc/noWWEuUVo=";
+    x86_64-linux = "sha256-cSD9V/Hj/eEc6k+LMNRnSEA94fA6bQUfCgA+XdqAR4k=";
+    aarch64-linux = "sha256-MG97PhG/t1rdmTF3n2YHYsTo8VODCaY3cfnv8YHgAY8=";
+    x86_64-darwin = "sha256-p60UiIy9DGx7AaEvmyo4FLa0Z67MQRNJkw1nHaM6eww=";
   };
 
   dontConfigure = true;
@@ -27,6 +27,14 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     install -D boundary $out/bin/boundary
+  '';
+
+  doInstallCheck = true;
+  installCheckPhase = ''
+    runHook preInstallCheck
+    $out/bin/boundary --help
+    $out/bin/boundary version
+    runHook postInstallCheck
   '';
 
   dontPatchELF = true;
