@@ -166,9 +166,7 @@ mapAliases ({
   emacsPackagesNgGen = emacsPackagesFor; # added 2018-08-18
   emacsPackagesNgFor = emacsPackagesFor; # added 2019-08-07
   emacsPackagesNg = emacs.pkgs; # added 2019-08-07
-  emacs26Packages = emacs26.pkgs; # added 2020-12-18
   emacs27Packages = emacs27.pkgs; # added 2020-12-18
-  emacs26WithPackages = emacs26.pkgs.withPackages; # added 2020-12-18
   emacs27WithPackages = emacs27.pkgs.withPackages; # added 2020-12-18
   emacsWithPackages = emacs.pkgs.withPackages; # added 2020-12-18
   emacsPackages = emacs.pkgs; # added 2020-12-18
@@ -286,6 +284,9 @@ mapAliases ({
   icedtea8_web = adoptopenjdk-icedtea-web; # added 2019-08-21
   icedtea_web = adoptopenjdk-icedtea-web; # added 2019-08-21
   idea = jetbrains; # added 2017-04-03
+  imagemagick7_light = imagemagick_light; # added 2021-02-22
+  imagemagick7 = imagemagick; # added 2021-02-22
+  imagemagick7Big = imagemagickBig; # added 2021-02-22
   inboxer = throw "inboxer has been removed as it is no longer maintained and no longer works as Google shut down the inbox service this package wrapped.";
   infiniband-diags = rdma-core; # added 2019-08-09
   inotifyTools = inotify-tools;
@@ -339,6 +340,7 @@ mapAliases ({
   liblapackWithoutAtlas = lapack-reference; # added 2018-11-05
   liblastfm = libsForQt5.liblastfm; # added 2020-06-14
   liblrdf = lrdf; # added 2018-04-25
+  libosmpbf = throw "libosmpbf was removed because it is no longer required by osrm-backend";
   libqrencode = qrencode;  # added 2019-01-01
   librdf = lrdf; # added 2020-03-22
   librecad2 = librecad;  # backwards compatibility alias, added 2015-10
@@ -615,6 +617,7 @@ mapAliases ({
   saneBackendsGit = sane-backends-git; # added 2016-01-02
   saneFrontends = sane-frontends; # added 2016-01-02
   sapic = throw "sapic was deprecated on 2019-1-19: sapic is bundled with 'tamarin-prover' now";
+  scaff = throw "scaff is deprecated - replaced by https://gitlab.com/jD91mZM2/inc (not in nixpkgs yet)"; # added 2020-03-01
   scim = sc-im; # added 2016-01-22
   scollector = bosun; # added 2018-04-25
   sdlmame = mame; # added 2019-10-30
@@ -678,6 +681,7 @@ mapAliases ({
   surf-webkit2 = surf; # added 2017-04-02
   sup = throw "sup was deprecated on 2019-09-10: abandoned by upstream";
   swfdec = throw "swfdec has been removed as broken and unmaintained."; # added 2020-08-23
+  swtpm-tpm2 = swtpm; # added 2021-02-26
   system_config_printer = system-config-printer;  # added 2016-01-03
   systemd-cryptsetup-generator = throw "systemd-cryptsetup-generator is now included in the systemd package"; # added 2020-07-12
   systemd_with_lvm2 = throw "systemd_with_lvm2 is obsolete, enabled by default via the lvm module"; # added 2020-07-12

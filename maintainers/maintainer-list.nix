@@ -2417,6 +2417,16 @@
     githubId = 6806011;
     name = "Robert Schütz";
   };
+  dottedmag = {
+    email = "dottedmag@dottedmag.net";
+    github = "dottedmag";
+    githubId = 16120;
+    name = "Misha Gusarov";
+    keys = [{
+      longkeyid = "rsa4096/0x9D20F6503E338888";
+      fingerprint = "A8DF 1326 9E5D 9A38 E57C  FAC2 9D20 F650 3E33 8888";
+    }];
+  };
   doublec = {
     email = "chris.double@double.co.nz";
     github = "doublec";
@@ -3060,6 +3070,12 @@
     github = "workflow";
     githubId = 1276854;
     name = "Florian Peter";
+  };
+  fbrs = {
+    email = "yuuki@protonmail.com";
+    github = "cideM";
+    githubId = 4246921;
+    name = "Florian Beeres";
   };
   fdns = {
     email = "fdns02@gmail.com";
@@ -6055,7 +6071,7 @@
     name = "Celine Mercier";
   };
   metadark = {
-    email = "kira.bruneau@gmail.com";
+    email = "kira.bruneau@pm.me";
     name = "Kira Bruneau";
     github = "metadark";
     githubId = 382041;
@@ -7203,6 +7219,12 @@
     githubId = 157610;
     name = "Piotr Bogdan";
   };
+  pborzenkov = {
+    email = "pavel@borzenkov.net";
+    github = "pborzenkov";
+    githubId = 434254;
+    name = "Pavel Borzenkov";
+  };
   pblkt = {
     email = "pebblekite@gmail.com";
     github = "pblkt";
@@ -8032,6 +8054,12 @@
     github = "robertodr";
     githubId = 3708689;
     name = "Roberto Di Remigio";
+  };
+  robertoszek = {
+    email = "robertoszek@robertoszek.xyz";
+    github = "robertoszek";
+    githubId = 1080963;
+    name = "Roberto";
   };
   robgssp = {
     email = "robgssp@gmail.com";
@@ -10761,5 +10789,11 @@
     email = "felix.scheinost@posteo.de";
     github = "felixscheinost";
     githubId = 31761492;
+  };
+  benneti = {
+    name = "Benedikt Tissot";
+    email = "benedikt.tissot@googlemail.com";
+    github = "benneti";
+    githubId = 11725645;
   };
 }

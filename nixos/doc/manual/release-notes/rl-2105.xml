@@ -523,6 +523,21 @@ self: super:
       as an hardware RNG, as it will automatically run the krngd task to periodically collect random
       data from the device and mix it into the kernel's RNG.
     </para>
+    <para>
+      The default SMTP port for GitLab has been changed to
+      <literal>25</literal> from its previous default of
+      <literal>465</literal>. If you depended on this default, you
+      should now set the <xref linkend="opt-services.gitlab.smtp.port" />
+      option.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     The default version of ImageMagick has been updated from 6 to 7.
+     You can use <package>imagemagick6</package>,
+     <package>imagemagick6_light</package>, and
+     <package>imagemagick6Big</package> if you need the older version.
+    </para>
    </listitem>
   </itemizedlist>
  </section>
@@ -728,6 +743,13 @@ self: super:
     <para>
      <literal>isync</literal>: The <literal>isync</literal> compatibility wrapper was removed and the Master/Slave
      terminology has been deprecated and should be replaced with Far/Near in the configuration file.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     The nix-gc service now accepts randomizedDelaySec (default: 0) and persistent (default: true) parameters.
+     By default nix-gc will now run immediately if it would have been triggered at least
+     once during the time when the timer was inactive.
     </para>
    </listitem>
   </itemizedlist>

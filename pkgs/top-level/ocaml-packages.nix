@@ -242,6 +242,8 @@ let
 
     digestif =  callPackage ../development/ocaml-modules/digestif { };
 
+    directories =  callPackage ../development/ocaml-modules/directories { };
+
     dispatch =  callPackage ../development/ocaml-modules/dispatch { };
 
     dns =  callPackage ../development/ocaml-modules/dns { };
@@ -917,6 +919,8 @@ let
       inherit (pkgs) postgresql;
     };
 
+    ppx_bap = callPackage ../development/ocaml-modules/ppx_bap { };
+
     ppx_bitstring = callPackage ../development/ocaml-modules/bitstring/ppx.nix { };
 
     ppxfind = callPackage ../development/ocaml-modules/ppxfind { };
@@ -1415,7 +1419,7 @@ in let inherit (pkgs) callPackage; in rec
 
   ocamlPackages_4_12 = mkOcamlPackages (callPackage ../development/compilers/ocaml/4.12.nix { });
 
-  ocamlPackages_latest = ocamlPackages_4_11;
+  ocamlPackages_latest = ocamlPackages_4_12;
 
   ocamlPackages = ocamlPackages_4_10;
 }

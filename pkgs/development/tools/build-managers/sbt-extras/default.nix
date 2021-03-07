@@ -1,36 +1,21 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, which
-, curl
-, makeWrapper
-, jdk
-, writeScript
-, common-updater-scripts
-, cacert
-, git
-, nixfmt
-, nix
-, jq
-, coreutils
-, gnused
-}:
+{ lib, stdenv, fetchFromGitHub, which, curl, makeWrapper, jdk, writeScript
+, common-updater-scripts, cacert, git, nixfmt, nix, jq, coreutils, gnused }:
 
 stdenv.mkDerivation rec {
   pname = "sbt-extras";
-  rev = "830b72140583e2790bbd3649890ac8ef5371d0c6";
-  version = "2021-02-04";
+  rev = "dc4f350f112580fcdf5f6fa7e8d5d2116475f84a";
+  version = "2021-03-01";
 
   src = fetchFromGitHub {
     owner = "paulp";
     repo = "sbt-extras";
     inherit rev;
-    sha256 = "0wq2mf8s254ns0sss5q394c1j2rnvl42x9l6kkrav505hbx0gyq6";
+    sha256 = "00qlmxnxmsjs5z03sd46j9spcz1jjkabip4z6f6r43pahjqyd0dk";
   };
 
   dontBuild = true;
 
-  buildInputs = [ makeWrapper ];
+  nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
     mkdir -p $out/bin

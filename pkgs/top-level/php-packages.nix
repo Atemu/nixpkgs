@@ -16,7 +16,7 @@ lib.makeScope pkgs.newScope (self: with self; {
   # Wrap mkDerivation to prepend pname with "php-" to make names consistent
   # with how buildPecl does it and make the file easier to overview.
   mkDerivation = { pname, ... }@args: pkgs.stdenv.mkDerivation (args // {
-    pname = "php-${pname}";
+    pname = "php-${php.version}-${pname}";
   });
 
   pcre' = if (lib.versionAtLeast php.version "7.3") then pcre2 else pcre;
@@ -29,7 +29,7 @@ lib.makeScope pkgs.newScope (self: with self; {
 
     composer = callPackage ../development/php-packages/composer { };
 
-    composer2 = callPackage ../development/php-packages/composer/2.0.nix { };
+    composer1 = callPackage ../development/php-packages/composer/1.x.nix { };
 
     php-cs-fixer = callPackage ../development/php-packages/php-cs-fixer { };
 
