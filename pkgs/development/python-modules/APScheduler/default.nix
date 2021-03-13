@@ -1,8 +1,8 @@
 { lib
 , buildPythonPackage
 , fetchPypi
-, setuptools_scm
-, pytest
+, setuptools-scm
+, pytestCheckHook
 , pytestcov
 , sqlalchemy
 , tornado
@@ -15,6 +15,7 @@
 , tzlocal
 , funcsigs
 , futures
+, setuptools
 , isPy3k
 }:
 
@@ -28,11 +29,11 @@ buildPythonPackage rec {
   };
 
   buildInputs = [
-    setuptools_scm
+    setuptools-scm
   ];
 
   checkInputs = [
-    pytest
+    pytestCheckHook
     pytestcov
     sqlalchemy
     tornado
@@ -47,18 +48,14 @@ buildPythonPackage rec {
     pytz
     tzlocal
     funcsigs
+    setuptools
   ] ++ lib.optional (!isPy3k) futures;
 
-  checkPhase = ''
-    py.test
-  '';
-
-  # Somehow it cannot find pytestcov
-  doCheck = false;
+  pythonImportsCheck = [ "apscheduler" ];
 
   meta = with lib; {
     description = "A Python library that lets you schedule your Python code to be executed";
-    homepage = "https://pypi.python.org/pypi/APScheduler/";
+    homepage = "https://github.com/agronholm/apscheduler";
     license = licenses.mit;
   };
 }

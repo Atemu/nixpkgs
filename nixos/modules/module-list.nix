@@ -242,6 +242,7 @@
   ./services/backup/automysqlbackup.nix
   ./services/backup/bacula.nix
   ./services/backup/borgbackup.nix
+  ./services/backup/borgmatic.nix
   ./services/backup/duplicati.nix
   ./services/backup/duplicity.nix
   ./services/backup/mysql-backup.nix
@@ -513,6 +514,7 @@
   ./services/misc/paperless.nix
   ./services/misc/parsoid.nix
   ./services/misc/plex.nix
+  ./services/misc/plikd.nix
   ./services/misc/tautulli.nix
   ./services/misc/pinnwand.nix
   ./services/misc/pykms.nix
@@ -1052,6 +1054,7 @@
   ./testing/service-runner.nix
   ./virtualisation/anbox.nix
   ./virtualisation/container-config.nix
+  ./virtualisation/containerd.nix
   ./virtualisation/containers.nix
   ./virtualisation/nixos-containers.nix
   ./virtualisation/oci-containers.nix

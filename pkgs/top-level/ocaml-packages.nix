@@ -276,7 +276,7 @@ let
 
     dum = callPackage ../development/ocaml-modules/dum { };
 
-    dune = callPackage ../development/tools/ocaml/dune { };
+    dune_1 = callPackage ../development/tools/ocaml/dune/1.nix { };
 
     dune_2 =
       if lib.versionAtLeast ocaml.version "4.08"
@@ -1000,6 +1000,10 @@ let
     ppx_blob = callPackage ../development/ocaml-modules/ppx_blob { };
 
     ppx_cstruct = callPackage ../development/ocaml-modules/cstruct/ppx.nix { };
+
+    ppx_cstubs = callPackage ../development/ocaml-modules/ppx_cstubs {
+      ppxlib = ppxlib.override { version = "0.22.0"; };
+    };
 
     ppx_derivers = callPackage ../development/ocaml-modules/ppx_derivers {};
 
