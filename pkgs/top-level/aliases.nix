@@ -105,6 +105,7 @@ mapAliases ({
   codimd = hedgedoc; # added 2020-11-29
   compton = picom; # added 2019-12-02
   compton-git = compton; # added 2019-05-20
+  concurrencykit = libck; # added 2021-03
   conntrack_tools = conntrack-tools; # added 2018-05
   cool-old-term = cool-retro-term; # added 2015-01-31
   coprthr = throw "coprthr has been removed."; # added 2019-12-08
@@ -240,16 +241,24 @@ mapAliases ({
   gnome_doc_utils = gnome-doc-utils; # added 2018-02-25
   gnome_themes_standard = gnome-themes-standard; # added 2018-02-25
   gnunet_git = throw "gnunet_git was removed due to gnunet becoming stable"; # added 2019-05-27
-  gnuradio-nacl = gr-nacl; # added 2019-05-27
-  gnuradio-gsm = gr-gsm; # added 2019-05-27
-  gnuradio-ais = gr-ais; # added 2019-05-27
-  gnuradio-limesdr = gr-limesdr; # added 2019-05-27
-  gnuradio-rds = gr-rds; # added 2019-05-27
-  gnuradio-osmosdr = gr-osmosdr; # added 2019-05-27
-  # added 20-10-2020
+  # Added 2020-10-16
   gnuradio-with-packages = gnuradio3_7.override {
-    extraPackages = [ gr-nacl gr-gsm gr-ais gr-limesdr gr-rds gr-osmosdr ];
+    extraPackages = lib.attrVals [
+      "osmosdr" "ais" "gsm" "nacl" "rds" "limesdr"
+    ] gnuradio3_7Packages;
   };
+  gnuradio-nacl = gnuradio3_7.pkgs.nacl; # added 2019-05-27, changed 2020-10-16
+  gnuradio-gsm = gnuradio3_7.pkgs.gsm; # added 2019-05-27, changed 2020-10-16
+  gnuradio-ais = gnuradio3_7.pkgs.ais; # added 2019-05-27, changed 2020-10-16
+  gnuradio-limesdr = gnuradio3_7.pkgs.limesdr; # added 2019-05-27, changed 2020-10-16
+  gnuradio-rds = gnuradio3_7.pkgs.rds; # added 2019-05-27, changed 2020-10-16
+  gnuradio-osmosdr = gnuradio3_7.pkgs.osmosdr; # added 2019-05-27, changed 2020-10-16
+  gr-nacl = gnuradio3_7.pkgs.nacl; # added 2019-05-27, changed 2020-10-16
+  gr-gsm = gnuradio3_7.pkgs.gsm; # added 2019-05-27, changed 2020-10-16
+  gr-ais = gnuradio3_7.pkgs.ais; # added 2019-05-27, changed 2020-10-16
+  gr-limesdr = gnuradio3_7.pkgs.limesdr; # added 2019-05-27, changed 2020-10-16
+  gr-rds = gnuradio3_7.pkgs.rds; # added 2019-05-27, changed 2020-10-16
+  gr-osmosdr = gnuradio3_7.pkgs.osmosdr; # added 2019-05-27, changed 2020-10-16
   gnustep-make = gnustep.make; # added 2016-7-6
   gnupg20 = throw "gnupg20 has been removed from nixpkgs as upstream dropped support on 2017-12-31";# added 2020-07-12
   gnuvd = throw "gnuvd was removed because the backend service is missing"; # added 2020-01-14
@@ -262,7 +271,6 @@ mapAliases ({
   google-gflags = gflags; # added 2019-07-25
   google-music-scripts = throw "google-music-scripts has been removed because Google Play Music was discontinued"; # added 2021-03-07
   google-musicmanager = throw "google-musicmanager has been removed because Google Play Music was discontinued"; # added 2021-03-07
-  google-play-music-desktop-player = throw "google-play-music-desktop-player has been removed because Google Play Music was discontinued"; # added 2021-03-07
   googleAuthenticator = google-authenticator; # added 2016-10-16
   grantlee5 = libsForQt5.grantlee;  # added 2015-12-19
   gsettings_desktop_schemas = gsettings-desktop-schemas; # added 2018-02-25
@@ -296,13 +304,16 @@ mapAliases ({
   inotifyTools = inotify-tools;
   i-score = throw "i-score has been removed: abandoned upstream."; # added 2020-11-21
   jamomacore = throw "jamomacore has been removed: abandoned upstream."; # added 2020-11-21
-  jasper = throw "jasper has been removed: abandoned upstream with many vulnerabilities";
+  jbidwatcher = throw "jbidwatcher was discontinued in march 2021"; # added 2021-03-15
   jbuilder = dune_1; # added 2018-09-09
   jikes = throw "jikes was deprecated on 2019-10-07: abandoned by upstream";
   joseki = apache-jena-fuseki; # added 2016-02-28
   json_glib = json-glib; # added 2018-02-25
   kdecoration-viewer = throw "kdecoration-viewer has been removed from nixpkgs, as there is no upstream activity"; # 2020-06-16
   k9copy = throw "k9copy has been removed from nixpkgs, as there is no upstream activity"; # 2020-11-06
+  kodiGBM = kodi-gbm;
+  kodiPlain = kodi;
+  kodiPlainWayland = kodi-wayland;
   julia_07 = throw "julia_07 is deprecated in favor of julia_10 LTS"; # added 2020-09-15
   julia_11 = throw "julia_11 is deprecated in favor of latest Julia version"; # added 2020-09-15
   kdeconnect = plasma5Packages.kdeconnect-kde; # added 2020-10-28
@@ -357,6 +368,7 @@ mapAliases ({
   libsexy = throw "libsexy has been removed from nixpkgs, as it's abandoned and no package needed it."; # 2019-12-10
   libstdcxxHook = throw "libstdcxx hook has been removed because cc-wrapper is now directly aware of the c++ standard library intended to be used."; # 2020-06-22
   libqmatrixclient = throw "libqmatrixclient was renamed to libquotient"; # added 2020-04-09
+  lilypond-unstable = lilypond; # added 2021-03-11
   links = links2; # added 2016-01-31
   linux_rpi0 = linux_rpi1;
   linuxPackages_rpi0 = linuxPackages_rpi1;
@@ -549,6 +561,7 @@ mapAliases ({
   ppl-address-book = throw "ppl-address-book deprecated on 2019-05-02: abandoned by upstream.";
   processing3 = processing; # added 2019-08-16
   procps-ng = procps; # added 2018-06-08
+  prometheus-cups-exporter = throw "outdated and broken by design; removed by developer."; # added 2021-03-16
   pygmentex = texlive.bin.pygmentex; # added 2019-12-15
   pyo3-pack = maturin;
   pmenu = throw "pmenu has been removed from nixpkgs, as its maintainer is no longer interested in the package."; # added 2019-12-10
@@ -780,7 +793,8 @@ mapAliases ({
   xara = throw "xara has been removed from nixpkgs. Unmaintained since 2006"; # added 2020-06-24
   xbmc = kodi; # added 2018-04-25
   xbmcPlain = kodiPlain; # added 2018-04-25
-  xbmcPlugins = kodiPlugins; # added 2018-04-25
+  xbmcPlugins = kodiPackages; # added 2018-04-25
+  kodiPlugins = kodiPackages; # added 2021-03-09;
   xmonad_log_applet_gnome3 = xmonad_log_applet; # added 2018-05-01
   xmpppy = throw "xmpppy has been removed from nixpkgs as it is unmaintained and python2-only";
   pyIRCt = throw "pyIRCt has been removed from nixpkgs as it is unmaintained and python2-only";

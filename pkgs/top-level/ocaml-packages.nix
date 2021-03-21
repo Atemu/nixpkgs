@@ -238,6 +238,8 @@ let
 
     decompress =  callPackage ../development/ocaml-modules/decompress { };
 
+    decompress-1-2 = callPackage ../development/ocaml-modules/decompress/1.2.nix { };
+
     diet =  callPackage ../development/ocaml-modules/diet { };
 
     digestif =  callPackage ../development/ocaml-modules/digestif { };
@@ -399,7 +401,9 @@ let
 
     hxd = callPackage ../development/ocaml-modules/hxd { };
 
-    imagelib = callPackage ../development/ocaml-modules/imagelib { };
+    imagelib = callPackage ../development/ocaml-modules/imagelib {
+      decompress = decompress-1-2;
+    };
 
     inotify = callPackage ../development/ocaml-modules/inotify { };
 
@@ -571,6 +575,10 @@ let
     lru = callPackage ../development/ocaml-modules/lru { };
 
     lua-ml = callPackage ../development/ocaml-modules/lua-ml { };
+
+    luv = callPackage ../development/ocaml-modules/luv {
+      inherit (pkgs) file;
+    };
 
     lwt = callPackage ../development/ocaml-modules/lwt {
       ocaml-migrate-parsetree = ocaml-migrate-parsetree-2-1;
@@ -921,7 +929,9 @@ let
 
     ppx_bap = callPackage ../development/ocaml-modules/ppx_bap { };
 
-    ppx_bitstring = callPackage ../development/ocaml-modules/bitstring/ppx.nix { };
+    ppx_bitstring = callPackage ../development/ocaml-modules/bitstring/ppx.nix {
+      ppxlib = ppxlib.override { version = "0.22.0"; };
+    };
 
     ppxfind = callPackage ../development/ocaml-modules/ppxfind { };
 

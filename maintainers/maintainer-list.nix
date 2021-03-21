@@ -1859,6 +1859,12 @@
       fingerprint = "68B8 0D57 B2E5 4AC3 EC1F  49B0 B37E 0F23 7101 6A4C";
     }];
   };
+  collares = {
+    email = "mauricio@collares.org";
+    github = "collares";
+    githubId = 244239;
+    name = "Mauricio Collares";
+  };
   copumpkin = {
     email = "pumpkingod@gmail.com";
     github = "copumpkin";
@@ -2889,6 +2895,12 @@
     githubId = 3787281;
     name = "Erik Rybakken";
   };
+  erin = {
+    name = "Erin van der Veen";
+    email = "erin@erinvanderveen.nl";
+    github = "ErinvanderVeen";
+    githubId = 10973664;
+  };
   erosennin = {
     email = "ag@sologoc.com";
     github = "erosennin";
@@ -3615,6 +3627,12 @@
     githubId = 343415;
     name = "Greg Roodt";
   };
+  gtrunsec = {
+    email = "gtrunsec@hardenedlinux.org";
+    github = "GTrunSec";
+    githubId = 21156405;
+    name = "GuangTao Zhang";
+  };
   guibou = {
     email = "guillaum.bouchard@gmail.com";
     github = "guibou";
@@ -4147,6 +4165,12 @@
     github = "j0hax";
     githubId = 3802620;
   };
+  j4m3s = {
+    name = "James Landrein";
+    email = "github@j4m3s.eu";
+    github = "j4m3s-s";
+    githubId = 9413812;
+  };
   jacg = {
     name = "Jacek Generowicz";
     email = "jacg@my-post-office.net";
@@ -4170,6 +4194,12 @@
     github = "johannesloetzsch";
     githubId = 175537;
     name = "Johannes Lötzsch";
+  };
+  jackgerrits = {
+    email = "jack@jackgerrits.com";
+    github = "jackgerrits";
+    githubId = 7558482;
+    name = "Jack Gerrits";
   };
   jagajaga = {
     email = "ars.seroka@gmail.com";
@@ -5523,6 +5553,12 @@
     github = "loewenheim";
     githubId = 7622248;
     name = "Sebastian Zivota";
+  };
+  locallycompact = {
+    email = "dan.firth@homotopic.tech";
+    github = "locallycompact";
+    githubId = 1267527;
+    name = "Daniel Firth";
   };
   lopsided98 = {
     email = "benwolsieffer@gmail.com";
@@ -6980,6 +7016,12 @@
     github = "obadz";
     githubId = 3359345;
     name = "obadz";
+  };
+  obsidian-systems-maintenance = {
+    name = "Obsidian Systems Maintenance";
+    email = "maintainer@obsidian.systems";
+    github = "obsidian-systems-maintenance";
+    githubId = 80847921;
   };
   odi = {
     email = "oliver.dunkl@gmail.com";

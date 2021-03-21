@@ -155,6 +155,7 @@
   ./programs/nm-applet.nix
   ./programs/npm.nix
   ./programs/oblogout.nix
+  ./programs/partition-manager.nix
   ./programs/plotinus.nix
   ./programs/proxychains.nix
   ./programs/qt5ct.nix
@@ -177,6 +178,7 @@
   ./programs/tmux.nix
   ./programs/traceroute.nix
   ./programs/tsm-client.nix
+  ./programs/turbovnc.nix
   ./programs/udevil.nix
   ./programs/usbtop.nix
   ./programs/vim.nix
@@ -638,6 +640,7 @@
   ./services/networking/coredns.nix
   ./services/networking/corerad.nix
   ./services/networking/coturn.nix
+  ./services/networking/croc.nix
   ./services/networking/dante.nix
   ./services/networking/ddclient.nix
   ./services/networking/dhcpcd.nix
@@ -881,6 +884,7 @@
   ./services/web-apps/atlassian/confluence.nix
   ./services/web-apps/atlassian/crowd.nix
   ./services/web-apps/atlassian/jira.nix
+  ./services/web-apps/bookstack.nix
   ./services/web-apps/convos.nix
   ./services/web-apps/cryptpad.nix
   ./services/web-apps/documize.nix
