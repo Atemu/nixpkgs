@@ -46,6 +46,8 @@ let self = rec {
 
   # addon packages
 
+  a4ksubtitles = callPackage ../applications/video/kodi-packages/a4ksubtitles { };
+
   controllers = {
     default = callPackage ../applications/video/kodi-packages/controllers { controller = "default"; };
 
@@ -65,6 +67,8 @@ let self = rec {
 
     snes = callPackage ../applications/video/kodi-packages/controllers { controller = "snes"; };
   };
+
+  jellyfin = callPackage ../applications/video/kodi-packages/jellyfin { };
 
   joystick = callPackage ../applications/video/kodi-packages/joystick { };
 
@@ -96,17 +100,23 @@ let self = rec {
 
   chardet = callPackage ../applications/video/kodi-packages/chardet { };
 
+  dateutil = callPackage ../applications/video/kodi-packages/dateutil { };
+
   idna = callPackage ../applications/video/kodi-packages/idna { };
 
   inputstream-adaptive = callPackage ../applications/video/kodi-packages/inputstream-adaptive { };
 
   inputstreamhelper = callPackage ../applications/video/kodi-packages/inputstreamhelper { };
 
+  kodi-six = callPackage ../applications/video/kodi-packages/kodi-six { };
+
   myconnpy = callPackage ../applications/video/kodi-packages/myconnpy { };
 
   requests = callPackage ../applications/video/kodi-packages/requests { };
 
   signals = callPackage ../applications/video/kodi-packages/signals { };
+
+  six = callPackage ../applications/video/kodi-packages/six { };
 
   urllib3 = callPackage ../applications/video/kodi-packages/urllib3 { };
 
