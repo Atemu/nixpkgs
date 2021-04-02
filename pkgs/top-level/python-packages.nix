@@ -3712,6 +3712,8 @@ in {
 
   labgrid = callPackage ../development/python-modules/labgrid { };
 
+  labmath = callPackage ../development/python-modules/labmath { };
+
   lammps-cython = callPackage ../development/python-modules/lammps-cython { };
 
   langcodes = callPackage ../development/python-modules/langcodes { };
@@ -9064,8 +9066,6 @@ in {
   zeitgeist = (toPythonModule (pkgs.zeitgeist.override {
     python3 = python;
   })).py;
-
-  zerobin = callPackage ../development/python-modules/zerobin { };
 
   zeroc-ice = callPackage ../development/python-modules/zeroc-ice { };
 

@@ -1134,6 +1134,8 @@ in
 
   barman = python3Packages.callPackage ../tools/misc/barman { };
 
+  bashate = python3Packages.callPackage ../development/tools/bashate { };
+
   bash-my-aws = callPackage ../tools/admin/bash-my-aws { };
 
   bashcards = callPackage ../tools/misc/bashcards { };
@@ -1234,6 +1236,8 @@ in
   coolreader = libsForQt5.callPackage ../applications/misc/coolreader {};
 
   corsmisc = callPackage ../tools/security/corsmisc { };
+
+  cosign = callPackage ../tools/security/cosign { };
 
   cozy = callPackage ../applications/audio/cozy-audiobooks { };
 
@@ -2045,6 +2049,8 @@ in
   slurp = callPackage ../tools/wayland/slurp { };
 
   swaykbdd = callPackage ../tools/wayland/swaykbdd { };
+
+  swaycwd = callPackage ../tools/wayland/swaycwd { };
 
   wayland-utils = callPackage ../tools/wayland/wayland-utils { };
 
@@ -3281,7 +3287,7 @@ in
 
   circus = callPackage ../tools/networking/circus { };
 
-  citrix_workspace = citrix_workspace_21_01_0;
+  citrix_workspace = citrix_workspace_21_03_0;
 
   inherit (callPackage ../applications/networking/remote/citrix-workspace { })
     citrix_workspace_20_04_0
@@ -3290,6 +3296,7 @@ in
     citrix_workspace_20_10_0
     citrix_workspace_20_12_0
     citrix_workspace_21_01_0
+    citrix_workspace_21_03_0
   ;
 
   citra = libsForQt5.callPackage ../misc/emulators/citra { };
@@ -6892,6 +6899,10 @@ in
   openfpgaloader = callPackage ../development/tools/misc/openfpgaloader { };
 
   openfortivpn = callPackage ../tools/networking/openfortivpn { };
+
+  opensnitch = callPackage ../tools/networking/opensnitch/daemon.nix { };
+
+  opensnitch-ui = libsForQt5.callPackage ../tools/networking/opensnitch/ui.nix { };
 
   obexfs = callPackage ../tools/bluetooth/obexfs { };
 
@@ -10781,7 +10792,7 @@ in
   llvm_6  = llvmPackages_6.llvm;
   llvm_5  = llvmPackages_5.llvm;
 
-  llvmPackages = recurseIntoAttrs (with targetPlatform;
+  llvmPackages = with targetPlatform;
     if isDarwin then
       llvmPackages_7
     else if isFreeBSD then
@@ -10791,55 +10802,55 @@ in
     else if isWasm then
       llvmPackages_8
     else
-      llvmPackages_latest);
+      llvmPackages_latest;
 
-  llvmPackages_5 = callPackage ../development/compilers/llvm/5 {
+  llvmPackages_5 = recurseIntoAttrs (callPackage ../development/compilers/llvm/5 {
     inherit (stdenvAdapters) overrideCC;
     buildLlvmTools = buildPackages.llvmPackages_5.tools;
     targetLlvmLibraries = targetPackages.llvmPackages_5.libraries;
-  };
+  });
 
-  llvmPackages_6 = callPackage ../development/compilers/llvm/6 {
+  llvmPackages_6 = recurseIntoAttrs (callPackage ../development/compilers/llvm/6 {
     inherit (stdenvAdapters) overrideCC;
     buildLlvmTools = buildPackages.llvmPackages_6.tools;
     targetLlvmLibraries = targetPackages.llvmPackages_6.libraries;
-  };
+  });
 
-  llvmPackages_7 = callPackage ../development/compilers/llvm/7 {
+  llvmPackages_7 = recurseIntoAttrs (callPackage ../development/compilers/llvm/7 {
     inherit (stdenvAdapters) overrideCC;
     buildLlvmTools = buildPackages.llvmPackages_7.tools;
     targetLlvmLibraries = targetPackages.llvmPackages_7.libraries;
-  };
+  });
 
-  llvmPackages_8 = callPackage ../development/compilers/llvm/8 {
+  llvmPackages_8 = recurseIntoAttrs (callPackage ../development/compilers/llvm/8 {
     inherit (stdenvAdapters) overrideCC;
     buildLlvmTools = buildPackages.llvmPackages_8.tools;
     targetLlvmLibraries = targetPackages.llvmPackages_8.libraries;
-  };
+  });
 
-  llvmPackages_9 = callPackage ../development/compilers/llvm/9 {
+  llvmPackages_9 = recurseIntoAttrs (callPackage ../development/compilers/llvm/9 {
     inherit (stdenvAdapters) overrideCC;
     buildLlvmTools = buildPackages.llvmPackages_9.tools;
     targetLlvmLibraries = targetPackages.llvmPackages_9.libraries;
-  };
+  });
 
-  llvmPackages_10 = callPackage ../development/compilers/llvm/10 {
+  llvmPackages_10 = recurseIntoAttrs (callPackage ../development/compilers/llvm/10 {
     inherit (stdenvAdapters) overrideCC;
     buildLlvmTools = buildPackages.llvmPackages_10.tools;
     targetLlvmLibraries = targetPackages.llvmPackages_10.libraries;
-  };
+  });
 
-  llvmPackages_11 = callPackage ../development/compilers/llvm/11 ({
+  llvmPackages_11 = recurseIntoAttrs (callPackage ../development/compilers/llvm/11 ({
     inherit (stdenvAdapters) overrideCC;
     buildLlvmTools = buildPackages.llvmPackages_11.tools;
     targetLlvmLibraries = targetPackages.llvmPackages_11.libraries;
   } // lib.optionalAttrs (stdenv.hostPlatform.isi686 && buildPackages.stdenv.cc.isGNU) {
     stdenv = gcc7Stdenv;
-  });
+  }));
 
   llvmPackages_latest = llvmPackages_11;
 
-  llvmPackages_rocm = callPackage ../development/compilers/llvm/rocm { };
+  llvmPackages_rocm = recurseIntoAttrs (callPackage ../development/compilers/llvm/rocm { });
 
   lorri = callPackage ../tools/misc/lorri {
     inherit (darwin.apple_sdk.frameworks) CoreServices Security;
@@ -11193,9 +11204,11 @@ in
   sagittarius-scheme = callPackage ../development/compilers/sagittarius-scheme {};
 
   sbclBootstrap = callPackage ../development/compilers/sbcl/bootstrap.nix {};
+  sbcl_2_0_8 = callPackage ../development/compilers/sbcl/2.0.8.nix {};
   sbcl_2_0_9 = callPackage ../development/compilers/sbcl/2.0.9.nix {};
   sbcl_2_1_1 = callPackage ../development/compilers/sbcl/2.1.1.nix {};
-  sbcl = callPackage ../development/compilers/sbcl {};
+  sbcl_2_1_2 = callPackage ../development/compilers/sbcl/2.1.2.nix {};
+  sbcl = sbcl_2_1_2;
 
   scala_2_10 = callPackage ../development/compilers/scala/2.x.nix { majorVersion = "2.10"; jre = jdk8; };
   scala_2_11 = callPackage ../development/compilers/scala/2.x.nix { majorVersion = "2.11"; jre = jdk8; };
@@ -13335,6 +13348,8 @@ in
   };
 
   vtable-dumper = callPackage ../development/tools/misc/vtable-dumper { };
+
+  whatsapp-for-linux = callPackage ../applications/networking/instant-messengers/whatsapp-for-linux { };
 
   whatstyle = callPackage ../development/tools/misc/whatstyle {
     inherit (llvmPackages) clang-unwrapped;
@@ -16805,7 +16820,7 @@ in
   qt515 = recurseIntoAttrs (makeOverridable
     (import ../development/libraries/qt-5/5.15) {
       inherit newScope;
-      inherit lib stdenv fetchurl fetchpatch fetchFromGitHub makeSetupHook makeWrapper;
+      inherit lib stdenv fetchurl fetchpatch fetchgit fetchFromGitHub makeSetupHook makeWrapper;
       inherit bison;
       inherit cups;
       inherit dconf;
@@ -17939,6 +17954,10 @@ in
   };
   quicklispPackagesClisp = dontRecurseIntoAttrs (quicklispPackagesFor (wrapLisp clisp));
   quicklispPackagesSBCL = dontRecurseIntoAttrs (quicklispPackagesFor (wrapLisp sbcl));
+  quicklispPackagesECL = dontRecurseIntoAttrs (quicklispPackagesFor (wrapLisp ecl));
+  quicklispPackagesCCL = dontRecurseIntoAttrs (quicklispPackagesFor (wrapLisp ccl));
+  quicklispPackagesABCL = dontRecurseIntoAttrs (quicklispPackagesFor (wrapLisp abcl));
+  quicklispPackagesGCL = dontRecurseIntoAttrs (quicklispPackagesFor (wrapLisp gcl));
   quicklispPackages = quicklispPackagesSBCL;
 
   ### DEVELOPMENT / PERL MODULES
@@ -19064,6 +19083,7 @@ in
 
   zabbixFor = version: rec {
     agent = (callPackages ../servers/monitoring/zabbix/agent.nix {}).${version};
+    agent2 = (callPackages ../servers/monitoring/zabbix/agent2.nix {}).${version};
     proxy-mysql = (callPackages ../servers/monitoring/zabbix/proxy.nix { mysqlSupport = true; }).${version};
     proxy-pgsql = (callPackages ../servers/monitoring/zabbix/proxy.nix { postgresqlSupport = true; }).${version};
     proxy-sqlite = (callPackages ../servers/monitoring/zabbix/proxy.nix { sqliteSupport = true; }).${version};
@@ -19460,6 +19480,8 @@ in
   osxsnarf = callPackage ../os-specific/darwin/osxsnarf { };
 
   power-calibrate = callPackage ../os-specific/linux/power-calibrate { };
+
+  powercap = callPackage ../os-specific/linux/powercap { };
 
   powerstat = callPackage ../os-specific/linux/powerstat { };
 
@@ -20574,6 +20596,8 @@ in
 
   v4l-utils = qt5.callPackage ../os-specific/linux/v4l-utils { };
 
+  vendir = callPackage ../development/tools/vendir { };
+
   vndr = callPackage ../development/tools/vndr { };
 
   windows = callPackages ../os-specific/windows {};
@@ -21333,7 +21357,6 @@ in
 
   maligned = callPackage ../development/tools/maligned { };
 
-  inter-ui = callPackage ../data/fonts/inter-ui { };
   inter = callPackage ../data/fonts/inter { };
 
   scientifica = callPackage ../data/fonts/scientifica { };
@@ -21889,6 +21912,8 @@ in
   castor = callPackage ../applications/networking/browsers/castor { };
 
   catfs = callPackage ../os-specific/linux/catfs { };
+
+  catgirl = callPackage ../applications/networking/irc/catgirl { };
 
   catimg = callPackage ../tools/misc/catimg { };
 
@@ -26222,10 +26247,10 @@ in
 
   wayfireApplications = wayfireApplications-unwrapped.withPlugins (plugins: [ plugins.wf-shell ]);
   inherit (wayfireApplications) wayfire wcm;
-  wayfireApplications-unwrapped = callPackage ../applications/window-managers/wayfire/applications.nix { };
-  wayfirePlugins = callPackage ../applications/window-managers/wayfire/plugins.nix {
+  wayfireApplications-unwrapped = recurseIntoAttrs (callPackage ../applications/window-managers/wayfire/applications.nix { });
+  wayfirePlugins = recurseIntoAttrs (callPackage ../applications/window-managers/wayfire/plugins.nix {
     inherit (wayfireApplications-unwrapped) wayfire;
-  };
+  });
   wf-config = callPackage ../applications/window-managers/wayfire/wf-config.nix { };
 
   waypipe = callPackage ../applications/networking/remote/waypipe { };
@@ -26723,6 +26748,8 @@ in
 
   zathura = callPackage ../applications/misc/zathura { };
 
+  zerobin = callPackage ../applications/networking/zerobin { };
+
   zeroc-ice = callPackage ../development/libraries/zeroc-ice {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
@@ -26739,7 +26766,9 @@ in
     autoconf = buildPackages.autoconf269;
   };
 
-  zgrviewer = callPackage ../applications/graphics/zgrviewer {};
+  zgrab2 = callPackage ../tools/security/zgrab2 { };
+
+  zgrviewer = callPackage ../applications/graphics/zgrviewer { };
 
   zgv = callPackage ../applications/graphics/zgv {
    # Enable the below line for terminal display. Note
@@ -26860,6 +26889,8 @@ in
 
   lndconnect = callPackage ../applications/blockchains/lndconnect { };
 
+  lndmanage = callPackage ../applications/blockchains/lndmanage.nix { };
+
   monero = callPackage ../applications/blockchains/monero {
     inherit (darwin.apple_sdk.frameworks) CoreData IOKit PCSC;
     boost = boost17x;
@@ -26885,6 +26916,8 @@ in
   };
 
   ethabi = callPackage ../applications/blockchains/ethabi.nix { };
+
+  pycoin = with python3Packages; toPythonApplication pycoin;
 
   stellar-core = callPackage ../applications/blockchains/stellar-core.nix { };
 
@@ -27504,6 +27537,11 @@ in
     boost = boost166;
   };
 
+  pinball = callPackage ../games/pinball {
+    autoreconfHook = with buildPackages;
+      autoreconfHook.override { automake = automake115x; };
+  };
+
   pingus = callPackage ../games/pingus {};
 
   pioneer = callPackage ../games/pioneer { };
@@ -28116,6 +28154,8 @@ in
 
   bayescan = callPackage ../applications/science/biology/bayescan { };
 
+  bedops = callPackage ../applications/science/biology/bedops { };
+
   bedtools = callPackage ../applications/science/biology/bedtools { };
 
   bcftools = callPackage ../applications/science/biology/bcftools { };
@@ -28409,7 +28449,9 @@ in
 
   osi = callPackage ../development/libraries/science/math/osi { };
 
-  or-tools = callPackage ../development/libraries/science/math/or-tools { };
+  or-tools = callPackage ../development/libraries/science/math/or-tools {
+    abseil-cpp = abseil-cpp.override { static = true; };
+  };
 
   rubiks = callPackage ../development/libraries/science/math/rubiks { };
 
@@ -29633,6 +29675,18 @@ in
 
   solfege = python3Packages.callPackage ../misc/solfege { };
 
+  disnix = callPackage ../tools/package-management/disnix { };
+
+  dysnomia = callPackage ../tools/package-management/disnix/dysnomia (config.disnix or {
+    inherit (pythonPackages) supervisor;
+  });
+
+  dydisnix = callPackage ../tools/package-management/disnix/dydisnix { };
+
+  disnixos = callPackage ../tools/package-management/disnix/disnixos { };
+
+  DisnixWebService = callPackage ../tools/package-management/disnix/DisnixWebService { };
+
   lkproof = callPackage ../tools/typesetting/tex/lkproof { };
 
   lice = python3Packages.callPackage ../tools/misc/lice {};
@@ -30067,6 +30121,8 @@ in
   wikicurses = callPackage ../applications/misc/wikicurses {
     pythonPackages = python3Packages;
   };
+
+  wiki-js = callPackage ../servers/web-apps/wiki-js { };
 
   winePackagesFor = wineBuild: lib.makeExtensible (self: with self; {
     callPackage = newScope self;

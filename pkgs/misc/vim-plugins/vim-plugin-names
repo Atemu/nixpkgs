@@ -1,5 +1,6 @@
 907th/vim-auto-save
 aca/completion-tabnine
+AckslD/nvim-whichkey-setup.lua@main
 ackyshake/Spacegray.vim@main
 airblade/vim-gitgutter
 airblade/vim-rooter
@@ -442,6 +443,7 @@ nvim-treesitter/nvim-treesitter
 nvim-treesitter/nvim-treesitter-refactor
 nvim-treesitter/nvim-treesitter-textobjects
 nvim-treesitter/playground
+oberblastmeister/termwrapper.nvim
 ocaml/vim-ocaml
 octol/vim-cpp-enhanced-highlight
 ojroques/vim-oscyank@main

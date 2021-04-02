@@ -100,6 +100,16 @@ mapAliases ({
   cinepaint = throw "cinepaint has been removed from nixpkgs, as it was unmaintained"; # added 2019-12-10
   cifs_utils = cifs-utils; # added 2016-08
   ckb = ckb-next; # added 2018-10-21
+
+  # these are for convenience, not for backward compat and shouldn't expire
+  clang5Stdenv = lowPrio llvmPackages_5.stdenv;
+  clang6Stdenv = lowPrio llvmPackages_6.stdenv;
+  clang7Stdenv = lowPrio llvmPackages_7.stdenv;
+  clang8Stdenv = lowPrio llvmPackages_8.stdenv;
+  clang9Stdenv = lowPrio llvmPackages_9.stdenv;
+  clang10Stdenv = lowPrio llvmPackages_10.stdenv;
+  clang11Stdenv = lowPrio llvmPackages_11.stdenv;
+
   clangAnalyzer = clang-analyzer;  # added 2015-02-20
   clawsMail = claws-mail; # added 2016-04-29
   clutter_gtk = clutter-gtk; # added 2018-02-25
@@ -140,9 +150,6 @@ mapAliases ({
   dbus_glib = dbus-glib; # added 2018-02-25
   dbus_libs = dbus; # added 2018-04-25
   diffuse = throw "diffuse has been removed from nixpkgs, as it's unmaintained"; # added 2019-12-10
-  disnix = throw "disnix has been removed."; # added 2021-01-27
-  disnixos = throw "disnixos has been removed."; # added 2021-01-27
-  DisnixWebService = throw "DisnixWebService has been removed."; # added 2021-01-27
   dbus_tools = dbus.out; # added 2018-04-25
   deadbeef-mpris2-plugin = deadbeefPlugins.mpris2; # added 2018-02-23
   deadpixi-sam = deadpixi-sam-unstable;
@@ -159,8 +166,6 @@ mapAliases ({
   docker_compose = docker-compose; # 2018-11-10
   draftsight = throw "draftsight has been removed, no longer available as freeware"; # added 2020-08-14
   dvb_apps = throw "dvb_apps has been removed."; # added 2020-11-03
-  dydisnix = throw "dydisnix has been removed."; # added 2021-01-27
-  dysnomia = throw "dysnomia has been removed."; # added 2021-01-27
   dwarf_fortress = dwarf-fortress; # added 2016-01-23
   dwm-git = throw "dwm-git has been removed from nixpkgs, as it had no updates for 2 years not serving it's purpose."; # added 2021-02-07
   elasticmq = throw "elasticmq has been removed in favour of elasticmq-server-bin"; # added 2021-01-17
@@ -303,6 +308,7 @@ mapAliases ({
   inboxer = throw "inboxer has been removed as it is no longer maintained and no longer works as Google shut down the inbox service this package wrapped.";
   infiniband-diags = rdma-core; # added 2019-08-09
   inotifyTools = inotify-tools;
+  inter-ui = inter; # added 2021-03-27
   i-score = throw "i-score has been removed: abandoned upstream."; # added 2020-11-21
   jamomacore = throw "jamomacore has been removed: abandoned upstream."; # added 2020-11-21
   jbidwatcher = throw "jbidwatcher was discontinued in march 2021"; # added 2021-03-15

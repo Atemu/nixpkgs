@@ -461,6 +461,8 @@
   ./services/misc/devmon.nix
   ./services/misc/dictd.nix
   ./services/misc/dwm-status.nix
+  ./services/misc/dysnomia.nix
+  ./services/misc/disnix.nix
   ./services/misc/docker-registry.nix
   ./services/misc/domoticz.nix
   ./services/misc/errbot.nix
@@ -924,6 +926,7 @@
   ./services/web-apps/selfoss.nix
   ./services/web-apps/shiori.nix
   ./services/web-apps/virtlyst.nix
+  ./services/web-apps/wiki-js.nix
   ./services/web-apps/whitebophir.nix
   ./services/web-apps/wordpress.nix
   ./services/web-apps/youtrack.nix
