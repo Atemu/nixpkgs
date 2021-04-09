@@ -95,8 +95,8 @@
 /pkgs/development/r-modules         @peti
 
 # Ruby
-/pkgs/development/interpreters/ruby @alyssais
-/pkgs/development/ruby-modules      @alyssais
+/pkgs/development/interpreters/ruby @marsam
+/pkgs/development/ruby-modules      @marsam
 
 # Rust
 /pkgs/development/compilers/rust @Mic92 @LnL7 @zowoq
@@ -139,7 +139,7 @@
 /pkgs/development/libraries/qt-5 @ttuegel
 
 # PostgreSQL and related stuff
-/pkgs/servers/sql/postgresql @thoughtpolice
+/pkgs/servers/sql/postgresql @thoughtpolice @marsam
 /nixos/modules/services/databases/postgresql.xml @thoughtpolice
 /nixos/modules/services/databases/postgresql.nix @thoughtpolice
 /nixos/tests/postgresql.nix @thoughtpolice

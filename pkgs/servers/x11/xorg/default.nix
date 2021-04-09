@@ -1717,11 +1717,11 @@ lib.makeScope newScope (self: with self; {
   }) {};
 
   xf86inputlibinput = callPackage ({ stdenv, pkg-config, fetchurl, xorgproto, libinput, xorgserver }: stdenv.mkDerivation {
-    name = "xf86-input-libinput-0.30.0";
+    name = "xf86-input-libinput-1.0.0";
     builder = ./builder.sh;
     src = fetchurl {
-      url = "mirror://xorg/individual/driver/xf86-input-libinput-0.30.0.tar.bz2";
-      sha256 = "1h4np66p87jf0c85ig524w8f5rbhl5gx8fww1qg0c55f87yzkizr";
+      url = "mirror://xorg/individual/driver/xf86-input-libinput-1.0.0.tar.bz2";
+      sha256 = "0x4ay9y2clm2bql3myqnvhmikjbpzy95c800qiva8pg6dbvc4mgg";
     };
     hardeningDisable = [ "bindnow" "relro" ];
     nativeBuildInputs = [ pkg-config ];
@@ -2471,11 +2471,11 @@ lib.makeScope newScope (self: with self; {
   }) {};
 
   xkbcomp = callPackage ({ stdenv, pkg-config, fetchurl, libX11, libxkbfile, xorgproto }: stdenv.mkDerivation {
-    name = "xkbcomp-1.4.4";
+    name = "xkbcomp-1.4.5";
     builder = ./builder.sh;
     src = fetchurl {
-      url = "mirror://xorg/individual/app/xkbcomp-1.4.4.tar.bz2";
-      sha256 = "0zpjkbap9160pdd6jpgb5f0yg5281w0rkkx1l0i7g887lq1ydk2r";
+      url = "mirror://xorg/individual/app/xkbcomp-1.4.5.tar.bz2";
+      sha256 = "0pmhshqinwqh5rip670l3szjpywky67hv232ql6gvdj489n0hlb8";
     };
     hardeningDisable = [ "bindnow" "relro" ];
     nativeBuildInputs = [ pkg-config ];

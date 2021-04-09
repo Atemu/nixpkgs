@@ -12,16 +12,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "prs";
-  version = "0.2.5";
+  version = "0.2.7";
 
   src = fetchFromGitLab {
     owner = "timvisee";
     repo = "prs";
     rev = "v${version}";
-    sha256 = "sha256-XJcNhIMu60H5LmoRzMqhPq33cCU9PBPfIIUtaSnmrH8=";
+    sha256 = "sha256-1Jrgf5UW6k0x3q6kQIB6Q7moOhConEnUU9r+21W5Uu8=";
   };
 
-  cargoSha256 = "sha256-4l/KQMtGfZX5Rg35AJxvwzg3aAzuPK2iKrHDRgIw+bg=";
+  cargoSha256 = "sha256-N3pLW/OGeurrl+AlwdfbZ3T7WzEOAuyUMdIR164Xp7k=";
 
   postPatch = ''
     # The GPGME backend is recommended

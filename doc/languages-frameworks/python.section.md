@@ -7,8 +7,9 @@
 #### Overview
 
 Several versions of the Python interpreter are available on Nix, as well as a
-high amount of packages. The attribute `python` refers to the default
-interpreter, which is currently CPython 2.7. It is also possible to refer to
+high amount of packages. The attribute `python3` refers to the default
+interpreter, which is currently CPython 3.8. The attribute `python` refers to
+CPython 2.7 for backwards-compatibility. It is also possible to refer to
 specific versions, e.g. `python38` refers to CPython 3.8, and `pypy` refers to
 the default PyPy interpreter.
 
@@ -78,7 +79,7 @@ $ nix-shell -p 'python38.withPackages(ps: with ps; [ numpy toolz ])'
 By default `nix-shell` will start a `bash` session with this interpreter in our
 `PATH`, so if we then run:
 
-```
+```Python console
 [nix-shell:~/src/nixpkgs]$ python3
 Python 3.8.1 (default, Dec 18 2019, 19:06:26)
 [GCC 9.2.0] on linux
@@ -89,7 +90,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 Note that no other modules are in scope, even if they were imperatively
 installed into our user environment as a dependency of a Python application:
 
-```
+```Python console
 >>> import requests
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
@@ -145,8 +146,8 @@ print(f"The dot product of {a} and {b} is: {np.dot(a, b)}")
 Executing this script requires a `python3` that has `numpy`. Using what we learned
 in the previous section, we could startup a shell and just run it like so:
 
-```
-nix-shell -p 'python38.withPackages(ps: with ps; [ numpy ])' --run 'python3 foo.py'
+```ShellSesssion
+$ nix-shell -p 'python38.withPackages(ps: with ps; [ numpy ])' --run 'python3 foo.py'
 The dot product of [1 2] and [3 4] is: 11
 ```
 
@@ -762,10 +763,10 @@ and in this case the `python38` interpreter is automatically used.
 Versions 2.7, 3.6, 3.7, 3.8 and 3.9 of the CPython interpreter are available as
 respectively `python27`, `python36`, `python37`, `python38` and `python39`. The
 aliases `python2` and `python3` correspond to respectively `python27` and
-`python38`. The default interpreter, `python`, maps to `python2`. The PyPy
-interpreters compatible with Python 2.7 and 3 are available as `pypy27` and
-`pypy3`, with aliases `pypy2` mapping to `pypy27` and `pypy` mapping to `pypy2`.
-The Nix expressions for the interpreters can be found in
+`python39`. The attribute `python` maps to `python2`. The PyPy interpreters
+compatible with Python 2.7 and 3 are available as `pypy27` and `pypy3`, with
+aliases `pypy2` mapping to `pypy27` and `pypy` mapping to `pypy2`. The Nix
+expressions for the interpreters can be found in
 `pkgs/development/interpreters/python`.
 
 All packages depending on any Python interpreter get appended
@@ -787,6 +788,23 @@ Each interpreter has the following attributes:
 - `sitePackages`. Alias for `lib/${libPrefix}/site-packages`.
 - `executable`. Name of the interpreter executable, e.g. `python3.8`.
 - `pkgs`. Set of Python packages for that specific interpreter. The package set can be modified by overriding the interpreter and passing `packageOverrides`.
+
+### Optimizations
+
+The Python interpreters are by default not build with optimizations enabled, because
+the builds are in that case not reproducible. To enable optimizations, override the
+interpreter of interest, e.g using
+
+```
+let
+  pkgs = import ./. {};
+  mypython = pkgs.python3.override {
+    enableOptimizations = true;
+    reproducibleBuild = false;
+    self = mypython;
+  };
+in mypython
+```
 
 ### Building packages and applications
 

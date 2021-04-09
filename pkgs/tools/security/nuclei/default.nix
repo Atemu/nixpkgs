@@ -5,20 +5,21 @@
 
 buildGoModule rec {
   pname = "nuclei";
-  version = "2.3.2";
+  version = "2.3.4";
 
   src = fetchFromGitHub {
     owner = "projectdiscovery";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-QF9w3ZrW+Mbl6EOC1n2848+q71AhxXTf0j//Us9L1r8=";
+    sha256 = "sha256-qjbr3kTgIFdxyzRwSvWyh5krrlzD8i1nMeoLZYSbr6g=";
   };
 
   vendorSha256 = "sha256-qmuua7HXnwuy24CSqHKALqNDmXBvSIXYTVu3kaGVoeU=";
 
-  preBuild = ''
-    mv v2/* .
-  '';
+  modRoot = "./v2";
+  subPackages = [
+    "cmd/nuclei/"
+  ];
 
   # Test files are not part of the release tarball
   doCheck = false;

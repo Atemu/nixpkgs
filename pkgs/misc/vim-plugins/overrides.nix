@@ -340,6 +340,10 @@ self: super: {
     dependencies = [ self.fzfWrapper ];
   });
 
+  onehalf = super.onehalf.overrideAttrs (old: {
+    configurePhase = "cd vim";
+  });
+
   skim-vim = super.skim-vim.overrideAttrs (old: {
     dependencies = [ self.skim ];
   });
@@ -731,7 +735,7 @@ self: super: {
             libiconv
           ];
 
-          cargoSha256 = "1f8ns3a5am9jb52niy3ass9hpzymjml62f3d7vyl1fvk3rriq4jw";
+          cargoSha256 = "25UkYKhlGmlDg4fz1jZHjpQn5s4k5FKlFK0MU8YM5SE=";
         };
       in
       ''

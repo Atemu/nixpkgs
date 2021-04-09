@@ -15114,13 +15114,15 @@ let
 
   NetCIDRLite = buildPerlPackage {
     pname = "Net-CIDR-Lite";
-    version = "0.21";
+    version = "0.22";
     src = fetchurl {
-      url = "mirror://cpan/authors/id/D/DO/DOUGW/Net-CIDR-Lite-0.21.tar.gz";
-      sha256 = "cfa125e8a2aef9259bc3a44e07cbdfb7894b64d22e7c0cee92aee2f5c7915093";
+      url = "mirror://cpan/authors/id/S/ST/STIGTSP/Net-CIDR-Lite-0.22.tar.gz";
+      sha256 = "05w57db2lx4djb4vixzdr6qgrzyzkk047nl812g7nq8s6k5xh5s3";
     };
     meta = {
       description = "Perl extension for merging IPv4 or IPv6 CIDR addresses";
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
+      maintainers = [ maintainers.sgo ];
     };
   };
 
@@ -15424,10 +15426,10 @@ let
 
   NetNetmask = buildPerlPackage {
     pname = "Net-Netmask";
-    version = "1.9104";
+    version = "2.0001";
     src = fetchurl {
-      url = "mirror://cpan/authors/id/J/JM/JMASLAK/Net-Netmask-1.9104.tar.gz";
-      sha256 = "17li2svymz49az35xl6galp4b9qcnb985gzklhikkvkn9da6rz3y";
+      url = "mirror://cpan/authors/id/J/JM/JMASLAK/Net-Netmask-2.0001.tar.gz";
+      sha256 = "0waiix46wv93a5zzjjv7ypdnfdf7lizwrhx12128rcvzcvw6wd8p";
     };
     buildInputs = [ Test2Suite TestUseAllModules ];
     meta = {
