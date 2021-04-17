@@ -669,6 +669,12 @@ environment.systemPackages = [
      Environment variables can be set using <option>environment.variables</option>.
     </para>
    </listitem>
+   <listitem>
+    <para>
+     <option>services.minio.dataDir</option> changed type to a list of paths, required for specifiyng multiple data directories for using with erasure coding.
+     Currently, the service doesn't enforce nor checks the correct number of paths to correspond to minio requirements.
+    </para>
+   </listitem>
   </itemizedlist>
  </section>
 
@@ -840,6 +846,13 @@ environment.systemPackages = [
     </para>
    </listitem>
    <listitem>
+    <para>
+      When defining a new user, one of <xref linkend="opt-users.users._name_.isNormalUser" /> and <xref linkend="opt-users.users._name_.isSystemUser" /> is now required.
+      This is to prevent accidentally giving a UID above 1000 to system users, which could have unexpected consequences, like running user activation scripts for system users.
+      Note that users defined with an explicit UID below 500 are exempted from this check, as <xref linkend="opt-users.users._name_.isSystemUser" /> has no effect for those.
+    </para>
+   </listitem>
+   <listitem>
      <para>
        The GNOME desktop manager once again installs <package>gnome3.epiphany</package> by default.
      </para>
@@ -933,6 +946,13 @@ environment.systemPackages = [
      schedule can be set with the
      <link linkend="opt-services.gitlab.backup.startAt">services.gitlab.backup.startAt</link>
      option.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Prior to this release, systemd would also read system units from an undocumented <literal>/etc/systemd-mutable/system</literal> path.
+     This path has been dropped from the defaults. That path (or others) can be re-enabled by adding it to the
+     <link linkend="opt-boot.extraSystemdUnitPaths">boot.extraSystemdUnitPaths</link> list.
     </para>
    </listitem>
   </itemizedlist>

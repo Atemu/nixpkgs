@@ -144,7 +144,7 @@ let
       inherit name version src wmClass jdk;
       product = "MPS";
       meta = with lib; {
-        homepage = https://www.jetbrains.com/mps/;
+        homepage = "https://www.jetbrains.com/mps/";
         inherit license description;
         longDescription = ''
           A metaprogramming system which uses projectional editing
@@ -386,12 +386,12 @@ in
 
   rider = buildRider rec {
     name = "rider-${version}";
-    version = "2021.1"; /* updated by script */
+    version = "2021.1.1"; /* updated by script */
     description = "A cross-platform .NET IDE based on the IntelliJ platform and ReSharper";
     license = lib.licenses.unfree;
     src = fetchurl {
       url = "https://download.jetbrains.com/rider/JetBrains.Rider-${version}.tar.gz";
-      sha256 = "089j52sig2ac21v6zl9mvb7x4sr9c428nn930b41y3qd6bg52xxx"; /* updated by script */
+      sha256 = "00kdbsjw9hmq7x94pjscslv0b412g8l0jbvyi7jiyay8xc6wiaaj"; /* updated by script */
     };
     wmClass = "jetbrains-rider";
     update-channel = "Rider RELEASE";

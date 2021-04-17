@@ -390,6 +390,21 @@ let
         };
       };
 
+      foxundermoon.shell-format = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "shell-format";
+          publisher = "foxundermoon";
+          version = "7.1.0";
+          sha256 = "09z72mdr5bfdcb67xyzlv7lb9vyjlc3k9ackj4jgixfk40c68cnj";
+        };
+        meta = with lib; {
+          downloadPage = "https://marketplace.visualstudio.com/items?itemName=foxundermoon.shell-format";
+          homepage = "https://github.com/foxundermoon/vs-shell-format";
+          license = licenses.mit;
+          maintainers = with maintainers; [ dbirks ];
+        };
+      };
+
       freebroccolo.reasonml = buildVscodeMarketplaceExtension {
         meta = with lib; {
           changelog = "https://marketplace.visualstudio.com/items/freebroccolo.reasonml/changelog";
@@ -412,9 +427,8 @@ let
           mktplcRef = {
             name = "github-vscode-theme";
             publisher = "github";
-            version = "1.1.5";
-            sha256 =
-              "10f0098cce026d1f0c855fb7a66ea60b5d8acd2b76126ea94fe7361e49cd9ed2";
+            version = "3.0.0";
+            sha256 = "1a77mbx75xfsfdlhgzghj9i7ik080bppc3jm8c00xp6781987fpa";
           };
           meta = with lib; {
             description = "GitHub theme for VS Code";
