@@ -553,7 +553,6 @@ mapAliases ({
   pmtools = acpica-tools; # added 2018-11-01
   polarssl = mbedtls; # added 2018-04-25
   poppler_qt5 = libsForQt5.poppler;  # added 2015-12-19
-  postgresql95 = postgresql_9_5;
   postgresql96 = postgresql_9_6;
   postgresql100 = throw "postgresql100 was deprecated on 2018-10-21: use postgresql_10 instead";
   # postgresql plugins
@@ -640,6 +639,7 @@ mapAliases ({
   rubyPackages_2_5 = throw "rubyPackages_2_5 was deprecated in 2021-02: use a newer version of rubyPackages instead";
   rubygems = throw "rubygems was deprecated on 2016-03-02: rubygems is now bundled with ruby";
   rubyMinimal = throw "rubyMinimal was removed due to being unused";
+  runwayml = throw "runwayml is now a webapp"; # added 2021-04-17
   rxvt_unicode-with-plugins = rxvt-unicode; # added 2020-02-02
   rxvt_unicode = rxvt-unicode-unwrapped; # added 2020-02-02
   subversion19 = throw "subversion19 has been removed as it has reached its end of life"; # added 2021-03-31
@@ -939,6 +939,8 @@ mapAliases ({
   ttyrec = ovh-ttyrec;
 
   zplugin = zinit; # Added 2021-01-30
+
+  posix_man_pages = man-pages-posix; # Added 2021-04-15
 
   /* If these are in the scope of all-packages.nix, they cause collisions
   between mixed versions of qt. See:
