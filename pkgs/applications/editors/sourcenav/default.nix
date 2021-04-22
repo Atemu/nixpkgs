@@ -1,4 +1,4 @@
-{ stdenv, fetchgit }:
+{ stdenv, fetchgit, pkgs }:
 
 stdenv.mkDerivation rec {
   pname = "sourcenav";
@@ -9,4 +9,8 @@ stdenv.mkDerivation rec {
     rev = version;
     sha256 = "0hrfw81maq19bxgri2jwcpgqmq8nkjzygj3595i90ph5ganj4q98";
   };
+
+  buildInputs = with pkgs; [
+    xlibs.libX11
+  ];
 }
