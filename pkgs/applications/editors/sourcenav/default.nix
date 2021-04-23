@@ -10,7 +10,13 @@ stdenv.mkDerivation rec {
     sha256 = "0hrfw81maq19bxgri2jwcpgqmq8nkjzygj3595i90ph5ganj4q98";
   };
 
+  # Has a vendored db4 which needs patching with modern clang
+  patches = [ ./db4.patch ];
+
   buildInputs = with pkgs; [
     xlibs.libX11
   ];
+
+  # Bad code
+  NIX_CFLAGS_COMPILE = [ "-Wno-error=format-security" "-Wno-error=return-type" ];
 }
