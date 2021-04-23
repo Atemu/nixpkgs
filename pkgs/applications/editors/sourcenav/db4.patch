@@ -1,3 +1,17 @@
+From 923261fa91d1bffde27da7ddb1fd7315bdbf0059 Mon Sep 17 00:00:00 2001
+From: Atemu <atemu.main@gmail.com>
+Date: Thu, 22 Apr 2021 16:46:11 +0200
+Subject: [PATCH] work around name collision with clang
+
+---
+ db4/dbinc/atomic.h     | 8 ++++----
+ db4/mp/mp_fget.c       | 4 ++--
+ db4/mp/mp_mvcc.c       | 4 ++--
+ db4/mp/mp_region.c     | 4 ++--
+ db4/mutex/mut_method.c | 2 +-
+ db4/mutex/mut_tas.c    | 4 ++--
+ 6 files changed, 13 insertions(+), 13 deletions(-)
+
 diff --git a/db4/dbinc/atomic.h b/db4/dbinc/atomic.h
 index 0034dcc..160c8ea 100644
 --- a/db4/dbinc/atomic.h
@@ -38,10 +52,10 @@ index 0034dcc..160c8ea 100644
  #else
  #define atomic_inc(env, p)	__atomic_inc(env, p)
  #define atomic_dec(env, p)	__atomic_dec(env, p)
-diff --git a/mp/mp_fget.c b/mp/mp_fget.c
+diff --git a/db4/mp/mp_fget.c b/db4/mp/mp_fget.c
 index 5fdee5a..0b75f57 100644
---- a/mp/mp_fget.c
-+++ b/mp/mp_fget.c
+--- a/db4/mp/mp_fget.c
++++ b/db4/mp/mp_fget.c
 @@ -617,7 +617,7 @@ alloc:		/* Allocate a new buffer header and data space. */
  
  		/* Initialize enough so we can call __memp_bhfree. */
@@ -60,10 +74,10 @@ index 5fdee5a..0b75f57 100644
  		MUTEX_LOCK(env, alloc_bhp->mtx_buf);
  		alloc_bhp->priority = bhp->priority;
  		alloc_bhp->pgno = bhp->pgno;
-diff --git a/mp/mp_mvcc.c b/mp/mp_mvcc.c
+diff --git a/db4/mp/mp_mvcc.c b/db4/mp/mp_mvcc.c
 index 34467d2..f05aa0c 100644
---- a/mp/mp_mvcc.c
-+++ b/mp/mp_mvcc.c
+--- a/db4/mp/mp_mvcc.c
++++ b/db4/mp/mp_mvcc.c
 @@ -276,7 +276,7 @@ __memp_bh_freeze(dbmp, infop, hp, bhp, need_frozenp)
  #else
  	memcpy(frozen_bhp, bhp, SSZA(BH, buf));
@@ -82,10 +96,10 @@ index 34467d2..f05aa0c 100644
  		F_CLR(alloc_bhp, BH_FROZEN);
  	}
  
-diff --git a/mp/mp_region.c b/mp/mp_region.c
+diff --git a/db4/mp/mp_region.c b/db4/mp/mp_region.c
 index e6cece9..ddbe906 100644
---- a/mp/mp_region.c
-+++ b/mp/mp_region.c
+--- a/db4/mp/mp_region.c
++++ b/db4/mp/mp_region.c
 @@ -224,7 +224,7 @@ __memp_init(env, dbmp, reginfo_off, htab_buckets, max_nreg)
  			     MTX_MPOOL_FILE_BUCKET, 0, &htab[i].mtx_hash)) != 0)
  				return (ret);
@@ -104,10 +118,10 @@ index e6cece9..ddbe906 100644
  #ifdef HAVE_STATISTICS
  		hp->hash_io_wait = 0;
  		hp->hash_frozen = hp->hash_thawed = hp->hash_frozen_freed = 0;
-diff --git a/mutex/mut_method.c b/mutex/mut_method.c
+diff --git a/db4/mutex/mut_method.c b/db4/mutex/mut_method.c
 index 2588763..5c6d516 100644
---- a/mutex/mut_method.c
-+++ b/mutex/mut_method.c
+--- a/db4/mutex/mut_method.c
++++ b/db4/mutex/mut_method.c
 @@ -426,7 +426,7 @@ atomic_compare_exchange(env, v, oldval, newval)
  	MUTEX_LOCK(env, mtx);
  	ret = atomic_read(v) == oldval;
@@ -117,10 +131,10 @@ index 2588763..5c6d516 100644
  	MUTEX_UNLOCK(env, mtx);
  
  	return (ret);
-diff --git a/mutex/mut_tas.c b/mutex/mut_tas.c
+diff --git a/db4/mutex/mut_tas.c b/db4/mutex/mut_tas.c
 index f3922e0..e40fcdf 100644
---- a/mutex/mut_tas.c
-+++ b/mutex/mut_tas.c
+--- a/db4/mutex/mut_tas.c
++++ b/db4/mutex/mut_tas.c
 @@ -46,7 +46,7 @@ __db_tas_mutex_init(env, mutex, flags)
  
  #ifdef HAVE_SHARED_LATCHES
@@ -139,3 +153,6 @@ index f3922e0..e40fcdf 100644
  		} else {
  			DB_ASSERT(env, sharecount > 0);
  			MEMBAR_EXIT();
+-- 
+2.31.0
+
