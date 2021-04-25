@@ -7,7 +7,7 @@
 , xdg-utils, yasm, nasm, minizip, libwebp
 , libusb1, pciutils, nss, re2
 
-, python2Packages, perl, pkg-config
+, python2Packages, python3Packages, perl, pkg-config
 , nspr, systemd, libkrb5
 , util-linux, alsaLib
 , bison, gperf
@@ -42,6 +42,16 @@ with lib;
 
 let
   jre = jre8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+  # TODO: Python 3 support is incomplete and "python3 ../../build/util/python2_action.py"
+  # currently doesn't work due to mixed Python 2/3 dependencies:
+  pythonPackages = if chromiumVersionAtLeast "93"
+    then python3Packages
+    else python2Packages;
+  forcePython3Patch = (githubPatch
+    # Reland #8 of "Force Python 3 to be used in build."":
+    "a2d3c362802d9e6b62f895fcda75a3695b77b1b8"
+    "1r9spr2wmjk9x9l3m1gzn6692mlvbxdz0r5hlr5rfwiwr900rxi2"
+  );
 
   # The additional attributes for creating derivations based on the chromium
   # source tree.
@@ -127,9 +137,9 @@ let
 
     nativeBuildInputs = [
       llvmPackages.lldClang.bintools
-      ninja which python2Packages.python perl pkg-config
-      python2Packages.ply python2Packages.jinja2 nodejs
-      gnutar python2Packages.setuptools
+      ninja which pythonPackages.python perl pkg-config
+      pythonPackages.ply pythonPackages.jinja2 nodejs
+      gnutar pythonPackages.setuptools
     ];
 
     buildInputs = defaultDependencies ++ [
@@ -163,14 +173,14 @@ let
       ./patches/fix-missing-atspi2-dependency.patch
     ++ optionals (chromiumVersionAtLeast "91") [
       ./patches/closure_compiler-Use-the-Java-binary-from-the-system.patch
-      (githubPatch
-        # Revert "Reland #7 of "Force Python 3 to be used in build.""
-        "38b6a9a8e5901766613879b6976f207aa163588a"
-        "1lvxbd7rl6hz5j6kh6q83yb6vd9g7anlqbai8g1w1bp6wdpgwvp9"
-      )
     ];
 
-    postPatch = ''
+    postPatch = lib.optionalString (chromiumVersionAtLeast "91") ''
+      # Required for patchShebangs (unsupported):
+      chmod -x third_party/webgpu-cts/src/tools/deno
+    '' + optionalString (chromiumVersionAtLeast "92") ''
+      patch -p1 --reverse < ${forcePython3Patch}
+    '' + ''
       # remove unused third-party
       for lib in ${toString gnSystemLibraries}; do
         if [ -d "third_party/$lib" ]; then
