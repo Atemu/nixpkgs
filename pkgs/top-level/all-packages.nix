@@ -3470,7 +3470,9 @@ in
 
   ethash = callPackage ../development/libraries/ethash { };
 
-  ethminer = callPackage ../tools/misc/ethminer { };
+  ethminer = ethminer-cuda;
+  ethminer-cuda = callPackage ../tools/misc/ethminer { };
+  ethminer-free = callPackage ../tools/misc/ethminer { cudatoolkit = null; withCuda = false; };
 
   cuetools = callPackage ../tools/cd-dvd/cuetools { };
 
