@@ -3195,6 +3195,8 @@ in {
 
   homeassistant-pyozw = callPackage ../development/python-modules/homeassistant-pyozw { };
 
+  homeconnect = callPackage ../development/python-modules/homeconnect { };
+
   homematicip = callPackage ../development/python-modules/homematicip { };
 
   homepluscontrol = callPackage ../development/python-modules/homepluscontrol { };
@@ -5742,6 +5744,8 @@ in {
 
   pycmarkgfm = callPackage ../development/python-modules/pycmarkgfm { };
 
+  pycocotools = callPackage ../development/python-modules/pycocotools { };
+
   pycodestyle = callPackage ../development/python-modules/pycodestyle { };
 
   pycognito = callPackage ../development/python-modules/pycognito { };
@@ -6514,9 +6518,13 @@ in {
 
   pysmappee = callPackage ../development/python-modules/pysmappee { };
 
-  pysmb = callPackage ../development/python-modules/pysmb { };
-
   pysmart-smartx = callPackage ../development/python-modules/pysmart-smartx { };
+
+  pysmartapp = callPackage ../development/python-modules/pysmartapp { };
+
+  pysmartthings = callPackage ../development/python-modules/pysmartthings { };
+
+  pysmb = callPackage ../development/python-modules/pysmb { };
 
   pysmbc = callPackage ../development/python-modules/pysmbc { };
 
@@ -7829,6 +7837,8 @@ in {
 
   seqdiag = callPackage ../development/python-modules/seqdiag { };
 
+  seqeval = callPackage ../development/python-modules/seqeval { };
+
   sequoia = disabledIf (isPyPy || !isPy3k) (toPythonModule (pkgs.sequoia.override {
     pythonPackages = self;
     pythonSupport = true;
@@ -7996,6 +8006,8 @@ in {
   smbus-cffi = callPackage ../development/python-modules/smbus-cffi { };
 
   smdebug-rulesconfig = callPackage ../development/python-modules/smdebug-rulesconfig { };
+
+  smhi-pkg = callPackage ../development/python-modules/smhi-pkg { };
 
   smmap2 = throw "smmap2 has been deprecated, use smmap instead."; # added 2020-03-14
 
