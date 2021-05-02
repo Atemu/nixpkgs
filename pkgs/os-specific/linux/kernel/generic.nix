@@ -55,6 +55,7 @@
 , preferBuiltin ? stdenv.hostPlatform.linux-kernel.preferBuiltin or false
 , kernelArch ? stdenv.hostPlatform.linuxArch
 , kernelTests ? []
+, nixosTests
 , ...
 }:
 
@@ -180,7 +181,16 @@ let
     kernelOlder = lib.versionOlder version;
     kernelAtLeast = lib.versionAtLeast version;
     passthru = kernel.passthru // (removeAttrs passthru [ "passthru" ]);
-    tests = kernelTests;
+    tests = let
+      overridableKernel = finalKernel // {
+        override = args:
+          lib.warn (
+            "override is stubbed for NixOS kernel tests, not applying changes these arguments: "
+            + toString (lib.attrNames args)
+          ) overridableKernel;
+      };
+    in [ (nixosTests.kernel-generic.testsForKernel overridableKernel) ] ++ kernelTests;
   };
 
-in lib.extendDerivation true passthru kernel
+  finalKernel = lib.extendDerivation true passthru kernel;
+in finalKernel
