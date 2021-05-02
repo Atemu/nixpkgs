@@ -38,8 +38,7 @@ stdenv.mkDerivation {
     platforms = platforms.linux;
     broken =
       (versionOlder kernel.version "4.4")
-      || (versionAtLeast kernel.version "5.7")
-      || (kernel.features.grsecurity or false);
+      || (versionAtLeast kernel.version "5.7");
     maintainers = with maintainers; [ edwtjo ];
   };
 

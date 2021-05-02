@@ -492,11 +492,23 @@
       fingerprint = "B422 CFB1 C9EF 73F7 E1E2 698D F53E 3233 42F7 A6D3A";
     }];
   };
+  amanjeev = {
+    email = "aj@amanjeev.com";
+    github = "amanjeev";
+    githubId = 160476;
+    name = "Amanjeev Sethi";
+  };
   amar1729 = {
     email = "amar.paul16@gmail.com";
     github = "amar1729";
     githubId = 15623522;
     name = "Amar Paul";
+  };
+  ambroisie = {
+    email = "bruno.nixpkgs@belanyi.fr";
+    github = "ambroisie";
+    githubId = 12465195;
+    name = "Bruno BELANYI";
   };
   ambrop72 = {
     email = "ambrop7@gmail.com";
@@ -8839,6 +8851,12 @@
     githubId = 15379000;
     name = "schneefux";
   };
+  schnusch = {
+    email = "schnusch@users.noreply.github.com";
+    github = "schnusch";
+    githubId = 5104601;
+    name = "schnusch";
+  };
   schristo = {
     email = "schristopher@konputa.com";
     name = "Scott Christopher";
@@ -9848,6 +9866,12 @@
     github = "thelegy";
     githubId = 3105057;
     name = "Jan Beinke";
+  };
+  therealansh = {
+    email = "tyagiansh23@gmail.com";
+    github = "therealansh";
+    githubId = 57180880;
+    name = "Ansh Tyagi";
   };
   thesola10 = {
     email = "me@thesola.io";

@@ -530,6 +530,7 @@
   ./services/misc/parsoid.nix
   ./services/misc/plex.nix
   ./services/misc/plikd.nix
+  ./services/misc/podgrab.nix
   ./services/misc/tautulli.nix
   ./services/misc/pinnwand.nix
   ./services/misc/pykms.nix
@@ -701,6 +702,9 @@
   ./services/networking/iodine.nix
   ./services/networking/iperf3.nix
   ./services/networking/ircd-hybrid/default.nix
+  ./services/networking/iscsi/initiator.nix
+  ./services/networking/iscsi/root-initiator.nix
+  ./services/networking/iscsi/target.nix
   ./services/networking/iwd.nix
   ./services/networking/jicofo.nix
   ./services/networking/jitsi-videobridge.nix
