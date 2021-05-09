@@ -15,6 +15,4 @@ buildLinux (args // rec {
     url = "mirror://kernel/linux/kernel/v4.x/linux-${version}.tar.xz";
     sha256 = "10k63vwibygdd6gzs4r6rncqqa0qf8cbnqznhbfsi41lxsnpjfsp";
   };
-
-  kernelTests = args.kernelTests or [ nixosTests.kernel-generic.linux_4_14 ];
 } // (args.argsOverride or {}))
