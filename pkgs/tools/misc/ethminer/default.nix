@@ -9,7 +9,7 @@
   boost,
   makeWrapper,
   cudatoolkit,
-  withCuda ? cudatoolkit != null,
+  cudaSupport,
   mesa,
   ethash,
   opencl-info,
@@ -21,7 +21,7 @@
 
 # Note that this requires clang < 9.0 to build, and currently
 # clangStdenv provides clang 7.1 which satisfies the requirement.
-let stdenv = if withCuda then clangStdenv else args.stdenv;
+let stdenv = if cudaSupport then clangStdenv else args.stdenv;
 
 in stdenv.mkDerivation rec {
   pname = "ethminer";
@@ -43,7 +43,7 @@ in stdenv.mkDerivation rec {
     "-DAPICORE=ON"
     "-DETHDBUS=OFF"
     "-DCMAKE_BUILD_TYPE=Release"
-  ] ++ lib.optionals (!withCuda) [
+  ] ++ lib.optionals (!cudaSupport) [
     "-DETHASHCUDA=OFF" # on by default
   ];
 
@@ -63,7 +63,7 @@ in stdenv.mkDerivation rec {
     ocl-icd
     openssl
     jsoncpp
-  ] ++ lib.optionals withCuda [
+  ] ++ lib.optionals cudaSupport [
     cudatoolkit
   ];
 
@@ -76,11 +76,11 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Ethereum miner with OpenCL${lib.optionalString withCuda ", CUDA"} and stratum support";
+    description = "Ethereum miner with OpenCL${lib.optionalString cudaSupport ", CUDA"} and stratum support";
     homepage = "https://github.com/ethereum-mining/ethminer";
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ nand0p atemu ];
-    license = licenses.gpl2;
-    broken = withCuda;
+    license = licenses.gpl3Only;
+    broken = cudaSupport;
   };
 }

@@ -6,7 +6,7 @@
 , pkg-config
 , Security
 , withPCRE2 ? true
-, pcre2 ? null
+, pcre2
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -26,8 +26,8 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ asciidoctor installShellFiles ]
     ++ lib.optional withPCRE2 pkg-config;
-  buildInputs = (lib.optional withPCRE2 pcre2)
-    ++ (lib.optional stdenv.isDarwin Security);
+  buildInputs = lib.optional withPCRE2 pcre2
+    ++ lib.optional stdenv.isDarwin Security;
 
   preFixup = ''
     installManPage $releaseDir/build/ripgrep-*/out/rg.1
@@ -51,5 +51,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/BurntSushi/ripgrep";
     license = with licenses; [ unlicense /* or */ mit ];
     maintainers = with maintainers; [ tailhook globin ma27 zowoq ];
+    mainProgram = "rg";
   };
 }

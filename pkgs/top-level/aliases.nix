@@ -70,6 +70,7 @@ mapAliases ({
   bazaarTools = throw "bazaar has been deprecated by breezy."; # added 2020-04-19
   beegfs = throw "beegfs has been removed."; # added 2019-11-24
   bluezFull = bluez; # Added 2019-12-03
+  bpftool = bpftools; # Added 2021-05-03
   brackets = throw "brackets has been removed, it was unmaintained and had open vulnerabilities"; # added 2021-01-24
   bridge_utils = bridge-utils;  # added 2015-02-20
   bro = zeek; # added 2019-09-29
@@ -337,8 +338,10 @@ mapAliases ({
   kodiPlain = kodi;
   kodiPlainWayland = kodi-wayland;
   jellyfin_10_5 = throw "Jellyfin 10.5 is no longer supported and contains a security vulnerability. Please upgrade to a newer version."; # added 2021-04-26
-  julia_07 = throw "julia_07 is deprecated in favor of julia_10 LTS"; # added 2020-09-15
-  julia_11 = throw "julia_11 is deprecated in favor of latest Julia version"; # added 2020-09-15
+  julia_07 = throw "julia_07 has been deprecated in favor of the latest LTS version"; # added 2020-09-15
+  julia_1 = throw "julia_1 has been deprecated in favor of julia_10 as it was ambiguous"; # added 2021-03-13
+  julia_11 = throw "julia_11 has been deprecated in favor of the latest stable version"; # added 2020-09-15
+  julia_13 = throw "julia_13 has been deprecated in favor of the latest stable version"; # added 2021-03-13
   kdeconnect = plasma5Packages.kdeconnect-kde; # added 2020-10-28
   kdiff3-qt5 = kdiff3; # added 2017-02-18
   keepass-keefox = keepass-keepassrpc; # backwards compatibility alias, added 2018-02
@@ -349,6 +352,7 @@ mapAliases ({
   kinetic-cpp-client = throw "kinetic-cpp-client has been removed from nixpkgs, as it's abandoned."; # 2020-04-28
   kicad-with-packages3d = kicad; # added 2019-11-25
   kindlegen = throw "kindlegen has been removed from nixpkgs, as it's abandoned and no longer available for download."; # 2021-03-09
+  kino = throw "kino has been removed because it was broken and abandoned"; # added 2021-04-25
   krename-qt5 = krename; # added 2017-02-18
   kerberos = libkrb5; # moved from top-level 2021-03-14
   keymon = throw "keymon has been removed from nixpkgs, as it's abandoned and archived."; # 2019-12-10
@@ -662,6 +666,7 @@ mapAliases ({
   rxvt_unicode-with-plugins = rxvt-unicode; # added 2020-02-02
   rxvt_unicode = rxvt-unicode-unwrapped; # added 2020-02-02
   subversion19 = throw "subversion19 has been removed as it has reached its end of life"; # added 2021-03-31
+  togglesg-download = throw "togglesg-download was removed 2021-04-30 as it's unmaintained";
   urxvt_autocomplete_all_the_things = rxvt-unicode-plugins.autocomplete-all-the-things; # added 2020-02-02
   urxvt_perl = rxvt-unicode-plugins.perl; # added 2020-02-02
   urxvt_perls = rxvt-unicode-plugins.perls; # added 2020-02-02
@@ -792,7 +797,6 @@ mapAliases ({
   torch-repl = throw "torch-repl has been removed, as the upstream project has been abandoned"; # added 2020-03-28
   torchPackages = throw "torchPackages has been removed, as the upstream project has been abandoned"; # added 2020-03-28
   trang = jing-trang; # added 2018-04-25
-  transcribe = throw "transcribe has been removed after being marked a broken for over a year"; # added 2020-09-16
   transmission_gtk = transmission-gtk; # added 2018-01-06
   transmission_remote_gtk = transmission-remote-gtk; # added 2018-01-06
   transmission-remote-cli = "transmission-remote-cli has been removed, as the upstream project has been abandoned. Please use tremc instead"; # added 2020-10-14
@@ -846,6 +850,8 @@ mapAliases ({
   xbmcPlain = kodiPlain; # added 2018-04-25
   xbmcPlugins = kodiPackages; # added 2018-04-25
   kodiPlugins = kodiPackages; # added 2021-03-09;
+  xineLib = xine-lib; # added 2021-04-27
+  xineUI = xine-ui; # added 2021-04-27
   xmonad_log_applet_gnome3 = xmonad_log_applet; # added 2018-05-01
   xmpppy = throw "xmpppy has been removed from nixpkgs as it is unmaintained and python2-only";
   pyIRCt = throw "pyIRCt has been removed from nixpkgs as it is unmaintained and python2-only";

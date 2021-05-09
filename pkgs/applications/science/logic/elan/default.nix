@@ -7,16 +7,16 @@ in
 
 rustPlatform.buildRustPackage rec {
   pname = "elan";
-  version = "0.11.0";
+  version = "1.0.2";
 
   src = fetchFromGitHub {
-    owner = "kha";
+    owner = "leanprover";
     repo = "elan";
     rev = "v${version}";
-    sha256 = "1sl69ygdwhf80sx6m76x5gp1kwsw0rr1lv814cgzm8hvyr6g0jqa";
+    sha256 = "sha256-nK4wvxK5Ne1+4kaMts6pIr5FvXBgXJsGdn68gGEZUdk=";
   };
 
-  cargoSha256 = "1f881maf8jizd5ip7pc1ncbiq7lpggp0byma13pvqk7gisnqyr4r";
+  cargoSha256 = "sha256-ptSbpq1ePNWmdBGfKtqFGfkdimDjU0YEo4F8VPtQMt4=";
 
   nativeBuildInputs = [ pkg-config makeWrapper ];
 
@@ -61,7 +61,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description = "Small tool to manage your installations of the Lean theorem prover";
-    homepage = "https://github.com/Kha/elan";
+    homepage = "https://github.com/leanprover/elan";
     license = with licenses; [ asl20 /* or */ mit ];
     maintainers = with maintainers; [ gebner ];
   };

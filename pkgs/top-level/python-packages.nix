@@ -247,8 +247,6 @@ in {
 
   aioesphomeapi = callPackage ../development/python-modules/aioesphomeapi { };
 
-  aioeventlet = callPackage ../development/python-modules/aioeventlet { };
-
   aioextensions = callPackage ../development/python-modules/aioextensions { };
 
   aiofiles = callPackage ../development/python-modules/aiofiles { };
@@ -607,6 +605,8 @@ in {
 
   auth0-python = callPackage ../development/python-modules/auth0-python { };
 
+  authcaptureproxy = callPackage ../development/python-modules/authcaptureproxy { };
+
   authheaders = callPackage ../development/python-modules/authheaders { };
 
   authlib = callPackage ../development/python-modules/authlib { };
@@ -616,6 +616,8 @@ in {
   autobahn = callPackage ../development/python-modules/autobahn { };
 
   autograd = callPackage ../development/python-modules/autograd { };
+
+  autoit-ripper = callPackage ../development/python-modules/autoit-ripper { };
 
   autologging = callPackage ../development/python-modules/autologging { };
 
@@ -842,6 +844,8 @@ in {
   azure-mgmt-servicebus = callPackage ../development/python-modules/azure-mgmt-servicebus { };
 
   azure-mgmt-servicefabric = callPackage ../development/python-modules/azure-mgmt-servicefabric { };
+
+  azure-mgmt-servicefabricmanagedclusters = callPackage ../development/python-modules/azure-mgmt-servicefabricmanagedclusters { };
 
   azure-mgmt-signalr = callPackage ../development/python-modules/azure-mgmt-signalr { };
 
@@ -1361,6 +1365,8 @@ in {
 
   click-completion = callPackage ../development/python-modules/click-completion { };
 
+  click-configfile = callPackage ../development/python-modules/click-configfile { };
+
   click-datetime = callPackage ../development/python-modules/click-datetime { };
 
   click-default-group = callPackage ../development/python-modules/click-default-group { };
@@ -1372,6 +1378,8 @@ in {
   click-log = callPackage ../development/python-modules/click-log { };
 
   click-plugins = callPackage ../development/python-modules/click-plugins { };
+
+  click-spinner = callPackage ../development/python-modules/click-spinner { };
 
   click-repl = callPackage ../development/python-modules/click-repl { };
 
@@ -1406,6 +1414,8 @@ in {
   cloudpickle = callPackage ../development/python-modules/cloudpickle { };
 
   cloudscraper = callPackage ../development/python-modules/cloudscraper { };
+
+  cloudsmith-api = callPackage ../development/python-modules/cloudsmith-api { };
 
   clustershell = callPackage ../development/python-modules/clustershell { };
 
@@ -1725,6 +1735,8 @@ in {
 
   decorator = callPackage ../development/python-modules/decorator { };
 
+  decopatch = callPackage ../development/python-modules/decopatch { };
+
   deep_merge = callPackage ../development/python-modules/deep_merge { };
 
   deepdiff = callPackage ../development/python-modules/deepdiff { };
@@ -1742,6 +1754,8 @@ in {
   defusedxml = callPackage ../development/python-modules/defusedxml { };
 
   delegator-py = callPackage ../development/python-modules/delegator-py { };
+
+  deltachat = callPackage ../development/python-modules/deltachat { };
 
   deluge-client = callPackage ../development/python-modules/deluge-client { };
 
@@ -2323,6 +2337,8 @@ in {
 
   ffmpeg-python = callPackage ../development/python-modules/ffmpeg-python { };
 
+  ffmpeg-progress-yield = callPackage ../development/python-modules/ffmpeg-progress-yield { };
+
   fido2 = callPackage ../development/python-modules/fido2 { };
 
   filebrowser_safe = callPackage ../development/python-modules/filebrowser_safe { };
@@ -2657,6 +2673,8 @@ in {
   gflags = callPackage ../development/python-modules/gflags { };
 
   ghdiff = callPackage ../development/python-modules/ghdiff { };
+
+  ghp-import = callPackage ../development/python-modules/ghp-import { };
 
   gidgethub = callPackage ../development/python-modules/gidgethub { };
 
@@ -3441,6 +3459,8 @@ in {
 
   jsonlines = callPackage ../development/python-modules/jsonlines { };
 
+  json-logging = callPackage ../development/python-modules/json-logging { };
+
   jsonmerge = callPackage ../development/python-modules/jsonmerge { };
 
   json-merge-patch = callPackage ../development/python-modules/json-merge-patch { };
@@ -3552,6 +3572,8 @@ in {
   kaptan = callPackage ../development/python-modules/kaptan { };
 
   karton-asciimagic = callPackage ../development/python-modules/karton-asciimagic { };
+
+  karton-autoit-ripper = callPackage ../development/python-modules/karton-autoit-ripper { };
 
   karton-classifier = callPackage ../development/python-modules/karton-classifier { };
 
@@ -4186,6 +4208,8 @@ in {
 
   mock-open = callPackage ../development/python-modules/mock-open { };
 
+  mock-services = callPackage ../development/python-modules/mock-services { };
+
   modeled = callPackage ../development/python-modules/modeled { };
 
   moderngl = callPackage ../development/python-modules/moderngl { };
@@ -4593,6 +4617,8 @@ in {
   onnx = callPackage ../development/python-modules/onnx { };
 
   openant = callPackage ../development/python-modules/openant { };
+
+  openapi-schema-validator = callPackage ../development/python-modules/openapi-schema-validator { };
 
   openapi-spec-validator = callPackage ../development/python-modules/openapi-spec-validator { };
 
@@ -5059,7 +5085,7 @@ in {
   poolsense = callPackage ../development/python-modules/poolsense { };
 
   poppler-qt5 = callPackage ../development/python-modules/poppler-qt5 {
-    inherit (pkgs.qt5) qtbase;
+    inherit (pkgs.qt5) qtbase qmake;
     inherit (pkgs.libsForQt5) poppler;
   };
 
@@ -5847,6 +5873,8 @@ in {
     inherit (pkgs) lz4;
   };
 
+  pyotgw = callPackage ../development/python-modules/pyotgw { };
+
   pyotp = callPackage ../development/python-modules/pyotp { };
 
   pyowm = callPackage ../development/python-modules/pyowm { };
@@ -5887,6 +5915,8 @@ in {
   pypillowfight = callPackage ../development/python-modules/pypillowfight { };
 
   pypinyin = callPackage ../development/python-modules/pypinyin { };
+
+  pypiserver = callPackage ../development/python-modules/pypiserver { };
 
   pyplaato  = callPackage ../development/python-modules/pyplaato { };
 
@@ -6241,6 +6271,8 @@ in {
   pytest-cache = self.pytestcache; # added 2021-01-04
   pytestcache = callPackage ../development/python-modules/pytestcache { };
 
+  pytest-cases = callPackage ../development/python-modules/pytest-cases{ };
+
   pytest-catchlog = callPackage ../development/python-modules/pytest-catchlog { };
 
   pytest-celery = callPackage ../development/python-modules/pytest-celery { };
@@ -6250,6 +6282,8 @@ in {
   pytest-cid = callPackage ../development/python-modules/pytest-cid { };
 
   pytest-click = callPackage ../development/python-modules/pytest-click { };
+
+  pytest-console-scripts = callPackage ../development/python-modules/pytest-console-scripts { };
 
   pytest-cov = self.pytestcov; # self 2021-01-04
   pytestcov = callPackage ../development/python-modules/pytest-cov { };
@@ -7020,6 +7054,8 @@ in {
 
   retworkx = callPackage ../development/python-modules/retworkx { };
 
+  rfc3339-validator = callPackage ../development/python-modules/rfc3339-validator { };
+
   rfc3986 = callPackage ../development/python-modules/rfc3986 { };
 
   rfc3987 = callPackage ../development/python-modules/rfc3987 { };
@@ -7185,9 +7221,22 @@ in {
 
   samsungtvws = callPackage ../development/python-modules/samsungtvws { };
 
+  sanic = callPackage ../development/python-modules/sanic {
+    # pytest-sanic is doing ok for the sole purpose of testing Sanic.
+    pytest-sanic = self.pytest-sanic.overridePythonAttrs (oldAttrs: {
+      doCheck = false;
+      meta.broken = false;
+    });
+    # Don't pass any `sanic` to avoid dependency loops.  `sanic-testing`
+    # has special logic to disable tests when this is the case.
+    sanic-testing = self.sanic-testing.override { sanic = null; };
+  };
+
   sanic-auth = callPackage ../development/python-modules/sanic-auth { };
 
-  sanic = callPackage ../development/python-modules/sanic { };
+  sanic-routing = callPackage ../development/python-modules/sanic-routing { };
+
+  sanic-testing = callPackage ../development/python-modules/sanic-testing { };
 
   sapi-python-client = callPackage ../development/python-modules/sapi-python-client { };
 
@@ -7333,6 +7382,8 @@ in {
   service-identity = callPackage ../development/python-modules/service_identity { };
 
   setproctitle = callPackage ../development/python-modules/setproctitle { };
+
+  setuptools-declarative-requirements = callPackage ../development/python-modules/setuptools-declarative-requirements { };
 
   setuptools-git = callPackage ../development/python-modules/setuptools-git { };
 
@@ -7624,6 +7675,8 @@ in {
   sphinx-autobuild = callPackage ../development/python-modules/sphinx-autobuild { };
 
   sphinx-jinja = callPackage ../development/python-modules/sphinx-jinja { };
+
+  sphinx-markdown-parser = callPackage ../development/python-modules/sphinx-markdown-parser { };
 
   sphinx-material = callPackage ../development/python-modules/sphinx-material { };
 
@@ -7957,6 +8010,8 @@ in {
   testtools = callPackage ../development/python-modules/testtools { };
 
   test-tube = callPackage ../development/python-modules/test-tube { };
+
+  textdistance = callPackage ../development/python-modules/textdistance { };
 
   textacy = callPackage ../development/python-modules/textacy { };
 

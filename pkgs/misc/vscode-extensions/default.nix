@@ -444,8 +444,8 @@ let
           mktplcRef = {
             name = "github-vscode-theme";
             publisher = "github";
-            version = "4.0.2";
-            sha256 = "06mysdwjh7km874rrk0xc0xxaqx15b4a7x1i8dly440h8w3ng5bs";
+            version = "4.1.1";
+            sha256 = "14wz2b0bn1rnmpj28c0mivz2gacla2dgg8ncv7qfx9bsxhf95g68";
           };
           meta = with lib; {
             description = "GitHub theme for VS Code";
@@ -839,8 +839,8 @@ let
         mktplcRef = {
           name = "metals";
           publisher = "scalameta";
-          version = "1.10.3";
-          sha256 = "0m4qm1z1j6gfqjjnxl8v48ga7zkaspjy3gcnkrch3aj4fyafjl09";
+          version = "1.10.4";
+          sha256 = "0q6zjpdi98png4vpzz39q85nxmsh3h1nnan58saz5rr83d6jgj89";
         };
         meta = {
           license = lib.licenses.asl20;

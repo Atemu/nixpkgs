@@ -29,7 +29,7 @@
 
 # Media support (implies audio support)
 , mediaSupport ? true
-, ffmpeg_3
+, ffmpeg
 
 , gmp
 
@@ -81,7 +81,7 @@ let
   ]
   ++ optionals pulseaudioSupport [ libpulseaudio ]
   ++ optionals mediaSupport [
-    ffmpeg_3
+    ffmpeg
   ];
 
   # Library search path for the fte transport
@@ -402,6 +402,7 @@ stdenv.mkDerivation rec {
     changelog = "https://gitweb.torproject.org/builders/tor-browser-build.git/plain/projects/tor-browser/Bundle-Data/Docs/ChangeLog.txt?h=maint-${version}";
     platforms = attrNames srcs;
     maintainers = with maintainers; [ offline matejc thoughtpolice joachifm hax404 cap KarlJoad ];
+    mainProgram = "tor-browser";
     hydraPlatforms = [];
     # MPL2.0+, GPL+, &c.  While it's not entirely clear whether
     # the compound is "libre" in a strict sense (some components place certain

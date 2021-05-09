@@ -178,6 +178,8 @@ with self; with super; {
 
   importlib-metadata = callPackage ../development/python-modules/importlib-metadata/2.nix { };
 
+  importlib-resources = callPackage ../development/python-modules/importlib-resources/2.nix { };
+
   ipaddr = callPackage ../development/python-modules/ipaddr { };
 
   ipykernel = callPackage ../development/python-modules/ipykernel/4.nix { };
@@ -604,8 +606,6 @@ with self; with super; {
 
   traitlets = callPackage ../development/python-modules/traitlets/4.nix { };
 
-  trollius = callPackage ../development/python-modules/trollius { };
-
   ttystatus = callPackage ../development/python-modules/ttystatus { };
 
   TurboCheetah = callPackage ../development/python-modules/TurboCheetah { };
@@ -638,7 +638,7 @@ with self; with super; {
 
   yt = callPackage ../development/python-modules/yt { };
 
-  zeek = disablede super.zeek;
+  zeek = disabled super.zeek;
 
   zbase32 = callPackage ../development/python-modules/zbase32 { };
 
