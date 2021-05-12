@@ -2,7 +2,7 @@
 # Do not edit!
 
 {
-  version = "2021.5.0";
+  version = "2021.5.2";
   components = {
     "abode" = ps: with ps; [ abodepy ];
     "accuweather" = ps: with ps; [ accuweather ];
@@ -375,7 +375,7 @@
     "hvv_departures" = ps: with ps; [ ]; # missing inputs: pygti
     "hydrawise" = ps: with ps; [ hydrawiser ];
     "hyperion" = ps: with ps; [ hyperion-py ];
-    "ialarm" = ps: with ps; [ ]; # missing inputs: pyialarm
+    "ialarm" = ps: with ps; [ pyialarm ];
     "iammeter" = ps: with ps; [ ]; # missing inputs: iammeter
     "iaqualink" = ps: with ps; [ iaqualink ];
     "icloud" = ps: with ps; [ pyicloud ];
@@ -413,7 +413,7 @@
     "itach" = ps: with ps; [ ]; # missing inputs: pyitachip2ir
     "itunes" = ps: with ps; [ ];
     "izone" = ps: with ps; [ ]; # missing inputs: python-izone
-    "jewish_calendar" = ps: with ps; [ ]; # missing inputs: hdate
+    "jewish_calendar" = ps: with ps; [ hdate ];
     "joaoapps_join" = ps: with ps; [ ]; # missing inputs: python-join-api
     "juicenet" = ps: with ps; [ ]; # missing inputs: python-juicenet
     "kaiterra" = ps: with ps; [ ]; # missing inputs: kaiterra-async-client
@@ -495,7 +495,7 @@
     "meraki" = ps: with ps; [ aiohttp-cors ];
     "message_bird" = ps: with ps; [ ]; # missing inputs: messagebird
     "met" = ps: with ps; [ pymetno ];
-    "met_eireann" = ps: with ps; [ ]; # missing inputs: pyMetEireann
+    "met_eireann" = ps: with ps; [ pymeteireann ];
     "meteo_france" = ps: with ps; [ ]; # missing inputs: meteofrance-api
     "meteoalarm" = ps: with ps; [ ]; # missing inputs: meteoalertapi
     "metoffice" = ps: with ps; [ ]; # missing inputs: datapoint
@@ -521,7 +521,7 @@
     "monoprice" = ps: with ps; [ ]; # missing inputs: pymonoprice
     "moon" = ps: with ps; [ ];
     "motion_blinds" = ps: with ps; [ ]; # missing inputs: motionblinds
-    "motioneye" = ps: with ps; [ ]; # missing inputs: motioneye-client
+    "motioneye" = ps: with ps; [ motioneye-client ];
     "mpchc" = ps: with ps; [ ];
     "mpd" = ps: with ps; [ mpd2 ];
     "mqtt" = ps: with ps; [ aiohttp-cors paho-mqtt ];
@@ -531,7 +531,7 @@
     "mqtt_statestream" = ps: with ps; [ aiohttp-cors paho-mqtt ];
     "msteams" = ps: with ps; [ pymsteams ];
     "mullvad" = ps: with ps; [ mullvad-api ];
-    "mutesync" = ps: with ps; [ ]; # missing inputs: mutesync
+    "mutesync" = ps: with ps; [ mutesync ];
     "mvglive" = ps: with ps; [ PyMVGLive ];
     "my" = ps: with ps; [ aiohttp-cors pillow ];
     "mychevy" = ps: with ps; [ ]; # missing inputs: mychevy
@@ -660,7 +660,7 @@
     "pushover" = ps: with ps; [ pushover-complete ];
     "pushsafer" = ps: with ps; [ ];
     "pvoutput" = ps: with ps; [ jsonpath xmltodict ];
-    "pvpc_hourly_pricing" = ps: with ps; [ ]; # missing inputs: aiopvpc
+    "pvpc_hourly_pricing" = ps: with ps; [ aiopvpc ];
     "pyload" = ps: with ps; [ ];
     "python_script" = ps: with ps; [ restrictedpython ];
     "qbittorrent" = ps: with ps; [ ]; # missing inputs: python-qbittorrent

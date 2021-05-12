@@ -383,7 +383,9 @@ with self; with super; {
 
   prettytable = callPackage ../development/python-modules/prettytable/1.nix { };
 
-  privacyidea = callPackage ../development/python-modules/privacyidea { };
+  privacyidea-ldap-proxy = callPackage ../development/python-modules/privacyidea/ldap-proxy.nix { };
+
+  ldaptor = callPackage ../development/python-modules/ldaptor/19.nix { };
 
   progressbar231 = callPackage ../development/python-modules/progressbar231 { };
 
@@ -432,6 +434,8 @@ with self; with super; {
   };
 
   pyhamcrest = callPackage ../development/python-modules/pyhamcrest/1.nix { };
+
+  pyjwt = callPackage ../development/python-modules/pyjwt/1.nix { };
 
   pykickstart = callPackage ../development/python-modules/pykickstart { };
 

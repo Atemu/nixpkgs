@@ -4,6 +4,7 @@ AckslD/nvim-whichkey-setup.lua@main
 ackyshake/Spacegray.vim@main
 airblade/vim-gitgutter
 airblade/vim-rooter
+ajmwagar/vim-deus
 akinsho/nvim-bufferline.lua
 akinsho/nvim-toggleterm.lua
 aklt/plantuml-syntax
@@ -94,6 +95,7 @@ digitaltoad/vim-pug
 direnv/direnv.vim
 dleonard0/pony-vim-syntax
 dmix/elvish.vim
+dominikduda/vim_current_word
 dpelle/vim-LanguageTool
 dracula/vim as dracula-vim
 drewtempelmeyer/palenight.vim
@@ -105,6 +107,8 @@ eagletmt/ghcmod-vim
 eagletmt/neco-ghc
 easymotion/vim-easymotion
 editorconfig/editorconfig-vim
+edluffy/hologram.nvim@main
+edluffy/specs.nvim@main
 edwinb/idris2-vim
 ehamberg/vim-cute-python
 eigenfoo/stan-vim
@@ -127,11 +131,13 @@ fatih/vim-go
 fcpg/vim-osc52
 FelikZ/ctrlp-py-matcher
 fenetikm/falcon
+fhill2/floating.nvim
 fiatjaf/neuron.vim
 fisadev/vim-isort
 flazz/vim-colorschemes
 floobits/floobits-neovim
 folke/lsp-colors.nvim@main
+folke/lsp-trouble.nvim@main
 folke/which-key.nvim@main
 freitass/todo.txt-vim
 frigoeu/psc-ide-vim
@@ -188,6 +194,7 @@ hrsh7th/vim-vsnip-integ
 hsanson/vim-android
 hsitz/VimOrganizer
 iamcco/coc-spell-checker
+iamcco/markdown-preview.nvim
 ianks/vim-tsx
 idanarye/vim-merginal
 idris-hackers/idris-vim
@@ -277,7 +284,7 @@ keith/rspec.vim
 keith/swift.vim
 kevinhwang91/nvim-bqf@main
 kevinhwang91/nvim-hlslens@main
-kevinhwang91/rnvimr
+kevinhwang91/rnvimr@main
 kien/rainbow_parentheses.vim
 knubie/vim-kitty-navigator
 konfekt/fastfold
@@ -391,6 +398,7 @@ mpickering/hlint-refactor-vim
 ms-jpq/chadtree@chad
 mtikekar/vim-bsv
 mzlogin/vim-markdown-toc
+mzlogin/vim-smali
 nanotech/jellybeans.vim
 natebosch/vim-lsc
 nathanaelkane/vim-indent-guides
@@ -513,6 +521,7 @@ raghur/fruzzy
 raghur/vim-ghost
 Raimondi/delimitMate
 rakr/vim-one
+ray-x/aurora
 rbgrouleff/bclose.vim
 rbong/vim-flog
 rhysd/committia.vim
@@ -523,6 +532,7 @@ rhysd/vim-grammarous
 rhysd/vim-operator-surround
 RishabhRD/nvim-lsputils
 RishabhRD/popfix
+rktjmp/fwatch.nvim@main
 rktjmp/lush.nvim@main
 rmagatti/auto-session@main
 rodjek/vim-puppet
@@ -575,6 +585,7 @@ sickill/vim-pasta
 SidOfc/mkdx
 simnalamburt/vim-mundo
 simrat39/rust-tools.nvim
+sindrets/diffview.nvim@main
 SirVer/ultisnips
 sjl/gundo.vim
 sjl/splice.vim
@@ -588,6 +599,7 @@ steelsojka/completion-buffers
 stefandtw/quickfix-reflector.vim
 stephpy/vim-yaml
 sunaku/vim-dasht
+sunjon/Shade.nvim
 svermeulen/vim-subversive
 t9md/vim-choosewin
 t9md/vim-smalls
@@ -596,6 +608,7 @@ takac/vim-hardtime
 tami5/compe-conjure
 tami5/lispdocs.nvim
 tami5/sql.nvim
+tbastos/vim-lua
 tbodt/deoplete-tabnine
 ternjs/tern_for_vim
 terryma/vim-expand-region

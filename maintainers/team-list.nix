@@ -66,7 +66,7 @@ with lib.maintainers; {
   };
 
   freedesktop = {
-    members = [ jtojnar worldofpeace ];
+    members = [ jtojnar ];
     scope = "Maintain Freedesktop.org packages for graphical desktop.";
   };
 
@@ -89,11 +89,19 @@ with lib.maintainers; {
     members = [
       hedning
       jtojnar
-      worldofpeace
       dasj19
       maxeaubrey
     ];
     scope = "Maintain GNOME desktop environment and platform.";
+  };
+
+  haskell = {
+    members = [
+      maralorn
+      cdepillabout
+      sternenseemann
+    ];
+    scope = "Maintain Haskell packages and infrastructure.";
   };
 
   home-assistant = {
