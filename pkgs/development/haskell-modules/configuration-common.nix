@@ -1271,6 +1271,20 @@ self: super: {
   # Created upstream PR @ https://github.com/ghcjs/jsaddle/pull/119
   jsaddle-webkit2gtk = appendPatch super.jsaddle-webkit2gtk ./patches/jsaddle-webkit2gtk.patch;
 
+  # 2021-05-12: gi-gdkpixbuf_2_0_26 fix
+  # https://github.com/taffybar/gtk-sni-tray/pull/25
+  gtk-sni-tray = appendPatch super.gtk-sni-tray (pkgs.fetchpatch {
+    url = "https://github.com/taffybar/gtk-sni-tray/pull/25/commits/4afd84654cb3f2bd2bb7d39451706c5914fd3cdf.patch";
+    sha256 = "1xjxlh58vnykqsjq4qw8mliq3gk17mwxi4h9z8dvjyav8zqg05rn";
+  });
+
+  # 2021-05-12: gi-gdkpixbuf_2_0_26 fix
+  # https://github.com/taffybar/taffybar/pull/507
+  taffybar = appendPatch super.taffybar (pkgs.fetchpatch {
+    url = "https://github.com/taffybar/taffybar/pull/507/commits/14a650d0954000cbd2cb1018a2f3bcd40ecb564f.patch";
+    sha256 = "01rm8zida5858j5r0mw7bpmv24b03mb3rw34lbkaw3i7g62bx3a0";
+  });
+
   # Missing -Iinclude parameter to doc-tests (pull has been accepted, so should be resolved when 0.5.3 released)
   # https://github.com/lehins/massiv/pull/104
   massiv = dontCheck super.massiv;
@@ -1783,10 +1797,6 @@ self: super: {
   ihaskell-display = doJailbreak super.ihaskell-display;
   ihaskell-basic = doJailbreak super.ihaskell-basic;
 
-  # too strict bounds on QuickCheck
-  # https://github.com/HeinrichApfelmus/hyper-haskell/issues/42
-  hyper-extra = doJailbreak super.hyper-extra;
-
   # Fixes too strict version bounds on regex libraries
   # Presumably to be removed at the next release
   yi-language = appendPatch super.yi-language (pkgs.fetchpatch {
@@ -1843,8 +1853,6 @@ self: super: {
       name = "language-docker-${super.language-docker.version}-source";
     };
   };
-
-  phonetic-languages-phonetics-basics = appendPatch super.phonetic-languages-phonetics-basics ./patches/phonetic-languages-phonetics-basics-haddock.patch;
 
   # 2021-05-09: Restrictive bound on hspec-golden. Dep removed in newer versions.
   tomland = assert super.tomland.version == "1.3.2.0"; doJailbreak super.tomland;

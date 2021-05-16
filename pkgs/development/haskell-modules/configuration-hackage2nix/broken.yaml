@@ -1699,7 +1699,6 @@ broken-packages:
   - gtk2hs-rpn
   - gtk3-mac-integration
   - gtkglext
-  - gtk-sni-tray
   - gtksourceview2
   - gtksourceview3
   - gtk-toy
@@ -4183,6 +4182,7 @@ broken-packages:
   - simple-ui
   - simple-units
   - simple-vec3
+  - simplexmq
   - simple-zipper
   - singleton-dict
   - singletons-th
