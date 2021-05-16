@@ -47,11 +47,11 @@ least specific (the system profile)"
 ;;; Set up native-comp load path.
 (when (featurep 'comp)
   ;; Append native-comp subdirectories from `NIX_PROFILES'.
-  (setq native-comp-eln-load-path
+  (setq comp-eln-load-path
         (append (mapcar (lambda (profile-dir)
                           (concat profile-dir "/share/emacs/native-lisp/"))
                         (nix--profile-paths))
-                native-comp-eln-load-path)))
+                comp-eln-load-path)))
 
 ;;; Make `woman' find the man pages
 (defvar woman-manpath)
