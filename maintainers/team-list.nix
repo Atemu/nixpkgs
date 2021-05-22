@@ -48,6 +48,14 @@ with lib.maintainers; {
     scope = "Maintain Cinnamon desktop environment and applications made by the LinuxMint team.";
   };
 
+  chia = {
+    members = [
+      atemu
+      lourkeur
+    ];
+    scope = "Maintain the Chia blockchain and its dependencies";
+  };
+
   deshaw = {
     # Verify additions to this team with at least one already existing member of the team.
     members = [
@@ -177,5 +185,14 @@ with lib.maintainers; {
       collares
     ];
     scope = "Maintain SageMath and the dependencies that are likely to break it.";
+  };
+
+  serokell = {
+    # Verify additions by approval of an already existing member of the team.
+    members = [
+      balsoft
+      mkaito
+    ];
+    scope = "Group registration for Serokell employees who collectively maintain packages.";
   };
 }

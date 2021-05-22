@@ -97,7 +97,7 @@ self: super: {
     # https://gist.github.com/Mic92/135e83803ed29162817fce4098dec144
     preFixup = ''
       substituteInPlace "$out"/share/vim-plugins/clang_complete/plugin/clang_complete.vim \
-        --replace "let g:clang_library_path = '' + "''" + ''" "let g:clang_library_path='${llvmPackages.clang.cc.lib}/lib/libclang.so'"
+        --replace "let g:clang_library_path = '' + "''" + ''" "let g:clang_library_path='${llvmPackages.libclang.lib}/lib/libclang.so'"
 
       substituteInPlace "$out"/share/vim-plugins/clang_complete/plugin/libclang.py \
         --replace "/usr/lib/clang" "${llvmPackages.clang.cc}/lib/clang"
@@ -605,7 +605,7 @@ self: super: {
             libiconv
           ];
 
-          cargoSha256 = "sha256-Jy8ThtcdPV4fMGcQbJJnibwb3o5iEHNn54831OI9adc=";
+          cargoSha256 = "16fhiv6qmf7dv968jyybkgs1wkphy383s78g8w5wnz4i0czld8dq";
         };
       in
       ''

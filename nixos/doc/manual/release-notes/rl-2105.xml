@@ -100,6 +100,19 @@
       Now nginx uses the zlib-ng library by default.
     </para>
    </listitem>
+   <listitem>
+    <para>
+     <link xlink:href="https://libreswan.org/">Libreswan</link> has been updated
+     to version 4.4. The package now includes example configurations and manual
+     pages by default. The NixOS module has been changed to use the upstream
+     systemd units and write the configuration in the <literal>/etc/ipsec.d/
+     </literal> directory. In addition, two new options have been added to
+     specify connection policies
+     (<xref linkend="opt-services.libreswan.policies"/>)
+     and disable send/receive redirects
+     (<xref linkend="opt-services.libreswan.disableRedirects"/>).
+    </para>
+   </listitem>
   </itemizedlist>
  </section>
 
@@ -143,6 +156,11 @@
      <para>
        See the <link linkend="module-services-discourse">Discourse
        section of the NixOS manual</link> for more information.
+     </para>
+   </listitem>
+   <listitem>
+     <para>
+       <xref linkend="opt-services.nebula.networks" /> <link xlink:href="https://github.com/slackhq/nebula">Nebula VPN</link>
      </para>
    </listitem>
   </itemizedlist>
@@ -699,6 +717,17 @@ environment.systemPackages = [
    </listitem>
    <listitem>
      <para>
+       The <package>kbdKeymaps</package> package was removed since dvp and neo
+       are now included in <package>kbd</package>.
+
+       If you want to use the Programmer Dvorak Keyboard Layout, you have to use
+       <literal>dvorak-programmer</literal> in <option>console.keyMap</option>
+       now instead of <literal>dvp</literal>.
+       In <option>services.xserver.xkbVariant</option> it's still <literal>dvp</literal>.
+    </para>
+   </listitem>
+   <listitem>
+     <para>
        The <package>babeld</package> service is now being run as an unprivileged user. To achieve that the module configures
        <literal>skip-kernel-setup true</literal> and takes care of setting forwarding and rp_filter sysctls by itself as well
        as for each interface in <varname>services.babeld.interfaces</varname>.
@@ -924,6 +953,23 @@ environment.systemPackages = [
     </para>
    </listitem>
    <listitem>
+    <para>
+     The <literal>security.apparmor</literal> module,
+     for the <link xlink:href="https://gitlab.com/apparmor/apparmor/-/wikis/Documentation">AppArmor</link>
+     Mandatory Access Control system,
+     has been substantialy improved along with related tools,
+     so that module maintainers can now more easily write AppArmor profiles for NixOS.
+     The most notable change on the user-side is the new option <xref linkend="opt-security.apparmor.policies"/>,
+     replacing the previous <literal>profiles</literal> option
+     to provide a way to disable a profile
+     and to select whether to confine in enforce mode (default)
+     or in complain mode (see <literal>journalctl -b --grep apparmor</literal>).
+     Security-minded users may also want to enable <xref linkend="opt-security.apparmor.killUnconfinedConfinables"/>,
+     at the cost of having some of their processes killed
+     when updating to a NixOS version introducing new AppArmor profiles.
+    </para>
+   </listitem>
+   <listitem>
      <para>
        The GNOME desktop manager once again installs <package>gnome.epiphany</package> by default.
      </para>
@@ -1047,6 +1093,12 @@ environment.systemPackages = [
      <programlisting>
 <xref linkend="opt-services.gvfs.package" /> = pkgs.gvfs.override { samba = null; };
      </programlisting>
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     The newly enabled <literal>systemd-pstore.service</literal> now automatically evacuates crashdumps and panic logs from the persistent storage to <literal>/var/lib/systemd/pstore</literal>.
+     This prevents NVRAM from filling up, which ensures the latest diagnostic data is always stored and alleviates problems with writing new boot configurations.
     </para>
    </listitem>
   </itemizedlist>

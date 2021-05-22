@@ -8,12 +8,12 @@
 
 let
   executableName = "element-desktop";
-  version = "1.7.27";
+  version = "1.7.28";
   src = fetchFromGitHub {
     owner = "vector-im";
     repo = "element-desktop";
     rev = "v${version}";
-    sha256 = "0rgsc2cc1v6gjsklwvsjlqq9a8j9j80h9ac0jkvf9lhq33f3c57k";
+    sha256 = "0p88gw1y37q35qqf94w3qlb84s2shm41n1pw5fgx0c0ymlzpl636";
   };
 in mkYarnPackage rec {
   name = "element-desktop-${version}";
@@ -45,7 +45,8 @@ in mkYarnPackage rec {
 
     # executable wrapper
     makeWrapper '${electron}/bin/electron' "$out/bin/${executableName}" \
-      --add-flags "$out/share/element/electron"
+      --add-flags "$out/share/element/electron" \
+      --set-default MOZ_DBUS_REMOTE 1
   '';
 
   # Do not attempt generating a tarball for element-web again.

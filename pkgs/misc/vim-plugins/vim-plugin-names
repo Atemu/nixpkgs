@@ -47,7 +47,6 @@ camspiers/lens.vim
 carlitux/deoplete-ternjs
 ccarpita/rtorrent-syntax-file
 cespare/vim-toml
-Chiel92/vim-autoformat
 chikatoike/concealedyank.vim
 chikatoike/sourcemap.vim
 chkno/vim-haskell-module-name
@@ -137,7 +136,8 @@ fisadev/vim-isort
 flazz/vim-colorschemes
 floobits/floobits-neovim
 folke/lsp-colors.nvim@main
-folke/lsp-trouble.nvim@main
+folke/todo-comments.nvim@main
+folke/trouble.nvim@main
 folke/which-key.nvim@main
 freitass/todo.txt-vim
 frigoeu/psc-ide-vim
@@ -176,6 +176,7 @@ guns/xterm-color-table.vim
 hashivim/vim-packer
 hashivim/vim-terraform
 hashivim/vim-vagrant
+hauleth/sad.vim
 haya14busa/incsearch-easymotion.vim
 haya14busa/incsearch.vim
 haya14busa/is.vim
@@ -328,6 +329,7 @@ LucHermitte/lh-vim-lib
 ludovicchabant/vim-gutentags
 ludovicchabant/vim-lawrencium
 lukas-reineke/indent-blankline.nvim
+lukas-reineke/indent-blankline.nvim@lua as indent-blankline-nvim-lua
 lukaszkorecki/workflowish
 lumiliet/vim-twig
 luochen1990/rainbow
@@ -522,6 +524,7 @@ raghur/vim-ghost
 Raimondi/delimitMate
 rakr/vim-one
 ray-x/aurora
+ray-x/lsp_signature.nvim
 rbgrouleff/bclose.vim
 rbong/vim-flog
 rhysd/committia.vim
@@ -553,6 +556,7 @@ rstacruz/vim-closer
 rust-lang/rust.vim
 ryanoasis/vim-devicons
 ryvnf/readline.vim
+sainnhe/edge
 sainnhe/sonokai
 sakhnik/nvim-gdb
 saltstack/salt-vim
@@ -699,6 +703,7 @@ vhda/verilog_systemverilog.vim
 vigoux/LanguageTool.nvim
 vim-airline/vim-airline
 vim-airline/vim-airline-themes
+vim-autoformat/vim-autoformat
 vim-erlang/vim-erlang-compiler
 vim-erlang/vim-erlang-omnicomplete
 vim-erlang/vim-erlang-runtime
@@ -776,4 +781,5 @@ yssl/QFEnter
 yuki-yano/ncm2-dictionary
 yunlingz/ci_dark
 zah/nim.vim
+zhou13/vim-easyescape
 ziglang/zig.vim

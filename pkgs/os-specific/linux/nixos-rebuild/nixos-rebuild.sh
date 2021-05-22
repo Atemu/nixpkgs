@@ -105,7 +105,7 @@ while [ "$#" -gt 0 ]; do
         ;;
       --flake)
         flake="$1"
-        flakeFlags=(--experimental-features 'nix-command flakes')
+        flakeFlags=(--extra-experimental-features 'nix-command flakes')
         shift 1
         ;;
       --recreate-lock-file|--no-update-lock-file|--no-write-lock-file|--no-registries|--commit-lock-file)
@@ -386,6 +386,8 @@ prebuiltNix() {
         echo @nix_x86_64_linux@
     elif [[ "$machine" =~ i.86 ]]; then
         echo @nix_i686_linux@
+    elif [[ "$machine" = aarch64 ]]; then
+        echo @nix_aarch64_linux@
     else
         echo "$0: unsupported platform"
         exit 1

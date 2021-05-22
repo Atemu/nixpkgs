@@ -64,6 +64,7 @@ in
 {
 
   meta = {
+    doc = ./gnome.xml;
     maintainers = teams.gnome.members;
   };
 
@@ -291,11 +292,6 @@ in
 
        # If gnome is installed, build vim for gtk3 too.
       nixpkgs.config.vim.gui = "gtk3";
-
-      # Install gnome-software if flatpak is enabled
-      services.flatpak.guiPackages = [
-        pkgs.gnome.gnome-software
-      ];
     })
 
     (mkIf flashbackEnabled {
@@ -466,31 +462,39 @@ in
 
     # Adapt from https://gitlab.gnome.org/GNOME/gnome-build-meta/blob/gnome-3-38/elements/core/meta-gnome-core-utilities.bst
     (mkIf serviceCfg.core-utilities.enable {
-      environment.systemPackages = (with pkgs.gnome; removePackagesByName [
-        baobab
-        cheese
-        eog
-        epiphany
-        gedit
-        gnome-calculator
-        gnome-calendar
-        gnome-characters
-        gnome-clocks
-        gnome-contacts
-        gnome-font-viewer
-        gnome-logs
-        gnome-maps
-        gnome-music
-        pkgs.gnome-photos
-        gnome-screenshot
-        gnome-system-monitor
-        gnome-weather
-        nautilus
-        pkgs.gnome-connections
-        simple-scan
-        totem
-        yelp
-      ] config.environment.gnome.excludePackages);
+      environment.systemPackages =
+        with pkgs.gnome;
+        removePackagesByName
+          ([
+            baobab
+            cheese
+            eog
+            epiphany
+            gedit
+            gnome-calculator
+            gnome-calendar
+            gnome-characters
+            gnome-clocks
+            gnome-contacts
+            gnome-font-viewer
+            gnome-logs
+            gnome-maps
+            gnome-music
+            pkgs.gnome-photos
+            gnome-screenshot
+            gnome-system-monitor
+            gnome-weather
+            nautilus
+            pkgs.gnome-connections
+            simple-scan
+            totem
+            yelp
+          ] ++ lib.optionals config.services.flatpak.enable [
+            # Since PackageKit Nix support is not there yet,
+            # only install gnome-software if flatpak is enabled.
+            gnome-software
+          ])
+          config.environment.gnome.excludePackages;
 
       # Enable default program modules
       # Since some of these have a corresponding package, we only
@@ -553,7 +557,7 @@ in
         /* gnome-boxes */
       ] config.environment.gnome.excludePackages);
 
-      services.sysprof.enable = true;
+      services.sysprof.enable = notExcluded pkgs.sysprof;
     })
   ];
 
