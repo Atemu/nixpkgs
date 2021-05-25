@@ -6905,6 +6905,10 @@ in {
 
   pyvicare = callPackage ../development/python-modules/pyvicare { };
 
+  pyvisa = callPackage ../development/python-modules/pyvisa { };
+
+  pyvisa-py = callPackage ../development/python-modules/pyvisa-py { };
+
   pyviz-comms = callPackage ../development/python-modules/pyviz-comms { };
 
   pyvizio = callPackage ../development/python-modules/pyvizio { };
@@ -7658,7 +7662,7 @@ in {
 
   sly = callPackage ../development/python-modules/sly { };
 
-  smart_open = callPackage ../development/python-modules/smart_open { };
+  smart-open = callPackage ../development/python-modules/smart-open { };
 
   smartypants = callPackage ../development/python-modules/smartypants { };
 
@@ -8262,6 +8266,8 @@ in {
   todoist = callPackage ../development/python-modules/todoist { };
 
   toggl-cli = callPackage ../development/python-modules/toggl-cli { };
+
+  token-bucket = callPackage ../development/python-modules/token-bucket { };
 
   tokenizers = toPythonModule (callPackage ../development/python-modules/tokenizers { });
 
