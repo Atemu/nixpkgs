@@ -1528,6 +1528,12 @@
     githubId = 510553;
     name = "Jos van Bakel";
   };
+  c4605 = {
+    email = "bolasblack@gmail.com";
+    github = "bolasblack";
+    githubId = 382011;
+    name = "c4605";
+  };
   caadar = {
     email = "v88m@posteo.net";
     github = "caadar";
@@ -5517,6 +5523,12 @@
     }];
     name = "Las Safin";
   };
+  l3af = {
+    email = "L3afMeAlon3@gmail.com";
+    github = "L3afMe";
+    githubId = 72546287;
+    name = "L3af";
+  };
   laikq = {
     email = "gwen@quasebarth.de";
     github = "laikq";
@@ -6417,6 +6429,10 @@
     githubId = 44469426;
     name = "Matheus de Souza Pessanha";
     email = "matheus_pessanha2001@outlook.com";
+    keys = [{
+      longkeyid = "rsa4096/6DFD656220A3B849";
+      fingerprint = "2D4D 488F 17FB FF75 664E  C016 6DFD 6562 20A3 B849";
+    }];
   };
   meatcar = {
     email = "nixpkgs@denys.me";
@@ -8107,6 +8123,12 @@
     githubId = 406946;
     name = "Valentin Lorentz";
   };
+  proofofkeags = {
+    email = "keagan.mcclelland@gmail.com";
+    github = "ProofOfKeags";
+    githubId = 4033651;
+    name = "Keagan McClelland";
+  };
   protoben = {
     email = "protob3n@gmail.com";
     github = "protoben";
@@ -8709,6 +8731,12 @@
     githubId = 221121;
     name = "Robert P. Seaton";
   };
+  rraval = {
+    email = "ronuk.raval@gmail.com";
+    github = "rraval";
+    githubId = 373566;
+    name = "Ronuk Raval";
+  };
   rszibele = {
     email = "richard@szibele.com";
     github = "rszibele";
@@ -9148,6 +9176,12 @@
     github = "sheenobu";
     githubId = 1443459;
     name = "Sheena Artrip";
+  };
+  sheepforce = {
+    email = "phillip.seeber@googlemail.com";
+    github = "sheepforce";
+    githubId = 16844216;
+    name = "Phillip Seeber";
   };
   sheganinans = {
     email = "sheganinans@gmail.com";
