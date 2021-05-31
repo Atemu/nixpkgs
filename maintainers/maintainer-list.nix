@@ -6615,6 +6615,16 @@
     githubId = 1387206;
     name = "Mike Sperber";
   };
+  mikroskeem = {
+    email = "mikroskeem@mikroskeem.eu";
+    github = "mikroskeem";
+    githubId = 3490861;
+    name = "Mark Vainomaa";
+    keys = [{
+      longkeyid = "rsa4096/0xDA015B05B5A11B22";
+      fingerprint = "DB43 2895 CF68 F0CE D4B7  EF60 DA01 5B05 B5A1 1B22";
+    }];
+  };
   milesbreslin = {
     email = "milesbreslin@gmail.com";
     github = "milesbreslin";
@@ -7175,6 +7185,12 @@
     githubId = 10180857;
     name = "Anmol Sethi";
   };
+  nichtsfrei = {
+    email = "philipp.eder@posteo.net";
+    github = "nichtsfrei";
+    githubId = 1665818;
+    name = "Philipp Eder";
+  };
   nickhu = {
     email = "me@nickhu.co.uk";
     github = "nickhu";
@@ -7462,6 +7478,12 @@
     github = "olcai";
     githubId = 20923;
     name = "Erik Timan";
+  };
+  olebedev = {
+    email = "ole6edev@gmail.com";
+    github = "olebedev";
+    githubId = 848535;
+    name = "Oleg Lebedev";
   };
   olejorgenb = {
     email = "olejorgenb@yahoo.no";

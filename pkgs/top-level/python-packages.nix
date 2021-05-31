@@ -112,6 +112,8 @@ in {
   inherit buildSetupcfg;
 
   inherit (callPackage ../development/interpreters/python/hooks { })
+    condaInstallHook
+    condaUnpackHook
     eggUnpackHook
     eggBuildHook
     eggInstallHook
@@ -1394,6 +1396,8 @@ in {
   clevercsv = callPackage ../development/python-modules/clevercsv { };
 
   clf = callPackage ../development/python-modules/clf { };
+
+  cock = callPackage ../development/python-modules/cock { };
 
   click = callPackage ../development/python-modules/click { };
 
@@ -6197,6 +6201,8 @@ in {
   pyro-api = callPackage ../development/python-modules/pyro-api { };
 
   pyro-ppl = callPackage ../development/python-modules/pyro-ppl { };
+
+  pyroon = callPackage ../development/python-modules/pyroon { };
 
   pyroute2 = callPackage ../development/python-modules/pyroute2 { };
 
