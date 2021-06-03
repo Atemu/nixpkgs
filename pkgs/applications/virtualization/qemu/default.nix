@@ -29,6 +29,7 @@
                           ++ ["${stdenv.hostPlatform.qemuArch}-softmmu"])
                     else null)
 , nixosTestRunner ? false
+, guiRefreshInterval ? 16
 }:
 
 with lib;
@@ -114,6 +115,10 @@ stdenv.mkDerivation rec {
     # This means `-accel hvf` is broken for now, on aarch64-darwin only.
     substituteInPlace meson.build \
       --replace 'if exe_sign' 'if false'
+
+    substituteInPlace include/ui/console.h \
+    --replace 'define GUI_REFRESH_INTERVAL_DEFAULT    30' \
+    'define GUI_REFRESH_INTERVAL_DEFAULT    ${toString guiRefreshInterval}'
   '';
 
   preConfigure = ''
