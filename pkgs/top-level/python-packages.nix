@@ -223,6 +223,10 @@ in {
 
   agent-py = callPackage ../development/python-modules/agent-py { };
 
+  aio-georss-client = callPackage ../development/python-modules/aio-georss-client { };
+
+  aio-georss-gdacs = callPackage ../development/python-modules/aio-georss-gdacs { };
+
   aioambient = callPackage ../development/python-modules/aioambient { };
 
   ailment = callPackage ../development/python-modules/ailment { };
@@ -1417,6 +1421,8 @@ in {
 
   click-log = callPackage ../development/python-modules/click-log { };
 
+  click-option-group = callPackage ../development/python-modules/click-option-group { };
+
   click-plugins = callPackage ../development/python-modules/click-plugins { };
 
   click-spinner = callPackage ../development/python-modules/click-spinner { };
@@ -2193,6 +2199,8 @@ in {
 
   elementpath = callPackage ../development/python-modules/elementpath { };
 
+  elevate = callPackage ../development/python-modules/elevate { };
+
   eliot = callPackage ../development/python-modules/eliot { };
 
   elmax = callPackage ../development/python-modules/elmax { };
@@ -2296,6 +2304,8 @@ in {
   expects = callPackage ../development/python-modules/expects { };
 
   expiringdict = callPackage ../development/python-modules/expiringdict { };
+
+  explorerscript = callPackage ../development/python-modules/explorerscript { };
 
   exrex = callPackage ../development/python-modules/exrex { };
 
@@ -2676,6 +2686,8 @@ in {
 
   gast = callPackage ../development/python-modules/gast { };
 
+  garages-amsterdam = callPackage ../development/python-modules/garages-amsterdam { };
+
   gcovr = callPackage ../development/python-modules/gcovr { };
 
   gcsfs = callPackage ../development/python-modules/gcsfs { };
@@ -2733,6 +2745,22 @@ in {
   geopandas = callPackage ../development/python-modules/geopandas { };
 
   geopy = callPackage ../development/python-modules/geopy { };
+
+  georss-client = callPackage ../development/python-modules/georss-client { };
+
+  georss-generic-client = callPackage ../development/python-modules/georss-generic-client { };
+
+  georss-ign-sismologia-client = callPackage ../development/python-modules/georss-ign-sismologia-client { };
+
+  georss-ingv-centro-nazionale-terremoti-client = callPackage ../development/python-modules/georss-ingv-centro-nazionale-terremoti-client { };
+
+  georss-nrcan-earthquakes-client = callPackage ../development/python-modules/georss-nrcan-earthquakes-client { };
+
+  georss-qld-bushfire-alert-client = callPackage ../development/python-modules/georss-qld-bushfire-alert-client { };
+
+  georss-tfs-incidents-client = callPackage ../development/python-modules/georss-tfs-incidents-client { };
+
+  georss-wa-dfes-client = callPackage ../development/python-modules/georss-wa-dfes-client { };
 
   getmac = callPackage ../development/python-modules/getmac { };
 
@@ -3403,6 +3431,8 @@ in {
   ipdbplugin = callPackage ../development/python-modules/ipdbplugin { };
 
   ipfshttpclient = callPackage ../development/python-modules/ipfshttpclient { };
+
+  i-pi = callPackage ../development/python-modules/i-pi { };
 
   iptools = callPackage ../development/python-modules/iptools { };
 
@@ -4215,7 +4245,7 @@ in {
 
   mecab-python3 = callPackage ../development/python-modules/mecab-python3 { };
 
-  MechanicalSoup = callPackage ../development/python-modules/MechanicalSoup { };
+  mechanicalsoup = callPackage ../development/python-modules/mechanicalsoup { };
 
   mechanize = callPackage ../development/python-modules/mechanize { };
 
@@ -4295,6 +4325,8 @@ in {
   ;
 
   mitmproxy = callPackage ../development/python-modules/mitmproxy { };
+
+  mitogen = callPackage ../development/python-modules/mitogen { };
 
   mixpanel = callPackage ../development/python-modules/mixpanel { };
 
@@ -4526,6 +4558,8 @@ in {
   ndg-httpsclient = callPackage ../development/python-modules/ndg-httpsclient { };
 
   ndjson = callPackage ../development/python-modules/ndjson { };
+
+  ndspy = callPackage ../development/python-modules/ndspy { };
 
   ndtypes = callPackage ../development/python-modules/ndtypes { };
 
@@ -5603,6 +5637,8 @@ in {
 
   pydenticon = callPackage ../development/python-modules/pydenticon { };
 
+  py-desmume = callPackage ../development/python-modules/py-desmume { };
+
   pydexcom = callPackage ../development/python-modules/pydexcom { };
 
   pydicom = callPackage ../development/python-modules/pydicom { };
@@ -5766,6 +5802,8 @@ in {
   pygtfs = callPackage ../development/python-modules/pygtfs { };
 
   pygtail = callPackage ../development/python-modules/pygtail { };
+
+  pygtkspellcheck = callPackage ../development/python-modules/pygtkspellcheck { };
 
   pygtrie = callPackage ../development/python-modules/pygtrie { };
 
@@ -6100,6 +6138,8 @@ in {
 
   pyppeteer = callPackage ../development/python-modules/pyppeteer { };
 
+  pypresence = callPackage ../development/python-modules/pypresence { };
+
   pyprind = callPackage ../development/python-modules/pyprind { };
 
   pyprof2calltree = callPackage ../development/python-modules/pyprof2calltree { };
@@ -6211,6 +6251,22 @@ in {
   pyroon = callPackage ../development/python-modules/pyroon { };
 
   pyroute2 = callPackage ../development/python-modules/pyroute2 { };
+
+  pyroute2-core = callPackage ../development/python-modules/pyroute2-core { };
+
+  pyroute2-ethtool = callPackage ../development/python-modules/pyroute2-ethtool { };
+
+  pyroute2-ipdb = callPackage ../development/python-modules/pyroute2-ipdb { };
+
+  pyroute2-ipset = callPackage ../development/python-modules/pyroute2-ipset { };
+
+  pyroute2-ndb = callPackage ../development/python-modules/pyroute2-ndb { };
+
+  pyroute2-nftables = callPackage ../development/python-modules/pyroute2-nftables { };
+
+  pyroute2-nslink = callPackage ../development/python-modules/pyroute2-nslink { };
+
+  pyroute2-protocols = callPackage ../development/python-modules/pyroute2-protocols { };
 
   pyrr = callPackage ../development/python-modules/pyrr { };
 
@@ -7461,6 +7517,8 @@ in {
 
   scikit-fuzzy = callPackage ../development/python-modules/scikit-fuzzy { };
 
+  scikit-hep-testdata = callPackage ../development/python-modules/scikit-hep-testdata { };
+
   scikitimage = callPackage ../development/python-modules/scikit-image { };
 
   scikit-learn = callPackage ../development/python-modules/scikit-learn {
@@ -7590,8 +7648,7 @@ in {
 
   setuptools-rust = callPackage ../development/python-modules/setuptools-rust { };
 
-  setuptools-scm = self.setuptools_scm; # added 2021-01-04
-  setuptools_scm = callPackage ../development/python-modules/setuptools_scm { };
+  setuptools-scm = callPackage ../development/python-modules/setuptools-scm { };
 
   setuptools-scm-git-archive = callPackage ../development/python-modules/setuptools-scm-git-archive { };
 
@@ -7686,6 +7743,18 @@ in {
   skorch = callPackage ../development/python-modules/skorch { };
 
   skybellpy = callPackage ../development/python-modules/skybellpy { };
+
+  skytemple-dtef = callPackage ../development/python-modules/skytemple-dtef { };
+
+  skytemple-eventserver = callPackage ../development/python-modules/skytemple-eventserver { };
+
+  skytemple-files = callPackage ../development/python-modules/skytemple-files { };
+
+  skytemple-icons = callPackage ../development/python-modules/skytemple-icons { };
+
+  skytemple-rust = callPackage ../development/python-modules/skytemple-rust { };
+
+  skytemple-ssb-debugger = callPackage ../development/python-modules/skytemple-ssb-debugger { };
 
   slack-sdk = callPackage ../development/python-modules/slack-sdk { };
 
@@ -7844,6 +7913,8 @@ in {
   sphinxcontrib-blockdiag = callPackage ../development/python-modules/sphinxcontrib-blockdiag { };
 
   sphinxcontrib-devhelp = callPackage ../development/python-modules/sphinxcontrib-devhelp { };
+
+  sphinxcontrib-excel-table = callPackage ../development/python-modules/sphinxcontrib-excel-table { };
 
   sphinxcontrib-fulltoc = callPackage ../development/python-modules/sphinxcontrib-fulltoc { };
 
@@ -8026,6 +8097,8 @@ in {
   subarulink = callPackage ../development/python-modules/subarulink { };
 
   subdownloader = callPackage ../development/python-modules/subdownloader { };
+
+  subliminal = callPackage ../development/python-modules/subliminal { };
 
   subunit = callPackage ../development/python-modules/subunit {
     inherit (pkgs) subunit cppunit check;
@@ -8279,6 +8352,8 @@ in {
   tiledb = callPackage ../development/python-modules/tiledb {
     inherit (pkgs) tiledb;
   };
+
+  tilequant = callPackage ../development/python-modules/tilequant { };
 
   tilestache = callPackage ../development/python-modules/tilestache { };
 
@@ -8585,6 +8660,8 @@ in {
   update-dotdee = callPackage ../development/python-modules/update-dotdee { };
 
   upnpy = callPackage ../development/python-modules/upnpy { };
+
+  uproot = callPackage ../development/python-modules/uproot { };
 
   uproot3 = callPackage ../development/python-modules/uproot3 { };
 
