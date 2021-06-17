@@ -97,7 +97,10 @@ in
       enable = mkEnableOption "smartd daemon from <literal>smartmontools</literal> package";
 
       package = mkOption {
-        default = pkgs.smartmontools;
+        default = pkgs.smartmontools.override { enableMail = cfg.notifications.mail.enable; };
+        defaultText = ''
+          Automatically use smartmontools with mail support when mailing support is enabled in the module
+        '';
         description = ''
           The smartmontools package to use (needs mail support when enabled)
         '';
