@@ -8701,6 +8701,7 @@ in
   smartmontools = callPackage ../tools/system/smartmontools {
     inherit (darwin.apple_sdk.frameworks) IOKit ApplicationServices;
   };
+  smartmontools-mail = smartmontools.override { enableMail = true; };
 
   smarty3 = callPackage ../development/libraries/smarty3 { };
   smarty3-i18n = callPackage ../development/libraries/smarty3-i18n { };

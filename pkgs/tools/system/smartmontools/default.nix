@@ -1,5 +1,5 @@
 { lib, stdenv, fetchurl, autoreconfHook
-, mailutils, enableMail ? true
+, mailutils, enableMail ? false
 , inetutils
 , IOKit, ApplicationServices }:
 
