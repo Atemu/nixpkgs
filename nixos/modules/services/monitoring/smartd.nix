@@ -25,7 +25,7 @@ let
       $SMARTD_FULLMESSAGE
       EOF
 
-      ${pkgs.smartmontools}/sbin/smartctl -a -d "$SMARTD_DEVICETYPE" "$SMARTD_DEVICE"
+      ${cfg.package}/sbin/smartctl -a -d "$SMARTD_DEVICETYPE" "$SMARTD_DEVICE"
       } | ${nm.mailer} -i "${nm.recipient}"
     ''}
     ${optionalString nw.enable ''
@@ -95,6 +95,13 @@ in
     services.smartd = {
 
       enable = mkEnableOption "smartd daemon from <literal>smartmontools</literal> package";
+
+      package = mkOption {
+        default = pkgs.smartmontools;
+        description = ''
+          The smartmontools package to use (needs mail support when enabled)
+        '';
+      };
 
       autodetect = mkOption {
         default = true;
@@ -240,7 +247,7 @@ in
     systemd.services.smartd = {
       description = "S.M.A.R.T. Daemon";
       wantedBy = [ "multi-user.target" ];
-      serviceConfig.ExecStart = "${pkgs.smartmontools}/sbin/smartd ${lib.concatStringsSep " " cfg.extraOptions} --no-fork --configfile=${smartdConf}";
+      serviceConfig.ExecStart = "${cfg.package}/sbin/smartd ${lib.concatStringsSep " " cfg.extraOptions} --no-fork --configfile=${smartdConf}";
     };
 
   };
