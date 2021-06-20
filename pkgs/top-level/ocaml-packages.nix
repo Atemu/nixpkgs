@@ -215,10 +215,9 @@ let
 
     csexp = callPackage ../development/ocaml-modules/csexp { };
 
-    cstruct =
-      if lib.versionAtLeast ocaml.version "4.2"
-      then callPackage ../development/ocaml-modules/cstruct {}
-      else callPackage ../development/ocaml-modules/cstruct/1.9.0.nix { };
+    cstruct = callPackage ../development/ocaml-modules/cstruct {};
+
+    cstruct-async = callPackage ../development/ocaml-modules/cstruct/async.nix { };
 
     cstruct-lwt = callPackage ../development/ocaml-modules/cstruct/lwt.nix { };
 
@@ -645,6 +644,8 @@ let
 
     markup = callPackage ../development/ocaml-modules/markup { };
 
+    mccs = callPackage ../development/ocaml-modules/mccs { };
+
     mdx = callPackage ../development/ocaml-modules/mdx { };
 
     menhir = callPackage ../development/ocaml-modules/menhir { };
@@ -1033,6 +1034,8 @@ let
 
     tls = callPackage ../development/ocaml-modules/tls { };
 
+    tls-async = callPackage ../development/ocaml-modules/tls/async.nix { };
+
     tls-mirage = callPackage ../development/ocaml-modules/tls/mirage.nix { };
 
     torch = callPackage ../development/ocaml-modules/torch {
@@ -1144,6 +1147,8 @@ let
     reactivedata = callPackage ../development/ocaml-modules/reactivedata {};
 
     reason = callPackage ../development/compilers/reason { };
+
+    reason-native = lib.recurseIntoAttrs (callPackage ../development/ocaml-modules/reason-native { });
 
     rope = callPackage ../development/ocaml-modules/rope { };
 
