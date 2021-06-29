@@ -18,9 +18,9 @@
     }
   },
   "beta": {
-    "version": "92.0.4515.59",
-    "sha256": "0lpmd4sybr9qxqj7ab25xjliaw2dk9njnik51gdffrrwphv9qdxb",
-    "sha256bin64": "0qq9a3pzyn5d6bagx3py86ksl8n488lmlrmadgam2gb7421jq71a",
+    "version": "92.0.4515.70",
+    "sha256": "06yhpxr5bg0gx7hmrhc6zg4gr1d9s34y2rb98rpl4dilmc548i6q",
+    "sha256bin64": "1fkakh1r87pg5nr101m6v86y8iyyfba8vnzrg0229kcar7v8wzf7",
     "deps": {
       "gn": {
         "version": "2021-05-07",
@@ -31,22 +31,22 @@
     }
   },
   "dev": {
-    "version": "93.0.4542.2",
-    "sha256": "0sfyi52kaxg5mllcvn61285fjnj72vglv9fjf36ri93v6gh34rgw",
-    "sha256bin64": "0hk31b9nk834gykv977dv7f1hyl7jp527bx5ldxhwcy27333h1hr",
+    "version": "93.0.4549.3",
+    "sha256": "0bkr67n1d75ayd1d9sa57c99j85r83gadzfs8iw7kwiha9g0mjgp",
+    "sha256bin64": "1hac6m668nrdzvfqx3vyc74pnx8lf973m1jxnm3cfy83g7wynphz",
     "deps": {
       "gn": {
-        "version": "2021-06-11",
+        "version": "2021-06-18",
         "url": "https://gn.googlesource.com/gn",
-        "rev": "e0c476ffc83dc10897cb90b45c03ae2539352c5c",
-        "sha256": "01p5w57kksihzg9nb5096a74cw2rp8zzgdjcjm1pgrqvd1mxpjm4"
+        "rev": "170c2dba1e0c0299fe8c6a441caf2f2352a42ae0",
+        "sha256": "1ylx8a5fxq7aciqs0mx7fld763sqkqn39lb9k951w6gksm15lrn3"
       }
     }
   },
   "ungoogled-chromium": {
-    "version": "91.0.4472.101",
-    "sha256": "1d3y621iclkq6nvxrapk5aihv50x13hjha0c2gcp2xxfma96253q",
-    "sha256bin64": "12j5q5b9v0jpiznjnh89831w8lv399vd1z4ljhbsnsidbsygrbr1",
+    "version": "91.0.4472.114",
+    "sha256": "0wbyiwbdazgjjgj9vs56x26q3g9r80a57gfl0f2rfl1j7xwgxiy1",
+    "sha256bin64": "00ac1dyqxpxy1j11jvc5j35bgc629n2f2pll3912gzih4ir0vrys",
     "deps": {
       "gn": {
         "version": "2021-04-06",
@@ -55,8 +55,8 @@
         "sha256": "199xkks67qrn0xa5fhp24waq2vk8qb78a96cb3kdd8v1hgacgb8x"
       },
       "ungoogled-patches": {
-        "rev": "91.0.4472.101-1",
-        "sha256": "1ca8gjxz3w730446qns253ibs9lx22iysxq5sphb3pw2w0069q8r"
+        "rev": "91.0.4472.114-1",
+        "sha256": "1xb5g3hybaiwn3y1zw1fxd3g0zwmvplrs06sdqnxzsr1qm8b874h"
       }
     }
   }
