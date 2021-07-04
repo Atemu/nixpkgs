@@ -1701,6 +1701,18 @@
     githubId = 3471749;
     name = "Claudio Bley";
   };
+  cburstedde = {
+    email = "burstedde@ins.uni-bonn.de";
+    github = "cburstedde";
+    githubId = 109908;
+    name = "Carsten Burstedde";
+    keys = [
+      {
+        longkeyid = "rsa2048/0x0704CD9E550A6BCD";
+        fingerprint = "1127 A432 6524 BF02 737B  544E 0704 CD9E 550A 6BCD";
+      }
+    ];
+  };
   cdepillabout = {
     email = "cdep.illabout@gmail.com";
     github = "cdepillabout";
@@ -2562,7 +2574,7 @@
     name = "Diego Lelis";
   };
   diffumist = {
-    email = "diffumist@gmail.com";
+    email = "git@diffumist.me";
     github = "diffumist";
     githubId = 32810399;
     name = "Diffumist";
@@ -4049,6 +4061,12 @@
     github = "gytis-ivaskevicius";
     githubId = 23264966;
   };
+  hagl = {
+    email = "harald@glie.be";
+    github = "hagl";
+    githubId = 1162118;
+    name = "Harald Gliebe";
+  };
   hakuch = {
     email = "hakuch@gmail.com";
     github = "hakuch";
@@ -4290,6 +4308,12 @@
     github = "hrdinka";
     githubId = 1436960;
     name = "Christoph Hrdinka";
+  };
+  hrhino = {
+    email = "hora.rhino@gmail.com";
+    github = "hrhino";
+    githubId = 28076058;
+    name = "Harrison Houghton";
   };
   hschaeidt = {
     email = "he.schaeidt@gmail.com";
@@ -7222,10 +7246,10 @@
     name = "Marko Poikonen";
   };
   mtreca = {
-    email = "maxime@treca.dev";
-    name = "Maxime Tréca";
+    email = "maxime.treca@gmail.com";
     github = "mtreca";
     githubId = 16440823;
+    name = "Maxime Tréca";
   };
   mtreskin = {
     email = "zerthurd@gmail.com";
@@ -8113,6 +8137,12 @@
     github = "phile314";
     githubId = 1640697;
     name = "Philipp Hausmann";
+  };
+  Philipp-M = {
+    email = "philipp@mildenberger.me";
+    github = "Philipp-M";
+    githubId = 9267430;
+    name = "Philipp Mildenberger";
   };
   Phlogistique = {
     email = "noe.rubinstein@gmail.com";
@@ -9155,6 +9185,16 @@
     github = "ryneeverett";
     githubId = 3280280;
     name = "Ryne Everett";
+  };
+  rytone = {
+    email = "max@ryt.one";
+    github = "rytone";
+    githubId = 8082305;
+    name = "Maxwell Beck";
+    keys = [{
+      longkeyid = "rsa2048/0xBB3EFA303760A0DB";
+      fingerprint = "D260 79E3 C2BC 2E43 905B  D057 BB3E FA30 3760 A0DB";
+    }];
   };
   rzetterberg = {
     email = "richard.zetterberg@gmail.com";
@@ -10754,6 +10794,12 @@
     githubId = 347983;
     name = "Udo Spallek";
   };
+  ulrikstrid = {
+    email = "ulrik.strid@outlook.com";
+    github = "ulrikstrid";
+    githubId = 1607770;
+    name = "Ulrik Strid";
+  };
   unode = {
     email = "alves.rjc@gmail.com";
     github = "unode";
@@ -10849,6 +10895,12 @@
     github = "vandenoever";
     githubId = 608417;
     name = "Jos van den Oever";
+  };
+  vanilla = {
+    email = "neko@hydev.org";
+    github = "VergeDX";
+    githubId = 25173827;
+    name = "Vanilla";
   };
   vanschelven = {
     email = "klaas@vanschelven.com";
