@@ -474,6 +474,8 @@ in
 
   pkger = callPackage ../development/libraries/pkger { };
 
+  tapview = callPackage ../development/tools/tapview { };
+
   run = callPackage ../development/tools/run { };
 
   mod = callPackage ../development/tools/mod { };
@@ -1309,15 +1311,6 @@ in
   bitwarden = callPackage ../tools/security/bitwarden { };
 
   inherit (nodePackages) bitwarden-cli;
-
-  bitwarden_rs = callPackage ../tools/security/bitwarden_rs {
-    inherit (darwin.apple_sdk.frameworks) Security CoreServices;
-  };
-  bitwarden_rs-sqlite = bitwarden_rs;
-  bitwarden_rs-mysql = bitwarden_rs.override { dbBackend = "mysql"; };
-  bitwarden_rs-postgresql = bitwarden_rs.override { dbBackend = "postgresql"; };
-
-  bitwarden_rs-vault = callPackage ../tools/security/bitwarden_rs/vault.nix { };
 
   bkyml = callPackage ../tools/misc/bkyml { };
 
@@ -2300,6 +2293,8 @@ in
   swaycwd = callPackage ../tools/wayland/swaycwd { };
 
   wayland-utils = callPackage ../tools/wayland/wayland-utils { };
+
+  wayland-proxy-virtwl = callPackage ../tools/wayland/wayland-proxy-virtwl { };
 
   wev = callPackage ../tools/wayland/wev { };
 
@@ -5307,9 +5302,7 @@ in
 
   gnome-podcasts = callPackage ../applications/audio/gnome-podcasts { };
 
-  gnome-photos = callPackage ../applications/graphics/gnome-photos {
-    gegl = gegl_0_4;
-  };
+  gnome-photos = callPackage ../applications/graphics/gnome-photos { };
 
   gnokii = callPackage ../tools/misc/gnokii { };
 
@@ -7671,6 +7664,8 @@ in
   ostree = callPackage ../tools/misc/ostree { };
 
   otfcc = callPackage ../tools/misc/otfcc { };
+
+  otpclient = callPackage ../applications/misc/otpclient { };
 
   otpw = callPackage ../os-specific/linux/otpw { };
 
@@ -15134,10 +15129,6 @@ in
   };
 
   gegl = callPackage ../development/libraries/gegl {
-    inherit (darwin.apple_sdk.frameworks) OpenGL;
-  };
-
-  gegl_0_4 = callPackage ../development/libraries/gegl/4.0.nix {
     inherit (darwin.apple_sdk.frameworks) OpenCL;
   };
 
@@ -16040,6 +16031,8 @@ in
     inherit (ocaml-ng.ocamlPackages) bap ocaml findlib ctypes;
   };
 
+  libbaseencode = callPackage ../development/libraries/libbaseencode { };
+
   libbass = (callPackage ../development/libraries/audio/libbass { }).bass;
   libbass_fx = (callPackage ../development/libraries/audio/libbass { }).bass_fx;
 
@@ -16152,6 +16145,8 @@ in
   libctb = callPackage ../development/libraries/libctb { };
 
   libctemplate = callPackage ../development/libraries/libctemplate { };
+
+  libcotp = callPackage ../development/libraries/libcotp { };
 
   libcouchbase = callPackage ../development/libraries/libcouchbase { };
 
@@ -20914,8 +20909,6 @@ in
 
     dpdk-kmods = callPackage ../os-specific/linux/dpdk-kmods { };
 
-    dpdk = throw "The dpdk driver has been renamed to dpdk-kmods.";
-
     exfat-nofuse = callPackage ../os-specific/linux/exfat { };
 
     evdi = callPackage ../os-specific/linux/evdi { };
@@ -22496,6 +22489,8 @@ in
 
   redhat-official-fonts = callPackage ../data/fonts/redhat-official { };
 
+  rime-data = callPackage ../data/misc/rime-data { };
+
   route159 = callPackage ../data/fonts/route159 { };
 
   sampradaya = callPackage ../data/fonts/sampradaya { };
@@ -22802,7 +22797,7 @@ in
 
   acd-cli = callPackage ../applications/networking/sync/acd_cli {
     inherit (python3Packages)
-      buildPythonApplication appdirs colorama dateutil
+      buildPythonApplication appdirs colorama python-dateutil
       requests requests_toolbelt setuptools sqlalchemy fusepy;
   };
 
@@ -24167,7 +24162,6 @@ in
 
   gimp = callPackage ../applications/graphics/gimp {
     autoreconfHook = buildPackages.autoreconfHook269;
-    gegl = gegl_0_4;
     lcms = lcms2;
     inherit (darwin.apple_sdk.frameworks) AppKit Cocoa;
   };
@@ -24180,7 +24174,6 @@ in
 
   glimpse = callPackage ../applications/graphics/glimpse {
     autoreconfHook = buildPackages.autoreconfHook269;
-    gegl = gegl_0_4;
     lcms = lcms2;
     inherit (darwin.apple_sdk.frameworks) AppKit Cocoa;
   };
@@ -25425,7 +25418,7 @@ in
     inherit (darwin.apple_sdk.frameworks) ApplicationServices;
   };
 
-  mercurialFull = appendToName "full" (pkgs.mercurial.override { guiSupport = true; });
+  mercurialFull = appendToName "full" (pkgs.mercurial.override { fullBuild = true; });
 
   merkaartor = libsForQt5.callPackage ../applications/misc/merkaartor { };
 
@@ -28980,6 +28973,8 @@ in
       static = true;
     };
   };
+  openttd-grfcodec = callPackage ../games/openttd/grfcodec.nix {};
+  openttd-nml = callPackage ../games/openttd/nml.nix {};
 
   opentyrian = callPackage ../games/opentyrian { };
 
@@ -31576,6 +31571,15 @@ in
   vaultenv = haskellPackages.vaultenv;
 
   vazir-code-font = callPackage ../data/fonts/vazir-code-font { };
+
+  vaultwarden = callPackage ../tools/security/vaultwarden {
+    inherit (darwin.apple_sdk.frameworks) Security CoreServices;
+  };
+  vaultwarden-sqlite = vaultwarden;
+  vaultwarden-mysql = vaultwarden.override { dbBackend = "mysql"; };
+  vaultwarden-postgresql = vaultwarden.override { dbBackend = "postgresql"; };
+
+  vaultwarden-vault = callPackage ../tools/security/vaultwarden/vault.nix { };
 
   vazir-fonts = callPackage ../data/fonts/vazir-fonts { };
 
