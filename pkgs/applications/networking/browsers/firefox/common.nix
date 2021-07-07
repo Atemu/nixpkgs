@@ -97,12 +97,12 @@ let
   # Darwin's stdenv provides the default llvmPackages version, match that since
   # clang LTO on Darwin is broken so the stdenv is not being changed.
   # Target the LLVM version that rustc -Vv reports it is built with for LTO.
-  # rustPackages_1_45 -> LLVM 10, rustPackages -> LLVM 11
+  # rustPackages_1_45 -> LLVM 10, rustPackages -> LLVM 12
   llvmPackages0 =
     /**/ if stdenv.isDarwin
       then buildPackages.llvmPackages
-    else if lib.versionAtLeast rustc.llvm.version "11"
-      then buildPackages.llvmPackages_11
+    else if lib.versionAtLeast rustc.llvm.version "12"
+      then buildPackages.llvmPackages_12
     else buildPackages.llvmPackages_10;
   # Force the use of lld and other llvm tools for LTO
   llvmPackages = llvmPackages0.override {
