@@ -1,5 +1,5 @@
-{ pname, ffversion, meta, updateScript ? null
-, src, unpackPhase ? null, patches ? []
+{ pname, ffversion, rev, meta, updateScript ? null
+, src, unpackPhase ? null, patches ? [], pgodata
 , extraNativeBuildInputs ? [], extraConfigureFlags ? [], extraMakeFlags ? [], tests ? [] }:
 
 { lib, stdenv, pkg-config, pango, perl, python3, zip
@@ -24,6 +24,7 @@
 , gtk3Support ? true, gtk2, gtk3, wrapGAppsHook
 , waylandSupport ? true, libxkbcommon, libdrm
 , ltoSupport ? (stdenv.isLinux && stdenv.is64bit), overrideCC, buildPackages
+, pgoSupport ? (stdenv.isLinux && stdenv.is64bit)
 , gssSupport ? true, libkrb5
 , pipewireSupport ? waylandSupport && webrtcSupport, pipewire
 
@@ -74,6 +75,7 @@
 assert stdenv.cc.libc or null != null;
 assert pipewireSupport -> !waylandSupport || !webrtcSupport -> throw "pipewireSupport requires both wayland and webrtc support.";
 assert ltoSupport -> stdenv.isDarwin -> throw "LTO is broken on Darwin (see PR#19312).";
+assert pgoSupport -> !ltoSupport -> throw "PGO requires LTO, and currently supports only Linux 64-bit.";
 
 let
   flag = tf: x: [(if tf then "--enable-${x}" else "--disable-${x}")];
@@ -126,6 +128,20 @@ let
   releaseFlags = if stdenv.is32bit
                  then [ "--disable-release" "--disable-debug-symbols" ]
                  else [ "--enable-release" ];
+
+  pgo = buildStdenv.mkDerivation {
+    pname = "firefox-pgo-data";
+    version = ffversion;
+
+    src = pgodata;
+
+    setSourceRoot = "sourceRoot=$(pwd)";
+
+    installPhase = ''
+      mkdir -p $out
+      install -D -m0644 {en-US.log,merged.profdata} $out
+    '';
+  };
 in
 
 buildStdenv.mkDerivation ({
@@ -269,6 +285,11 @@ buildStdenv.mkDerivation ({
     # 60.5+ & 66+ did split the google API key arguments: https://bugzilla.mozilla.org/show_bug.cgi?id=1531176
     configureFlagsArray+=("--with-google-location-service-api-keyfile=$TMPDIR/ga")
     configureFlagsArray+=("--with-google-safebrowsing-api-keyfile=$TMPDIR/ga")
+  '') + (lib.optionalString (ltoSupport && pgoSupport) ''
+    configureFlagsArray+=("--enable-lto=cross")
+    configureFlagsArray+=("--enable-profile-use=cross")
+    configureFlagsArray+=("--with-pgo-jarlog=${pgo}/en-US.log")
+    configureFlagsArray+=("--with-pgo-profile-path=${pgo}/merged.profdata")
   '') + ''
     # AS=as in the environment causes build failure https://bugzilla.mozilla.org/show_bug.cgi?id=1497286
     unset AS
@@ -301,7 +322,7 @@ buildStdenv.mkDerivation ({
   #   https://bugzilla.mozilla.org/show_bug.cgi?id=1538724
   # elf-hack is broken when using clang+lld:
   #   https://bugzilla.mozilla.org/show_bug.cgi?id=1482204
-  ++ lib.optional ltoSupport "--enable-lto"
+  ++ lib.optional (ltoSupport && !pgoSupport) "--enable-lto"
   ++ lib.optional (ltoSupport && (buildStdenv.isAarch32 || buildStdenv.isi686 || buildStdenv.isx86_64)) "--disable-elf-hack"
   ++ lib.optional (ltoSupport && !buildStdenv.isDarwin) "--enable-linker=lld"
 
