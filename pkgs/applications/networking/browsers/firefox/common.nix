@@ -24,7 +24,7 @@
 , gtk3Support ? true, gtk2, gtk3, wrapGAppsHook
 , waylandSupport ? true, libxkbcommon, libdrm
 , ltoSupport ? (stdenv.isLinux && stdenv.is64bit), overrideCC, buildPackages
-, pgoSupport ? (stdenv.isLinux && stdenv.is64bit)
+, pgoSupport ? ltoSupport
 , gssSupport ? true, libkrb5
 , pipewireSupport ? waylandSupport && webrtcSupport, pipewire
 
@@ -285,11 +285,6 @@ buildStdenv.mkDerivation ({
     # 60.5+ & 66+ did split the google API key arguments: https://bugzilla.mozilla.org/show_bug.cgi?id=1531176
     configureFlagsArray+=("--with-google-location-service-api-keyfile=$TMPDIR/ga")
     configureFlagsArray+=("--with-google-safebrowsing-api-keyfile=$TMPDIR/ga")
-  '') + (lib.optionalString (ltoSupport && pgoSupport) ''
-    configureFlagsArray+=("--enable-lto=cross")
-    configureFlagsArray+=("--enable-profile-use=cross")
-    configureFlagsArray+=("--with-pgo-jarlog=${pgo}/en-US.log")
-    configureFlagsArray+=("--with-pgo-profile-path=${pgo}/merged.profdata")
   '') + ''
     # AS=as in the environment causes build failure https://bugzilla.mozilla.org/show_bug.cgi?id=1497286
     unset AS
@@ -325,6 +320,14 @@ buildStdenv.mkDerivation ({
   ++ lib.optional (ltoSupport && !pgoSupport) "--enable-lto"
   ++ lib.optional (ltoSupport && (buildStdenv.isAarch32 || buildStdenv.isi686 || buildStdenv.isx86_64)) "--disable-elf-hack"
   ++ lib.optional (ltoSupport && !buildStdenv.isDarwin) "--enable-linker=lld"
+
+  ++ lib.optionals (pgoSupport) [
+    "--enable-linker=lld"
+    "--enable-lto=cross"
+    "--enable-profile-use=cross"
+    "--with-pgo-jarlog=${pgo}/en-US.log"
+    "--with-pgo-profile-path=${pgo}/merged.profdata"
+  ]
 
   ++ flag alsaSupport "alsa"
   ++ flag pulseaudioSupport "pulseaudio"
