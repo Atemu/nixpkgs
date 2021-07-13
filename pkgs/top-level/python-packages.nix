@@ -823,6 +823,8 @@ in {
 
   azure-mgmt-eventhub = callPackage ../development/python-modules/azure-mgmt-eventhub { };
 
+  azure-mgmt-extendedlocation = callPackage ../development/python-modules/azure-mgmt-extendedlocation { };
+
   azure-mgmt-hanaonazure = callPackage ../development/python-modules/azure-mgmt-hanaonazure { };
 
   azure-mgmt-hdinsight = callPackage ../development/python-modules/azure-mgmt-hdinsight { };
@@ -1667,6 +1669,8 @@ in {
   cpyparsing = callPackage ../development/python-modules/cpyparsing { };
 
   cram = callPackage ../development/python-modules/cram { };
+
+  cramjam = callPackage ../development/python-modules/cramjam { };
 
   crashtest = callPackage ../development/python-modules/crashtest { };
 
@@ -3129,6 +3133,10 @@ in {
 
   grpcio-tools = callPackage ../development/python-modules/grpcio-tools { };
 
+  gruut = callPackage ../development/python-modules/gruut { };
+
+  gruut-ipa = callPackage ../development/python-modules/gruut-ipa { };
+
   gsd = callPackage ../development/python-modules/gsd { };
 
   gspread = callPackage ../development/python-modules/gspread { };
@@ -3383,6 +3391,8 @@ in {
   hydrawiser = callPackage ../development/python-modules/hydrawiser { };
 
   hypchat = callPackage ../development/python-modules/hypchat { };
+
+  hypercorn = callPackage ../development/python-modules/hypercorn { };
 
   hyperframe = callPackage ../development/python-modules/hyperframe { };
 
@@ -4319,6 +4329,8 @@ in {
 
   marshmallow-enum = callPackage ../development/python-modules/marshmallow-enum { };
 
+  marshmallow-oneofschema = callPackage ../development/python-modules/marshmallow-oneofschema { };
+
   marshmallow-polyfield = callPackage ../development/python-modules/marshmallow-polyfield { };
 
   marshmallow-sqlalchemy = callPackage ../development/python-modules/marshmallow-sqlalchemy { };
@@ -4886,6 +4898,8 @@ in {
 
   nvchecker = callPackage ../development/python-modules/nvchecker { };
 
+  python-nvd3 = callPackage ../development/python-modules/python-nvd3 { };
+
   nwdiag = callPackage ../development/python-modules/nwdiag { };
 
   oath = callPackage ../development/python-modules/oath { };
@@ -5370,6 +5384,8 @@ in {
   pytest-subprocess = callPackage ../development/python-modules/pytest-subprocess { };
 
   python-codon-tables = callPackage ../development/python-modules/python-codon-tables { };
+
+  python-crfsuite = callPackage ../development/python-modules/python-crfsuite { };
 
   python-csxcad = callPackage ../development/python-modules/python-csxcad { };
 
@@ -5951,6 +5967,8 @@ in {
   pyfribidi = callPackage ../development/python-modules/pyfribidi { };
 
   pyfritzhome = callPackage ../development/python-modules/pyfritzhome { };
+
+  pyfronius = callPackage ../development/python-modules/pyfronius { };
 
   pyftdi = callPackage ../development/python-modules/pyftdi { };
 
@@ -8006,6 +8024,8 @@ in {
 
   slob = callPackage ../development/python-modules/slob { };
 
+  slowapi = callPackage ../development/python-modules/slowapi { };
+
   sly = callPackage ../development/python-modules/sly { };
 
   smart-meter-texas = callPackage ../development/python-modules/smart-meter-texas { };
@@ -8231,6 +8251,8 @@ in {
   sqlalchemy-i18n = callPackage ../development/python-modules/sqlalchemy-i18n { };
 
   SQLAlchemy-ImageAttach = callPackage ../development/python-modules/sqlalchemy-imageattach { };
+
+  sqlalchemy-jsonfield = callPackage ../development/python-modules/sqlalchemy-jsonfield { };
 
   sqlalchemy_migrate = callPackage ../development/python-modules/sqlalchemy-migrate { };
 

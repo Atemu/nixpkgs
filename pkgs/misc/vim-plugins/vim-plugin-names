@@ -2,6 +2,7 @@
 aca/completion-tabnine
 AckslD/nvim-whichkey-setup.lua@main
 ackyshake/Spacegray.vim@main
+ahmedkhalf/lsp-rooter.nvim@main
 airblade/vim-gitgutter
 airblade/vim-rooter
 ajmwagar/vim-deus
@@ -102,6 +103,7 @@ digitaltoad/vim-pug
 direnv/direnv.vim
 dleonard0/pony-vim-syntax
 dmix/elvish.vim
+doki-theme/doki-theme-vim
 dominikduda/vim_current_word
 dpelle/vim-LanguageTool
 dracula/vim as dracula-vim
@@ -311,6 +313,7 @@ kristijanhusak/defx-icons
 kristijanhusak/deoplete-phpactor
 kristijanhusak/vim-carbon-now-sh
 kristijanhusak/vim-dadbod-completion
+kristijanhusak/vim-dadbod-ui
 kristijanhusak/vim-dirvish-git
 kristijanhusak/vim-hybrid-material
 kshenoy/vim-signature
@@ -418,6 +421,7 @@ ms-jpq/chadtree@chad
 mtikekar/vim-bsv
 mzlogin/vim-markdown-toc
 mzlogin/vim-smali
+nacro90/numb.nvim
 nanotech/jellybeans.vim
 natebosch/vim-lsc
 nathanaelkane/vim-indent-guides
@@ -493,6 +497,7 @@ ojroques/nvim-bufdel@main
 ojroques/vim-oscyank@main
 Olical/aniseed
 Olical/conjure
+olimorris/onedark.nvim
 onsails/lspkind-nvim
 OrangeT/vim-csharp
 osyo-manga/shabadou.vim

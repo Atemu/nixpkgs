@@ -388,6 +388,7 @@
   ./services/hardware/bluetooth.nix
   ./services/hardware/bolt.nix
   ./services/hardware/brltty.nix
+  ./services/hardware/ddccontrol.nix
   ./services/hardware/fancontrol.nix
   ./services/hardware/freefall.nix
   ./services/hardware/fwupd.nix
@@ -968,6 +969,7 @@
   ./services/web-apps/trilium.nix
   ./services/web-apps/selfoss.nix
   ./services/web-apps/shiori.nix
+  ./services/web-apps/vikunja.nix
   ./services/web-apps/virtlyst.nix
   ./services/web-apps/wiki-js.nix
   ./services/web-apps/whitebophir.nix

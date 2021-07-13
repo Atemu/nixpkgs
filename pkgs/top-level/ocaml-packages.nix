@@ -612,6 +612,8 @@ let
       ocaml-migrate-parsetree = ocaml-migrate-parsetree-2;
     };
 
+    lwt-canceler = callPackage ../development/ocaml-modules/lwt-canceler { };
+
     ocaml_lwt = lwt;
 
     lwt_camlp4 = callPackage ../development/ocaml-modules/lwt/camlp4.nix { };
@@ -1212,6 +1214,8 @@ let
     typerep_p4 = callPackage ../development/ocaml-modules/typerep { };
 
     uchar = callPackage ../development/ocaml-modules/uchar { };
+
+    uecc = callPackage ../development/ocaml-modules/uecc { };
 
     utop = callPackage ../development/tools/ocaml/utop { };
 
