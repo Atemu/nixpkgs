@@ -78,6 +78,8 @@ let
 
     bitv = callPackage ../development/ocaml-modules/bitv { };
 
+    bls12-381 = callPackage ../development/ocaml-modules/bls12-381 { };
+
     bolt = callPackage ../development/ocaml-modules/bolt { };
 
     bos = callPackage ../development/ocaml-modules/bos { };
@@ -242,6 +244,8 @@ let
 
     dap =  callPackage ../development/ocaml-modules/dap { };
 
+    data-encoding = callPackage ../development/ocaml-modules/data-encoding { };
+
     decompress =  callPackage ../development/ocaml-modules/decompress { };
 
     diet =  callPackage ../development/ocaml-modules/diet { };
@@ -368,6 +372,8 @@ let
     farfadet = callPackage ../development/ocaml-modules/farfadet { };
 
     fdkaac = callPackage ../development/ocaml-modules/fdkaac { };
+
+    ff = callPackage ../development/ocaml-modules/ff { };
 
     fiat-p256 = callPackage ../development/ocaml-modules/fiat-p256 { };
 
@@ -548,6 +554,10 @@ let
 
     jsonm = callPackage ../development/ocaml-modules/jsonm { };
 
+    json-data-encoding = callPackage ../development/ocaml-modules/json-data-encoding { };
+
+    json-data-encoding-bson = callPackage ../development/ocaml-modules/json-data-encoding/bson.nix { };
+
     junit = callPackage ../development/ocaml-modules/junit { };
     junit_ounit = callPackage ../development/ocaml-modules/junit/ounit.nix { };
     junit_alcotest = callPackage ../development/ocaml-modules/junit/alcotest.nix { };
@@ -619,6 +629,8 @@ let
     lwt_camlp4 = callPackage ../development/ocaml-modules/lwt/camlp4.nix { };
 
     lwt-dllist = callPackage ../development/ocaml-modules/lwt-dllist { };
+
+    lwt-watcher = callPackage ../development/ocaml-modules/lwt-watcher { };
 
     lwt_log = callPackage ../development/ocaml-modules/lwt_log { };
 
@@ -1019,6 +1031,8 @@ let
       inherit (pkgs) secp256k1;
     };
 
+    secp256k1-internal = callPackage ../development/ocaml-modules/secp256k1-internal { };
+
     seq = callPackage ../development/ocaml-modules/seq { };
 
     sosa = callPackage ../development/ocaml-modules/sosa { };
@@ -1152,6 +1166,18 @@ let
     reason = callPackage ../development/compilers/reason { };
 
     reason-native = lib.recurseIntoAttrs (callPackage ../development/ocaml-modules/reason-native { });
+
+    ezresto = callPackage ../development/ocaml-modules/resto/ezresto.nix { };
+    ezresto-directory = callPackage ../development/ocaml-modules/resto/ezresto-directory.nix { };
+
+    resto = callPackage ../development/ocaml-modules/resto { };
+    resto-acl = callPackage ../development/ocaml-modules/resto/acl.nix { };
+    resto-cohttp = callPackage ../development/ocaml-modules/resto/cohttp.nix { };
+    resto-cohttp-client = callPackage ../development/ocaml-modules/resto/cohttp-client.nix { };
+    resto-cohttp-self-serving-client = callPackage ../development/ocaml-modules/resto/cohttp-self-serving-client.nix { };
+    resto-cohttp-server = callPackage ../development/ocaml-modules/resto/cohttp-server.nix { };
+    resto-directory = callPackage ../development/ocaml-modules/resto/directory.nix { };
+    resto-json = callPackage ../development/ocaml-modules/resto/json.nix { };
 
     rope = callPackage ../development/ocaml-modules/rope { };
 
