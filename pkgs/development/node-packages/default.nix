@@ -1,4 +1,4 @@
-{ pkgs, nodejs, stdenv, fetchFromGitHub }:
+{ pkgs, nodejs, stdenv, applyPatches, fetchFromGitHub, fetchpatch }:
 
 let
   since = (version: pkgs.lib.versionAtLeast nodejs.version version);
@@ -12,6 +12,17 @@ let
       prePatch = ''
         export NG_CLI_ANALYTICS=false
       '';
+    };
+
+    autoprefixer = super.autoprefixer.override {
+      nativeBuildInputs = [ pkgs.makeWrapper ];
+      postInstall = ''
+        wrapProgram "$out/bin/autoprefixer" \
+          --prefix NODE_PATH : ${self.postcss}/lib/node_modules
+      '';
+      passthru.tests = {
+        simple-execution = pkgs.callPackage ./package-tests/autoprefixer.nix { inherit (self) autoprefixer; };
+      };
     };
 
     aws-azure-login = super.aws-azure-login.override {
@@ -35,6 +46,17 @@ let
       '';
     };
 
+    fast-cli = super.fast-cli.override ({
+      nativeBuildInputs = [ pkgs.makeWrapper ];
+      prePatch = ''
+        export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
+      '';
+      postInstall = ''
+        wrapProgram $out/bin/fast \
+          --set PUPPETEER_EXECUTABLE_PATH ${pkgs.chromium.outPath}/bin/chromium
+      '';
+    });
+
     hyperspace-cli = super."@hyperspace/cli".override {
       nativeBuildInputs = with pkgs; [
         makeWrapper
@@ -54,10 +76,6 @@ let
     };
 
     coc-imselect = super.coc-imselect.override {
-      meta.broken = since "10";
-    };
-
-    "fast-cli-1.x" = super."fast-cli-1.x".override {
       meta.broken = since "10";
     };
 
@@ -82,14 +100,6 @@ let
       name = "bitwarden-cli-${drv.version}";
       meta.mainProgram = "bw";
     });
-
-    fast-cli = super."fast-cli-1.x".override {
-      preRebuild = ''
-        # Simply ignore the phantomjs --version check. It seems to need a display but it is safe to ignore
-        sed -i -e "s|console.error('Error verifying phantomjs, continuing', err)|console.error('Error verifying phantomjs, continuing', err); return true;|" node_modules/phantomjs-prebuilt/lib/util.js
-      '';
-      buildInputs = [ pkgs.phantomjs2 ];
-    };
 
     flood = super.flood.override {
       buildInputs = [ self.node-pre-gyp ];
@@ -191,6 +201,31 @@ let
 
     node2nix = super.node2nix.override {
       buildInputs = [ pkgs.makeWrapper ];
+      # We need to apply a patch to the source, but buildNodePackage doesn't allow patches.
+      # So we pin the patched commit instead. The commit actually contains two other newer commits
+      # since the last (1.9.0) release, but actually this is a good thing since one of them is a
+      # Hydra-specific fix.
+      src = applyPatches {
+        src = fetchFromGitHub {
+          owner = "svanderburg";
+          repo = "node2nix";
+          rev = "node2nix-1.9.0";
+          sha256 = "0l4wp1131nhl9c14cn8bwawb8f77h1nfbnswgi5lp5m3kzkb27jn";
+        };
+
+        patches = [
+          # remove node_ name prefix
+          (fetchpatch {
+            url = "https://github.com/svanderburg/node2nix/commit/b54d45207427ff46e90f16f2f32771fdc8bff5a4.patch";
+            sha256 = "sha256-ubUdF0q3l4xxqZ7f9EiQEUQzyqxi9Q6zsRPETHlfzh8=";
+          })
+          # set meta platform
+          (fetchpatch {
+            url = "https://github.com/svanderburg/node2nix/commit/58736093161f2d237c17e75a96529b018cd0ac64.patch";
+            sha256 = "0sif7803c9g6gjmmdniw5qxrq5igiz9nqdmdrcf1hxfi5x43a32h";
+          })
+        ];
+      };
       postInstall = ''
         wrapProgram "$out/bin/node2nix" --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.nix ]}
       '';
@@ -237,8 +272,14 @@ let
       nativeBuildInputs = [ pkgs.makeWrapper ];
       postInstall = ''
         wrapProgram "$out/bin/postcss" \
-          --prefix NODE_PATH : ${self.postcss}/lib/node_modules
+          --prefix NODE_PATH : ${self.postcss}/lib/node_modules \
+          --prefix NODE_PATH : ${self.autoprefixer}/lib/node_modules
       '';
+      passthru.tests = {
+        simple-execution = pkgs.callPackage ./package-tests/postcss-cli.nix {
+          inherit (self) postcss-cli;
+        };
+      };
       meta.mainProgram = "postcss";
     };
 

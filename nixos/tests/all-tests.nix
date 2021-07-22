@@ -174,6 +174,7 @@ in
   hitch = handleTest ./hitch {};
   hledger-web = handleTest ./hledger-web.nix {};
   hocker-fetchdocker = handleTest ./hocker-fetchdocker {};
+  hockeypuck = handleTest ./hockeypuck.nix { };
   home-assistant = handleTest ./home-assistant.nix {};
   hostname = handleTest ./hostname.nix {};
   hound = handleTest ./hound.nix {};
@@ -203,6 +204,7 @@ in
   k3s = handleTest ./k3s.nix {};
   kafka = handleTest ./kafka.nix {};
   kbd-setfont-decompress = handleTest ./kbd-setfont-decompress.nix {};
+  kea = handleTest ./kea.nix {};
   keepalived = handleTest ./keepalived.nix {};
   keepassxc = handleTest ./keepassxc.nix {};
   kerberos = handleTest ./kerberos/default.nix {};
@@ -295,6 +297,7 @@ in
   nginx-sandbox = handleTestOn ["x86_64-linux"] ./nginx-sandbox.nix {};
   nginx-sso = handleTest ./nginx-sso.nix {};
   nginx-variants = handleTest ./nginx-variants.nix {};
+  nix-serve = handleTest ./nix-ssh-serve.nix {};
   nix-ssh-serve = handleTest ./nix-ssh-serve.nix {};
   nixos-generate-config = handleTest ./nixos-generate-config.nix {};
   nomad = handleTest ./nomad.nix {};
@@ -421,6 +424,7 @@ in
   taskserver = handleTest ./taskserver.nix {};
   telegraf = handleTest ./telegraf.nix {};
   tiddlywiki = handleTest ./tiddlywiki.nix {};
+  tigervnc = handleTest ./tigervnc.nix {};
   timezone = handleTest ./timezone.nix {};
   tinc = handleTest ./tinc {};
   tinydns = handleTest ./tinydns.nix {};

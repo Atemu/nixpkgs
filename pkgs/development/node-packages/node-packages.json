@@ -13,6 +13,7 @@
 , "@webassemblyjs/wast-refmt"
 , "alloy"
 , "asar"
+, "autoprefixer"
 , "aws-azure-login"
 , "balanceofsatoshis"
 , "bash-language-server"
@@ -89,7 +90,7 @@
 , "eslint_d"
 , "esy"
 , "expo-cli"
-, {"fast-cli": "1.x"}
+, "fast-cli"
 , "fauna-shell"
 , "firebase-tools"
 , "fixjson"

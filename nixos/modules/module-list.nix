@@ -475,6 +475,7 @@
   ./services/misc/calibre-server.nix
   ./services/misc/cfdyndns.nix
   ./services/misc/clipmenu.nix
+  ./services/misc/clipcat.nix
   ./services/misc/cpuminer-cryptonight.nix
   ./services/misc/cgminer.nix
   ./services/misc/confd.nix
@@ -727,6 +728,7 @@
   ./services/networking/iwd.nix
   ./services/networking/jicofo.nix
   ./services/networking/jitsi-videobridge.nix
+  ./services/networking/kea.nix
   ./services/networking/keepalived/default.nix
   ./services/networking/keybase.nix
   ./services/networking/kippo.nix
@@ -885,6 +887,7 @@
   ./services/security/fprot.nix
   ./services/security/haka.nix
   ./services/security/haveged.nix
+  ./services/security/hockeypuck.nix
   ./services/security/hologram-server.nix
   ./services/security/hologram-agent.nix
   ./services/security/munge.nix

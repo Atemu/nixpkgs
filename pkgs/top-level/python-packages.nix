@@ -5267,6 +5267,8 @@ in {
 
   openapi-core = callPackage ../development/python-modules/openapi-core { };
 
+  parameterizedtestcase = callPackage ../development/python-modules/parameterizedtestcase { };
+
   pdunehd = callPackage ../development/python-modules/pdunehd { };
 
   phonopy = callPackage ../development/python-modules/phonopy { };
@@ -6179,6 +6181,8 @@ in {
   pyls-mypy = callPackage ../development/python-modules/pyls-mypy { };
 
   pyls-spyder = callPackage ../development/python-modules/pyls-spyder { };
+
+  pylsp-mypy = callPackage ../development/python-modules/pylsp-mypy { };
 
   PyLTI = callPackage ../development/python-modules/pylti { };
 
@@ -8484,6 +8488,8 @@ in {
 
   telethon-session-sqlalchemy = callPackage ../development/python-modules/telethon-session-sqlalchemy { };
 
+  teletype = callPackage ../development/python-modules/teletype { };
+
   telfhash = callPackage ../development/python-modules/telfhash { };
 
   tempita = callPackage ../development/python-modules/tempita { };
@@ -8688,6 +8694,8 @@ in {
   tokenlib = callPackage ../development/python-modules/tokenlib { };
 
   toml = callPackage ../development/python-modules/toml { };
+
+  tomli = callPackage ../development/python-modules/tomli { };
 
   tomlkit = callPackage ../development/python-modules/tomlkit { };
 
