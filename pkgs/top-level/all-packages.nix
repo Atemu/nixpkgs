@@ -241,6 +241,8 @@ in
 
   cereal = callPackage ../development/libraries/cereal { };
 
+  cewl = callPackage ../tools/security/cewl { };
+
   checkov = callPackage ../development/tools/analysis/checkov {};
 
   chrysalis = callPackage ../applications/misc/chrysalis { };
@@ -931,6 +933,10 @@ in
 
   cool-retro-term = libsForQt5.callPackage ../applications/terminal-emulators/cool-retro-term { };
 
+  coreterminal = libsForQt5.callPackage ../applications/terminal-emulators/coreterminal {
+    inherit (lxqt) qtermwidget;
+  };
+
   eterm = callPackage ../applications/terminal-emulators/eterm { };
 
   evilvte = callPackage ../applications/terminal-emulators/evilvte (config.evilvte or {});
@@ -1154,6 +1160,8 @@ in
   argus-clients = callPackage ../tools/networking/argus-clients {};
 
   argyllcms = callPackage ../tools/graphics/argyllcms {};
+
+  arj = callPackage ../tools/archivers/arj { };
 
   arp-scan = callPackage ../tools/misc/arp-scan { };
 
@@ -1556,6 +1564,8 @@ in
 
   github-commenter = callPackage ../development/tools/github-commenter { };
 
+  github-desktop = callPackage ../applications/version-management/github-desktop { };
+
   github-to-sqlite = with python3Packages; toPythonApplication github-to-sqlite;
 
   gitless = callPackage ../applications/version-management/gitless { python = python3; };
@@ -1737,7 +1747,7 @@ in
   xcodeenv = callPackage ../development/mobile/xcodeenv { };
 
   gomobile = callPackage ../development/mobile/gomobile {
-    buildGoModule = buildGo115Module;
+    buildGoModule = buildGo116Module;
   };
 
   ssh-agents = callPackage ../tools/networking/ssh-agents { };
@@ -2559,7 +2569,9 @@ in
 
   dtrx = callPackage ../tools/compression/dtrx { };
 
-  dua = callPackage ../tools/misc/dua { };
+  dua = callPackage ../tools/misc/dua {
+    inherit (darwin.apple_sdk.frameworks) Foundation;
+  };
 
   duf = callPackage ../tools/misc/duf { };
 
@@ -2838,6 +2850,8 @@ in
   gotify-cli = callPackage ../tools/misc/gotify-cli { };
 
   gping = callPackage ../tools/networking/gping { };
+
+  gpu-burn = callPackage ../applications/misc/gpu-burn { };
 
   greg = callPackage ../applications/audio/greg {
     pythonPackages = python3Packages;
@@ -3596,6 +3610,8 @@ in
   cdi2iso = callPackage ../tools/cd-dvd/cdi2iso { };
 
   cdimgtools = callPackage ../tools/cd-dvd/cdimgtools { };
+
+  cdpr = callPackage ../tools/networking/cdpr { };
 
   cdrdao = callPackage ../tools/cd-dvd/cdrdao { };
 
@@ -6083,6 +6099,8 @@ in
 
   itm-tools = callPackage ../development/tools/misc/itm-tools { };
 
+  iwgtk = callPackage ../tools/networking/iwgtk { };
+
   ix = callPackage ../tools/misc/ix { };
 
   jaaa = callPackage ../applications/audio/jaaa { };
@@ -6351,6 +6369,8 @@ in
 
   lf = callPackage ../tools/misc/lf {};
 
+  lha = callPackage ../tools/archivers/lha { };
+
   lhasa = callPackage ../tools/compression/lhasa {};
 
   libcpuid = callPackage ../tools/misc/libcpuid { };
@@ -6358,6 +6378,8 @@ in
   libcsptr = callPackage ../development/libraries/libcsptr { };
 
   libscrypt = callPackage ../development/libraries/libscrypt { };
+
+  libcprime = libsForQt5.callPackage ../development/libraries/libcprime { };
 
   libcloudproviders = callPackage ../development/libraries/libcloudproviders { };
 
@@ -7923,9 +7945,7 @@ in
 
   pdfarranger = callPackage ../applications/misc/pdfarranger { };
 
-  pdfread = callPackage ../tools/graphics/pdfread {
-    inherit (pythonPackages) pillow;
-  };
+  pdfread = throw "pdfread has been remove from nixpkgs, because it is unmaintained for years and the sources are no longer available";
 
   briss = callPackage ../tools/graphics/briss { };
 
@@ -10735,6 +10755,8 @@ in
   cmdstan = callPackage ../development/compilers/cmdstan { };
 
   cmucl_binary = pkgsi686Linux.callPackage ../development/compilers/cmucl/binary.nix { };
+
+  comby = callPackage ../development/tools/comby { };
 
   compcert = coqPackages.compcert.override { version = "3.9"; };
 
@@ -13947,7 +13969,9 @@ in
 
   nix-build-uncached = callPackage ../development/tools/misc/nix-build-uncached { };
 
-  nexus = callPackage ../development/tools/repository-managers/nexus { };
+  nexus = callPackage ../development/tools/repository-managers/nexus {
+    jre_headless = jre8_headless;
+  };
 
   nwjs = callPackage ../development/tools/nwjs {
     gconf = pkgs.gnome2.GConf;
@@ -14348,6 +14372,8 @@ in
   todoist = callPackage ../applications/misc/todoist { };
 
   todoist-electron = callPackage ../applications/misc/todoist-electron { };
+
+  toil = callPackage ../applications/science/misc/toil { };
 
   travis = callPackage ../development/tools/misc/travis { };
 
@@ -17131,8 +17157,6 @@ in
   libtpms = callPackage ../tools/security/libtpms { };
 
   libtap = callPackage ../development/libraries/libtap { };
-
-  libtgvoip = callPackage ../development/libraries/libtgvoip { };
 
   libtsm = callPackage ../development/libraries/libtsm { };
 
@@ -21601,8 +21625,6 @@ in
 
   odroid-xu3-bootloader = callPackage ../tools/misc/odroid-xu3-bootloader { };
 
-  ofp = callPackage ../os-specific/linux/ofp { };
-
   ofono = callPackage ../tools/networking/ofono { };
 
   openpam = callPackage ../development/libraries/openpam { };
@@ -22423,8 +22445,6 @@ in
 
   lmodern = callPackage ../data/fonts/lmodern { };
 
-  lobster-two = callPackage ../data/fonts/lobster-two {};
-
   logitech-udev-rules = callPackage ../os-specific/linux/logitech-udev-rules {};
 
   # lohit-fonts.assamese lohit-fonts.bengali lohit-fonts.devanagari lohit-fonts.gujarati lohit-fonts.gurmukhi
@@ -22962,7 +22982,7 @@ in
   acd-cli = callPackage ../applications/networking/sync/acd_cli {
     inherit (python3Packages)
       buildPythonApplication appdirs colorama python-dateutil
-      requests requests_toolbelt setuptools sqlalchemy fusepy;
+      requests requests-toolbelt setuptools sqlalchemy fusepy;
   };
 
   adobe-reader = pkgsi686Linux.callPackage ../applications/misc/adobe-reader { };
@@ -23459,6 +23479,8 @@ in
 
   corrscope = libsForQt5.callPackage ../applications/video/corrscope { };
 
+  coreimage = libsForQt5.callPackage ../applications/graphics/coreimage { };
+
   csa = callPackage ../applications/audio/csa { };
 
   csound = callPackage ../applications/audio/csound {
@@ -23565,6 +23587,7 @@ in
     infobar = callPackage ../applications/audio/deadbeef/plugins/infobar.nix { };
     lyricbar = callPackage ../applications/audio/deadbeef/plugins/lyricbar.nix { };
     mpris2 = callPackage ../applications/audio/deadbeef/plugins/mpris2.nix { };
+    statusnotifier = callPackage ../applications/audio/deadbeef/plugins/statusnotifier.nix { };
   };
 
   deadbeef-with-plugins = callPackage ../applications/audio/deadbeef/wrapper.nix {
@@ -23953,6 +23976,8 @@ in
   freewheeling = callPackage ../applications/audio/freewheeling { };
 
   fritzing = libsForQt5.callPackage ../applications/science/electronics/fritzing { };
+
+  fritzprofiles = with python3.pkgs; toPythonApplication fritzprofiles;
 
   fsv = callPackage ../applications/misc/fsv {
     autoreconfHook = buildPackages.autoreconfHook269;
@@ -25212,6 +25237,8 @@ in
 
   ktorrent = libsForQt5.callPackage ../applications/networking/p2p/ktorrent { };
 
+  kubedb-cli = callPackage ../applications/networking/cluster/kubedb-cli { };
+
   kubecfg = callPackage ../applications/networking/cluster/kubecfg { };
 
   kube-score = callPackage ../applications/networking/cluster/kube-score { };
@@ -25538,7 +25565,7 @@ in
 
   matrixcli = callPackage ../applications/networking/instant-messengers/matrixcli {
     inherit (python3Packages) buildPythonApplication buildPythonPackage
-      pygobject3 pytestrunner requests responses pytest python-olm
+      pygobject3 pytest-runner requests responses pytest python-olm
       canonicaljson;
   };
 
@@ -25661,6 +25688,8 @@ in
   mmsd = callPackage ../tools/networking/mmsd { };
 
   mmtc = callPackage ../applications/audio/mmtc { };
+
+  mnamer = callPackage ../applications/misc/mnamer { };
 
   moc = callPackage ../applications/audio/moc { };
 
@@ -25905,6 +25934,8 @@ in
 
   nootka = qt5.callPackage ../applications/audio/nootka { };
   nootka-unstable = qt5.callPackage ../applications/audio/nootka/unstable.nix { };
+
+  nwg-drawer = callPackage ../applications/misc/nwg-drawer { };
 
   nwg-launchers = callPackage ../applications/misc/nwg-launchers { };
 
@@ -26823,7 +26854,7 @@ in
   rofi-systemd = callPackage ../tools/system/rofi-systemd { };
 
   rofimoji = callPackage ../applications/misc/rofimoji {
-    inherit (python3Packages) buildPythonApplication ConfigArgParse;
+    inherit (python3Packages) buildPythonApplication configargparse;
   };
 
   rootlesskit = callPackage ../tools/virtualization/rootlesskit {};
@@ -27500,7 +27531,10 @@ in
 
   tut = callPackage ../applications/misc/tut { };
 
-  tuxguitar = callPackage ../applications/editors/music/tuxguitar { };
+  tuxguitar = callPackage ../applications/editors/music/tuxguitar {
+    jre = jre8;
+    swt = swt_jdk8;
+  };
 
   twister = callPackage ../applications/networking/p2p/twister { };
 
@@ -27702,8 +27736,6 @@ in
   virt-manager-qt = libsForQt5.callPackage ../applications/virtualization/virt-manager/qt.nix {
     qtermwidget = lxqt.qtermwidget;
   };
-
-  virtinst = callPackage ../applications/virtualization/virtinst {};
 
   virtscreen = callPackage ../tools/admin/virtscreen {};
 
@@ -28759,6 +28791,8 @@ in
 
   cdogs-sdl = callPackage ../games/cdogs-sdl { };
 
+  cgoban = callPackage ../games/cgoban { };
+
   chessdb = callPackage ../games/chessdb { };
 
   chessx = libsForQt5.callPackage ../games/chessx { };
@@ -28974,6 +29008,8 @@ in
   gltron = callPackage ../games/gltron { };
 
   gmad = callPackage ../games/gmad { };
+
+  gnonograms = callPackage ../games/gnonograms { };
 
   gnubg = callPackage ../games/gnubg { };
 
@@ -30051,6 +30087,8 @@ in
   bwa = callPackage ../applications/science/biology/bwa { };
 
   ### SCIENCE/MACHINE LEARNING
+
+  nengo-gui = callPackage ../applications/science/machine-learning/nengo-gui { };
 
   sc2-headless = callPackage ../applications/science/machine-learning/sc2-headless { };
 
@@ -32097,6 +32135,11 @@ in
   higan = callPackage ../misc/emulators/higan {
     inherit (gnome2) gtksourceview;
     inherit (darwin.apple_sdk.frameworks) Carbon Cocoa OpenGL OpenAL;
+  };
+
+  bsnes-hd = callPackage ../misc/emulators/bsnes-hd {
+    inherit (gnome2) gtksourceview;
+    inherit (darwin.apple_sdk.frameworks) Cocoa OpenAL;
   };
 
   yapesdl = callPackage ../misc/emulators/yapesdl { };

@@ -81,7 +81,7 @@ mapAttrs (channel: chromiumPkg: makeTest rec {
         # Add optional CLI options:
         options = []
         major_version = "${versions.major (getVersion chromiumPkg.name)}"
-        if major_version > "91":
+        if major_version > "91" and pname.startswith("google-chrome"):
             # To avoid a GPU crash:
             options += ["--use-gl=angle", "--use-angle=swiftshader"]
         options.append("file://${startupHTML}")
@@ -239,7 +239,8 @@ mapAttrs (channel: chromiumPkg: makeTest rec {
 
 
     with test_new_win("gpu_info", "chrome://gpu", "chrome://gpu"):
-        pass
+        # To check the text rendering (catches regressions like #131074):
+        machine.wait_for_text("Graphics Feature Status")
 
 
     machine.shutdown()
