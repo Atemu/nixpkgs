@@ -2,7 +2,7 @@
 
 let
   version = "5.12.19";
-  suffix = "lqx2";
+  suffix = "lqx3";
 in
 
 buildLinux (args // {
@@ -14,7 +14,7 @@ buildLinux (args // {
     owner = "zen-kernel";
     repo = "zen-kernel";
     rev = "v${version}-${suffix}";
-    sha256 = "sha256-r2DvKLlm1a1VuJwC81tRuRwCd6H21T3MsBAC3b9TUbs=";
+    sha256 = "sha256-OQSqBrRIaQiUKmVG4ipeFuFE74q50Jb8z1649LI/zLM=";
   };
 
   extraMeta = {
