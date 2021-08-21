@@ -713,6 +713,8 @@ broken-packages:
   - combinatorial-problems
   - combinator-interactive
   - combobuffer
+  - comfort-array-shape
+  - comfort-fftw
   - Command
   - commander
   - Commando
@@ -733,6 +735,7 @@ broken-packages:
   - compilation
   - complex-generic
   - compose-trans
+  - composite-dhall
   - composite-opaleye
   - composition-tree
   - comprehensions-ghc
@@ -2230,6 +2233,7 @@ broken-packages:
   - hscd
   - hs-cdb
   - hscdio
+  - hscim
   - hsclock
   - hScraper
   - hscuid
@@ -2555,6 +2559,7 @@ broken-packages:
   - jenga
   - jenkinsPlugins2nix
   - jespresso
+  - jet-stream
   - jinquantities
   - jml-web-service
   - jni
@@ -3895,7 +3900,6 @@ broken-packages:
   - read-bounded
   - read-ctags
   - read-io
-  - readline
   - readme-lhs
   - readshp
   - really-simple-xml-parser
@@ -4034,6 +4038,7 @@ broken-packages:
   - robin
   - robots-txt
   - roc-cluster
+  - rocksdb-haskell
   - roku-api
   - rollbar
   - rollbar-client

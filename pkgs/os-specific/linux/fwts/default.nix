@@ -1,24 +1,24 @@
 { lib, stdenv, fetchzip, autoreconfHook, pkg-config, glib, pcre
-, json_c, flex, bison, dtc, pciutils, dmidecode, iasl, libbsd }:
+, json_c, flex, bison, dtc, pciutils, dmidecode, acpica-tools, libbsd }:
 
 stdenv.mkDerivation rec {
   pname = "fwts";
-  version = "20.11.00";
+  version = "21.07.00";
 
   src = fetchzip {
     url = "https://fwts.ubuntu.com/release/${pname}-V${version}.tar.gz";
-    sha256 = "0s8iz6c9qhyndcsjscs3qail2mzfywpbiys1x232igm5kl089vvr";
+    sha256 = "sha256-cTm8R7sUJk5aTjXvsxfBXX0J/ehVoqo43ILZ6VqaPTI=";
     stripRoot = false;
   };
 
   nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ glib pcre json_c flex bison dtc pciutils dmidecode iasl libbsd ];
+  buildInputs = [ glib pcre json_c flex bison dtc pciutils dmidecode acpica-tools libbsd ];
 
   postPatch = ''
     substituteInPlace src/lib/include/fwts_binpaths.h \
       --replace "/usr/bin/lspci"      "${pciutils}/bin/lspci" \
       --replace "/usr/sbin/dmidecode" "${dmidecode}/bin/dmidecode" \
-      --replace "/usr/bin/iasl"       "${iasl}/bin/iasl"
+      --replace "/usr/bin/iasl"       "${acpica-tools}/bin/iasl"
   '';
 
   enableParallelBuilding = true;

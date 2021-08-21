@@ -1,7 +1,7 @@
 { lib, stdenv, buildLinux, fetchFromGitHub, ... } @ args:
 
 let
-  version = "5.13.9";
+  version = "5.13.11";
   release = "1";
   suffix = "xanmod${release}-cacule";
 in
@@ -13,7 +13,7 @@ buildLinux (args // rec {
     owner = "xanmod";
     repo = "linux";
     rev = modDirVersion;
-    sha256 = "sha256-cr5tmJVpjd9czlR1PklJccZ3wc+E1eJgQhhNooFEQ4I=";
+    sha256 = "sha256-55BRj0JNQKwmSvlquNHr6ZaI7x/sBYzfZPHIblxK4lY=";
   };
 
   structuredExtraConfig = with lib.kernel; {
@@ -44,6 +44,12 @@ buildLinux (args // rec {
     ANDROID_BINDER_IPC = module;
     ANDROID_BINDERFS = module;
     ANDROID_BINDER_DEVICES = freeform "binder,hwbinder,vndbinder";
+
+    # Futex WAIT_MULTIPLE implementation for Wine / Proton Fsync.
+    # Futex2 interface compatible w/ latest Wine / Proton Fsync.
+    FUTEX = yes;
+    FUTEX2 = yes;
+    FUTEX_PI = yes;
   };
 
   extraMeta = {

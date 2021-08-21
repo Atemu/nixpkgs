@@ -31,7 +31,6 @@ let
       linuxPackages_4_19
       linuxPackages_5_4
       linuxPackages_5_10
-      linuxPackages_5_12
       linuxPackages_5_13;
   };
 

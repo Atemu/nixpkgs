@@ -4755,6 +4755,12 @@
     githubId = 40566146;
     name = "Jonas Braun";
   };
+  j-hui = {
+    email = "j-hui@cs.columbia.edu";
+    github = "j-hui";
+    githubId = 11800204;
+    name = "John Hui";
+  };
   j-keck = {
     email = "jhyphenkeck@gmail.com";
     github = "j-keck";
@@ -6722,6 +6728,12 @@
     githubId = 35892750;
     name = "Maxine Aubrey";
   };
+  maxhille = {
+    email = "mh@lambdasoup.com";
+    github = "maxhille";
+    githubId = 693447;
+    name = "Max Hille";
+  };
   maxhbr = {
     email = "nixos@maxhbr.dev";
     github = "maxhbr";
@@ -6976,6 +6988,12 @@
       longkeyid = "rsa4096/0x003F2096411B5F92";
       fingerprint = "3DEE 1C55 6E1C 3DC5 54F5  875A 003F 2096 411B 5F92";
     }];
+  };
+  michaeladler = {
+    email = "therisen06@gmail.com";
+    github = "michaeladler";
+    githubId = 1575834;
+    name = "Michael Adler";
   };
   michaelpj = {
     email = "michaelpj@gmail.com";
@@ -8756,6 +8774,12 @@
     githubId = 5636;
     name = "Steve Purcell";
   };
+  putchar = {
+    email = "slim.cadoux@gmail.com";
+    github = "putchar";
+    githubId = 8208767;
+    name = "Slim Cadoux";
+  };
   puzzlewolf = {
     email = "nixos@nora.pink";
     github = "puzzlewolf";
@@ -9668,6 +9692,12 @@
     githubId = 1567527;
     name = "Sebastian Hyberts";
   };
+  sebtm = {
+    email = "mail@sebastian-sellmeier.de";
+    github = "sebtm";
+    githubId = 17243347;
+    name = "Sebastian Sellmeier";
+  };
   sellout = {
     email = "greg@technomadic.org";
     github = "sellout";
@@ -9987,6 +10017,12 @@
       longkeyid = "rsa2048/6AA23A1193B7064B";
       fingerprint = "6F8A 18AE 4101 103F 3C54  24B9 6AA2 3A11 93B7 064B";
     }];
+  };
+  smancill = {
+    email = "smancill@smancill.dev";
+    github = "smancill";
+    githubId = 238528;
+    name = "Sebastián Mancilla";
   };
   smaret = {
     email = "sebastien.maret@icloud.com";
@@ -11259,7 +11295,7 @@
   };
   vel = {
     email = "llathasa@outlook.com";
-    github = "llathasa-veleth";
+    github = "q60";
     githubId = 61933599;
     name = "vel";
   };

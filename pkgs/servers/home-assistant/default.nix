@@ -62,23 +62,6 @@ let
     (mkOverride "pylast" "4.2.0"
       "0zd0dn2l738ndz62vpa751z0ldnm91dcz9zzbvxv53r08l0s9yf3")
 
-    # Pinned due to API changes in pyopenuv>=1.1.0
-    (self: super: {
-      pyopenuv = super.pyopenuv.overridePythonAttrs (oldAttrs: rec {
-        version = "1.0.13";
-        src = fetchFromGitHub {
-          owner = "bachya";
-          repo = "pyopenuv";
-          rev = version;
-          sha256 = "1gx9xjkyvqqy8410lnbshq1j5y4cb0cdc4m505g17rwdzdwb01y8";
-        };
-        postPatch = ''
-          substituteInPlace pyproject.toml \
-            --replace "poetry.masonry.api" "poetry.core.masonry.api"
-        '';
-      });
-    })
-
     # Pinned due to API changes in pyruckus>0.12
     (self: super: {
       pyruckus = super.pyruckus.overridePythonAttrs (oldAttrs: rec {
@@ -101,6 +84,19 @@ let
           repo = "eebrightbox";
           rev = version;
           sha256 = "0d8mmpwgrd7gymw5263r1v2wjv6dx6w6pq13d62fkfm4h2hya4a4";
+        };
+      });
+    })
+
+    # Pinned due to changes in total-connect-client>0.58 which made the tests fails at the moment
+    (self: super: {
+      total-connect-client = super.total-connect-client.overridePythonAttrs (oldAttrs: rec {
+        version = "0.58";
+        src = fetchFromGitHub {
+          owner = "craigjmidwinter";
+          repo = "total-connect-client";
+          rev = version;
+          sha256 = "1dqmgvgvwjh235wghygan2jnfvmn9vz789in2as3asig9cifix9z";
         };
       });
     })
@@ -138,7 +134,7 @@ let
   extraBuildInputs = extraPackages py.pkgs;
 
   # Don't forget to run parse-requirements.py after updating
-  hassVersion = "2021.8.3";
+  hassVersion = "2021.8.7";
 
 in with py.pkgs; buildPythonApplication rec {
   pname = "homeassistant";
@@ -155,7 +151,7 @@ in with py.pkgs; buildPythonApplication rec {
     owner = "home-assistant";
     repo = "core";
     rev = version;
-    sha256 = "02hm4x1qx9vd39d9l2gl2pnfnjmpk6p2w72lj45cvp3jimdg30fz";
+    sha256 = "0f69jcpxyr0kzziwl6bfj2jbn23hrj1796ml6jsk9mnpfkdsd9vi";
   };
 
   # leave this in, so users don't have to constantly update their downstream patch handling

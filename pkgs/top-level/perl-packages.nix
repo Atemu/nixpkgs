@@ -9,6 +9,7 @@
 , stdenv, lib, buildPackages, pkgs
 , fetchurl, fetchgit, fetchpatch, fetchFromGitHub
 , perl, overrides, buildPerl, shortenPerlShebang
+, nixosTests
 }:
 
 # cpan2nix assumes that perl-packages.nix will be used only with perl 5.30.3 or above
@@ -2146,6 +2147,21 @@ let
     propagatedBuildInputs = [ ClassAccessor LogHandler MROCompat ];
     meta = {
       description = "Catalyst Plugin for Log::Handler";
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
+    };
+  };
+
+  CatalystPluginPrometheusTiny = buildPerlPackage {
+    pname = "Catalyst-Plugin-PrometheusTiny";
+    version = "0.006";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/S/SY/SYSPETE/Catalyst-Plugin-PrometheusTiny-0.006.tar.gz";
+      sha256 = "1hd2nv21c2mq3yvhsys4a276bdwr5igs4b73m99v7ymzpabvjf9b";
+    };
+    buildInputs = [ HTTPMessage Plack SubOverride TestDeep ];
+    propagatedBuildInputs = [ CatalystRuntime Moose PrometheusTiny PrometheusTinyShared ];
+    meta = {
+      description = "Prometheus metrics for Catalyst";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
     };
   };
@@ -4928,6 +4944,20 @@ let
     propagatedBuildInputs = [ ClonePP FileHomeDir PackageStash SortNaturally ];
     meta = {
       description = "colored pretty-print of Perl data structures and objects";
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
+    };
+  };
+
+  DataRandom = buildPerlPackage {
+    pname = "Data-Random";
+    version = "0.13";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/B/BA/BAREFOOT/Data-Random-0.13.tar.gz";
+      sha256 = "eb590184a8db28a7e49eab09e25f8650c33f1f668b6a472829de74a53256bfc0";
+    };
+    buildInputs = [ FileShareDirInstall TestMockTime ];
+    meta = {
+      description = "Perl module to generate random data";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
     };
   };
@@ -9416,6 +9446,20 @@ let
     };
   };
 
+  HashSharedMem = buildPerlModule {
+    pname = "Hash-SharedMem";
+    version = "0.005";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/Z/ZE/ZEFRAM/Hash-SharedMem-0.005.tar.gz";
+      sha256 = "324776808602f7bdc44adaa937895365454029a926fa611f321c9bf6b940bb5e";
+    };
+    buildInputs = [ ScalarString ];
+    meta = {
+      description = "Efficient shared mutable hash";
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
+    };
+  };
+
   HashUtilFieldHashCompat = buildPerlPackage {
     pname = "Hash-Util-FieldHash-Compat";
     version = "0.11";
@@ -13678,6 +13722,12 @@ let
       url = "mirror://cpan/authors/id/S/SH/SHAY/mod_perl-2.0.11.tar.gz";
       sha256 = "0x3gq4nz96y202cymgrf56n8spm7bffkd1p74dh9q3zrrlc9wana";
     };
+
+    patches = [
+      # Fix build on perl-5.34.0, https://github.com/Perl/perl5/issues/18617
+      ../development/perl-modules/mod_perl2-PL_hash_seed.patch
+    ];
+
     makeMakerFlags = "MP_AP_DESTDIR=$out";
     buildInputs = [ pkgs.apacheHttpd ];
     doCheck = false; # would try to start Apache HTTP server
@@ -13685,6 +13735,8 @@ let
       description = "Embed a Perl interpreter in the Apache HTTP server";
       license = lib.licenses.asl20;
     };
+
+    passthru.tests = nixosTests.mod_perl;
   };
 
   Mojolicious = buildPerlPackage {
@@ -15135,6 +15187,20 @@ let
       homepage = "https://github.com/toddr/Net-Ident";
       description = "Lookup the username on the remote end of a TCP/IP connection";
       license = lib.licenses.mit;
+    };
+  };
+
+  NetINET6Glue = buildPerlPackage {
+    pname = "Net-INET6Glue";
+    version = "0.604";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/S/SU/SULLR/Net-INET6Glue-0.604.tar.gz";
+      sha256 = "05xvbdrqq88npzg14bjm9wmjykzplwirzcm8rp61852hz6c67hwh";
+    };
+    meta = {
+      homepage = "https://github.com/noxxi/p5-net-inet6glue";
+      description = "Make common modules IPv6 ready by hotpatching";
+      license = lib.licenses.artistic1;
     };
   };
 
@@ -17431,6 +17497,37 @@ let
       sha256 = "1g3l8jzx06x4l4p0x7fyn4wvg6plfzl420irwwb9v447wzsn6xfh";
     };
     propagatedBuildInputs = [ IPCSignal ];
+  };
+
+  PrometheusTiny = buildPerlPackage {
+    pname = "Prometheus-Tiny";
+    version = "0.008";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/R/RO/ROBN/Prometheus-Tiny-0.008.tar.gz";
+      sha256 = "17d7b69chkcq8fprww6m15glndyb0lms2l0xjbnbw04q7f8ncskk";
+    };
+    buildInputs = [ HTTPMessage Plack TestException ];
+    meta = {
+      homepage = "https://github.com/robn/Prometheus-Tiny";
+      description = "A tiny Prometheus client";
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
+    };
+  };
+
+  PrometheusTinyShared = buildPerlPackage {
+    pname = "Prometheus-Tiny-Shared";
+    version = "0.024";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/R/RO/ROBN/Prometheus-Tiny-Shared-0.024.tar.gz";
+      sha256 = "02w24r4amk8dqlavg6abxap48hzxrbda48f1pmrqypgx1cz59g4g";
+    };
+    buildInputs = [ DataRandom HTTPMessage Plack TestDifferences TestException ];
+    propagatedBuildInputs = [ HashSharedMem JSONXS PrometheusTiny ];
+    meta = {
+      homepage = "https://github.com/robn/Prometheus-Tiny-Shared";
+      description = "A tiny Prometheus client with a shared database behind it";
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
+    };
   };
 
   ProtocolRedis = buildPerlPackage {

@@ -1458,6 +1458,10 @@ self: super: {
     addBuildDepend (unmarkBroken super.hercules-ci-cli) super.hercules-ci-optparse-applicative
   );
 
+  # Readline uses Distribution.Simple from Cabal 2, in a way that is not
+  # compatible with Cabal 3. No upstream repository found so far
+  readline =  appendPatch super.readline ./patches/readline-fix-for-cabal-3.patch;
+
   # 2020-12-05: http-client is fixed on too old version
   essence-of-live-coding-warp = doJailbreak (super.essence-of-live-coding-warp.override {
     http-client = self.http-client_0_7_8;
@@ -1936,5 +1940,10 @@ EOT
     url = "https://github.com/ajscholl/basic-cpuid/commit/2f2bd7a7b53103fb0cf26883f094db9d7659887c.patch";
     sha256 = "0l15ccfdys100jf50s9rr4p0d0ikn53bkh7a9qlk9i0y0z5jc6x1";
   });
+
+  # Needs Cabal >= 3.4
+  chs-cabal = super.chs-cabal.override {
+    Cabal = self.Cabal_3_6_0_0;
+  };
 
 } // import ./configuration-tensorflow.nix {inherit pkgs haskellLib;} self super

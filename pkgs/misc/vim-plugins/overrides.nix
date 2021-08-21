@@ -86,6 +86,8 @@
 , iferr
 , impl
 , reftools
+# must be lua51Packages
+, luaPackages
 }:
 
 self: super: {
@@ -124,8 +126,8 @@ self: super: {
     buildInputs = [ tabnine ];
 
     postFixup = ''
-      mkdir $target/binaries
-      ln -s ${tabnine}/bin/TabNine $target/binaries/TabNine_$(uname -s)
+      mkdir -p $target/binaries/${tabnine.version}
+      ln -s ${tabnine}/bin/ $target/binaries/${tabnine.version}/${tabnine.passthru.platform}
     '';
   });
 
@@ -212,6 +214,14 @@ self: super: {
     dependencies = with self; [ vimproc-vim vimshell-vim self.self forms ];
   });
 
+  fcitx-vim = super.fcitx-vim.overrideAttrs (old: {
+    passthru.python3Dependencies = ps: with ps; [ dbus-python ];
+    meta = {
+      description = "Keep and restore fcitx state when leaving/re-entering insert mode or search mode";
+      license = lib.licenses.mit;
+    };
+  });
+
   forms = super.forms.overrideAttrs (old: {
     dependencies = with self; [ self.self ];
   });
@@ -281,6 +291,8 @@ self: super: {
   gitsigns-nvim = super.gitsigns-nvim.overrideAttrs (old: {
     dependencies = with self; [ plenary-nvim ];
   });
+
+  # plenary-nvim = super.toVimPlugin(luaPackages.plenary-nvim);
 
   gruvbox-nvim = super.gruvbox-nvim.overrideAttrs (old: {
     dependencies = with self; [ lush-nvim ];
@@ -367,6 +379,10 @@ self: super: {
     dependencies = with self; [ vim-floaterm ];
   });
 
+  lir-nvim = super.lir-nvim.overrideAttrs (old: {
+    dependencies = with self; [ plenary-nvim ];
+  });
+
   meson = buildVimPluginFrom2Nix {
     inherit (meson) pname version src;
     preInstall = "cd data/syntax-highlighting/vim";
@@ -443,6 +459,10 @@ self: super: {
 
   onehalf = super.onehalf.overrideAttrs (old: {
     configurePhase = "cd vim";
+  });
+
+  refactoring-nvim = super.refactoring-nvim.overrideAttrs (old: {
+    dependencies = with self; [ nvim-treesitter plenary-nvim ];
   });
 
   skim = buildVimPluginFrom2Nix {
@@ -651,7 +671,7 @@ self: super: {
             libiconv
           ];
 
-          cargoSha256 = "sha256-wYxUo9zfflU7RTsTb7W9wc/WBsXhz3OLjC8CwUkRRiE=";
+          cargoSha256 = "16lcsi5mxmj79ky5lbpivravn8rjl4z3j3fsxrglb22ab4i7js3n";
         };
       in
       ''
