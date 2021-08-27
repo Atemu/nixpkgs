@@ -24,6 +24,18 @@ let
     # Override the version of some packages pinned in Home Assistant's setup.py and requirements_all.txt
     (mkOverride "python-slugify" "4.0.1" "69a517766e00c1268e5bbfc0d010a0a8508de0b18d30ad5a1ff357f8ae724270")
 
+    (self: super: {
+      async-upnp-client = super.async-upnp-client.overridePythonAttrs (oldAttrs: rec {
+        version = "0.19.2";
+        src = fetchFromGitHub {
+          owner = "StevenLooman";
+          repo = "async_upnp_client";
+          rev = version;
+          sha256 = "1v8d2lvxihqasn7866zssys16s0lgxkk6ri2dp4rr7wr8g9ixvdr";
+        };
+      });
+    })
+
     # Pinned due to API changes in iaqualink>=2.0, remove after
     # https://github.com/home-assistant/core/pull/48137 was merged
     (self: super: {
@@ -134,7 +146,7 @@ let
   extraBuildInputs = extraPackages py.pkgs;
 
   # Don't forget to run parse-requirements.py after updating
-  hassVersion = "2021.8.7";
+  hassVersion = "2021.8.8";
 
 in with py.pkgs; buildPythonApplication rec {
   pname = "homeassistant";
@@ -151,7 +163,7 @@ in with py.pkgs; buildPythonApplication rec {
     owner = "home-assistant";
     repo = "core";
     rev = version;
-    sha256 = "0f69jcpxyr0kzziwl6bfj2jbn23hrj1796ml6jsk9mnpfkdsd9vi";
+    sha256 = "1fj16qva04d9qhpnfxxacsp82vqqfha5c2zg4f850kld4qhwrgky";
   };
 
   # leave this in, so users don't have to constantly update their downstream patch handling

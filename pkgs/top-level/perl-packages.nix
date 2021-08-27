@@ -644,13 +644,13 @@ let
 
   Appcpm = buildPerlModule {
     pname = "App-cpm";
-    version = "0.997000";
+    version = "0.997006";
     src = fetchurl {
-      url = "mirror://cpan/authors/id/S/SK/SKAJI/App-cpm-0.997000.tar.gz";
-      sha256 = "6bf25a25dfb2331dee623d5cc3d030d9be647e7c766e82196a383f16b92e419f";
+      url = "mirror://cpan/authors/id/S/SK/SKAJI/App-cpm-0.997006.tar.gz";
+      sha256 = "1mh4bg141qbch0vdvir2l9533zzm3k8hnqx36iwciwzhvpd9hl9s";
     };
     buildInputs = [ ModuleBuildTiny ];
-    propagatedBuildInputs = [ CPANCommonIndex CPANDistnameInfo ClassTiny CommandRunner ExtUtilsInstall ExtUtilsInstallPaths FileCopyRecursive Filepushd HTTPTinyish MenloLegacy ModuleCPANfile ParsePMFile ParallelPipes locallib ];
+    propagatedBuildInputs = [ CPAN02PackagesSearch CPANCommonIndex CPANDistnameInfo ClassTiny CommandRunner ExtUtilsInstall ExtUtilsInstallPaths FileCopyRecursive Filepushd HTTPTinyish MenloLegacy Modulecpmfile ModuleCPANfile ParsePMFile ParallelPipes locallib ];
     nativeBuildInputs = lib.optional stdenv.isDarwin shortenPerlShebang;
     postInstall = lib.optionalString stdenv.isDarwin ''
       shortenPerlShebang $out/bin/cpm
@@ -3838,6 +3838,23 @@ let
     meta = {
       description = "CPanel fork of JSON::XS, fast and correct serializing";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
+    };
+  };
+
+  CPAN02PackagesSearch = buildPerlModule {
+    pname = "CPAN-02Packages-Search";
+    version = "0.001";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/S/SK/SKAJI/CPAN-02Packages-Search-0.001.tar.gz";
+      sha256 = "02dgqplar99a2i2b08pnapznyp4il70wsvpm8163ywwfwqn1ap37";
+    };
+    buildInputs = [ ModuleBuildTiny ];
+    propagatedBuildInputs = [ TieHandleOffset ];
+    meta = {
+      homepage = "https://github.com/skaji/CPAN-02Packages-Search";
+      description = "Search packages in 02packages.details.txt";
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
+      maintainers = [ maintainers.zakame ];
     };
   };
 
@@ -13226,6 +13243,23 @@ let
     };
   };
 
+  Modulecpmfile = buildPerlModule {
+    pname = "Module-cpmfile";
+    version = "0.002";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/S/SK/SKAJI/Module-cpmfile-0.002.tar.gz";
+      sha256 = "18dxc5wgds1way0dvd6dx5rhc2siyaa38nhpy4gb5v7ldnj3yjc8";
+    };
+    buildInputs = [ ModuleBuildTiny ModuleCPANfile Test2Suite ];
+    propagatedBuildInputs = [ YAMLPP ];
+    meta = {
+      homepage = "https://github.com/skaji/cpmfile";
+      description = "Parse cpmfile";
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
+      maintainers = [ maintainers.zakame ];
+    };
+  };
+
   ModuleBuild = buildPerlPackage {
     pname = "Module-Build";
     version = "0.4231";
@@ -16905,11 +16939,31 @@ let
       sha256 = "2ad194f91ef24df4698369c2562d4164e9bf74f2d5565c681841abf79789ed82";
     };
     buildInputs = [ TestDeep ];
+    nativeBuildInputs = lib.optional stdenv.isDarwin shortenPerlShebang;
     propagatedBuildInputs = [ BKeywords ConfigTiny FileWhich ListMoreUtils ModulePluggable PPIxQuoteLike PPIxRegexp PPIxUtilities PerlTidy PodSpell StringFormat ];
     meta = {
       homepage = "http://perlcritic.com";
       description = "Critique Perl source code for best-practices";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
+    };
+    postInstall = lib.optionalString stdenv.isDarwin ''
+      shortenPerlShebang $out/bin/perlcritic
+    '';
+  };
+
+  PerlCriticCommunity = buildPerlModule {
+    pname = "Perl-Critic-Community";
+    version = "1.0.0";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/D/DB/DBOOK/Perl-Critic-Community-v1.0.0.tar.gz";
+      sha256 = "311b775da4193e9de94cf5225e993cc54dd096ae1e7ef60738cdae1d9b8854e7";
+    };
+    buildInputs = [ ModuleBuildTiny ];
+    propagatedBuildInputs = [ PPI PathTiny PerlCritic PerlCriticPolicyVariablesProhibitLoopOnHash PerlCriticPulp ];
+    meta = {
+      homepage = "https://github.com/Grinnz/Perl-Critic-Community";
+      description = "Community-inspired Perl::Critic policies";
+      license = lib.licenses.artistic2;
     };
   };
 
@@ -16924,6 +16978,35 @@ let
     meta = {
       description = "Policies for Perl::Critic concerned with using Moose";
       license = lib.licenses.artistic1;
+    };
+  };
+
+  PerlCriticPolicyVariablesProhibitLoopOnHash = buildPerlPackage {
+    pname = "Perl-Critic-Policy-Variables-ProhibitLoopOnHash";
+    version = "0.008";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/X/XS/XSAWYERX/Perl-Critic-Policy-Variables-ProhibitLoopOnHash-0.008.tar.gz";
+      sha256 = "12f5f0be96ea1bdc7828058577bd1c5c63ca23c17fac9c3709452b3dff5b84e0";
+    };
+    propagatedBuildInputs = [ PerlCritic ];
+    meta = {
+      description = "Don't write loops on hashes, only on keys and values of hashes";
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
+    };
+  };
+
+  PerlCriticPulp = buildPerlPackage {
+    pname = "Perl-Critic-Pulp";
+    version = "99";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/K/KR/KRYDE/Perl-Critic-Pulp-99.tar.gz";
+      sha256 = "b8fda842fcbed74d210257c0a284b6dc7b1d0554a47a3de5d97e7d542e23e7fe";
+    };
+    propagatedBuildInputs = [ IOString ListMoreUtils PPI PerlCritic PodMinimumVersion ];
+    meta = {
+      homepage = "http://user42.tuxfamily.org/perl-critic-pulp/index.html";
+      description = "Some add-on policies for Perl::Critic";
+      license = lib.licenses.gpl3Plus;
     };
   };
 
@@ -17073,10 +17156,6 @@ let
       description = "Indent and reformat perl scripts";
       license = lib.licenses.gpl2Plus;
     };
-    nativeBuildInputs = lib.optional stdenv.isDarwin shortenPerlShebang;
-    postInstall = lib.optionalString stdenv.isDarwin ''
-      shortenPerlShebang $out/bin/perltidy
-    '';
   };
 
   PHPSerialization = buildPerlPackage {
@@ -17304,6 +17383,21 @@ let
   };
 
   Po4a = callPackage ../development/perl-modules/Po4a { };
+
+  PodMinimumVersion = buildPerlPackage {
+    pname = "Pod-MinimumVersion";
+    version = "50";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/K/KR/KRYDE/Pod-MinimumVersion-50.tar.gz";
+      sha256 = "0bd2812d9aacbd99bb71fa103a4bb129e955c138ba7598734207dc9fb67b5a6f";
+    };
+    propagatedBuildInputs = [ IOString PodParser ];
+    meta = {
+      homepage = "http://user42.tuxfamily.org/pod-minimumversion/index.html";
+      description = "Determine minimum Perl version of POD directives";
+      license = lib.licenses.free;
+    };
+  };
 
   POE = buildPerlPackage {
     pname = "POE";

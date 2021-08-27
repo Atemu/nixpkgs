@@ -10,12 +10,12 @@ in
 rec {
   thunderbird = common rec {
     pname = "thunderbird";
-    version = "91.0";
+    version = "91.0.2";
     application = "comm/mail";
     binaryName = pname;
     src = fetchurl {
       url = "mirror://mozilla/thunderbird/releases/${version}/source/thunderbird-${version}.source.tar.xz";
-      sha512 = "f3fcaff97b37ef41850895e44fbd2f42b0f1cb982542861bef89ef7ee606c6332296d61f666106be9455078933a2844c46bf243b71cc4364d9ff457d9c808a7a";
+      sha512 = "468be2f5024fd32eb22a661ed5f30de5d74231ee736e6743a9fb84e747bf45fceaaf286a5cbb20eb41f8ab98e0c56310eab3d2e6077fd81ee0ef52b28c33a3f2";
     };
     patches = [
       ./no-buildconfig-90.patch
