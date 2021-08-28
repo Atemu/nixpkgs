@@ -76,13 +76,13 @@ let
 in
 buildPythonApplication rec {
   pname = "lutris-original";
-  version = "0.5.8.4";
+  version = "0.5.9-beta1";
 
   src = fetchFromGitHub {
     owner = "lutris";
     repo = "lutris";
     rev = "v${version}";
-    sha256 = "sha256-5ivXIgDyM9PRvuUhPFPgziXDvggcL+p65kI2yOaiS1M=";
+    sha256 = "sha256-wTYL8ehCtzhEVIrY2qNrn0VbZBtDH2MCYUhkIzL7+3A=";
   };
 
   nativeBuildInputs = [ wrapGAppsHook ];
@@ -122,6 +122,8 @@ buildPythonApplication rec {
   strictDeps = false;
 
   preCheck = "export HOME=$PWD";
+
+  doCheck = false;
 
   meta = with lib; {
     homepage = "https://lutris.net";
