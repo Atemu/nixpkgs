@@ -1648,6 +1648,8 @@ with pkgs;
 
   hostctl = callPackage ../tools/system/hostctl { };
 
+  hp2p = callPackage ../tools/networking/hp2p { };
+
   hpe-ltfs = callPackage ../tools/backup/hpe-ltfs { };
 
   http2tcp = callPackage ../tools/networking/http2tcp { };
@@ -3203,6 +3205,8 @@ with pkgs;
 
   odafileconverter = libsForQt5.callPackage ../applications/graphics/odafileconverter {};
 
+  ossutil = callPackage ../tools/admin/ossutil {};
+
   pastel = callPackage ../applications/misc/pastel {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
@@ -3788,6 +3792,7 @@ with pkgs;
   collectd = callPackage ../tools/system/collectd {
     libsigrok = libsigrok_0_3; # not compatible with >= 0.4.0 yet
     jdk = jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    inherit (darwin.apple_sdk.frameworks) IOKit;
   };
 
   collectd-data = callPackage ../tools/system/collectd/data.nix { };
@@ -4492,6 +4497,8 @@ with pkgs;
 
   sonobuoy = callPackage ../applications/networking/cluster/sonobuoy { };
 
+  soupault = callPackage ../tools/typesetting/soupault { };
+
   strawberry = libsForQt5.callPackage ../applications/audio/strawberry { };
 
   tealdeer = callPackage ../tools/misc/tealdeer {
@@ -4588,7 +4595,9 @@ with pkgs;
 
   choose = callPackage ../tools/text/choose { };
 
-  emscripten = callPackage ../development/compilers/emscripten { };
+  emscripten = callPackage ../development/compilers/emscripten {
+    llvmPackages = llvmPackages_13;
+  };
 
   emscriptenPackages = recurseIntoAttrs (callPackage ./emscripten-packages.nix { });
 
@@ -5183,6 +5192,8 @@ with pkgs;
   ghostunnel = callPackage ../tools/networking/ghostunnel { };
 
   ghq = callPackage ../applications/version-management/git-and-tools/ghq { };
+
+  gst = callPackage ../applications/version-management/git-and-tools/gst { };
 
   ghr = callPackage ../applications/version-management/git-and-tools/ghr { };
 
@@ -9284,7 +9295,7 @@ with pkgs;
 
   stricat = callPackage ../tools/security/stricat { };
 
-  staruml = callPackage ../tools/misc/staruml { inherit (gnome2) GConf; libgcrypt = libgcrypt_1_5; };
+  staruml = callPackage ../tools/misc/staruml { };
 
   stone-phaser = callPackage ../applications/audio/stone-phaser { };
 
@@ -11512,9 +11523,7 @@ with pkgs;
 
   fsharp = callPackage ../development/compilers/fsharp { };
 
-  fstar = callPackage ../development/compilers/fstar {
-    ocamlPackages = ocaml-ng.ocamlPackages_4_07;
-  };
+  fstar = callPackage ../development/compilers/fstar { };
 
   dotnetPackages = recurseIntoAttrs (callPackage ./dotnet-packages.nix {});
 
@@ -12604,7 +12613,7 @@ with pkgs;
   };
 
   beam = callPackage ./beam-packages.nix { };
-  beam_nox = callPackage ./beam-packages.nix { wxSupport = false; };
+  beam_nox = callPackage ./beam-packages.nix { beam = beam_nox; wxSupport = false; };
 
   inherit (beam.interpreters)
     erlang erlangR24 erlangR23 erlangR22 erlangR21
@@ -13164,6 +13173,8 @@ with pkgs;
   altair = callPackage ../development/tools/altair-graphql-client { };
 
   ameba = callPackage ../development/tools/ameba { };
+
+  anybadge = with python3Packages; toPythonApplication anybadge;
 
   augeas = callPackage ../tools/system/augeas { };
 
@@ -20648,6 +20659,10 @@ with pkgs;
 
   virtlyst = libsForQt5.callPackage ../servers/web-apps/virtlyst { };
 
+  virtualenv = with python3Packages; toPythonApplication virtualenv;
+
+  virtualenv-clone = with python3Packages; toPythonApplication virtualenv-clone;
+
   virtuoso6 = callPackage ../servers/sql/virtuoso/6.x.nix {
     openssl = openssl_1_0_2;
   };
@@ -23999,6 +24014,8 @@ with pkgs;
 
   du-dust = callPackage ../tools/misc/dust { };
 
+  dutree = callPackage ../tools/misc/dutree { };
+
   devede = callPackage ../applications/video/devede { };
 
   denemo = callPackage ../applications/audio/denemo { };
@@ -24536,10 +24553,12 @@ with pkgs;
   firefox-esr-91-unwrapped = firefoxPackages.firefox-esr-91;
   firefox = wrapFirefox firefox-unwrapped { };
   firefox-wayland = wrapFirefox firefox-unwrapped { forceWayland = true; };
-  firefox-esr-wayland = wrapFirefox firefox-esr-91-unwrapped { forceWayland = true; };
   firefox-esr-78 = wrapFirefox firefox-esr-78-unwrapped { };
   firefox-esr-91 = wrapFirefox firefox-esr-91-unwrapped { };
+
   firefox-esr = firefox-esr-78;
+  firefox-esr-unwrapped = firefoxPackages.firefox-esr-78;
+  firefox-esr-wayland = wrapFirefox firefox-esr-91-unwrapped { forceWayland = true; };
 
   firefox-bin-unwrapped = callPackage ../applications/networking/browsers/firefox-bin {
     channel = "release";
@@ -27866,6 +27885,8 @@ with pkgs;
   tribler = callPackage ../applications/networking/p2p/tribler { };
 
   trojita = libsForQt5.callPackage ../applications/networking/mailreaders/trojita { };
+
+  ttyper = callPackage ../applications/misc/ttyper { };
 
   tudu = callPackage ../applications/office/tudu { };
 
@@ -32018,6 +32039,8 @@ with pkgs;
   rss-glx = callPackage ../misc/screensavers/rss-glx { };
 
   run-scaled = callPackage ../tools/X11/run-scaled { };
+
+  runiq = callPackage ../tools/text/runiq { };
 
   runit = callPackage ../tools/system/runit { };
 

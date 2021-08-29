@@ -477,6 +477,8 @@ in {
 
   anyascii = callPackage ../development/python-modules/anyascii { };
 
+  anybadge = callPackage ../development/python-modules/anybadge { };
+
   anyio = callPackage ../development/python-modules/anyio { };
 
   anyjson = callPackage ../development/python-modules/anyjson { };
@@ -2995,6 +2997,8 @@ in {
 
   google-cloud-asset = callPackage ../development/python-modules/google-cloud-asset { };
 
+  google-cloud-audit-log = callPackage ../development/python-modules/google-cloud-audit-log { };
+
   google-cloud-automl = callPackage ../development/python-modules/google-cloud-automl { };
 
   google-cloud-bigquery = callPackage ../development/python-modules/google-cloud-bigquery { };
@@ -4642,6 +4646,8 @@ in {
 
   mpi4py = callPackage ../development/python-modules/mpi4py { };
 
+  mpldatacursor = callPackage ../development/python-modules/mpldatacursor { };
+
   mplfinance = callPackage ../development/python-modules/mplfinance { };
 
   mplleaflet = callPackage ../development/python-modules/mplleaflet { };
@@ -5667,7 +5673,7 @@ in {
 
   progress = callPackage ../development/python-modules/progress { };
 
-  prometheus_client = callPackage ../development/python-modules/prometheus_client { };
+  prometheus-client = callPackage ../development/python-modules/prometheus-client { };
 
   prometheus-flask-exporter = callPackage ../development/python-modules/prometheus-flask-exporter { };
 
@@ -8640,6 +8646,8 @@ in {
   tempora = callPackage ../development/python-modules/tempora { };
 
   tenacity = callPackage ../development/python-modules/tenacity { };
+
+  tensorboard-data-server = callPackage ../development/python-modules/tensorboard-data-server { };
 
   tensorboard-plugin-profile = callPackage ../development/python-modules/tensorboard-plugin-profile { };
 

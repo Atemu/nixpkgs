@@ -852,8 +852,8 @@ let
         mktplcRef = {
           name = "nix-ide";
           publisher = "jnoortheen";
-          version = "0.1.7";
-          sha256 = "1bw4wyq9abimxbhl7q9g8grvj2ax9qqq6mmqbiqlbsi2arvk0wrm";
+          version = "0.1.16";
+          sha256 = "04ky1mzyjjr1mrwv3sxz4mgjcq5ylh6n01lvhb19h3fmwafkdxbp";
         };
       };
 
@@ -911,6 +911,18 @@ let
           publisher = "kahole";
           version = "0.6.18";
           sha256 = "0sqzz5bbqqg60aypvwxcqnxrr72gmwfj9sv0amgkyaf60zg5sf7w";
+        };
+        meta = {
+          license = lib.licenses.mit;
+        };
+      };
+
+      lokalise.i18n-ally = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "i18n-ally";
+          publisher = "Lokalise";
+          version = "2.7.1";
+          sha256 = "sha256-nHBYRSiPQ5ucWPr9VCUgMrosloLnVj40Fh+CEBvWONE=";
         };
         meta = {
           license = lib.licenses.mit;

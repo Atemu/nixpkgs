@@ -304,9 +304,24 @@ Superuser created successfully.
       </listitem>
       <listitem>
         <para>
+          Firefox v91 does not support addons with invalid signature
+          anymore. Firefox ESR needs to be used for nix addon support.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           The <literal>erigon</literal> ethereum node has moved to a new
           database format in <literal>2021-05-04</literal>, and requires
           a full resync
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          The <literal>erigon</literal> ethereum node has moved it’s
+          database location in <literal>2021-08-03</literal>, users
+          upgrading must manually move their chaindata (see
+          <link xlink:href="https://github.com/ledgerwatch/erigon/releases/tag/v2021.08.03">release
+          notes</link>).
         </para>
       </listitem>
       <listitem>
@@ -863,6 +878,23 @@ Superuser created successfully.
           release instead of 1.0.x
         </para>
       </listitem>
+      <listitem>
+        <para>
+          If <literal>exfat</literal> is included in
+          <literal>boot.supportedFilesystems</literal> and when using
+          kernel 5.7 or later, the <literal>exfatprogs</literal>
+          user-space utilities are used instead of
+          <literal>exfat</literal>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          The <literal>todoman</literal> package was upgraded from 3.9.0
+          to 4.0.0. This introduces breaking changes in the
+          <link xlink:href="https://todoman.readthedocs.io/en/stable/configure.html#configuration-file">configuration
+          file</link> format.
+        </para>
+      </listitem>
     </itemizedlist>
   </section>
   <section xml:id="sec-release-21.11-notable-changes">
@@ -1047,6 +1079,13 @@ Superuser created successfully.
           virtual host, even if <literal>enableACME</literal> is set.
           This is useful for providers not using the same certificate to
           sign OCSP responses and server certificates.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <literal>lib.formats.yaml</literal>’s
+          <literal>generate</literal> will not generate JSON anymore,
+          but instead use more of the YAML-specific syntax.
         </para>
       </listitem>
     </itemizedlist>
