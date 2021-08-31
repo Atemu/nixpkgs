@@ -1016,6 +1016,8 @@ with pkgs;
 
   terminator = callPackage ../applications/terminal-emulators/terminator { };
 
+  terminal-colors = callPackage ../applications/misc/terminal-colors { };
+
   termite = callPackage ../applications/terminal-emulators/termite/wrapper.nix {
     termite = termite-unwrapped;
   };
@@ -3991,6 +3993,8 @@ with pkgs;
 
   cloud-utils = callPackage ../tools/misc/cloud-utils { };
 
+  cloudlist = callPackage ../tools/security/cloudlist { };
+
   cobalt = callPackage ../applications/misc/cobalt {
     inherit (darwin.apple_sdk.frameworks) CoreServices;
   };
@@ -6081,6 +6085,8 @@ with pkgs;
   industrializer = callPackage ../applications/audio/industrializer { };
 
   inetutils = callPackage ../tools/networking/inetutils { };
+
+  inferno = callPackage ../development/tools/inferno { };
 
   inform6 = callPackage ../development/compilers/inform6 { };
 
@@ -8351,7 +8357,7 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) Security;
   };
 
-  remarshal = callPackage ../development/tools/remarshal { };
+  remarshal = with python3Packages; toPythonApplication remarshal;
 
   rehex = callPackage ../applications/editors/rehex {
     inherit (darwin.apple_sdk.frameworks) Carbon Cocoa IOKit;
@@ -9924,7 +9930,7 @@ with pkgs;
   };
 
   sentry-cli = callPackage ../development/tools/sentry-cli {
-    inherit (darwin.apple_sdk.frameworks) Security;
+    inherit (darwin.apple_sdk.frameworks) Security SystemConfiguration;
   };
 
   sentry-native = callPackage ../development/libraries/sentry-native { };
@@ -9933,7 +9939,9 @@ with pkgs;
     openssl = openssl_1_0_2;
   };
 
-  waifu2x-converter-cpp = callPackage ../tools/graphics/waifu2x-converter-cpp { };
+  waifu2x-converter-cpp = callPackage ../tools/graphics/waifu2x-converter-cpp {
+    inherit (darwin.apple_sdk.frameworks) OpenCL;
+  };
 
   wakatime = pythonPackages.callPackage ../tools/misc/wakatime { };
 
@@ -13339,7 +13347,13 @@ with pkgs;
 
   buildBazelPackage = callPackage ../build-support/build-bazel-package { };
 
-  bear = callPackage ../development/tools/build-managers/bear { };
+  bear = callPackage ../development/tools/build-managers/bear {
+    # error: no viable constructor or deduction guide for deduction of template arguments of 'map'
+    stdenv = if stdenv.hostPlatform.system == "x86_64-darwin" then
+        llvmPackages_11.stdenv
+      else
+        stdenv;
+  };
 
   bin_replace_string = callPackage ../development/tools/misc/bin_replace_string { };
 
@@ -25120,6 +25134,8 @@ with pkgs;
 
   pmbootstrap = python3Packages.callPackage ../tools/misc/pmbootstrap/default.nix { };
 
+  shepherd = nodePackages."@nerdwallet/shepherd";
+
   slack = callPackage ../applications/networking/instant-messengers/slack { };
 
   slack-cli = callPackage ../tools/networking/slack-cli { };
@@ -29200,6 +29216,8 @@ with pkgs;
   clonehero = pkgs.callPackage ../games/clonehero/fhs-wrapper.nix { };
 
   crispyDoom = callPackage ../games/crispy-doom { };
+
+  vintagestory = callPackage ../games/vintagestory/default.nix { };
 
   cri-o = callPackage ../applications/virtualization/cri-o/wrapper.nix { };
   cri-o-unwrapped = callPackage ../applications/virtualization/cri-o { };
