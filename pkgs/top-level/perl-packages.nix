@@ -1221,6 +1221,26 @@ let
     };
   };
 
+  BarcodeZBar = buildPerlPackage {
+    pname = "Barcode-ZBar";
+    version = "0.04pre";
+    # The meta::cpan version of this module has been unmaintained from 2009
+    # This uses an updated version from the ZBar repo that works with the current ZBar library
+    src = "${pkgs.zbar.src}/perl";
+    postPatch = ''
+      substituteInPlace Makefile.PL --replace "-lzbar" "-L${pkgs.zbar.lib}/lib -lzbar"
+      rm t/Processor.t
+    '';
+    buildInputs =[ ExtUtilsMakeMaker ];
+    propagatedBuildInputs = [ pkgs.zbar PerlMagick ];
+    perlPreHook = lib.optionalString stdenv.isDarwin "export LD=$CC";
+    meta = {
+      homepage = "https://github.com/mchehab/zbar/tree/master/perl";
+      description = "Perl interface to the ZBar Barcode Reader";
+      license = with lib.licenses; [ gpl2Plus ];
+    };
+  };
+
   BC = buildPerlPackage {
     pname = "B-C";
     version = "1.57";
@@ -4657,6 +4677,20 @@ let
     propagatedBuildInputs = [ Curses TermReadKey ];
   };
 
+  CursesUIGrid = buildPerlPackage {
+    pname = "Curses-UI-Grid";
+    version = "0.15";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/A/AD/ADRIANWIT/Curses-UI-Grid-0.15.tar.gz";
+      sha256 = "0820ca4a9fb949ba8faf97af574018baeffb694e980c5087bb6522aa70b9dbec";
+    };
+    propagatedBuildInputs = [ CursesUI TestPod TestPodCoverage ];
+    meta = {
+      description = "Create and manipulate data in grid model";
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
+    };
+  };
+
   CryptX = buildPerlPackage {
     pname = "CryptX";
     version = "0.069";
@@ -4993,6 +5027,21 @@ let
       license = with lib.licenses; [ artistic1 gpl1Plus ];
     };
     buildInputs = [ TestFailWarnings ];
+  };
+
+  DataSectionSimple = buildPerlPackage {
+    pname = "Data-Section-Simple";
+    version = "0.07";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/M/MI/MIYAGAWA/Data-Section-Simple-0.07.tar.gz";
+      sha256 = "0b3035ffdb909aa1f7ded6b608fa9d894421c82c097d51e7171170d67579a9cb";
+    };
+    buildInputs = [ TestRequires ];
+    meta = {
+      homepage = "https://github.com/miyagawa/Data-Section-Simple";
+      description = "Read data from __DATA__";
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
+    };
   };
 
   DataSerializer = buildPerlModule {
@@ -10643,6 +10692,23 @@ let
     propagatedBuildInputs = [ pkgs.more FileWhich TermReadKey ]; # `more` used in tests
   };
 
+  IOPty = buildPerlModule {
+    pname = "IO-Pty";
+    version = "1.16";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/T/TO/TODDR/IO-Tty-1.16.tar.gz";
+      sha256 = "sha256-jxoJwHBzitxpXfkD8uf3QwjdjZkbkUwLw5Cg5gISlN0=";
+    };
+    buildPhase = "make";
+    checkPhase = "make test";
+    installPhase = "make install";
+    meta = {
+      homepage = "https://github.com/toddr/IO-Tty";
+      description = "Pseudo TTY object class";
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
+    };
+  };
+
   IOPrompt = buildPerlModule {
     pname = "IO-Prompt";
     version = "0.997004";
@@ -10732,6 +10798,23 @@ let
     src = fetchurl {
       url = "mirror://cpan/authors/id/C/CA/CAPOEIRAB/IO-Stringy-2.113.tar.gz";
       sha256 = "0kpycb56l6ilvmdx9swx9wpj1x3vfnqdflfjd6dn6spnz750y8ji";
+    };
+  };
+
+  IOStty = buildPerlModule {
+    pname = "IO-Stty";
+    version = "0.04";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/T/TO/TODDR/IO-Stty-0.04.tar.gz";
+      sha256 = "sha256-XJUJ8ahpPYKH+gE97wv4eqZM2ScThGHvjetVUDxmUcI=";
+    };
+    buildPhase = "make";
+    checkPhase = "make test";
+    installPhase = "make install";
+    meta = {
+      homepage = "http://wiki.github.com/toddr/IO-Stty";
+      description = "Change and print terminal line settings";
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
     };
   };
 
@@ -17173,13 +17256,19 @@ let
     };
   };
 
-  PkgConfig = buildPerlPackage {
+  PkgConfig = buildPerlPackage rec {
     pname = "PkgConfig";
     version = "0.25026";
     src = fetchurl {
       url = "mirror://cpan/authors/id/P/PL/PLICEASE/PkgConfig-0.25026.tar.gz";
       sha256 = "1862hzlkibqsgynrnwg43acycp4rlsv19gsybjwq39nnqb9mxfjd";
     };
+    # support cross-compilation by simplifying the way we get version during build
+    postPatch = ''
+      substituteInPlace Makefile.PL --replace \
+        'do { require "./lib/PkgConfig.pm"; $PkgConfig::VERSION; }' \
+        '"${version}"'
+    '';
     meta = {
       description = "Pure-Perl Core-Only replacement for pkg-config";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
@@ -19799,6 +19888,22 @@ let
     };
   };
 
+  SyntaxKeywordTry = buildPerlModule {
+    pname = "Syntax-Keyword-Try";
+    version = "0.25";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/P/PE/PEVANS/Syntax-Keyword-Try-0.25.tar.gz";
+      sha256 = "0xd82gcpcrnmwxsbk7x0ainmyybdc087g6j69hrpy80j0asnq2f5";
+    };
+    propagatedBuildInputs = [ XSParseKeyword ];
+    perlPreHook = lib.optionalString stdenv.isDarwin "export LD=$CC";
+    meta = {
+      description = "A try/catch/finally syntax for perl";
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
+      maintainers = [ maintainers.zakame ];
+    };
+  };
+
   SysMmap = buildPerlPackage {
     pname = "Sys-Mmap";
     version = "0.20";
@@ -21669,6 +21774,21 @@ let
     meta = {
       description = "Basic utilities for writing tests";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
+    };
+  };
+
+  TestSnapshot = buildPerlPackage {
+    pname = "Test-Snapshot";
+    version = "0.06";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/E/ET/ETJ/Test-Snapshot-0.06.tar.gz";
+      sha256 = "f4dd7a9a55baa2247540ae34210cd05a04f9d1061befec97a1c90eda95bfae45";
+    };
+    buildInputs = [ CaptureTiny ];
+    propagatedBuildInputs = [ TextDiff ];
+    meta = {
+      description = "Test against data stored in automatically-named file";
+      license = lib.licenses.artistic2;
     };
   };
 

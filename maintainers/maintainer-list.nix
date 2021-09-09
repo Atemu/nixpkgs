@@ -80,6 +80,12 @@
     githubId = 791309;
     name = "Jan Hrnko";
   };
+  _1000teslas = {
+    name = "Kevin Tran";
+    email = "47207223+1000teslas@users.noreply.github.com";
+    github = "1000teslas";
+    githubId = 47207223;
+  };
   _3699n = {
     email = "nicholas@nvk.pm";
     github = "3699n";
@@ -1317,6 +1323,12 @@
     github = "betaboon";
     githubId = 7346933;
     name = "betaboon";
+  };
+  bew = {
+    email = "benoit.dechezelles@gmail.com";
+    github = "bew";
+    githubId = 9730330;
+    name = "Benoit de Chezelles";
   };
   bfortz = {
     email = "bernard.fortz@gmail.com";
@@ -3620,6 +3632,12 @@
       longkeyid = "rsa4096/0xECC755EE583C1672";
       fingerprint = "2F93 661D AC17 EA98 A104  F780 ECC7 55EE 583C 1672";
     }];
+  };
+  flexagoon = {
+    email = "flexagoon@pm.me";
+    github = "flexagoon";
+    githubId = 66178592;
+    name = "Pavel Zolotarevskiy";
   };
   flexw = {
     email = "felix.weilbach@t-online.de";
@@ -6694,6 +6712,12 @@
     githubId = 775189;
     name = "Jordi Masip";
   };
+  MaskedBelgian = {
+    email = "michael.colicchia@imio.be";
+    github = "MaskedBelgian";
+    githubId = 29855073;
+    name = "Michael Colicchia";
+  };
   matdsoupe = {
     github = "matdsoupe";
     githubId = 44469426;
@@ -7444,6 +7468,16 @@
     githubId = 16665913;
     name = "Maxim Schuwalow";
     email = "maxim.schuwalow@gmail.com";
+  };
+  msfjarvis = {
+    github = "msfjarvis";
+    githubId = 3348378;
+    name = "Harsh Shandilya";
+    email = "nixos@msfjarvis.dev";
+    keys = [{
+      longkeyid = "rsa4096/0xB7843F823355E9B9";
+      fingerprint = "8F87 050B 0F9C B841 1515  7399 B784 3F82 3355 E9B9";
+    }];
   };
   msiedlarek = {
     email = "mikolaj@siedlarek.pl";
@@ -10250,6 +10284,12 @@
     githubId = 8668915;
     name = "Stephane Schitter";
   };
+  staccato = {
+    name = "staccato";
+    email = "moveq@riseup.net";
+    github = "staccato";
+    githubId = 86573128;
+  };
   steell = {
     email = "steve@steellworks.com";
     github = "Steell";
@@ -11281,10 +11321,14 @@
     name = "Jos van den Oever";
   };
   vanilla = {
-    email = "neko@hydev.org";
+    email = "osu_vanilla@126.com";
     github = "VergeDX";
     githubId = 25173827;
     name = "Vanilla";
+    keys = [{
+      longkeyid = "rsa4096/0x4DFA2BDD7305E739";
+      fingerprint = "5C16 5178 7DE2 EE5A AF98  3EA3 4DFA 2BDD 7305 E739";
+    }];
   };
   vanschelven = {
     email = "klaas@vanschelven.com";
