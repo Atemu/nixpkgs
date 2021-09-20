@@ -10,13 +10,13 @@
 
 buildPythonPackage rec {
   pname = "dpath";
-  version = "2.0.2";
+  version = "2.0.5";
 
   disabled = isPy27; # uses python3 imports
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-BA2+ShAeG2sbZenaJYU08PCwrgCjsf0tWS/oV5/4N64=";
+    sha256 = "0kk7wl15r305496q13ka4r6n2r13j99rrrpy2b4575j704dk4x7g";
   };
 
   # use pytest as nosetests hangs

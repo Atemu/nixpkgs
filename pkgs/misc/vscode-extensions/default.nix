@@ -117,15 +117,46 @@ let
         };
       };
 
-      antfu.icons-carbon = buildVscodeMarketplaceExtension {
+      antfu = {
+        icons-carbon = buildVscodeMarketplaceExtension {
+          mktplcRef = {
+            name = "icons-carbon";
+            publisher = "antfu";
+            version = "0.2.2";
+            sha256 = "0mfap16la09mn0jhvy8s3dainrmjz64vra7d0d4fbcpgg420kv3f";
+          };
+          meta = with lib; {
+            license = licenses.mit;
+          };
+        };
+
+        slidev = buildVscodeMarketplaceExtension {
+          mktplcRef = {
+            publisher = "antfu";
+            name = "slidev";
+            version = "0.3.2";
+            sha256 = "sha256-vzmByEiKZIkd707Bs4RGQrMII5sghYlkQI6aAJOHFcY=";
+          };
+          meta = with lib; {
+            license = licenses.mit;
+          };
+        };
+      };
+
+      arcticicestudio.nord-visual-studio-code = buildVscodeMarketplaceExtension {
         mktplcRef = {
-          name = "icons-carbon";
-          publisher = "antfu";
-          version = "0.2.2";
-          sha256 = "0mfap16la09mn0jhvy8s3dainrmjz64vra7d0d4fbcpgg420kv3f";
+          name = "nord-visual-studio-code";
+          publisher = "arcticicestudio";
+          version = "0.18.0";
+          sha256 = "sha256-Uo6peR+2ZNX6nwJ0Yar32Pe0rfBZ+f6ef1cYhUvVUbE=";
         };
         meta = with lib; {
+          description = "An arctic, north-bluish clean and elegant Visual Studio Code theme.";
+          downloadPage =
+            "https://marketplace.visualstudio.com/items?itemName=arcticicestudio.nord-visual-studio-code";
+          homepage = "https://github.com/arcticicestudio/nord-visual-studio-code";
           license = licenses.mit;
+          maintainers = with maintainers; [ imgabe ];
         };
       };
 
@@ -362,6 +393,23 @@ let
         };
       };
 
+      denoland.vscode-deno = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "vscode-deno";
+          publisher = "denoland";
+          version = "3.9.1";
+          sha256 = "sha256-OuGTjmJQFAWrYp7YnFpyo0NnnCcXYF8itYjGKMa3FCs=";
+        };
+        meta = with lib; {
+          changelog = "https://marketplace.visualstudio.com/items/denoland.vscode-deno/changelog";
+          description = "A language server client for Deno";
+          downloadPage = "https://marketplace.visualstudio.com/items?itemName=denoland.vscode-deno";
+          homepage = "https://github.com/denoland/vscode_deno";
+          license = licenses.mit;
+          maintainers = with maintainers; [ ratsclub ];
+        };
+      };
+
       dhall.dhall-lang = buildVscodeMarketplaceExtension {
         mktplcRef = {
           name = "dhall-lang";
@@ -564,6 +612,23 @@ let
         };
       };
 
+      faustinoaq.lex-flex-yacc-bison = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "lex-flex-yacc-bison";
+          publisher = "faustinoaq";
+          version = "0.0.3";
+          sha256 = "6254f52157dc796eae7bf135ac88c1c9cc19d884625331a1e634f9768722cc3d";
+        };
+        meta = with lib; {
+          changelog = "https://marketplace.visualstudio.com/items/faustinoaq.lex-flex-yacc-bison/changelog";
+          description = "Language support for Lex, Flex, Yacc and Bison.";
+          downloadPage = "https://marketplace.visualstudio.com/items?itemName=faustinoaq.lex-flex-yacc-bison";
+          homepage = "https://github.com/faustinoaq/vscode-lex-flex-yacc-bison";
+          license = licenses.mit;
+          maintainers = with maintainers; [ angustrau ];
+        };
+      };
+
       file-icons.file-icons = buildVscodeMarketplaceExtension {
         meta = with lib; {
           changelog = "https://marketplace.visualstudio.com/items/file-icons.file-icons/changelog";
@@ -680,6 +745,16 @@ let
       };
 
       github = {
+        copilot = buildVscodeMarketplaceExtension {
+          mktplcRef = {
+            publisher = "github";
+            name = "copilot";
+            version = "1.4.2678";
+            sha256 = "sha256-NryXLuMIZJngp2dBsGbNhBiblEthckw1Zk2vqMXIzFM=";
+          };
+          meta = { license = lib.licenses.unfree; };
+        };
+
         github-vscode-theme = buildVscodeMarketplaceExtension {
           mktplcRef = {
             name = "github-vscode-theme";
@@ -1048,6 +1123,18 @@ let
         };
       };
 
+      mvllow.rose-pine = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          publisher = "mvllow";
+          name = "rose-pine";
+          version = "1.3.6";
+          sha256 = "sha256-pKrwiA/ZArBfumT0VTauhINSDEbABWgBBzTZEE07wzk=";
+        };
+        meta = {
+          license = lib.licenses.mit;
+        };
+      };
+
       naumovs.color-highlight = buildVscodeMarketplaceExtension {
         mktplcRef = {
           name = "color-highlight";
@@ -1320,6 +1407,18 @@ let
         };
       };
 
+      tabnine.tabnine-vscode = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "tabnine-vscode";
+          publisher = "tabnine";
+          version = "3.4.27";
+          sha256 = "sha256-Xg/N59a38OKEWb/4anysslensUoj9ENcuobkyByFDxE=";
+        };
+        meta = {
+          license = lib.licenses.mit;
+        };
+      };
+
       tamasfe.even-better-toml = buildVscodeMarketplaceExtension {
         mktplcRef = {
           name = "even-better-toml";
@@ -1357,6 +1456,18 @@ let
           cd "$out/$installPrefix"
           jq '.contributes.configuration.properties."shellcheck.executablePath".default = "${shellcheck}/bin/shellcheck"' package.json | sponge package.json
         '';
+        meta = {
+          license = lib.licenses.mit;
+        };
+      };
+
+      tobiasalthoff.atom-material-theme = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "atom-material-theme";
+          publisher = "tobiasalthoff";
+          version = "1.10.7";
+          sha256 = "sha256-t5CKrDEbDCuo28wN+hiWrvkt3C9vQAPfV/nd3QBGQ/s=";
+        };
         meta = {
           license = lib.licenses.mit;
         };

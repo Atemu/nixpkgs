@@ -446,8 +446,41 @@ mapAliases ({
   libwnck3 = libwnck;
   lilypond-unstable = lilypond; # added 2021-03-11
   links = links2; # added 2016-01-31
-  linux_rpi0 = linux_rpi1;
-  linuxPackages_rpi0 = linuxPackages_rpi1;
+  linux_rpi0 = linuxKernel.kernels.linux_rpi1;
+  linuxPackages_rpi0 = linuxKernel.packages.linux_rpi1;
+  linuxPackages_rt_5_4 = linuxKernel.packages.linux_rt_5_4;
+  linuxPackages_rt_5_10 = linuxKernel.packages.linux_rt_5_10;
+  linuxPackages_rt_5_11 = linuxKernel.packages.linux_rt_5_11;
+  linuxPackages_rpi1 = linuxKernel.packages.linux_rpi1;
+  linuxPackages_rpi2 = linuxKernel.packages.linux_rpi2;
+  linuxPackages_rpi3 = linuxKernel.packages.linux_rpi3;
+  linuxPackages_rpi4 = linuxKernel.packages.linux_rpi4;
+  linuxPackages_4_4 = linuxKernel.packages.linux_4_4;
+  linuxPackages_4_9 = linuxKernel.packages.linux_4_9;
+  linuxPackages_4_14 = linuxKernel.packages.linux_4_14;
+  linuxPackages_hardkernel_4_14 = linuxKernel.packages.hardkernel_4_14;
+  linuxPackages_4_19 = linuxKernel.packages.linux_4_19;
+  linuxPackages_5_4 = linuxKernel.packages.linux_5_4;
+  linuxPackages_5_10 = linuxKernel.packages.linux_5_10;
+  linuxPackages_5_13 = linuxKernel.packages.linux_5_13;
+  linuxPackages_5_14 = linuxKernel.packages.linux_5_14;
+
+  linux_mptcp_95 = linuxKernel.kernels.linux_mptcp_95;
+  linux_rpi1 = linuxKernel.kernels.linux_rpi1;
+  linux_rpi2 = linuxKernel.kernels.linux_rpi2;
+  linux_rpi3 = linuxKernel.kernels.linux_rpi3;
+  linux_rpi4 = linuxKernel.kernels.linux_rpi4;
+  linux_4_4 = linuxKernel.kernels.linux_4_4;
+  linux_4_9 = linuxKernel.kernels.linux_4_9;
+  linux_4_14 = linuxKernel.kernels.linux_4_14;
+  linux_4_19 = linuxKernel.kernels.linux_4_19;
+  linux_5_4 = linuxKernel.kernels.linux_5_4;
+  linux-rt_5_4 = linuxKernel.kernels.linux_rt_5_4;
+  linux_5_10 = linuxKernel.kernels.linux_5_10;
+  linux-rt_5_10 = linuxKernel.kernels.linux_rt_5_10;
+  linux-rt_5_11 = linuxKernel.kernels.linux_rt_5_11;
+  linux_5_13 = linuxKernel.kernels.linux_5_13;
+  linux_5_14 = linuxKernel.kernels.linux_5_14;
 
   # added 2020-04-04
   linuxPackages_testing_hardened = throw "linuxPackages_testing_hardened has been removed, please use linuxPackages_latest_hardened";
@@ -704,6 +737,7 @@ mapAliases ({
   pybind11 = throw "pybind11 was removed because pythonPackages.pybind11 for the appropriate version of Python should be used"; # added 2021-05-14
   pynagsystemd = throw "pynagsystemd was removed as it was unmaintained and incompatible with recent systemd versions. Instead use its fork check_systemd."; # added 2020-10-24
   python2nix = throw "python2nix has been removed as it is outdated. Use e.g. nixpkgs-pytools instead."; # added 2021-03-08
+  python-swiftclient = swiftclient; # added 2021-09-09
   quagga = throw "quagga is no longer maintained upstream"; # added 2021-04-22
   qca-qt5 = libsForQt5.qca-qt5;  # added 2015-12-19
   qcsxcad = libsForQt5.qcsxcad;  # added 2020-11-05
@@ -912,7 +946,8 @@ mapAliases ({
   truecrypt = veracrypt; # added 2018-10-24
   tshark = wireshark-cli; # added 2018-04-25
   tuijam = throw "tuijam has been removed because Google Play Music was discontinued"; # added 2021-03-07
-  turbo-geth = throw "turbo-geth has been renamed to erigon"; # added 20201-08-08
+  turbo-geth = throw "turbo-geth has been renamed to erigon"; # added 2021-08-08
+  typora = throw "Newer versions of typora use anti-user encryption and refuse to start. As such it has been removed."; # added 2021-09-11
   uberwriter = apostrophe; # added 2020-04-23
   ubootBeagleboneBlack = ubootAmx335xEVM; # added 2020-01-21
   ucsFonts = ucs-fonts; # added 2016-07-15
@@ -946,6 +981,7 @@ mapAliases ({
   webkitgtk24x-gtk3 = throw "webkitgtk24x-gtk3 has been removed because it's insecure. Please use webkitgtk."; # added 2019-12-05
   webkitgtk24x-gtk2 = throw "webkitgtk24x-gtk2 has been removed because it's insecure. Please use webkitgtk."; # added 2019-12-05
   weechat-matrix-bridge = weechatScripts.weechat-matrix-bridge; # added 2018-09-06
+  wicd = throw "wicd has been removed as it is abandoned."; # added 2021-09-11
   wineStaging = wine-staging; # added 2018-01-08
   winusb = woeusb; # added 2017-12-22
   winstone = throw "winstone is not supported anymore. Alternatives are Jetty or Tomcat."; # added 2019-05-14

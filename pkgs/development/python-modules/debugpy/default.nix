@@ -17,13 +17,13 @@
 
 buildPythonPackage rec {
   pname = "debugpy";
-  version = "1.4.1";
+  version = "1.4.3";
 
   src = fetchFromGitHub {
     owner = "Microsoft";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-W51Y9tZB1Uyp175+hWCpXChwL+MBpDWjudF87F1MRso=";
+    hash = "sha256-ULxVoZuMNDL0Win/+55RnbkCPZ8OI8nhSKshvJOMFQ4=";
   };
 
   patches = [
@@ -62,7 +62,7 @@ buildPythonPackage rec {
       "x86_64-darwin"  = "-std=c++11 -lc -D_REENTRANT -dynamiclib -arch x86_64 -o attach_x86_64.dylib";
       "i686-darwin"    = "-std=c++11 -lc -D_REENTRANT -dynamiclib -arch i386 -o attach_x86.dylib";
       "aarch64-darwin" = "-std=c++11 -lc -D_REENTRANT -dynamiclib -arch arm64 -o attach_arm64.dylib";
-    }.${stdenv.hostPlatform.system}}
+    }.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}")}
   )'';
 
   checkInputs = [

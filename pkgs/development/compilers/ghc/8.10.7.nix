@@ -106,6 +106,12 @@ let
     GhcRtsHcOpts += -fPIC
   '' + lib.optionalString targetPlatform.useAndroidPrebuilt ''
     EXTRA_CC_OPTS += -std=gnu99
+  ''
+  # While split sections are now enabled by default in ghc 8.8 for windows,
+  # they seem to lead to `too many sections` errors when building base for
+  # profiling.
+  + lib.optionalString targetPlatform.isWindows ''
+    SplitSections = NO
   '';
 
   # Splicer will pull out correct variations
@@ -123,7 +129,8 @@ let
   # Use gold either following the default, or to avoid the BFD linker due to some bugs / perf issues.
   # But we cannot avoid BFD when using musl libc due to https://sourceware.org/bugzilla/show_bug.cgi?id=23856
   # see #84670 and #49071 for more background.
-  useLdGold = targetPlatform.linker == "gold" || (targetPlatform.linker == "bfd" && !targetPlatform.isMusl);
+  useLdGold = targetPlatform.linker == "gold" ||
+    (targetPlatform.linker == "bfd" && (targetPackages.stdenv.cc.bintools.bintools.hasGold or false) && !targetPlatform.isMusl);
 
   runtimeDeps = [
     targetPackages.stdenv.cc.bintools
@@ -156,6 +163,22 @@ stdenv.mkDerivation (rec {
     # upstream patch. Don't forget to check backport status of the upstream patch
     # when adding new GHC releases in nixpkgs.
     ./respect-ar-path.patch
+
+    # cabal passes incorrect --host= when cross-compiling
+    # https://github.com/haskell/cabal/issues/5887
+    (fetchpatch {
+            url = "https://raw.githubusercontent.com/input-output-hk/haskell.nix/122bd81150386867da07fdc9ad5096db6719545a/overlays/patches/ghc/cabal-host.patch";
+      sha256 = "sha256:0yd0sajgi24sc1w5m55lkg2lp6kfkgpp3lgija2c8y3cmkwfpdc1";
+    })
+
+    # In order to build ghcjs packages, the Cabal of the ghc used for the ghcjs
+    # needs to be patched. Ref https://github.com/haskell/cabal/pull/7575
+    (fetchpatch {
+      url = "https://github.com/haskell/cabal/commit/369c4a0a54ad08a9e6b0d3bd303fedd7b5e5a336.patch";
+      sha256 = "120f11hwyaqa0pq9g5l1300crqij49jg0rh83hnp9sa49zfdwx1n";
+      stripLen = 3;
+      extraPrefix = "libraries/Cabal/Cabal/";
+    })
   ] ++ lib.optionals stdenv.isDarwin [
     # Make Block.h compile with c++ compilers. Remove with the next release
     (fetchpatch {

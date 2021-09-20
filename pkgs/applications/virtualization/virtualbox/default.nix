@@ -97,6 +97,8 @@ in stdenv.mkDerivation {
     # Temporary workaround for broken build
     # https://www.virtualbox.org/pipermail/vbox-dev/2021-July/015670.html
     ./fix-configure-pkgconfig-qt.patch
+    # https://github.com/NixOS/nixpkgs/issues/123851
+    ./fix-audio-driver-loading.patch
   ];
 
   postPatch = ''
@@ -198,6 +200,11 @@ in stdenv.mkDerivation {
         mkdir -p $out/share/icons/hicolor/$size/apps
         ln -s $libexec/icons/$size/*.png $out/share/icons/hicolor/$size/apps
       done
+    ''}
+
+    # https://github.com/NixOS/nixpkgs/issues/137104
+    ${optionalString (enableHardening || headless) ''
+      rm $libexec/components/VBoxREM.so
     ''}
 
     cp -rv out/linux.*/${buildType}/bin/src "$modsrc"

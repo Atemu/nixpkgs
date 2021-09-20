@@ -16,12 +16,12 @@
 
 buildPythonPackage rec {
   pname = "fakeredis";
-  version = "1.6.0";
+  version = "1.6.1";
   disabled = pythonOlder "3.5";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-Ecz8l2nXGNN+RbOC5kproCWGtiKvoDcaa9hXZtciVfM=";
+    sha256 = "sha256-DQapOE+3nanyFkzpbjTrnU4upGIVBwgF6m/TwXRZC0c=";
   };
 
   propagatedBuildInputs = [
@@ -41,8 +41,8 @@ buildPythonPackage rec {
   ];
 
   disabledTestPaths = [
-    # Missing support for later pytest-asyncio, https://github.com/jamesls/fakeredis/issues/307
-    "test/test_aioredis1.py"
+    # AttributeError: 'AsyncGenerator' object has no attribute XXXX
+    "test/test_aioredis2.py"
   ];
 
   pythonImportsCheck = [ "fakeredis" ];
