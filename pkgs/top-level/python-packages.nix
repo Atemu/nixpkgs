@@ -209,6 +209,8 @@ in {
 
   adguardhome = callPackage ../development/python-modules/adguardhome { };
 
+  adjusttext = callPackage ../development/python-modules/adjusttext { };
+
   advantage-air = callPackage ../development/python-modules/advantage-air { };
 
   aemet-opendata = callPackage ../development/python-modules/aemet-opendata { };
@@ -242,6 +244,8 @@ in {
   aio-georss-gdacs = callPackage ../development/python-modules/aio-georss-gdacs { };
 
   aioambient = callPackage ../development/python-modules/aioambient { };
+
+  aioapns = callPackage ../development/python-modules/aioapns { };
 
   ailment = callPackage ../development/python-modules/ailment { };
 
@@ -347,6 +351,8 @@ in {
 
   aiopulse = callPackage ../development/python-modules/aiopulse { };
 
+  aiopvapi = callPackage ../development/python-modules/aiopvapi { };
+
   aiopvpc = callPackage ../development/python-modules/aiopvpc { };
 
   aiopylgtv = callPackage ../development/python-modules/aiopylgtv { };
@@ -382,6 +388,8 @@ in {
   aiounifi = callPackage ../development/python-modules/aiounifi { };
 
   aiounittest = callPackage ../development/python-modules/aiounittest { };
+
+  aiowatttime = callPackage ../development/python-modules/aiowatttime { };
 
   aiowinreg = callPackage ../development/python-modules/aiowinreg { };
 
@@ -517,6 +525,8 @@ in {
 
   apsw = callPackage ../development/python-modules/apsw { };
 
+  apycula = callPackage ../development/python-modules/apycula { };
+
   aqualogic = callPackage ../development/python-modules/aqualogic { };
 
   arabic-reshaper = callPackage ../development/python-modules/arabic-reshaper { };
@@ -608,6 +618,8 @@ in {
   async-dns = callPackage ../development/python-modules/async-dns { };
 
   async-lru = callPackage ../development/python-modules/async-lru { };
+
+  asynccmd = callPackage ../development/python-modules/asynccmd { };
 
   asyncio-dgram = callPackage ../development/python-modules/asyncio-dgram { };
 
@@ -2406,6 +2418,8 @@ in {
 
   etebase-server = callPackage ../servers/etebase { };
 
+  eternalegypt = callPackage ../development/python-modules/eternalegypt { };
+
   etesync = callPackage ../development/python-modules/etesync { };
 
   eth-hash = callPackage ../development/python-modules/eth-hash { };
@@ -2724,6 +2738,8 @@ in {
   flexmock = callPackage ../development/python-modules/flexmock { };
 
   flickrapi = callPackage ../development/python-modules/flickrapi { };
+
+  flipr-api = callPackage ../development/python-modules/flipr-api { };
 
   flit = callPackage ../development/python-modules/flit { };
 
@@ -3672,6 +3688,8 @@ in {
 
   iocapture = callPackage ../development/python-modules/iocapture { };
 
+  iotawattpy = callPackage ../development/python-modules/iotawattpy { };
+
   iowait = callPackage ../development/python-modules/iowait { };
 
   ipaddress = callPackage ../development/python-modules/ipaddress { };
@@ -4460,6 +4478,8 @@ in {
 
   marshmallow = callPackage ../development/python-modules/marshmallow { };
 
+  marshmallow-dataclass = callPackage ../development/python-modules/marshmallow-dataclass { };
+
   marshmallow-enum = callPackage ../development/python-modules/marshmallow-enum { };
 
   marshmallow-oneofschema = callPackage ../development/python-modules/marshmallow-oneofschema { };
@@ -4919,6 +4939,8 @@ in {
 
   nilearn = callPackage ../development/python-modules/nilearn { };
 
+  niluclient = callPackage ../development/python-modules/niluclient { };
+
   nimfa = callPackage ../development/python-modules/nimfa { };
 
   nine = callPackage ../development/python-modules/nine { };
@@ -5232,6 +5254,8 @@ in {
   owslib = callPackage ../development/python-modules/owslib { };
 
   oyaml = callPackage ../development/python-modules/oyaml { };
+
+  p1monitor = callPackage ../development/python-modules/p1monitor { };
 
   packageurl-python = callPackage ../development/python-modules/packageurl-python { };
 
@@ -6801,6 +6825,8 @@ in {
 
   pyscss = callPackage ../development/python-modules/pyscss { };
 
+  pysdcp = callPackage ../development/python-modules/pysdcp { };
+
   pysdl2 = callPackage ../development/python-modules/pysdl2 { };
 
   pysendfile = callPackage ../development/python-modules/pysendfile { };
@@ -6886,6 +6912,8 @@ in {
   pyspark = callPackage ../development/python-modules/pyspark { };
 
   pysparse = callPackage ../development/python-modules/pysparse { };
+
+  pyspcwebgw = callPackage ../development/python-modules/pyspcwebgw { };
 
   pyspf = callPackage ../development/python-modules/pyspf { };
 
@@ -7367,6 +7395,8 @@ in {
 
   python_openzwave = callPackage ../development/python-modules/python_openzwave { };
 
+  python-osc = callPackage ../development/python-modules/python-osc { };
+
   python-packer = callPackage ../development/python-modules/python-packer { };
 
   python-pam = callPackage ../development/python-modules/python-pam {
@@ -7792,6 +7822,8 @@ in {
   relatorio = callPackage ../development/python-modules/relatorio { };
 
   remarshal = callPackage ../development/python-modules/remarshal { };
+
+  renault-api = callPackage ../development/python-modules/renault-api { };
 
   rencode = callPackage ../development/python-modules/rencode { };
 
@@ -8660,6 +8692,8 @@ in {
   stravalib = callPackage ../development/python-modules/stravalib { };
 
   streaming-form-data = callPackage ../development/python-modules/streaming-form-data { };
+
+  streamlabswater = callPackage ../development/python-modules/streamlabswater { };
 
   streamz = callPackage ../development/python-modules/streamz { };
 

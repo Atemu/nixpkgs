@@ -560,6 +560,7 @@
   ./services/misc/octoprint.nix
   ./services/misc/ombi.nix
   ./services/misc/osrm.nix
+  ./services/misc/owncast.nix
   ./services/misc/packagekit.nix
   ./services/misc/paperless-ng.nix
   ./services/misc/parsoid.nix
@@ -1031,7 +1032,7 @@
   ./services/web-servers/shellinabox.nix
   ./services/web-servers/tomcat.nix
   ./services/web-servers/traefik.nix
-  ./services/web-servers/trafficserver.nix
+  ./services/web-servers/trafficserver/default.nix
   ./services/web-servers/ttyd.nix
   ./services/web-servers/uwsgi.nix
   ./services/web-servers/varnish/default.nix

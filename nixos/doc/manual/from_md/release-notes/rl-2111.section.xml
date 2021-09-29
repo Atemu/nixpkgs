@@ -57,9 +57,28 @@
       </listitem>
       <listitem>
         <para>
+          bash now defaults to major version 5.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Systemd was updated to version 249 (from 247).
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           Pantheon desktop has been updated to version 6. Due to changes
           of screen locker, if locking doesn’t work for you, please try
           <literal>gsettings set org.gnome.desktop.lockdown disable-lock-screen false</literal>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <literal>kubernetes-helm</literal> now defaults to 3.7.0,
+          which introduced some breaking changes to the experimental OCI
+          manifest format. See
+          <link xlink:href="https://github.com/helm/community/blob/main/hips/hip-0006.md">HIP
+          6</link> for more details.
         </para>
       </listitem>
     </itemizedlist>
@@ -95,6 +114,13 @@
           <link xlink:href="https://www.isc.org/kea/">Kea</link>, ISCs
           2nd generation DHCP and DDNS server suite. Available at
           <link xlink:href="options.html#opt-services.kea">services.kea</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <link xlink:href="https://owncast.online/">owncast</link>,
+          self-hosted video live streaming solution. Available at
+          <link xlink:href="options.html#opt-services.owncast">services.owncast</link>.
         </para>
       </listitem>
       <listitem>
