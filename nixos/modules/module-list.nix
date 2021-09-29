@@ -171,6 +171,7 @@
   ./programs/npm.nix
   ./programs/noisetorch.nix
   ./programs/oblogout.nix
+  ./programs/pantheon-tweaks.nix
   ./programs/partition-manager.nix
   ./programs/plotinus.nix
   ./programs/proxychains.nix
@@ -201,6 +202,7 @@
   ./programs/vim.nix
   ./programs/wavemon.nix
   ./programs/waybar.nix
+  ./programs/weylus.nix
   ./programs/wireshark.nix
   ./programs/wshowkeys.nix
   ./programs/xfs_quota.nix
@@ -297,6 +299,7 @@
   ./services/cluster/kubernetes/pki.nix
   ./services/cluster/kubernetes/proxy.nix
   ./services/cluster/kubernetes/scheduler.nix
+  ./services/cluster/spark/default.nix
   ./services/computing/boinc/client.nix
   ./services/computing/foldingathome/client.nix
   ./services/computing/slurm/slurm.nix
@@ -341,6 +344,7 @@
   ./services/desktops/accountsservice.nix
   ./services/desktops/bamf.nix
   ./services/desktops/blueman.nix
+  ./services/desktops/cpupower-gui.nix
   ./services/desktops/dleyna-renderer.nix
   ./services/desktops/dleyna-server.nix
   ./services/desktops/pantheon/files.nix
@@ -897,6 +901,7 @@
   ./services/search/elasticsearch-curator.nix
   ./services/search/hound.nix
   ./services/search/kibana.nix
+  ./services/search/meilisearch.nix
   ./services/search/solr.nix
   ./services/security/certmgr.nix
   ./services/security/cfssl.nix
@@ -913,6 +918,7 @@
   ./services/security/nginx-sso.nix
   ./services/security/oauth2_proxy.nix
   ./services/security/oauth2_proxy_nginx.nix
+  ./services/security/opensnitch.nix
   ./services/security/privacyidea.nix
   ./services/security/physlock.nix
   ./services/security/shibboleth-sp.nix
@@ -1054,6 +1060,7 @@
   ./services/x11/gdk-pixbuf.nix
   ./services/x11/imwheel.nix
   ./services/x11/redshift.nix
+  ./services/x11/touchegg.nix
   ./services/x11/urserver.nix
   ./services/x11/urxvtd.nix
   ./services/x11/window-managers/awesome.nix

@@ -2,7 +2,7 @@
 # Do not edit!
 
 {
-  version = "2021.9.6";
+  version = "2021.9.7";
   components = {
     "abode" = ps: with ps; [ abodepy ];
     "accuweather" = ps: with ps; [ accuweather ];
@@ -493,7 +493,7 @@
     "marytts" = ps: with ps; [ ]; # missing inputs: speak2mary
     "mastodon" = ps: with ps; [ mastodon-py ];
     "matrix" = ps: with ps; [ matrix-client ];
-    "maxcube" = ps: with ps; [ ]; # missing inputs: maxcube-api
+    "maxcube" = ps: with ps; [ maxcube-api ];
     "mazda" = ps: with ps; [ pymazda ];
     "mcp23017" = ps: with ps; [ ]; # missing inputs: RPi.GPIO adafruit-circuitpython-mcp230xx
     "media_extractor" = ps: with ps; [ aiohttp-cors youtube-dl-light ];

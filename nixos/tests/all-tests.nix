@@ -223,7 +223,6 @@ in
   krb5 = discoverTests (import ./krb5 {});
   ksm = handleTest ./ksm.nix {};
   kubernetes = handleTestOn ["x86_64-linux"] ./kubernetes {};
-  latestKernel.hardened = handleTest ./hardened.nix { latestKernel = true; };
   latestKernel.login = handleTest ./login.nix { latestKernel = true; };
   leaps = handleTest ./leaps.nix {};
   libreddit = handleTest ./libreddit.nix {};
@@ -250,6 +249,7 @@ in
   matrix-appservice-irc = handleTest ./matrix-appservice-irc.nix {};
   matrix-synapse = handleTest ./matrix-synapse.nix {};
   mediawiki = handleTest ./mediawiki.nix {};
+  meilisearch = handleTest ./meilisearch.nix {};
   memcached = handleTest ./memcached.nix {};
   metabase = handleTest ./metabase.nix {};
   minecraft = handleTest ./minecraft.nix {};

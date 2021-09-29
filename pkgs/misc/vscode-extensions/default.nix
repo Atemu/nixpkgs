@@ -104,8 +104,8 @@ let
         mktplcRef = {
           name = "ng-template";
           publisher = "Angular";
-          version = "12.1.2";
-          sha256 = "sha256-fIHh1eRmu4zSgrtZr0XwLB+1Ad6a/0ABC55akGr0DOA=";
+          version = "12.2.0";
+          sha256 = "sha256-CChkWKiLi/OcOm268d45pNwiyrKhztqYsQvJV/9z+Ag=";
         };
         meta = with lib; {
           changelog = "https://marketplace.visualstudio.com/items/Angular.ng-template/changelog";
@@ -823,8 +823,8 @@ let
         mktplcRef = {
           name = "haskell";
           publisher = "haskell";
-          version = "1.1.0";
-          sha256 = "1wg06lyk0qn9jd6gi007sg7v0z9z8gwq7x2449d4ihs9n3w5l0gb";
+          version = "1.6.1";
+          sha256 = "1l6nrbqkq1p62dkmzs4sy0rxbid3qa1104s3fd9fzkmc1sldzgsn";
         };
         meta = with lib; {
           license = licenses.mit;
@@ -972,8 +972,8 @@ let
         mktplcRef = {
           name = "language-haskell";
           publisher = "justusadam";
-          version = "3.2.1";
-          sha256 = "0lxp8xz17ciy93nj4lzxqvz71vw1zdyamrnh2n792yair8890rr6";
+          version = "3.4.0";
+          sha256 = "0ab7m5jzxakjxaiwmg0jcck53vnn183589bbxh3iiylkpicrv67y";
         };
         meta = {
           license = lib.licenses.bsd3;
@@ -1501,11 +1501,16 @@ let
         mktplcRef = {
           name = "errorlens";
           publisher = "usernamehw";
-          version = "3.2.4";
-          sha256 = "0caxmf6v0s5kgp6cp3j1kk7slhspjv5kzhn4sq3miyl5jkrn95kx";
+          version = "3.4.0";
+          sha256 = "1x9rkyhbp15dwp6dikzpk9lzjnh9cnxac89gzx533681zld906m8";
         };
-        meta = {
-          license = lib.licenses.mit;
+        meta = with lib; {
+          changelog = "https://marketplace.visualstudio.com/items/usernamehw.errorlens/changelog";
+          description = "Improve highlighting of errors, warnings and other language diagnostics.";
+          downloadPage = "https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens";
+          homepage = "https://github.com/usernamehw/vscode-error-lens";
+          license = licenses.mit;
+          maintainers = with maintainers; [ imgabe ];
         };
       };
 
