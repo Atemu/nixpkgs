@@ -177,7 +177,8 @@ in with py.pkgs; buildPythonApplication rec {
       --replace "cryptography==3.3.2" "cryptography" \
       --replace "pip>=8.0.3,<20.3" "pip" \
       --replace "requests==2.25.1" "requests>=2.25.1" \
-      --replace "ruamel.yaml==0.15.100" "ruamel.yaml"
+      --replace "ruamel.yaml==0.15.100" "ruamel.yaml" \
+      --replace "voluptuous==0.12.1" "voluptuous==0.12.2"
     substituteInPlace tests/test_config.py --replace '"/usr"' '"/build/media"'
   '';
 
@@ -338,6 +339,7 @@ in with py.pkgs; buildPythonApplication rec {
     "ee_brightbox"
     "efergy"
     "elgato"
+    "elkm1"
     "emonitor"
     "emulated_hue"
     "emulated_kasa"
@@ -361,6 +363,7 @@ in with py.pkgs; buildPythonApplication rec {
     "filter"
     "fireservicerota"
     "firmata"
+    "fjaraskupan"
     "flick_electric"
     "flipr"
     "flo"
@@ -520,6 +523,7 @@ in with py.pkgs; buildPythonApplication rec {
     "my"
     "myq"
     "mysensors"
+    "mythicbeastsdns"
     "nam"
     "namecheapdns"
     "neato"

@@ -2599,6 +2599,10 @@
     githubId = 202798;
     name = "Pierre Bourdon";
   };
+  delta = {
+    email = "d4delta@outlook.fr";
+    name = "Delta";
+  };
   deltaevo = {
     email = "deltaduartedavid@gmail.com";
     github = "DeltaEvo";
@@ -3250,6 +3254,12 @@
     github = "emmanuelrosa";
     githubId = 13485450;
     name = "Emmanuel Rosa";
+  };
+  emptyflask = {
+    email = "jon@emptyflask.dev";
+    github = "emptyflask";
+    githubId = 28287;
+    name = "Jon Roberts";
   };
   endgame = {
     email = "jack@jackkelly.name";
@@ -4670,6 +4680,12 @@
     github = "ilikeavocadoes";
     githubId = 36193715;
     name = "Lassi Haasio";
+  };
+  ilkecan = {
+    email = "ilkecan@protonmail.com";
+    github = "ilkecan";
+    githubId = 40234257;
+    name = "ilkecan bozdogan";
   };
   illegalprime = {
     email = "themichaeleden@gmail.com";

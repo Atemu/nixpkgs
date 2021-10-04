@@ -33,7 +33,7 @@
     "ambiclimate" = ps: with ps; [ aiohttp-cors ambiclimate ];
     "ambient_station" = ps: with ps; [ aioambient ];
     "amcrest" = ps: with ps; [ amcrest ha-ffmpeg ];
-    "ampio" = ps: with ps; [ ]; # missing inputs: asmog
+    "ampio" = ps: with ps; [ asmog ];
     "analytics" = ps: with ps; [ aiohttp-cors sqlalchemy ];
     "android_ip_webcam" = ps: with ps; [ pydroid-ipcam ];
     "androidtv" = ps: with ps; [ adb-shell androidtv pure-python-adb ];
@@ -188,7 +188,7 @@
     "dlna_dmr" = ps: with ps; [ aiohttp-cors async-upnp-client ifaddr ];
     "dnsip" = ps: with ps; [ aiodns ];
     "dominos" = ps: with ps; [ aiohttp-cors ]; # missing inputs: pizzapi
-    "doods" = ps: with ps; [ pillow ]; # missing inputs: pydoods
+    "doods" = ps: with ps; [ pillow pydoods ];
     "doorbird" = ps: with ps; [ aiohttp-cors doorbirdpy ];
     "dovado" = ps: with ps; [ ]; # missing inputs: dovado
     "downloader" = ps: with ps; [ ];
@@ -218,7 +218,7 @@
     "eight_sleep" = ps: with ps; [ pyeight ];
     "elgato" = ps: with ps; [ elgato ];
     "eliqonline" = ps: with ps; [ ]; # missing inputs: eliqonline
-    "elkm1" = ps: with ps; [ ]; # missing inputs: elkm1-lib
+    "elkm1" = ps: with ps; [ elkm1-lib ];
     "elv" = ps: with ps; [ pypca ];
     "emby" = ps: with ps; [ pyemby ];
     "emoncms" = ps: with ps; [ ];
@@ -267,7 +267,7 @@
     "firmata" = ps: with ps; [ pymata-express ];
     "fitbit" = ps: with ps; [ aiohttp-cors fitbit ];
     "fixer" = ps: with ps; [ fixerio ];
-    "fjaraskupan" = ps: with ps; [ ]; # missing inputs: fjaraskupan
+    "fjaraskupan" = ps: with ps; [ fjaraskupan ];
     "fleetgo" = ps: with ps; [ ]; # missing inputs: ritassist
     "flexit" = ps: with ps; [ pymodbus ];
     "flic" = ps: with ps; [ pyflic ];
@@ -478,7 +478,7 @@
     "lovelace" = ps: with ps; [ ];
     "luci" = ps: with ps; [ openwrt-luci-rpc ];
     "luftdaten" = ps: with ps; [ luftdaten ];
-    "lupusec" = ps: with ps; [ ]; # missing inputs: lupupy
+    "lupusec" = ps: with ps; [ lupupy ];
     "lutron" = ps: with ps; [ pylutron ];
     "lutron_caseta" = ps: with ps; [ aiolip pylutron-caseta ];
     "lw12wifi" = ps: with ps; [ ]; # missing inputs: lw12
@@ -551,14 +551,14 @@
     "myq" = ps: with ps; [ pymyq ];
     "mysensors" = ps: with ps; [ aiohttp-cors paho-mqtt pymysensors ];
     "mystrom" = ps: with ps; [ aiohttp-cors python-mystrom ];
-    "mythicbeastsdns" = ps: with ps; [ ]; # missing inputs: mbddns
+    "mythicbeastsdns" = ps: with ps; [ mbddns ];
     "nad" = ps: with ps; [ nad-receiver ];
     "nam" = ps: with ps; [ nettigo-air-monitor ];
     "namecheapdns" = ps: with ps; [ defusedxml ];
     "nanoleaf" = ps: with ps; [ pynanoleaf ];
     "neato" = ps: with ps; [ aiohttp-cors pybotvac ];
     "nederlandse_spoorwegen" = ps: with ps; [ nsapi ];
-    "nello" = ps: with ps; [ ]; # missing inputs: pynello
+    "nello" = ps: with ps; [ pynello ];
     "ness_alarm" = ps: with ps; [ ]; # missing inputs: nessclient
     "nest" = ps: with ps; [ aiohttp-cors ha-ffmpeg python-nest ]; # missing inputs: google-nest-sdm
     "netatmo" = ps: with ps; [ pyturbojpeg aiohttp-cors hass-nabucasa pyatmo ];
@@ -599,7 +599,7 @@
     "octoprint" = ps: with ps; [ aiohttp-cors ifaddr netdisco zeroconf ];
     "oem" = ps: with ps; [ ]; # missing inputs: oemthermostat
     "ohmconnect" = ps: with ps; [ defusedxml ];
-    "ombi" = ps: with ps; [ ]; # missing inputs: pyombi
+    "ombi" = ps: with ps; [ pyombi ];
     "omnilogic" = ps: with ps; [ omnilogic ];
     "onboarding" = ps: with ps; [ aiohttp-cors home-assistant-frontend pillow sqlalchemy ];
     "ondilo_ico" = ps: with ps; [ aiohttp-cors ondilo ];
@@ -795,7 +795,7 @@
     "sochain" = ps: with ps; [ ]; # missing inputs: python-sochain-api
     "solaredge" = ps: with ps; [ solaredge stringcase ];
     "solaredge_local" = ps: with ps; [ ]; # missing inputs: solaredge-local
-    "solarlog" = ps: with ps; [ ]; # missing inputs: sunwatcher
+    "solarlog" = ps: with ps; [ sunwatcher ];
     "solax" = ps: with ps; [ solax ];
     "soma" = ps: with ps; [ pysoma ];
     "somfy" = ps: with ps; [ aiohttp-cors pymfy ];
@@ -961,7 +961,7 @@
     "waterfurnace" = ps: with ps; [ waterfurnace ];
     "watson_iot" = ps: with ps; [ ]; # missing inputs: ibmiotf
     "watson_tts" = ps: with ps; [ ibm-watson ];
-    "waze_travel_time" = ps: with ps; [ WazeRouteCalculator ];
+    "waze_travel_time" = ps: with ps; [ wazeroutecalculator ];
     "weather" = ps: with ps; [ ];
     "webhook" = ps: with ps; [ aiohttp-cors ];
     "webostv" = ps: with ps; [ aiopylgtv ];
