@@ -28,14 +28,16 @@
 
 buildPythonPackage rec {
   pname = "ocrmypdf";
-  version = "12.5.0";
+  version = "12.6.0";
 
   src = fetchFromGitHub {
     owner = "jbarlow83";
     repo = "OCRmyPDF";
     rev = "v${version}";
-    sha256 = "sha256-g80WedX+TGHE9EJ/RSgOc53PM17V3WZslUNaHoqKTo0=";
+    sha256 = "sha256-gFlQztrRN69HtR6sTJl8tryuTibxQrz97QcS5UkFOVs=";
   };
+
+  SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
   patches = [
     (substituteAll {
@@ -71,6 +73,10 @@ buildPythonPackage rec {
   checkInputs = [
     pytest-xdist
     pytestCheckHook
+  ];
+
+  pythonImportsCheck = [
+    "ocrmypdf"
   ];
 
   meta = with lib; {

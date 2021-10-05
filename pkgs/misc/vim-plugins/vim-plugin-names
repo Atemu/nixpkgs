@@ -124,6 +124,7 @@ eagletmt/neco-ghc
 easymotion/vim-easymotion
 eddiebergman/nvim-treesitter-pyfold
 eddyekofo94/gruvbox-flat.nvim
+EdenEast/nightfox.nvim@main
 editorconfig/editorconfig-vim
 edkolev/tmuxline.vim
 edluffy/hologram.nvim@main
@@ -537,6 +538,7 @@ nvim-treesitter/nvim-treesitter-refactor
 nvim-treesitter/nvim-treesitter-textobjects@0.5-compat
 nvim-treesitter/nvim-treesitter@0.5-compat
 nvim-treesitter/playground
+oberblastmeister/neuron.nvim
 oberblastmeister/termwrapper.nvim
 ocaml/vim-ocaml
 octol/vim-cpp-enhanced-highlight
@@ -567,6 +569,7 @@ petRUShka/vim-opencl
 phaazon/hop.nvim
 phanviet/vim-monokai-pro
 plasticboy/vim-markdown
+Pocco81/TrueZen.nvim@main
 ponko2/deoplete-fish
 posva/vim-vue
 powerman/vim-plugin-AnsiEsc
@@ -799,6 +802,7 @@ Twinside/vim-hoogle
 tyru/caw.vim
 tyru/open-browser-github.vim
 tyru/open-browser.vim
+tzachar/cmp-tabnine@main
 tzachar/compe-tabnine@main
 uarun/vim-protobuf
 udalov/kotlin-vim
@@ -889,6 +893,7 @@ xolox/vim-misc
 xuhdev/vim-latex-live-preview
 Xuyuanp/nerdtree-git-plugin
 Xuyuanp/scrollbar.nvim
+yamatsum/nvim-cursorline@main
 yamatsum/nvim-nonicons@main
 ycm-core/YouCompleteMe
 Yggdroot/hiPairs
