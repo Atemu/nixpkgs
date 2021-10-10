@@ -3119,6 +3119,12 @@
     githubId = 50854;
     name = "edef";
   };
+  edlimerkaj = {
+    name = "Edli Merkaj";
+    email = "edli.merkaj@identinet.io";
+    github = "edlimerkaj";
+    githubId = 71988351;
+  };
   edibopp = {
     email = "eduard.bopp@aepsil0n.de";
     github = "edibopp";
@@ -7371,6 +7377,12 @@
     githubId = 7610974;
     name = "Jason Miller";
   };
+  milogert = {
+    email = "milo@milogert.com";
+    github = "milogert";
+    githubId = 5378535;
+    name = "Milo Gertjejansen";
+  };
   miltador = {
     email = "miltador@yandex.ua";
     name = "Vasiliy Solovey";
@@ -8914,6 +8926,12 @@
     githubId = 11365056;
     name = "Kevin Liu";
   };
+  pnmadelaine = {
+    name = "Paul-Nicolas Madelaine";
+    email = "pnm@pnm.tf";
+    github = "pnmadelaine";
+    githubId = 21977014;
+  };
   pnotequalnp = {
     email = "kevin@pnotequalnp.com";
     github = "pnotequalnp";
@@ -10287,6 +10305,12 @@
       longkeyid = "rsa2048/0xD1DE6D7F693663A5";
       fingerprint = "ADF4 C13D 0E36 1240 BD01  9B51 D1DE 6D7F 6936 63A5";
     }];
+  };
+  simarra = {
+    name = "simarra";
+    email = "loic.martel@protonmail.com";
+    github = "simarra";
+    githubId = 14372987;
   };
   simonchatts = {
     email = "code@chatts.net";
@@ -12226,6 +12250,12 @@
     github = "yesbox";
     githubId = 4113027;
     name = "Jesper Geertsen Jonsson";
+  };
+  yinfeng = {
+    email = "lin.yinfeng@outlook.com";
+    github = "linyinfeng";
+    githubId = 11229748;
+    name = "Lin Yinfeng";
   };
   ylwghst = {
     email = "ylwghst@onionmail.info";

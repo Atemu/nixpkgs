@@ -1,5 +1,6 @@
 { fetchFromGitHub
 , lib
+, Security
 , openssl
 , pkg-config
 , protobuf
@@ -11,22 +12,26 @@ let
   node-api-lib = (if stdenv.isDarwin then "libquery_engine.dylib" else "libquery_engine.so");
 in rustPlatform.buildRustPackage rec {
   pname = "prisma-engines";
-  version = "3.1.1";
+  version = "3.2.0";
 
   src = fetchFromGitHub {
     owner = "prisma";
     repo = "prisma-engines";
     rev = version;
-    sha256 = "sha256-7c9jlqMKocA3Kp39zDu2in9nRw4hZRZO1+u/eFfzWa4=";
+    sha256 = "sha256-q0MF6LyIB7dCotYlXiZ4rXl2xMOLqXe5Y+zO+bpoCoY=";
   };
 
   # Use system openssl.
   OPENSSL_NO_VENDOR = 1;
 
-  cargoSha256 = "sha256-W3VaxG9taRv62RW6hQkfdGJo72uHK2X6JIESJEu3PXg=";
+  cargoSha256 = "sha256-NAXoKz+tZmjmZ/PkDaXEp9D++iu/3Knp0Yy6NJWEoDM=";
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl protobuf ];
+
+  buildInputs = [
+    openssl
+    protobuf
+  ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
   preBuild = ''
     export OPENSSL_DIR=${lib.getDev openssl}
@@ -52,7 +57,7 @@ in rustPlatform.buildRustPackage rec {
     description = "A collection of engines that power the core stack for Prisma";
     homepage = "https://www.prisma.io/";
     license = licenses.asl20;
-    platforms = [ "x86_64-linux" ];
+    platforms = platforms.unix;
     maintainers = with maintainers; [ pamplemousse pimeys ];
   };
 }

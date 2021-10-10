@@ -15,7 +15,7 @@ alvan/vim-closetag
 alx741/vim-hindent
 alx741/vim-stylishask
 amiorin/ctrlp-z
-andersevenrud/compe-tmux@main
+andersevenrud/compe-tmux@cmp
 andrep/vimacs
 andreshazard/vim-logreview
 AndrewRadev/sideways.vim@main
@@ -510,6 +510,7 @@ nicoe/deoplete-khard
 nishigori/increment-activator
 nixprime/cpsm
 NLKNguyen/papercolor-theme
+noahfrederick/vim-noctu
 noc7c9/vim-iced-coffee-script
 norcalli/nvim-colorizer.lua
 norcalli/nvim-terminal.lua
