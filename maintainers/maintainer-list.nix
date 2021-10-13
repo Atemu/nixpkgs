@@ -5144,6 +5144,12 @@
     githubId = 117874;
     name = "Jeroen de Haas";
   };
+  jdreaver = {
+    email = "johndreaver@gmail.com";
+    github = "jdreaver";
+    githubId = 1253071;
+    name = "David Reaver";
+  };
   jduan = {
     name = "Jingjing Duan";
     email = "duanjingjing@gmail.com";
@@ -6487,6 +6493,12 @@
     github = "linquize";
     githubId = 791115;
     name = "Linquize";
+  };
+  linsui = {
+    email = "linsui555@gmail.com";
+    github = "linsui";
+    githubId = 36977733;
+    name = "linsui";
   };
   linus = {
     email = "linusarver@gmail.com";
