@@ -1,5 +1,5 @@
 <section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="sec-release-21.11">
-  <title>Release 21.11 (“?”, 2021.11/??)</title>
+  <title>Release 21.11 (“Porcupine”, 2021.11/??)</title>
   <para>
     In addition to numerous new and upgraded packages, this release has
     the following highlights:
@@ -83,7 +83,8 @@
           which introduced some breaking changes to the experimental OCI
           manifest format. See
           <link xlink:href="https://github.com/helm/community/blob/main/hips/hip-0006.md">HIP
-          6</link> for more details.
+          6</link> for more details. <literal>helmfile</literal> also
+          defaults to 0.141.0, which is the minimum compatible version.
         </para>
       </listitem>
       <listitem>
@@ -131,6 +132,14 @@
       </listitem>
       <listitem>
         <para>
+          <link xlink:href="https://github.com/jitsi/jibri">Jibri</link>,
+          a service for recording or streaming a Jitsi Meet conference.
+          Available as
+          <link xlink:href="options.html#opt-services.jibri.enable">services.jibri</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           <link xlink:href="https://www.isc.org/kea/">Kea</link>, ISCs
           2nd generation DHCP and DDNS server suite. Available at
           <link xlink:href="options.html#opt-services.kea">services.kea</link>.
@@ -141,6 +150,14 @@
           <link xlink:href="https://owncast.online/">owncast</link>,
           self-hosted video live streaming solution. Available at
           <link xlink:href="options.html#opt-services.owncast">services.owncast</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <link xlink:href="https://joinpeertube.org/">PeerTube</link>,
+          developed by Framasoft, is the free and decentralized
+          alternative to video platforms. Available at
+          <link xlink:href="options.html#opt-services.peertube">services.peertube</link>.
         </para>
       </listitem>
       <listitem>
@@ -354,6 +371,14 @@
           <link xlink:href="https://github.com/opensvc/multipath-tools">multipath</link>,
           the device mapper multipath (DM-MP) daemon. Available as
           <link linkend="opt-services.multipath.enable">services.multipath</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <link xlink:href="https://www.seafile.com/en/home/">seafile</link>,
+          an open source file syncing &amp; sharing software. Available
+          as
+          <link xlink:href="options.html#opt-services.seafile.enable">services.seafile</link>.
         </para>
       </listitem>
     </itemizedlist>
@@ -1128,6 +1153,29 @@ Superuser created successfully.
           would be parsed as 3 parameters.
         </para>
       </listitem>
+      <listitem>
+        <para>
+          The <literal>coursier</literal> package’s binary was renamed
+          from <literal>coursier</literal> to <literal>cs</literal>.
+          Completions which haven’t worked for a while should now work
+          with the renamed binary. To keep using
+          <literal>coursier</literal>, you can create a shell alias.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          The <literal>services.mosquitto</literal> module has been
+          rewritten to support multiple listeners and per-listener
+          configuration. Module configurations from previous releases
+          will no longer work and must be updated.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Nextcloud 20 (<literal>pkgs.nextcloud20</literal>) has been
+          dropped because it was EOLed by upstream in 2021-10.
+        </para>
+      </listitem>
     </itemizedlist>
   </section>
   <section xml:id="sec-release-21.11-notable-changes">
@@ -1552,6 +1600,57 @@ Superuser created successfully.
         <para>
           <literal>networking.sits</literal> now supports Foo-over-UDP
           encapsulation.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Changing systemd <literal>.socket</literal> units now restarts
+          them and stops the service that is activated by them.
+          Additionally, services with
+          <literal>stopOnChange = false</literal> don’t break anymore
+          when they are socket-activated.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          The <literal>virtualisation.libvirtd</literal> module has been
+          refactored and updated with new options:
+        </para>
+        <itemizedlist spacing="compact">
+          <listitem>
+            <para>
+              <literal>virtualisation.libvirtd.qemu*</literal> options
+              (e.g.:
+              <literal>virtualisation.libvirtd.qemuRunAsRoot</literal>)
+              were moved to
+              <link xlink:href="options.html#opt-virtualisation.libvirtd.qemu"><literal>virtualisation.libvirtd.qemu</literal></link>
+              submodule,
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              software TPM1/TPM2 support (e.g.: Windows 11 guests)
+              (<link xlink:href="options.html#opt-virtualisation.libvirtd.qemu.swtpm"><literal>virtualisation.libvirtd.qemu.swtpm</literal></link>),
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              custom OVMF package (e.g.:
+              <literal>pkgs.OVMFFull</literal> with HTTP, CSM and Secure
+              Boot support)
+              (<link xlink:href="options.html#opt-virtualisation.libvirtd.qemu.ovmf.package"><literal>virtualisation.libvirtd.qemu.ovmf.package</literal></link>).
+            </para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+      <listitem>
+        <para>
+          The <literal>cawbird</literal> Twitter client now uses its own
+          API keys to count as different application than upstream
+          builds. This is done to evade application-level rate limiting.
+          While existing accounts continue to work, users may want to
+          remove and re-register their account in the client to enjoy a
+          better user experience and benefit from this change.
         </para>
       </listitem>
     </itemizedlist>
