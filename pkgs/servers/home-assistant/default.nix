@@ -21,6 +21,19 @@
 
 let
   defaultOverrides = [
+    # aiounify 29 breaks integration tests
+    (self: super: {
+      aiounifi = super.aiounifi.overridePythonAttrs (oldAttrs: rec {
+        version = "28";
+        src = fetchFromGitHub {
+          owner = "Kane610";
+          repo = "aiounifi";
+          rev = "v${version}";
+          sha256 = "1r86pk80sa1la2s7c6v9svh5cpkci6jcw1xziz0h09jdvv5j5iff";
+        };
+      });
+    })
+
     # Override the version of some packages pinned in Home Assistant's setup.py and requirements_all.txt
     (mkOverride "python-slugify" "4.0.1" "69a517766e00c1268e5bbfc0d010a0a8508de0b18d30ad5a1ff357f8ae724270")
 
@@ -49,6 +62,19 @@ let
           sha256 = "0c8ckbbr1n8gx5k63ymgyfkbz3d0rbdvghg8fqdvbg4nrigrs5v0";
         };
         checkInputs = oldAttrs.checkInputs ++ [ python3.pkgs.asynctest ];
+      });
+    })
+
+    # Pinned due to API changes in influxdb-client>1.21.0
+    (self: super: {
+      influxdb-client = super.influxdb-client.overridePythonAttrs (oldAttrs: rec {
+        version = "1.21.0";
+        src = fetchFromGitHub {
+          owner = "influxdata";
+          repo = "influxdb-client-python";
+          rev = "v${version}";
+          sha256 = "081pwd3aa7kbgxqcl1hfi2ny4iapnxkcp9ypsfslr69d0khvfc4s";
+        };
       });
     })
 
@@ -171,10 +197,12 @@ in with py.pkgs; buildPythonApplication rec {
       --replace "awesomeversion==21.4.0" "awesomeversion" \
       --replace "bcrypt==3.1.7" "bcrypt" \
       --replace "cryptography==3.3.2" "cryptography" \
+      --replace "jinja2==3.0.1" "jinja2" \
       --replace "pip>=8.0.3,<20.3" "pip" \
       --replace "requests==2.25.1" "requests>=2.25.1" \
       --replace "ruamel.yaml==0.15.100" "ruamel.yaml" \
-      --replace "voluptuous==0.12.1" "voluptuous==0.12.2"
+      --replace "voluptuous==0.12.1" "voluptuous==0.12.2" \
+      --replace "yarl==1.6.3" "yarl==1.7.0"
     substituteInPlace tests/test_config.py --replace '"/usr"' '"/build/media"'
   '';
 

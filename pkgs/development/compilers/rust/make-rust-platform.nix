@@ -9,7 +9,7 @@ rec {
 
   fetchCargoTarball = buildPackages.callPackage ../../../build-support/rust/fetchCargoTarball.nix {
     git = buildPackages.gitMinimal;
-    inherit stdenv cargo;
+    inherit cargo;
   };
 
   buildRustPackage = callPackage ../../../build-support/rust {

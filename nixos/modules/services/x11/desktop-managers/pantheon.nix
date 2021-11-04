@@ -268,7 +268,7 @@ in
 
       fonts.fontconfig.defaultFonts = {
         monospace = [ "Roboto Mono" ];
-        sansSerif = [ "Open Sans" ];
+        sansSerif = [ "Inter" ];
       };
     })
 
@@ -283,6 +283,7 @@ in
         elementary-music
         elementary-photos
         elementary-screenshot
+        elementary-tasks
         elementary-terminal
         elementary-videos
         epiphany
