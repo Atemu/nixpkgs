@@ -52,6 +52,29 @@
       </listitem>
       <listitem>
         <para>
+          Improvements have been made to the Hadoop module and package:
+        </para>
+        <itemizedlist spacing="compact">
+          <listitem>
+            <para>
+              HDFS and YARN now support production-ready highly
+              available deployments with automatic failover.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              Hadoop now defaults to Hadoop 3, updated from 2.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              JournalNode, ZKFS and HTTPFS services have been added.
+            </para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+      <listitem>
+        <para>
           Activation scripts can now opt int to be run when running
           <literal>nixos-rebuild dry-activate</literal> and detect the
           dry activation by reading <literal>$NIXOS_ACTION</literal>.
@@ -99,6 +122,25 @@
           <link xlink:href="https://help.gnome.org/misc/release-notes/41.0/">Release
           Notes</link> for details.
         </para>
+      </listitem>
+      <listitem>
+        <para>
+          LXD support was greatly improved:
+        </para>
+        <itemizedlist spacing="compact">
+          <listitem>
+            <para>
+              building LXD images from configurations is now directly
+              possible with just nixpkgs
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              hydra is now building nixOS LXD images that can be used
+              standalone with full nixos-rebuild support
+            </para>
+          </listitem>
+        </itemizedlist>
       </listitem>
     </itemizedlist>
   </section>
@@ -394,11 +436,42 @@
           <link linkend="opt-hardware.rasdaemon.enable">hardware.rasdaemon</link>.
         </para>
       </listitem>
+      <listitem>
+        <para>
+          <literal>code-server</literal>-module now available
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <link xlink:href="https://github.com/xmrig/xmrig">xmrig</link>,
+          a high performance, open source, cross platform RandomX,
+          KawPow, CryptoNight and AstroBWT unified CPU/GPU miner and
+          RandomX benchmark.
+        </para>
+      </listitem>
     </itemizedlist>
   </section>
   <section xml:id="sec-release-21.11-incompatibilities">
     <title>Backward Incompatibilities</title>
     <itemizedlist>
+      <listitem>
+        <para>
+          The NixOS VM test framework,
+          <literal>pkgs.nixosTest</literal>/<literal>make-test-python.nix</literal>,
+          now requires detaching commands such as
+          <literal>succeed(&quot;foo &amp;&quot;)</literal> and
+          <literal>succeed(&quot;foo | xclip -i&quot;)</literal> to
+          close stdout. This can be done with a redirect such as
+          <literal>succeed(&quot;foo &gt;&amp;2 &amp;&quot;)</literal>.
+          This breaking change was necessitated by a race condition
+          causing tests to fail or hang. It applies to all methods that
+          invoke commands on the nodes, including
+          <literal>execute</literal>, <literal>succeed</literal>,
+          <literal>fail</literal>,
+          <literal>wait_until_succeeds</literal>,
+          <literal>wait_until_fails</literal>.
+        </para>
+      </listitem>
       <listitem>
         <para>
           The <literal>services.wakeonlan</literal> option was removed,
@@ -1215,6 +1288,13 @@ Superuser created successfully.
           <link xlink:href="options.html#opt-virtualisation.additionalPaths"><literal>virtualisation.additionalPaths</literal></link>.
         </para>
       </listitem>
+      <listitem>
+        <para>
+          The <literal>services.ddclient.password</literal> option was
+          removed, and replaced with
+          <literal>services.ddclient.passwordFile</literal>.
+        </para>
+      </listitem>
     </itemizedlist>
   </section>
   <section xml:id="sec-release-21.11-notable-changes">
@@ -1713,6 +1793,78 @@ Superuser created successfully.
           While existing accounts continue to work, users may want to
           remove and re-register their account in the client to enjoy a
           better user experience and benefit from this change.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          A new option
+          <literal>services.prometheus.enableReload</literal> has been
+          added which can be enabled to reload the prometheus service
+          when its config file changes instead of restarting.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Dokuwiki now supports caddy! However
+        </para>
+        <itemizedlist spacing="compact">
+          <listitem>
+            <para>
+              the nginx option has been removed, in the new
+              configuration, please use the
+              <literal>dokuwiki.webserver = &quot;nginx&quot;</literal>
+              instead.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              The <quote>${hostname}</quote> option has been deprecated,
+              please use
+              <literal>dokuwiki.sites = [ &quot;${hostname}&quot; ]</literal>
+              instead
+            </para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+      <listitem>
+        <para>
+          The
+          <link xlink:href="options.html#opt-services.unifi.enable">services.unifi</link>
+          module has been reworked, solving a number of issues. This
+          leads to several user facing changes:
+        </para>
+        <itemizedlist spacing="compact">
+          <listitem>
+            <para>
+              The <literal>services.unifi.dataDir</literal> option is
+              removed and the data is now always located under
+              <literal>/var/lib/unifi/data</literal>. This is done to
+              make better use of systemd state direcotiry and thus
+              making the service restart more reliable.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              The unifi logs can now be found under:
+              <literal>/var/log/unifi</literal> instead of
+              <literal>/var/lib/unifi/logs</literal>.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              The unifi run directory can now be found under:
+              <literal>/run/unifi</literal> instead of
+              <literal>/var/lib/unifi/run</literal>.
+            </para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+      <listitem>
+        <para>
+          <literal>security.pam.services.&lt;name&gt;.makeHomeDir</literal>
+          now uses <literal>umask=0077</literal> instead of
+          <literal>umask=0022</literal> when creating the home
+          directory.
         </para>
       </listitem>
     </itemizedlist>

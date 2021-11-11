@@ -3,12 +3,13 @@
 , fetchPypi
 , hypothesis
 , pytest
+, pytest-arraydiff
 , pytest-astropy-header
 , pytest-doctestplus
 , pytest-filter-subpackage
-, pytest-remotedata
+, pytest-mock
 , pytest-openfiles
-, pytest-arraydiff
+, pytest-remotedata
 , setuptools-scm
 , pythonOlder
 }:
@@ -16,7 +17,7 @@
 buildPythonPackage rec {
   pname = "pytest-astropy";
   version = "0.9.0";
-  disabled = pythonOlder "3.6";
+  disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
@@ -33,19 +34,17 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [
     hypothesis
+    pytest-arraydiff
     pytest-astropy-header
     pytest-doctestplus
     pytest-filter-subpackage
-    pytest-remotedata
+    pytest-mock
     pytest-openfiles
-    pytest-arraydiff
+    pytest-remotedata
   ];
 
-  # pytest-astropy is a meta package and has no tests
-  #doCheck = false;
-  checkPhase = ''
-    # 'doCheck = false;' still invokes the pytestCheckPhase which makes the build fail
-  '';
+  # pytest-astropy is a meta package that only propagates requirements
+  doCheck = false;
 
   meta = with lib; {
     description = "Meta-package containing dependencies for testing";

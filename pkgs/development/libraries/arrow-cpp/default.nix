@@ -1,8 +1,39 @@
-{ stdenv, lib, fetchurl, fetchFromGitHub, fixDarwinDylibNames
-, autoconf, boost, brotli, cmake, flatbuffers, gflags, glog, gtest, lz4
-, perl, python3, rapidjson, re2, snappy, thrift, tzdata , utf8proc, which
-, zlib, zstd
+{ stdenv
+, lib
+, fetchurl
+, fetchFromGitHub
+, fixDarwinDylibNames
+, autoconf
+, aws-sdk-cpp
+, boost
+, brotli
+, c-ares
+, cmake
+, flatbuffers
+, gflags
+, glog
+, grpc
+, gtest
+, jemalloc
+, libnsl
+, lz4
+, minio
+, openssl
+, perl
+, protobuf
+, python3
+, rapidjson
+, re2
+, snappy
+, thrift
+, tzdata
+, utf8proc
+, which
+, zlib
+, zstd
 , enableShared ? !stdenv.hostPlatform.isStatic
+, enableFlight ? !stdenv.isDarwin # libnsl is not supported on darwin
+, enableS3 ? true
 }:
 
 let
@@ -20,7 +51,8 @@ let
     hash = "sha256-GmOAS8gGhzDI0WzORMkWHRRUl/XBwmNen2d3VefZxxc=";
   };
 
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "arrow-cpp";
   version = "6.0.0";
 
@@ -31,22 +63,23 @@ in stdenv.mkDerivation rec {
   };
   sourceRoot = "apache-arrow-${version}/cpp";
 
-  ARROW_JEMALLOC_URL = fetchurl {
+  ARROW_JEMALLOC_URL = jemalloc.src;
+
+  ARROW_MIMALLOC_URL = fetchFromGitHub {
     # From
     # ./cpp/cmake_modules/ThirdpartyToolchain.cmake
     # ./cpp/thirdparty/versions.txt
-    url =
-      "https://github.com/jemalloc/jemalloc/releases/download/5.2.1/jemalloc-5.2.1.tar.bz2";
-    hash = "sha256-NDMOXOJ2CZ4uiVDZM121qHVomkxqVnUe87HYxTf4h/Y=";
+    owner = "microsoft";
+    repo = "mimalloc";
+    rev = "v1.7.2";
+    hash = "sha256-yHupYFgC8mJuLUSpuEAfwF7l6Ue4EiuO1Q4qN4T6wWc=";
   };
 
-  ARROW_MIMALLOC_URL = fetchurl {
-    # From
-    # ./cpp/cmake_modules/ThirdpartyToolchain.cmake
-    # ./cpp/thirdparty/versions.txt
-    url =
-      "https://github.com/microsoft/mimalloc/archive/v1.7.2.tar.gz";
-    hash = "sha256-sZEuNUVlpLaYQQ91g8D4OTSm27Ot5Uq33csVaTIJNr0=";
+  ARROW_XSIMD_URL = fetchFromGitHub {
+    owner = "xtensor-stack";
+    repo = "xsimd";
+    rev = "aeec9c872c8b475dedd7781336710f2dd2666cb2";
+    hash = "sha256-vWKdJkieKhaxyAJhijXUmD7NmNvMWd79PskQojulA1w=";
   };
 
   patches = [
@@ -77,7 +110,12 @@ in stdenv.mkDerivation rec {
   ] ++ lib.optionals enableShared [
     python3.pkgs.python
     python3.pkgs.numpy
-  ];
+  ] ++ lib.optionals enableFlight [
+    grpc
+    libnsl
+    openssl
+    protobuf
+  ] ++ lib.optionals enableS3 [ aws-sdk-cpp openssl ];
 
   preConfigure = ''
     patchShebangs build-support/
@@ -112,45 +150,60 @@ in stdenv.mkDerivation rec {
     # Parquet options:
     "-DARROW_PARQUET=ON"
     "-DPARQUET_BUILD_EXECUTABLES=ON"
+    "-DARROW_FLIGHT=${if enableFlight then "ON" else "OFF"}"
+    "-DARROW_S3=${if enableS3 then "ON" else "OFF"}"
   ] ++ lib.optionals (!enableShared) [
     "-DARROW_TEST_LINKAGE=static"
   ] ++ lib.optionals stdenv.isDarwin [
     "-DCMAKE_SKIP_BUILD_RPATH=OFF" # needed for tests
     "-DCMAKE_INSTALL_RPATH=@loader_path/../lib" # needed for tools executables
-  ] ++ lib.optional (!stdenv.isx86_64) "-DARROW_USE_SIMD=OFF";
-
-  ARROW_XSIMD_URL = fetchurl {
-    url = "https://github.com/xtensor-stack/xsimd/archive/aeec9c872c8b475dedd7781336710f2dd2666cb2.tar.gz";
-    sha256 = "09kvl962c6b0wnb7pb2n9dhvkflzwalgq6gwwi8628fgi9n1x10a";
-  };
+  ] ++ lib.optional (!stdenv.isx86_64) "-DARROW_USE_SIMD=OFF"
+  ++ lib.optional enableS3 "-DAWSSDK_CORE_HEADER_FILE=${aws-sdk-cpp}/include/aws/core/Aws.h";
 
   doInstallCheck = true;
-  ARROW_TEST_DATA =
-    if doInstallCheck then "${arrow-testing}/data" else null;
-  PARQUET_TEST_DATA =
-    if doInstallCheck then "${parquet-testing}/data" else null;
+  ARROW_TEST_DATA = lib.optionalString doInstallCheck "${arrow-testing}/data";
+  PARQUET_TEST_DATA = lib.optionalString doInstallCheck "${parquet-testing}/data";
   GTEST_FILTER =
-    if doInstallCheck then let
+    let
       # Upstream Issue: https://issues.apache.org/jira/browse/ARROW-11398
       filteredTests = lib.optionals stdenv.hostPlatform.isAarch64 [
         "TestFilterKernelWithNumeric/3.CompareArrayAndFilterRandomNumeric"
         "TestFilterKernelWithNumeric/7.CompareArrayAndFilterRandomNumeric"
         "TestCompareKernel.PrimitiveRandomTests"
+      ] ++ lib.optionals enableS3 [
+        "S3OptionsTest.FromUri"
+        "S3RegionResolutionTest.NonExistentBucket"
+        "S3RegionResolutionTest.PublicBucket"
+        "S3RegionResolutionTest.RestrictedBucket"
+        "TestMinioServer.Connect"
+        "TestS3FS.OpenOutputStreamBackgroundWrites"
+        "TestS3FS.OpenOutputStreamDestructorBackgroundWrites"
+        "TestS3FS.OpenOutputStreamDestructorSyncWrite"
+        "TestS3FS.OpenOutputStreamDestructorSyncWrites"
+        "TestS3FS.OpenOutputStreamMetadata"
+        "TestS3FS.OpenOutputStreamSyncWrites"
+        "TestS3FSGeneric.*"
       ];
-    in "-${builtins.concatStringsSep ":" filteredTests}" else null;
-  installCheckInputs = [ perl which ];
+    in
+    lib.optionalString doInstallCheck "-${builtins.concatStringsSep ":" filteredTests}";
+  installCheckInputs = [ perl which ] ++ lib.optional enableS3 minio;
   installCheckPhase =
-  let
-    excludedTests = lib.optionals stdenv.isDarwin [
-      # Some plasma tests need to be patched to use a shorter AF_UNIX socket
-      # path on Darwin. See https://github.com/NixOS/nix/pull/1085
-      "plasma-external-store-tests"
-      "plasma-client-tests"
-    ];
-  in ''
-    ctest -L unittest -V \
-      --exclude-regex '^(${builtins.concatStringsSep "|" excludedTests})$'
-  '';
+    let
+      excludedTests = lib.optionals stdenv.isDarwin [
+        # Some plasma tests need to be patched to use a shorter AF_UNIX socket
+        # path on Darwin. See https://github.com/NixOS/nix/pull/1085
+        "plasma-external-store-tests"
+        "plasma-client-tests"
+      ];
+    in
+    ''
+      runHook preInstallCheck
+
+      ctest -L unittest -V \
+        --exclude-regex '^(${builtins.concatStringsSep "|" excludedTests})$'
+
+      runHook postInstallCheck
+    '';
 
   meta = with lib; {
     description = "A cross-language development platform for in-memory data";

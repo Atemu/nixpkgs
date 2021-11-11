@@ -1,4 +1,4 @@
-{ lib, hwdata, pkg-config, lxc, buildGoPackage, fetchurl
+{ lib, hwdata, pkg-config, lxc, buildGoPackage, fetchurl, fetchpatch
 , makeWrapper, acl, rsync, gnutar, xz, btrfs-progs, gzip, dnsmasq, attr
 , squashfsTools, iproute2, iptables, libcap
 , dqlite, raft-canonical, sqlite-replication, udev
@@ -19,6 +19,19 @@ buildGoPackage rec {
     url = "https://linuxcontainers.org/downloads/lxd/lxd-${version}.tar.gz";
     sha256 = "0mxbzg8xra0qpd3g3z1b230f0519h56x4jnn09lbbqa92p5zck3f";
   };
+
+  patches = [
+    # lxd/checkfeature: check whether the kernel supports core scheduling
+    (fetchpatch {
+      url = "https://github.com/lxc/lxd/commit/ba6be1043714458b29c4b37687d4f624ee421943.patch";
+      sha256 = "0716129n70c6i695fyi1j8q6cls7g62vkdpcrlfrr9i324y3w1dx";
+    })
+    # feat: add support for nixOS path
+    (fetchpatch {
+      url = "https://github.com/lxc/lxd/commit/eeace06b2e3151786e94811ada8c658cce479f6d.patch";
+      sha256 = "sha256-knXlvcSvMPDeR0KqHFgh6YQZc+CSJ8yEqGE/vQMciEk=";
+    })
+  ];
 
   postPatch = ''
     substituteInPlace shared/usbid/load.go \
