@@ -2,7 +2,7 @@
 # Do not edit!
 
 {
-  version = "2021.11.0";
+  version = "2021.11.2";
   components = {
     "abode" = ps: with ps; [ abodepy ];
     "accuweather" = ps: with ps; [ accuweather ];
@@ -20,7 +20,7 @@
     "airly" = ps: with ps; [ airly ];
     "airnow" = ps: with ps; [ pyairnow ];
     "airthings" = ps: with ps; [ airthings-cloud ];
-    "airtouch4" = ps: with ps; [ ]; # missing inputs: airtouch4pyapi
+    "airtouch4" = ps: with ps; [ airtouch4pyapi ];
     "airvisual" = ps: with ps; [ pyairvisual ];
     "aladdin_connect" = ps: with ps; [ aladdin-connect ];
     "alarm_control_panel" = ps: with ps; [ ];
@@ -713,7 +713,7 @@
     "ripple" = ps: with ps; [ ]; # missing inputs: python-ripple-api
     "risco" = ps: with ps; [ pyrisco ];
     "rituals_perfume_genie" = ps: with ps; [ pyrituals ];
-    "rmvtransport" = ps: with ps; [ PyRMVtransport ];
+    "rmvtransport" = ps: with ps; [ pyrmvtransport ];
     "rocketchat" = ps: with ps; [ ]; # missing inputs: rocketchat-API
     "roku" = ps: with ps; [ rokuecp ];
     "roomba" = ps: with ps; [ roombapy ];
