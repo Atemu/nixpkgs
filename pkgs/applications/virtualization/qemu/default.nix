@@ -23,6 +23,7 @@
 , libiscsiSupport ? true, libiscsi
 , smbdSupport ? false, samba
 , tpmSupport ? true
+, uringSupport ? stdenv.isLinux, liburing
 , hostCpuOnly ? false
 , hostCpuTargets ? (if hostCpuOnly
                     then (lib.optional stdenv.isx86_64 "i386-softmmu"
@@ -77,7 +78,8 @@ stdenv.mkDerivation rec {
     ++ lib.optionals openGLSupport [ mesa epoxy libdrm ]
     ++ lib.optionals virglSupport [ virglrenderer ]
     ++ lib.optionals libiscsiSupport [ libiscsi ]
-    ++ lib.optionals smbdSupport [ samba ];
+    ++ lib.optionals smbdSupport [ samba ]
+    ++ lib.optionals uringSupport [ liburing ];
 
   dontUseMesonConfigure = true; # meson's configurePhase isn't compatible with qemu build
 
@@ -112,10 +114,6 @@ stdenv.mkDerivation rec {
     })
   ] ++ lib.optional nixosTestRunner ./force-uid0-on-9p.patch
     ++ lib.optionals stdenv.hostPlatform.isMusl [
-    (fetchpatch {
-      url = "https://raw.githubusercontent.com/alpinelinux/aports/2bb133986e8fa90e2e76d53369f03861a87a74ef/main/qemu/musl-F_SHLCK-and-F_EXLCK.patch";
-      sha256 = "1gm67v41gw6apzgz7jr3zv9z80wvkv0jaxd2w4d16hmipa8bhs0k";
-    })
     ./sigrtminmax.patch
     (fetchpatch {
       url = "https://raw.githubusercontent.com/alpinelinux/aports/2bb133986e8fa90e2e76d53369f03861a87a74ef/main/qemu/fix-sigevent-and-sigval_t.patch";
@@ -191,7 +189,8 @@ stdenv.mkDerivation rec {
     ++ lib.optional virglSupport "--enable-virglrenderer"
     ++ lib.optional tpmSupport "--enable-tpm"
     ++ lib.optional libiscsiSupport "--enable-libiscsi"
-    ++ lib.optional smbdSupport "--smbd=${samba}/bin/smbd";
+    ++ lib.optional smbdSupport "--smbd=${samba}/bin/smbd"
+    ++ lib.optional uringSupport "--enable-linux-io-uring";
 
   doCheck = false; # tries to access /dev
   dontWrapGApps = true;

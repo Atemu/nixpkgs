@@ -75,6 +75,7 @@ mapAliases ({
   pytestpep8 = throw "pytestpep8 was removed because it is abandoned and no longer compatible with pytest v6.0"; # added 2020-12-10
   pytestquickcheck = pytest-quickcheck; # added 2021-07-20
   pytestrunner = pytest-runner; # added 2021-01-04
+  python-igraph = igraph; # added 2021-11-11
   python-lz4 = lz4; # added 2018-06-01
   python_mimeparse = python-mimeparse; # added 2021-10-31
   python-subunit = subunit; # added 2021-09-10
@@ -83,6 +84,9 @@ mapAliases ({
   qasm2image = throw "qasm2image is no longer maintained (since November 2018), and is not compatible with the latest pythonPackages.qiskit versions."; # added 2020-12-09
   requests_toolbelt = requests-toolbelt; # added 2017-09-26
   rotate-backups = throw "rotate-backups was removed in favor of the top-level rotate-backups"; # added 2021-07-01
+  ruamel_base = ruamel-base; # added 2021-11-01
+  ruamel_yaml = ruamel-yaml; # added 2021-11-01
+  ruamel_yaml_clib = ruamel-yaml-clib; # added 2021-11-01
   scikitlearn = scikit-learn; # added 2021-07-21
   selectors34 = throw "selectors34 has been removed: functionality provided by Python itself; archived by upstream."; # added 2021-06-10
   setuptools_scm = setuptools-scm; # added 2021-06-03
