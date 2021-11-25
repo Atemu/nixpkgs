@@ -38,10 +38,7 @@
   # platform). Static libs are always built.
   enableShared ? !stdenv.targetPlatform.isWindows && !stdenv.targetPlatform.useiOSPrebuilt
 
-, # Whether to build terminfo.
-  enableTerminfo ? !stdenv.targetPlatform.isWindows
-
-, version ? "9.3.20210913"
+, version ? "9.3.20211111"
 , # What flavour to build. An empty string indicates no
   # specific flavour and falls back to ghc default values.
   ghcFlavour ? lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
@@ -116,11 +113,17 @@ let
     GhcRtsHcOpts += -fPIC
   '' + lib.optionalString targetPlatform.useAndroidPrebuilt ''
     EXTRA_CC_OPTS += -std=gnu99
+  ''
+  # While split sections are now enabled by default in ghc 8.8 for windows,
+  # they seem to lead to `too many sections` errors when building base for
+  # profiling.
+  + lib.optionalString targetPlatform.isWindows ''
+    SplitSections = NO
   '';
 
   # Splicer will pull out correct variations
-  libDeps = platform: lib.optional enableTerminfo ncurses
-    ++ [libffi]
+  libDeps = platform:
+       [libffi ncurses]
     ++ lib.optional (!enableNativeBignum) gmp
     ++ lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows) libiconv
     ++ lib.optional enableDwarf elfutils;
@@ -160,8 +163,8 @@ stdenv.mkDerivation (rec {
 
   src = fetchgit {
     url = "https://gitlab.haskell.org/ghc/ghc.git/";
-    rev = "64923cf295ea914db458547432237a5ed1eff571";
-    sha256 = "1s9sm4gf4r71lk0s7h9v217rxfwjf435q1jji90hlxz23wvmhr6d";
+    rev = "cc635da167fdec2dead0603b0026cb841f0aa645";
+    sha256 = "1lj76l546zriwkcn2r7i5a4j35bx9fh5iggwfz2xvhh8aq8j2i46";
   };
 
   enableParallelBuilding = true;

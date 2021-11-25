@@ -20,7 +20,7 @@ Reviewing guidelines: https://nixos.org/manual/nixpkgs/unstable/#chap-reviewing-
   - [ ] aarch64-linux
   - [ ] x86_64-darwin
   - [ ] aarch64-darwin
-- [ ] For non-Linux: Is `sandbox = true` set in `nix.conf`? (See [Nix manual](https://nixos.org/manual/nix/stable/#sec-conf-file))
+- [ ] For non-Linux: Is `sandbox = true` set in `nix.conf`? (See [Nix manual](https://nixos.org/manual/nix/stable/command-ref/conf-file.html))
 - [ ] Tested, as applicable:
   - [NixOS test(s)](https://nixos.org/manual/nixos/unstable/index.html#sec-nixos-tests) (look inside [nixos/tests](https://github.com/NixOS/nixpkgs/blob/master/nixos/tests))
   - and/or [package tests](https://nixos.org/manual/nixpkgs/unstable/#sec-package-tests)
@@ -32,4 +32,5 @@ Reviewing guidelines: https://nixos.org/manual/nixpkgs/unstable/#chap-reviewing-
   - [ ] (Package updates) Added a release notes entry if the change is major or breaking
   - [ ] (Module updates) Added a release notes entry if the change is significant
   - [ ] (Module addition) Added a release notes entry if adding a new NixOS module
+  - [ ] (Release notes changes) Ran `nixos/doc/manual/md-to-db.sh` to update generated release notes
 - [ ] Fits [CONTRIBUTING.md](https://github.com/NixOS/nixpkgs/blob/master/CONTRIBUTING.md).

@@ -228,9 +228,11 @@ in
   kubernetes = handleTestOn ["x86_64-linux"] ./kubernetes {};
   latestKernel.login = handleTest ./login.nix { latestKernel = true; };
   leaps = handleTest ./leaps.nix {};
+  libinput = handleTest ./libinput.nix {};
   libreddit = handleTest ./libreddit.nix {};
-  lidarr = handleTest ./lidarr.nix {};
+  libresprite = handleTest ./libresprite.nix {};
   libreswan = handleTest ./libreswan.nix {};
+  lidarr = handleTest ./lidarr.nix {};
   lightdm = handleTest ./lightdm.nix {};
   limesurvey = handleTest ./limesurvey.nix {};
   litestream = handleTest ./litestream.nix {};
@@ -487,7 +489,7 @@ in
   victoriametrics = handleTest ./victoriametrics.nix {};
   vikunja = handleTest ./vikunja.nix {};
   virtualbox = handleTestOn ["x86_64-linux"] ./virtualbox.nix {};
-  vscodium = handleTest ./vscodium.nix {};
+  vscodium = discoverTests (import ./vscodium.nix);
   wasabibackend = handleTest ./wasabibackend.nix {};
   wiki-js = handleTest ./wiki-js.nix {};
   wireguard = handleTest ./wireguard {};
