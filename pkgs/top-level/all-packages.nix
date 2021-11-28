@@ -1087,6 +1087,8 @@ with pkgs;
 
   nimmm = callPackage ../applications/terminal-emulators/nimmm { };
 
+  notion-app-enhanced = callPackage ../applications/office/notion-app-enhanced { };
+
   pikchr = callPackage ../tools/graphics/pikchr { };
 
   roxterm = callPackage ../applications/terminal-emulators/roxterm { };
@@ -2429,6 +2431,8 @@ with pkgs;
 
   cfdyndns = callPackage ../applications/networking/dyndns/cfdyndns { };
 
+  cfm = callPackage ../applications/misc/cfm { };
+
   charliecloud = callPackage ../applications/virtualization/charliecloud { };
 
   chelf = callPackage ../tools/misc/chelf { };
@@ -3284,7 +3288,9 @@ with pkgs;
 
   medusa = callPackage ../tools/security/medusa { };
 
-  megasync = libsForQt515.callPackage ../applications/misc/megasync { };
+  megasync = libsForQt5.callPackage ../applications/misc/megasync {
+    ffmpeg = ffmpeg-full;
+  };
 
   megacmd = callPackage ../applications/misc/megacmd { };
 
@@ -19206,6 +19212,8 @@ with pkgs;
 
   pyotherside = libsForQt5.callPackage ../development/libraries/pyotherside {};
 
+  plasma-hud = callPackage ../misc/plasma-hud { };
+
   re2 = callPackage ../development/libraries/re2 { };
 
   qbs = libsForQt5.callPackage ../development/tools/build-managers/qbs { };
@@ -22015,6 +22023,8 @@ with pkgs;
     inherit (darwin) IOKit;
   };
 
+  htop-vim = callPackage ../tools/system/htop/htop-vim.nix { };
+
   btop = callPackage ../tools/system/btop {
     stdenv = gcc11Stdenv;
   };
@@ -22761,6 +22771,10 @@ with pkgs;
   trickster = callPackage ../servers/trickster/trickster.nix {};
 
   trinity = callPackage ../os-specific/linux/trinity { };
+
+  trinsic-cli = callPackage ../tools/admin/trinsic-cli {
+    inherit (darwin.apple_sdk.frameworks) Security;
+  };
 
   tunctl = callPackage ../os-specific/linux/tunctl { };
 
@@ -24878,13 +24892,19 @@ with pkgs;
 
   keepass = callPackage ../applications/misc/keepass { };
 
+  keepass-charactercopy = callPackage ../applications/misc/keepass-plugins/charactercopy { };
+
   keepass-keeagent = callPackage ../applications/misc/keepass-plugins/keeagent { };
 
   keepass-keepasshttp = callPackage ../applications/misc/keepass-plugins/keepasshttp { };
 
   keepass-keepassrpc = callPackage ../applications/misc/keepass-plugins/keepassrpc { };
 
+  keepass-keetraytotp = callPackage ../applications/misc/keepass-plugins/keetraytotp { };
+
   keepass-otpkeyprov = callPackage ../applications/misc/keepass-plugins/otpkeyprov { };
+
+  keepass-qrcodeview = callPackage ../applications/misc/keepass-plugins/qrcodeview { };
 
   kerbrute = callPackage ../tools/security/kerbrute { };
 
@@ -26959,6 +26979,7 @@ with pkgs;
     sponsorblock = callPackage ../applications/video/mpv/scripts/sponsorblock.nix {};
     thumbnail = callPackage ../applications/video/mpv/scripts/thumbnail.nix { };
     youtube-quality = callPackage ../applications/video/mpv/scripts/youtube-quality.nix { };
+    cutter = callPackage ../applications/video/mpv/scripts/cutter.nix { };
   };
 
   mrpeach = callPackage ../applications/audio/pd-plugins/mrpeach { };
@@ -32375,11 +32396,11 @@ with pkgs;
   # Exceptions are versions that we need to keep to allow upgrades from older NixOS releases
   inherit (callPackage ../applications/networking/cluster/kops {})
     mkKops
-    kops_1_19
     kops_1_20
     kops_1_21
+    kops_1_22
     ;
-  kops = kops_1_21;
+  kops = kops_1_22;
 
   lguf-brightness = callPackage ../misc/lguf-brightness { };
 
