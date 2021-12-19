@@ -227,11 +227,6 @@ self: super: {
     '';
   });
 
-  ensime-vim = super.ensime-vim.overrideAttrs (old: {
-    passthru.python3Dependencies = ps: with ps; [ sexpdata websocket-client ];
-    dependencies = with self; [ vimproc-vim vimshell-vim self.self forms ];
-  });
-
   fcitx-vim = super.fcitx-vim.overrideAttrs (old: {
     passthru.python3Dependencies = ps: with ps; [ dbus-python ];
     meta = {
@@ -481,6 +476,10 @@ self: super: {
 
   nvim-lsputils = super.nvim-lsputils.overrideAttrs (old: {
     dependencies = with self; [ popfix ];
+  });
+
+  nvim-metals = super.nvim-metals.overrideAttrs (old: {
+    dontBuild = true;
   });
 
   nvim-spectre = super.nvim-spectre.overrideAttrs (old: {
@@ -744,7 +743,7 @@ self: super: {
             libiconv
           ];
 
-          cargoSha256 = "sha256-DiCQpgyz0iNEm6gjaJU5IGdsQISHhPqlDQBzZafngjY=";
+          cargoSha256 = "sha256-iE0L4pSKPf8lf76DuSTnU7LfNUgy1O06IgxracsLpFA=";
         };
       in
       ''
