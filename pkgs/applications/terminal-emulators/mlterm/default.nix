@@ -6,7 +6,6 @@
 , fcitx, ibus, uim #IME
 , wrapGAppsHook #color picker in mlconfig
 , Cocoa #Darwin
-, fetchpatch
 }:
 
 stdenv.mkDerivation rec {
@@ -19,13 +18,6 @@ stdenv.mkDerivation rec {
     rev = "rel-${lib.replaceStrings [ "." ] [ "_" ] version}"; # 3.9.1 -> rel-3_9_1
     sha256 = "sha256-DvGR3rDegInpnLp3H+rXNXktCGhpjsBBPTRMwodeTro=";
   };
-
-  patches = [
-    (fetchpatch {
-      url = "http://mlterm.sf.net/mlterm-3.9.1-fixcairostyle.patch";
-      sha256 = "1b65np5ysygyrmj4i6ls0h61pax65m2m7b5hm260fz85cz6wva6y";
-    })
-  ];
 
   nativeBuildInputs = [ pkg-config autoconf wrapGAppsHook ];
   buildInputs = [
