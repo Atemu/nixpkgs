@@ -5,6 +5,7 @@
 , fetchFromGitHub
 , flax
 , hypothesis
+, jaxlib
 , keras
 , lib
 , poetry-core
@@ -17,14 +18,14 @@
 
 buildPythonPackage rec {
   pname = "treex";
-  version = "0.6.7";
+  version = "0.6.9";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "cgarciae";
     repo = pname;
     rev = version;
-    sha256 = "1hl3wj71c7cp7jzkhyjy7xgs2vc8c89icq0bgfr49y4pwv69n43m";
+    sha256 = "1yvlldmhji12h249j14ba44hnb9x1fhrj7rh1cx2vn0vxj5wpg7x";
   };
 
   postPatch = ''
@@ -37,6 +38,8 @@ buildPythonPackage rec {
   nativeBuildInputs = [
     poetry-core
   ];
+
+  buildInputs = [ jaxlib ];
 
   propagatedBuildInputs = [
     einops

@@ -26,7 +26,7 @@
 
 buildPythonPackage rec {
   pname = "exchangelib";
-  version = "4.7.0";
+  version = "4.7.2";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -35,7 +35,7 @@ buildPythonPackage rec {
     owner = "ecederstrand";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-APT/esskyigt6u3A+KVTAlmZDMppeyKb9Ws+95hDLcM=";
+    sha256 = "sha256-fdYc+fJEePgCzAkUWz7pmL/CI/O9zm5G9xh1f4bhrH4=";
   };
 
   propagatedBuildInputs = [

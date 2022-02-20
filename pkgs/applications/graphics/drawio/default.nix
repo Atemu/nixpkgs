@@ -11,11 +11,11 @@
 
 stdenv.mkDerivation rec {
   pname = "drawio";
-  version = "16.1.2";
+  version = "16.5.1";
 
   src = fetchurl {
     url = "https://github.com/jgraph/drawio-desktop/releases/download/v${version}/drawio-x86_64-${version}.rpm";
-    sha256 = "b86ff3f77b17e7da66979fe8ea878685c0018273f5d0302f10d3094d502452ee";
+    sha256 = "a8ebf2560820d2d05677b9b16fc863f555dde8235b3e34acd7916eee3544eaa9";
   };
 
   nativeBuildInputs = [
@@ -84,6 +84,12 @@ stdenv.mkDerivation rec {
     # Update binary path
     substituteInPlace $out/share/applications/drawio.desktop \
       --replace /opt/drawio/drawio $out/bin/drawio
+  '';
+
+  doInstallCheckPhase = true;
+
+  installCheckPhase = ''
+    $out/bin/drawio --help > /dev/null
   '';
 
   meta = with lib; {

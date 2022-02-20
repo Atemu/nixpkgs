@@ -288,6 +288,8 @@ in {
 
     dpdk-kmods = callPackage ../os-specific/linux/dpdk-kmods { };
 
+    dpdk = pkgs.dpdk.override { inherit kernel; };
+
     exfat-nofuse = callPackage ../os-specific/linux/exfat { };
 
     evdi = callPackage ../os-specific/linux/evdi { };
@@ -348,6 +350,8 @@ in {
 
     rtl8192eu = callPackage ../os-specific/linux/rtl8192eu { };
 
+    rtl8189es = callPackage ../os-specific/linux/rtl8189es { };
+
     rtl8723bs = callPackage ../os-specific/linux/rtl8723bs { };
 
     rtl8812au = callPackage ../os-specific/linux/rtl8812au { };
@@ -367,7 +371,7 @@ in {
     rtw88 = callPackage ../os-specific/linux/rtw88 { };
     rtlwifi_new = rtw88;
 
-    rtw89 = callPackage ../os-specific/linux/rtw89 { };
+    rtw89 = if lib.versionOlder kernel.version "5.16" then callPackage ../os-specific/linux/rtw89 { } else null;
 
     openafs_1_8 = callPackage ../servers/openafs/1.8/module.nix { };
     openafs_1_9 = callPackage ../servers/openafs/1.9/module.nix { };

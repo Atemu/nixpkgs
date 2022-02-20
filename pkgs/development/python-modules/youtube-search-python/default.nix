@@ -2,13 +2,13 @@
 
 buildPythonPackage rec {
   pname = "youtube-search-python";
-  version = "1.5.3";
+  version = "1.6.2";
 
   disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "4bc39224d1f0915692101a7739289c41173de2eb88b445aabc7be284802b7489";
+    sha256 = "sha256-PeWi1eygUSgUXZ68bUJ44IoffNDme06JNR9ns6njqMU=";
   };
 
   propagatedBuildInputs = [ httpx ];

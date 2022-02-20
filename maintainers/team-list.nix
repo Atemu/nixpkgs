@@ -166,6 +166,17 @@ with lib.maintainers; {
     scope = "Maintain Jitsi.";
   };
 
+  kubernetes = {
+    members = [
+      johanot
+      offline
+      saschagrunert
+      srhb
+      zowoq
+    ];
+    scope = "Maintain the Kubernetes package and module";
+  };
+
   kodi = {
     members = [
       aanderse
@@ -212,7 +223,7 @@ with lib.maintainers; {
 
   openstack = {
     members = [
-      angustrau
+      emilytrau
       SuperSandro2000
     ];
     scope = "Maintain the ecosystem around OpenStack";
@@ -229,6 +240,7 @@ with lib.maintainers; {
   php = {
     members = [
       aanderse
+      drupol
       etu
       globin
       ma27
@@ -264,6 +276,13 @@ with lib.maintainers; {
       collares
     ];
     scope = "Maintain SageMath and the dependencies that are likely to break it.";
+  };
+
+  sphinx = {
+    members = [
+      SuperSandro2000
+    ];
+    scope = "Maintain Sphinx related packages.";
   };
 
   serokell = {

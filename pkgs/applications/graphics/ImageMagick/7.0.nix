@@ -1,7 +1,7 @@
-{ lib, stdenv, fetchurl, pkg-config, libtool
+{ lib, stdenv, fetchFromGitHub, pkg-config, libtool
 , bzip2, zlib, libX11, libXext, libXt, fontconfig, freetype, ghostscript, libjpeg, djvulibre
 , lcms2, openexr, libjxl, libpng, liblqr1, libraw, librsvg, libtiff, libxml2, openjpeg, libwebp, libheif
-, ApplicationServices
+, potrace, ApplicationServices
 , Foundation
 , testVersion, imagemagick
 }:
@@ -18,11 +18,13 @@ in
 
 stdenv.mkDerivation rec {
   pname = "imagemagick";
-  version = "7.1.0-19";
+  version = "7.1.0-23";
 
-  src = fetchurl {
-    url = "https://download.imagemagick.org/ImageMagick/download/releases/ImageMagick-${version}.tar.xz";
-    hash = "sha256-P9eRdKsPMLwWQ68+ZU8dL/zDqVVCY5gRVWiLT0n3/Xc=";
+  src = fetchFromGitHub {
+    owner = "ImageMagick";
+    repo = "ImageMagick";
+    rev = version;
+    sha256 = "sha256-NNdtJvgExAFPgJxkSDq8N/UqCbuMRw2N5hPnWGszJtI=";
   };
 
   outputs = [ "out" "dev" "doc" ]; # bin/ isn't really big
@@ -49,7 +51,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkg-config libtool ];
 
   buildInputs =
-    [ zlib fontconfig freetype ghostscript
+    [ zlib fontconfig freetype ghostscript potrace
       liblqr1 libpng libraw libtiff libxml2 libheif djvulibre
     ]
     # libjxl is broken on aarch64 (see meta.broken in libjxl) for now,
