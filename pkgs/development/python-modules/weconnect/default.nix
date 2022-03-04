@@ -7,11 +7,12 @@
 , pytestCheckHook
 , pythonOlder
 , requests
+, oauthlib
 }:
 
 buildPythonPackage rec {
   pname = "weconnect";
-  version = "0.35.0";
+  version = "0.37.0";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -20,11 +21,12 @@ buildPythonPackage rec {
     owner = "tillsteinbach";
     repo = "WeConnect-python";
     rev = "v${version}";
-    sha256 = "sha256-Rx9OTx3GNIIRo7jIDIp8i6vGUFwn1keg5ifXqzewr4I=";
+    sha256 = "sha256-h6jKtQt9vCh5bnhIqWLniUIJ41GxCs0uSi4vBVNs8tE=";
   };
 
   propagatedBuildInputs = [
     ascii-magic
+    oauthlib
     pillow
     requests
   ];

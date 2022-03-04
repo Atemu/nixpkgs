@@ -1,7 +1,6 @@
 { lib
 , python3
 , fetchFromGitHub
-, fetchpatch
 , platformio
 , esptool
 , git
@@ -16,20 +15,15 @@ let
 in
 with python.pkgs; buildPythonApplication rec {
   pname = "esphome";
-  version = "2022.1.4";
+  version = "2022.2.5";
   format = "setuptools";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
     rev = version;
-    sha256 = "sha256-Pv4Rh92d+Jb3ZKPgKVyrgVHr6PGTcIYybdFavbnjuPA=";
+    sha256 = "sha256-ZHxPiQEqFmW9tYv5SaHutOuBh7gsmN4Ux4+sMAJRIk4=";
   };
-
-  patches = [
-    # fix missing write permissions on src files before modifing them
-    ./fix-src-permissions.patch
-  ];
 
   postPatch = ''
     # remove all version pinning (E.g tornado==5.1.1 -> tornado)

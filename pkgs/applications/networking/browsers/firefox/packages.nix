@@ -7,10 +7,10 @@ in
 rec {
   firefox = common rec {
     pname = "firefox";
-    version = "97.0";
+    version = "97.0.1";
     src = fetchurl {
       url = "mirror://mozilla/firefox/releases/${version}/source/firefox-${version}.source.tar.xz";
-      sha512 = "a913695a42cb06ee9bda2a20e65cc573e40ca93e9f75b7ee0a43ebd1935b371e7e80d5fc8d5f126ad0712ab848635a8624bbeed43807e5c179537aa32c884186";
+      sha512 = "8620aace77167593aab5acd230860eb3e67eeddc49c0aad0491b5dc20bd0ddb6089dbb8975aed241426f57b2ad772238b04d03b95390175f580cbd80bb6d5f6c";
     };
 
     meta = {
@@ -53,5 +53,30 @@ rec {
       attrPath = "firefox-esr-91-unwrapped";
       versionSuffix = "esr";
     };
+  };
+
+  librewolf =
+  let
+    librewolf-src = callPackage ./librewolf { };
+  in
+  (common rec {
+    pname = "librewolf";
+    binaryName = "librewolf";
+    version = librewolf-src.packageVersion;
+    src = librewolf-src.firefox;
+    inherit (librewolf-src) extraConfigureFlags extraPostPatch extraPassthru;
+
+    meta = {
+      description = "A fork of Firefox, focused on privacy, security and freedom";
+      homepage = "https://librewolf.net/";
+      maintainers = with lib.maintainers; [ squalus ];
+      inherit (firefox.meta) platforms badPlatforms broken maxSilent license;
+    };
+    updateScript = callPackage ./librewolf/update.nix {
+      attrPath = "librewolf-unwrapped";
+    };
+  }).override {
+    crashreporterSupport = false;
+    enableOfficialBranding = false;
   };
 }

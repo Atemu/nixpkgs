@@ -91,6 +91,7 @@
   ./hardware/video/switcheroo-control.nix
   ./hardware/video/uvcvideo/default.nix
   ./hardware/video/webcam/facetimehd.nix
+  ./hardware/xone.nix
   ./hardware/xpadneo.nix
   ./i18n/input-method/default.nix
   ./i18n/input-method/fcitx.nix
@@ -115,6 +116,7 @@
   ./misc/nixpkgs.nix
   ./misc/passthru.nix
   ./misc/version.nix
+  ./misc/wordlist.nix
   ./misc/nixops-autoluks.nix
   ./programs/adb.nix
   ./programs/appgate-sdp.nix
@@ -166,6 +168,7 @@
   ./programs/iftop.nix
   ./programs/iotop.nix
   ./programs/java.nix
+  ./programs/k40-whisperer.nix
   ./programs/kdeconnect.nix
   ./programs/kbdlight.nix
   ./programs/less.nix
@@ -252,6 +255,7 @@
   ./security/tpm2.nix
   ./services/admin/meshcentral.nix
   ./services/admin/oxidized.nix
+  ./services/admin/pgadmin.nix
   ./services/admin/salt/master.nix
   ./services/admin/salt/minion.nix
   ./services/amqp/activemq/default.nix
@@ -349,7 +353,6 @@
   ./services/databases/redis.nix
   ./services/databases/riak.nix
   ./services/databases/victoriametrics.nix
-  ./services/databases/virtuoso.nix
   ./services/desktops/accountsservice.nix
   ./services/desktops/bamf.nix
   ./services/desktops/blueman.nix
@@ -394,6 +397,7 @@
   ./services/development/jupyterhub/default.nix
   ./services/development/rstudio-server/default.nix
   ./services/development/lorri.nix
+  ./services/development/zammad.nix
   ./services/display-managers/greetd.nix
   ./services/editors/emacs.nix
   ./services/editors/infinoted.nix
@@ -450,6 +454,7 @@
   ./services/hardware/undervolt.nix
   ./services/hardware/vdr.nix
   ./services/hardware/xow.nix
+  ./services/home-automation/home-assistant.nix
   ./services/logging/SystemdJournal2Gelf.nix
   ./services/logging/awstats.nix
   ./services/logging/filebeat.nix
@@ -545,8 +550,8 @@
   ./services/misc/headphones.nix
   ./services/misc/heisenbridge.nix
   ./services/misc/greenclip.nix
-  ./services/misc/home-assistant.nix
   ./services/misc/ihaskell.nix
+  ./services/misc/input-remapper.nix
   ./services/misc/irkerd.nix
   ./services/misc/jackett.nix
   ./services/misc/jellyfin.nix
@@ -717,6 +722,7 @@
   ./services/networking/bird.nix
   ./services/networking/bitlbee.nix
   ./services/networking/blockbook-frontend.nix
+  ./services/networking/blocky.nix
   ./services/networking/charybdis.nix
   ./services/networking/cjdns.nix
   ./services/networking/cntlm.nix
@@ -895,6 +901,7 @@
   ./services/networking/tcpcrypt.nix
   ./services/networking/teamspeak3.nix
   ./services/networking/tedicross.nix
+  ./services/networking/tetrd.nix
   ./services/networking/teleport.nix
   ./services/networking/thelounge.nix
   ./services/networking/tinc.nix
@@ -944,7 +951,6 @@
   ./services/security/clamav.nix
   ./services/security/fail2ban.nix
   ./services/security/fprintd.nix
-  ./services/security/fprot.nix
   ./services/security/haka.nix
   ./services/security/haveged.nix
   ./services/security/hockeypuck.nix
@@ -1056,6 +1062,7 @@
   ./services/web-apps/wordpress.nix
   ./services/web-apps/youtrack.nix
   ./services/web-apps/zabbix.nix
+  ./services/web-servers/agate.nix
   ./services/web-servers/apache-httpd/default.nix
   ./services/web-servers/caddy/default.nix
   ./services/web-servers/darkhttpd.nix
