@@ -18,7 +18,7 @@ self:
 
 let
   inherit (self) callPackage;
-  inherit (python.passthru) isPy27 isPy35 isPy36 isPy37 isPy38 isPy39 isPy3k isPyPy pythonAtLeast pythonOlder;
+  inherit (python.passthru) isPy27 isPy35 isPy36 isPy37 isPy38 isPy39 isPy310 isPy311 isPy3k isPyPy pythonAtLeast pythonOlder;
 
   namePrefix = python.libPrefix + "-";
 
@@ -107,7 +107,7 @@ in {
 
   inherit pkgs stdenv;
 
-  inherit (python.passthru) isPy27 isPy35 isPy36 isPy37 isPy38 isPy39 isPy3k isPyPy pythonAtLeast pythonOlder;
+  inherit (python.passthru) isPy27 isPy35 isPy36 isPy37 isPy38 isPy39 isPy310 isPy311 isPy3k isPyPy pythonAtLeast pythonOlder;
   inherit python bootstrapped-pip buildPythonPackage buildPythonApplication;
   inherit fetchPypi;
   inherit hasPythonModule requiredPythonModules makePythonPath disabled disabledIf;
@@ -466,6 +466,8 @@ in {
 
   allpairspy = callPackage ../development/python-modules/allpairspy { };
 
+  allure-behave = callPackage ../development/python-modules/allure-behave { };
+
   allure-python-commons = callPackage ../development/python-modules/allure-python-commons { };
 
   allure-python-commons-test = callPackage ../development/python-modules/allure-python-commons-test { };
@@ -713,6 +715,8 @@ in {
   asyncio-throttle = callPackage ../development/python-modules/asyncio-throttle { };
 
   asyncpg = callPackage ../development/python-modules/asyncpg { };
+
+  asyncsleepiq = callPackage ../development/python-modules/asyncsleepiq { };
 
   asyncssh = callPackage ../development/python-modules/asyncssh { };
 
@@ -1517,6 +1521,8 @@ in {
 
   coqpit = callPackage ../development/python-modules/coqpit { };
 
+  coqui-trainer = callPackage ../development/python-modules/coqui-trainer {};
+
   cepa = callPackage ../development/python-modules/cepa { };
 
   cerberus = callPackage ../development/python-modules/cerberus { };
@@ -1604,6 +1610,8 @@ in {
   chirpstack-api = callPackage ../development/python-modules/chirpstack-api { };
 
   chispa = callPackage ../development/python-modules/chispa { };
+
+  chromaprint = callPackage ../development/python-modules/chromaprint { };
 
   ci-info = callPackage ../development/python-modules/ci-info { };
 
@@ -3577,6 +3585,8 @@ in {
 
   growattserver = callPackage ../development/python-modules/growattserver { };
 
+  gridnet = callPackage ../development/python-modules/gridnet { };
+
   grip = callPackage ../development/python-modules/grip { };
 
   groestlcoin_hash = callPackage ../development/python-modules/groestlcoin_hash { };
@@ -4072,6 +4082,8 @@ in {
 
   invoke = callPackage ../development/python-modules/invoke { };
 
+  iodata = callPackage ../development/python-modules/iodata { };
+
   iocapture = callPackage ../development/python-modules/iocapture { };
 
   iotawattpy = callPackage ../development/python-modules/iotawattpy { };
@@ -4471,6 +4483,8 @@ in {
   }).src;
 
   kinparse = callPackage ../development/python-modules/kinparse { };
+
+  kiss-headers = callPackage ../development/python-modules/kiss-headers { };
 
   kitchen = callPackage ../development/python-modules/kitchen { };
 
@@ -6713,6 +6727,8 @@ in {
 
   pycec = callPackage ../development/python-modules/pycec { };
 
+  pycep-parser = callPackage ../development/python-modules/pycep-parser { };
+
   pycfdns = callPackage ../development/python-modules/pycfdns { };
 
   pycflow2dot = callPackage ../development/python-modules/pycflow2dot {
@@ -7633,6 +7649,14 @@ in {
 
   pysideTools = callPackage ../development/python-modules/pyside/tools.nix { };
 
+  pysigma = callPackage ../development/python-modules/pysigma { };
+
+  pysigma-backend-splunk = callPackage ../development/python-modules/pysigma-backend-splunk { };
+
+  pysigma-pipeline-crowdstrike = callPackage ../development/python-modules/pysigma-pipeline-crowdstrike { };
+
+  pysigma-pipeline-sysmon = callPackage ../development/python-modules/pysigma-pipeline-sysmon { };
+
   pysignalclirestapi = callPackage ../development/python-modules/pysignalclirestapi { };
 
   pysigset = callPackage ../development/python-modules/pysigset { };
@@ -8241,6 +8265,8 @@ in {
 
   python-toolbox = callPackage ../development/python-modules/python-toolbox { };
 
+  python-trovo = callPackage ../development/python-modules/python-trovo { };
+
   python-twitch-client = callPackage ../development/python-modules/python-twitch-client { };
 
   python-twitter = callPackage ../development/python-modules/python-twitter { };
@@ -8268,6 +8294,8 @@ in {
   python-wink = callPackage ../development/python-modules/python-wink { };
 
   python-xmp-toolkit = callPackage ../development/python-modules/python-xmp-toolkit { };
+
+  python-zbar = callPackage ../development/python-modules/python-zbar { };
 
   pythran = callPackage ../development/python-modules/pythran {
     inherit (pkgs.llvmPackages) openmp;
@@ -8334,8 +8362,6 @@ in {
   pyturbojpeg = callPackage ../development/python-modules/pyturbojpeg { };
 
   pytweening = callPackage ../development/python-modules/pytweening { };
-
-  pytwitchapi = callPackage ../development/python-modules/pytwitchapi { };
 
   pytz = callPackage ../development/python-modules/pytz { };
 
@@ -8568,6 +8594,8 @@ in {
   radicale_infcloud = callPackage ../development/python-modules/radicale_infcloud { };
 
   radio_beam = callPackage ../development/python-modules/radio_beam { };
+
+  radios = callPackage ../development/python-modules/radios { };
 
   radiotherm = callPackage ../development/python-modules/radiotherm { };
 
@@ -9187,6 +9215,8 @@ in {
   simplisafe-python = callPackage ../development/python-modules/simplisafe-python { };
 
   simpy = callPackage ../development/python-modules/simpy { };
+
+  single-version = callPackage ../development/python-modules/single-version { };
 
   signify = callPackage ../development/python-modules/signify { };
 
@@ -9890,6 +9920,8 @@ in {
 
   tgcrypto = callPackage ../development/python-modules/tgcrypto { };
 
+  theano-pymc = callPackage ../development/python-modules/theano-pymc { };
+
   Theano = callPackage ../development/python-modules/Theano rec {
     cudaSupport = pkgs.config.cudaSupport or false;
     cudnnSupport = cudaSupport;
@@ -9934,6 +9966,8 @@ in {
   tifffile = callPackage ../development/python-modules/tifffile { };
 
   tika = callPackage ../development/python-modules/tika { };
+
+  tikzplotlib = callPackage ../development/python-modules/tikzplotlib { };
 
   tiledb = callPackage ../development/python-modules/tiledb {
     inherit (pkgs) tiledb;

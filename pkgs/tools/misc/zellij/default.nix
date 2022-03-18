@@ -8,24 +8,26 @@
 , openssl
 , DiskArbitration
 , Foundation
+, mandown
 , zellij
 , testVersion
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "zellij";
-  version = "0.25.0";
+  version = "0.26.0";
 
   src = fetchFromGitHub {
     owner = "zellij-org";
     repo = "zellij";
     rev = "v${version}";
-    sha256 = "sha256-MTSM8fYAcNcmjg6bkOEN+U5+WilaEy52EJOfyoIy3Zg=";
+    sha256 = "sha256-8PgEsRh2nBOIvKeX9SJ853NN8Szb4geKwv2qvTtkMxk=";
   };
 
-  cargoSha256 = "sha256-2QEDrxTz7I9hF+WfVKkGLXHWZjQ5by/zuO16NGOJSKk=";
+  cargoSha256 = "sha256-YaqaXn1Ol5RfwAzWi7767vt1je+wqWFtfgxMOSIy9UI=";
 
   nativeBuildInputs = [
+    mandown
     installShellFiles
     pkg-config
   ];
@@ -43,6 +45,9 @@ rustPlatform.buildRustPackage rec {
   '';
 
   postInstall = ''
+    mandown docs/MANPAGE.md > zellij.1
+    installManPage zellij.1
+
     installShellCompletion --cmd $pname \
       --bash <($out/bin/zellij setup --generate-completion bash) \
       --fish <($out/bin/zellij setup --generate-completion fish) \

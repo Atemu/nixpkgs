@@ -162,6 +162,7 @@ mapAliases ({
   clang10Stdenv = lowPrio llvmPackages_10.stdenv;
   clang11Stdenv = lowPrio llvmPackages_11.stdenv;
   clang12Stdenv = lowPrio llvmPackages_12.stdenv;
+  clang13Stdenv = lowPrio llvmPackages_13.stdenv;
 
   clangAnalyzer = throw "'clangAnalyzer' has been renamed to/replaced by 'clang-analyzer'"; # Converted to throw 2022-02-22
   claws-mail-gtk2 = throw "claws-mail-gtk2 was removed to get rid of Python 2, please use claws-mail"; # Added 2021-12-05
@@ -319,6 +320,8 @@ mapAliases ({
   fedora-coreos-config-transpiler = throw "fedora-coreos-config-transpiler has been renamed to 'butane'."; # Added 2021-04-13
   fetchFromGithub = throw "You meant fetchFromGitHub, with a capital H.";
   ffadoFull = throw "'ffadoFull' has been renamed to/replaced by 'ffado'"; # Converted to throw 2022-02-22
+  finger_bsd = bsd-finger;
+  fingerd_bsd = bsd-fingerd;
   firefox-esr-68 = throw "Firefox 68 ESR was removed because it reached end of life with its final release 68.12esr on 2020-08-25.";
   firefox-esr-wrapper = throw "'firefox-esr-wrapper' has been renamed to/replaced by 'firefox-esr'"; # Converted to throw 2022-02-22
   firefoxWrapper = throw "'firefoxWrapper' has been renamed to/replaced by 'firefox'"; # Converted to throw 2022-02-22
@@ -798,6 +801,7 @@ mapAliases ({
   nix_2_4 = nixVersions.nix_2_4;
   nix_2_5 = nixVersions.nix_2_5;
   nix_2_6 = nixVersions.nix_2_6;
+  nixopsUnstable = nixops_unstable; # Added 2022-03-03
   nmap-unfree = nmap; # Added 2021-04-06
   nmap_graphical = throw "'nmap_graphical' has been renamed to/replaced by 'nmap-graphical'"; # Converted to throw 2022-02-22
   nologin = throw "'nologin' has been renamed to/replaced by 'shadow'"; # Converted to throw 2022-02-22
@@ -1121,8 +1125,6 @@ mapAliases ({
   source-han-serif-korean = source-han-serif;
   source-han-serif-simplified-chinese = source-han-serif;
   source-han-serif-traditional-chinese = source-han-serif;
-  source-sans-pro = source-sans; # Added 2021-10-20
-  source-serif-pro = source-serif; # Added 2021-10-20
 
   spaceOrbit = throw "'spaceOrbit' has been renamed to/replaced by 'space-orbit'"; # Converted to throw 2022-02-22
   spectral = neochat; # Added 2020-12-27
@@ -1193,6 +1195,7 @@ mapAliases ({
   thunderbird-bin-68 = thunderbird-68;
   timescale-prometheus = promscale; # Added 2020-09-29
   timetable = throw "timetable has been removed, as the upstream project has been abandoned"; # Added 2021-09-05
+  tkcvs = tkrev; # Added 2022-03-07
   togglesg-download = throw "togglesg-download was removed 2021-04-30 as it's unmaintained"; # Added 2021-04-30
   tomboy = throw "tomboy is not actively developed anymore and was removed."; # Added 2022-01-27
   tomcat7 = throw "tomcat7 has been removed from nixpkgs as it has reached end of life."; # Added 2021-06-16
@@ -1439,6 +1442,7 @@ mapAliases ({
 
   inherit (plasma5Packages.thirdParty)
     krohnkite
+    krunner-ssh
     krunner-symbols
     kwin-dynamic-workspaces
     kwin-tiling

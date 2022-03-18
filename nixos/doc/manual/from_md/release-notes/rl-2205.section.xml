@@ -50,6 +50,18 @@
           granular distinction between reloads and restarts.
         </para>
       </listitem>
+      <listitem>
+        <para>
+          <link xlink:href="https://kops.sigs.k8s.io"><literal>kops</literal></link>
+          defaults to 1.22.4, which will enable
+          <link xlink:href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html">Instance
+          Metadata Service Version 2</link> and require tokens on new
+          clusters with Kubernetes 1.22. This will increase security by
+          default, but may break some types of workloads. See the
+          <link xlink:href="https://kops.sigs.k8s.io/releases/1.22-notes/">release
+          notes</link> for details.
+        </para>
+      </listitem>
     </itemizedlist>
   </section>
   <section xml:id="sec-release-22.05-new-services">
@@ -106,6 +118,13 @@
           <link xlink:href="https://github.com/hifi/heisenbridge">heisenbridge</link>,
           a bouncer-style Matrix IRC bridge. Available as
           <link xlink:href="options.html#opt-services.heisenbridge.enable">services.heisenbridge</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <link xlink:href="https://snowflake.torproject.org/">snowflake-proxy</link>,
+          a system to defeat internet censorship. Available as
+          <link xlink:href="options.html#opt-services.snowflake-proxy.enable">services.snowflake-proxy</link>.
         </para>
       </listitem>
       <listitem>
@@ -170,6 +189,14 @@
       </listitem>
       <listitem>
         <para>
+          <link xlink:href="https://github.com/prometheus-pve/prometheus-pve-exporter">prometheus-pve-exporter</link>,
+          a tool that exposes information from the Proxmox VE API for
+          use by Prometheus. Available as
+          <link xlink:href="options.html#opt-services.prometheus.exporters.pve">services.prometheus.exporters.pve</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           <link xlink:href="https://tetrd.app">tetrd</link>, share your
           internet connection from your device to your PC and vice versa
           through a USB cable. Available at
@@ -224,9 +251,27 @@
       </listitem>
       <listitem>
         <para>
+          <link xlink:href="https://github.com/rfjakob/systembus-notify">systembus-notify</link>,
+          allow system level notifications to reach the users. Available
+          as
+          <link xlink:href="opt-services.systembus-notify.enable">services.systembus-notify</link>.
+          Please keep in mind that this service should only be enabled
+          on machines with fully trusted users, as any local user is
+          able to DoS user sessions by spamming notifications.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           <link xlink:href="https://github.com/audreyt/ethercalc">ethercalc</link>,
           an online collaborative spreadsheet. Available as
           <link xlink:href="options.html#opt-services.ethercalc.enable">services.ethercalc</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <link xlink:href="https://nbd.sourceforge.io/">nbd</link>, a
+          Network Block Device server. Available as
+          <link xlink:href="options.html#opt-services.nbd.server.enable">services.nbd</link>.
         </para>
       </listitem>
       <listitem>
@@ -347,6 +392,20 @@
       </listitem>
       <listitem>
         <para>
+          <literal>services.k3s.enable</literal> no longer implies
+          <literal>systemd.enableUnifiedCgroupHierarchy = false</literal>,
+          and will default to the <quote>systemd</quote> cgroup driver
+          when using <literal>services.k3s.docker = true</literal>. This
+          change may require a reboot to take effect, and k3s may not be
+          able to run if the boot cgroup hierarchy does not match its
+          configuration. The previous behavior may be retained by
+          explicitly setting
+          <literal>systemd.enableUnifiedCgroupHierarchy = false</literal>
+          in your configuration.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           The DHCP server (<literal>services.dhcpd4</literal>,
           <literal>services.dhcpd6</literal>) has been hardened. The
           service is now using the systemd’s
@@ -367,6 +426,116 @@
           The <literal>mailpile</literal> email webclient
           (<literal>services.mailpile</literal>) has been removed due to
           its reliance on python2.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          The <literal>matrix-synapse</literal> service
+          (<literal>services.matrix-synapse</literal>) has been
+          converted to use the <literal>settings</literal> option
+          defined in RFC42. This means that options that are part of
+          your <literal>homeserver.yaml</literal> configuration, and
+          that were specified at the top-level of the module
+          (<literal>services.matrix-synapse</literal>) now need to be
+          moved into
+          <literal>services.matrix-synapse.settings</literal>. And while
+          not all options you may use are defined in there, they are
+          still supported, because you can set arbitrary values in this
+          freeform type.
+        </para>
+        <para>
+          An example to make the required migration clearer:
+        </para>
+        <para>
+          Before:
+        </para>
+        <programlisting language="bash">
+{
+  services.matrix-synapse = {
+    enable = true;
+
+    server_name = &quot;example.com&quot;;
+    public_baseurl = &quot;https://example.com:8448&quot;;
+
+    enable_registration = false;
+    registration_shared_secret = &quot;xohshaeyui8jic7uutuDogahkee3aehuaf6ei3Xouz4iicie5thie6nohNahceut&quot;;
+    macaroon_secret_key = &quot;xoo8eder9seivukaiPh1cheikohquuw8Yooreid0The4aifahth3Ou0aiShaiz4l&quot;;
+
+    tls_certificate_path = &quot;/var/lib/acme/example.com/fullchain.pem&quot;;
+    tls_certificate_path = &quot;/var/lib/acme/example.com/fullchain.pem&quot;;
+
+    listeners = [ {
+      port = 8448;
+      bind_address = &quot;&quot;;
+      type = &quot;http&quot;;
+      tls = true;
+      resources = [ {
+        names = [ &quot;client&quot; ];
+        compress = true;
+      } {
+        names = [ &quot;federation&quot; ];
+        compress = false;
+      } ];
+    } ];
+
+  };
+}
+</programlisting>
+        <para>
+          After:
+        </para>
+        <programlisting language="bash">
+{
+  services.matrix-synapse = {
+    enable = true;
+
+    # this attribute set holds all values that go into your homeserver.yaml configuration
+    # See https://github.com/matrix-org/synapse/blob/develop/docs/sample_config.yaml for
+    # possible values.
+    settings = {
+      server_name = &quot;example.com&quot;;
+      public_baseurl = &quot;https://example.com:8448&quot;;
+
+      enable_registration = false;
+      # pass `registration_shared_secret` and `macaroon_secret_key` via `extraConfigFiles` instead
+
+      tls_certificate_path = &quot;/var/lib/acme/example.com/fullchain.pem&quot;;
+      tls_certificate_path = &quot;/var/lib/acme/example.com/fullchain.pem&quot;;
+
+      listeners = [ {
+        port = 8448;
+        bind_address = [
+          &quot;::&quot;
+          &quot;0.0.0.0&quot;
+        ];
+        type = &quot;http&quot;;
+        tls = true;
+        resources = [ {
+          names = [ &quot;client&quot; ];
+          compress = true;
+        } {
+          names = [ &quot;federation&quot; ];
+          compress = false;
+        } ];
+      } ];
+    };
+
+    extraConfigFiles = [
+      /run/keys/matrix-synapse/secrets.yaml
+    ];
+  };
+}
+</programlisting>
+        <para>
+          The secrets in your original config should be migrated into a
+          YAML file that is included via
+          <literal>extraConfigFiles</literal>.
+        </para>
+        <para>
+          Additionally a few option defaults have been synced up with
+          upstream default values, for example the
+          <literal>max_upload_size</literal> grew from
+          <literal>10M</literal> to <literal>50M</literal>.
         </para>
       </listitem>
       <listitem>
@@ -625,6 +794,18 @@
       </listitem>
       <listitem>
         <para>
+          The <literal>dendrite</literal> package has been upgraded from
+          0.5.1 to
+          <link xlink:href="https://github.com/matrix-org/dendrite/releases/tag/v0.6.5">0.6.5</link>.
+          Instances configured with split sqlite databases, which has
+          been the default in NixOS, require merging of the federation
+          sender and signing key databases. See upstream
+          <link xlink:href="https://github.com/matrix-org/dendrite/releases/tag/v0.6.0">release
+          notes</link> on version 0.6.0 for details on database changes.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           The existing <literal>pkgs.opentelemetry-collector</literal>
           has been moved to
           <literal>pkgs.opentelemetry-collector-contrib</literal> to
@@ -654,6 +835,58 @@
           <literal>pkgs.noto-fonts-cjk</literal> is currently an alias
           of <literal>pkgs.noto-fonts-cjk-sans</literal> and doesn’t
           include serif fonts.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <literal>pkgs.epgstation</literal> has been upgraded from v1
+          to v2, resulting in incompatible changes in the database
+          scheme and configuration format.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Some top-level settings under
+          <link linkend="opt-services.epgstation.enable">services.epgstation</link>
+          is now deprecated because it was redudant due to the same
+          options being present in
+          <link linkend="opt-services.epgstation.settings">services.epgstation.settings</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          The option <literal>services.epgstation.basicAuth</literal>
+          was removed because basic authentication support was dropped
+          by upstream.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          The option
+          <link linkend="opt-services.epgstation.database.passwordFile">services.epgstation.database.passwordFile</link>
+          no longer has a default value. Make sure to set this option
+          explicitly before upgrading. Change the database password if
+          necessary.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          The
+          <link linkend="opt-services.epgstation.settings">services.epgstation.settings</link>
+          option now expects options for <literal>config.yml</literal>
+          in EPGStation v2.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Existing data for the
+          <link linkend="opt-services.epgstation.enable">services.epgstation</link>
+          module would have to be backed up prior to the upgrade. To
+          back up exising data to
+          <literal>/tmp/epgstation.bak</literal>, run
+          <literal>sudo -u epgstation epgstation run backup /tmp/epgstation.bak</literal>.
+          To import that data after to the upgrade, run
+          <literal>sudo -u epgstation epgstation run v1migrate /tmp/epgstation.bak</literal>
         </para>
       </listitem>
       <listitem>
@@ -941,6 +1174,12 @@
       </listitem>
       <listitem>
         <para>
+          <literal>programs.zsh.autosuggestions.strategy</literal> now
+          takes a list of strings instead of a string.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           The <literal>services.unifi.openPorts</literal> option default
           value of <literal>true</literal> is now deprecated and will be
           changed to <literal>false</literal> in 22.11. Configurations
@@ -1148,6 +1387,16 @@
       </listitem>
       <listitem>
         <para>
+          The <literal>pomerium-cli</literal> command has been moved out
+          of the <literal>pomerium</literal> package into the
+          <literal>pomerium-cli</literal> package, following upstream’s
+          repository split. If you are using the
+          <literal>pomerium-cli</literal> command, you should now
+          install the <literal>pomerium-cli</literal> package.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           The option
           <link linkend="opt-networking.networkmanager.enableFccUnlock">services.networking.networkmanager.enableFccUnlock</link>
           was added to support FCC unlock procedures. Since release
@@ -1164,6 +1413,14 @@
           from the <literal>tmuxPlugins</literal> group. The specified
           packages are added to the system and loaded by
           <literal>tmux</literal>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          The polkit service, available at
+          <literal>security.polkit.enable</literal>, is now disabled by
+          default. It will automatically be enabled through services and
+          desktop environments as needed.
         </para>
       </listitem>
     </itemizedlist>
