@@ -1901,6 +1901,12 @@
     githubId = 82591;
     name = "Carl Sverre";
   };
+  carpinchomug = {
+    email = "aki.suda@protonmail.com";
+    github = "carpinchomug";
+    githubId = 101536256;
+    name = "Akiyoshi Suda";
+  };
   cartr = {
     email = "carter.sande@duodecima.technology";
     github = "cartr";
@@ -7241,6 +7247,12 @@
     githubId = 918448;
     name = "Anthony Lodi";
   };
+  loicreynier = {
+    email = "loic@loireynier.fr";
+    github = "loicreynier";
+    githubId = 88983487;
+    name = "Loïc Reynier";
+  };
   lopsided98 = {
     email = "benwolsieffer@gmail.com";
     github = "lopsided98";
@@ -8709,6 +8721,12 @@
       longkeyid = "rsa4096/0x916D8B67241892AE";
       fingerprint = "4BFF 0614 03A2 47F0 AA0B 4BC4 916D 8B67 2418 92AE";
     }];
+  };
+  nbr = {
+    email = "nbr@users.noreply.github.com";
+    github = "nbr";
+    githubId = 3819225;
+    name = "Nick Braga";
   };
   nbren12 = {
     email = "nbren12@gmail.com";
@@ -10373,6 +10391,12 @@
     github = "wineee";
     githubId = 22803888;
     name = "Lu Hongxu";
+  };
+  rgnns = {
+    email = "jglievano@gmail.com";
+    github = "rgnns";
+    githubId = 811827;
+    name = "Gabriel Lievano";
   };
   rgrunbla = {
     email = "remy@grunblatt.org";
