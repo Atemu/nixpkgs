@@ -130,6 +130,7 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./0001-meson-patch-in-an-install-prefix-for-building-on-nix.patch
+    ./0001-qemu-segmentation-fault-in-virtqemud-executing-qemuD.patch
   ];
 
   # remove some broken tests
@@ -330,7 +331,6 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://libvirt.org/";
-    repositories.git = "git://libvirt.org/libvirt.git";
     description = ''
       A toolkit to interact with the virtualization capabilities of recent
       versions of Linux (and other OSes)

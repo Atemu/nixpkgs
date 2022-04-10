@@ -166,6 +166,13 @@ in {
       ];
     };
 
+    linux_5_17 = callPackage ../os-specific/linux/kernel/linux-5.17.nix {
+      kernelPatches = [
+        kernelPatches.bridge_stp_helper
+        kernelPatches.request_key_helper
+      ];
+    };
+
     linux_testing = let
       testing = callPackage ../os-specific/linux/kernel/linux-testing.nix {
         kernelPatches = [
@@ -179,7 +186,7 @@ in {
        else testing;
 
     linux_testing_bcachefs = callPackage ../os-specific/linux/kernel/linux-testing-bcachefs.nix rec {
-      kernel = linux_5_15;
+      kernel = linux_5_16;
       kernelPatches = kernel.kernelPatches;
    };
 
@@ -309,6 +316,8 @@ in {
     asus-wmi-sensors = callPackage ../os-specific/linux/asus-wmi-sensors {};
 
     ena = callPackage ../os-specific/linux/ena {};
+
+    kvdo = callPackage ../os-specific/linux/kvdo {};
 
     liquidtux = callPackage ../os-specific/linux/liquidtux {};
 
@@ -469,7 +478,7 @@ in {
 
     can-isotp = callPackage ../os-specific/linux/can-isotp { };
 
-  } // lib.optionalAttrs (config.allowAliases or false) {
+  } // lib.optionalAttrs config.allowAliases {
     ati_drivers_x11 = throw "ati drivers are no longer supported by any kernel >=4.1"; # added 2021-05-18;
   });
 
@@ -485,6 +494,7 @@ in {
     linux_5_10 = recurseIntoAttrs (packagesFor kernels.linux_5_10);
     linux_5_15 = recurseIntoAttrs (packagesFor kernels.linux_5_15);
     linux_5_16 = recurseIntoAttrs (packagesFor kernels.linux_5_16);
+    linux_5_17 = recurseIntoAttrs (packagesFor kernels.linux_5_17);
   };
 
   rtPackages = {
@@ -529,7 +539,7 @@ in {
   packageAliases = {
     linux_default = if stdenv.hostPlatform.isi686 then packages.linux_5_10 else packages.linux_5_15;
     # Update this when adding the newest kernel major version!
-    linux_latest = packages.linux_5_16;
+    linux_latest = packages.linux_5_17;
     linux_mptcp = packages.linux_mptcp_95;
     linux_rt_default = packages.linux_rt_5_4;
     linux_rt_latest = packages.linux_rt_5_10;

@@ -75,7 +75,7 @@ with pkgs;
           optionalExtensions = cond: as: if cond then as else [];
           python2Extension = import ../../../top-level/python2-packages.nix;
           extensions = lib.composeManyExtensions ((optionalExtensions (!self.isPy3k) [python2Extension]) ++ [ overrides ]);
-          aliases = self: super: lib.optionalAttrs (config.allowAliases or true) (import ../../../top-level/python-aliases.nix lib self super);
+          aliases = self: super: lib.optionalAttrs config.allowAliases (import ../../../top-level/python-aliases.nix lib self super);
         in lib.makeScopeWithSplicing
           pkgs.splicePackages
           pkgs.newScope
@@ -124,19 +124,19 @@ with pkgs;
       sourceVersion = {
         major = "3";
         minor = "9";
-        patch = "10";
+        patch = "11";
         suffix = "";
       };
-      sha256 = "sha256-Co+/tSh+vDoT6brz1U4I+gZ3j/7M9jEa74Ibs6ZYbMg=";
+      sha256 = "sha256-ZnZ6NTCdck83DfnlA8FytO5ET0nWK5i8TspyUSPibEk=";
     };
     python310 = {
       sourceVersion = {
         major = "3";
         minor = "10";
-        patch = "2";
+        patch = "3";
         suffix = "";
       };
-      sha256 = "sha256-F946x9qfJRmqnWQ3jGA6c6DprVjf+ogS5FFgwIbeZMc=";
+      sha256 = "sha256-WWxy3pmNw5IFvE9w7w2/ft7HQKMG0JtJqb0Kd4BnMNw=";
     };
   };
 
