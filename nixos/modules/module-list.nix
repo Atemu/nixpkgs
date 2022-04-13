@@ -185,6 +185,7 @@
   ./programs/nbd.nix
   ./programs/nix-ld.nix
   ./programs/neovim.nix
+  ./programs/nethoscope.nix
   ./programs/nm-applet.nix
   ./programs/nncp.nix
   ./programs/npm.nix
@@ -816,6 +817,7 @@
   ./services/networking/mosquitto.nix
   ./services/networking/monero.nix
   ./services/networking/morty.nix
+  ./services/networking/mozillavpn.nix
   ./services/networking/miredo.nix
   ./services/networking/mstpd.nix
   ./services/networking/mtprotoproxy.nix
@@ -851,6 +853,7 @@
   ./services/networking/ofono.nix
   ./services/networking/oidentd.nix
   ./services/networking/onedrive.nix
+  ./services/networking/openconnect.nix
   ./services/networking/openvpn.nix
   ./services/networking/ostinato.nix
   ./services/networking/owamp.nix
