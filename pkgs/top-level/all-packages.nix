@@ -21308,6 +21308,10 @@ with pkgs;
 
   dcnnt = python3Packages.callPackage ../servers/dcnnt { };
 
+  debug_from_qr = callPackage ../misc/debug_from_qr {
+    inherit (androidenv.androidPkgs_9_0) platform-tools;
+  };
+
   dendrite = callPackage ../servers/dendrite { };
 
   dex-oidc = callPackage ../servers/dex { };
