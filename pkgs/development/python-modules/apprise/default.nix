@@ -13,21 +13,21 @@
 , pythonOlder
 , pyyaml
 , requests
-, requests_oauthlib
+, requests-oauthlib
 , six
 , slixmpp
 }:
 
 buildPythonPackage rec {
   pname = "apprise";
-  version = "0.9.7";
+  version = "0.9.8";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-BOMeSvwmGiZvA95+e2bceCGXRwowU5+zJAl7Sn4wKqM=";
+    hash = "sha256-PK1WxfJHWHbe/l+/6woBA2Gik+rKF5Uiuf35r4KNzEM=";
   };
 
   nativeBuildInputs = [
@@ -41,7 +41,7 @@ buildPythonPackage rec {
     markdown
     pyyaml
     requests
-    requests_oauthlib
+    requests-oauthlib
     six
   ];
 

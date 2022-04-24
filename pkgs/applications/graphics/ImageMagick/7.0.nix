@@ -29,7 +29,7 @@
 , curl
 , ApplicationServices
 , Foundation
-, testVersion
+, testers
 , imagemagick
 }:
 
@@ -45,13 +45,13 @@ in
 
 stdenv.mkDerivation rec {
   pname = "imagemagick";
-  version = "7.1.0-29";
+  version = "7.1.0-30";
 
   src = fetchFromGitHub {
     owner = "ImageMagick";
     repo = "ImageMagick";
     rev = version;
-    hash = "sha256-46fJMOIGnK5aNIcG7+8mJdZDcSFyFmhmkLcuVlnupSU=";
+    hash = "sha256-FfZJfjuQmYvYuOi18cZdr3Nam98/j+ZTGRwsd1sslsY=";
   };
 
   outputs = [ "out" "dev" "doc" ]; # bin/ isn't really big
@@ -120,7 +120,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.tests.version =
-    testVersion { package = imagemagick; };
+    testers.testVersion { package = imagemagick; };
 
   meta = with lib; {
     homepage = "http://www.imagemagick.org/";
