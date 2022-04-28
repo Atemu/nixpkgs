@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, pkg-config, zlib, shadow, libcap_ng
+{ lib, stdenv, fetchFromGitHub, pkg-config, zlib, shadow, libcap_ng, autoreconfHook, gtk-doc
 , ncursesSupport ? true
 , ncurses, pam
 , systemdSupport ? stdenv.isLinux
@@ -10,9 +10,11 @@ stdenv.mkDerivation rec {
   pname = "util-linux" + lib.optionalString (!nlsSupport && !ncursesSupport && !systemdSupport) "-minimal";
   version = "2.37.4";
 
-  src = fetchurl {
-    url = "mirror://kernel/linux/utils/util-linux/v${lib.versions.majorMinor version}/util-linux-${version}.tar.xz";
-    sha256 = "sha256-Y05pFq2RM2bDU2tkaOeER2lUm5mnsr+AMU3nirVlW4M=";
+  src = fetchFromGitHub {
+    owner = pname;
+    repo = pname;
+    rev = "v${version}";
+    sha256 = "sha256-jpx0m22nIqrwl3/LWBdbfGYPrr2M+CmMVhQiAZDoMPY=";
   };
 
   patches = [
@@ -58,7 +60,7 @@ stdenv.mkDerivation rec {
     "usrsbin_execdir=${placeholder "bin"}/sbin"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [ pkg-config autoreconfHook gtk-doc ];
   buildInputs = [ zlib pam libcap_ng ]
     ++ lib.optionals ncursesSupport [ ncurses ]
     ++ lib.optionals systemdSupport [ systemd ];
