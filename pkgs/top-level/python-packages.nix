@@ -513,9 +513,7 @@ in {
 
   ansi2html = callPackage ../development/python-modules/ansi2html { };
 
-  ansible = callPackage ../development/python-modules/ansible/legacy.nix { };
-
-  ansible-base = callPackage ../development/python-modules/ansible/base.nix { };
+  ansible = callPackage ../development/python-modules/ansible { };
 
   ansible-compat = callPackage ../development/python-modules/ansible-compat { };
 
@@ -630,6 +628,8 @@ in {
   aria2p = callPackage ../development/python-modules/aria2p { };
 
   arrayqueues = callPackage ../development/python-modules/arrayqueues { };
+
+  arris-tg2492lg = callPackage ../development/python-modules/arris-tg2492lg { };
 
   arrow = callPackage ../development/python-modules/arrow { };
 
@@ -2099,6 +2099,8 @@ in {
 
   dbutils = callPackage ../development/python-modules/dbutils { };
 
+  db-dtypes = callPackage ../development/python-modules/db-dtypes { };
+
   dcmstack = callPackage ../development/python-modules/dcmstack { };
 
   ddt = callPackage ../development/python-modules/ddt { };
@@ -2407,8 +2409,6 @@ in {
   dmenu-python = callPackage ../development/python-modules/dmenu { };
 
   dm-haiku = callPackage ../development/python-modules/dm-haiku { };
-
-  dm-sonnet = callPackage ../development/python-modules/dm-sonnet { };
 
   dm-tree = callPackage ../development/python-modules/dm-tree {
     abseil-cpp = pkgs.abseil-cpp.override {
@@ -2875,7 +2875,7 @@ in {
 
   feedparser = callPackage ../development/python-modules/feedparser { };
 
-  fenics = callPackage ../development/libraries/science/math/fenics {
+  fenics = callPackage ../development/python-modules/fenics {
     hdf5 = pkgs.hdf5_1_10;
     boost = pkgs.boost169;
   };
@@ -2929,6 +2929,8 @@ in {
   first = callPackage ../development/python-modules/first { };
 
   fitbit = callPackage ../development/python-modules/fitbit { };
+
+  fivem-api = callPackage ../development/python-modules/fivem-api { };
 
   fixerio = callPackage ../development/python-modules/fixerio { };
 
@@ -3375,6 +3377,8 @@ in {
 
   git-sweep = callPackage ../development/python-modules/git-sweep { };
 
+  glad =  callPackage ../development/python-modules/glad { };
+
   glances-api = callPackage ../development/python-modules/glances-api { };
 
   glasgow = callPackage ../development/python-modules/glasgow { };
@@ -3440,6 +3444,8 @@ in {
   google-cloud-bigquery-datatransfer = callPackage ../development/python-modules/google-cloud-bigquery-datatransfer { };
 
   google-cloud-bigquery-logging = callPackage ../development/python-modules/google-cloud-bigquery-logging { };
+
+  google-cloud-bigquery-storage = callPackage ../development/python-modules/google-cloud-bigquery-storage { };
 
   google-cloud-bigtable = callPackage ../development/python-modules/google-cloud-bigtable { };
 
@@ -3581,8 +3587,6 @@ in {
   graphite_beacon = callPackage ../development/python-modules/graphite_beacon { };
 
   graphite-web = callPackage ../development/python-modules/graphite-web { };
-
-  graph_nets = callPackage ../development/python-modules/graph_nets { };
 
   graphene = callPackage ../development/python-modules/graphene { };
 
@@ -3814,6 +3818,8 @@ in {
   hiyapyco = callPackage ../development/python-modules/hiyapyco { };
 
   hjson = callPackage ../development/python-modules/hjson { };
+
+  hkavr = callPackage ../development/python-modules/hkavr { };
 
   hkdf = callPackage ../development/python-modules/hkdf { };
 
@@ -5537,8 +5543,6 @@ in {
 
   nestedtext = callPackage ../development/python-modules/nestedtext { };
 
-  net2grid = callPackage ../development/python-modules/net2grid { };
-
   netaddr = callPackage ../development/python-modules/netaddr { };
 
   netcdf4 = callPackage ../development/python-modules/netcdf4 { };
@@ -6128,6 +6132,8 @@ in {
 
   pecan = callPackage ../development/python-modules/pecan { };
 
+  peco = callPackage ../development/python-modules/peco { };
+
   peewee = callPackage ../development/python-modules/peewee { };
 
   pefile = callPackage ../development/python-modules/pefile { };
@@ -6203,6 +6209,8 @@ in {
   parameterizedtestcase = callPackage ../development/python-modules/parameterizedtestcase { };
 
   pdunehd = callPackage ../development/python-modules/pdunehd { };
+
+  pencompy = callPackage ../development/python-modules/pencompy { };
 
   pixcat = callPackage ../development/python-modules/pixcat { };
 
@@ -7491,6 +7499,8 @@ in {
 
   pyopnsense = callPackage ../development/python-modules/pyopnsense { };
 
+  pyoppleio = callPackage ../development/python-modules/pyoppleio { };
+
   pyosf = callPackage ../development/python-modules/pyosf { };
 
   pyosmium = callPackage ../development/python-modules/pyosmium {
@@ -7705,6 +7715,8 @@ in {
 
   pyruckus = callPackage ../development/python-modules/pyruckus { };
 
+  pysaj = callPackage ../development/python-modules/pysaj { };
+
   pysam = callPackage ../development/python-modules/pysam { };
 
   pysaml2 = callPackage ../development/python-modules/pysaml2 {
@@ -7744,6 +7756,8 @@ in {
   pysecuritas = callPackage ../development/python-modules/pysecuritas { };
 
   pysendfile = callPackage ../development/python-modules/pysendfile { };
+
+  pysensibo = callPackage ../development/python-modules/pysensibo { };
 
   pysensors = callPackage ../development/python-modules/pysensors { };
 
@@ -8940,6 +8954,8 @@ in {
   rivet = toPythonModule (pkgs.rivet.override {
     python3 = python;
   });
+
+  rjpl = callPackage ../development/python-modules/rjpl { };
 
   rjsmin = callPackage ../development/python-modules/rjsmin { };
 
@@ -10561,6 +10577,8 @@ in {
 
   urwid-readline = callPackage ../development/python-modules/urwid-readline { };
 
+  usbrelay-py = callPackage ../os-specific/linux/usbrelay/python.nix { };
+
   usbtmc = callPackage ../development/python-modules/usbtmc { };
 
   us = callPackage ../development/python-modules/us { };
@@ -10657,7 +10675,9 @@ in {
 
   vispy = callPackage ../development/python-modules/vispy { };
 
-  vivisect = callPackage ../development/python-modules/vivisect { };
+  vivisect = callPackage ../development/python-modules/vivisect {
+    inherit (pkgs.libsForQt5) wrapQtAppsHook;
+  };
 
   viv-utils = callPackage ../development/python-modules/viv-utils { };
 
@@ -11220,6 +11240,8 @@ in {
   };
 
   zulip = callPackage ../development/python-modules/zulip { };
+
+  zwave-me-ws = callPackage ../development/python-modules/zwave-me-ws { };
 
   zwave-js-server-python = callPackage ../development/python-modules/zwave-js-server-python { };
 

@@ -459,6 +459,7 @@
   ./services/hardware/udisks2.nix
   ./services/hardware/upower.nix
   ./services/hardware/usbmuxd.nix
+  ./services/hardware/usbrelayd.nix
   ./services/hardware/thermald.nix
   ./services/hardware/undervolt.nix
   ./services/hardware/vdr.nix
@@ -740,6 +741,7 @@
   ./services/networking/coredns.nix
   ./services/networking/corerad.nix
   ./services/networking/coturn.nix
+  ./services/networking/create_ap.nix
   ./services/networking/croc.nix
   ./services/networking/dante.nix
   ./services/networking/ddclient.nix

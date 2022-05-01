@@ -11074,22 +11074,6 @@
     githubId = 132835;
     name = "Samuel Dionne-Riel";
   };
-  samuelgrf = {
-    email = "s@muel.gr";
-    github = "samuelgrf";
-    githubId = 67663538;
-    name = "Samuel Gräfenstein";
-    keys = [
-      {
-        longkeyid = "rsa4096/0xDE75F92E318123F0";
-        fingerprint = "6F2E 2A90 423C 8111 BFF2  895E DE75 F92E 3181 23F0";
-      }
-      {
-        longkeyid = "rsa4096/0xEF76A063F15C63C8";
-        fingerprint = "FF24 5832 8FAF 4660 18C6  186E EF76 A063 F15C 63C8";
-      }
-    ];
-  };
   samuelrivas = {
     email = "samuelrivas@gmail.com";
     github = "samuelrivas";
@@ -11331,6 +11315,12 @@
     github = "seqizz";
     githubId = 307899;
     name = "Gurkan Gur";
+  };
+  serge = {
+    email = "sb@canva.com";
+    github = "serge-belov";
+    githubId = 38824235;
+    name = "Serge Belov";
   };
   sersorrel = {
     email = "ash@sorrel.sh";
@@ -14391,5 +14381,11 @@
     email = "martin+nixpkgs@elias.sx";
     github = "melias122";
     githubId = 1027766;
+  };
+  bryanhonof = {
+    name = "Bryan Honof";
+    email = "bryanhonof@gmail.com";
+    github = "bryanhonof";
+    githubId = 5932804;
   };
 }
