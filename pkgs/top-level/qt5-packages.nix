@@ -146,7 +146,11 @@ in (kdeFrameworks // plasmaMobileGear // plasma5 // plasma5.thirdParty // kdeGea
 
   mauikit = callPackage ../development/libraries/mauikit { };
 
+  mauikit-accounts = callPackage ../development/libraries/mauikit-accounts { };
+
   mauikit-filebrowsing = callPackage ../development/libraries/mauikit-filebrowsing { };
+
+  mauikit-texteditor = callPackage ../development/libraries/mauikit-texteditor { };
 
   mlt = callPackage ../development/libraries/mlt/qt-5.nix { };
 
@@ -163,12 +167,6 @@ in (kdeFrameworks // plasmaMobileGear // plasma5 // plasma5.thirdParty // kdeGea
   polkit-qt = callPackage ../development/libraries/polkit-qt-1 { };
 
   poppler = callPackage ../development/libraries/poppler {
-    lcms = pkgs.lcms2;
-    qt5Support = true;
-    suffix = "qt5";
-  };
-
-  poppler_0_61 = callPackage ../development/libraries/poppler/0.61.nix {
     lcms = pkgs.lcms2;
     qt5Support = true;
     suffix = "qt5";

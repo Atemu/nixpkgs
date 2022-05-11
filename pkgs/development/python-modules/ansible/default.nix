@@ -20,7 +20,7 @@
 
 let
   pname = "ansible";
-  version = "5.6.0";
+  version = "5.7.1";
 in
 buildPythonPackage {
   inherit pname version;
@@ -30,7 +30,7 @@ buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-rNMHMUNBVNo3bO7rQW7hVBzfuOo8ZIAjpVo0yz7K+fM=";
+    sha256 = "sha256-kKCaNFENGU1jVWiVoiWonkqLdIua4hW1XlF6N94GOmE=";
   };
 
   postPatch = ''
@@ -78,6 +78,7 @@ buildPythonPackage {
   meta = with lib; {
     description = "Radically simple IT automation";
     homepage = "https://www.ansible.com";
+    changelog = "https://github.com/ansible-community/ansible-build-data/blob/${version}/${lib.versions.major version}/CHANGELOG-v${lib.versions.major version}.rst";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ hexa ];
   };

@@ -8,6 +8,7 @@
 , ninja
 , pkg-config
 , reuse
+, m4
 , wrapGAppsHook4
 , glib
 , gtk4
@@ -18,20 +19,20 @@
 
 stdenv.mkDerivation rec {
   pname = "amberol";
-  version = "0.3.0";
+  version = "0.6.0";
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
     owner = "World";
     repo = pname;
     rev = version;
-    sha256 = "sha256-+9lrSkjk7V+ZnIhmhw7lEiEywDp5adoAW+5PEAlhpSI=";
+    hash = "sha256-7cwoP2Dvlrq44orckhCjFGrSVDuG8WdW8wbpAjD5zhI=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
     name = "${pname}-${version}";
-    sha256 = "sha256-ZJiD6RshEjZ7h+/KYcY+ZjL5fHRb5+RKgIdgbD6LdkA=";
+    hash = "sha256-CGPDaVS8F7H/tH0lRjFloWmZmW8NHheyZRCCqEavWeo=";
   };
 
   postPatch = ''
@@ -45,6 +46,7 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
     reuse
+    m4
     wrapGAppsHook4
   ] ++ (with rustPlatform; [
     cargoSetupHook

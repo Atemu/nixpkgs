@@ -64,6 +64,7 @@ mapAliases ({
   dogpile-core = throw "dogpile-core is no longer maintained, use dogpile-cache instead"; # added 2021-11-20
   eebrightbox = throw "eebrightbox is unmaintained upstream and has therefore been removed"; # added 2022-02-03
   faulthandler = throw "faulthandler is built into ${python.executable}"; # added 2021-07-12
+  flask_testing = flask-testing; # added 2022-04-25
   garminconnect-ha = garminconnect; # added 2022-02-05
   gitdb2 = throw "gitdb2 has been deprecated, use gitdb instead."; # added 2020-03-14
   glances = throw "glances has moved to pkgs.glances"; # added 2020-20-28
@@ -78,8 +79,10 @@ mapAliases ({
   jupyter_client = jupyter-client; # added 2021-10-15
   Keras = keras; # added 2021-11-25
   lammps-cython = throw "lammps-cython no longer builds and is unmaintained"; # added 2021-07-04
+  loo-py = loopy; # added 2022-05-03
   Markups = markups; # added 2022-02-14
   MechanicalSoup = mechanicalsoup; # added 2021-06-01
+  memcached = python-memcached; # added 2022-05-06
   net2grid = gridnet; # add 2022-04-22
   nose-cover3 = throw "nose-cover3 has been removed, it was using setuptools 2to3 translation feature, which has been removed in setuptools 58"; # added 2022-02-16
   pam = python-pam; # added 2020-09-07.
@@ -106,6 +109,7 @@ mapAliases ({
   pytestrunner = pytest-runner; # added 2021-01-04
   python-igraph = igraph; # added 2021-11-11
   python-lz4 = lz4; # added 2018-06-01
+  python_magic = python-magic; # added 2022-05-07
   python_mimeparse = python-mimeparse; # added 2021-10-31
   python-subunit = subunit; # added 2021-09-10
   pytest_xdist = pytest-xdist; # added 2021-01-04
