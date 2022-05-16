@@ -7,6 +7,12 @@ let
     hash = "sha256-P9pRPfzBVQNhWp6ulDiBgV/ki2C0CTbIRV6KRhUD+vQ=";
   };
 
+  ttVariant = {
+    inherit (stableVariant) version;
+    suffix = "xanmod1-tt";
+    hash = "sha256-xzqjgeS09pfQIODZ0KWLlaOduWIZQI6VqRV19mjGIVk=";
+  };
+
   edgeVariant = {
     version = "5.17.8";
     suffix = "xanmod1";
@@ -77,5 +83,6 @@ let
 in
 {
   stable = xanmodKernelFor stableVariant;
+  tt = xanmodKernelFor ttVariant;
   edge = xanmodKernelFor edgeVariant;
 }
