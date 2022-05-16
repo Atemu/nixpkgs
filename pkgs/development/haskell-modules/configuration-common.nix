@@ -99,7 +99,7 @@ self: super: {
       name = "git-annex-${super.git-annex.version}-src";
       url = "git://git-annex.branchable.com/";
       rev = "refs/tags/" + super.git-annex.version;
-      sha256 = "066gs2lkkiz9z9n6rjg33wmgi04qmn6xpnx86j0x3d56r1110id4";
+      sha256 = "sha256-NYe34bsq2v0rlmcSMgYvU9ec94meXFFJoWo0sIjX/bY=";
       # delete android and Android directories which cause issues on
       # darwin (case insensitive directory). Since we don't need them
       # during the build process, we can delete it to prevent a hash
@@ -334,15 +334,7 @@ self: super: {
   matplotlib = dontCheck super.matplotlib;
 
   # https://github.com/matterhorn-chat/matterhorn/issues/679 they do not want to be on stackage
-  matterhorn = doJailbreak (super.matterhorn.overrideScope (self: super: {
-    brick = self.brick_0_64_2;
-    # Doesn't support aeson 2.0
-    # https://github.com/matterhorn-chat/matterhorn/issues/759
-    aeson = self.aeson_1_5_6_0;
-  }));
-  mattermost-api = super.mattermost-api.override {
-    aeson = self.aeson_1_5_6_0;
-  };
+  matterhorn = doJailbreak super.matterhorn;
 
   memcache = dontCheck super.memcache;
   metrics = dontCheck super.metrics;
