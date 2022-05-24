@@ -1953,6 +1953,12 @@
     githubId = 7435854;
     name = "Victor Calvert";
   };
+  cameronfyfe = {
+    email = "cameron.j.fyfe@gmail.com";
+    github = "cameronfyfe";
+    githubId = 21013281;
+    name = "Cameron Fyfe";
+  };
   cameronnemo = {
     email = "cnemo@tutanota.com";
     github = "cameronnemo";
@@ -3655,6 +3661,12 @@
     github = "electrified";
     githubId = 103082;
     name = "Ed Brindley";
+  };
+  elizagamedev = {
+    email = "eliza@eliza.sh";
+    github = "elizagamedev";
+    githubId = 4576666;
+    name = "Eliza Velasquez";
   };
   elliot = {
     email = "hack00mind@gmail.com";
@@ -6703,13 +6715,13 @@
     name = "Jim Fowler";
   };
   kittywitch = {
-    email = "kat@kittywit.ch";
+    email = "kat@inskip.me";
     github = "kittywitch";
     githubId = 67870215;
-    name = "kat witch";
+    name = "Kat Inskip";
     keys = [{
-      longkeyid = "rsa4096/0x7248991EFA8EFBEE";
-      fingerprint = "01F5 0A29 D4AA 9117 5A11  BDB1 7248 991E FA8E FBEE";
+      longkeyid = "rsa4096/0xE8DDE3ED1C90F3A0";
+      fingerprint = "9CC6 44B5 69CD A59B C874  C4C9 E8DD E3ED 1C90 F3A0";
     }];
   };
   kiwi = {
@@ -10116,6 +10128,12 @@
     githubId = 81340136;
     name = "polykernel";
   };
+  poelzi = {
+    email = "nix@poelzi.org";
+    github = "poelzi";
+    githubId = 66107;
+    name = "Daniel Poelzleithner";
+  };
   polyrod = {
     email = "dc1mdp@gmail.com";
     github = "polyrod";
@@ -12428,6 +12446,16 @@
     githubId = 66133083;
     name = "Tomas Bravo";
   };
+  tchekda = {
+    email = "contact@tchekda.fr";
+    github = "tchekda";
+    githubId = 23559888;
+    keys = [{
+      longkeyid = "rsa4096/0xD0A007EDA4EADA0F";
+      fingerprint = "44CE A8DD 3B31 49CD 6246  9D8F D0A0 07ED A4EA DA0F";
+    }];
+    name = "David Tchekachev";
+  };
   tckmn = {
     email = "andy@tck.mn";
     github = "tckmn";
@@ -14541,5 +14569,17 @@
     email = "bryanhonof@gmail.com";
     github = "bryanhonof";
     githubId = 5932804;
+  };
+  bbenne10 = {
+    email = "Bryan.Bennett@protonmail.com";
+    matrix = "@bryan.bennett:matrix.org";
+    github = "bbenne10";
+    githubId = 687376;
+    name = "Bryan Bennett";
+    keys = [{
+      # compare with https://keybase.io/bbenne10
+      longkeyid = "rsa2048/0xEF90E3E98B8F5C0B";
+      fingerprint = "41EA 00B4 00F9 6970 1CB2  D3AF EF90 E3E9 8B8F 5C0B";
+    }];
   };
 }
