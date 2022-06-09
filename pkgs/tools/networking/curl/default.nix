@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, pkg-config, perl
+{ lib, stdenv, fetchurl, pkg-config, perl, nixosTests
 , brotliSupport ? false, brotli ? null
 , c-aresSupport ? false, c-ares ? null
 , gnutlsSupport ? false, gnutls ? null
@@ -171,9 +171,9 @@ stdenv.mkDerivation rec {
   '' + lib.optionalString scpSupport ''
     sed '/^dependency_libs/s|${lib.getDev libssh2}|${lib.getLib libssh2}|' -i "$out"/lib/*.la
   '' + lib.optionalString gnutlsSupport ''
-    ln $out/lib/libcurl.so $out/lib/libcurl-gnutls.so
-    ln $out/lib/libcurl.so $out/lib/libcurl-gnutls.so.4
-    ln $out/lib/libcurl.so $out/lib/libcurl-gnutls.so.4.4.0
+    ln $out/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libcurl-gnutls${stdenv.hostPlatform.extensions.sharedLibrary}
+    ln $out/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libcurl-gnutls${stdenv.hostPlatform.extensions.sharedLibrary}.4
+    ln $out/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libcurl-gnutls${stdenv.hostPlatform.extensions.sharedLibrary}.4.4.0
   '';
 
   passthru = {
@@ -184,6 +184,8 @@ stdenv.mkDerivation rec {
       ocaml-curly = ocamlPackages.curly;
       php-curl = phpExtensions.curl;
       pycurl = python3.pkgs.pycurl;
+      # Additional checking with support http3 protocol.
+      inherit (nixosTests) nginx-http3;
     };
   };
 

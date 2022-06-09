@@ -12,7 +12,7 @@
 
 buildPythonPackage rec {
   pname = "pyrogram";
-  version = "2.0.24";
+  version = "2.0.26";
 
   disabled = pythonOlder "3.7";
 
@@ -20,7 +20,7 @@ buildPythonPackage rec {
     owner = "pyrogram";
     repo = "pyrogram";
     rev = "v${version}";
-    hash = "sha256-YcVVXaPM+X+9prjgRYYSs8dkho3YKvtn/0FNJVnsrGM=";
+    hash = "sha256-R6EPraYusA3WVW9AGHpf6JkaX3dJ/ioL0lXgH0J3Kg8=";
   };
 
   propagatedBuildInputs = [

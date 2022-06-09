@@ -10,14 +10,8 @@ let
     inherit (stdenv) hostPlatform;
   };
 
-  makeOverlayable = mkDerivationSimple:
-    fnOrAttrs:
-      if builtins.isFunction fnOrAttrs
-      then makeDerivationExtensible mkDerivationSimple fnOrAttrs
-      else makeDerivationExtensibleConst mkDerivationSimple fnOrAttrs;
-
   # Based off lib.makeExtensible, with modifications:
-  makeDerivationExtensible = mkDerivationSimple: rattrs:
+  makeDerivationExtensible = rattrs:
     let
       # NOTE: The following is a hint that will be printed by the Nix cli when
       # encountering an infinite recursion. It must not be formatted into
@@ -48,14 +42,14 @@ let
                     f0 self super
                   else x;
             in
-              makeDerivationExtensible mkDerivationSimple
+              makeDerivationExtensible
                 (self: let super = rattrs self; in super // f self super))
           args;
     in finalPackage;
 
   # makeDerivationExtensibleConst == makeDerivationExtensible (_: attrs),
   # but pre-evaluated for a slight improvement in performance.
-  makeDerivationExtensibleConst = mkDerivationSimple: attrs:
+  makeDerivationExtensibleConst = attrs:
     mkDerivationSimple
       (f0:
         let
@@ -67,12 +61,10 @@ let
                 f0 self super
               else x;
         in
-          makeDerivationExtensible mkDerivationSimple (self: attrs // f self attrs))
+          makeDerivationExtensible (self: attrs // f self attrs))
       attrs;
 
-in
-
-makeOverlayable (overrideAttrs:
+  mkDerivationSimple = overrideAttrs:
 
 
 # `mkDerivation` wraps the builtin `derivation` function to
@@ -167,8 +159,8 @@ makeOverlayable (overrideAttrs:
 let
   # TODO(@oxij, @Ericson2314): This is here to keep the old semantics, remove when
   # no package has `doCheck = true`.
-  doCheck' = doCheck && stdenv.hostPlatform == stdenv.buildPlatform;
-  doInstallCheck' = doInstallCheck && stdenv.hostPlatform == stdenv.buildPlatform;
+  doCheck' = doCheck && stdenv.buildPlatform.canExecute stdenv.hostPlatform;
+  doInstallCheck' = doInstallCheck && stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
   separateDebugInfo' = separateDebugInfo && stdenv.hostPlatform.isLinux && !(stdenv.hostPlatform.useLLVM or false);
   outputs' = outputs ++ lib.optional separateDebugInfo' "debug";
@@ -485,6 +477,10 @@ lib.extendDerivation
    # should be made available to Nix expressions using the
    # derivation (e.g., in assertions).
    passthru)
-  (derivation derivationArg)
+  (derivation derivationArg);
 
-)
+in
+  fnOrAttrs:
+    if builtins.isFunction fnOrAttrs
+    then makeDerivationExtensible fnOrAttrs
+    else makeDerivationExtensibleConst fnOrAttrs

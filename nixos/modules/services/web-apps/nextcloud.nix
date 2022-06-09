@@ -153,7 +153,7 @@ in {
     package = mkOption {
       type = types.package;
       description = "Which package to use for the Nextcloud instance.";
-      relatedPackages = [ "nextcloud22" "nextcloud23" "nextcloud24" ];
+      relatedPackages = [ "nextcloud23" "nextcloud24" ];
     };
     phpPackage = mkOption {
       type = types.package;
@@ -625,7 +625,6 @@ in {
               nextcloud defined in an overlay, please set `services.nextcloud.package` to
               `pkgs.nextcloud`.
             ''
-          else if versionOlder stateVersion "21.11" then nextcloud21
           else if versionOlder stateVersion "22.05" then nextcloud22
           else nextcloud24
         );
@@ -634,8 +633,13 @@ in {
 
       services.nextcloud.phpPackage =
         if versionOlder cfg.package.version "21" then pkgs.php74
-        else if versionOlder cfg.package.version "24" then pkgs.php80
-        else pkgs.php81;
+        # FIXME: Use PHP 8.1 with Nextcloud 24 and higher, once issues like this one are fixed:
+        #
+        # https://github.com/nextcloud/twofactor_totp/issues/1192
+        #
+        # else if versionOlder cfg.package.version "24" then pkgs.php80
+        # else pkgs.php81;
+        else pkgs.php80;
     }
 
     { assertions = [
@@ -729,7 +733,7 @@ in {
               'trusted_domains' => ${writePhpArrary ([ cfg.hostName ] ++ c.extraTrustedDomains)},
               'trusted_proxies' => ${writePhpArrary (c.trustedProxies)},
               ${optionalString (c.defaultPhoneRegion != null) "'default_phone_region' => '${c.defaultPhoneRegion}',"}
-              ${optionalString (nextcloudGreaterOrEqualThan "23") "'profile.enabled' => ${boolToString cfg.globalProfiles}"}
+              ${optionalString (nextcloudGreaterOrEqualThan "23") "'profile.enabled' => ${boolToString cfg.globalProfiles},"}
               ${objectstoreConfig}
             ];
           '';
@@ -826,7 +830,7 @@ in {
             ${occ}/bin/nextcloud-occ config:system:delete trusted_domains
 
             ${optionalString (cfg.extraAppsEnable && cfg.extraApps != { }) ''
-                # Try to enable apps (don't fail when one of them cannot be enabled , eg. due to incompatible version)
+                # Try to enable apps
                 ${occ}/bin/nextcloud-occ app:enable ${concatStringsSep " " (attrNames cfg.extraApps)}
             ''}
 

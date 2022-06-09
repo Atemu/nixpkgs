@@ -13,7 +13,7 @@ rec {
       , stdenv, fetchFromGitHub, fetchpatch, buildGoPackage
       , makeWrapper, installShellFiles, pkg-config, glibc
       , go-md2man, go, containerd, runc, docker-proxy, tini, libtool
-      , sqlite, iproute2, lvm2, systemd, docker-buildx, docker-compose_2
+      , sqlite, iproute2, lvm2, systemd, docker-buildx, docker-compose
       , btrfs-progs, iptables, e2fsprogs, xz, util-linux, xfsprogs, git
       , procps, libseccomp, rootlesskit, slirp4netns, fuse-overlayfs
       , nixosTests
@@ -136,7 +136,7 @@ rec {
     });
 
     plugins = optionals buildxSupport [ docker-buildx ]
-      ++ optionals composeSupport [ docker-compose_2 ];
+      ++ optionals composeSupport [ docker-compose ];
     pluginsRef = symlinkJoin { name = "docker-plugins"; paths = plugins; };
   in
     buildGoPackage ((optionalAttrs (!clientOnly) {
@@ -243,14 +243,14 @@ rec {
   # Get revisions from
   # https://github.com/moby/moby/tree/${version}/hack/dockerfile/install/*
   docker_20_10 = callPackage dockerGen rec {
-    version = "20.10.15";
+    version = "20.10.16";
     rev = "v${version}";
-    sha256 = "sha256-uzwnXDomho5/Px4Ou/zP8Vedo2J9hVfcaFzM9vWh2Mo=";
+    sha256 = "sha256-Sktjh1JabeXrmWljLe5G934cxgChN0u3vdmQXasEFro=";
     moby-src = fetchFromGitHub {
       owner = "moby";
       repo = "moby";
       rev = "v${version}";
-      sha256 = "sha256-+Eds5WI+Ujz/VxkWb1ToaGLk7wROTwWwJYpiZRIxAf0";
+      sha256 = "sha256-3dog2aGbFKiYzsPTXkG+bo9xjTWZYlmWxtrqXjdzO2s=";
     };
     runcRev = "v1.1.1";
     runcSha256 = "sha256-6g2km+Y45INo2MTWMFFQFhfF8DAR5Su+YrJS8k3LYBY=";
