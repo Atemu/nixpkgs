@@ -112,7 +112,7 @@ in {
   croc = handleTest ./croc.nix {};
   cryptpad = handleTest ./cryptpad.nix {};
   deluge = handleTest ./deluge.nix {};
-  dendrite = handleTest ./dendrite.nix {};
+  dendrite = handleTest ./matrix/dendrite.nix {};
   dex-oidc = handleTest ./dex-oidc.nix {};
   dhparams = handleTest ./dhparams.nix {};
   disable-installer-tools = handleTest ./disable-installer-tools.nix {};
@@ -189,6 +189,7 @@ in {
   google-oslogin = handleTest ./google-oslogin {};
   gotify-server = handleTest ./gotify-server.nix {};
   grafana = handleTest ./grafana.nix {};
+  grafana-agent = handleTest ./grafana-agent.nix {};
   graphite = handleTest ./graphite.nix {};
   graylog = handleTest ./graylog.nix {};
   grocy = handleTest ./grocy.nix {};
@@ -253,7 +254,6 @@ in {
   jirafeau = handleTest ./jirafeau.nix {};
   jitsi-meet = handleTest ./jitsi-meet.nix {};
   k3s-single-node = handleTest ./k3s-single-node.nix {};
-  k3s-single-node-docker = handleTest ./k3s-single-node-docker.nix {};
   kafka = handleTest ./kafka.nix {};
   kanidm = handleTest ./kanidm.nix {};
   kbd-setfont-decompress = handleTest ./kbd-setfont-decompress.nix {};
@@ -301,9 +301,9 @@ in {
   mariadb-galera = handleTest ./mysql/mariadb-galera.nix {};
   mastodon = handleTestOn ["x86_64-linux" "i686-linux" "aarch64-linux"] ./web-apps/mastodon.nix {};
   matomo = handleTest ./matomo.nix {};
-  matrix-appservice-irc = handleTest ./matrix-appservice-irc.nix {};
-  matrix-conduit = handleTest ./matrix-conduit.nix {};
-  matrix-synapse = handleTest ./matrix-synapse.nix {};
+  matrix-appservice-irc = handleTest ./matrix/appservice-irc.nix {};
+  matrix-conduit = handleTest ./matrix/conduit.nix {};
+  matrix-synapse = handleTest ./matrix/synapse.nix {};
   mattermost = handleTest ./mattermost.nix {};
   mediatomb = handleTest ./mediatomb.nix {};
   mediawiki = handleTest ./mediawiki.nix {};
@@ -422,7 +422,6 @@ in {
   pgjwt = handleTest ./pgjwt.nix {};
   pgmanage = handleTest ./pgmanage.nix {};
   php = handleTest ./php {};
-  php74 = handleTest ./php { php = pkgs.php74; };
   php80 = handleTest ./php { php = pkgs.php80; };
   php81 = handleTest ./php { php = pkgs.php81; };
   pict-rs = handleTest ./pict-rs.nix {};
@@ -614,6 +613,7 @@ in {
   yabar = handleTest ./yabar.nix {};
   yggdrasil = handleTest ./yggdrasil.nix {};
   zammad = handleTest ./zammad.nix {};
+  zeronet-conservancy = handleTest ./zeronet-conservancy.nix {};
   zfs = handleTest ./zfs.nix {};
   zigbee2mqtt = handleTest ./zigbee2mqtt.nix {};
   zoneminder = handleTest ./zoneminder.nix {};

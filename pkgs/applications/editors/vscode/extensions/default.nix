@@ -1286,8 +1286,8 @@ let
         mktplcRef = {
           name = "latex-workshop";
           publisher = "James-Yu";
-          version = "8.23.0";
-          sha256 = "sha256-IHLsAuTi+GBZViL2KozudebNY745RiOYNATzabQfnOY=";
+          version = "8.27.2";
+          sha256 = "sha256-scvT6cjlMrfG4yrhWlUwGM7ozu1E0xAryPRpV7FGCas=";
         };
         meta = with lib; {
           changelog = "https://marketplace.visualstudio.com/items/James-Yu.latex-workshop/changelog";
@@ -1700,6 +1700,23 @@ let
           homepage = "https://github.com/enyancc/vscode-ext-color-highlight";
           license = licenses.gpl3Only;
           maintainers = with maintainers; [ datafoo ];
+        };
+      };
+
+      njpwerner.autodocstring = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "autodocstring";
+          publisher = "njpwerner";
+          version = "0.6.1";
+          sha256 = "sha256-NI0cbjsZPW8n6qRTRKoqznSDhLZRUguP7Sa/d0feeoc=";
+        };
+        meta = with lib; {
+          changelog = "https://marketplace.visualstudio.com/items/njpwerner.autodocstring/changelog";
+          description = "Generates python docstrings automatically";
+          downloadPage = "https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring";
+          homepage = "https://github.com/NilsJPWerner/autoDocstring";
+          license = licenses.mit;
+          maintainers = with maintainers; [ kamadorueda ];
         };
       };
 
@@ -2352,8 +2369,8 @@ let
         mktplcRef = {
           name = "vim";
           publisher = "vscodevim";
-          version = "1.21.5";
-          sha256 = "1v1xs1wcigisr6xip31i02cfryxrb157sla34y59pwlnhc5x1gny";
+          version = "1.22.2";
+          sha256 = "sha256-dtIlgODzRdoMKnG9050ZcCX3w15A/R3FaMc+ZylvBbU=";
         };
         meta = {
           license = lib.licenses.mit;
@@ -2364,8 +2381,8 @@ let
         mktplcRef = {
           name = "vspacecode";
           publisher = "VSpaceCode";
-          version = "0.10.1";
-          sha256 = "sha256-H7SCC/ZhDswMQjLX+qpQa6A1N83MobJRPC4pyIbZ1kA=";
+          version = "0.10.9";
+          sha256 = "sha256-16oC2BghY7mB/W0niTDtKGMAC9pt6m0utSOJ0lgbpAU=";
         };
         meta = {
           license = lib.licenses.mit;

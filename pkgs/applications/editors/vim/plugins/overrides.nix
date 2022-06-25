@@ -19,21 +19,28 @@
 , code-minimap
 , dasht
 , direnv
+, fish
 , fzf
+, gawk
+, git
 , gnome
 , himalaya
+, jq
 , khard
 , languagetool
 , llvmPackages
 , meson
 , nim
 , nodePackages
+, pandoc
 , parinfer-rust
+, ripgrep
 , skim
 , sqlite
 , statix
 , stylish-haskell
 , tabnine
+, tmux
 , tup
 , vim
 , which
@@ -43,9 +50,7 @@
 , nodejs
 , xdotool
 , xorg
-
-# test dependencies
-, neovim-unwrapped
+, zsh
 
   # command-t dependencies
 , rake
@@ -98,7 +103,6 @@
 , golint
 , gomodifytags
 , gopls
-, gotags
 , gotools
 , iferr
 , impl
@@ -131,6 +135,74 @@ self: super: {
     '';
   });
 
+  cmp-clippy = super.cmp-clippy.overrideAttrs (old: {
+    dependencies = with self; [ nvim-cmp plenary-nvim ];
+  });
+
+  cmp-copilot = super.cmp-copilot.overrideAttrs (old: {
+    dependencies = with self; [ nvim-cmp copilot-vim ];
+  });
+
+  cmp-dap = super.cmp-dap.overrideAttrs (old: {
+    dependencies = with self; [ nvim-cmp nvim-dap ];
+  });
+
+  cmp-dictionary = super.cmp-dictionary.overrideAttrs (old: {
+    dependencies = with self; [ nvim-cmp ];
+  });
+
+  cmp-digraphs = super.cmp-digraphs.overrideAttrs (old: {
+    dependencies = with self; [ nvim-cmp ];
+  });
+
+  cmp-fish = super.cmp-fish.overrideAttrs (old: {
+    dependencies = with self; [ nvim-cmp fish ];
+  });
+
+  cmp-fuzzy-buffer = super.cmp-fuzzy-buffer.overrideAttrs (old: {
+    dependencies = with self; [ nvim-cmp fuzzy-nvim ];
+  });
+
+  cmp-fuzzy-path = super.cmp-fuzzy-path.overrideAttrs (old: {
+    dependencies = with self; [ nvim-cmp fuzzy-nvim ];
+  });
+
+  cmp-git = super.cmp-git.overrideAttrs (old: {
+    dependencies = with self; [ nvim-cmp curl git ];
+  });
+
+  cmp-greek = super.cmp-greek.overrideAttrs (old: {
+    dependencies = with self; [ nvim-cmp ];
+  });
+
+  cmp-look = super.cmp-look.overrideAttrs (old: {
+    dependencies = with self; [ nvim-cmp ];
+  });
+
+  cmp-neosnippet = super.cmp-neosnippet.overrideAttrs (old: {
+    dependencies = with self; [ nvim-cmp neosnippet-vim ];
+  });
+
+  cmp-npm = super.cmp-npm.overrideAttrs (old: {
+    dependencies = with self; [ nvim-cmp nodejs plenary-nvim ];
+  });
+
+  cmp-nvim-lsp-signature-help = super.cmp-nvim-lsp-signature-help.overrideAttrs (old: {
+    dependencies = with self; [ nvim-cmp ];
+  });
+
+  cmp-pandoc-nvim = super.cmp-pandoc-nvim.overrideAttrs (old: {
+    dependencies = with self; [ nvim-cmp pandoc plenary-nvim ];
+  });
+
+  cmp-rg = super.cmp-rg.overrideAttrs (old: {
+    dependencies = with self; [ nvim-cmp ripgrep ];
+  });
+
+  cmp-snippy = super.cmp-snippy.overrideAttrs (old: {
+    dependencies = with self; [ nvim-cmp nvim-snippy ];
+  });
+
   cmp-tabnine = super.cmp-tabnine.overrideAttrs (old: {
     buildInputs = [ tabnine ];
 
@@ -139,6 +211,32 @@ self: super: {
       ln -s ${tabnine}/bin/ $target/binaries/${tabnine.version}/${tabnine.passthru.platform}
     '';
   });
+
+  cmp-nvim-tags = super.cmp-nvim-tags.overrideAttrs (old: {
+    dependencies = with self; [ nvim-cmp ];
+  });
+
+  cmp-tmux = super.cmp-tmux.overrideAttrs (old: {
+    dependencies = with self; [ nvim-cmp tmux ];
+  });
+
+  cmp-vimwiki-tags = super.cmp-vimwiki-tags.overrideAttrs (old: {
+    dependencies = with self; [ nvim-cmp vimwiki ];
+  });
+
+  cmp-vim-lsp = super.cmp-vim-lsp.overrideAttrs (old: {
+    dependencies = with self; [ nvim-cmp vim-lsp ];
+  });
+
+  cmp-zsh = super.cmp-zsh.overrideAttrs (old: {
+    dependencies = with self; [ nvim-cmp zsh ];
+  });
+
+  coc-nginx = buildVimPluginFrom2Nix {
+    pname = "coc-nginx";
+    inherit (nodePackages."@yaegassy/coc-nginx") version meta;
+    src = "${nodePackages."@yaegassy/coc-nginx"}/lib/node_modules/@yaegassy/coc-nginx";
+  };
 
   command-t = super.command-t.overrideAttrs (old: {
     buildInputs = [ ruby rake ];
@@ -292,12 +390,28 @@ self: super: {
       '';
     });
 
+  fuzzy-nvim = super.fuzzy-nvim.overrideAttrs (old: {
+    dependencies = with self; [ telescope-fzy-native-nvim ];
+  });
+
   fzf-checkout-vim = super.fzf-checkout-vim.overrideAttrs (old: {
     # The plugin has a makefile which tries to run tests in a docker container.
     # This prevents it.
     prePatch = ''
       rm Makefile
     '';
+  });
+
+  fzf-hoogle-vim = super.fzf-hoogle-vim.overrideAttrs (old: {
+
+    # add this to your lua config to prevent the plugin from trying to write in the
+    # nix store:
+    # vim.g.hoogle_fzf_cache_file = vim.fn.stdpath('cache')..'/hoogle_cache.json'
+    propagatedBuildInputs = [
+      jq
+      gawk
+    ];
+    dependencies = with self; [ fzf-vim ];
   });
 
   fzf-lua = super.fzf-lua.overrideAttrs (old: {
@@ -845,7 +959,7 @@ self: super: {
       let
         maple-bin = rustPlatform.buildRustPackage {
           name = "maple";
-          src = old.src;
+          inherit (old) src;
 
           nativeBuildInputs = [
             pkg-config
@@ -860,7 +974,7 @@ self: super: {
             libiconv
           ];
 
-          cargoSha256 = "0l1x7kprnxa95pbf8ml9ixmj0cmbnnv6nd0v6qry8j67rx8plpmp";
+          cargoSha256 = "sha256-XmQTRmOO/tyA0F6FQQRxZPcVXCYZkEAiNIzU/ismjc0=";
         };
       in
       ''
@@ -912,11 +1026,12 @@ self: super: {
   vim-go = super.vim-go.overrideAttrs (old:
     let
       binPath = lib.makeBinPath [
+        # TODO: package commented packages
         asmfmt
         delve
         errcheck
         go-motion
-        go-tools
+        go-tools # contains staticcheck
         gocode
         gocode-gomod
         godef
@@ -925,18 +1040,20 @@ self: super: {
         golangci-lint
         gomodifytags
         gopls
-        gotags
+        # gorename
+        # gotags
         gotools
+        # guru
         iferr
         impl
+        # keyify
         reftools
+        # revive
       ];
     in
     {
       postPatch = ''
-        ${gnused}/bin/sed \
-          -Ee 's@"go_bin_path", ""@"go_bin_path", "${binPath}"@g' \
-          -i autoload/go/config.vim
+        sed -i autoload/go/config.vim -Ee 's@"go_bin_path", ""@"go_bin_path", "${binPath}"@g'
       '';
     });
 
@@ -1142,6 +1259,7 @@ self: super: {
       "coc-cmake"
       "coc-css"
       "coc-diagnostic"
+      "coc-docker"
       "coc-emmet"
       "coc-eslint"
       "coc-explorer"
@@ -1165,12 +1283,16 @@ self: super: {
       "coc-r-lsp"
       "coc-rls"
       "coc-rust-analyzer"
+      "coc-sh"
       "coc-smartf"
       "coc-snippets"
       "coc-solargraph"
       "coc-stylelint"
+      "coc-sumneko-lua"
+      "coc-sqlfluff"
       "coc-tabnine"
       "coc-texlab"
+      "coc-toml"
       "coc-tslint"
       "coc-tslint-plugin"
       "coc-tsserver"
