@@ -2734,7 +2734,7 @@ in {
 
   emailthreads = callPackage ../development/python-modules/emailthreads { };
 
-  email_validator = callPackage ../development/python-modules/email-validator { };
+  email-validator = callPackage ../development/python-modules/email-validator { };
 
   embrace = callPackage ../development/python-modules/embrace { };
 
@@ -3032,6 +3032,8 @@ in {
   filebrowser_safe = callPackage ../development/python-modules/filebrowser_safe { };
 
   filebytes = callPackage ../development/python-modules/filebytes { };
+
+  filecheck = callPackage ../development/python-modules/filecheck { };
 
   filelock = callPackage ../development/python-modules/filelock { };
 
@@ -6162,6 +6164,8 @@ in {
   osc-lib = callPackage ../development/python-modules/osc-lib { };
 
   oscrypto = callPackage ../development/python-modules/oscrypto { };
+
+  oscpy = callPackage ../development/python-modules/oscpy { };
 
   oset = callPackage ../development/python-modules/oset { };
 
@@ -10844,7 +10848,9 @@ in {
 
   ueagle = callPackage ../development/python-modules/ueagle { };
 
-  uharfbuzz = callPackage ../development/python-modules/uharfbuzz { };
+  uharfbuzz = callPackage ../development/python-modules/uharfbuzz {
+    inherit (pkgs.darwin.apple_sdk.frameworks) ApplicationServices;
+  };
 
   ujson = callPackage ../development/python-modules/ujson { };
 
@@ -10999,6 +11005,10 @@ in {
   validphys2 = callPackage ../development/python-modules/validphys2 { };
 
   vallox-websocket-api = callPackage ../development/python-modules/vallox-websocket-api { };
+
+  vapoursynth = callPackage ../development/python-modules/vapoursynth {
+    inherit (pkgs) vapoursynth;
+  };
 
   variants = callPackage ../development/python-modules/variants { };
 

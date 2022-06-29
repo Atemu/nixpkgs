@@ -7,6 +7,7 @@ let
     collect
     concatLists
     concatMap
+    concatMapStringsSep
     elemAt
     filter
     foldl'
@@ -241,6 +242,8 @@ rec {
           in if ss != {} then optionAttrSetToDocList' opt.loc ss else [];
         subOptionsVisible = docOption.visible && opt.visible or null != "shallow";
       in
+        # To find infinite recursion in NixOS option docs:
+        # builtins.trace opt.loc
         [ docOption ] ++ optionals subOptionsVisible subOptions) (collect isOption options);
 
 
@@ -339,6 +342,11 @@ rec {
         else ": " + value;
     in "\n- In `${def.file}'${result}"
   ) defs;
+
+  showOptionWithDefLocs = opt: ''
+      ${showOption opt.loc}, with values defined in:
+      ${concatMapStringsSep "\n" (defFile: "  - ${defFile}") opt.files}
+    '';
 
   unknownModule = "<unknown-file>";
 
