@@ -1974,7 +1974,11 @@ in {
 
   criticality-score = callPackage ../development/python-modules/criticality-score { };
 
+  cron-descriptor = callPackage ../development/python-modules/cron-descriptor { };
+
   croniter = callPackage ../development/python-modules/croniter { };
+
+  cronsim = callPackage ../development/python-modules/cronsim { };
 
   crossplane = callPackage ../development/python-modules/crossplane { };
 
@@ -3789,6 +3793,8 @@ in {
 
   gridnet = callPackage ../development/python-modules/gridnet { };
 
+  griffe = callPackage ../development/python-modules/griffe { };
+
   grip = callPackage ../development/python-modules/grip { };
 
   groestlcoin_hash = callPackage ../development/python-modules/groestlcoin_hash { };
@@ -5440,6 +5446,7 @@ in {
   mizani = callPackage ../development/python-modules/mizani { };
 
   mkdocs = callPackage ../development/python-modules/mkdocs { };
+  mkdocs-autorefs = callPackage ../development/python-modules/mkdocs-autorefs { };
   mkdocs-drawio-exporter = callPackage ../development/python-modules/mkdocs-drawio-exporter { };
   mkdocs-exclude = callPackage ../development/python-modules/mkdocs-exclude { };
   mkdocs-gitlab = callPackage ../development/python-modules/mkdocs-gitlab-plugin { };
@@ -5448,6 +5455,10 @@ in {
   mkdocs-material-extensions = callPackage ../development/python-modules/mkdocs-material/mkdocs-material-extensions.nix { };
   mkdocs-minify = callPackage ../development/python-modules/mkdocs-minify { };
   mkdocs-redirects = callPackage ../development/python-modules/mkdocs-redirects { };
+
+  mkdocstrings = callPackage ../development/python-modules/mkdocstrings { };
+
+  mkdocstrings-python = callPackage ../development/python-modules/mkdocstrings-python { };
 
   mkl-service = callPackage ../development/python-modules/mkl-service { };
 
@@ -5808,6 +5819,8 @@ in {
     enableApp = false; # build only libnghttp2 ...
     enablePython = true; # ... and its Python bindings
   })).python;
+
+  niapy = callPackage ../development/python-modules/niapy { };
 
   nibabel = callPackage ../development/python-modules/nibabel { };
 
@@ -6453,6 +6466,8 @@ in {
 
   netmap = callPackage ../development/python-modules/netmap { };
 
+  onetimepad = callPackage ../development/python-modules/onetimepad { };
+
   openai = callPackage ../development/python-modules/openai { };
 
   openapi-core = callPackage ../development/python-modules/openapi-core { };
@@ -6641,6 +6656,8 @@ in {
   pyskyqremote = callPackage ../development/python-modules/pyskyqremote { };
 
   pysolcast = callPackage ../development/python-modules/pysolcast { };
+
+  pysqlitecipher = callPackage ../development/python-modules/pysqlitecipher { };
 
   pysyncthru = callPackage ../development/python-modules/pysyncthru { };
 
@@ -7206,6 +7223,8 @@ in {
 
   pycryptodomex = callPackage ../development/python-modules/pycryptodomex { };
 
+  pycsdr = callPackage ../development/python-modules/pycsdr { };
+
   pyct = callPackage ../development/python-modules/pyct { };
 
   pyctr = callPackage ../development/python-modules/pyctr { };
@@ -7253,6 +7272,8 @@ in {
   pydexcom = callPackage ../development/python-modules/pydexcom { };
 
   pydicom = callPackage ../development/python-modules/pydicom { };
+
+  pydigiham = callPackage ../development/python-modules/pydigiham { };
 
   pydispatcher = callPackage ../development/python-modules/pydispatcher { };
 
@@ -9572,6 +9593,8 @@ in {
 
   segments = callPackage ../development/python-modules/segments { };
 
+  segno = callPackage ../development/python-modules/segno { };
+
   segyio = toPythonModule (callPackage ../development/python-modules/segyio {
     inherit (pkgs) cmake ninja;
   });
@@ -9718,6 +9741,8 @@ in {
   simple-di = callPackage ../development/python-modules/simple-di { };
 
   simple-rest-client = callPackage ../development/python-modules/simple-rest-client { };
+
+  simple-rlp = callPackage ../development/python-modules/simple-rlp { };
 
   simple-salesforce = callPackage ../development/python-modules/simple-salesforce { };
 
@@ -11612,6 +11637,8 @@ in {
 
   zope_broken = callPackage ../development/python-modules/zope_broken { };
 
+  zope-cachedescriptors = callPackage ../development/python-modules/zope-cachedescriptors { };
+
   zope_component = callPackage ../development/python-modules/zope_component { };
 
   zope_configuration = callPackage ../development/python-modules/zope_configuration { };
@@ -11647,6 +11674,8 @@ in {
   zope_schema = callPackage ../development/python-modules/zope_schema { };
 
   zope_size = callPackage ../development/python-modules/zope_size { };
+
+  zope-testbrowser = callPackage ../development/python-modules/zope-testbrowser { };
 
   zope_testing = callPackage ../development/python-modules/zope_testing { };
 

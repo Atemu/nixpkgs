@@ -57,6 +57,10 @@ in {
   kernels = recurseIntoAttrs (lib.makeExtensible (self: with self;
     let callPackage = newScope self; in {
 
+    # NOTE: PLEASE DO NOT ADD NEW VENDOR KERNELS TO NIXPKGS.
+    # New vendor kernels should go to nixos-hardware instead.
+    # e.g. https://github.com/NixOS/nixos-hardware/tree/master/microsoft/surface/kernel
+
     linux_mptcp_95 = callPackage ../os-specific/linux/kernel/linux-mptcp-95.nix {
       kernelPatches = linux_4_19.kernelPatches;
     };
@@ -196,19 +200,23 @@ in {
       ];
     };
 
-    linux_zen = callPackage ../os-specific/linux/kernel/linux-zen.nix {
-      kernelPatches = [
-        kernelPatches.bridge_stp_helper
-        kernelPatches.request_key_helper
-      ];
-    };
+    # Using zenKernels like this due lqx&zen came from one source, but may have different base kernel version
+    # https://github.com/NixOS/nixpkgs/pull/161773#discussion_r820134708
+    zenKernels = callPackage ../os-specific/linux/kernel/zen-kernels.nix;
 
-    linux_lqx = callPackage ../os-specific/linux/kernel/linux-lqx.nix {
+    linux_zen = (zenKernels {
       kernelPatches = [
         kernelPatches.bridge_stp_helper
         kernelPatches.request_key_helper
       ];
-    };
+    }).zen;
+
+    linux_lqx = (zenKernels {
+      kernelPatches = [
+        kernelPatches.bridge_stp_helper
+        kernelPatches.request_key_helper
+      ];
+    }).lqx;
 
     # This contains both the STABLE and EDGE variants of the XanMod kernel
     xanmodKernels = callPackage ../os-specific/linux/kernel/xanmod-kernels.nix;
