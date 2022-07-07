@@ -139,6 +139,12 @@
     githubId = 241628;
     name = "Adam Russell";
   };
+  aacebedo = {
+    email = "alexandre@acebedo.fr";
+    github = "aacebedo";
+    githubId = 1217680;
+    name = "Alexandre Acebedo";
+  };
   aadibajpai = {
     email = "hello@aadibajpai.com";
     github = "aadibajpai";
@@ -1620,6 +1626,12 @@
     github = "billewanick";
     githubId = 13324165;
     name = "Bill Ewanick";
+  };
+  billhuang = {
+    email = "bill.huang2001@gmail.com";
+    github = "BillHuang2001";
+    githubId = 11801831;
+    name = "Bill Huang";
   };
   binarin = {
     email = "binarin@binarin.ru";
@@ -3729,12 +3741,6 @@
     github = "elohmeier";
     githubId = 2536303;
     name = "Enno Lohmeier";
-  };
-  elseym = {
-    email = "elseym@me.com";
-    github = "elseym";
-    githubId = 907478;
-    name = "Simon Waibl";
   };
   elvishjerricco = {
     email = "elvishjerricco@gmail.com";
