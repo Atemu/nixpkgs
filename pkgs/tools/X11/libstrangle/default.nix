@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
     substituteAllInPlace src/stranglevk.sh
   '';
   postInstall = ''
-    substituteInPlace $out/share/vulkan/implicit_layer.d/libstrangle_vk.json --replace "libstrangle_vk.so" "$out/lib/libstrangle/\$LIB/libstrangle_vk.so"
-    ln -s lib64 $out/lib/libstrangle/lib # $LIB above expands to lib but should expand to lib32 on 32bit if that ever becomes relevant
+    substituteInPlace $out/share/vulkan/implicit_layer.d/libstrangle_vk.json --replace "libstrangle_vk.so" "$out/lib/libstrangle/lib${toString stdenv.targetPlatform.parsed.cpu.bits}/libstrangle_vk.so"
   '';
 
   meta = with lib; {
