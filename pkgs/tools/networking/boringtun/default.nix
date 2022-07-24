@@ -2,16 +2,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "boringtun";
-  version = "0.4.0";
+  version = "0.5.1";
 
   src = fetchFromGitHub {
     owner = "cloudflare";
     repo = pname;
-    rev = "v${version}";
-    sha256 = "sha256-fZchh02CsVC5sdnR3blojslsKi7OxFcblHMuyuHsH/4=";
+    rev = "boringtun-cli-${version}";
+    sha256 = "sha256-s7Nl95VShBMD4Zid2LeRPftSx5R2G+4tHBXgrC1I7vU=";
   };
 
-  cargoSha256 = "sha256-iJbzvhRPVDHXqianQ6UbmYEfmZCS/obxFZV/PsJMhD0=";
+  cargoSha256 = "sha256-308zydrhOZS5h16DEp9ctrhtB2bv9Tmwutgj5+uc4Lw=";
 
   buildInputs = lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
 

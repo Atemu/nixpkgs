@@ -346,7 +346,6 @@ dont-distribute-packages:
  - Shpadoinkle-widgets
  - SimpleGL
  - SimpleLog
- - SimpleServer
  - Smooth
  - Snusmumrik
  - SoccerFun
@@ -428,6 +427,7 @@ dont-distribute-packages:
  - adict
  - adjunction
  - adp-multi-monadiccp
+ - aern2-mfun
  - aeson-native
  - aeson-result
  - affine
@@ -830,6 +830,7 @@ dont-distribute-packages:
  - bond
  - bond-haskell
  - bond-haskell-compiler
+ - bookhound-format
  - bookkeeper-permissions
  - boomslang
  - boopadoop
@@ -857,6 +858,7 @@ dont-distribute-packages:
  - bytable
  - bytehash
  - bytelog
+ - bytepatch
  - bytestring-builder-varword
  - bytestring-read
  - ca
@@ -953,18 +955,6 @@ dont-distribute-packages:
  - claferIG
  - claferwiki
  - clash
- - clash-ghc
- - clash-lib
- - clash-lib-hedgehog
- - clash-multisignal
- - clash-prelude
- - clash-prelude-hedgehog
- - clash-prelude-quickcheck
- - clash-shake
- - clash-systemverilog
- - clash-verilog
- - clash-vhdl
- - clashilator
  - classify-frog
  - classy-miso
  - clckwrks
@@ -1026,6 +1016,7 @@ dont-distribute-packages:
  - commsec-keyexchange
  - comonad-random
  - compact-mutable
+ - compactable
  - compdata-automata
  - compdata-dags
  - compdata-param
@@ -1292,6 +1283,7 @@ dont-distribute-packages:
  - dph-prim-interface
  - dph-prim-par
  - dph-prim-seq
+ - drama
  - dropbox-sdk
  - dropsolve
  - dsh-sql
@@ -1431,6 +1423,7 @@ dont-distribute-packages:
  - feed-translator
  - feed2lj
  - feed2twitter
+ - feedback
  - fei-base
  - fei-dataiter
  - fei-datasets
@@ -1558,6 +1551,11 @@ dont-distribute-packages:
  - geniconvert
  - geniserver
  - genvalidity-mergeful
+ - genvalidity-sydtest
+ - genvalidity-sydtest-aeson
+ - genvalidity-sydtest-hashable
+ - genvalidity-sydtest-lens
+ - genvalidity-sydtest-persistent
  - geodetic
  - geolite-csv
  - getemx
@@ -1937,6 +1935,7 @@ dont-distribute-packages:
  - hascat-setup
  - hascat-system
  - hashable-accelerate
+ - hashes
  - hashflare
  - hask-home
  - haskades
@@ -2018,7 +2017,6 @@ dont-distribute-packages:
  - hasloGUI
  - hasparql-client
  - hasql-cursor-query
- - hasql-dynamic-statements
  - hasql-postgres
  - hasql-postgres-options
  - hasqlator-mysql
@@ -2070,7 +2068,6 @@ dont-distribute-packages:
  - helics
  - helics-wai
  - helium
- - helix
  - hellage
  - hellnet
  - hemokit
@@ -2248,6 +2245,7 @@ dont-distribute-packages:
  - hts
  - htsn-import
  - http-client-auth
+ - http-client-rustls
  - http-enumerator
  - http-pony
  - http2-client-exe
@@ -2297,7 +2295,6 @@ dont-distribute-packages:
  - hyloutils
  - hyperpublic
  - iException
- - ice40-prim
  - icepeak
  - ide-backend
  - ide-backend-server
@@ -2409,6 +2406,10 @@ dont-distribute-packages:
  - jobqueue
  - join
  - jordan-openapi
+ - jordan-servant
+ - jordan-servant-client
+ - jordan-servant-openapi
+ - jordan-servant-server
  - jsc
  - jsmw
  - json-ast-json-encoder
@@ -2582,7 +2583,6 @@ dont-distribute-packages:
  - linux-ptrace
  - lio-eci11
  - lio-simple
- - lion
  - liquid-base
  - liquid-bytestring
  - liquid-containers
@@ -3125,7 +3125,6 @@ dont-distribute-packages:
  - postgresql-simple-typed
  - postgresql-tx-query
  - postgresql-tx-squeal-compat-simple
- - postgrest
  - postmark
  - potoki
  - potoki-cereal
@@ -3174,7 +3173,6 @@ dont-distribute-packages:
  - proto3-wire
  - protobuf-native
  - protocol-buffers-descriptor-fork
- - psc-ide
  - psql
  - ptera
  - ptera-core
@@ -3187,7 +3185,6 @@ dont-distribute-packages:
  - pure-cdb
  - pure-priority-queue-tests
  - purescript-iso
- - purescript-tsd-gen
  - pursuit-client
  - push-notify
  - push-notify-apn
@@ -3314,6 +3311,7 @@ dont-distribute-packages:
  - regex-genex
  - regex-pcre-text
  - regex-pderiv
+ - regex-tdfa_1_3_2
  - regex-xmlschema
  - regexchar
  - regexp-tries
@@ -3337,7 +3335,6 @@ dont-distribute-packages:
  - relational-record-examples
  - relational-schemas
  - relative-date
- - reload
  - remote-json
  - remote-json-client
  - remote-json-server
@@ -3367,8 +3364,6 @@ dont-distribute-packages:
  - restful-snap
  - restricted-workers
  - rethinkdb-model
- - retroclash-lib
- - retroclash-sim
  - rewrite
  - rewriting
  - rezoom
@@ -3426,6 +3421,9 @@ dont-distribute-packages:
  - runtime-arbitrary
  - rv
  - s-expression
+ - safe-coloured-text-gen
+ - safe-coloured-text-layout
+ - safe-coloured-text-layout-gen
  - safe-coupling
  - safe-plugins
  - safer-file-handles
@@ -3522,6 +3520,8 @@ dont-distribute-packages:
  - servant-jsonrpc-client
  - servant-jsonrpc-server
  - servant-matrix-param
+ - servant-oauth2
+ - servant-oauth2-examples
  - servant-polysemy
  - servant-postgresql
  - servant-pushbullet-client
@@ -3647,7 +3647,6 @@ dont-distribute-packages:
  - sock2stream
  - socket-io
  - sockets
- - solga
  - solga-swagger
  - solr
  - souffle-dsl
@@ -3745,7 +3744,17 @@ dont-distribute-packages:
  - sweet-egison
  - switch
  - syb-with-class-instances-text
+ - sydtest
+ - sydtest-aeson
  - sydtest-amqp
+ - sydtest-hedgehog
+ - sydtest-hspec
+ - sydtest-persistent
+ - sydtest-persistent-sqlite
+ - sydtest-process
+ - sydtest-servant
+ - sydtest-typed-process
+ - sydtest-wai
  - sydtest-webdriver
  - sydtest-webdriver-screenshot
  - sydtest-webdriver-yesod
@@ -3851,6 +3860,7 @@ dont-distribute-packages:
  - to-string-instances
  - toboggan
  - todos
+ - token-limiter-concurrent
  - toktok
  - tomlcheck
  - tonatona
@@ -4032,7 +4042,6 @@ dont-distribute-packages:
  - vty-ui-extras
  - waargonaut
  - wahsp
- - wai-control
  - wai-devel
  - wai-dispatch
  - wai-handler-snap
@@ -4046,7 +4055,6 @@ dont-distribute-packages:
  - wai-middleware-rollbar
  - wai-middleware-route
  - wai-middleware-throttle
- - wai-routes
  - wai-routing
  - wai-session-tokyocabinet
  - wai-thrift
@@ -4202,7 +4210,6 @@ dont-distribute-packages:
  - yuuko
  - z85
  - zasni-gerna
- - zephyr
  - zephyr-copilot
  - zeromq3-conduit
  - zeromq3-haskell

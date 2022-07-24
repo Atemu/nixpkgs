@@ -51,11 +51,8 @@ self: super: {
   # Tests fail because of typechecking changes
   conduit = dontCheck super.conduit;
 
-  # 0.30 introduced support for GHC 9.2.x, so when this assert fails, the whole block can be removed
-  cryptonite = assert super.cryptonite.version == "0.29"; appendPatch (pkgs.fetchpatch {
-    url = "https://gitlab.haskell.org/ghc/head.hackage/-/raw/dfd024c9a336c752288ec35879017a43bd7e85a0/patches/cryptonite-0.29.patch";
-    sha256 = "1g48lrmqgd88hqvfq3klz7lsrpwrir2v1931myrhh6dy0d9pqj09";
-  }) super.cryptonite;
+  # 0.30 introduced support for GHC 9.2.
+  cryptonite = doDistribute self.cryptonite_0_30;
 
   # cabal-install needs more recent versions of Cabal
   cabal-install = (doJailbreak super.cabal-install).overrideScope (self: super: {
@@ -82,7 +79,7 @@ self: super: {
   constraints = doJailbreak super.constraints;
   cpphs = overrideCabal (drv: { postPatch = "sed -i -e 's,time >=1.5 && <1.11,time >=1.5 \\&\\& <1.12,' cpphs.cabal";}) super.cpphs;
   data-fix = doJailbreak super.data-fix;
-  dbus = super.dbus_1_2_24;
+  dbus = self.dbus_1_2_25;
   dec = doJailbreak super.dec;
   ed25519 = doJailbreak super.ed25519;
   ghc-byteorder = doJailbreak super.ghc-byteorder;
@@ -100,8 +97,8 @@ self: super: {
       self.data-default
     ] ++ drv.libraryHaskellDepends or [];
   }) super.ghc-exactprint;
-  ghc-lib = self.ghc-lib_9_2_3_20220527;
-  ghc-lib-parser = self.ghc-lib-parser_9_2_3_20220527;
+  ghc-lib = self.ghc-lib_9_2_3_20220709;
+  ghc-lib-parser = self.ghc-lib-parser_9_2_3_20220709;
   ghc-lib-parser-ex = self.ghc-lib-parser-ex_9_2_1_0;
   hackage-security = doJailbreak super.hackage-security;
   hashable = super.hashable_1_4_0_2;
@@ -120,27 +117,12 @@ self: super: {
   path = doJailbreak super.path;
   polyparse = overrideCabal (drv: { postPatch = "sed -i -e 's, <0.11, <0.12,' polyparse.cabal"; }) (doJailbreak super.polyparse);
   primitive = doJailbreak super.primitive;
-  # https://github.com/protolude/protolude/pull/136
-  protolude = appendPatches [
-    (pkgs.fetchpatch {
-      url = "https://github.com/protolude/protolude/commit/47820a36c25ea6f0c6e44382f7d4f3507358b8e7.diff";
-      sha256 = "sha256-PtHx5SyTgqFzI03YVeQD+RqglO6ASMQWSxdpy4ROMDY=";
-    })
-  ] (doJailbreak super.protolude);
   regex-posix = doJailbreak super.regex-posix;
   resolv = doJailbreak super.resolv;
   retrie = doDistribute (dontCheck self.retrie_1_2_0_1);
   singleton-bool = doJailbreak super.singleton-bool;
   servant = doJailbreak super.servant;
   servant-auth = doJailbreak super.servant-auth;
-  servant-server = appendPatches [
-    # awaiting release
-    (pkgs.fetchpatch {
-      url = "https://github.com/haskell-servant/servant/commit/61d0d14b5cb01db3d589101b3f17b0178f52e386.diff";
-      relative = "servant-server";
-      sha256 = "sha256-3lM8xLO8avVRo8oncJR8QLDSWEzOaoCmzgVtyaEBEw8=";
-    })
-  ] (doJailbreak super.servant-server);
   servant-swagger = doJailbreak super.servant-swagger;
   servant-auth-swagger = doJailbreak super.servant-auth-swagger;
   shelly = doJailbreak super.shelly;
@@ -161,16 +143,6 @@ self: super: {
       "--skip=/Hpack/renderCabalFile/is inverse to readCabalFile/"
     ] ++ drv.testFlags or [];
   }) (doJailbreak super.hpack);
-
-  validity = pkgs.lib.pipe super.validity [
-    # head.hackage patch
-    (appendPatch (pkgs.fetchpatch {
-      url = "https://gitlab.haskell.org/ghc/head.hackage/-/raw/9110e6972b5daf085e19cad41f97920d3ddac499/patches/validity-0.12.0.0.patch";
-      sha256 = "0hzns596dxvyn8irgi7aflx76wak1qi13chkkvl0055pkgykm08f";
-    }))
-    # head.hackage ignores test suite
-    dontCheck
-  ];
 
   # lens >= 5.1 supports 9.2.1
   lens = doDistribute self.lens_5_1_1;
@@ -197,7 +169,7 @@ self: super: {
   } super.memory);
 
   # Use hlint from git for GHC 9.2.1 support
-  hlint = self.hlint_3_4;
+  hlint = self.hlint_3_4_1;
 
   # https://github.com/sjakobi/bsb-http-chunked/issues/38
   bsb-http-chunked = dontCheck super.bsb-http-chunked;

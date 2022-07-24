@@ -12,7 +12,7 @@
 
 buildPythonPackage rec {
   pname = "levenshtein";
-  version = "0.18.2";
+  version = "0.19.3";
   format = "pyproject";
 
   disabled = pythonOlder "3.6";
@@ -20,8 +20,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "maxbachmann";
     repo = "Levenshtein";
-    rev = "v${version}";
-    hash = "sha256-FmEB0i235rzK6S1MV189iDNB+CYpcBvcdVE+kdclwmE=";
+    rev = "refs/tags/v${version}";
+    hash = "sha256-4Oc1n/ZgLdq57ZeyZHzTQOjar9Ligeb4yqKeT0s5dHY=";
   };
 
   nativeBuildInputs = [

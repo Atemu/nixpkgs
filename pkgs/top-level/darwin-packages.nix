@@ -70,7 +70,7 @@ in
 
 impure-cmds // appleSourcePackages // chooseLibs // {
 
-  inherit apple_sdk;
+  inherit apple_sdk apple_sdk_10_12 apple_sdk_11_0;
 
   stdenvNoCF = stdenv.override {
     extraBuildInputs = [];
@@ -148,7 +148,11 @@ impure-cmds // appleSourcePackages // chooseLibs // {
 
   lsusb = callPackage ../os-specific/darwin/lsusb { };
 
-  moltenvk = callPackage ../os-specific/darwin/moltenvk { };
+  moltenvk = pkgs.darwin.apple_sdk_11_0.callPackage ../os-specific/darwin/moltenvk {
+    inherit (apple_sdk_11_0.frameworks) AppKit Foundation Metal QuartzCore;
+    inherit (apple_sdk_11_0) MacOSX-SDK Libsystem;
+    inherit (pkgs.darwin) cctools sigtool;
+  };
 
   opencflite = callPackage ../os-specific/darwin/opencflite { };
 

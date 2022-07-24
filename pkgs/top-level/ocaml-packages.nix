@@ -181,6 +181,8 @@ let
 
     checkseum = callPackage ../development/ocaml-modules/checkseum { };
 
+    chrome-trace = callPackage ../development/ocaml-modules/chrome-trace { };
+
     cil = callPackage ../development/ocaml-modules/cil { };
 
     cmdliner_1_0 = callPackage ../development/ocaml-modules/cmdliner/1_0.nix { };
@@ -505,6 +507,8 @@ let
     hacl-star = callPackage ../development/ocaml-modules/hacl-star { };
     hacl-star-raw = callPackage ../development/ocaml-modules/hacl-star/raw.nix { };
 
+    happy-eyeballs = callPackage ../development/ocaml-modules/happy-eyeballs { };
+
     hashcons = callPackage ../development/ocaml-modules/hashcons { };
 
     herelib = callPackage ../development/ocaml-modules/herelib { };
@@ -519,7 +523,9 @@ let
 
     hpack = callPackage ../development/ocaml-modules/hpack { };
 
-    hxd = callPackage ../development/ocaml-modules/hxd { };
+    hxd = callPackage ../development/ocaml-modules/hxd {
+      cmdliner = cmdliner_1_1;
+    };
 
     imagelib = callPackage ../development/ocaml-modules/imagelib { };
 
@@ -545,7 +551,7 @@ let
 
     dypgen = callPackage ../development/ocaml-modules/dypgen { };
 
-    gapi_ocaml = callPackage ../development/ocaml-modules/gapi-ocaml { };
+    gapi-ocaml = callPackage ../development/ocaml-modules/gapi-ocaml { };
 
     gen_js_api = callPackage ../development/ocaml-modules/gen_js_api { };
 
@@ -916,10 +922,6 @@ let
     mustache =  callPackage ../development/ocaml-modules/mustache { };
 
     netchannel = callPackage ../development/ocaml-modules/netchannel { };
-
-    nocrypto =  callPackage ../development/ocaml-modules/nocrypto { };
-
-    noise = callPackage ../development/ocaml-modules/noise { };
 
     nonstd =  callPackage ../development/ocaml-modules/nonstd { };
 
@@ -1533,14 +1535,21 @@ let
     # Jane Street
 
     janePackage =
-      if lib.versionOlder "4.08" ocaml.version
+      if lib.versionOlder "4.10.2" ocaml.version
+      then callPackage ../development/ocaml-modules/janestreet/janePackage_0_15.nix {}
+      else if lib.versionOlder "4.08" ocaml.version
       then callPackage ../development/ocaml-modules/janestreet/janePackage_0_14.nix {}
       else if lib.versionOlder "4.07" ocaml.version
       then callPackage ../development/ocaml-modules/janestreet/janePackage_0_12.nix {}
       else callPackage ../development/ocaml-modules/janestreet/janePackage.nix {};
 
     janeStreet =
-    if lib.versionOlder "4.08" ocaml.version
+    if lib.versionOlder "4.10.2" ocaml.version
+    then import ../development/ocaml-modules/janestreet/0.15.nix {
+      inherit self;
+      inherit (pkgs) fetchpatch lib openssl patdiff zstd;
+    }
+    else if lib.versionOlder "4.08" ocaml.version
     then import ../development/ocaml-modules/janestreet/0.14.nix {
       inherit self;
       inherit (pkgs) fetchpatch lib openssl zstd;

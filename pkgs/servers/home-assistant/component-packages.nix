@@ -2,7 +2,7 @@
 # Do not edit!
 
 {
-  version = "2022.6.7";
+  version = "2022.7.5";
   components = {
     "abode" = ps: with ps; [
       abodepy
@@ -61,7 +61,7 @@
       aioairzone
     ];
     "aladdin_connect" = ps: with ps; [
-      aladdin-connect
+      aioaladdinconnect
     ];
     "alarm_control_panel" = ps: with ps; [
     ];
@@ -801,6 +801,7 @@
       pyfido
     ];
     "file" = ps: with ps; [
+      file-read-backwards
     ];
     "filesize" = ps: with ps; [
     ];
@@ -1134,6 +1135,14 @@
     ];
     "homeassistant" = ps: with ps; [
     ];
+    "homeassistant_yellow" = ps: with ps; [
+      aiohttp-cors
+      fnvhash
+      home-assistant-frontend
+      lru-dict
+      pillow
+      sqlalchemy
+    ];
     "homekit" = ps: with ps; [
       hap-python
       pyqrcode
@@ -1205,9 +1214,6 @@
     ];
     "ialarm" = ps: with ps; [
       pyialarm
-    ];
-    "ialarm_xr" = ps: with ps; [
-      pyialarmxr-homeassistant
     ];
     "iammeter" = ps: with ps; [
     ]; # missing inputs: iammeter
@@ -2427,7 +2433,8 @@
     ]
     ++ pygatt.optional-dependencies.GATTTOOL;
     "skybell" = ps: with ps; [
-      skybellpy
+      aioskybell
+      ha-ffmpeg
     ];
     "slack" = ps: with ps; [
       slackclient
@@ -2479,7 +2486,7 @@
       paho-mqtt
     ];
     "snmp" = ps: with ps; [
-      pysnmp
+      pysnmplib
     ];
     "solaredge" = ps: with ps; [
       solaredge
@@ -2495,10 +2502,6 @@
     ];
     "soma" = ps: with ps; [
       pysoma
-    ];
-    "somfy" = ps: with ps; [
-      aiohttp-cors
-      pymfy
     ];
     "somfy_mylink" = ps: with ps; [
       somfy-mylink-synergy
@@ -2657,9 +2660,8 @@
     "system_bridge" = ps: with ps; [
       aiohttp-cors
       ifaddr
-      systembridge
       zeroconf
-    ];
+    ]; # missing inputs: systembridgeconnector
     "system_health" = ps: with ps; [
       aiohttp-cors
     ];
@@ -2916,7 +2918,7 @@
     "uscis" = ps: with ps; [
     ]; # missing inputs: uscisstatus
     "usgs_earthquakes_feed" = ps: with ps; [
-      geojson-client
+      aio-geojson-usgs-earthquakes
     ];
     "utility_meter" = ps: with ps; [
       croniter
@@ -3172,10 +3174,15 @@
     "zha" = ps: with ps; [
       aiohttp-cors
       bellows
+      fnvhash
+      home-assistant-frontend
       ifaddr
+      lru-dict
+      pillow
       pyserial-asyncio
       pyserial
       pyudev
+      sqlalchemy
       zeroconf
       zha-quirks
       zigpy-deconz
@@ -3338,6 +3345,7 @@
     "ecobee"
     "econet"
     "efergy"
+    "eight_sleep"
     "elgato"
     "elkm1"
     "elmax"
@@ -3440,6 +3448,7 @@
     "home_connect"
     "home_plus_control"
     "homeassistant"
+    "homeassistant_yellow"
     "homekit"
     "homekit_controller"
     "homematic"
@@ -3456,7 +3465,6 @@
     "hvv_departures"
     "hyperion"
     "ialarm"
-    "ialarm_xr"
     "iaqualink"
     "icloud"
     "ifttt"
@@ -3499,6 +3507,8 @@
     "launch_library"
     "laundrify"
     "lcn"
+    "lg_soundbar"
+    "life360"
     "light"
     "litterrobot"
     "local_file"
@@ -3635,6 +3645,7 @@
     "rachio"
     "radarr"
     "radio_browser"
+    "radiotherm"
     "rainforest_eagle"
     "rainmachine"
     "random"
@@ -3689,6 +3700,7 @@
     "simplisafe"
     "simulated"
     "siren"
+    "skybell"
     "slack"
     "sleepiq"
     "slimproto"
@@ -3700,11 +3712,11 @@
     "smhi"
     "smtp"
     "snips"
+    "snmp"
     "solaredge"
     "solarlog"
     "solax"
     "soma"
-    "somfy"
     "somfy_mylink"
     "sonarr"
     "songpal"
@@ -3738,7 +3750,6 @@
     "syncthing"
     "syncthru"
     "synology_dsm"
-    "system_bridge"
     "system_health"
     "system_log"
     "tado"

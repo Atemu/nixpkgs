@@ -4,6 +4,7 @@
 , async-timeout
 , buildPythonPackage
 , fetchFromGitHub
+, orjson
 , pytest-aiohttp
 , pytestCheckHook
 , pythonOlder
@@ -11,7 +12,7 @@
 
 buildPythonPackage rec {
   pname = "pydeconz";
-  version = "92";
+  version = "98";
   format = "setuptools";
 
   disabled = pythonOlder "3.9";
@@ -20,12 +21,13 @@ buildPythonPackage rec {
     owner = "Kane610";
     repo = "deconz";
     rev = "refs/tags/v${version}";
-    hash = "sha256-qA7AgiiRBq1ekBcQDC8LlLnZLthA0QFZpxNUZdrMMIA=";
+    hash = "sha256-hCJRoyDWDxrBrxs2g6mVh7MOe6UMd+S8+ftfWyzWgH8=";
   };
 
   propagatedBuildInputs = [
     aiohttp
     async-timeout
+    orjson
   ];
 
   checkInputs = [

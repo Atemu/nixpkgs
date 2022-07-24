@@ -8,10 +8,10 @@
 { lib, stdenv, fetchzip, writeText, pkg-config, gnumake42
 , customOCamlPackages ? null
 , ocamlPackages_4_05, ocamlPackages_4_09, ocamlPackages_4_10, ocamlPackages_4_12, ncurses
-, buildIde ? true
+, buildIde ? null # default is true for Coq < 8.14 and false for Coq >= 8.14
 , glib, gnome, wrapGAppsHook, makeDesktopItem, copyDesktopItems
 , csdp ? null
-, version, coq-version ? null,
+, version, coq-version ? null
 }@args:
 let lib' = lib; in
 let lib = import ../../../../build-support/coq/extra-lib.nix {lib = lib';}; in
@@ -59,6 +59,7 @@ let
   version = fetched.version;
   coq-version = args.coq-version or (if version != "dev" then versions.majorMinor version else "dev");
   coqAtLeast = v: coq-version == "dev" || versionAtLeast coq-version v;
+  buildIde = args.buildIde or (!coqAtLeast "8.14");
   ideFlags = optionalString (buildIde && !coqAtLeast "8.10")
     "-lablgtkdir ${ocamlPackages.lablgtk}/lib/ocaml/*/site-lib/lablgtk2 -coqide opt";
   csdpPatch = if csdp != null then ''
@@ -190,8 +191,9 @@ self = stdenv.mkDerivation {
     categories = [ "Development" "Science" "Math" "IDE" "GTK" ];
   });
 
-  postInstall = let suffix = if coqAtLeast "8.14" then "-core" else ""; in ''
+  postInstall = let suffix = if coqAtLeast "8.14" then "-core" else ""; in optionalString (!coqAtLeast "8.17") ''
     cp bin/votour $out/bin/
+  '' + ''
     ln -s $out/lib/coq${suffix} $OCAMLFIND_DESTDIR/coq${suffix}
   '' + optionalString (coqAtLeast "8.14") ''
     ln -s $out/lib/coqide-server $OCAMLFIND_DESTDIR/coqide-server
@@ -215,4 +217,17 @@ self = stdenv.mkDerivation {
     platforms = platforms.unix;
     mainProgram = "coqide";
   };
-}; in self
+}; in
+if coqAtLeast "8.17" then self.overrideAttrs(_: {
+  buildPhase = ''
+    runHook preBuild
+    make dunestrap
+    dune build -p coq-core,coq-stdlib,coq,coqide-server${if buildIde then ",coqide" else ""} -j $NIX_BUILD_CORES
+    runHook postBuild
+  '';
+  installPhase = ''
+    runHook preInstall
+    dune install --prefix $out coq-core coq-stdlib coq coqide-server${if buildIde then " coqide" else ""}
+    runHook postInstall
+  '';
+}) else self

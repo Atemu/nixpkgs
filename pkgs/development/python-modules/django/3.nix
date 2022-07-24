@@ -3,7 +3,7 @@
 , buildPythonPackage
 , fetchPypi
 , substituteAll
-, geos
+, geos39
 , gdal
 , asgiref
 , pytz
@@ -14,20 +14,20 @@
 
 buildPythonPackage rec {
   pname = "django";
-  version = "3.2.13";
+  version = "3.2.14";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     pname = "Django";
     inherit version;
-    sha256 = "sha256-bZNJegqb9roOCxopzM3EDvv8dilyVbEwmzqISmiOxLY=";
+    sha256 = "sha256-Z3GCuotbKFpOBy86wXzu5q/xtc53/Rc8xbai09wCL88=";
   };
 
   patches = lib.optional withGdal
     (substituteAll {
       src = ./django_3_set_geos_gdal_lib.patch;
-      inherit geos;
+      inherit geos39;
       inherit gdal;
       extension = stdenv.hostPlatform.extensions.sharedLibrary;
     });

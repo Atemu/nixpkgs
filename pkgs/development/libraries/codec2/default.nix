@@ -13,10 +13,20 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
+  # Install a binary that is used by openwebrx
+  postInstall = ''
+    install -Dm0755 src/freedv_rx -t $out/bin/
+  '';
+
   # Swap keyword order to satisfy SWIG parser
   postFixup = ''
     sed -r -i 's/(\<_Complex)(\s+)(float|double)/\3\2\1/' $out/include/$pname/freedv_api.h
   '';
+
+  cmakeFlags = [
+    # RPATH of binary /nix/store/.../bin/freedv_rx contains a forbidden reference to /build/
+    "-DCMAKE_SKIP_BUILD_RPATH=ON"
+  ];
 
   meta = with lib; {
     description = "Speech codec designed for communications quality speech at low data rates";

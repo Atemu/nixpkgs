@@ -69,14 +69,14 @@ let
     six
   ];
 in mkDerivation rec {
-  version = "3.26.0";
+  version = "3.26.1";
   pname = "qgis-unwrapped";
 
   src = fetchFromGitHub {
     owner = "qgis";
     repo = "QGIS";
     rev = "final-${lib.replaceStrings [ "." ] [ "_" ] version}";
-    sha256 = "sha256-yHQi5ai7fdgznTf562Bj0QPE+SXg972O7+r01RY7itE=";
+    sha256 = "sha256-FjMe/5uEbmSeQrAtkKvoGh4VlPkbGMHNzlCpn27C5CQ=";
   };
 
   passthru = {
@@ -128,7 +128,6 @@ in mkDerivation rec {
   '';
 
   cmakeFlags = [
-    "-DCMAKE_SKIP_BUILD_RPATH=OFF"
     "-DWITH_3D=True"
     "-DWITH_PDAL=TRUE"
     "-DPYQT5_SIP_DIR=${py.pkgs.pyqt5}/${py.pkgs.python.sitePackages}/PyQt5/bindings"
