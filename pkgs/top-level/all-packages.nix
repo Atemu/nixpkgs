@@ -23688,8 +23688,6 @@ with pkgs;
   # XanMod kernel
   linuxPackages_xanmod = linuxKernel.packages.linux_xanmod;
   linux_xanmod = linuxKernel.kernels.linux_xanmod;
-  linuxPackages_xanmod_tt = linuxKernel.packages.linux_xanmod_tt;
-  linux_xanmod_tt = linuxKernel.kernels.linux_xanmod_tt;
   linuxPackages_xanmod_latest = linuxKernel.packages.linux_xanmod_latest;
   linux_xanmod_latest = linuxKernel.kernels.linux_xanmod_latest;
 
