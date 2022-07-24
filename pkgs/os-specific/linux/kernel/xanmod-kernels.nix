@@ -10,7 +10,7 @@ let
   ttVariant = {
     inherit (stableVariant) version;
     suffix = "xanmod1-tt";
-    hash = "sha256-K1nAgYUlHMGUftb0YgCby/KItgweP2zvSKK476uHegk=";
+    hash = "sha256-xzqjgeS09pfQIODZ0KWLlaOduWIZQI6VqRV19mjGIVk=";
   };
 
   edgeVariant = {
