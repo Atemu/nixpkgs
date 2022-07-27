@@ -1718,6 +1718,8 @@ in {
 
   claripy = callPackage ../development/python-modules/claripy { };
 
+  classify-imports = callPackage ../development/python-modules/classify-imports { };
+
   cld2-cffi = callPackage ../development/python-modules/cld2-cffi { };
 
   cle = callPackage ../development/python-modules/cle { };
@@ -3413,6 +3415,8 @@ in {
   gast = callPackage ../development/python-modules/gast { };
 
   garages-amsterdam = callPackage ../development/python-modules/garages-amsterdam { };
+
+  gatt = callPackage ../development/python-modules/gatt { };
 
   gattlib = callPackage ../development/python-modules/gattlib {
     inherit (pkgs) bluez glib pkg-config;
@@ -10334,8 +10338,6 @@ in {
 
   suseapi = callPackage ../development/python-modules/suseapi { };
 
-  svdtools = callPackage ../development/python-modules/svdtools { };
-
   svg2tikz = callPackage ../development/python-modules/svg2tikz { };
 
   svglib = callPackage ../development/python-modules/svglib { };
@@ -10610,6 +10612,8 @@ in {
   };
 
   tilequant = callPackage ../development/python-modules/tilequant { };
+
+  tiler = callPackage ../development/python-modules/tiler { };
 
   tilestache = callPackage ../development/python-modules/tilestache { };
 

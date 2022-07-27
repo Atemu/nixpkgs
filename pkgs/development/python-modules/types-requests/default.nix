@@ -6,12 +6,12 @@
 
 buildPythonPackage rec {
   pname = "types-requests";
-  version = "2.28.2";
+  version = "2.28.4";
   format = "setuptools";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-OY+IzZMCx5bLY9ECGvKh+3rlB3QaPVCO344HRtjBagQ=";
+    sha256 = "sha256-G5vt1g54nbYrc6Sl5fWnjDEG5TWtafq6l7C72x6ja48=";
   };
 
   propagatedBuildInputs = [

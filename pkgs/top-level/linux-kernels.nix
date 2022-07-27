@@ -374,6 +374,8 @@ in {
 
     rtl8189es = callPackage ../os-specific/linux/rtl8189es { };
 
+    rtl8189fs = callPackage ../os-specific/linux/rtl8189fs { };
+
     rtl8723bs = callPackage ../os-specific/linux/rtl8723bs { };
 
     rtl8812au = callPackage ../os-specific/linux/rtl8812au { };
@@ -496,6 +498,8 @@ in {
     zfs = zfsStable;
 
     can-isotp = callPackage ../os-specific/linux/can-isotp { };
+
+    qc71_laptop = callPackage ../os-specific/linux/qc71_laptop { };
 
   } // lib.optionalAttrs config.allowAliases {
     ati_drivers_x11 = throw "ati drivers are no longer supported by any kernel >=4.1"; # added 2021-05-18;
