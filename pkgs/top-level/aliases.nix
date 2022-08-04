@@ -408,6 +408,7 @@ mapAliases ({
   facette = throw "facette has been removed"; # Added 2020-01-06
   fast-neural-doodle = throw "fast-neural-doodle has been removed, as the upstream project has been abandoned"; # Added 2020-03-28
   fastnlo = fastnlo_toolkit; # Added 2021-04-24
+  fbreader = throw "fbreader has been removed, as the upstream project has been archived"; # Added 2022-05-26
   fedora-coreos-config-transpiler = throw "fedora-coreos-config-transpiler has been renamed to 'butane'"; # Added 2021-04-13
   feedreader = throw "feedreader is no longer activily maintained since 2019. The developer is working on a spiritual successor called NewsFlash."; # Added 2022-05-03
   fetchFromGithub = throw "You meant fetchFromGitHub, with a capital H";
@@ -630,6 +631,7 @@ mapAliases ({
 
   jack2Full = jack2; # moved from top-level 2021-03-14
   jami-client-gnome = throw "jami-client-gnome has been removed: abandoned upstream"; # Added 2022-05-15
+  jami-libclient = throw "jami-libclient has been removed: moved into jami-qt"; # Added 2022-07-29
   jamomacore = throw "jamomacore has been removed: abandoned upstream"; # Added 2020-11-21
   jbidwatcher = throw "jbidwatcher was discontinued in march 2021"; # Added 2021-03-15
   jbuilder = throw "'jbuilder' has been renamed to/replaced by 'dune_1'"; # Converted to throw 2022-02-22
@@ -1338,6 +1340,7 @@ mapAliases ({
   sqlite3_analyzer = throw "'sqlite3_analyzer' has been renamed to/replaced by 'sqlite-analyzer'"; # Converted to throw 2022-02-22
   sqliteInteractive = throw "'sqliteInteractive' has been renamed to/replaced by 'sqlite-interactive'"; # Converted to throw 2022-02-22
   squid4 = squid;  # added 2019-08-22
+  srcml = throw "'srcml' has been removed: abandoned by upstream"; # Added 2022-07-21
   sshfsFuse = throw "'sshfsFuse' has been renamed to/replaced by 'sshfs-fuse'"; # Converted to throw 2022-02-22
   ssmtp = throw "'ssmtp' has been removed due to the software being unmaintained. 'msmtp' can be used as a replacement"; # Added 2022-04-17
   stanchion = throw "Stanchion was part of riak-cs which is not maintained anymore"; # added 2020-10-14
@@ -1364,6 +1367,8 @@ mapAliases ({
 
   tahoelafs = throw "'tahoelafs' has been renamed to/replaced by 'tahoe-lafs'"; # Converted to throw 2022-02-22
   tangogps = foxtrotgps; # Added 2020-01-26
+  taplo-cli = taplo; # Added 2022-07-30
+  taplo-lsp = taplo; # Added 2022-07-30
   tdm = throw "tdm has been removed because nobody can figure out how to fix OpenAL integration. Use precompiled binary and `steam-run` instead";
   teleconsole = throw "teleconsole is archived by upstream"; # Added 2022-04-05
   telepathy-qt = throw "telepathy-qt no longer supports Qt 4. Please use libsForQt5.telepathy instead"; # Added 2020-07-02
@@ -1378,6 +1383,7 @@ mapAliases ({
   telepathy_qt5 = throw "'telepathy_qt5' has been renamed to/replaced by 'libsForQt5.telepathy'"; # Converted to throw 2022-02-22
   telnet = throw "'telnet' has been renamed to/replaced by 'inetutils'"; # Converted to throw 2022-02-22
   terminus = throw "terminus has been removed, it was unmaintained in nixpkgs"; # Added 2021-08-21
+  terraform-full = throw "terraform-full has been removed, it was an alias for 'terraform.full'"; # Added 2022-08-02
   terraform_0_13 = throw "terraform_0_13 has been removed from nixpkgs"; # Added 2022-06-26
   terraform_0_14 = throw "terraform_0_14 has been removed from nixpkgs"; # Added 2022-06-26
   terraform_0_15 = throw "terraform_0_15 has been removed from nixpkgs"; # Added 2022-06-26
@@ -1519,6 +1525,10 @@ mapAliases ({
   '';
   xf86_input_multitouch = throw "xf86_input_multitouch has been removed from nixpkgs"; # Added 2020-01-20
   xlibs = throw "'xlibs' has been renamed to/replaced by 'xorg'"; # Converted to throw 2022-02-22
+  xow = throw (
+    "Upstream has ended support for 'xow' and the package has been removed" +
+    "from nixpkgs. Users are urged to switch to 'xone'."
+  ); # Added 2022-08-02
   xpraGtk3 = throw "'xpraGtk3' has been renamed to/replaced by 'xpra'"; # Converted to throw 2022-02-22
   xv = xxv; # Added 2020-02-22
   xvfb_run = xvfb-run; # Added 2021-05-07

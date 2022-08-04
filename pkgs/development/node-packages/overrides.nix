@@ -85,6 +85,16 @@ final: prev: {
     meta = oldAttrs.meta // { platforms = lib.platforms.linux; };
   });
 
+  balanceofsatoshis = prev.balanceofsatoshis.override {
+    nativeBuildInputs = [ pkgs.installShellFiles ];
+    postInstall = ''
+      installShellCompletion --cmd bos\
+        --bash <($out/bin/bos completion bash)\
+        --zsh <($out/bin/bos completion zsh)\
+        --fish <($out/bin/bos completion fish)
+    '';
+  };
+
   bitwarden-cli = prev."@bitwarden/cli".override {
     name = "bitwarden-cli";
   };
@@ -350,7 +360,7 @@ final: prev: {
 
     src = fetchurl {
       url = "https://registry.npmjs.org/prisma/-/prisma-${version}.tgz";
-      sha512 = "sha512-Dtsar03XpCBkcEb2ooGWO/WcgblDTLzGhPcustbehwlFXuTMliMDRzXsfygsgYwQoZnAUKRd1rhpvBNEUziOVw==";
+      sha512 = "sha512-yw50J8If2dKP4wYIi695zthsCASQFHiogGvUHHWd3falx/rpsD6Sb1LMLRV9nO3iGG3lozxNJ2PSINxK7xwdpg==";
     };
     postInstall = with pkgs; ''
       wrapProgram "$out/bin/prisma" \

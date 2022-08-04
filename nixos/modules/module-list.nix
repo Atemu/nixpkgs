@@ -447,6 +447,7 @@
   ./services/hardware/interception-tools.nix
   ./services/hardware/irqbalance.nix
   ./services/hardware/joycond.nix
+  ./services/hardware/kanata.nix
   ./services/hardware/lcd.nix
   ./services/hardware/lirc.nix
   ./services/hardware/nvidia-optimus.nix
@@ -474,7 +475,6 @@
   ./services/hardware/thermald.nix
   ./services/hardware/undervolt.nix
   ./services/hardware/vdr.nix
-  ./services/hardware/xow.nix
   ./services/home-automation/home-assistant.nix
   ./services/home-automation/zigbee2mqtt.nix
   ./services/logging/SystemdJournal2Gelf.nix
