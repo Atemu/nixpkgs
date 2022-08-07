@@ -433,7 +433,7 @@ let
           echo "Please move your mouse to create needed randomness."
         ''}
           echo "Waiting for your FIDO2 device..."
-          fido2luks open ${dev.device} ${dev.name} ${dev.fido2.credential} --await-dev ${toString dev.fido2.gracePeriod} --salt string:$passphrase
+          fido2luks open${optionalString dev.allowDiscards " --allow-discards"} ${dev.device} ${dev.name} ${dev.fido2.credential} --await-dev ${toString dev.fido2.gracePeriod} --salt string:$passphrase
         if [ $? -ne 0 ]; then
           echo "No FIDO2 key found, falling back to normal open procedure"
           open_normally
@@ -548,11 +548,11 @@ in
     boot.initrd.luks.devices = mkOption {
       default = { };
       example = { luksroot.device = "/dev/disk/by-uuid/430e9eff-d852-4f68-aa3b-2fa3599ebe08"; };
-      description = ''
+      description = lib.mdDoc ''
         The encrypted disk that should be opened before the root
         filesystem is mounted. Both LVM-over-LUKS and LUKS-over-LVM
         setups are supported. The unencrypted devices can be accessed as
-        <filename>/dev/mapper/<replaceable>name</replaceable></filename>.
+        {file}`/dev/mapper/«name»`.
       '';
 
       type = with types; attrsOf (submodule (

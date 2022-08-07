@@ -39,6 +39,7 @@ lua-cmsgpack,,,,,,
 lua-iconv,,,,,,
 lua-lsp,,,,,,
 lua-messagepack,,,,,,
+lua-protobuf,,,,,,lockejan
 lua-resty-http,,,,,,
 lua-resty-jwt,,,,,,
 lua-resty-openidc,,,,,,
@@ -70,6 +71,7 @@ luasql-sqlite3,,,,,,vyp
 luassert,,,,,,
 luasystem,,,,,,
 luaunbound,,,,,
+luaunit,,,,,,lockejan
 luautf8,,,,,,pstn
 luazip,,,,,,
 lua-yajl,,,,,,pstn

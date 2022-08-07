@@ -1161,6 +1161,40 @@ buildLuarocksPackage {
   };
 }) {};
 
+lua-protobuf = callPackage({ buildLuarocksPackage, luaOlder, luaAtLeast
+, fetchgit, lua
+}:
+buildLuarocksPackage {
+  pname = "lua-protobuf";
+  version = "0.4.0-1";
+  knownRockspec = (fetchurl {
+    url    = "mirror://luarocks/lua-protobuf-0.4.0-1.rockspec";
+    sha256 = "053r6z37847wm1xaxv5rwplmdqkp507qawgd382z0l7m05f06ls9";
+  }).outPath;
+  src = fetchgit ( removeAttrs (builtins.fromJSON ''{
+  "url": "https://github.com/starwing/lua-protobuf.git",
+  "rev": "832facd266366cd86ee9bf41d35327255d0033f2",
+  "date": "2022-07-27T14:34:12+08:00",
+  "path": "/nix/store/g68x4cbi6ssd5zak14r5cbi7k88d3ml9-lua-protobuf",
+  "sha256": "0ynfq0va4w8zlr67ld6v9nmi5mnvchfygd8h5jbwk2vzlj9hg2yw",
+  "fetchLFS": false,
+  "fetchSubmodules": true,
+  "deepClone": false,
+  "leaveDotGit": false
+}
+ '') ["date" "path"]) ;
+
+  disabled = with lua; (luaOlder "5.1");
+  propagatedBuildInputs = [ lua ];
+
+  meta = {
+    homepage = "https://github.com/starwing/lua-protobuf";
+    description = "protobuf data support for Lua";
+    maintainers = with lib.maintainers; [ lockejan ];
+    license.fullName = "MIT";
+  };
+}) {};
+
 lua-resty-http = callPackage({ buildLuarocksPackage, luaOlder, luaAtLeast
 , fetchgit, lua
 }:
@@ -2135,6 +2169,32 @@ buildLuarocksPackage {
     homepage = "https://www.zash.se/luaunbound.html";
     description = "A binding to libunbound";
     license.fullName = "MIT";
+  };
+}) {};
+
+luaunit = callPackage({ buildLuarocksPackage, luaOlder, luaAtLeast
+, fetchurl, lua
+}:
+buildLuarocksPackage {
+  pname = "luaunit";
+  version = "3.4-1";
+  knownRockspec = (fetchurl {
+    url    = "mirror://luarocks/luaunit-3.4-1.rockspec";
+    sha256 = "111435fa8p2819vcvg76qmknj0wqk01gy9d1nh55c36616xnj54n";
+  }).outPath;
+  src = fetchurl {
+    url    = "https://github.com/bluebird75/luaunit/releases/download/LUAUNIT_V3_4/rock-luaunit-3.4.zip";
+    sha256 = "1v8nkiwz2nr242h5cl4af6vmn5gxmn94skps1qhb55ak60j20nvr";
+  };
+
+  disabled = with lua; (luaOlder "5.1") || (luaAtLeast "5.5");
+  propagatedBuildInputs = [ lua lua ];
+
+  meta = {
+    homepage = "http://github.com/bluebird75/luaunit";
+    description = "A unit testing framework for Lua";
+    maintainers = with lib.maintainers; [ lockejan ];
+    license.fullName = "BSD";
   };
 }) {};
 

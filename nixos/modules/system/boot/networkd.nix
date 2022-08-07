@@ -454,12 +454,14 @@ let
           "RequiredForOnline"
           "RequiredFamilyForOnline"
           "ActivationPolicy"
+          "Promiscuous"
         ])
         (assertMacAddress "MACAddress")
         (assertByteFormat "MTUBytes")
         (assertValueOneOf "ARP" boolValues)
         (assertValueOneOf "Multicast" boolValues)
         (assertValueOneOf "AllMulticast" boolValues)
+        (assertValueOneOf "Promiscuous" boolValues)
         (assertValueOneOf "Unmanaged" boolValues)
         (assertValueOneOf "RequiredForOnline" (boolValues ++ [
           "missing"
@@ -1168,8 +1170,7 @@ let
         <citerefentry><refentrytitle>systemd.netdev</refentrytitle>
         <manvolnum>5</manvolnum></citerefentry> for details.
         A detailed explanation about how VRFs work can be found in the
-        <link xlink:href="https://www.kernel.org/doc/Documentation/networking/vrf.txt">kernel
-        docs</link>.
+        <link xlink:href="https://www.kernel.org/doc/Documentation/networking/vrf.txt">kernel docs</link>.
       '';
     };
 
@@ -1386,7 +1387,7 @@ let
 
     dhcpServerStaticLeases = mkOption {
       default = [];
-      example = [ { MACAddress = "65:43:4a:5b:d8:5f"; Address = "192.168.1.42"; } ];
+      example = [ { dhcpServerStaticLeaseConfig = { MACAddress = "65:43:4a:5b:d8:5f"; Address = "192.168.1.42"; }; } ];
       type = with types; listOf (submodule dhcpServerStaticLeaseOptions);
       description = ''
         A list of DHCPServerStaticLease sections to be added to the unit.  See
@@ -1397,7 +1398,7 @@ let
 
     ipv6Prefixes = mkOption {
       default = [];
-      example = [ { AddressAutoconfiguration = true; OnLink = true; } ];
+      example = [ { ipv6PrefixConfig = { AddressAutoconfiguration = true; OnLink = true; }; } ];
       type = with types; listOf (submodule ipv6PrefixOptions);
       description = ''
         A list of ipv6Prefix sections to be added to the unit.  See
@@ -1903,13 +1904,11 @@ in
       };
 
       extraArgs = mkOption {
-        description = ''
+        description = lib.mdDoc ''
           Extra command-line arguments to pass to systemd-networkd-wait-online.
-          These also affect per-interface <literal>systemd-network-wait-online@</literal> services.
+          These also affect per-interface `systemd-network-wait-online@` services.
 
-          See <link xlink:href="https://www.freedesktop.org/software/systemd/man/systemd-networkd-wait-online.service.html">
-          <citerefentry><refentrytitle>systemd-networkd-wait-online.service</refentrytitle><manvolnum>8</manvolnum>
-          </citerefentry></link> for all available options.
+          See [{manpage}`systemd-networkd-wait-online.service(8)`](https://www.freedesktop.org/software/systemd/man/systemd-networkd-wait-online.service.html) for all available options.
         '';
         type = with types; listOf str;
         default = [];
