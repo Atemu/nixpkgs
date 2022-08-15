@@ -5,12 +5,12 @@
 
 buildPythonPackage rec {
   pname = "types-setuptools";
-  version = "63.4.0";
+  version = "64.0.1";
   format = "setuptools";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-+VQEQDQGbNPYzszIfi1c6+epbJ+HmW9hw8apLNVsyKQ=";
+    sha256 = "sha256-gpC2vx2RbmsAd4TVy80RKhr5otdjQyMfzOClUYU0NwI=";
   };
 
   # Module doesn't have tests
