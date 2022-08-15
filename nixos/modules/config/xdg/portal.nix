@@ -83,19 +83,28 @@ in
         }
       ];
 
+      # TODO Is it actually necessary to make the packages accessible to anything but the user service(s)?
       services.dbus.packages = packages;
-      systemd.packages = packages;
+      systemd = {
+        inherit packages;
+        user.services.xdg-desktop-portal = {
+          restartIfChanged = true;
+          environment = {
+            XDG_DESKTOP_PORTAL_DIR = "${joinedPortals}/share/xdg-desktop-portal/portals";
+          };
+        };
+      };
 
       environment = {
         # fixes screen sharing on plasmawayland on non-chromium apps by linking
         # share/applications/*.desktop files
         # see https://github.com/NixOS/nixpkgs/issues/145174
         systemPackages = [ joinedPortals ];
-        pathsToLink = [ "/share/applications" ];
+        # Makes the portals available in the system-wide share
+        inherit (joinedPortals) pathsToLink;
 
         sessionVariables = {
           GTK_USE_PORTAL = mkIf cfg.gtkUsePortal "1";
-          XDG_DESKTOP_PORTAL_DIR = "${joinedPortals}/share/xdg-desktop-portal/portals";
         };
       };
     };
