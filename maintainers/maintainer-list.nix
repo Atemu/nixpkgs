@@ -6368,6 +6368,13 @@
     github = "jsierles";
     githubId = 82;
   };
+  jsimonetti = {
+    email = "jeroen+nixpkgs@simonetti.nl";
+    matrix = "@jeroen:simonetti.nl";
+    name = "Jeroen Simonetti";
+    github = "jsimonetti";
+    githubId = 5478838;
+  };
   jtcoolen = {
     email = "jtcoolen@pm.me";
     name = "Julien Coolen";
@@ -9765,6 +9772,12 @@
     githubId = 1788628;
     name = "pandaman";
   };
+  panicgh = {
+    email = "nbenes.gh@xandea.de";
+    github = "panicgh";
+    githubId = 79252025;
+    name = "Nicolas Benes";
+  };
   paperdigits = {
     email = "mica@silentumbrella.com";
     github = "paperdigits";
@@ -11295,6 +11308,12 @@
     github = "samuelrivas";
     githubId = 107703;
     name = "Samuel Rivas";
+  };
+  samw = {
+    email = "sam@wlcx.cc";
+    github = "wlcx";
+    githubId = 3065381;
+    name = "Sam Willcocks";
   };
   samyak = {
     name = "Samyak Sarnayak";

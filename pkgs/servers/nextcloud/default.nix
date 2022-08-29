@@ -46,13 +46,13 @@ in {
   '';
 
   nextcloud23 = generic {
-    version = "23.0.6";
-    sha256 = "34fbc3a6c16a623f57971b8c4df7c5e62b3650728edec7d05ec116b295040548";
+    version = "23.0.8";
+    sha256 = "ac3d042253399be25a2aa01c799dec75a1459b6ae453874414f6528cc2ee5061";
   };
 
   nextcloud24 = generic {
-    version = "24.0.3";
-    sha256 = "320c81f9b902922b4bcef3eacf858596a14347fd45bddd26dac198562d212439";
+    version = "24.0.4";
+    sha256 = "d107426f8e1c193db882a04c844f9bc7e7eeb7c21e46c46197e5154d6d6ac28e";
   };
 
   # tip: get the sha with:
