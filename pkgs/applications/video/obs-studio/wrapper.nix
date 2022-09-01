@@ -31,7 +31,7 @@ symlinkJoin {
     # Remove unused obs-plugins dir to not cause confusion
     rm -r $out/share/obs/obs-plugins
     # Leave some breadcrumbs
-    echo 'Plugins are at ${pluginsJoined}/share/obs-plugins' > $out/share/obs/obs-plugins-README
+    echo 'Plugins are at ${pluginsJoined}/share/obs/obs-plugins' > $out/share/obs/obs-plugins-README
   '';
 
   inherit (obs-studio) meta;
