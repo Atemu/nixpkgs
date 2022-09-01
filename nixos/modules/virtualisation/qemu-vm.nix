@@ -98,17 +98,13 @@ let
   addDeviceNames =
     imap1 (idx: drive: drive // { device = driveDeviceName idx; });
 
-  efiPrefix =
-    if pkgs.stdenv.hostPlatform.isx86 then "${pkgs.OVMF.fd}/FV/OVMF"
-    else if pkgs.stdenv.isAarch64 then "${pkgs.OVMF.fd}/FV/AAVMF"
-    else throw "No EFI firmware available for platform";
-  efiFirmware = "${efiPrefix}_CODE.fd";
-  efiVarsDefault = "${efiPrefix}_VARS.fd";
 
   # Shell script to start the VM.
   startVM =
     ''
-      #! ${pkgs.runtimeShell}
+      #! ${cfg.host.pkgs.runtimeShell}
+
+      export PATH=${makeBinPath [ cfg.host.pkgs.coreutils ]}''${PATH:+:}$PATH
 
       set -e
 
@@ -218,14 +214,14 @@ let
               ${qemu}/bin/qemu-img create -f qcow2 $diskImage "60M"
               ${if cfg.useEFIBoot then ''
                 efiVars=$out/efi-vars.fd
-                cp ${efiVarsDefault} $efiVars
+                cp ${cfg.efi.variables} $efiVars
                 chmod 0644 $efiVars
               '' else ""}
             '';
           buildInputs = [ pkgs.util-linux ];
           QEMU_OPTS = "-nographic -serial stdio -monitor none"
                       + lib.optionalString cfg.useEFIBoot (
-                        " -drive if=pflash,format=raw,unit=0,readonly=on,file=${efiFirmware}"
+                        " -drive if=pflash,format=raw,unit=0,readonly=on,file=${cfg.efi.firmware}"
                       + " -drive if=pflash,format=raw,unit=1,file=$efiVars");
         }
         ''
@@ -580,11 +576,24 @@ in
         description = "Primary IP address used in /etc/hosts.";
       };
 
+    virtualisation.host.pkgs = mkOption {
+      type = options.nixpkgs.pkgs.type;
+      default = pkgs;
+      defaultText = "pkgs";
+      example = literalExpression ''
+        import pkgs.path { system = "x86_64-darwin"; }
+      '';
+      description = ''
+        pkgs set to use for the host-specific packages of the vm runner.
+        Changing this to e.g. a Darwin package set allows running NixOS VMs on Darwin.
+      '';
+    };
+
     virtualisation.qemu = {
       package =
         mkOption {
           type = types.package;
-          default = pkgs.qemu_kvm;
+          default = cfg.host.pkgs.qemu_kvm;
           example = "pkgs.qemu_test";
           description = lib.mdDoc "QEMU package to use.";
         };
@@ -705,7 +714,30 @@ in
             manager.
             useEFIBoot is ignored if useBootLoader == false.
           '';
+        };
+
+    virtualisation.efi = {
+      firmware = mkOption {
+        type = types.path;
+        default = pkgs.OVMF.firmware;
+        defaultText = "pkgs.OVMF.firmware";
+        description =
+          lib.mdDoc ''
+            Firmware binary for EFI implementation, defaults to OVMF.
+          '';
       };
+
+      variables = mkOption {
+        type = types.path;
+        default = pkgs.OVMF.variables;
+        defaultText = "pkgs.OVMF.variables";
+        description =
+          lib.mdDoc ''
+            Platform-specific flash binary for EFI variables, implementation-dependent to the EFI firmware.
+            Defaults to OVMF.
+          '';
+      };
+    };
 
     virtualisation.useDefaultFilesystems =
       mkOption {
@@ -739,10 +771,10 @@ in
         type = types.nullOr types.package;
         default = null;
         description =
-          ''
-            An alternate BIOS (such as <package>qboot</package>) with which to start the VM.
-            Should contain a file named <literal>bios.bin</literal>.
-            If <literal>null</literal>, QEMU's builtin SeaBIOS will be used.
+          lib.mdDoc ''
+            An alternate BIOS (such as `qboot`) with which to start the VM.
+            Should contain a file named `bios.bin`.
+            If `null`, QEMU's builtin SeaBIOS will be used.
           '';
       };
 
@@ -928,7 +960,7 @@ in
         ''-append "$(cat ${config.system.build.toplevel}/kernel-params) init=${config.system.build.toplevel}/init regInfo=${regInfo}/registration ${consoles} $QEMU_KERNEL_PARAMS"''
       ])
       (mkIf cfg.useEFIBoot [
-        "-drive if=pflash,format=raw,unit=0,readonly=on,file=${efiFirmware}"
+        "-drive if=pflash,format=raw,unit=0,readonly=on,file=${cfg.efi.firmware}"
         "-drive if=pflash,format=raw,unit=1,file=$NIX_EFI_VARS"
       ])
       (mkIf (cfg.bios != null) [
@@ -1058,14 +1090,14 @@ in
 
     services.qemuGuest.enable = cfg.qemu.guestAgent.enable;
 
-    system.build.vm = pkgs.runCommand "nixos-vm" {
+    system.build.vm = cfg.host.pkgs.runCommand "nixos-vm" {
       preferLocalBuild = true;
       meta.mainProgram = "run-${config.system.name}-vm";
     }
       ''
         mkdir -p $out/bin
         ln -s ${config.system.build.toplevel} $out/system
-        ln -s ${pkgs.writeScript "run-nixos-vm" startVM} $out/bin/run-${config.system.name}-vm
+        ln -s ${cfg.host.pkgs.writeScript "run-nixos-vm" startVM} $out/bin/run-${config.system.name}-vm
       '';
 
     # When building a regular system configuration, override whatever

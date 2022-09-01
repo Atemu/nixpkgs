@@ -20,7 +20,7 @@ let
     mkDefault
     literalExpression
     isAttrs
-    literalDocBook
+    literalMD
     maintainers
     catAttrs
     collect
@@ -165,7 +165,7 @@ in
           mkOption {
             type = port;
             default = dbPorts.${cfg.database.type};
-            defaultText = literalDocBook "default port of selected database";
+            defaultText = literalMD "default port of selected database";
             description = lib.mdDoc ''
               Port of the database to connect to.
             '';
@@ -562,7 +562,7 @@ in
             shopt -s inherit_errexit
 
             create_role="$(mktemp)"
-            trap 'rm -f "$create_role"' ERR EXIT
+            trap 'rm -f "$create_role"' EXIT
 
             db_password="$(<"$CREDENTIALS_DIRECTORY/db_password")"
             echo "CREATE ROLE keycloak WITH LOGIN PASSWORD '$db_password' CREATEDB" > "$create_role"

@@ -451,6 +451,7 @@ let
           "Multicast"
           "AllMulticast"
           "Unmanaged"
+          "Group"
           "RequiredForOnline"
           "RequiredFamilyForOnline"
           "ActivationPolicy"
@@ -463,6 +464,8 @@ let
         (assertValueOneOf "AllMulticast" boolValues)
         (assertValueOneOf "Promiscuous" boolValues)
         (assertValueOneOf "Unmanaged" boolValues)
+        (assertInt "Group")
+        (assertRange "Group" 0 2147483647)
         (assertValueOneOf "RequiredForOnline" (boolValues ++ [
           "missing"
           "off"
@@ -800,10 +803,12 @@ let
 
       sectionDHCPServer = checkUnitConfig "DHCPServer" [
         (assertOnlyFields [
+          "ServerAddress"
           "PoolOffset"
           "PoolSize"
           "DefaultLeaseTimeSec"
           "MaxLeaseTimeSec"
+          "UplinkInterface"
           "EmitDNS"
           "DNS"
           "EmitNTP"
@@ -817,10 +822,15 @@ let
           "EmitLPR"
           "LPR"
           "EmitRouter"
+          "Router"
           "EmitTimezone"
           "Timezone"
           "SendOption"
           "SendVendorOption"
+          "BindToInterface"
+          "RelayTarget"
+          "RelayAgentCircuitId"
+          "RelayAgentRemoteId"
         ])
         (assertInt "PoolOffset")
         (assertMinimum "PoolOffset" 0)
@@ -834,6 +844,7 @@ let
         (assertValueOneOf "EmitLPR" boolValues)
         (assertValueOneOf "EmitRouter" boolValues)
         (assertValueOneOf "EmitTimezone" boolValues)
+        (assertValueOneOf "BindToInterface" boolValues)
       ];
 
       sectionIPv6SendRA = checkUnitConfig "IPv6SendRA" [
@@ -842,6 +853,7 @@ let
           "OtherInformation"
           "RouterLifetimeSec"
           "RouterPreference"
+          "UplinkInterface"
           "EmitDNS"
           "DNS"
           "EmitDomains"
@@ -865,6 +877,15 @@ let
         ])
         (assertValueOneOf "AddressAutoconfiguration" boolValues)
         (assertValueOneOf "OnLink" boolValues)
+      ];
+
+      sectionIPv6RoutePrefix = checkUnitConfig "IPv6RoutePrefix" [
+        (assertOnlyFields [
+          "Route"
+          "LifetimeSec"
+        ])
+        (assertHasField "Route")
+        (assertInt "LifetimeSec")
       ];
 
       sectionDHCPServerStaticLease = checkUnitConfig "DHCPServerStaticLease" [
@@ -1230,6 +1251,22 @@ let
     };
   };
 
+  ipv6RoutePrefixOptions = {
+    options = {
+      ipv6RoutePrefixConfig = mkOption {
+        default = {};
+        example = { Route = "fd00::/64"; };
+        type = types.addCheck (types.attrsOf unitOption) check.network.sectionIPv6RoutePrefix;
+        description = ''
+          Each attribute in this set specifies an option in the
+          <literal>[IPv6RoutePrefix]</literal> section of the unit.  See
+          <citerefentry><refentrytitle>systemd.network</refentrytitle>
+          <manvolnum>5</manvolnum></citerefentry> for details.
+        '';
+      };
+    };
+  };
+
   dhcpServerStaticLeaseOptions = {
     options = {
       dhcpServerStaticLeaseConfig = mkOption {
@@ -1369,6 +1406,17 @@ let
       description = lib.mdDoc ''
         A list of ipv6Prefix sections to be added to the unit.  See
         {manpage}`systemd.network(5)` for details.
+      '';
+    };
+
+    ipv6RoutePrefixes = mkOption {
+      default = [];
+      example = [ { Route = "fd00::/64"; LifetimeSec = 3600; } ];
+      type = with types; listOf (submodule ipv6RoutePrefixOptions);
+      description = ''
+        A list of ipv6RoutePrefix sections to be added to the unit.  See
+        <citerefentry><refentrytitle>systemd.network</refentrytitle>
+        <manvolnum>5</manvolnum></citerefentry> for details.
       '';
     };
 
@@ -1762,6 +1810,10 @@ let
         + flip concatMapStrings def.ipv6Prefixes (x: ''
           [IPv6Prefix]
           ${attrsToSection x.ipv6PrefixConfig}
+        '')
+        + flip concatMapStrings def.ipv6RoutePrefixes (x: ''
+          [IPv6RoutePrefix]
+          ${attrsToSection x.ipv6RoutePrefixConfig}
         '')
         + flip concatMapStrings def.dhcpServerStaticLeases (x: ''
           [DHCPServerStaticLease]

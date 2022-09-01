@@ -189,9 +189,9 @@ in
       allowAnonymousEdits = mkOption {
         type = types.bool;
         default = false;
-        description = ''
-          Whether to allow guests to edit existing notes with the `freely' permission,
-          when <option>allowAnonymous</option> is enabled.
+        description = lib.mdDoc ''
+          Whether to allow guests to edit existing notes with the `freely` permission,
+          when {option}`allowAnonymous` is enabled.
         '';
       };
       allowFreeURL = mkOption {
@@ -933,11 +933,19 @@ in
                 Required group names.
               '';
             };
+            providerName = mkOption {
+              type = types.str;
+              default = "";
+              example = "My institution";
+              description = lib.mdDoc ''
+                Optional name to be displayed at login form indicating the SAML provider.
+              '';
+            };
             attribute = {
               id = mkOption {
                 type = types.str;
                 default = "";
-                description = ''
+                description = lib.mdDoc ''
                   Attribute map for `id'.
                   Defaults to `NameID' of SAML response.
                 '';
@@ -945,7 +953,7 @@ in
               username = mkOption {
                 type = types.str;
                 default = "";
-                description = ''
+                description = lib.mdDoc ''
                   Attribute map for `username'.
                   Defaults to `NameID' of SAML response.
                 '';
@@ -953,10 +961,10 @@ in
               email = mkOption {
                 type = types.str;
                 default = "";
-                description = ''
-                  Attribute map for `email'.
-                  Defaults to `NameID' of SAML response if
-                  <option>identifierFormat</option> has
+                description = lib.mdDoc ''
+                  Attribute map for `email`.
+                  Defaults to `NameID` of SAML response if
+                  {option}`identifierFormat` has
                   the default value.
                 '';
               };
