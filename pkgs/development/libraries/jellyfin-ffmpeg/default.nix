@@ -8,13 +8,13 @@
   nv-codec-headers = nv-codec-headers-11;
 }).overrideAttrs (old: rec {
   pname = "jellyfin-ffmpeg";
-  version = "5.1-2";
+  version = "5.1.1-1";
 
   src = fetchFromGitHub {
     owner = "jellyfin";
     repo = "jellyfin-ffmpeg";
     rev = "v${version}";
-    sha256 = "sha256-lw2W65mbBhiSnegxLSRqDz2WMM82ght/KB4i+5BiL4o=";
+    sha256 = "sha256-WxUADm5z6SH6Xegi2dhhien5IBY/Y/ZZaXr7MdOvpYA=";
   };
 
   configureFlags = old.configureFlags ++ [

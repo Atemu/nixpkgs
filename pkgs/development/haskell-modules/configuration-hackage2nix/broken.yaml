@@ -70,6 +70,7 @@ broken-packages:
   - aeson-bson
   - aeson-decode
   - aeson-default
+  - aeson-dependent-sum
   - aeson-deriving
   - aeson-diff-generic
   - aeson-filthy
@@ -340,6 +341,7 @@ broken-packages:
   - bibdb
   - bidi-icu
   - bidirectional
+  - bidirectional-instances
   - bidirectionalization-combined
   - bidispec
   - bidispec-extras
@@ -661,6 +663,7 @@ broken-packages:
   - church-maybe
   - church-pair
   - churros
+  - cicero-api
   - cielo
   - cil
   - cinvoke
@@ -1144,6 +1147,7 @@ broken-packages:
   - djinn-th
   - dmcc
   - dmenu
+  - dns-patterns
   - dnsrbl
   - dnssd
   - dobutok
@@ -1241,6 +1245,7 @@ broken-packages:
   - ebnf-bff
   - eccrypto-ed25519-bindings
   - ecma262
+  - ecta-plugin
   - ecu
   - eddie
   - ede
@@ -1344,7 +1349,6 @@ broken-packages:
   - etcd
   - ethereum-rlp
   - eurofxref
-  - evdev
   - eve
   - eved
   - event
@@ -1513,6 +1517,7 @@ broken-packages:
   - forbidden-fruit
   - fordo
   - forecast-io
+  - foreign
   - foreign-var
   - forest
   - forest-fire
@@ -2144,7 +2149,6 @@ broken-packages:
   - heterogeneous-list-literals
   - hetris
   - heukarya
-  - hevm
   - HExcel
   - hexchat
   - hexif
@@ -2231,6 +2235,7 @@ broken-packages:
   - HJVM
   - hkd-delta
   - hkd-lens
+  - hkd-records
   - hkt
   - hlbfgsb
   - hleap
@@ -2248,6 +2253,8 @@ broken-packages:
   - hlongurl
   - hlrdb-core
   - hls-exactprint-utils
+  - hls-selection-range-plugin
+  - hls-stan-plugin
   - hlwm
   - hmarkup
   - hmatrix-banded
@@ -2273,6 +2280,7 @@ broken-packages:
   - hnn
   - hnop
   - hoauth
+  - hoauth2-tutorial
   - hobbes
   - hobbits
   - hocilib
@@ -2421,6 +2429,7 @@ broken-packages:
   - hsns
   - hsntp
   - hs-openmoji-data
+  - hs-opentelemetry-instrumentation-hspec
   - hsoptions
   - hsoz
   - hsparql
@@ -2809,7 +2818,6 @@ broken-packages:
   - kd-tree
   - keccak
   - keera-hails-reactivevalues
-  - keid-render-basic
   - keid-ui-dearimgui
   - keiretsu
   - kempe
@@ -3046,6 +3054,7 @@ broken-packages:
   - located
   - located-monad-logger
   - loch
+  - loc-test
   - log2json
   - logentries
   - logger
@@ -3244,7 +3253,7 @@ broken-packages:
   - mios
   - MIP
   - mismi-s3-core
-  - miso
+  - miso-action-logger
   - miso-examples
   - mit-3qvpPyAi6mH
   - mix-arrows
@@ -3273,7 +3282,6 @@ broken-packages:
   - monadacme
   - monad-atom
   - monad-atom-simple
-  - monad-bayes
   - monad-branch
   - MonadCatchIO-transformers
   - monad-choice
@@ -3689,6 +3697,7 @@ broken-packages:
   - pandoc-unlit
   - pandoc-utils
   - pandora
+  - panfiguration
   - pang-a-lambda
   - pangraph
   - pan-os-syslog
@@ -3754,6 +3763,7 @@ broken-packages:
   - Pathfinder
   - pathfindingcore
   - PathTree
+  - patrol
   - patronscraper
   - paypal-adaptive-hoops
   - paypal-api
@@ -4069,6 +4079,7 @@ broken-packages:
   - proxy-mapping
   - psc-ide
   - pseudo-trie
+  - psx
   - PTQ
   - publicsuffix
   - publicsuffixlistcreate
@@ -4299,6 +4310,7 @@ broken-packages:
   - request
   - request-monad
   - req-url-extra
+  - reserve
   - reservoir
   - resolve
   - resolve-trivial-conflicts
@@ -4317,6 +4329,7 @@ broken-packages:
   - reversi
   - ReviewBoard
   - rewrite-inspector
+  - rfc
   - rfc-prelude
   - r-glpk-phonetic-languages-ukrainian-durations
   - rhbzquery
@@ -4586,6 +4599,7 @@ broken-packages:
   - signable
   - signable-haskell-protoc
   - signed-multiset
+  - significant-figures
   - simd
   - simfin
   - simple-actors
@@ -4922,6 +4936,8 @@ broken-packages:
   - SVD2HS
   - svfactor
   - svg-builder-fork
+  - svg-icons
+  - SvgIcons
   - svgutils
   - svm-light-utils
   - svm-simple
@@ -5068,6 +5084,7 @@ broken-packages:
   - text-ascii
   - text-builder-linear
   - text-containers
+  - text-display
   - text-format-heavy
   - text-generic-pretty
   - text-icu-normalized
@@ -5198,6 +5215,7 @@ broken-packages:
   - tracetree
   - tracked-files
   - tracker
+  - trackit
   - traction
   - tracy
   - traildb
@@ -5293,6 +5311,7 @@ broken-packages:
   - type-of-html-static
   - typeparams
   - type-prelude
+  - type-rig
   - types-compat
   - type-settheory
   - type-spine
@@ -5301,6 +5320,7 @@ broken-packages:
   - typograffiti
   - typson-core
   - tyro
+  - tztime
   - uAgda
   - uberlast
   - ucam-webauth-types
@@ -5663,6 +5683,7 @@ broken-packages:
   - xsact
   - xsd
   - xslt
+  - xstatic-th
   - xturtle
   - y0l0bot
   - yabi-muno
@@ -5694,6 +5715,7 @@ broken-packages:
   - yandex-translate
   - yaop
   - yapb
+  - yarl
   - yarr
   - yasi
   - yate

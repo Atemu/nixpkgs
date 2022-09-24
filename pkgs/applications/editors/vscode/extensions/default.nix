@@ -8,6 +8,7 @@
 , python3Packages
 , jdk
 , llvmPackages_8
+, llvmPackages_14
 , nixpkgs-fmt
 , protobuf
 , jq
@@ -45,6 +46,22 @@ let
           homepage = "https://github.com/1Password/op-vscode";
           license = licenses.mit;
           maintainers = with maintainers; [ _2gn ];
+        };
+      };
+
+      _2gua.rainbow-brackets = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          publisher = "2gua";
+          name = "rainbow-brackets";
+          version = "0.0.6";
+          sha256 = "TVBvF/5KQVvWX1uHwZDlmvwGjOO5/lXbgVzB26U8rNQ=";
+        };
+        meta = with lib; {
+          description = "A Visual Studio Code extension providing rainbow brackets";
+          downloadPage = "https://marketplace.visualstudio.com/items?itemName=2gua.rainbow-brackets";
+          homepage = "https://github.com/lcultx/rainbow-brackets";
+          license = licenses.mit;
+          maintainers = with maintainers; [ CompEng0001 ];
         };
       };
 
@@ -535,6 +552,21 @@ let
           homepage = "https://github.com/bungcip/better-toml/blob/master/README.md";
           license = licenses.mit;
           maintainers = with maintainers; [ datafoo ];
+        };
+      };
+
+      catppuccin.catppuccin-vsc = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "catppuccin-vsc";
+          publisher = "catppuccin";
+          version = "2.1.0";
+          sha256 = "sha256-1pX9NQxW2Rm9p912Pn7QmLmXPI7EmiXTnCLWsIQNFhY=";
+        };
+        meta = with lib; {
+          description = "Soothing pastel theme for VSCode";
+          license = licenses.mit;
+          downloadPage = "https://marketplace.visualstudio.com/items?itemName=Catppuccin.catppuccin-vsc";
+          maintainers = with maintainers; [ nullx76 ];
         };
       };
 
@@ -2520,7 +2552,7 @@ let
         };
       };
 
-      vadimcn.vscode-lldb = callPackage ./vscode-lldb { };
+      vadimcn.vscode-lldb = callPackage ./vscode-lldb { llvmPackages = llvmPackages_14; };
 
       valentjn.vscode-ltex = vscode-utils.buildVscodeMarketplaceExtension rec {
         mktplcRef = {
@@ -2577,6 +2609,30 @@ let
       };
 
       ms-vsliveshare.vsliveshare = callPackage ./ms-vsliveshare-vsliveshare { };
+
+      vscjava.vscode-java-debug = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "vscode-java-debug";
+          publisher = "vscjava";
+          version = "0.44.0";
+          sha256 = "sha256-8/H7rihSKAvXp8QxK949txgMKwt6aYVN4EQdwhphIiQ=";
+        };
+        meta = {
+          license = lib.licenses.mit;
+        };
+      };
+
+      vscjava.vscode-java-test = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "vscode-java-test";
+          publisher = "vscjava";
+          version = "0.37.1";
+          sha256 = "sha256-QpDMG+0RbiRY9YQYXQhA6ESBoIjBeUxq+bEZ1Y71oSM=";
+        };
+        meta = {
+          license = lib.licenses.mit;
+        };
+      };
 
       vscodevim.vim = buildVscodeMarketplaceExtension {
         mktplcRef = {

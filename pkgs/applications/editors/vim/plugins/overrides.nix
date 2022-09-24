@@ -257,6 +257,10 @@ self: super: {
     '';
   });
 
+  compiler-explorer-nvim = super.compiler-explorer-nvim.overrideAttrs (old: {
+    dependencies = with self; [ plenary-nvim ];
+  });
+
   completion-buffers = super.completion-buffers.overrideAttrs (old: {
     dependencies = with self; [ completion-nvim ];
   });
@@ -980,7 +984,7 @@ self: super: {
             libiconv
           ];
 
-          cargoSha256 = "sha256-QAfHhpXABuOPaHCfQQZYhBERGXMaJPFipWHt/MeSc3c=";
+          cargoSha256 = "sha256-g5yNqDCN1O9x7/HcM8NsZlMwLudDTuPLE5gSpScNQnY=";
         };
       in
       ''

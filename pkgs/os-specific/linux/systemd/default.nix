@@ -83,7 +83,7 @@
 , withHostnamed ? true
 , withHwdb ? true
 , withImportd ? !stdenv.hostPlatform.isMusl
-, withLibBPF ? false # currently fails while generating BPF objects
+, withLibBPF ? true
 , withLocaled ? true
 , withLogind ? true
 , withMachined ? true
@@ -100,6 +100,7 @@
 , withTimesyncd ? true
 , withTpm2Tss ? !stdenv.hostPlatform.isMusl
 , withUserDb ? !stdenv.hostPlatform.isMusl
+, withUtmp ? !stdenv.hostPlatform.isMusl
   # tests assume too much system access for them to be feasible for us right now
 , withTests ? false
 
@@ -112,18 +113,10 @@
 , docbook_xml_dtd_45
 }:
 
-assert withResolved -> (libgcrypt != null && libgpg-error != null);
-assert withImportd ->
-(curl.dev != null && zlib != null && xz != null && libgcrypt != null
-  && gnutar != null && gnupg != null && withCompression);
-
-assert withEfi -> (gnu-efi != null);
-assert withRemote -> lib.getDev curl != null;
+assert withImportd -> withCompression;
 assert withCoredump -> withCompression;
-
 assert withHomed -> withCryptsetup;
 
-assert withCryptsetup -> (cryptsetup != null);
 let
   wantCurl = withRemote || withImportd;
   wantGcrypt = withResolved || withImportd;
@@ -207,6 +200,12 @@ stdenv.mkDerivation {
       --replace \
       "run_command(cc.cmd_array(), '-print-prog-name=objcopy', check: true).stdout().strip()" \
       "'${stdenv.cc.bintools.targetPrefix}objcopy'"
+  '' + lib.optionalString withLibBPF ''
+    substituteInPlace meson.build \
+      --replace "find_program('clang'" "find_program('${stdenv.cc.targetPrefix}clang'"
+    # BPF does not work with stack protector
+    substituteInPlace src/core/bpf/meson.build \
+      --replace "clang_flags = [" "clang_flags = [ '-fno-stack-protector',"
   '' + (
     let
       # The following patches references to dynamic libraries to ensure that
@@ -348,7 +347,7 @@ stdenv.mkDerivation {
       docbook_xml_dtd_45
       (buildPackages.python3Packages.python.withPackages (ps: with ps; [ lxml jinja2 ]))
     ]
-    ++ lib.optional withLibBPF [
+    ++ lib.optionals withLibBPF [
       bpftools
       llvmPackages.clang
       llvmPackages.libllvm
@@ -496,9 +495,10 @@ stdenv.mkDerivation {
     "-Dbpf-framework=true"
   ] ++ lib.optionals withTpm2Tss [
     "-Dtpm2=true"
+  ] ++ lib.optionals (!withUtmp) [
+    "-Dutmp=false"
   ] ++ lib.optionals stdenv.hostPlatform.isMusl [
     "-Dgshadow=false"
-    "-Dutmp=false"
     "-Didn=false"
   ];
   preConfigure =
@@ -677,7 +677,7 @@ stdenv.mkDerivation {
     # runtime; otherwise we can't and we need to reboot.
     interfaceVersion = 2;
 
-    inherit withCryptsetup withHostnamed withImportd withLocaled withMachined withTimedated util-linux kmod kbd;
+    inherit withCryptsetup withHostnamed withImportd withLocaled withMachined withTimedated withUtmp util-linux kmod kbd;
 
     tests = {
       inherit (nixosTests) switchTest;

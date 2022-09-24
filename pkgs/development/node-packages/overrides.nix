@@ -125,6 +125,10 @@ final: prev: {
     meta = oldAttrs.meta // { broken = true; }; # use the top-level package instead
   });
 
+  eask = prev."@emacs-eask/cli".override {
+    name = "eask";
+  };
+
   # NOTE: this is a stub package to fetch npm dependencies for
   # ../../applications/video/epgstation
   epgstation = prev."epgstation-../../applications/video/epgstation".override (oldAttrs: {
@@ -162,6 +166,10 @@ final: prev: {
     buildInputs = [ final.node-gyp-build ];
     meta = oldAttrs.meta // { broken = since "10"; };
   });
+
+  graphite-cli = prev."@withgraphite/graphite-cli".override {
+    name = "graphite-cli";
+  };
 
   graphql-language-service-cli = prev.graphql-language-service-cli.override {
     nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
@@ -517,8 +525,8 @@ final: prev: {
       postInstall = ''
         cd node_modules
         for dep in ${final.vega-cli}/lib/node_modules/vega-cli/node_modules/*; do
-          if [[ ! -d $dep ]]; then
-            ln -s "${final.vega-cli}/lib/node_modules/vega-cli/node_modules/$dep"
+          if [[ ! -d ''${dep##*/} ]]; then
+            ln -s "${final.vega-cli}/lib/node_modules/vega-cli/node_modules/''${dep##*/}"
           fi
         done
       '';
@@ -545,6 +553,16 @@ final: prev: {
   webtorrent-cli = prev.webtorrent-cli.override {
     buildInputs = [ final.node-gyp-build ];
   };
+
+  wrangler = prev.wrangler.override (oldAttrs: {
+    dontNpmInstall = true;
+    nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
+    postInstall = ''
+      makeWrapper "$out/lib/node_modules/wrangler/bin/wrangler.js" "$out/bin/wrangler" \
+        --inherit-argv0
+    '';
+    meta = oldAttrs.meta // { broken = before "16.13"; };
+  });
 
   yaml-language-server = prev.yaml-language-server.override {
     nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
