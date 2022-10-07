@@ -103,6 +103,11 @@ in mkLicense lset) ({
     fullName = "Apache License 2.0";
   };
 
+  bola11 = {
+    url = "https://blitiri.com.ar/p/bola/";
+    fullName = "Buena Onda License Agreement 1.1";
+  };
+
   boost = {
     spdxId = "BSL-1.0";
     fullName = "Boost Software License 1.0";
@@ -167,6 +172,11 @@ in mkLicense lset) ({
     fullName = "Business Source License 1.1";
     url = "https://mariadb.com/bsl11";
     free = false;
+  };
+
+  cal10 = {
+    fullName = "Cryptographic Autonomy License version 1.0 (CAL-1.0)";
+    url = "https://opensource.org/licenses/CAL-1.0";
   };
 
   capec = {

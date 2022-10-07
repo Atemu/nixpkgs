@@ -1,4 +1,5 @@
 { lib
+, async-timeout
 , buildPythonPackage
 , fetchFromGitHub
 , poetry-core
@@ -9,7 +10,7 @@
 
 buildPythonPackage rec {
   pname = "dbus-fast";
-  version = "1.4.0";
+  version = "1.17.0";
   format = "pyproject";
 
   disabled = pythonOlder "3.7";
@@ -18,11 +19,15 @@ buildPythonPackage rec {
     owner = "Bluetooth-Devices";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-vbsigiUSGeetY+1MEeQ/cO3Oj8Ah0Yg9BUPo2Gc06KU=";
+    hash = "sha256-HbjeO+imWocc5bL62gdWHf8kBR6HNWwEu+KqO4ldHe4=";
   };
 
   nativeBuildInputs = [
     poetry-core
+  ];
+
+  propagatedBuildInputs = [
+    async-timeout
   ];
 
   checkInputs = [
@@ -32,11 +37,15 @@ buildPythonPackage rec {
 
   postPatch = ''
     substituteInPlace pyproject.toml \
-      --replace " --cov=dbus_fast --cov-report=term-missing:skip-covered" ""
+      --replace " --cov=dbus_fast --cov-report=term-missing:skip-covered" "" \
+      --replace "[tool.poetry.group.dev.dependencies]" ""
   '';
 
   pythonImportsCheck = [
     "dbus_fast"
+    "dbus_fast.aio"
+    "dbus_fast.service"
+    "dbus_fast.message"
   ];
 
   disabledTests = [
@@ -71,6 +80,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
+    changelog = "https://github.com/Bluetooth-Devices/dbus-fast/releases/tag/v${version}";
     description = "Faster version of dbus-next";
     homepage = "https://github.com/bluetooth-devices/dbus-fast";
     license = licenses.mit;

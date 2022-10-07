@@ -70,13 +70,16 @@ mkDerivation rec {
     "--prefix LADSPA_PATH : ${ladspaPlugins}/lib/ladspa"
   ];
 
+  postFixup = ''
+    substituteInPlace "$dev"/lib/pkgconfig/mlt-framework-7.pc \
+      --replace '=''${prefix}//' '=/'
+  '';
+
   passthru = {
     inherit ffmpeg;
   };
 
   passthru.updateScript = gitUpdater {
-    inherit pname version;
-    attrPath = "libsForQt5.mlt";
     rev-prefix = "v";
   };
 

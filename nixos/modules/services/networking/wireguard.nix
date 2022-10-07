@@ -137,6 +137,33 @@ let
         See [documentation](https://www.wireguard.com/netns/).
         '';
       };
+
+      fwMark = mkOption {
+        default = null;
+        type = with types; nullOr str;
+        example = "0x6e6978";
+        description = lib.mdDoc ''
+          Mark all wireguard packets originating from
+          this interface with the given firewall mark. The firewall mark can be
+          used in firewalls or policy routing to filter the wireguard packets.
+          This can be useful for setup where all traffic goes through the
+          wireguard tunnel, because the wireguard packets need to be routed
+          differently.
+        '';
+      };
+
+      mtu = mkOption {
+        default = null;
+        type = with types; nullOr int;
+        example = 1280;
+        description = lib.mdDoc ''
+          Set the maximum transmission unit in bytes for the wireguard
+          interface. Beware that the wireguard packets have a header that may
+          add up to 80 bytes to the mtu. By default, the MTU is (1500 - 80) =
+          1420. However, if the MTU of the upstream network is lower, the MTU
+          of the wireguard network has to be adjusted as well.
+        '';
+      };
     };
 
   };
@@ -398,6 +425,7 @@ let
 
           ${ipPreMove} link add dev "${name}" type wireguard
           ${optionalString (values.interfaceNamespace != null && values.interfaceNamespace != values.socketNamespace) ''${ipPreMove} link set "${name}" netns "${ns}"''}
+          ${optionalString (values.mtu != null) ''${ipPreMove} link set "${name}" mtu ${toString values.mtu}''}
 
           ${concatMapStringsSep "\n" (ip:
             ''${ipPostMove} address add "${ip}" dev "${name}"''
@@ -406,6 +434,7 @@ let
           ${concatStringsSep " " (
             [ ''${wg} set "${name}" private-key "${privKey}"'' ]
             ++ optional (values.listenPort != null) ''listen-port "${toString values.listenPort}"''
+            ++ optional (values.fwMark != null) ''fwmark "${values.fwMark}"''
           )}
 
           ${ipPostMove} link set up dev "${name}"
@@ -436,7 +465,13 @@ in
     networking.wireguard = {
 
       enable = mkOption {
-        description = lib.mdDoc "Whether to enable WireGuard.";
+        description = lib.mdDoc ''
+          Whether to enable WireGuard.
+
+          Please note that {option}`systemd.network.netdevs` has more features
+          and is better maintained. When building new things, it is advised to
+          use that instead.
+        '';
         type = types.bool;
         # 2019-05-25: Backwards compatibility.
         default = cfg.interfaces != {};
@@ -445,7 +480,13 @@ in
       };
 
       interfaces = mkOption {
-        description = lib.mdDoc "WireGuard interfaces.";
+        description = lib.mdDoc ''
+          WireGuard interfaces.
+
+          Please note that {option}`systemd.network.netdevs` has more features
+          and is better maintained. When building new things, it is advised to
+          use that instead.
+        '';
         default = {};
         example = {
           wg0 = {

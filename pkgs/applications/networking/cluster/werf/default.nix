@@ -10,13 +10,13 @@
 
 buildGoModule rec {
   pname = "werf";
-  version = "1.2.174";
+  version = "1.2.176";
 
   src = fetchFromGitHub {
     owner = "werf";
     repo = "werf";
     rev = "v${version}";
-    hash = "sha256-8TuAreXWKCXThyiWwiSi5kDVHJKeMB8lpltWbVqGY34=";
+    hash = "sha256-E6xRnEIo6ks8E9bWjo8d+mDhYe+nsKIFdUEGS6tbgXM=";
   };
 
   vendorHash = "sha256-NHRPl38/R7yS8Hht118mBc+OBPwfYiHOaGIwryNK8Mo=";
