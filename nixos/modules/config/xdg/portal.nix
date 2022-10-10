@@ -6,6 +6,7 @@ let
     mkIf
     mkOption
     mkRenamedOptionModule
+    mkRemovedOptionModule
     teams
     types;
 in
@@ -13,18 +14,7 @@ in
 {
   imports = [
     (mkRenamedOptionModule [ "services" "flatpak" "extraPortals" ] [ "xdg" "portal" "extraPortals" ])
-
-    ({ config, lib, options, ... }:
-      let
-        from = [ "xdg" "portal" "gtkUsePortal" ];
-        fromOpt = lib.getAttrFromPath from options;
-      in
-      {
-        warnings = lib.mkIf config.xdg.portal.gtkUsePortal [
-          "The option `${lib.showOption from}' defined in ${lib.showFiles fromOpt.files} has been deprecated. Setting the variable globally with `environment.sessionVariables' NixOS option can have unforseen side-effects."
-        ];
-      }
-    )
+    (mkRemovedOptionModule [ "xdg" "portal" "gtkUsePortal" ] "`gtkUsePortal` has been deprecated. If you need it in spite of that, declare `GTK_USE_PORTAL` in `environment.sessionVariables` yourself.")
   ];
 
   meta = {
@@ -47,18 +37,6 @@ in
         adds `xdg-desktop-portal-gtk`; and
         `xdg-desktop-portal-kde` respectively. On other desktop
         environments you probably want to add them yourself.
-      '';
-    };
-
-    gtkUsePortal = mkOption {
-      type = types.bool;
-      visible = false;
-      default = false;
-      description = lib.mdDoc ''
-        Sets environment variable `GTK_USE_PORTAL` to `1`.
-        This will force GTK-based programs ran outside Flatpak to respect and use XDG Desktop Portals
-        for features like file chooser but it is an unsupported hack that can easily break things.
-        Defaults to `false` to respect its opt-in nature.
       '';
     };
   };
@@ -102,10 +80,6 @@ in
         systemPackages = [ joinedPortals ];
         # Makes the portals available in the system-wide share
         inherit (joinedPortals) pathsToLink;
-
-        sessionVariables = {
-          GTK_USE_PORTAL = mkIf cfg.gtkUsePortal "1";
-        };
       };
     };
 }
