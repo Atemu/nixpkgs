@@ -4060,6 +4060,8 @@ with pkgs;
 
   online-judge-tools = with python3.pkgs; toPythonApplication online-judge-tools;
 
+  onnxruntime = callPackage ../development/libraries/onnxruntime { };
+
   xkbd = callPackage ../applications/misc/xkbd { };
 
   libpsm2 = callPackage ../os-specific/linux/libpsm2 { };
@@ -5439,7 +5441,7 @@ with pkgs;
 
   schildichat-desktop = callPackage ../applications/networking/instant-messengers/schildichat/schildichat-desktop.nix {
     inherit (darwin.apple_sdk.frameworks) Security AppKit CoreServices;
-    electron = electron_17;
+    electron = electron_20;
   };
   schildichat-desktop-wayland = writeScriptBin "schildichat-desktop" ''
     #!/bin/sh
@@ -5857,6 +5859,8 @@ with pkgs;
   };
 
   findutils = callPackage ../tools/misc/findutils { };
+
+  findup = callPackage ../tools/misc/findup { };
 
   bsd-finger = callPackage ../tools/networking/bsd-finger { };
   bsd-fingerd = bsd-finger.override({ buildClient = false; });
@@ -7707,7 +7711,9 @@ with pkgs;
 
   mautrix-telegram = recurseIntoAttrs (callPackage ../servers/mautrix-telegram { });
 
-  mautrix-whatsapp = callPackage ../servers/mautrix-whatsapp { };
+  mautrix-whatsapp = callPackage ../servers/mautrix-whatsapp {
+    buildGoModule = buildGo118Module;
+  };
 
   mcfly = callPackage ../tools/misc/mcfly { };
 
@@ -14315,7 +14321,7 @@ with pkgs;
   inherit (beam.interpreters)
     erlang erlangR25 erlangR24 erlangR23 erlangR22 erlangR21
     erlang_odbc erlang_javac erlang_odbc_javac erlang_basho_R16B02
-    elixir elixir_1_13 elixir_1_12 elixir_1_11 elixir_1_10 elixir_1_9
+    elixir elixir_1_14 elixir_1_13 elixir_1_12 elixir_1_11 elixir_1_10 elixir_1_9
     elixir_ls;
 
   erlang_nox = beam_nox.interpreters.erlang;
@@ -14648,7 +14654,9 @@ with pkgs;
 
   inherit (ocamlPackages) reason;
 
-  buildRubyGem = callPackage ../development/ruby-modules/gem { };
+  buildRubyGem = callPackage ../development/ruby-modules/gem {
+    inherit (darwin) libobjc;
+  };
   defaultGemConfig = callPackage ../development/ruby-modules/gem-config {
     inherit (darwin) DarwinTools cctools;
     inherit (darwin.apple_sdk.frameworks) CoreServices;
@@ -14961,7 +14969,8 @@ with pkgs;
     electron_16
     electron_17
     electron_18
-    electron_19;
+    electron_19
+    electron_20;
 
   autobuild = callPackage ../development/tools/misc/autobuild { };
 
@@ -18803,7 +18812,7 @@ with pkgs;
   libliftoff = callPackage ../development/libraries/libliftoff { };
 
   liblqr1 = callPackage ../development/libraries/liblqr-1 {
-    inherit (darwin.apple_sdk.frameworks) Carbon;
+    inherit (darwin.apple_sdk.frameworks) Carbon AppKit;
   };
 
   liblockfile = callPackage ../development/libraries/liblockfile { };
@@ -20450,7 +20459,7 @@ with pkgs;
 
   qgnomeplatform = libsForQt5.callPackage ../development/libraries/qgnomeplatform { };
 
-  randomx = callPackage ../development/libraries/randomx { };
+  randomx = darwin.apple_sdk_11_0.callPackage ../development/libraries/randomx { };
 
   retro-gtk = callPackage ../development/libraries/retro-gtk { };
 
@@ -20519,6 +20528,8 @@ with pkgs;
   schroedinger = callPackage ../development/libraries/schroedinger {
     autoreconfHook = buildPackages.autoreconfHook269;
   };
+
+  scope-lite = callPackage ../development/libraries/scope-lite { };
 
   SDL = callPackage ../development/libraries/SDL ({
     inherit (darwin.apple_sdk.frameworks) OpenGL CoreAudio CoreServices AudioUnit Kernel Cocoa GLUT;
@@ -20795,6 +20806,8 @@ with pkgs;
 
   stb = callPackage ../development/libraries/stb { };
 
+  stduuid = callPackage ../development/libraries/stduuid { };
+
   StormLib = callPackage ../development/libraries/StormLib { };
 
   stxxl = callPackage ../development/libraries/stxxl { };
@@ -20824,6 +20837,7 @@ with pkgs;
       rev = "version-${version}";
       sha256 = "1aw1naa5y25ial251f74h039pgcz92p4b3994jvfzqpjlz06qwvw";
     };
+    patches = [];
     nativeBuildInputs = [ tcl ];
     configureFlags = oldAttrs.configureFlags ++ [
       "--enable-replication"
@@ -23351,8 +23365,6 @@ with pkgs;
   linux_5_10_hardened = linuxKernel.kernels.linux_5_10_hardened;
   linuxPackages_5_15_hardened = linuxKernel.packages.linux_5_15_hardened;
   linux_5_15_hardened = linuxKernel.kernels.linux_5_15_hardened;
-  linuxPackages_5_18_hardened = linuxKernel.packages.linux_5_18_hardened;
-  linux_5_18_hardened = linuxKernel.kernels.linux_5_18_hardened;
 
   # Hardkernel (Odroid) kernels.
   linuxPackages_hardkernel_latest = linuxKernel.packageAliases.linux_hardkernel_latest;
@@ -26583,14 +26595,15 @@ with pkgs;
   firefox-unwrapped = firefoxPackages.firefox;
   firefox-esr-102-unwrapped = firefoxPackages.firefox-esr-102;
   firefox-esr-91-unwrapped = firefoxPackages.firefox-esr-91;
+  firefox-esr-unwrapped = firefoxPackages.firefox-esr-102;
+
   firefox = wrapFirefox firefox-unwrapped { };
   firefox-wayland = wrapFirefox firefox-unwrapped { forceWayland = true; };
-  firefox-esr-102 = wrapFirefox firefox-esr-102-unwrapped { };
-  firefox-esr-91 = wrapFirefox firefox-esr-91-unwrapped { };
 
-  firefox-esr = firefox-esr-91;
-  firefox-esr-unwrapped = firefoxPackages.firefox-esr-91;
-  firefox-esr-wayland = wrapFirefox firefox-esr-91-unwrapped { forceWayland = true; };
+  firefox-esr = firefox-esr-102;
+  firefox-esr-91 = wrapFirefox firefox-esr-91-unwrapped { };
+  firefox-esr-102 = wrapFirefox firefox-esr-102-unwrapped { };
+  firefox-esr-wayland = wrapFirefox firefox-esr-102-unwrapped { forceWayland = true; };
 
   firefox-bin-unwrapped = callPackage ../applications/networking/browsers/firefox-bin {
     inherit (gnome) adwaita-icon-theme;
@@ -30085,8 +30098,8 @@ with pkgs;
   thunderbird-102 = wrapThunderbird thunderbird-102-unwrapped { };
   thunderbird-102-wayland = wrapThunderbird thunderbird-102-unwrapped { forceWayland = true; };
 
-  thunderbird-bin = thunderbird-bin-91;
-  thunderbird-bin-unwrapped = thunderbird-bin-91-unwrapped;
+  thunderbird-bin = thunderbird-bin-102;
+  thunderbird-bin-unwrapped = thunderbird-bin-102-unwrapped;
 
   thunderbird-bin-102 = wrapThunderbird thunderbird-bin-102-unwrapped {
     applicationName = "thunderbird";

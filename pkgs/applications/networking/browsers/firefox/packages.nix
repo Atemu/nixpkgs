@@ -3,10 +3,10 @@
 rec {
   firefox = buildMozillaMach rec {
     pname = "firefox";
-    version = "104.0";
+    version = "105.0.2";
     src = fetchurl {
       url = "mirror://mozilla/firefox/releases/${version}/source/firefox-${version}.source.tar.xz";
-      sha512 = "8778650ffa3c2d18802c348e27789f00cff143c7ca0ae01b1bcd050b6942c149db25696b48f3c702fbde901c15fcae976ac731a456f641637cae3eb56d0077d3";
+      sha512 = "49f4c0e7ecf2cef6fa7de8362185bd9ce6950304dadbbea0522a5782016587b9d58f32b45f0e0edf7a2cc31ea158ed10c886b287a18d1f2bff3daf50d9f0b926";
     };
 
     meta = {
@@ -28,11 +28,11 @@ rec {
 
   firefox-esr-102 = buildMozillaMach rec {
     pname = "firefox-esr";
-    version = "102.2.0esr";
+    version = "102.3.0esr";
     applicationName = "Mozilla Firefox ESR";
     src = fetchurl {
       url = "mirror://mozilla/firefox/releases/${version}/source/firefox-${version}.source.tar.xz";
-      sha512 = "06d753867ccfe1b2c79148cc60bc816b47a2abfa98219808868e9028bef1763d982ef7012698d06b8959cce79163d7926baf5f9d5ca9daa18c51fbf0efc59993";
+      sha512 = "35357791f4de8b474780083a22fb52b7846b8012cbf01403f2b9526151d11c196ce0f9fba8e0f16d8235d7259af6fba1bc3acbb5b7e79129a28f390467aa7556";
     };
 
     meta = {
@@ -70,6 +70,9 @@ rec {
       broken = stdenv.buildPlatform.is32bit; # since Firefox 60, build on 32-bit platforms fails with "out of memory".
                                              # not in `badPlatforms` because cross-compilation on 64-bit machine might work.
       license = lib.licenses.mpl20;
+      knownVulnerabilities = [
+        "Firefox 91.13.0esr was the last release in the 91esr series, which has reached the end of its life. Migrate to the 102esr series instead."
+      ];
     };
     tests = [ nixosTests.firefox-esr-91 ];
     updateScript = callPackage ./update.nix {

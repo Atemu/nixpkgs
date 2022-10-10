@@ -119,6 +119,7 @@ in {
     pythonCatchConflictsHook
     pythonImportsCheckHook
     pythonNamespacesHook
+    pythonOutputDistHook
     pythonRecompileBytecodeHook
     pythonRelaxDepsHook
     pythonRemoveBinBytecodeHook
@@ -3833,6 +3834,8 @@ in {
 
   hatchling = callPackage ../development/python-modules/hatchling { };
 
+  hatch-fancy-pypi-readme = callPackage ../development/python-modules/hatch-fancy-pypi-readme { };
+
   hatch-vcs = callPackage ../development/python-modules/hatch-vcs { };
 
   haversine = callPackage ../development/python-modules/haversine { };
@@ -4939,6 +4942,8 @@ in {
 
   line_profiler = callPackage ../development/python-modules/line_profiler { };
 
+  lingua = callPackage ../development/python-modules/lingua { };
+
   linkify-it-py = callPackage ../development/python-modules/linkify-it-py { };
 
   linode-api = callPackage ../development/python-modules/linode-api { };
@@ -5950,6 +5955,15 @@ in {
   onlykey-solo-python = callPackage ../development/python-modules/onlykey-solo-python { };
 
   onnx = callPackage ../development/python-modules/onnx { };
+
+  onnxconverter-common = callPackage ../development/python-modules/onnxconverter-common { };
+
+  onnxruntime = callPackage ../development/python-modules/onnxruntime {
+    onnxruntime = pkgs.onnxruntime.override {
+      python3Packages = self;
+      pythonSupport = true;
+    };
+  };
 
   onvif-zeep-async = callPackage ../development/python-modules/onvif-zeep-async { };
 
@@ -9585,6 +9599,8 @@ in {
   skein = callPackage ../development/python-modules/skein { };
 
   skidl = callPackage ../development/python-modules/skidl { };
+
+  skl2onnx = callPackage ../development/python-modules/skl2onnx { };
 
   sklearn-deap = callPackage ../development/python-modules/sklearn-deap { };
 
