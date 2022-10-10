@@ -3,21 +3,15 @@
 let
   # These names are how they are designated in https://xanmod.org.
   ltsVariant = {
-    version = "5.15.70";
-    hash = "sha256-gMtGoj/HzMqd6Y3PSc6QTsu/PI7vfb+1pg4mt878cxs=";
+    version = "5.15.60";
+    hash = "sha256-XSOYgrJ/uvPpEG+P3Zy1geFeF/HMZ4LejsKWtTxMUTs=";
     variant = "lts";
   };
 
-  currentVariant = {
-    version = "5.19.13";
-    hash = "sha256-BzQH4c24CtE3R5HNe2sOc3McVkRmf/RKOOjuf1W4YfE=";
-    variant = "current";
-  };
-
-  nextVariant = {
-    version = "6.0.0";
-    hash = "sha256-E7T8eHwMKYShv4KWdCbHQmpn+54edJoKdimZY3GFbPU=";
-    variant = "next";
+  edgeVariant = {
+    version = "5.19.1";
+    hash = "sha256-Fw+XW2YDAGKEzZ4AO88Y8GcypfOb6AjKp3XOlkT8ZTQ=";
+    variant = "edge";
   };
 
   ttVariant = {
@@ -50,6 +44,9 @@ let
       NET_SCH_DEFAULT = yes;
       DEFAULT_FQ_PIE = yes;
 
+      # Graysky's additional CPU optimizations
+      CC_OPTIMIZE_FOR_PERFORMANCE_O3 = yes;
+
       # Futex WAIT_MULTIPLE implementation for Wine / Proton Fsync.
       FUTEX = yes;
       FUTEX_PI = yes;
@@ -74,7 +71,6 @@ let
 in
 {
   lts = xanmodKernelFor ltsVariant;
-  current = xanmodKernelFor currentVariant;
-  next = xanmodKernelFor nextVariant;
+  edge = xanmodKernelFor edgeVariant;
   tt = xanmodKernelFor ttVariant;
 }
