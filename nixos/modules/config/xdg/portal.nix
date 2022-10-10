@@ -7,6 +7,7 @@ let
     mkOption
     mkRenamedOptionModule
     mkRemovedOptionModule
+    unique
     teams
     types;
 in
@@ -44,7 +45,7 @@ in
   config =
     let
       cfg = config.xdg.portal;
-      packages = [ pkgs.xdg-desktop-portal ] ++ cfg.extraPortals;
+      packages = unique ([ pkgs.xdg-desktop-portal ] ++ cfg.extraPortals);
       joinedPortals = pkgs.buildEnv {
         name = "xdg-portals";
         paths = packages;
