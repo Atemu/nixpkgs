@@ -6,8 +6,6 @@ let
     mkIf
     mkOption
     mkRenamedOptionModule
-    mkRemovedOptionModule
-    unique
     teams
     types;
 in
@@ -15,7 +13,18 @@ in
 {
   imports = [
     (mkRenamedOptionModule [ "services" "flatpak" "extraPortals" ] [ "xdg" "portal" "extraPortals" ])
-    (mkRemovedOptionModule [ "xdg" "portal" "gtkUsePortal" ] "`gtkUsePortal` has been deprecated. If you need it in spite of that, declare `GTK_USE_PORTAL` in `environment.sessionVariables` yourself.")
+
+    ({ config, lib, options, ... }:
+      let
+        from = [ "xdg" "portal" "gtkUsePortal" ];
+        fromOpt = lib.getAttrFromPath from options;
+      in
+      {
+        warnings = lib.mkIf config.xdg.portal.gtkUsePortal [
+          "The option `${lib.showOption from}' defined in ${lib.showFiles fromOpt.files} has been deprecated. Setting the variable globally with `environment.sessionVariables' NixOS option can have unforseen side-effects."
+        ];
+      }
+    )
   ];
 
   meta = {
@@ -40,12 +49,24 @@ in
         environments you probably want to add them yourself.
       '';
     };
+
+    gtkUsePortal = mkOption {
+      type = types.bool;
+      visible = false;
+      default = false;
+      description = lib.mdDoc ''
+        Sets environment variable `GTK_USE_PORTAL` to `1`.
+        This will force GTK-based programs ran outside Flatpak to respect and use XDG Desktop Portals
+        for features like file chooser but it is an unsupported hack that can easily break things.
+        Defaults to `false` to respect its opt-in nature.
+      '';
+    };
   };
 
   config =
     let
       cfg = config.xdg.portal;
-      packages = unique ([ pkgs.xdg-desktop-portal ] ++ cfg.extraPortals);
+      packages = [ pkgs.xdg-desktop-portal ] ++ cfg.extraPortals;
       joinedPortals = pkgs.buildEnv {
         name = "xdg-portals";
         paths = packages;
@@ -62,25 +83,20 @@ in
         }
       ];
 
-      # TODO Is it actually necessary to make the packages accessible to anything but the user service(s)?
       services.dbus.packages = packages;
-      systemd = {
-        inherit packages;
-        user.services.xdg-desktop-portal = {
-          restartIfChanged = true;
-          environment = {
-            XDG_DESKTOP_PORTAL_DIR = "${joinedPortals}/share/xdg-desktop-portal/portals";
-          };
-        };
-      };
+      systemd.packages = packages;
 
       environment = {
         # fixes screen sharing on plasmawayland on non-chromium apps by linking
         # share/applications/*.desktop files
         # see https://github.com/NixOS/nixpkgs/issues/145174
         systemPackages = [ joinedPortals ];
-        # Makes the portals available in the system-wide share
-        inherit (joinedPortals) pathsToLink;
+        pathsToLink = [ "/share/applications" ];
+
+        sessionVariables = {
+          GTK_USE_PORTAL = mkIf cfg.gtkUsePortal "1";
+          XDG_DESKTOP_PORTAL_DIR = "${joinedPortals}/share/xdg-desktop-portal/portals";
+        };
       };
     };
 }

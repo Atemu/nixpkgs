@@ -570,14 +570,6 @@
       </listitem>
       <listitem>
         <para>
-          The <literal>xdg.portal.gtkUsePortal</literal> option has been
-          removed due to deprecation. Consider not setting the variable
-          or set <literal>GTK_USE_PORTAL</literal> yourself via
-          <literal>environment.sessionVariables</literal>.
-        </para>
-      </listitem>
-      <listitem>
-        <para>
           The <literal>meta.mainProgram</literal> attribute of packages
           in <literal>wineWowPackages</literal> now defaults to
           <literal>&quot;wine64&quot;</literal>.
