@@ -28004,7 +28004,6 @@ with pkgs;
     greetd = callPackage ../os-specific/linux/greetd { };
     gtkgreet = callPackage ../os-specific/linux/gtkgreet { };
     dlm = callPackage ../os-specific/linux/dlm { };
-    qtgreet = libsForQt5.qtgreet;
     wlgreet = callPackage ../os-specific/linux/wlgreet { };
     tuigreet = callPackage ../os-specific/linux/tuigreet { };
   };

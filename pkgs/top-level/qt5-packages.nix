@@ -203,8 +203,6 @@ in (kdeFrameworks // plasmaMobileGear // plasma5 // plasma5.thirdParty // kdeGea
 
   qtforkawesome = callPackage ../development/libraries/qtforkawesome { };
 
-  qtgreet = callPackage ../os-specific/linux/qtgreet/default.nix { };
-
   qtutilities = callPackage ../development/libraries/qtutilities { };
 
   qtinstaller = callPackage ../development/libraries/qtinstaller { };
@@ -240,8 +238,6 @@ in (kdeFrameworks // plasmaMobileGear // plasma5 // plasma5.thirdParty // kdeGea
   signond = callPackage ../development/libraries/signond {};
 
   soundkonverter = callPackage ../applications/audio/soundkonverter {};
-
-  wayqt = callPackage ../os-specific/linux/wayqt/default.nix { };
 
   xp-pen-deco-01-v2-driver = callPackage ../os-specific/linux/xp-pen-drivers/deco-01-v2 { };
 
