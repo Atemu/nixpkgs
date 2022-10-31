@@ -61,10 +61,6 @@ in {
     # New vendor kernels should go to nixos-hardware instead.
     # e.g. https://github.com/NixOS/nixos-hardware/tree/master/microsoft/surface/kernel
 
-    linux_mptcp_95 = callPackage ../os-specific/linux/kernel/linux-mptcp-95.nix {
-      kernelPatches = linux_4_19.kernelPatches;
-    };
-
     linux_rpi1 = callPackage ../os-specific/linux/kernel/linux-rpi.nix {
       kernelPatches = with kernelPatches; [
         bridge_stp_helper
@@ -252,6 +248,7 @@ in {
     linux_5_15_hardened = hardenedKernelFor kernels.linux_5_15 { };
     linux_5_18_hardened = throw "linux 5.18 was removed because it has reached its end of life upstream";
     linux_5_19_hardened = hardenedKernelFor kernels.linux_5_19 { };
+    linux_6_0_hardened = hardenedKernelFor kernels.linux_6_0 { };
 
   }));
   /*  Linux kernel modules are inherently tied to a specific kernel.  So
@@ -555,7 +552,6 @@ in {
   };
 
   packages = recurseIntoAttrs (vanillaPackages // rtPackages // rpiPackages // {
-    linux_mptcp_95 = packagesFor kernels.linux_mptcp_95;
 
     # Intentionally lacks recurseIntoAttrs, as -rc kernels will quite likely break out-of-tree modules and cause failed Hydra builds.
     linux_testing = packagesFor kernels.linux_testing;
@@ -579,6 +575,7 @@ in {
     linux_5_15_hardened = recurseIntoAttrs (hardenedPackagesFor kernels.linux_5_15 { });
     linux_5_18_hardened = throw "linux 5.18 was removed because it has reached its end of life upstream";
     linux_5_19_hardened = recurseIntoAttrs (hardenedPackagesFor kernels.linux_5_19 { });
+    linux_6_0_hardened = recurseIntoAttrs (hardenedPackagesFor kernels.linux_6_0 { });
 
     linux_zen = recurseIntoAttrs (packagesFor kernels.linux_zen);
     linux_lqx = recurseIntoAttrs (packagesFor kernels.linux_lqx);

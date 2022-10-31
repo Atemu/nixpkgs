@@ -739,6 +739,8 @@ dont-distribute-packages:
  - battleships
  - bayes-stack
  - bbi
+ - bcp47
+ - bcp47-orphans
  - bdcs
  - bdcs-api
  - beam-automigrate
@@ -1100,6 +1102,7 @@ dont-distribute-packages:
  - cursedcsv
  - cv-combinators
  - cypher
+ - dahdit
  - dapi
  - darcs-benchmark
  - darcs-beta
@@ -1984,6 +1987,11 @@ dont-distribute-packages:
  - hasql-cursor-query
  - hasql-postgres
  - hasql-postgres-options
+ - hasql-streams-conduit
+ - hasql-streams-core
+ - hasql-streams-pipes
+ - hasql-streams-streaming
+ - hasql-streams-streamly
  - hasqlator-mysql
  - hasqly-mysql
  - hastache-aeson
@@ -2098,6 +2106,7 @@ dont-distribute-packages:
  - hmt-diagrams
  - hnormalise
  - ho-rewriting
+ - hoauth2-providers-tutorial
  - hob
  - hogre
  - hogre-examples
@@ -2221,7 +2230,6 @@ dont-distribute-packages:
  - hws
  - hwsl2-bytevector
  - hwsl2-reducers
- - hxmppc
  - hxournal
  - hxt-binary
  - hxt-filter
@@ -2776,6 +2784,7 @@ dont-distribute-packages:
  - mysql-haskell-nem
  - mysql-haskell-openssl
  - mysql-simple-typed
+ - mywork
  - n2o-web
  - nakadi-client
  - named-servant-client
@@ -2805,7 +2814,6 @@ dont-distribute-packages:
  - network-minihttp
  - network-netpacket
  - network-pgi
- - network-protocol-xmpp
  - network-rpca
  - network-stream
  - network-topic-models
@@ -2862,6 +2870,8 @@ dont-distribute-packages:
  - ohloh-hs
  - ois-input-manager
  - olwrapper
+ - om-kubernetes
+ - om-legion
  - online
  - online-csv
  - opc-xml-da-client
@@ -3328,6 +3338,7 @@ dont-distribute-packages:
  - sarsi
  - sasl
  - sat-micro-hs
+ - satchmo-examples
  - satchmo-funsat
  - satchmo-toysat
  - sauron
@@ -3899,6 +3910,7 @@ dont-distribute-packages:
  - vector-text
  - venzone
  - verdict-json
+ - verifiable-expressions
  - vessel
  - vflow-types
  - vfr-waypoints

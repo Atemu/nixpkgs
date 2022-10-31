@@ -7,7 +7,7 @@
 , pkg-config
 # not native
 , gdal
-, wxGTK31-gtk3
+, wxGTK31
 , proj
 , dxflib
 , curl
@@ -20,7 +20,6 @@
 , Cocoa
 , unixODBC
 , poppler
-, hdf4
 , hdf5
 , netcdf
 , sqlite
@@ -57,7 +56,7 @@ mkDerivation rec {
     libsvm
     hdf5
     gdal
-    wxGTK31-gtk3
+    wxGTK31
     proj
     libharu
     opencv
