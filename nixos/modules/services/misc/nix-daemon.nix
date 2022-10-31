@@ -403,7 +403,7 @@ in
         type = types.bool;
         default = true;
         description = lib.mdDoc ''
-          If enabled (the default), checks the nix.conf parsing for any kind of error. When disabled, checks only for unknown settings.
+          If enabled (the default), checks the nix.conf parsing for any kind of error. When disabled, only unknown settings are checked for.
         '';
       };
 
