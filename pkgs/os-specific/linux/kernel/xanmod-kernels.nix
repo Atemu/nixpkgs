@@ -9,16 +9,12 @@ let
   };
 
   currentVariant = {
-    version = "5.19.13";
-    hash = "sha256-BzQH4c24CtE3R5HNe2sOc3McVkRmf/RKOOjuf1W4YfE=";
+    version = "6.0.6";
+    hash = "sha256-JMfAtiPDgoVF+ypeFXev06PL39ZM2H7m07IxpasjAoM=";
     variant = "current";
   };
 
-  nextVariant = {
-    version = "6.0.0";
-    hash = "sha256-E7T8eHwMKYShv4KWdCbHQmpn+54edJoKdimZY3GFbPU=";
-    variant = "next";
-  };
+  nextVariant = currentVariant;
 
   ttVariant = {
     version = "5.15.54";
