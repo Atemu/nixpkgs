@@ -59,7 +59,7 @@ let
         ${mkKeyValuePairs cfg.settings}
         ${cfg.extraOptions}
       '';
-      checkPhase = lib.optionalString cfg.checkConfig (
+      checkPhase =
         if pkgs.stdenv.hostPlatform != pkgs.stdenv.buildPlatform then ''
           echo "Ignoring validation for cross-compilation"
         ''
@@ -72,9 +72,9 @@ let
             ${cfg.package}/bin/nix show-config ${optionalString (isNixAtLeast "2.3pre") "--no-net"} \
               ${optionalString (isNixAtLeast "2.4pre") "--option experimental-features nix-command"} \
             |& sed -e 's/^warning:/error:/' \
-            | (! grep '${if cfg.checkAllErrors then "^error:" else "^error: unknown setting"}')
+            | (! grep '${if cfg.checkConfig then "^error:" else "^error: unknown setting"}')
           set -o pipefail
-        '');
+        '';
     };
 
   legacyConfMappings = {
@@ -395,15 +395,8 @@ in
         type = types.bool;
         default = true;
         description = lib.mdDoc ''
-          If enabled (the default), checks that Nix can parse the generated nix.conf.
-        '';
-      };
-
-      checkAllErrors = mkOption {
-        type = types.bool;
-        default = true;
-        description = lib.mdDoc ''
-          If enabled (the default), checks the nix.conf parsing for any kind of error. When disabled, only unknown settings are checked for.
+          If enabled (the default), checks for data type mismatches and that Nix
+          can parse the generated nix.conf.
         '';
       };
 
