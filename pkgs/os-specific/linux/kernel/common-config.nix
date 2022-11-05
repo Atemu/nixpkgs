@@ -78,6 +78,7 @@ let
       INTEL_RAPL                       = whenAtLeast "5.3" module;
       X86_INTEL_LPSS                   = yes;
       X86_INTEL_PSTATE                 = yes;
+      X86_AMD_PSTATE                   = whenAtLeast "5.17" module;
     };
 
     external-firmware = {
@@ -112,6 +113,12 @@ let
       BFQ_GROUP_IOSCHED = whenAtLeast "4.12" yes;
       MQ_IOSCHED_KYBER = whenAtLeast "4.12" yes;
       IOSCHED_BFQ = whenAtLeast "4.12" module;
+    };
+
+
+    timer = {
+      # Enable Full Dynticks System.
+      NO_HZ_FULL = mkIf stdenv.is64bit yes; # TODO: more precise condition?
     };
 
     # Enable NUMA.
@@ -544,7 +551,7 @@ let
       CGROUP_RDMA    = whenAtLeast "4.11" yes;
 
       MEMCG                    = yes;
-      MEMCG_SWAP               = yes;
+      MEMCG_SWAP               = whenOlder "6.1" yes;
 
       BLK_DEV_THROTTLING        = yes;
       CFQ_GROUP_IOSCHED         = whenOlder "5.0" yes; # Removed in 5.0-RC1

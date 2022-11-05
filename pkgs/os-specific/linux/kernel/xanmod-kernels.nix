@@ -8,19 +8,10 @@ let
     variant = "lts";
   };
 
-  currentVariant = {
+  mainVariant = {
     version = "6.0.6";
     hash = "sha256-JMfAtiPDgoVF+ypeFXev06PL39ZM2H7m07IxpasjAoM=";
-    variant = "current";
-  };
-
-  nextVariant = currentVariant;
-
-  ttVariant = {
-    version = "5.15.54";
-    suffix = "xanmod1-tt";
-    hash = "sha256-4ck9PAFuIt/TxA/U+moGlVfCudJnzSuAw7ooFG3OJis=";
-    variant = "tt";
+    variant = "main";
   };
 
   xanmodKernelFor = { version, suffix ? "xanmod1", hash, variant }: buildLinux (args // rec {
@@ -42,6 +33,10 @@ let
       TCP_CONG_BBR2 = yes;
       DEFAULT_BBR2 = yes;
 
+      # Google's Multigenerational LRU framework
+      LRU_GEN = yes;
+      LRU_GEN_ENABLED = yes;
+
       # FQ-PIE Packet Scheduling
       NET_SCH_DEFAULT = yes;
       DEFAULT_FQ_PIE = yes;
@@ -52,12 +47,11 @@ let
 
       # WineSync driver for fast kernel-backed Wine
       WINESYNC = module;
-    } // lib.optionalAttrs (variant == "tt") {
-      # removed options
-      CFS_BANDWIDTH = lib.mkForce (option no);
-      RT_GROUP_SCHED = lib.mkForce (option no);
-      SCHED_AUTOGROUP = lib.mkForce (option no);
-      SCHED_CORE = lib.mkForce (option no);
+
+      # Preemptive Full Tickless Kernel at 500Hz
+      HZ = freeform "500";
+      HZ_500 = yes;
+      HZ_1000 = no;
     };
 
     extraMeta = {
@@ -70,7 +64,5 @@ let
 in
 {
   lts = xanmodKernelFor ltsVariant;
-  current = xanmodKernelFor currentVariant;
-  next = xanmodKernelFor nextVariant;
-  tt = xanmodKernelFor ttVariant;
+  main = xanmodKernelFor mainVariant;
 }

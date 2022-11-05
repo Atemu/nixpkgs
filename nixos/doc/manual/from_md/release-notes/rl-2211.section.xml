@@ -191,6 +191,15 @@
       </listitem>
       <listitem>
         <para>
+          [xray] (https://github.com/XTLS/Xray-core), a fully compatible
+          v2ray-core replacement. Features XTLS, which when enabled on
+          server and client, brings UDP FullCone NAT to proxy setups.
+          Available as
+          <link xlink:href="options.html#opt-services.xray.enable">services.xray</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           <link xlink:href="https://github.com/mozilla-services/syncstorage-rs">syncstorage-rs</link>,
           a self-hostable sync server for Firefox. Available as
           <link xlink:href="options.html#opt-services.firefox-syncserver.enable">services.firefox-syncserver</link>.
@@ -307,6 +316,13 @@
       </listitem>
       <listitem>
         <para>
+          <link xlink:href="https://github.com/skeeto/endlessh">endlessh</link>,
+          an SSH tarpit. Available as
+          <link linkend="opt-services.endlessh.enable">services.endlessh</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           <link xlink:href="https://github.com/shizunge/endlessh-go">endlessh-go</link>,
           an SSH tarpit that exposes Prometheus metrics. Available as
           <link linkend="opt-services.endlessh-go.enable">services.endlessh-go</link>.
@@ -363,6 +379,13 @@
           <link xlink:href="https://www.expressvpn.com">expressvpn</link>,
           the CLI client for ExpressVPN. Available as
           <link linkend="opt-services.expressvpn.enable">services.expressvpn</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <link xlink:href="https://troglobit.com/projects/merecat/">merecat</link>,
+          a small and easy HTTP server based on thttpd. Available as
+          <link linkend="opt-services.merecat.enable">services.merecat</link>
         </para>
       </listitem>
       <listitem>
@@ -703,6 +726,16 @@
           being abandoned by the upstream. It is recommended to use
           <literal>awscli</literal> or <literal>awscli2</literal>
           instead.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          The
+          <link xlink:href="https://ce-programming.github.io/CEmu">CEmu
+          TI-84 Plus CE emulator</link> package has been renamed to
+          <literal>cemu-ti</literal>. The
+          <link xlink:href="https://cemu.info">Cemu Wii U
+          emulator</link> is now packaged as <literal>cemu</literal>.
         </para>
       </listitem>
       <listitem>
