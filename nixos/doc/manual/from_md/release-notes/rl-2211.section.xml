@@ -509,6 +509,15 @@
       </listitem>
       <listitem>
         <para>
+          Deprecated settings <literal>logrotate.paths</literal> and
+          <literal>logrotate.extraConfig</literal> have been removed.
+          Please convert any uses to
+          <link linkend="opt-services.logrotate.settings">services.logrotate.settings</link>
+          instead.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           The <literal>isPowerPC</literal> predicate, found on
           <literal>platform</literal> attrsets
           (<literal>hostPlatform</literal>,
@@ -636,6 +645,15 @@
       </listitem>
       <listitem>
         <para>
+          ppd files in <literal>pkgs.cups-drv-rastertosag-gdi</literal>
+          are now gzipped. If you refer to such a ppd file with its path
+          (e.g. via
+          <link xlink:href="options.html#opt-hardware.printers.ensurePrinters">hardware.printers.ensurePrinters</link>)
+          you will need to append <literal>.gz</literal> to the path.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           xow package removed along with the
           <literal>hardware.xow</literal> module, due to the project
           being deprecated in favor of <literal>xone</literal>, which is
@@ -718,6 +736,13 @@
           <literal>python3.pkgs.graphite_beacon</literal> and
           <literal>python3.pkgs.influxgraph</literal> packages, have
           been removed due to lack of upstream maintenance.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          The <literal>trace</literal> binary from
+          <literal>perf-linux</literal> package has been removed, due to
+          being a duplicate of the <literal>perf</literal> binary.
         </para>
       </listitem>
       <listitem>
@@ -835,6 +860,16 @@
       </listitem>
       <listitem>
         <para>
+          <literal>cassandra_2_1</literal> and
+          <literal>cassandra_2_2</literal> have been removed. Please
+          update to <literal>cassandra_3_11</literal> or
+          <literal>cassandra_3_0</literal>. See the
+          <link xlink:href="https://github.com/apache/cassandra/blob/cassandra-3.11.14/NEWS.txt">changelog</link>
+          for more information about the upgrade process.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           <literal>mysql57</literal> has been removed. Please update to
           <literal>mysql80</literal> or <literal>mariadb</literal>. See
           the
@@ -855,6 +890,13 @@
         <para>
           <literal>k3s</literal> supports <literal>clusterInit</literal>
           option, and it is enabled by default, for servers.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <literal>percona-server56</literal> has been removed. Please
+          migrate to <literal>mysql</literal> or
+          <literal>mariadb</literal> if possible.
         </para>
       </listitem>
       <listitem>
@@ -1155,6 +1197,13 @@
       </listitem>
       <listitem>
         <para>
+          The <literal>tt-rss</literal> service performs two database
+          migrations when you first use its web UI after upgrade.
+          Consider backing up its database before updating.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           The <literal>pass-secret-service</literal> package now
           includes systemd units from upstream, so adding it to the
           NixOS <literal>services.dbus.packages</literal> option will
@@ -1185,6 +1234,17 @@
           want to change it back to <literal>pkgs.mullvad-vpn</literal>,
           or add <literal>pkgs.mullvad-vpn</literal> to their
           environment.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          PowerDNS has been updated from <literal>4.6.x</literal> to
+          <literal>4.7.x</literal>. Please be sure to review the
+          <link xlink:href="https://doc.powerdns.com/authoritative/upgrading.html#to-4-7-0-or-master">Upgrade
+          Notes</link> provided by upstream before upgrading. Worth
+          specifically noting is that the new Catalog Zones feature
+          comes with a mandatory schema change for the gsql database
+          backends, which has to be manually applied.
         </para>
       </listitem>
       <listitem>

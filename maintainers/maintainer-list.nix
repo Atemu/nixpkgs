@@ -281,6 +281,13 @@
     githubId = 124545;
     name = "Anthony Cowley";
   };
+  adamcstephens = {
+    email = "happy.plan4249@valkor.net";
+    matrix = "@adam:valkor.net";
+    github = "adamcstephens";
+    githubId = 2071575;
+    name = "Adam C. Stephens";
+  };
   adamlwgriffiths = {
     email = "adam.lw.griffiths@gmail.com";
     github = "adamlwgriffiths";
@@ -1648,6 +1655,15 @@
     githubId = 214787;
     name = "Herwig Hochleitner";
   };
+  benesim = {
+    name = "Benjamin Isbarn";
+    email = "benjamin.isbarn@gmail.com";
+    github = "benesim";
+    githubId = 29384538;
+    keys = [{
+      fingerprint = "D35E C9CE E631 638F F1D8  B401 6F0E 410D C3EE D02";
+    }];
+  };
   benley = {
     email = "benley@gmail.com";
     github = "benley";
@@ -2139,6 +2155,13 @@
     github = "CactiChameleon9";
     githubId = 51231053;
     name = "Daniel";
+  };
+  calavera = {
+    email = "david.calavera@gmail.com";
+    github = "calavera";
+    githubId = 1050;
+    matrix = "@davidcalavera:matrix.org";
+    name = "David Calavera";
   };
   callahad = {
     email = "dan.callahan@gmail.com";
@@ -3477,6 +3500,12 @@
     github = "DIzFer";
     githubId = 8852888;
     name = "David Izquierdo";
+  };
+  djacu = {
+    email = "daniel.n.baker@gmail.com";
+    github = "djacu";
+    githubId = 7043297;
+    name = "Daniel Baker";
   };
   djanatyn = {
     email = "djanatyn@gmail.com";
@@ -10143,7 +10172,7 @@
     matrix = "@obfusk:matrix.org";
     github = "obfusk";
     githubId = 1260687;
-    name = "Felix C. Stegerman";
+    name = "FC Stegerman";
     keys = [{
       fingerprint = "D5E4 A51D F8D2 55B9 FAC6  A9BB 2F96 07F0 9B36 0F2D";
     }];
