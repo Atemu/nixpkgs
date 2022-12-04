@@ -49,13 +49,13 @@
 
 let self = stdenv.mkDerivation rec {
   pname = "mutter";
-  version = "43.0";
+  version = "43.1";
 
   outputs = [ "out" "dev" "man" "devdoc" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/mutter/${lib.versions.major version}/${pname}-${version}.tar.xz";
-    sha256 = "jZulKO2Z72eZZC4Uez/p8ry+ypvs7ShFwcrbMxzT5SU=";
+    sha256 = "8vCLJSeDlIpezILwDp6TWmHrv4VkhEvdkniKtEqngmQ=";
   };
 
   patches = [
@@ -66,14 +66,22 @@ let self = stdenv.mkDerivation rec {
       sha256 = "/npUE3idMSTVlFptsDpZmGWjZ/d2gqruVlJKq4eF4xU=";
     })
 
-    # color-device: Don't create profiles from obvious garbage data
-    # https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2627
+    # Revert clutter optimization causing issues on X11
+    # https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2667
+    # Will be replaced with a proper fix in 43.2
+    # https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/6054
     (fetchpatch {
-      url = "https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2627.patch";
-      sha256 = "SafC29+gjcj6JswHY6yuwcOS16LPYvFwYW1TEpNNSHc=";
+      url = "https://gitlab.gnome.org/GNOME/mutter/-/commit/7e7a639cc5132cf3355e861235f325540fe56548.patch";
+      sha256 = "NYoKCRh5o1Q15c11a79Hk5tGKq/jOa+e6GpgBjPEepo=";
+      revert = true;
     })
 
-
+    # Backport edge resistance fix (should be part of 43.2)
+    # https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2687
+    (fetchpatch {
+      url = "https://gitlab.gnome.org/GNOME/mutter/-/commit/accf532a29ea9a1d70880dfaa1834050aa3ae7be.patch";
+      sha256 = "XAHcPGQFWfZujlqO/cvUryojPCMBBSxeIG06BesDQQw=";
+    })
   ];
 
   mesonFlags = [

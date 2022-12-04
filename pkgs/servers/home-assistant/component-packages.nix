@@ -2,7 +2,7 @@
 # Do not edit!
 
 {
-  version = "2022.11.1";
+  version = "2022.11.5";
   components = {
     "3_day_blinds" = ps: with ps; [
     ];
@@ -1418,6 +1418,7 @@
     "iammeter" = ps: with ps; [
     ]; # missing inputs: iammeter
     "iaqualink" = ps: with ps; [
+      h2
       iaqualink
     ];
     "ibeacon" = ps: with ps; [
@@ -2127,8 +2128,9 @@
     "nfandroidtv" = ps: with ps; [
     ]; # missing inputs: notifications-android-tv
     "nibe_heatpump" = ps: with ps; [
+      nibe
       tenacity
-    ]; # missing inputs: nibe
+    ];
     "nightscout" = ps: with ps; [
       py-nightscout
     ];
@@ -4143,6 +4145,7 @@
     "nexia"
     "nextbus"
     "nextdns"
+    "nibe_heatpump"
     "nightscout"
     "nina"
     "nmap_tracker"

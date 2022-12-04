@@ -346,7 +346,7 @@ escapeFstab() {
     local original="$1"
 
     # Replace space
-    escaped="${original// /\\040}"
+    local escaped="${original// /\\040}"
     # Replace tab
     echo "${escaped//$'\t'/\\011}"
 }
