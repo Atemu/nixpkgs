@@ -487,6 +487,7 @@ in {
   parsedmarc = handleTest ./parsedmarc {};
   pdns-recursor = handleTest ./pdns-recursor.nix {};
   peerflix = handleTest ./peerflix.nix {};
+  peering-manager = handleTest ./web-apps/peering-manager.nix {};
   peertube = handleTestOn ["x86_64-linux"] ./web-apps/peertube.nix {};
   pgadmin4 = handleTest ./pgadmin4.nix {};
   pgadmin4-standalone = handleTest ./pgadmin4-standalone.nix {};
@@ -636,6 +637,7 @@ in {
   systemd-misc = handleTest ./systemd-misc.nix {};
   tandoor-recipes = handleTest ./tandoor-recipes.nix {};
   taskserver = handleTest ./taskserver.nix {};
+  tayga = handleTest ./tayga.nix {};
   teeworlds = handleTest ./teeworlds.nix {};
   telegraf = handleTest ./telegraf.nix {};
   teleport = handleTest ./teleport.nix {};

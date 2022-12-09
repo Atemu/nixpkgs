@@ -46,6 +46,7 @@
   ./hardware/brillo.nix
   ./hardware/ckb-next.nix
   ./hardware/cpu/amd-microcode.nix
+  ./hardware/cpu/amd-sev.nix
   ./hardware/cpu/intel-microcode.nix
   ./hardware/cpu/intel-sgx.nix
   ./hardware/corectrl.nix
@@ -966,6 +967,7 @@
   ./services/networking/syncthing-relay.nix
   ./services/networking/syncplay.nix
   ./services/networking/tailscale.nix
+  ./services/networking/tayga.nix
   ./services/networking/tcpcrypt.nix
   ./services/networking/teamspeak3.nix
   ./services/networking/tedicross.nix
@@ -981,6 +983,7 @@
   ./services/networking/tox-node.nix
   ./services/networking/toxvpn.nix
   ./services/networking/tvheadend.nix
+  ./services/networking/twingate.nix
   ./services/networking/ucarp.nix
   ./services/networking/unbound.nix
   ./services/networking/unifi.nix
@@ -1132,6 +1135,7 @@
   ./services/web-apps/onlyoffice.nix
   ./services/web-apps/pict-rs.nix
   ./services/web-apps/peertube.nix
+  ./services/web-apps/peering-manager.nix
   ./services/web-apps/plantuml-server.nix
   ./services/web-apps/plausible.nix
   ./services/web-apps/pgpkeyserver-lite.nix
