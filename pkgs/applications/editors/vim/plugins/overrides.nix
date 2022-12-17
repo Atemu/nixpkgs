@@ -387,7 +387,7 @@ self: super: {
   });
 
   forms = super.forms.overrideAttrs (old: {
-    dependencies = with self; [ self.self ];
+    dependencies = [ self.self ];
   });
 
   fruzzy =
@@ -713,7 +713,7 @@ self: super: {
   };
 
   skim-vim = super.skim-vim.overrideAttrs (old: {
-    dependencies = with self; [ skim ];
+    dependencies = [ self.skim ];
   });
 
   sniprun =
@@ -1258,6 +1258,10 @@ self: super: {
 
   vimshell-vim = super.vimshell-vim.overrideAttrs (old: {
     dependencies = with self; [ vimproc-vim ];
+  });
+
+  vim-zettel = super.vim-zettel.overrideAttrs (old: {
+    dependencies = with self; [ vimwiki fzf-vim ];
   });
 
   YankRing-vim = super.YankRing-vim.overrideAttrs (old: {

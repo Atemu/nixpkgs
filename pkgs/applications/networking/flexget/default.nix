@@ -5,7 +5,7 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "flexget";
-  version = "3.5.6";
+  version = "3.5.11";
   format = "pyproject";
 
   # Fetch from GitHub in order to use `requirements.in`
@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
     owner = "flexget";
     repo = "flexget";
     rev = "refs/tags/v${version}";
-    hash = "sha256-MO/BwlgSAt9rZC+kELdjJm6F15MJJPpvn412CndvqXk=";
+    hash = "sha256-KGeTzERLlsrBHQxskrMhFHw9XyYyl33bJJK+SN++EU4=";
   };
 
   postPatch = ''
@@ -72,6 +72,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://flexget.com/";
+    changelog = "https://github.com/Flexget/Flexget/releases/tag/v${version}";
     description = "Multipurpose automation tool for all of your media";
     license = licenses.mit;
     maintainers = with maintainers; [ marsam ];
