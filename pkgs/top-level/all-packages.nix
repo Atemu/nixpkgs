@@ -1414,6 +1414,8 @@ with pkgs;
 
   linux-router-without-wifi = linux-router.override { useWifiDependencies = false; };
 
+  mbidled = callPackage ../tools/networking/mbidled { };
+
   metapixel = callPackage ../tools/graphics/metapixel { };
 
   midimonster = callPackage ../tools/audio/midimonster { };
@@ -2702,6 +2704,8 @@ with pkgs;
   brakeman = callPackage ../development/tools/analysis/brakeman { };
 
   brewtarget = libsForQt5.callPackage ../applications/misc/brewtarget { } ;
+
+  bootspec = callPackage ../tools/misc/bootspec { };
 
   # Derivation's result is not used by nixpkgs. Useful for validation for
   # regressions of bootstrapTools on hydra and on ofborg. Example:
@@ -5372,7 +5376,9 @@ with pkgs;
     rainloop-community
     rainloop-standard;
 
-  rav1e = callPackage ../tools/video/rav1e { };
+  rav1e = callPackage ../tools/video/rav1e {
+    inherit (darwin.apple_sdk.frameworks) Security;
+  };
 
   raven-reader = callPackage ../applications/networking/newsreaders/raven-reader { };
 
@@ -8485,7 +8491,11 @@ with pkgs;
   wrapKakoune = kakoune: attrs: callPackage ../applications/editors/kakoune/wrapper.nix (attrs // { inherit kakoune; });
   kakounePlugins = recurseIntoAttrs (callPackage ../applications/editors/kakoune/plugins { });
 
-  kakoune-unwrapped = callPackage ../applications/editors/kakoune { };
+  kakoune-unwrapped = callPackage ../applications/editors/kakoune {
+    # See comments on https://github.com/NixOS/nixpkgs/pull/198836
+    # Remove below when stdenv for linux-aarch64 become recent enough.
+    stdenv = if stdenv.isLinux && stdenv.isAarch64 && stdenv.cc.isGNU then gcc11Stdenv else stdenv;
+  };
   kakoune = wrapKakoune kakoune-unwrapped {
     plugins = [ ];  # override with the list of desired plugins
   };
@@ -8500,6 +8510,8 @@ with pkgs;
   kakoune-cr = callPackage ../tools/misc/kakoune-cr { };
 
   katana = callPackage ../tools/security/katana { };
+
+  katriawm = callPackage ../applications/window-managers/katriawm { };
 
   kbdd = callPackage ../applications/window-managers/kbdd { };
 
@@ -10706,6 +10718,10 @@ with pkgs;
 
   po4a = perlPackages.Po4a;
 
+  poac = callPackage ../development/tools/poac {
+    inherit (llvmPackages_14) stdenv;
+  };
+
   podiff = callPackage ../tools/text/podiff { };
 
   pocketbase = callPackage ../servers/pocketbase { };
@@ -11463,6 +11479,8 @@ with pkgs;
   senpai = callPackage ../applications/networking/irc/senpai { };
 
   skim = callPackage ../tools/misc/skim { };
+
+  seashells = callPackage ../applications/misc/seashells { };
 
   seaweedfs = callPackage ../applications/networking/seaweedfs { };
 
@@ -15310,6 +15328,7 @@ with pkgs;
   cargo-cache = callPackage ../development/tools/rust/cargo-cache {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
+  cargo-chef = callPackage ../development/tools/rust/cargo-chef { };
   cargo-crev = callPackage ../development/tools/rust/cargo-crev {
     inherit (darwin.apple_sdk.frameworks) Security SystemConfiguration CoreFoundation;
   };
@@ -15484,7 +15503,8 @@ with pkgs;
   sbcl_2_2_6 = callPackage ../development/compilers/sbcl/2.x.nix { version = "2.2.6"; };
   sbcl_2_2_9 = callPackage ../development/compilers/sbcl/2.x.nix { version = "2.2.9"; };
   sbcl_2_2_10 = callPackage ../development/compilers/sbcl/2.x.nix { version = "2.2.10"; };
-  sbcl = sbcl_2_2_10;
+  sbcl_2_2_11 = callPackage ../development/compilers/sbcl/2.x.nix { version = "2.2.11"; };
+  sbcl = sbcl_2_2_11;
 
   roswell = callPackage ../development/tools/roswell { };
 
@@ -16101,7 +16121,7 @@ with pkgs;
   };
 
   pythonInterpreters = callPackage ./../development/interpreters/python { };
-  inherit (pythonInterpreters) python27 python37 python38 python39 python310 python311 python3Minimal pypy27 pypy39 pypy38 pypy37 rustpython;
+  inherit (pythonInterpreters) python27 python37 python38 python39 python310 python311 python312 python3Minimal pypy27 pypy39 pypy38 pypy37 rustpython;
 
   # List of extensions with overrides to apply to all Python package sets.
   pythonPackagesExtensions = [ ];
@@ -16112,6 +16132,7 @@ with pkgs;
   python39Packages = recurseIntoAttrs python39.pkgs;
   python310Packages = recurseIntoAttrs python310.pkgs;
   python311Packages = python311.pkgs;
+  python312Packages = python312.pkgs;
   pypyPackages = pypy.pkgs;
   pypy2Packages = pypy2.pkgs;
   pypy27Packages = pypy27.pkgs;
@@ -16257,6 +16278,8 @@ with pkgs;
   scheme-bytestructures = callPackage ../development/scheme-modules/scheme-bytestructures { };
 
   self = pkgsi686Linux.callPackage ../development/interpreters/self { };
+
+  smiley-sans = callPackage ../data/fonts/smiley-sans { };
 
   inherit (callPackages ../applications/networking/cluster/spark { })
     spark_3_2
@@ -17280,6 +17303,8 @@ with pkgs;
 
   gi-docgen = callPackage ../development/tools/documentation/gi-docgen { };
 
+  git2-cpp = callPackage ../development/libraries/git2-cpp { };
+
   github-release = callPackage ../development/tools/github/github-release { };
 
   global = callPackage ../development/tools/misc/global { };
@@ -17716,6 +17741,8 @@ with pkgs;
   oprofile = callPackage ../development/tools/profiling/oprofile {
     libiberty_static = libiberty.override { staticBuild = true; };
   };
+
+  package-project-cmake = callPackage ../development/tools/package-project-cmake { };
 
   pactorio = callPackage ../development/tools/pactorio {
     inherit (darwin.apple_sdk.frameworks) Security;
@@ -18213,7 +18240,6 @@ with pkgs;
 
   gdb = callPackage ../development/tools/misc/gdb {
     guile = null;
-    readline = readline81;
   };
 
   gf = callPackage ../development/tools/misc/gf { };
@@ -18731,6 +18757,7 @@ with pkgs;
   CoinMP = callPackage ../development/libraries/CoinMP { };
 
   coinlive = callPackage ../tools/misc/coinlive {
+    inherit (darwin.apple_sdk.frameworks) Security;
     openssl = openssl_1_1;
   };
 
@@ -21063,9 +21090,7 @@ with pkgs;
     python = python3;
   };
 
-  libqalculate = callPackage ../development/libraries/libqalculate {
-    readline = readline81;
-  };
+  libqalculate = callPackage ../development/libraries/libqalculate { };
 
   libqt5pas = libsForQt5.callPackage ../development/compilers/fpc/libqt5pas.nix { };
 
@@ -22135,7 +22160,11 @@ with pkgs;
   prospector = callPackage ../development/tools/prospector { };
 
   # https://github.com/protocolbuffers/protobuf/issues/10418
-  protobuf = if stdenv.hostPlatform.is32bit then protobuf3_20 else
+  # protobuf versions have to match between build-time and run-time
+  # Using "targetPlatform" in the check makes sure that the version of
+  # pkgsCross.armv7l-hf-multiplatform.buildPackages.protobuf matches the
+  # version of pkgsCross.armv7l-hf-multiplatform.protobuf
+  protobuf = if stdenv.targetPlatform.is32bit then protobuf3_20 else
     protobuf3_21;
 
   protobuf3_21 = callPackage ../development/libraries/protobuf/3.21.nix { };
@@ -22312,7 +22341,7 @@ with pkgs;
 
   raylib = callPackage ../development/libraries/raylib { };
 
-  readline = readline6;
+  readline = readline81;
   readline6 = readline63;
 
   readline63 = callPackage ../development/libraries/readline/6.3.nix { };
@@ -30556,6 +30585,8 @@ with pkgs;
 
   mmsd = callPackage ../tools/networking/mmsd { };
 
+  mmsd-tng = callPackage ../tools/networking/mmsd-tng { };
+
   mmtc = callPackage ../applications/audio/mmtc { };
 
   mnamer = callPackage ../applications/misc/mnamer { };
@@ -30675,6 +30706,8 @@ with pkgs;
   ncmpc = callPackage ../applications/audio/ncmpc { };
 
   ncmpcpp = callPackage ../applications/audio/ncmpcpp { };
+
+  pms = callPackage ../applications/audio/pms { };
 
   pragha = libsForQt5.callPackage ../applications/audio/pragha { };
 
@@ -31025,7 +31058,7 @@ with pkgs;
 
   sndpeek = callPackage ../applications/audio/sndpeek { };
 
-  sxhkd = callPackage ../applications/window-managers/sxhkd { };
+  sxhkd = callPackage ../tools/X11/sxhkd { };
 
   mpop = callPackage ../applications/networking/mpop {
     inherit (darwin.apple_sdk.frameworks) Security;
@@ -37150,9 +37183,7 @@ with pkgs;
 
   rucksack = callPackage ../development/tools/rucksack { };
 
-  ruff = callPackage ../development/tools/ruff {
-    inherit (darwin.apple_sdk.frameworks) CoreServices Security;
-  };
+  ruff = callPackage ../development/tools/ruff { };
 
   sam-ba = callPackage ../tools/misc/sam-ba { };
 

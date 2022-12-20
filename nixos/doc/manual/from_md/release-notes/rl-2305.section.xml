@@ -39,6 +39,21 @@
       </listitem>
       <listitem>
         <para>
+          <link xlink:href="https://github.com/ellie/atuin">atuin</link>,
+          a sync server for shell history. Available as
+          <link linkend="opt-services.atuin.enable">services.atuin</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <link xlink:href="https://gitlab.com/kop316/mmsd">mmsd</link>,
+          a lower level daemon that transmits and recieves MMSes.
+          Available as
+          <link linkend="opt-services.mmsd.enable">services.mmsd</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           <link xlink:href="https://v2raya.org">v2rayA</link>, a Linux
           web GUI client of Project V which supports V2Ray, Xray, SS,
           SSR, Trojan and Pingtunnel. Available as
@@ -59,6 +74,14 @@
           and
           <link xlink:href="https://github.com/kolloch/crate2nix">crate2nix</link>
           instead.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <literal>borgbackup</literal> module now has an option for
+          inhibiting system sleep while backups are running, defaulting
+          to off (not inhibiting sleep), available as
+          <link linkend="opt-services.borgbackup.jobs._name_.inhibitsSleep"><literal>services.borgbackup.jobs.&lt;name&gt;.inhibitsSleep</literal></link>.
         </para>
       </listitem>
       <listitem>
@@ -146,6 +169,17 @@
       </listitem>
       <listitem>
         <para>
+          In <literal>mastodon</literal> it is now necessary to specify
+          location of file with <literal>PostgreSQL</literal> database
+          password. In
+          <literal>services.mastodon.database.passwordFile</literal>
+          parameter default value
+          <literal>/var/lib/mastodon/secrets/db-password</literal> has
+          been changed to <literal>null</literal>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           The <literal>nix.readOnlyStore</literal> option has been
           renamed to <literal>boot.readOnlyNixStore</literal> to clarify
           that it configures the NixOS boot process, not the Nix daemon.
@@ -210,6 +244,12 @@
       </listitem>
       <listitem>
         <para>
+          <literal>mastodon</literal> now supports connection to a
+          remote <literal>PostgreSQL</literal> database.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           A new <literal>virtualisation.rosetta</literal> module was
           added to allow running <literal>x86_64</literal> binaries
           through
@@ -219,6 +259,13 @@
           <link xlink:href="https://docs.getutm.app/">UTM</link>
           virtualisation
           <link xlink:href="https://search.nixos.org/packages?channel=unstable&amp;show=utm&amp;from=0&amp;size=1&amp;sort=relevance&amp;type=packages&amp;query=utm">package</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          The new option <literal>users.motdFile</literal> allows
+          configuring a Message Of The Day that can be updated
+          dynamically.
         </para>
       </listitem>
       <listitem>
@@ -241,6 +288,20 @@
           The <literal>unifi-poller</literal> package and corresponding
           NixOS module have been renamed to <literal>unpoller</literal>
           to match upstream.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          The new option
+          <literal>services.tailscale.useRoutingFeatures</literal>
+          controls various settings for using Tailscale features like
+          exit nodes and subnet routers. If you wish to use your machine
+          as an exit node, you can set this setting to
+          <literal>server</literal>, otherwise if you wish to use an
+          exit node you can set this setting to
+          <literal>client</literal>. The strict RPF warning has been
+          removed as the RPF will be loosened automatically based on the
+          value of this setting.
         </para>
       </listitem>
     </itemizedlist>
