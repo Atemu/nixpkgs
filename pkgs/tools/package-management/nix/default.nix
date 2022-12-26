@@ -106,8 +106,8 @@ in lib.makeExtensible (self: {
   };
 
   nix_2_11 = common {
-    version = "2.11.0";
-    sha256 = "sha256-9+rpYzI+SmxJn+EbYxjGv68Ucp22bdFUSy/4LkHkkDQ=";
+    version = "2.11.1";
+    sha256 = "sha256-qCV65kw09AG+EkdchDPq7RoeBznX0Q6Qa4yzPqobdOk=";
     patches = [
       ./patches/flaky-tests.patch
       (fetchpatch {
@@ -116,6 +116,14 @@ in lib.makeExtensible (self: {
         url = "https://github.com/NixOS/nix/commit/3ade5f5d6026b825a80bdcc221058c4f14e10a27.patch";
         sha256 = "sha256-s1ybRFCjQaSGj7LKu0Z5g7UiHqdJGeD+iPoQL0vaiS0=";
       })
+    ];
+  };
+
+  nix_2_12 = common {
+    version = "2.12.0";
+    sha256 = "sha256-sQ9C101CL/eVN5JgH91ozHFWU4+bXr8/Fi/8NQk6xRI=";
+    patches = [
+      ./patches/flaky-tests.patch
     ];
   };
 
