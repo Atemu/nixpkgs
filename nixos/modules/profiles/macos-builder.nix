@@ -62,7 +62,7 @@ in
 
       # This installCredentials script is written so that it's as easy as
       # possible for a user to audit before confirming the `sudo`
-      installCredentials = pkgs.writeShellScript "install-credentials" ''
+      installCredentials = hostPkgs.writeShellScript "install-credentials" ''
         KEYS="''${1}"
         INSTALL=${hostPkgs.coreutils}/bin/install
         "''${INSTALL}" -g nixbld -m 600 "''${KEYS}/${user}_${keyType}" ${privateKey}
@@ -93,7 +93,12 @@ in
         };
       });
 
-  system.stateVersion = "22.05";
+  system = {
+    # To prevent gratuitous rebuilds on each change to Nixpkgs
+    nixos.revision = null;
+
+    stateVersion = "22.05";
+  };
 
   users.users."${user}"= {
     isNormalUser = true;
