@@ -1,7 +1,7 @@
 /* Library of low-level helper functions for nix expressions.
  *
  * Please implement (mostly) exhaustive unit tests
- * for new functions in `./tests.nix'.
+ * for new functions in `./tests.nix`.
  */
 let
 
@@ -27,7 +27,6 @@ let
     maintainers = import ../maintainers/maintainer-list.nix;
     teams = callLibs ../maintainers/team-list.nix;
     meta = callLibs ./meta.nix;
-    sources = callLibs ./sources.nix;
     versions = callLibs ./versions.nix;
 
     # module system
@@ -53,7 +52,9 @@ let
     fetchers = callLibs ./fetchers.nix;
 
     # Eval-time filesystem handling
+    path = callLibs ./path;
     filesystem = callLibs ./filesystem.nix;
+    sources = callLibs ./sources.nix;
 
     # back-compat aliases
     platforms = self.systems.doubles;
@@ -130,14 +131,15 @@ let
       mkAliasAndWrapDefinitions fixMergeModules mkRemovedOptionModule
       mkRenamedOptionModule mkRenamedOptionModuleWith
       mkMergedOptionModule mkChangedOptionModule
-      mkAliasOptionModule mkDerivedConfig doRename;
+      mkAliasOptionModule mkDerivedConfig doRename
+      mkAliasOptionModuleMD;
     inherit (self.options) isOption mkEnableOption mkSinkUndeclaredOptions
       mergeDefaultOption mergeOneOption mergeEqualOption mergeUniqueOption
       getValues getFiles
       optionAttrSetToDocList optionAttrSetToDocList'
       scrubOptionValue literalExpression literalExample literalDocBook
       showOption showOptionWithDefLocs showFiles
-      unknownModule mkOption mkPackageOption
+      unknownModule mkOption mkPackageOption mkPackageOptionMD
       mdDoc literalMD;
     inherit (self.types) isType setType defaultTypeMerge defaultFunctor
       isOptionType mkOptionType;
