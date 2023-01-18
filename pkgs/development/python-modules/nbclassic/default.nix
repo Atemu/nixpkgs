@@ -6,14 +6,14 @@
 , ipython_genutils
 , jinja2
 , jupyter-client
-, jupyter_core
-, jupyter_server
+, jupyter-core
+, jupyter-server
 , nbconvert
 , nbformat
 , nest-asyncio
-, notebook
 , notebook-shim
 , prometheus-client
+, pytest-jupyter
 , pytest-tornasync
 , pytestCheckHook
 , pythonOlder
@@ -42,12 +42,11 @@ buildPythonPackage rec {
     ipython_genutils
     jinja2
     jupyter-client
-    jupyter_core
-    jupyter_server
+    jupyter-core
+    jupyter-server
     nbconvert
     nbformat
     nest-asyncio
-    notebook
     notebook-shim
     prometheus-client
     pyzmq
@@ -58,6 +57,7 @@ buildPythonPackage rec {
   ];
 
   checkInputs = [
+    pytest-jupyter
     pytest-tornasync
     pytestCheckHook
   ];
