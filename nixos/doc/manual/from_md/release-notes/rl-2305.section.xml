@@ -10,12 +10,20 @@
       In addition to numerous new and upgraded packages, this release
       has the following highlights:
     </para>
-    <itemizedlist spacing="compact">
+    <itemizedlist>
       <listitem>
         <para>
           Cinnamon has been updated to 5.6, see
           <link xlink:href="https://github.com/NixOS/nixpkgs/pull/201328#issue-1449910204">the
           pull request</link> for what is changed.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <literal>nixos-rebuild</literal> now supports an extra
+          <literal>--specialisation</literal> option that can be used to
+          change specialisation for <literal>switch</literal> and
+          <literal>test</literal> commands.
         </para>
       </listitem>
     </itemizedlist>
@@ -62,6 +70,13 @@
       </listitem>
       <listitem>
         <para>
+          <link xlink:href="https://github.com/hzeller/gmrender-resurrect">gmediarender</link>,
+          a simple, headless UPnP/DLNA renderer. Available as
+          <link xlink:href="options.html#opt-services.gmediarender.enable">services.gmediarender</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           <link xlink:href="https://github.com/StevenBlack/hosts">stevenblack-blocklist</link>,
           A unified hosts file with base extensions for blocking
           unwanted websites. Available as
@@ -97,6 +112,14 @@
           a userspace logging daemon for netfilter/iptables related
           logging. Available as
           <link xlink:href="options.html#opt-services.ulogd.enable">services.ulogd</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <link xlink:href="https://photoprism.app/">photoprism</link>,
+          a AI-Powered Photos App for the Decentralized Web. Available
+          as
+          <link xlink:href="options.html#opt-services.photoprism.enable">services.photoprism</link>.
         </para>
       </listitem>
     </itemizedlist>
@@ -326,6 +349,24 @@
       </listitem>
       <listitem>
         <para>
+          A few openssh options have been moved from extraConfig to the
+          new freeform option <literal>settings</literal> and renamed as
+          follow:
+          <literal>services.openssh.kbdInteractiveAuthentication</literal>
+          to
+          <literal>services.openssh.settings.KbdInteractiveAuthentication</literal>,
+          <literal>services.openssh.passwordAuthentication</literal> to
+          <literal>services.openssh.settings.PasswordAuthentication</literal>,
+          <literal>services.openssh.useDns</literal> to
+          <literal>services.openssh.settings.UseDns</literal>,
+          <literal>services.openssh.permitRootLogin</literal> to
+          <literal>services.openssh.settings.PermitRootLogin</literal>,
+          <literal>services.openssh.logLevel</literal> to
+          <literal>services.openssh.settings.LogLevel</literal>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           <literal>services.mastodon</literal> gained a tootctl wrapped
           named <literal>mastodon-tootctl</literal> similar to
           <literal>nextcloud-occ</literal> which can be executed from
@@ -354,6 +395,16 @@
           now also accepts an attribute set of booleans, passing plain
           PHP is deprecated. Same applies to <literal>acl</literal>
           which now also accepts structured settings.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          The <literal>wordpress</literal> service now takes
+          configuration via the
+          <literal>services.wordpress.sites.&lt;name&gt;.settings</literal>
+          attribute set, <literal>extraConfig</literal> is still
+          available to append additional text to
+          <literal>wp-config.php</literal>.
         </para>
       </listitem>
       <listitem>
@@ -465,6 +516,22 @@
       </listitem>
       <listitem>
         <para>
+          The <literal>root</literal> package is now built with the
+          <literal>&quot;-Dgnuinstall=ON&quot;</literal> CMake flag,
+          making the output conform the <literal>bin</literal>
+          <literal>lib</literal> <literal>share</literal> layout. In
+          this layout, <literal>tutorials</literal> is under
+          <literal>share/doc/ROOT/</literal>; <literal>cmake</literal>,
+          <literal>font</literal>, <literal>icons</literal>,
+          <literal>js</literal> and <literal>macro</literal> under
+          <literal>share/root</literal>;
+          <literal>Makefile.comp</literal> and
+          <literal>Makefile.config</literal> under
+          <literal>etc/root</literal>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           Enabling global redirect in
           <literal>services.nginx.virtualHosts</literal> now allows one
           to add exceptions with the <literal>locations</literal>
@@ -556,6 +623,13 @@
           <literal>nixos-version</literal> now accepts
           <literal>--configuration-revision</literal> to display more
           information about the current generation revision
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          The option
+          <literal>services.nomad.extraSettingsPlugins</literal> has
+          been fixed to allow more than one plugin in the path.
         </para>
       </listitem>
     </itemizedlist>

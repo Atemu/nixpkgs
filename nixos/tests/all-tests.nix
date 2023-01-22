@@ -389,6 +389,7 @@ in {
   memcached = handleTest ./memcached.nix {};
   merecat = handleTest ./merecat.nix {};
   metabase = handleTest ./metabase.nix {};
+  mindustry = handleTest ./mindustry.nix {};
   minecraft = handleTest ./minecraft.nix {};
   minecraft-server = handleTest ./minecraft-server.nix {};
   minidlna = handleTest ./minidlna.nix {};
@@ -436,7 +437,6 @@ in {
   netdata = handleTest ./netdata.nix {};
   networking.networkd = handleTest ./networking.nix { networkd = true; };
   networking.scripted = handleTest ./networking.nix { networkd = false; };
-  specialisation = handleTest ./specialisation.nix {};
   netbox = handleTest ./web-apps/netbox.nix {};
   # TODO: put in networking.nix after the test becomes more complete
   networkingProxy = handleTest ./networking-proxy.nix {};
@@ -464,6 +464,7 @@ in {
   nix-serve-ssh = handleTest ./nix-serve-ssh.nix {};
   nixops = handleTest ./nixops/default.nix {};
   nixos-generate-config = handleTest ./nixos-generate-config.nix {};
+  nixos-rebuild-specialisations = handleTest ./nixos-rebuild-specialisations.nix {};
   nixpkgs = pkgs.callPackage ../modules/misc/nixpkgs/test.nix { inherit evalMinimalConfig; };
   node-red = handleTest ./node-red.nix {};
   nomad = handleTest ./nomad.nix {};
@@ -513,6 +514,7 @@ in {
   pgjwt = handleTest ./pgjwt.nix {};
   pgmanage = handleTest ./pgmanage.nix {};
   phosh = handleTest ./phosh.nix {};
+  photoprism = handleTest ./photoprism.nix {};
   php = handleTest ./php {};
   php80 = handleTest ./php { php = pkgs.php80; };
   php81 = handleTest ./php { php = pkgs.php81; };
@@ -617,6 +619,7 @@ in {
   strongswan-swanctl = handleTest ./strongswan-swanctl.nix {};
   stunnel = handleTest ./stunnel.nix {};
   sudo = handleTest ./sudo.nix {};
+  swap-file-btrfs = handleTest ./swap-file-btrfs.nix {};
   swap-partition = handleTest ./swap-partition.nix {};
   sway = handleTest ./sway.nix {};
   switchTest = handleTest ./switch-test.nix {};
@@ -655,6 +658,7 @@ in {
   systemd-portabled = handleTest ./systemd-portabled.nix {};
   systemd-shutdown = handleTest ./systemd-shutdown.nix {};
   systemd-timesyncd = handleTest ./systemd-timesyncd.nix {};
+  systemd-user-tmpfiles-rules = handleTest ./systemd-user-tmpfiles-rules.nix {};
   systemd-misc = handleTest ./systemd-misc.nix {};
   systemd-userdbd = handleTest ./systemd-userdbd.nix {};
   systemd-homed = handleTest ./systemd-homed.nix {};

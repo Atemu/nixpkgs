@@ -50,6 +50,7 @@ stdenv.mkDerivation {
     at-spi2-core
     cups
     gtk3
+    glib
     libdrm
     libgcrypt
     libkrb5
