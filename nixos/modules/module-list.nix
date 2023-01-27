@@ -172,7 +172,6 @@
   ./programs/geary.nix
   ./programs/git.nix
   ./programs/gnome-disks.nix
-  ./programs/gnome-documents.nix
   ./programs/gnome-terminal.nix
   ./programs/gnupg.nix
   ./programs/gpaste.nix
@@ -530,6 +529,7 @@
   ./services/mail/dovecot.nix
   ./services/mail/dspam.nix
   ./services/mail/exim.nix
+  ./services/mail/goeland.nix
   ./services/mail/listmonk.nix
   ./services/mail/maddy.nix
   ./services/mail/mail.nix
@@ -570,6 +570,7 @@
   ./services/misc/atuin.nix
   ./services/misc/autofs.nix
   ./services/misc/autorandr.nix
+  ./services/misc/autosuspend.nix
   ./services/misc/bazarr.nix
   ./services/misc/beanstalkd.nix
   ./services/misc/bees.nix
@@ -1117,6 +1118,7 @@
   ./services/web-apps/bookstack.nix
   ./services/web-apps/calibre-web.nix
   ./services/web-apps/changedetection-io.nix
+  ./services/web-apps/cloudlog.nix
   ./services/web-apps/code-server.nix
   ./services/web-apps/convos.nix
   ./services/web-apps/dex.nix

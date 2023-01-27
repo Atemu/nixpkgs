@@ -6,7 +6,18 @@
 }:
 
 let
-  python = python3;
+  python = python3.override {
+    packageOverrides = self: super: {
+      dulwich = super.dulwich.overridePythonAttrs (old: rec {
+        version = "0.20.50";
+        src = self.fetchPypi {
+          inherit (old) pname;
+          inherit version;
+          hash = "sha256-UKlBeWssZ1vjm+co1UDBa1t853654bP4VWUOzmgy0r4=";
+        };
+      });
+    };
+  };
 in python.pkgs.buildPythonApplication rec {
   pname = "poetry";
   version = "1.3.2";
@@ -69,7 +80,7 @@ in python.pkgs.buildPythonApplication rec {
     rm $out/nix-support/propagated-build-inputs
   '';
 
-  checkInputs = with python.pkgs; [
+  nativeCheckInputs = with python.pkgs; [
     cachy
     deepdiff
     flatdict

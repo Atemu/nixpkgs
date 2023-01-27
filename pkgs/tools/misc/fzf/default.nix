@@ -2,7 +2,6 @@
 , lib
 , buildGoModule
 , fetchFromGitHub
-, writeText
 , writeShellScriptBin
 , runtimeShell
 , installShellFiles
@@ -25,13 +24,13 @@ let
 in
 buildGoModule rec {
   pname = "fzf";
-  version = "0.36.0";
+  version = "0.37.0";
 
   src = fetchFromGitHub {
     owner = "junegunn";
     repo = pname;
     rev = version;
-    hash = "sha256-1PKu8l4Mx17CpePUE0JEnLPNsUdJ0KvW6Lx6VZM27kI=";
+    hash = "sha256-m+tKNz7tUWkm/Vg9DhcfZyaBgZh+Mcf0mRfc5/SW2Os=";
   };
 
   vendorHash = "sha256-MsMwBBualAwJzCrv/WNBJakv6LcKZYsDUqkNmivUMOQ=";

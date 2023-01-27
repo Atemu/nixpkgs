@@ -2,7 +2,7 @@
 # Do not edit!
 
 {
-  version = "2023.1.5";
+  version = "2023.1.7";
   components = {
     "3_day_blinds" = ps: with ps; [
     ];
@@ -1233,8 +1233,9 @@
     "google_assistant_sdk" = ps: with ps; [
       aiohttp-cors
       fnvhash
+      gassist-text
       sqlalchemy
-    ]; # missing inputs: gassist-text
+    ];
     "google_cloud" = ps: with ps; [
       google-cloud-texttospeech
     ];
@@ -4312,6 +4313,7 @@
     "goodwe"
     "google"
     "google_assistant"
+    "google_assistant_sdk"
     "google_domains"
     "google_pubsub"
     "google_sheets"

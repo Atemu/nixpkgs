@@ -1212,6 +1212,8 @@ self: super: with self; {
 
   bellows = callPackage ../development/python-modules/bellows { };
 
+  bencoder = callPackage ../development/python-modules/bencoder { };
+
   beniget = callPackage ../development/python-modules/beniget { };
 
   bespon = callPackage ../development/python-modules/bespon { };
@@ -2580,6 +2582,8 @@ self: super: with self; {
 
   django-logentry-admin = callPackage ../development/python-modules/django-logentry-admin { };
 
+  django-login-required-middleware = callPackage ../development/python-modules/django-login-required-middleware { };
+
   django-mailman3 = callPackage ../development/python-modules/django-mailman3 { };
 
   django-model-utils = callPackage ../development/python-modules/django-model-utils { };
@@ -3652,6 +3656,8 @@ self: super: with self; {
 
   garminconnect = callPackage ../development/python-modules/garminconnect { };
 
+  gassist-text = callPackage ../development/python-modules/gassist-text { };
+
   gast = callPackage ../development/python-modules/gast { };
 
   gatt = callPackage ../development/python-modules/gatt { };
@@ -4188,6 +4194,8 @@ self: super: with self; {
   hacking = callPackage ../development/python-modules/hacking { };
 
   hdate = callPackage ../development/python-modules/hdate { };
+
+  hdf5plugin = callPackage ../development/python-modules/hdf5plugin { };
 
   ha-ffmpeg = callPackage ../development/python-modules/ha-ffmpeg { };
 
@@ -4795,9 +4803,6 @@ self: super: with self; {
 
   jaxlib-build = callPackage ../development/python-modules/jaxlib rec {
     inherit (pkgs.darwin) cctools;
-    buildBazelPackage = pkgs.buildBazelPackage.override {
-      stdenv = if stdenv.isDarwin then pkgs.darwin.apple_sdk_11_0.stdenv else stdenv;
-    };
     # Some platforms don't have `cudaSupport` defined, hence the need for 'or false'.
     cudaSupport = pkgs.config.cudaSupport or false;
     IOKit = pkgs.darwin.apple_sdk_11_0.IOKit;
@@ -5609,6 +5614,8 @@ self: super: with self; {
   makefun = callPackage ../development/python-modules/makefun { };
 
   mailsuite = callPackage ../development/python-modules/mailsuite { };
+
+  maison = callPackage ../development/python-modules/maison { };
 
   Mako = callPackage ../development/python-modules/Mako { };
 
@@ -8198,6 +8205,8 @@ self: super: with self; {
   pylibftdi = callPackage ../development/python-modules/pylibftdi {
     inherit (pkgs) libusb1;
   };
+
+  pylibjpeg-libjpeg = callPackage ../development/python-modules/pylibjpeg-libjpeg { };
 
   pyliblo = callPackage ../development/python-modules/pyliblo { };
 
@@ -10888,6 +10897,8 @@ self: super: with self; {
 
   sqlsoup = callPackage ../development/python-modules/sqlsoup { };
 
+  sqltrie = callPackage ../development/python-modules/sqltrie { };
+
   srp = callPackage ../development/python-modules/srp { };
 
   srpenergy = callPackage ../development/python-modules/srpenergy { };
@@ -12051,6 +12062,8 @@ self: super: with self; {
   wandb = callPackage ../development/python-modules/wandb { };
 
   warcio = callPackage ../development/python-modules/warcio { };
+
+  ward = callPackage ../development/python-modules/ward { };
 
   warlock = callPackage ../development/python-modules/warlock { };
 

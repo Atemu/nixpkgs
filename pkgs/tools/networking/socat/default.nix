@@ -23,16 +23,11 @@ stdenv.mkDerivation rec {
       --replace /sbin/ifconfig ifconfig
   '';
 
-  configureFlags = lib.optionals stdenv.hostPlatform.isMusl [
-    # musl doesn't have getprotobynumber_r
-    "sc_cv_getprotobynumber_r=2"
-  ];
-
   buildInputs = [ openssl readline ];
 
   hardeningEnable = [ "pie" ];
 
-  checkInputs = [ which nettools ];
+  nativeCheckInputs = [ which nettools ];
   doCheck = false; # fails a bunch, hangs
 
   meta = with lib; {

@@ -63,6 +63,13 @@
       </listitem>
       <listitem>
         <para>
+          <link xlink:href="https://www.magicbug.co.uk/cloudlog/">Cloudlog</link>,
+          a web-based Amateur Radio logging application. Available as
+          <link linkend="opt-services.cloudlog.enable">services.cloudlog</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           <link xlink:href="https://github.com/junegunn/fzf">fzf</link>,
           a command line fuzzyfinder. Available as
           <link linkend="opt-programs.fzf.fuzzyCompletion">programs.fzf</link>.
@@ -81,6 +88,14 @@
           A unified hosts file with base extensions for blocking
           unwanted websites. Available as
           <link xlink:href="options.html#opt-networking.stevenblack.enable">networking.stevenblack</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <link xlink:href="https://github.com/slurdge/goeland">goeland</link>,
+          an alternative to rss2email written in golang with many
+          filters. Available as
+          <link linkend="opt-services.goeland.enable">services.goeland</link>.
         </para>
       </listitem>
       <listitem>
@@ -122,6 +137,13 @@
           <link xlink:href="options.html#opt-services.photoprism.enable">services.photoprism</link>.
         </para>
       </listitem>
+      <listitem>
+        <para>
+          <link xlink:href="https://github.com/languitar/autosuspend">autosuspend</link>,
+          a python daemon that suspends a system if certain conditions
+          are met, or not met.
+        </para>
+      </listitem>
     </itemizedlist>
   </section>
   <section xml:id="sec-release-23.05-incompatibilities">
@@ -136,6 +158,30 @@
           and
           <link xlink:href="https://github.com/kolloch/crate2nix">crate2nix</link>
           instead.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <literal>checkInputs</literal> have been renamed to
+          <literal>nativeCheckInputs</literal>, because they behave the
+          same as <literal>nativeBuildInputs</literal> when
+          <literal>doCheck</literal> is set.
+          <literal>checkInputs</literal> now denote a new type of
+          dependencies, added to <literal>buildInputs</literal> when
+          <literal>doCheck</literal> is set. As a rule of thumb,
+          <literal>nativeCheckInputs</literal> are tools on
+          <literal>$PATH</literal> used during the tests, and
+          <literal>checkInputs</literal> are libraries which are linked
+          to executables built as part of the tests. Similarly,
+          <literal>installCheckInputs</literal> are renamed to
+          <literal>nativeInstallCheckInputs</literal>, corresponding to
+          <literal>nativeBuildInputs</literal>, and
+          <literal>installCheckInputs</literal> are a new type of
+          dependencies added to <literal>buildInputs</literal> when
+          <literal>doInstallCheck</literal> is set. (Note that this
+          change will not cause breakage to derivations with
+          <literal>strictDeps</literal> unset, which are most packages
+          except python, rust and go packages).
         </para>
       </listitem>
       <listitem>
@@ -239,6 +285,17 @@
       </listitem>
       <listitem>
         <para>
+          Kime has been updated from 2.5.6 to 3.0.2 and the
+          <literal>i18n.inputMethod.kime.config</literal> option has
+          been removed. Users should use
+          <literal>daemonModules</literal>,
+          <literal>iconColor</literal>, and
+          <literal>extraConfig</literal> options under
+          <literal>i18n.inputMethod.kime</literal> instead.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           <literal>llvmPackages_rocm.llvm</literal> will not contain
           <literal>clang</literal> or <literal>compiler-rt</literal>.
           <literal>llvmPackages_rocm.clang</literal> will not contain
@@ -246,16 +303,6 @@
           <literal>llvmPackages_rocm.clangNoCompilerRt</literal> has
           been removed in favor of using
           <literal>llvmPackages_rocm.clang-unwrapped</literal>.
-        </para>
-      </listitem>
-      <listitem>
-        <para>
-          The Nginx module now validates the syntax of config files at
-          build time. For more complex configurations (using
-          <literal>include</literal> with out-of-store files notably)
-          you may need to disable this check by setting
-          <link linkend="opt-services.nginx.validateConfig">services.nginx.validateConfig</link>
-          to <literal>false</literal>.
         </para>
       </listitem>
       <listitem>
@@ -268,6 +315,16 @@
           removed. Users relying on this should provide their own
           implementation, and probably use ext4 and perform the mount in
           stage-2.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <literal>teleport</literal> has been upgraded to major version
+          11. Please see upstream
+          <link xlink:href="https://goteleport.com/docs/setup/operations/upgrading/">upgrade
+          instructions</link> and
+          <link xlink:href="https://goteleport.com/docs/changelog/#1100">release
+          notes</link>.
         </para>
       </listitem>
       <listitem>
@@ -300,6 +357,15 @@
       </listitem>
       <listitem>
         <para>
+          The <literal>--target-host</literal> and
+          <literal>--build-host</literal> options of
+          <literal>nixos-rebuild</literal> no longer treat the
+          <literal>localhost</literal> value specially – to build
+          on/deploy to local machine, omit the relevant flag.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           The <literal>nix.readOnlyStore</literal> option has been
           renamed to <literal>boot.readOnlyNixStore</literal> to clarify
           that it configures the NixOS boot process, not the Nix daemon.
@@ -311,6 +377,13 @@
           package has been removed in favour of direct use of its
           constitutents: <literal>xorg.libX11</literal>,
           <literal>freetype</literal> and others.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          .NET 5.0 was removed due to being end-of-life, use a newer,
+          supported .NET version -
+          https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core
         </para>
       </listitem>
     </itemizedlist>
@@ -372,6 +445,22 @@
           <literal>nextcloud-occ</literal> which can be executed from
           any user and switches to the configured mastodon user with
           sudo and sources the environment variables.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          DocBook option documentation, which has been deprecated since
+          22.11, will now cause a warning when documentation is built.
+          Out-of-tree modules should migrate to using CommonMark
+          documentation as outlined in
+          <xref linkend="sec-option-declarations" /> to silence this
+          warning.
+        </para>
+        <para>
+          DocBook option documentation support will be removed in the
+          next release and CommonMark will become the default. DocBook
+          option documentation that has not been migrated until then
+          will no longer render properly or cause errors.
         </para>
       </listitem>
       <listitem>
@@ -453,6 +542,13 @@
           <literal>services.chronyd</literal> is now started with
           additional systemd sandbox/hardening options for better
           security.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <literal>services.dhcpcd</literal> service now don’t solicit
+          or accept IPv6 Router Advertisements on interfaces that use
+          static IPv6 addresses.
         </para>
       </listitem>
       <listitem>

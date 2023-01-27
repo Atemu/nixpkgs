@@ -17,7 +17,7 @@
 buildPythonPackage rec {
   pname = "pip-tools";
   version = "6.12.1";
-  format = "setuptools";
+  format = "pyproject";
 
   disabled = pythonOlder "3.7";
 
@@ -41,7 +41,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-  checkInputs = [
+  nativeCheckInputs = [
     pytest-xdist
     pytestCheckHook
   ];
