@@ -15,6 +15,7 @@ in {
           if pkgs.stdenv.hostPlatform.is64bit
           then [ package ] ++ extraPackages
           else [ package32 ] ++ extraPackages32;
+        extraEnv = cfg.env;
       };
       defaultText = literalExpression ''
         pkgs.steam.override {
@@ -26,6 +27,23 @@ in {
       '';
       description = lib.mdDoc ''
         steam package to use.
+      '';
+    };
+
+    env = mkOption {
+      type = types.attrs;
+      description = mdDoc ''
+        Environment variables to run Steam with.
+
+        Uses `lib.strings.toShellVars` internally; see the documentation for more info.
+      '';
+      default = { };
+      example = literalExpression ''
+        {
+          MANGOHUD = true;
+          OBS_VKCAPTURE = true;
+          RADV_TEX_ANISO = 16;
+        }
       '';
     };
 
