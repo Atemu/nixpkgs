@@ -1,9 +1,10 @@
-{ config, lib, writeScript, buildFHSUserEnv, steam, glxinfo-i686
+{ config, lib, writeShellScript, buildFHSUserEnv, steam, glxinfo-i686
 , steam-runtime-wrapped, steam-runtime-wrapped-i686 ? null
 , extraPkgs ? pkgs: [ ] # extra packages to add to targetPkgs
 , extraLibraries ? pkgs: [ ] # extra packages to add to multiPkgs
 , extraProfile ? "" # string to append to profile
 , extraArgs ? "" # arguments to always pass to steam
+, extraEnv ? { } # Environment variables to pass to Steam
 , runtimeOnly ? false
 , runtimeShell
 , stdenv
@@ -60,6 +61,8 @@ let
       chmod +w $HOME/.local/share/Steam/bootstrap.tar.xz
     fi
   '';
+
+  envScript = lib.toShellVars extraEnv;
 
 in buildFHSUserEnv rec {
   name = "steam";
@@ -239,8 +242,7 @@ in buildFHSUserEnv rec {
     export SDL_JOYSTICK_DISABLE_UDEV=1
   '' + extraProfile;
 
-  runScript = writeScript "steam-wrapper.sh" ''
-    #!${runtimeShell}
+  runScript = writeShellScript "steam-wrapper.sh" ''
     if [ -f /host/etc/NIXOS ]; then   # Check only useful on NixOS
       ${glxinfo-i686}/bin/glxinfo >/dev/null 2>&1
       # If there was an error running glxinfo, we know something is wrong with the configuration
@@ -260,6 +262,9 @@ in buildFHSUserEnv rec {
 
     ${exportLDPath}
     ${fixBootstrap}
+
+    set -o allexport # Export the following env vars
+    ${envScript}
     exec steam ${extraArgs} "$@"
   '';
 
@@ -282,8 +287,7 @@ in buildFHSUserEnv rec {
 
     inherit unshareIpc unsharePid;
 
-    runScript = writeScript "steam-run" ''
-      #!${runtimeShell}
+    runScript = writeShellScript "steam-run" ''
       run="$1"
       if [ "$run" = "" ]; then
         echo "Usage: steam-run command-to-run args..." >&2
@@ -293,6 +297,9 @@ in buildFHSUserEnv rec {
 
       ${exportLDPath}
       ${fixBootstrap}
+
+      set -o allexport # Export the following env vars
+      ${envScript}
       exec -- "$run" "$@"
     '';
 
