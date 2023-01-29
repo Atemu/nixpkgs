@@ -17,13 +17,13 @@
 
 buildDotnetModule rec {
   pname = "BeatSaberModManager";
-  version = "0.0.4";
+  version = "0.0.5";
 
   src = fetchFromGitHub {
     owner = "affederaffe";
     repo = pname;
-    rev = "v${version}";
-    sha256 = "sha256-XeyOWg4Wa4hiorLPnbnBrLSjnxheAGGMPTqBleulDGw=";
+    rev = "a715575f14054f47f229d7b151eca557e578bf6d";
+    sha256 = "sha256-mlGHTN2u9Xs638N2f0TPbiwAKc5VmnD+hf/mN5eznus=";
     fetchSubmodules = true; # It vendors BSIPA-Linux
   };
 
