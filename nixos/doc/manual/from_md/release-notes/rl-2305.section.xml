@@ -115,6 +115,14 @@
       </listitem>
       <listitem>
         <para>
+          <link xlink:href="https://dm3mat.darc.de/qdmr/">QDMR</link>, a
+          gui application and command line tool for programming cheap
+          DMR radios
+          <link linkend="opt-programs.qdmr.enable">programs.qdmr</link>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           <link xlink:href="https://v2raya.org">v2rayA</link>, a Linux
           web GUI client of Project V which supports V2Ray, Xray, SS,
           SSR, Trojan and Pingtunnel. Available as
@@ -211,6 +219,18 @@
       </listitem>
       <listitem>
         <para>
+          The <literal>services.kubo.settings</literal> option is now no
+          longer stateful. If you changed any of the options in
+          <literal>services.kubo.settings</literal> in the past and then
+          removed them from your NixOS configuration again, those
+          changes are still in your Kubo configuration file but will now
+          be reset to the default. If you’re unsure, you may want to
+          make a backup of your configuration file (probably
+          /var/lib/ipfs/config) and compare after the update.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           The EC2 image module no longer fetches instance metadata in
           stage-1. This results in a significantly smaller initramfs,
           since network drivers no longer need to be included, and
@@ -296,6 +316,22 @@
       </listitem>
       <listitem>
         <para>
+          <literal>tut</literal> has been updated from 1.0.34 to 2.0.0,
+          and now uses the TOML format for the configuration file
+          instead of INI. Additional information can be found
+          <link xlink:href="https://github.com/RasmusLindroth/tut/releases/tag/2.0.0">here</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          The <literal>wordpress</literal> derivation no longer contains
+          any builtin plugins or themes. If you need them you have to
+          add them back to prevent your site from breaking. You can find
+          them in <literal>wordpressPackages.{plugins,themes}</literal>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           <literal>llvmPackages_rocm.llvm</literal> will not contain
           <literal>clang</literal> or <literal>compiler-rt</literal>.
           <literal>llvmPackages_rocm.clang</literal> will not contain
@@ -337,11 +373,28 @@
       </listitem>
       <listitem>
         <para>
+          Calling <literal>makeSetupHook</literal> without passing a
+          <literal>name</literal> argument is deprecated.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           Qt 5.12 and 5.14 have been removed, as the corresponding
           branches have been EOL upstream for a long time. This affected
           under 10 packages in nixpkgs, largely unmaintained upstream as
           well, however, out-of-tree package expressions may need to be
           updated manually.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          The
+          <link linkend="opt-services.wordpress.sites._name_.plugins">services.wordpress.sites.&lt;name&gt;.plugins</link>
+          and
+          <link linkend="opt-services.wordpress.sites._name_.themes">services.wordpress.sites.&lt;name&gt;.themes</link>
+          options have been converted from sets to attribute sets to
+          allow for consumers to specify explicit install paths via
+          attribute name.
         </para>
       </listitem>
       <listitem>
@@ -384,6 +437,17 @@
           .NET 5.0 was removed due to being end-of-life, use a newer,
           supported .NET version -
           https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          The iputils package, which is installed by default, no longer
+          provides the <literal>ninfod</literal>,
+          <literal>rarpd</literal> and <literal>rdisc</literal> tools.
+          See
+          <link xlink:href="https://github.com/iputils/iputils/releases/tag/20221126">upstream’s
+          release notes</link> for more details and available
+          replacements.
         </para>
       </listitem>
     </itemizedlist>
@@ -465,6 +529,16 @@
       </listitem>
       <listitem>
         <para>
+          NixOS now defaults to using nsncd (a non-caching
+          reimplementation in Rust) as NSS lookup dispatcher, instead of
+          the buggy and deprecated glibc-provided nscd. If you need to
+          switch back, set
+          <literal>services.nscd.enableNsncd = false</literal>, but
+          please open an issue in nixpkgs so your issue can be fixed.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           The <literal>dnsmasq</literal> service now takes configuration
           via the <literal>services.dnsmasq.settings</literal> attribute
           set. The option
@@ -509,6 +583,17 @@
         <para>
           The minimal ISO image now uses the
           <literal>nixos/modules/profiles/minimal.nix</literal> profile.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          The <literal>ghcWithPackages</literal> and
+          <literal>ghcWithHoogle</literal> wrappers will now also
+          symlink GHC’s and all included libraries’ documentation to
+          <literal>$out/share/doc</literal> for convenience. If
+          undesired, the old behavior can be restored by overriding the
+          builders with
+          <literal>{ installDocumentation = false; }</literal>.
         </para>
       </listitem>
       <listitem>
@@ -644,6 +729,36 @@
       </listitem>
       <listitem>
         <para>
+          Updated recommended settings in
+          <literal>services.nginx.recommendedGzipSettings</literal>:
+        </para>
+        <itemizedlist spacing="compact">
+          <listitem>
+            <para>
+              Enables gzip compression for only certain proxied
+              requests.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              Allow checking and loading of precompressed files.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              Updated gzip mime-types.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              Increased the minimum length of a response that will be
+              gzipped.
+            </para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+      <listitem>
+        <para>
           <link xlink:href="https://garagehq.deuxfleurs.fr/">Garage</link>
           version is based on
           <link xlink:href="options.html#opt-system.stateVersion">system.stateVersion</link>,
@@ -662,6 +777,13 @@
           <literal>hip</literal> has been separated into
           <literal>hip</literal>, <literal>hip-common</literal> and
           <literal>hipcc</literal>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <literal>services.nginx.recommendedProxySettings</literal> now
+          removes the <literal>Connection</literal> header preventing
+          clients from closing backend connections.
         </para>
       </listitem>
       <listitem>

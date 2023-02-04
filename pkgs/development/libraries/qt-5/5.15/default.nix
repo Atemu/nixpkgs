@@ -174,10 +174,11 @@ let
           cp -r ${srcs.catapult} src/3rdparty/chromium/third_party/catapult
         '';
         inherit (darwin) cctools xnu;
-        inherit (darwin.apple_sdk_11_0) libunwind;
+        inherit (darwin.apple_sdk_11_0) libpm libunwind;
         inherit (darwin.apple_sdk_11_0.libs) sandbox;
         inherit (darwin.apple_sdk_11_0.frameworks) ApplicationServices AVFoundation Foundation ForceFeedback GameController AppKit
-          ImageCaptureCore CoreBluetooth IOBluetooth CoreWLAN Quartz Cocoa LocalAuthentication;
+          ImageCaptureCore CoreBluetooth IOBluetooth CoreWLAN Quartz Cocoa LocalAuthentication
+          MediaPlayer MediaAccessibility SecurityInterface Vision CoreML;
         libobjc = darwin.apple_sdk_11_0.objc4;
       };
       qtwebglplugin = callPackage ../modules/qtwebglplugin.nix {};
@@ -203,6 +204,7 @@ let
         ++ lib.optional (stdenv.isDarwin) qtmacextras);
 
       qmake = makeSetupHook {
+        name = "qmake-hook";
         deps = [ self.qtbase.dev ];
         substitutions = {
           inherit debug;
@@ -211,6 +213,7 @@ let
       } ../hooks/qmake-hook.sh;
 
       wrapQtAppsHook = makeSetupHook {
+        name = "wrap-qt5-apps-hook";
         deps = [ self.qtbase.dev buildPackages.makeWrapper ]
           ++ lib.optional stdenv.isLinux self.qtwayland.dev;
       } ../hooks/wrap-qt-apps-hook.sh;

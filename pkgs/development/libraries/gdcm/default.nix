@@ -3,7 +3,7 @@
 , fetchFromGitHub
 , cmake
 , enableVTK ? true
-, vtk
+, vtk_8
 , ApplicationServices
 , Cocoa
 , enablePython ? false
@@ -13,13 +13,13 @@
 
 stdenv.mkDerivation rec {
   pname = "gdcm";
-  version = "3.0.20";
+  version = "3.0.21";
 
   src = fetchFromGitHub {
     owner = "malaterre";
     repo = "GDCM";
     rev = "v${version}";
-    sha256 = "sha256-MaQk2VlaZxZPNzVF9pUnEzMaXyN0tq2P3kodnGpl6PA=";
+    sha256 = "sha256-BmUJCqCGt+BvVpLG4bzCH4lsqmhWHU0gbOIU2CCIMGU=";
   };
 
   cmakeFlags = [
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   buildInputs = lib.optionals enableVTK [
-    vtk
+    vtk_8
   ] ++ lib.optionals stdenv.isDarwin [
     ApplicationServices
     Cocoa

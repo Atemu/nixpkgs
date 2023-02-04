@@ -33,6 +33,7 @@ in
   ### Deprecated aliases - for backward compatibility
 
 mapAliases ({
+  abodepy = jaraco-abode; # added 2023-02-01
   aioh2 = throw "aioh2 has been removed because it is abandoned and broken."; # Added 2022-03-30
   ansible-base = throw "ansible-base has been removed, because it is end of life"; # added 2022-03-30
   anyjson = throw "anyjson has been removed, it was using setuptools 2to3 translation feature, which has been removed in setuptools 58"; # added 2022-01-18
@@ -55,6 +56,7 @@ mapAliases ({
   demjson = throw "demjson has been removed, it was using setuptools 2to3 translation feature, which has been removed in setuptools 58"; # added 2022-01-18
   detox = throw "detox is no longer maintained, and was broken since may 2019"; # added 2020-07-04
   dftfit = throw "dftfit dependency lammps-cython no longer builds"; # added 2021-07-04
+  dictpath = pathable; # added 2023-01-28
   diff_cover = diff-cover; # added 2021-07-02
   discogs_client = discogs-client; # added 2021-07-02
   djangorestframework-jwt = drf-jwt; # added 2021-07-20
@@ -129,6 +131,7 @@ mapAliases ({
   nose-cover3 = throw "nose-cover3 has been removed, it was using setuptools 2to3 translation feature, which has been removed in setuptools 58"; # added 2022-02-16
   notifymuch = throw "notifymuch has been promoted to a top-level attribute"; # added 2022-10-02
   ordereddict = throw "ordereddict has been removed because it is only useful on unsupported python versions."; # added 2022-05-28
+  pafy = throw "pafy has been removed because it is unmaintained and only a dependency of mps-youtube, itself superseded by yewtube"; # Added 2023-01-19
   pam = python-pam; # added 2020-09-07.
   PasteDeploy = pastedeploy; # added 2021-10-07
   pathpy = path; # added 2022-04-12
@@ -145,6 +148,7 @@ mapAliases ({
   protonup = protonup-ng; # Added 2022-11-06
   pur = throw "pur has been renamed to pkgs.pur"; # added 2021-11-08
   pushbullet = pushbullet-py;  # Added 2022-10-15
+  pyalmond = throw "pyalmond has been removed, since its API endpoints have been shutdown"; # added 2023-02-02
   pydrive = throw "pydrive is broken and deprecated and has been replaced with pydrive2."; # added 2022-06-01
   pyGtkGlade = throw "Glade support for pygtk has been removed"; # added 2022-01-15
   pycallgraph = throw "pycallgraph has been removed, it was using setuptools 2to3 translation feature, which has been removed in setuptools 58"; # added 2022-01-18
@@ -211,6 +215,7 @@ mapAliases ({
   sharkiqpy = sharkiq; # added 2022-05-21
   smart_open = smart-open; # added 2021-03-14
   smmap2 = throw "smmap2 has been deprecated, use smmap instead."; # added 2020-03-14
+  somecomfort = throw "somecomfort was removed because Home Assistant switched to aiosomecomfort"; # added 2023-02-01
   SPARQLWrapper = sparqlwrapper;
   sphinx_rtd_theme = sphinx-rtd-theme; # added 2022-08-03
   sphinxcontrib_plantuml = sphinxcontrib-plantuml; # added 2021-08-02
@@ -218,6 +223,7 @@ mapAliases ({
   SQLAlchemy-ImageAttach = throw "sqlalchemy-imageattach has been removed as it is incompatible with sqlalchemy 1.4 and unmaintained"; # added 2022-04-23
   tensorflow-bin_2 = tensorflow-bin; # added 2021-11-25
   tensorflow-build_2 = tensorflow-build; # added 2021-11-25
+  tensorflow-estimator = tensorflow-estimator-bin; # added 2023-01-17
   tensorflow-estimator_2 = tensorflow-estimator; # added 2021-11-25
   tensorflow-tensorboard = tensorboard; # added 2022-03-06
   tensorflow-tensorboard_2 = tensorflow-tensorboard; # added 2021-11-25

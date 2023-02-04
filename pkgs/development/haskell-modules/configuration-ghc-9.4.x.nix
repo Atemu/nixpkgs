@@ -104,6 +104,7 @@ in {
   resolv = doJailbreak super.resolv;
   singleton-bool = doJailbreak super.singleton-bool;
   rope-utf16-splay = doDistribute self.rope-utf16-splay_0_4_0_0;
+  shake-cabal = doDistribute self.shake-cabal_0_2_2_3;
 
   base-orphans = dontCheck super.base-orphans;
 
@@ -201,4 +202,8 @@ in {
   fourmolu = overrideCabal (drv: {
     libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ];
   }) (disableCabalFlag "fixity-th" super.fourmolu_0_10_1_0);
+
+  # The Haskell library has additional dependencies when compiled with ghc-9.4.x.
+  X11-xft = addExtraLibraries [pkgs.xorg.libXau pkgs.xorg.libXdmcp pkgs.expat] super.X11-xft;
+
 }
