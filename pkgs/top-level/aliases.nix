@@ -124,7 +124,9 @@ mapAliases ({
   bazel_0_27 = throw "bazel 0.27 is past end of life as it is not an lts version"; # Added 2022-05-09
   bazel_0_29 = throw "bazel 0.29 is past end of life as it is not an lts version"; # Added 2022-05-09
   bazel_1 = throw "bazel 1 is past end of life as it is not an lts version"; # Added 2022-05-09
+  bazel_3 = throw "bazel 3 is past end of life as it is not an lts version"; # Added 2023-02-02
   bcat = throw "bcat has been removed because upstream is dead"; # Added 2021-08-22
+  bedup = throw "bedup was removed because it was broken and abandoned upstream"; # added 2023-02-04
   beetsExternalPlugins = throw "beetsExternalPlugins has been deprecated, use beetsPackages.$pluginname"; # Added 2022-05-07
   beret = throw "beret has been removed"; # Added 2021-11-16
   bin_replace_string = throw "bin_replace_string has been removed: deleted by upstream"; # Added 2022-01-07
@@ -362,6 +364,7 @@ mapAliases ({
   demjson = with python3Packages; toPythonApplication demjson; # Added 2022-01-18
   desktop_file_utils = throw "'desktop_file_utils' has been renamed to/replaced by 'desktop-file-utils'"; # Converted to throw 2022-02-22
   devicemapper = throw "'devicemapper' has been renamed to/replaced by 'lvm2'"; # Converted to throw 2022-02-22
+  devserver = throw "'devserver' has been removed in favor of 'miniserve' or other alternatives"; # Added 2023-01-13
   dfu-util-axoloti = throw "dfu-util-axoloti has been removed: abandoned by upstream"; # Added 2022-05-13
   dhall-text = throw "'dhall-text' has been deprecated in favor of the 'dhall text' command from 'dhall'"; # Added 2022-03-26
   digikam5 = throw "'digikam5' has been renamed to/replaced by 'digikam'"; # Converted to throw 2022-02-22
@@ -511,6 +514,7 @@ mapAliases ({
   giflib_4_1 = throw "giflib_4_1 has been removed; use giflib instead"; # Added 2020-02-12
   git-annex-remote-b2 = throw "git-annex-remote-b2 has been dropped due to the lack of maintanence from upstream since 2016"; # Added 2022-06-02
   git-bz = throw "giz-bz has been removed from nixpkgs as it is stuck on python2"; # Added 2022-01-01
+  git-subset = throw "'git-subset' has been removed in favor of 'git-filter-repo'"; # Added 2023-01-13
 
   gitAndTools = self // {
     darcsToGit = darcs-to-git;
@@ -654,6 +658,7 @@ mapAliases ({
   idea = throw "'idea' has been renamed to/replaced by 'jetbrains'"; # Converted to throw 2022-02-22
   ike = throw "ike has been removed, because it was unmaintained"; # Added 2022-05-26
   imapproxy = throw "imapproxy has been removed because it did not support a supported openssl version"; # added 2021-12-15
+  imag = throw "'imag' has been removed, upstream gone"; # Added 2023-01-13
   imagemagick7Big = imagemagickBig; # Added 2021-02-22
   imagemagick7 = imagemagick; # Added 2021-02-22
   imagemagick7_light = imagemagick_light; # Added 2021-02-22
@@ -1051,6 +1056,7 @@ mapAliases ({
   nmap_graphical = throw "nmap graphical support has been removed due to its python2 dependency"; # Modified 2022-04-26
   nodejs-10_x = throw "nodejs-10_x has been removed. Use a newer version instead."; # Added 2022-05-31
   nodejs-12_x = throw "nodejs-12_x has been removed. Use a newer version instead."; # Added 2022-07-04
+  nodejs-16_x-openssl_1_1 = throw "nodejs-16_x-openssl_1_1 has been removed."; # Added 2023-02-04
   nologin = throw "'nologin' has been renamed to/replaced by 'shadow'"; # Converted to throw 2022-02-22
   nomad_1_1 = throw "nomad_1_1 has been removed because it's outdated. Use a a newer version instead"; # Added 2022-05-22
   nordic-polar = throw "nordic-polar was removed on 2021-05-27, now integrated in nordic"; # Added 2021-05-27
@@ -1465,6 +1471,7 @@ mapAliases ({
   subversion_1_10 = throw "subversion_1_10 has been removed as it has reached its end of life"; # Added 2022-04-26
   subversion19 = throw "subversion19 has been removed as it has reached its end of life"; # Added 2021-03-31
   sudolikeaboss = throw "sudolikeaboss is no longer maintained by upstream"; # Added 2022-04-16
+  sumneko-lua-language-server = lua-language-server; # Added 2023-02-07
   sundials_3 = throw "sundials_3 was removed in 2020-02. outdated and no longer needed";
   surf-webkit2 = throw "'surf-webkit2' has been renamed to/replaced by 'surf'"; # Converted to throw 2022-02-22
   swec = throw "swec has been removed; broken and abandoned upstream"; # Added 2021-10-14
@@ -1543,6 +1550,7 @@ mapAliases ({
   truecrypt = throw "'truecrypt' has been renamed to/replaced by 'veracrypt'"; # Converted to throw 2022-02-22
   tuijam = throw "tuijam has been removed because Google Play Music was discontinued"; # Added 2021-03-07
   turbo-geth = throw "turbo-geth has been renamed to erigon"; # Added 2021-08-08
+  tvbrowser-bin = throw "tvbrowser-bin was removed because it is now built from sources; use 'tvbrowser' instead"; # Added 2023-02-04
   twister = throw "twister has been removed: abandoned by upstream and python2-only"; # Added 2022-04-26
   tychus = throw "tychus has been dropped due to the lack of maintenance from upstream since 2018"; # Added 2022-06-03
   typora = throw "Newer versions of typora use anti-user encryption and refuse to start. As such it has been removed"; # Added 2021-09-11
@@ -1675,6 +1683,7 @@ mapAliases ({
 
   yacc = bison; # moved from top-level 2021-03-14
   yafaray-core = libyafaray; # Added 2022-09-23
+  yarn2nix-moretea-openssl_1_1 = throw "'yarn2nix-moretea-openssl_1_1' has been removed."; # Added 2023-02-04
   yarssr = throw "yarssr has been removed as part of the python2 deprecation"; # Added 2022-01-15
   youtubeDL = throw "'youtubeDL' has been renamed to/replaced by 'youtube-dl'"; # Converted to throw 2022-02-22
   ytop = throw "ytop has been abandoned by upstream. Consider switching to bottom instead";
@@ -1689,6 +1698,7 @@ mapAliases ({
   zdfmediathk = throw "'zdfmediathk' has been renamed to/replaced by 'mediathekview'"; # Converted to throw 2022-02-22
   zimreader = throw "zimreader has been removed from nixpkgs as it has been replaced by kiwix-serve and stopped working with modern zimlib versions"; # Added 2021-03-28
   zimwriterfs = throw "zimwriterfs is now part of zim-tools"; # Added 2022-06-10.
+  zq = zed.overrideAttrs (old: { meta = old.meta // { mainProgram = "zq"; }; }); # Added 2023-02-06
 
   # TODO(ekleog): add ‘wasm’ alias to ‘ocamlPackages.wasm’ after 19.03
   # branch-off

@@ -41,6 +41,7 @@ mapAliases ({
   asyncio-nats-client = nats-py; # added 2022-02-08
   awkward0 = throw "awkward0 has been removed, use awkward instead"; # added 2022-12-13
   Babel = babel; # added 2022-05-06
+  bedup = throw "bedup was removed because it was broken and abandoned upstream"; # added 2023-02-04
   bitcoin-price-api = throw "bitcoin-price-api has been removed, it was using setuptools 2to3 translation feautre, which has been removed in setuptools 58"; # added 2022-02-15
   blockdiagcontrib-cisco = throw "blockdiagcontrib-cisco is not compatible with blockdiag 2.0.0 and has been removed."; # added 2020-11-29
   bsblan = python-bsblan; # added 2022-11-04
@@ -82,6 +83,7 @@ mapAliases ({
   fake_factory = throw "fake_factory has been removed because it is unused and deprecated by upstream since 2016."; # added 2022-05-30
   faulthandler = throw "faulthandler is built into ${python.executable}"; # added 2021-07-12
   filemagic = throw "inactive since 2014, so use python-magic instead"; # added 2022-11-19
+  flaskbabel = flask-babel; # added 2023-01-19
   flask_login = flask-login; # added 2022-10-17
   flask_sqlalchemy = flask-sqlalchemy; # added 2022-07-20
   flask_testing = flask-testing; # added 2022-04-25

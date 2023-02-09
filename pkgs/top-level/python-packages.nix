@@ -120,6 +120,8 @@ self: super: with self; {
 
   aio-georss-gdacs = callPackage ../development/python-modules/aio-georss-gdacs { };
 
+  aio-pika = callPackage ../development/python-modules/aio-pika { };
+
   aioairzone = callPackage ../development/python-modules/aioairzone { };
 
   aioairq = callPackage ../development/python-modules/aioairq { };
@@ -159,6 +161,8 @@ self: super: with self; {
   aiodiscover = callPackage ../development/python-modules/aiodiscover { };
 
   aiodns = callPackage ../development/python-modules/aiodns { };
+
+  aiodocker = callPackage ../development/python-modules/aiodocker { };
 
   aioeafm = callPackage ../development/python-modules/aioeafm { };
 
@@ -299,6 +303,8 @@ self: super: with self; {
   aioresponses = callPackage ../development/python-modules/aioresponses { };
 
   aioridwell = callPackage ../development/python-modules/aioridwell { };
+
+  aiormq = callPackage ../development/python-modules/aiormq { };
 
   aiorpcx = callPackage ../development/python-modules/aiorpcx { };
 
@@ -532,6 +538,8 @@ self: super: with self; {
 
   apprise = callPackage ../development/python-modules/apprise { };
 
+  approval-utilities = callPackage ../development/python-modules/approval-utilities { };
+
   approvaltests = callPackage ../development/python-modules/approvaltests { };
 
   apptools = callPackage ../development/python-modules/apptools { };
@@ -597,6 +605,8 @@ self: super: with self; {
   arris-tg2492lg = callPackage ../development/python-modules/arris-tg2492lg { };
 
   arrow = callPackage ../development/python-modules/arrow { };
+
+  arsenic = callPackage ../development/python-modules/arsenic { };
 
   arviz = callPackage ../development/python-modules/arviz { };
 
@@ -1067,8 +1077,6 @@ self: super: with self; {
 
   azure-storage-blob = callPackage ../development/python-modules/azure-storage-blob { };
 
-  azure-storage = callPackage ../development/python-modules/azure-storage { };
-
   azure-storage-common = callPackage ../development/python-modules/azure-storage-common { };
 
   azure-storage-file = callPackage ../development/python-modules/azure-storage-file { };
@@ -1094,6 +1102,8 @@ self: super: with self; {
   babelfish = callPackage ../development/python-modules/babelfish { };
 
   babelgladeextractor = callPackage ../development/python-modules/babelgladeextractor { };
+
+  bambi = callPackage ../development/python-modules/bambi { };
 
   pad4pi = callPackage ../development/python-modules/pad4pi { };
 
@@ -1208,11 +1218,11 @@ self: super: with self; {
 
   bech32 = callPackage ../development/python-modules/bech32 { };
 
-  bedup = callPackage ../development/python-modules/bedup { };
-
   behave = callPackage ../development/python-modules/behave { };
 
   bellows = callPackage ../development/python-modules/bellows { };
+
+  bencode-py = callPackage ../development/python-modules/bencode-py { };
 
   bencoder = callPackage ../development/python-modules/bencoder { };
 
@@ -3394,8 +3404,6 @@ self: super: with self; {
 
   flask-babel = callPackage ../development/python-modules/flask-babel { };
 
-  flaskbabel = callPackage ../development/python-modules/flaskbabel { };
-
   flask-babelex = callPackage ../development/python-modules/flask-babelex { };
 
   flask-basicauth = callPackage ../development/python-modules/flask-basicauth { };
@@ -3566,6 +3574,8 @@ self: super: with self; {
   forecast-solar = callPackage ../development/python-modules/forecast-solar { };
 
   formbox = callPackage ../development/python-modules/formbox { };
+
+  formulae = callPackage ../development/python-modules/formulae { };
 
   fortiosapi = callPackage ../development/python-modules/fortiosapi { };
 
@@ -5255,6 +5265,10 @@ self: super: with self; {
     inherit (pkgs.darwin.apple_sdk.frameworks) AppKit;
   };
 
+  leidenalg = callPackage ../development/python-modules/leidenalg {
+    igraph-c = pkgs.igraph;
+  };
+
   lektor = callPackage ../development/python-modules/lektor { };
 
   leveldb = callPackage ../development/python-modules/leveldb { };
@@ -6581,6 +6595,8 @@ self: super: with self; {
 
   omegaconf = callPackage ../development/python-modules/omegaconf { };
 
+  ome-zarr = callPackage ../development/python-modules/ome-zarr { };
+
   omnikinverter = callPackage ../development/python-modules/omnikinverter { };
 
   omnilogic = callPackage ../development/python-modules/omnilogic { };
@@ -6686,10 +6702,11 @@ self: super: with self; {
 
   opentracing = callPackage ../development/python-modules/opentracing { };
 
-  openvino = toPythonModule (pkgs.openvino.override {
-    inherit (self) python;
-    enablePython = true;
-  });
+  openvino = callPackage ../development/python-modules/openvino {
+    openvino-native = pkgs.openvino.override {
+      inherit python;
+    };
+  };
 
   openwebifpy = callPackage ../development/python-modules/openwebifpy { };
 
@@ -6970,6 +6987,8 @@ self: super: with self; {
   peco = callPackage ../development/python-modules/peco { };
 
   peewee = callPackage ../development/python-modules/peewee { };
+
+  peewee-migrate = callPackage ../development/python-modules/peewee-migrate { };
 
   pefile = callPackage ../development/python-modules/pefile { };
 
@@ -8616,6 +8635,8 @@ self: super: with self; {
 
   pyqvrpro = callPackage ../development/python-modules/pyqvrpro { };
 
+  pyqwikswitch = callPackage ../development/python-modules/pyqwikswitch { };
+
   pyrabbit2 = callPackage ../development/python-modules/pyrabbit2 { };
 
   pyrad = callPackage ../development/python-modules/pyrad { };
@@ -9721,6 +9742,8 @@ self: super: with self; {
 
   qnapstats = callPackage ../development/python-modules/qnapstats { };
 
+  qpageview = callPackage ../development/python-modules/qpageview { };
+
   qrcode = callPackage ../development/python-modules/qrcode { };
 
   qreactor = callPackage ../development/python-modules/qreactor { };
@@ -10053,6 +10076,8 @@ self: super: with self; {
   rmcl = callPackage ../development/python-modules/rmcl { };
 
   rmrl = callPackage ../development/python-modules/rmrl { };
+
+  rmsd = callPackage ../development/python-modules/rmsd { };
 
   rnc2rng = callPackage ../development/python-modules/rnc2rng { };
 
@@ -10864,6 +10889,8 @@ self: super: with self; {
   };
 
   sphinxcontrib-websupport = callPackage ../development/python-modules/sphinxcontrib-websupport { };
+
+  sphinxcontrib-youtube = callPackage ../development/python-modules/sphinxcontrib-youtube { };
 
   sphinx = callPackage ../development/python-modules/sphinx { };
 
@@ -12574,7 +12601,7 @@ self: super: with self; {
 
   zdaemon = callPackage ../development/python-modules/zdaemon { };
 
-  zeek = (toPythonModule (pkgs.zeek.override {
+  zeek = (toPythonModule (pkgs.zeek.broker.override {
     python3 = python;
   })).py;
 

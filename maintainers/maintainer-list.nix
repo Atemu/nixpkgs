@@ -693,6 +693,15 @@
       fingerprint = "7FDB 17B3 C29B 5BA6 E5A9  8BB2 9FAA 63E0 9750 6D9D";
     }];
   };
+  Alper-Celik = {
+    email = "dev.alpercelik@gmail.com";
+    name = "Alper Çelik";
+    github = "Alper-Celik";
+    githubId = 110625473;
+    keys = [{
+      fingerprint = "6B69 19DD CEE0 FAF3 5C9F  2984 FA90 C0AB 738A B873";
+    }];
+  };
   almac = {
     email = "alma.cemerlic@gmail.com";
     github = "a1mac";
@@ -2324,6 +2333,12 @@
     github = "CameronNemo";
     githubId = 3212452;
     name = "Cameron Nemo";
+  };
+  camillemndn = {
+    email = "camillemondon@free.fr";
+    github = "camillemndn";
+    githubId = 26444818;
+    name = "Camille M.";
   };
   campadrenalin = {
     email = "campadrenalin@gmail.com";
@@ -5105,6 +5120,12 @@
     githubId = 36706276;
     name = "Fufezan Mihai";
   };
+  fugi = {
+    email = "me@fugi.dev";
+    github = "FugiMuffi";
+    githubId = 21362942;
+    name = "Fugi";
+  };
   fusion809 = {
     email = "brentonhorne77@gmail.com";
     github = "fusion809";
@@ -6050,6 +6071,12 @@
     githubId = 1592375;
     name = "Walter Huf";
   };
+  hughobrien = {
+    email = "github@hughobrien.ie";
+    github = "hughobrien";
+    githubId = 3400690;
+    name = "Hugh O'Brien";
+  };
   hugolgst = {
     email = "hugo.lageneste@pm.me";
     github = "hugolgst";
@@ -6626,6 +6653,12 @@
     github = "jayeshbhoot";
     githubId = 1915507;
   };
+  jayman2000 = {
+    email = "jason@jasonyundt.email";
+    github = "Jayman2000";
+    githubId = 5579359;
+    name = "Jason Yundt";
+  };
   jb55 = {
     email = "jb55@jb55.com";
     github = "jb55";
@@ -7002,6 +7035,12 @@
     github = "jmgilman";
     githubId = 2308444;
     name = "Joshua Gilman";
+  };
+  jnsgruk = {
+    email = "jon@sgrs.uk";
+    github = "jnsgruk";
+    githubId = 668505;
+    name = "Jon Seager";
   };
   jo1gi = {
     email = "joakimholm@protonmail.com";
@@ -8906,8 +8945,8 @@
     githubId = 2914269;
     name = "Malo Bourgon";
   };
-  malvo = {
-    email = "malte@malvo.org";
+  malte-v = {
+    email = "nixpkgs@mal.tc";
     github = "malte-v";
     githubId = 34393802;
     name = "Malte Voos";
@@ -9974,6 +10013,12 @@
     github = "mredaelli";
     githubId = 3073833;
     name = "Massimo Redaelli";
+  };
+  mrityunjaygr8 = {
+    email = "mrityunjaysaxena1996@gmail.com";
+    github = "mrityunjaygr8";
+    name = "Mrityunjay Saxena";
+    githubId = 14573967;
   };
   mrkkrp = {
     email = "markkarpov92@gmail.com";
@@ -12874,6 +12919,12 @@
     githubId = 6022042;
     name = "Sam Parkinson";
   };
+  samhug = {
+    email = "s@m-h.ug";
+    github = "samhug";
+    githubId = 171470;
+    name = "Sam Hug";
+  };
   samlich = {
     email = "nixos@samli.ch";
     github = "samlich";
@@ -13092,7 +13143,7 @@
     github = "Scrumplex";
     githubId = 11587657;
     keys = [{
-      fingerprint = "AF1F B107 E188 CB97 9A94  FD7F C104 1129 4912 A422";
+      fingerprint = "E173 237A C782 296D 98F5  ADAC E13D FD4B 4712 7951";
     }];
   };
   scubed2 = {
@@ -13210,6 +13261,12 @@
     githubId = 38824235;
     name = "Serge Belov";
   };
+  serge_sans_paille = {
+    email = "serge.guelton@telecom-bretagne.eu";
+    github = "serge-sans-paille";
+    githubId = 863807;
+    name = "Serge Guelton";
+  };
   sersorrel = {
     email = "ash@sorrel.sh";
     github = "sersorrel";
@@ -13301,6 +13358,12 @@
     github = "shardulbee";
     githubId = 16765155;
     name = "Shardul Baral";
+  };
+  sharzy = {
+    email = "me@sharzy.in";
+    github = "SharzyL";
+    githubId = 46294732;
+    name = "Sharzy";
   };
   shawndellysse = {
     email = "sdellysse@gmail.com";
@@ -13627,6 +13690,12 @@
     githubId = 57048005;
     name = "snicket2100";
   };
+  sno2wman = {
+    name = "SnO2WMaN";
+    email = "me@sno2wman.net";
+    github = "sno2wman";
+    githubId = 15155608;
+  };
   snpschaaf = {
     email = "philipe.schaaf@secunet.com";
     name = "Philippe Schaaf";
@@ -13839,6 +13908,12 @@
     github = "Steell";
     githubId = 1699155;
     name = "Steve Elliott";
+  };
+  stefanfehrenbach = {
+    email = "stefan.fehrenbach@gmail.com";
+    github = "fehrenbach";
+    githubId = 203168;
+    name = "Stefan Fehrenbach";
   };
   stehessel = {
     email = "stephan@stehessel.de";
@@ -15239,6 +15314,12 @@
     github = "Valodim";
     githubId = 27813;
     name = "Vincent Breitmoser";
+  };
+  vamega = {
+    email = "github@madiathv.com";
+    github = "vamega";
+    githubId = 223408;
+    name = "Varun Madiath";
   };
   vandenoever = {
     email = "jos@vandenoever.info";

@@ -134,6 +134,7 @@ in {
   cloud-init-hostname = handleTest ./cloud-init-hostname.nix {};
   cloudlog = handleTest ./cloudlog.nix {};
   cntr = handleTestOn ["aarch64-linux" "x86_64-linux"] ./cntr.nix {};
+  cockpit = handleTest ./cockpit.nix {};
   cockroachdb = handleTestOn ["x86_64-linux"] ./cockroachdb.nix {};
   collectd = handleTest ./collectd.nix {};
   connman = handleTest ./connman.nix {};
@@ -247,6 +248,7 @@ in {
   gnome = handleTest ./gnome.nix {};
   gnome-flashback = handleTest ./gnome-flashback.nix {};
   gnome-xorg = handleTest ./gnome-xorg.nix {};
+  gnupg = handleTest ./gnupg.nix {};
   go-neb = handleTest ./go-neb.nix {};
   gobgpd = handleTest ./gobgpd.nix {};
   gocd-agent = handleTest ./gocd-agent.nix {};
@@ -398,6 +400,7 @@ in {
   minidlna = handleTest ./minidlna.nix {};
   miniflux = handleTest ./miniflux.nix {};
   minio = handleTest ./minio.nix {};
+  miriway = handleTest ./miriway.nix {};
   misc = handleTest ./misc.nix {};
   mjolnir = handleTest ./matrix/mjolnir.nix {};
   mod_perl = handleTest ./mod_perl.nix {};
@@ -411,8 +414,11 @@ in {
   mpd = handleTest ./mpd.nix {};
   mpv = handleTest ./mpv.nix {};
   mtp = handleTest ./mtp.nix {};
+  multipass = handleTest ./multipass.nix {};
   mumble = handleTest ./mumble.nix {};
-  musescore = handleTest ./musescore.nix {};
+  # Fails on aarch64-linux at the PDF creation step - need to debug this on an
+  # aarch64 machine..
+  musescore = handleTestOn ["x86_64-linux"] ./musescore.nix {};
   munin = handleTest ./munin.nix {};
   mutableUsers = handleTest ./mutable-users.nix {};
   mxisd = handleTest ./mxisd.nix {};

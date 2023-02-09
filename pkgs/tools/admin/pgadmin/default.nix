@@ -6,15 +6,16 @@
 , sphinx
 , nixosTests
 , pkgs
+, fetchPypi
 }:
 
 let
   pname = "pgadmin";
-  version = "6.18";
+  version = "6.19";
 
   src = fetchurl {
     url = "https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v${version}/source/pgadmin4-${version}.tar.gz";
-    sha256 = "sha256-qqilmJLpJ3XNd8dwk7bDAAPxt8sou5zydFMPcJGcGoo=";
+    sha256 = "sha256-xHvdqVpNU9ZzTA6Xl2Bv044l6Tbvf4fjqyz4TmS9gmI=";
   };
 
   yarnDeps = mkYarnModules {
@@ -69,11 +70,25 @@ let
     azure-mgmt-rdbms
     azure-mgmt-resource
     azure-identity
+    sphinxcontrib-youtube
+    dnspython
+    greenlet
   ];
 
   # keep the scope, as it is used throughout the derivation and tests
   # this also makes potential future overrides easier
   pythonPackages = python3.pkgs.overrideScope (final: prev: rec {
+    # flask-security-too 4.1.5 is incompatible with flask-babel 3.x
+    flask-babel = prev.flask-babel.overridePythonAttrs (oldAttrs: rec {
+      version = "2.0.0";
+      src = fetchPypi {
+        inherit pname version;
+        sha256 = "f9faf45cdb2e1a32ea2ec14403587d4295108f35017a7821a2b1acb8cfd9257d";
+      };
+      nativeBuildInputs = [ ];
+      format = "setuptools";
+      outputs = [ "out" ];
+    });
     # flask 2.2 is incompatible with pgadmin 6.18
     # https://redmine.postgresql.org/issues/7651
     flask = prev.flask.overridePythonAttrs (oldAttrs: rec {
@@ -92,7 +107,7 @@ let
         hash = "sha256-K9pEtD58rLFdTgX/PMH4vJeTbMRkYjQkECv8LDXpWRI=";
       };
     });
-    # pgadmin 6.18 is incompatible with the major flask-security-too update to 5.0.x
+    # pgadmin 6.19 is incompatible with the major flask-security-too update to 5.0.x
     flask-security-too = prev.flask-security-too.overridePythonAttrs (oldAttrs: rec {
       version = "4.1.5";
       src = oldAttrs.src.override {

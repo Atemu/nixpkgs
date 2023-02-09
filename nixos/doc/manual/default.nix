@@ -48,7 +48,7 @@ let
       };
     in buildPackages.nixosOptionsDoc {
       inherit (eval) options;
-      inherit (revision);
+      inherit revision;
       transformOptions = opt: opt // {
         # Clean up declaration sites to not refer to the NixOS source tree.
         declarations =
@@ -254,12 +254,17 @@ in rec {
   # Generate the NixOS manpages.
   manpages = runCommand "nixos-manpages"
     { inherit sources;
-      nativeBuildInputs = [ buildPackages.libxml2.bin buildPackages.libxslt.bin ];
+      nativeBuildInputs = [
+        buildPackages.libxml2.bin
+        buildPackages.libxslt.bin
+        buildPackages.installShellFiles
+      ];
       allowedReferences = ["out"];
     }
     ''
       # Generate manpages.
-      mkdir -p $out/share/man
+      mkdir -p $out/share/man/man8
+      installManPage ${./manpages}/*
       xsltproc --nonet \
         --maxdepth 6000 \
         --param man.output.in.separate.dir 1 \
