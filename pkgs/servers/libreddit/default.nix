@@ -8,16 +8,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "libreddit";
-  version = "0.29.0";
+  version = "0.29.2";
 
   src = fetchFromGitHub {
     owner = "libreddit";
     repo = pname;
     rev = "refs/tags/v${version}";
-    hash = "sha256-ZH1mtFfbM+acEY1oyoFXPltgPbtgI1kzoO59op1zZfo=";
+    hash = "sha256-YCjH0K84sPgQ9MtA5IUHoGCxrAzRSu4KIuk2qPyhaM4=";
   };
 
-  cargoHash = "sha256-2DBptAvJ0J65AehgHG7f4JZf1QA4ZXn8dqG09wcXsiU=";
+  cargoHash = "sha256-VsQckZm8ySmbpn1uSgxWqZ+cc+NnUDNBmSsj4MHdQtk=";
 
   buildInputs = lib.optionals stdenv.isDarwin [
     Security

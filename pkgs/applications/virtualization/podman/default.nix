@@ -14,6 +14,8 @@
 , go-md2man
 , nixosTests
 , python3
+, testers
+, podman
 }:
 
 buildGoModule rec {
@@ -87,6 +89,11 @@ buildGoModule rec {
   '';
 
   passthru.tests = {
+    version = testers.testVersion {
+      package = podman;
+      command = "HOME=$TMPDIR podman --version";
+    };
+  } // lib.optionalAttrs stdenv.isLinux {
     inherit (nixosTests) podman;
     # related modules
     inherit (nixosTests)

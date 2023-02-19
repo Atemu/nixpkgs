@@ -380,6 +380,7 @@ mapAliases ({
   docker_compose = throw "'docker_compose' has been renamed to/replaced by 'docker-compose'"; # Converted to throw 2022-02-22
   docker-compose_2 = throw "'docker-compose_2' has been renamed to 'docker-compose'"; # Added 2022-06-05
   docker-edge = throw "'docker-edge' has been removed, it was an alias for 'docker'"; # Added 2022-06-05
+  dolphin-emu-beta = dolphin-emu; # Added 2023-02-11
   dolphinEmu = dolphin-emu; # Added 2021-11-10
   dolphinEmuMaster = dolphin-emu-beta; # Added 2021-11-10
   dot-http = throw "'dot-http' has been removed: abandoned by upstream. Use hurl instead."; # Added 2023-01-16
@@ -582,6 +583,7 @@ mapAliases ({
   go-mk = throw "go-mk has been dropped due to the lack of maintanence from upstream since 2015"; # Added 2022-06-02
   go-pup = throw "'go-pup' has been renamed to/replaced by 'pup'"; # Converted to throw 2022-02-22
   go-repo-root = throw "go-repo-root has been dropped due to the lack of maintanence from upstream since 2014"; # Added 2022-06-02
+  gometer = throw "gometer has been removed from nixpkgs because goLance stopped offering Linux support"; # Added 2023-02-10
   gpgstats = throw "gpgstats has been removed: upstream is gone"; # Added 2022-02-06
   gpshell = throw "gpshell has been removed, because it was unmaintained in nixpkgs"; # added 2021-12-17
 
@@ -805,6 +807,7 @@ mapAliases ({
   libpulseaudio-vanilla = libpulseaudio; # Added 2022-04-20
   libqmatrixclient = throw "libqmatrixclient was renamed to libquotient"; # Added 2020-04-09
   libqrencode = throw "'libqrencode' has been renamed to/replaced by 'qrencode'"; # Converted to throw 2022-02-22
+  libraw_unstable = throw "'libraw_unstable' has been removed, please use libraw"; # Added 2023-01-30
   librdf = lrdf; # Added 2020-03-22
   librecad2 = throw "'librecad2' has been renamed to/replaced by 'librecad'"; # Converted to throw 2022-02-22
   libressl_3_2 = throw "'libressl_3_2' has reached end-of-life "; # Added 2022-03-19
@@ -1271,6 +1274,8 @@ mapAliases ({
   pulseaudioLight = throw "'pulseaudioLight' has been renamed to/replaced by 'pulseaudio'"; # Converted to throw 2022-02-22
   pulseeffects = throw "Use pulseeffects-legacy if you use PulseAudio and easyeffects if you use PipeWire"; # Added 2021-02-13
   pulseeffects-pw = easyeffects; # Added 2021-07-07
+  pyls-black = throw "pyls-black has been removed from nixpkgs. Use python-lsp-black instead."; # Added 2023-01-09
+  pyls-mypy = throw "pyls-mypy has been removed from nixpkgs. Use pylsp-mypy instead."; # Added 2023-01-09
   py-wmi-client = throw "py-wmi-client has been removed: abandoned by upstream"; # Added 2022-04-26
   pydb = throw "pydb has been removed: abandoned by upstream"; # Added 2022-04-22
   pyIRCt = throw "pyIRCt has been removed from nixpkgs as it is unmaintained and python2-only";
