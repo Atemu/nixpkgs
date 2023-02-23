@@ -2001,7 +2001,7 @@ let
     propagatedBuildInputs = [ ExtUtilsDepends ExtUtilsPkgConfig ];
     meta = {
       description = "Perl interface to the cairo 2d vector graphics library";
-      homepage = "http://gtk2-perl.sourceforge.net";
+      homepage = "https://gtk2-perl.sourceforge.net";
       license = with lib.licenses; [ lgpl21Only ];
     };
   };
@@ -2017,7 +2017,7 @@ let
     propagatedBuildInputs = [ Cairo Glib ];
     meta = {
       description = "Integrate Cairo into the Glib type system";
-      homepage = "http://gtk2-perl.sourceforge.net";
+      homepage = "https://gtk2-perl.sourceforge.net";
       license = with lib.licenses; [ lgpl21Only ];
     };
   };
@@ -9139,6 +9139,22 @@ let
     };
   };
 
+  FileDirList = buildPerlPackage {
+    version = "0.05";
+    pname = "File-DirList";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/T/TP/TPABA/File-DirList/File-DirList-0.05.tar.gz";
+      sha256 = "sha256-mTt9dmLlV5hEih7azLmr0oHSvSO+fquZ9Wm44pYtO8M=";
+    };
+    preCheck = ''
+      export HOME="$TMPDIR"
+    '';
+    meta = {
+      description = "Provide a sorted list of directory content";
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
+    };
+  };
+
   FileFindIterator = buildPerlPackage {
     pname = "File-Find-Iterator";
     version = "0.4";
@@ -10208,7 +10224,7 @@ let
     propagatedBuildInputs = [ ExtUtilsDepends ExtUtilsPkgConfig ];
     meta = {
       description = "Perl wrappers for the GLib utility and Object libraries";
-      homepage = "http://gtk2-perl.sourceforge.net";
+      homepage = "https://gtk2-perl.sourceforge.net";
       license = with lib.licenses; [ lgpl21Only ];
     };
   };
@@ -10236,7 +10252,7 @@ let
     doCheck = !stdenv.isDarwin;
     meta = {
       description = "Dynamically create Perl language bindings";
-      homepage = "http://gtk2-perl.sourceforge.net";
+      homepage = "https://gtk2-perl.sourceforge.net";
       license = with lib.licenses; [ lgpl21Only ];
     };
   };
@@ -10252,7 +10268,7 @@ let
     propagatedBuildInputs = [ pkgs.gnome2.libgnomeui ];
     meta = {
       description = "(DEPRECATED) Perl interface to the 2.x series of the GNOME libraries";
-      homepage = "http://gtk2-perl.sourceforge.net";
+      homepage = "https://gtk2-perl.sourceforge.net";
       license = with lib.licenses; [ lgpl21Plus ];
       broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.Gnome2Canvas.x86_64-darwin
     };
@@ -10552,7 +10568,7 @@ let
     propagatedBuildInputs = [ Pango ];
     meta = {
       description = "Perl interface to the 2.x series of the Gimp Toolkit library";
-      homepage = "http://gtk2-perl.sourceforge.net";
+      homepage = "https://gtk2-perl.sourceforge.net";
       license = with lib.licenses; [ lgpl21Plus ];
     };
   };
@@ -18716,7 +18732,7 @@ let
     propagatedBuildInputs = [ Cairo Glib ];
     meta = {
       description = "Layout and render international text";
-      homepage = "http://gtk2-perl.sourceforge.net";
+      homepage = "https://gtk2-perl.sourceforge.net";
       license = with lib.licenses; [ lgpl21Plus ];
     };
   };

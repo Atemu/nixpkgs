@@ -2467,6 +2467,12 @@
     githubId = 3471749;
     name = "Claudio Bley";
   };
+  cbrewster = {
+    email = "cbrewster@hey.com";
+    github = "cbrewster";
+    githubId = 9086315;
+    name = "Connor Brewster";
+  };
   cburstedde = {
     email = "burstedde@ins.uni-bonn.de";
     github = "cburstedde";
@@ -3403,6 +3409,12 @@
     github = "davidarmstronglewis";
     githubId = 6754950;
     name = "David Armstrong Lewis";
+  };
+  davidcromp = {
+    email = "davidcrompton1192@gmail.com";
+    github = "DavidCromp";
+    githubId = 10701143;
+    name = "David Crompton";
   };
   davidrusu = {
     email = "davidrusu.me@gmail.com";
@@ -5911,6 +5923,15 @@
     github = "hexchen";
     githubId = 41522204;
     name = "hexchen";
+  };
+  heyimnova = {
+    email = "git@heyimnova.dev";
+    github = "heyimnova";
+    githubId = 115728866;
+    name = "Nova Witterick";
+    keys = [{
+      fingerprint = "4304 6B43 8D83 078E 3DF7  10D6 DEB0 E15C 6D2A 5A7C";
+    }];
   };
   hh = {
     email = "hh@m-labs.hk";
@@ -9188,6 +9209,12 @@
     github = "mattchrist";
     githubId = 952712;
     name = "Matt Christ";
+  };
+  matthew-levan = {
+    email = "matthew@coeli.network";
+    github = "matthew-levan";
+    githubId = 91502660;
+    name = "Matthew LeVan";
   };
   matthewcroughan = {
     email = "matt@croughan.sh";
@@ -14933,7 +14960,7 @@
   };
   toastal = {
     email = "toastal+nix@posteo.net";
-    matrix = "@toastal:chat.mozilla.org";
+    matrix = "@toastal:mozilla.org";
     github = "toastal";
     githubId = 561087;
     name = "toastal";

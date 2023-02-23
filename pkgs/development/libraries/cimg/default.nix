@@ -1,17 +1,19 @@
 { lib
 , stdenv
 , fetchFromGitHub
+, gmic
+, gmic-qt
 }:
 
 stdenv.mkDerivation rec {
   pname = "cimg";
-  version = "3.2.0";
+  version = "3.2.1";
 
   src = fetchFromGitHub {
     owner = "dtschump";
     repo = "CImg";
     rev = "v.${version}";
-    hash = "sha256-laLi3ks5r0C61LDoCEgVqmqZ7/C18qQKxPm4zmQrw78=";
+    hash = "sha256-MPkZGKewusCw5TsW5NOtnrjqEK2dxRSCal1fn7Yiaio=";
   };
 
   outputs = [ "out" "doc" ];
@@ -27,6 +29,11 @@ stdenv.mkDerivation rec {
 
     runHook postInstall
   '';
+
+  passthru.tests = {
+    # Need to update in lockstep.
+    inherit gmic gmic-qt;
+  };
 
   meta = with lib; {
     homepage = "http://cimg.eu/";
