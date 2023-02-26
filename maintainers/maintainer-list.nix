@@ -2442,6 +2442,12 @@
     githubId = 5394722;
     name = "Spencer Baugh";
   };
+  cathalmullan = {
+    email = "contact@cathal.dev";
+    github = "CathalMullan";
+    githubId = 37139470;
+    name = "Cathal Mullan";
+  };
   catouc = {
     email = "catouc@philipp.boeschen.me";
     github = "catouc";
@@ -2871,6 +2877,13 @@
     github = "cmm";
     githubId = 718298;
     name = "Michael Livshin";
+  };
+  CobaltCause = {
+    name = "Charles Hall";
+    email = "charles@computer.surgery";
+    github = "CobaltCause";
+    githubId = 7003738;
+    matrix = "@charles:computer.surgery";
   };
   cobbal = {
     email = "andrew.cobb@gmail.com";
@@ -7175,6 +7188,12 @@
     github = "joepie91";
     githubId = 1663259;
   };
+  joerdav = {
+    email = "joe.davidson.21111@gmail.com";
+    github = "joerdav";
+    name = "Joe Davidson";
+    githubId = 19927761;
+  };
   joesalisbury = {
     email = "salisbury.joseph@gmail.com";
     github = "JosephSalisbury";
@@ -8989,6 +9008,12 @@
     github = "2chilled";
     githubId = 1238350;
     name = "Matthias Herrmann";
+  };
+  mahmoudk1000 = {
+    email = "mahmoudk1000@gmail.com";
+    github = "mahmoudk1000";
+    githubId = 24735185;
+    name = "Mahmoud Ayman";
   };
   majesticmullet = {
     email = "hoccthomas@gmail.com.au";
@@ -12857,6 +12882,12 @@
     githubId = 61306;
     name = "Rene Treffer";
   };
+  rubyowo = {
+    name = "Rei Star";
+    email = "perhaps-you-know@what-is.ml";
+    github = "rubyowo";
+    githubId = 105302757;
+  };
   rumpelsepp = {
     name = "Stefan Tatschner";
     email = "stefan@rumpelsepp.org";
@@ -14802,6 +14833,12 @@
     githubId = 1634990;
     name = "Tom McLaughlin";
   };
+  thornycrackers = {
+    email = "codyfh@gmail.com";
+    github = "thornycrackers";
+    githubId = 4313010;
+    name = "Cody Hiar";
+  };
   thoughtpolice = {
     email = "aseipp@pobox.com";
     github = "thoughtpolice";
@@ -15311,6 +15348,11 @@
     email = "konrad.root.klawikowski@gmail.com";
     github = "unrooted";
     githubId = 30440603;
+  };
+  unsolvedcypher = {
+    name = "Matthew M";
+    github = "UnsolvedCypher";
+    githubId = 3170853;
   };
   uralbash = {
     email = "root@uralbash.ru";

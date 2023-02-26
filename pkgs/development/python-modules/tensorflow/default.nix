@@ -301,7 +301,7 @@ let
     TF_CUDA_PATHS = lib.optionalString cudaSupport "${cudatoolkit_joined},${cudnn},${nccl}";
     GCC_HOST_COMPILER_PREFIX = lib.optionalString cudaSupport "${cudatoolkit_cc_joined}/bin";
     GCC_HOST_COMPILER_PATH = lib.optionalString cudaSupport "${cudatoolkit_cc_joined}/bin/gcc";
-    TF_CUDA_COMPUTE_CAPABILITIES = builtins.concatStringsSep "," cudaFlags.cudaRealArchs;
+    TF_CUDA_COMPUTE_CAPABILITIES = builtins.concatStringsSep "," cudaFlags.cudaRealArches;
 
     postPatch = ''
       # bazel 3.3 should work just as well as bazel 3.1
@@ -317,7 +317,7 @@ let
     '';
 
     # https://github.com/tensorflow/tensorflow/pull/39470
-    NIX_CFLAGS_COMPILE = [ "-Wno-stringop-truncation" ];
+    env.NIX_CFLAGS_COMPILE = toString [ "-Wno-stringop-truncation" ];
 
     preConfigure = let
       opt_flags = []

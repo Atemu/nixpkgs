@@ -20,6 +20,8 @@ self: super: with self; {
 
   absl-py = callPackage ../development/python-modules/absl-py { };
 
+  accessible-pygments = callPackage ../development/python-modules/accessible-pygments { };
+
   accuweather = callPackage ../development/python-modules/accuweather { };
 
   accupy = callPackage ../development/python-modules/accupy { };
@@ -597,6 +599,8 @@ self: super: with self; {
   aria2p = callPackage ../development/python-modules/aria2p { };
 
   ariadne = callPackage ../development/python-modules/ariadne { };
+
+  arpy = callPackage ../development/python-modules/arpy { };
 
   arnparse = callPackage ../development/python-modules/arnparse { };
 
@@ -1883,9 +1887,7 @@ self: super: with self; {
     inherit (pkgs) cmigemo;
   };
 
-  cmsis-pack-manager = callPackage ../development/python-modules/cmsis-pack-manager {
-    inherit (pkgs.darwin.apple_sdk.frameworks) Security;
-  };
+  cmsis-pack-manager = callPackage ../development/python-modules/cmsis-pack-manager { };
 
   cmsis-svd = callPackage ../development/python-modules/cmsis-svd { };
 
@@ -2121,6 +2123,8 @@ self: super: with self; {
   cssselect = callPackage ../development/python-modules/cssselect { };
 
   cssutils = callPackage ../development/python-modules/cssutils { };
+
+  cstruct = callPackage ../development/python-modules/cstruct { };
 
   csvw = callPackage ../development/python-modules/csvw { };
 
@@ -3474,8 +3478,6 @@ self: super: with self; {
 
   flask-restful = callPackage ../development/python-modules/flask-restful { };
 
-  flask-restplus = callPackage ../development/python-modules/flask-restplus { };
-
   flask-restx = callPackage ../development/python-modules/flask-restx { };
 
   flask-reverse-proxy-fix = callPackage ../development/python-modules/flask-reverse-proxy-fix { };
@@ -4377,6 +4379,8 @@ self: super: with self; {
   home-assistant-chip-core = callPackage ../development/python-modules/home-assistant-chip-core { };
 
   homeassistant-pyozw = callPackage ../development/python-modules/homeassistant-pyozw { };
+
+  homeassistant-stubs = callPackage ../servers/home-assistant/stubs.nix { };
 
   homeconnect = callPackage ../development/python-modules/homeconnect { };
 
@@ -5810,7 +5814,7 @@ self: super: with self; {
 
   mdutils = callPackage ../development/python-modules/mdutils { };
 
-  MDP = callPackage ../development/python-modules/mdp { };
+  mdp = callPackage ../development/python-modules/mdp { };
 
   measurement = callPackage ../development/python-modules/measurement { };
 
@@ -6050,6 +6054,8 @@ self: super: with self; {
 
   moonraker-api = callPackage ../development/python-modules/moonraker-api { };
 
+  mopeka-iot-ble = callPackage ../development/python-modules/mopeka-iot-ble { };
+
   more-itertools = callPackage ../development/python-modules/more-itertools { };
 
   more-properties = callPackage ../development/python-modules/more-properties { };
@@ -6073,8 +6079,6 @@ self: super: with self; {
   moviepy = callPackage ../development/python-modules/moviepy { };
 
   mox3 = callPackage ../development/python-modules/mox3 { };
-
-  mox = callPackage ../development/python-modules/mox { };
 
   mpd2 = callPackage ../development/python-modules/mpd2 { };
 
@@ -6550,6 +6554,8 @@ self: super: with self; {
 
   nxt-python = callPackage ../development/python-modules/nxt-python { };
 
+  python-jwt = callPackage ../development/python-modules/python-jwt { };
+
   python-nvd3 = callPackage ../development/python-modules/python-nvd3 { };
 
   py-deprecate = callPackage ../development/python-modules/py-deprecate { };
@@ -6749,6 +6755,8 @@ self: super: with self; {
   opuslib = callPackage ../development/python-modules/opuslib { };
 
   opytimark = callPackage ../development/python-modules/opytimark { };
+
+  oracledb = callPackage ../development/python-modules/oracledb { };
 
   oralb-ble = callPackage ../development/python-modules/oralb-ble { };
 
@@ -11194,6 +11202,8 @@ self: super: with self; {
 
   sunwatcher = callPackage ../development/python-modules/sunwatcher { };
 
+  sunweg = callPackage ../development/python-modules/sunweg { };
+
   supervise_api = callPackage ../development/python-modules/supervise_api { };
 
   supervisor = callPackage ../development/python-modules/supervisor { };
@@ -11235,6 +11245,8 @@ self: super: with self; {
   };
 
   sympy = callPackage ../development/python-modules/sympy { };
+
+  syncedlyrics = callPackage ../development/python-modules/syncedlyrics { };
 
   syncer = callPackage ../development/python-modules/syncer { };
 
@@ -12178,6 +12190,8 @@ self: super: with self; {
   voluptuous = callPackage ../development/python-modules/voluptuous { };
 
   voluptuous-serialize = callPackage ../development/python-modules/voluptuous-serialize { };
+
+  voluptuous-stubs = callPackage ../development/python-modules/voluptuous-stubs { };
 
   volvooncall = callPackage ../development/python-modules/volvooncall { };
 
