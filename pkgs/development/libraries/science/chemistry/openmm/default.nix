@@ -78,12 +78,15 @@ stdenv.mkDerivation rec {
     "-DCMAKE_LIBRARY_PATH=${cudaPackages.cudatoolkit}/lib64/stubs"
   ];
 
+  # https://github.com/NixOS/nixpkgs/issues/201254
+  NIX_LDFLAGS = lib.optionalString (stdenv.isLinux && stdenv.isAarch64 && stdenv.cc.isGNU) "-lgcc";
+
   postInstall = lib.strings.optionalString enablePython ''
       export OPENMM_LIB_PATH=$out/lib
       export OPENMM_INCLUDE_PATH=$out/include
       cd python
-      ${python3Packages.python.interpreter} setup.py build
-      ${python3Packages.python.interpreter} setup.py install --prefix=$out
+      ${python3Packages.python.pythonForBuild.interpreter} setup.py build
+      ${python3Packages.python.pythonForBuild.interpreter} setup.py install --prefix=$out
     '';
 
   postFixup = ''
