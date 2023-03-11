@@ -4,6 +4,7 @@
 , extraLibraries ? pkgs: [ ] # extra packages to add to multiPkgs
 , extraProfile ? "" # string to append to profile
 , extraArgs ? "" # arguments to always pass to steam
+, extraEnv ? { } # Environment variables to pass to Steam
 , withGameSpecificLibraries ? true # exclude game specific libraries
 }:
 
@@ -51,6 +52,8 @@ let
       chmod +w $HOME/.local/share/Steam/bootstrap.tar.xz
     fi
   '';
+
+  envScript = lib.toShellVars extraEnv;
 
 in buildFHSUserEnv rec {
   name = "steam";
@@ -249,6 +252,9 @@ in buildFHSUserEnv rec {
 
     ${exportLDPath}
     ${fixBootstrap}
+
+    set -o allexport # Export the following env vars
+    ${envScript}
     exec steam ${extraArgs} "$@"
   '';
 
@@ -283,6 +289,9 @@ in buildFHSUserEnv rec {
 
       ${exportLDPath}
       ${fixBootstrap}
+
+      set -o allexport # Export the following env vars
+      ${envScript}
       exec -- "$run" "$@"
     '';
 
