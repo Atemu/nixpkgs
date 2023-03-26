@@ -8,16 +8,16 @@
 
 buildGoModule rec {
   pname = "datree";
-  version = "1.8.36";
+  version = "1.8.45";
 
   src = fetchFromGitHub {
     owner = "datreeio";
     repo = "datree";
     rev = "refs/tags/${version}";
-    hash = "sha256-h3Bfdd5v8lder5N+75P/u9rSxxhvpw5mf/T4bNYWdOY=";
+    hash = "sha256-11bwb8Nnr5RmRes/qUAoxMJ9vpwkIyB1113X3HDjYKA=";
   };
 
-  vendorHash = "sha256-mkVguYzjNGgFUdATjGfenCx3h97LS3SEOkYo3CuP9fA=";
+  vendorHash = "sha256-MrVIpr2iwddW3yUeBuDfeg+Xo9Iarr/fp4Rc4WGYGeU=";
 
   nativeBuildInputs = [ installShellFiles ];
 

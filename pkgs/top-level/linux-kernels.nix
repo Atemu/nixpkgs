@@ -46,7 +46,10 @@ let
           inherit sha256;
         };
         extraMeta = {
-          broken = kernel.meta.broken || (stdenv.isx86_64 && lib.versions.majorMinor version == "5.4");
+          broken =
+            kernel.meta.broken ||
+            lib.versions.majorMinor version == "4.14" ||
+            (stdenv.isx86_64 && lib.versionAtLeast version "4.19" && lib.versionOlder version "5.5");
         };
       };
       kernelPatches = kernel.kernelPatches ++ [
@@ -308,6 +311,8 @@ in {
 
     bbswitch = callPackage ../os-specific/linux/bbswitch {};
 
+    ch9344 = callPackage ../os-specific/linux/ch9344 { };
+
     chipsec = callPackage ../tools/security/chipsec {
       inherit kernel;
       withDriver = true;
@@ -341,6 +346,10 @@ in {
     e1000e = if lib.versionOlder kernel.version "4.10" then  callPackage ../os-specific/linux/e1000e {} else null;
 
     intel-speed-select = if lib.versionAtLeast kernel.version "5.3" then callPackage ../os-specific/linux/intel-speed-select { } else null;
+
+    ipu6-drivers = callPackage ../os-specific/linux/ipu6-drivers {};
+
+    ivsc-driver = callPackage ../os-specific/linux/ivsc-driver {};
 
     ixgbevf = callPackage ../os-specific/linux/ixgbevf {};
 
