@@ -19,9 +19,9 @@ args @ {
 
 with builtins;
 let
-  buildFHSEnv = callPackage ./buildFHSEnv.nix { };
+  buildFHSEnv = callPackage ./env.nix { };
 
-  fhsenv = buildFHSEnv (removeAttrs args [
+  env = buildFHSEnv (removeAttrs args [
     "runScript" "extraInstallCommands" "meta" "passthru" "extraBwrapArgs" "dieWithParent"
     "unshareUser" "unshareCgroup" "unshareUts" "unshareNet" "unsharePid" "unshareIpc"
   ]);
@@ -102,7 +102,7 @@ let
     blacklist=(/nix /dev /proc /etc)
     ro_mounts=()
     symlinks=()
-    for i in ${fhsenv}/*; do
+    for i in ${env}/*; do
       path="/''${i##*/}"
       if [[ $path == '/etc' ]]; then
         :
@@ -115,8 +115,8 @@ let
       fi
     done
 
-    if [[ -d ${fhsenv}/etc ]]; then
-      for i in ${fhsenv}/etc/*; do
+    if [[ -d ${env}/etc ]]; then
+      for i in ${env}/etc/*; do
         path="/''${i##*/}"
         # NOTE: we're binding /etc/fonts and /etc/ssl/certs from the host so we
         # don't want to override it with a path from the FHS environment.
@@ -204,7 +204,6 @@ in runCommandLocal name {
       echo >&2 ""
       exit 1
     '';
-    inherit args fhsenv;
   };
 } ''
   mkdir -p $out/bin
