@@ -103,7 +103,6 @@
   ./hardware/xone.nix
   ./hardware/xpadneo.nix
   ./i18n/input-method/default.nix
-  ./i18n/input-method/fcitx.nix
   ./i18n/input-method/fcitx5.nix
   ./i18n/input-method/hime.nix
   ./i18n/input-method/ibus.nix
@@ -377,7 +376,7 @@
   ./services/continuous-integration/jenkins/default.nix
   ./services/continuous-integration/jenkins/job-builder.nix
   ./services/continuous-integration/jenkins/slave.nix
-  ./services/continuous-integration/woodpecker/agent.nix
+  ./services/continuous-integration/woodpecker/agents.nix
   ./services/continuous-integration/woodpecker/server.nix
   ./services/databases/aerospike.nix
   ./services/databases/cassandra.nix
@@ -431,7 +430,6 @@
   ./services/desktops/gvfs.nix
   ./services/desktops/malcontent.nix
   ./services/desktops/neard.nix
-  ./services/desktops/pipewire/pipewire-media-session.nix
   ./services/desktops/pipewire/pipewire.nix
   ./services/desktops/pipewire/wireplumber.nix
   ./services/desktops/profile-sync-daemon.nix
@@ -1065,6 +1063,7 @@
   ./services/search/opensearch.nix
   ./services/search/qdrant.nix
   ./services/security/aesmd.nix
+  ./services/security/authelia.nix
   ./services/security/certmgr.nix
   ./services/security/cfssl.nix
   ./services/security/clamav.nix
@@ -1212,7 +1211,6 @@
   ./services/web-apps/zabbix.nix
   ./services/web-servers/agate.nix
   ./services/web-servers/apache-httpd/default.nix
-  ./services/web-servers/authelia.nix
   ./services/web-servers/caddy/default.nix
   ./services/web-servers/darkhttpd.nix
   ./services/web-servers/fcgiwrap.nix
