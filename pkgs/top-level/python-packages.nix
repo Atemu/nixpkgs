@@ -1352,6 +1352,8 @@ self: super: with self; {
 
   blis = callPackage ../development/python-modules/blis { };
 
+  blobfile = callPackage ../development/python-modules/blobfile { };
+
   blockchain = callPackage ../development/python-modules/blockchain { };
 
   blockdiag = callPackage ../development/python-modules/blockdiag { };
@@ -1383,6 +1385,8 @@ self: super: with self; {
   bme280spi = callPackage ../development/python-modules/bme280spi { };
 
   bme680 = callPackage ../development/python-modules/bme680 { };
+
+  boa-api = callPackage ../development/python-modules/boa-api { };
 
   bokeh = callPackage ../development/python-modules/bokeh { };
 
@@ -2206,10 +2210,10 @@ self: super: with self; {
   cython = callPackage ../development/python-modules/Cython { };
 
   cython_3 = self.cython.overridePythonAttrs (old: rec {
-    version = "3.0.0a11";
+    version = "3.0.0b2";
     src = old.src.override {
       inherit version;
-      hash = "sha256-5GckkfsxVGuau2Nnf2OOc4CF3JMhOYFwlW72+/wOFyY=";
+      hash = "sha256-bEKAZWV56STBGURyR2ZLsi+v7cfezKWTqOogvdV9Z1U=";
     };
     patches = [ ];
   });
@@ -4796,6 +4800,8 @@ self: super: with self; {
 
   iocapture = callPackage ../development/python-modules/iocapture { };
 
+  iocextract = callPackage ../development/python-modules/iocextract { };
+
   ionhash = callPackage ../development/python-modules/ionhash { };
 
   iotawattpy = callPackage ../development/python-modules/iotawattpy { };
@@ -4995,6 +5001,8 @@ self: super: with self; {
   jinja2-time = callPackage ../development/python-modules/jinja2-time { };
 
   jira = callPackage ../development/python-modules/jira { };
+
+  jiwer = callPackage ../development/python-modules/jiwer { };
 
   jmespath = callPackage ../development/python-modules/jmespath { };
 
@@ -5945,6 +5953,8 @@ self: super: with self; {
 
   memory_profiler = callPackage ../development/python-modules/memory_profiler { };
 
+  meraki = callPackage ../development/python-modules/meraki { };
+
   mercantile = callPackage ../development/python-modules/mercantile { };
 
   mercurial = toPythonModule (pkgs.mercurial.override {
@@ -6019,6 +6029,7 @@ self: super: with self; {
   minexr = callPackage ../development/python-modules/minexr { };
 
   miniaudio = callPackage ../development/python-modules/miniaudio {
+    inherit (pkgs) miniaudio;
     inherit (pkgs.darwin.apple_sdk.frameworks) AudioToolbox CoreAudio;
   };
 
@@ -6075,6 +6086,7 @@ self: super: with self; {
   mkdocs-material-extensions = callPackage ../development/python-modules/mkdocs-material/mkdocs-material-extensions.nix { };
   mkdocs-minify = callPackage ../development/python-modules/mkdocs-minify { };
   mkdocs-redirects = callPackage ../development/python-modules/mkdocs-redirects { };
+  mkdocs-simple-hooks = callPackage ../development/python-modules/mkdocs-simple-hooks { };
   mkdocs-swagger-ui-tag = callPackage ../development/python-modules/mkdocs-swagger-ui-tag { };
 
   mkdocstrings = callPackage ../development/python-modules/mkdocstrings { };
@@ -7233,6 +7245,8 @@ self: super: with self; {
 
   pixcat = callPackage ../development/python-modules/pixcat { };
 
+  pinecone-client = callPackage ../development/python-modules/pinecone-client { };
+
   psrpcore = callPackage ../development/python-modules/psrpcore { };
 
   pypemicro = callPackage ../development/python-modules/pypemicro { };
@@ -7497,6 +7511,8 @@ self: super: with self; {
   python-openzwave-mqtt = callPackage ../development/python-modules/python-openzwave-mqtt { };
 
   python-owasp-zap-v2-4 = callPackage ../development/python-modules/python-owasp-zap-v2-4 { };
+
+  python-pptx = callPackage ../development/python-modules/python-pptx { };
 
   python-songpal = callPackage ../development/python-modules/python-songpal { };
 
@@ -7985,6 +8001,8 @@ self: super: with self; {
   pycarwings2 = callPackage ../development/python-modules/pycarwings2 { };
 
   pycategories = callPackage ../development/python-modules/pycategories { };
+
+  pycddl = callPackage ../development/python-modules/pycddl { };
 
   pycdio = callPackage ../development/python-modules/pycdio { };
 
@@ -8553,6 +8571,8 @@ self: super: with self; {
   pymicrobot = callPackage ../development/python-modules/pymicrobot { };
 
   pymilter = callPackage ../development/python-modules/pymilter { };
+
+  pymilvus = callPackage ../development/python-modules/pymilvus { };
 
   pymitv = callPackage ../development/python-modules/pymitv { };
 
@@ -9912,6 +9932,8 @@ self: super: with self; {
   qdarkstyle = callPackage ../development/python-modules/qdarkstyle { };
 
   qdldl = callPackage ../development/python-modules/qdldl { };
+
+  qdrant-client = callPackage ../development/python-modules/qdrant-client { };
 
   qds_sdk = callPackage ../development/python-modules/qds_sdk { };
 
@@ -11708,6 +11730,8 @@ self: super: with self; {
 
   tika = callPackage ../development/python-modules/tika { };
 
+  tiktoken = callPackage ../development/python-modules/tiktoken { };
+
   tikzplotlib = callPackage ../development/python-modules/tikzplotlib { };
 
   tiledb = callPackage ../development/python-modules/tiledb {
@@ -12103,6 +12127,8 @@ self: super: with self; {
 
   tzlocal = callPackage ../development/python-modules/tzlocal { };
 
+  rustworkx = callPackage ../development/python-modules/rustworkx { };
+
   uamqp = callPackage ../development/python-modules/uamqp {
     openssl = pkgs.openssl_1_1;
     inherit (pkgs.darwin.apple_sdk.frameworks) CFNetwork CoreFoundation Security;
@@ -12495,6 +12521,8 @@ self: super: with self; {
   wcwidth = callPackage ../development/python-modules/wcwidth { };
 
   weasyprint = callPackage ../development/python-modules/weasyprint { };
+
+  weaviate-client = callPackage ../development/python-modules/weaviate-client { };
 
   web3 = callPackage ../development/python-modules/web3 { };
 
