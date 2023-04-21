@@ -178,12 +178,12 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional libGLSupported libGL;
 
   buildInputs = [
-    python3
     at-spi2-core
   ] ++ lib.optionals (!stdenv.isDarwin) [
     libinput
   ] ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
     AppKit
+    CoreBluetooth
   ]
   ++ lib.optional withGtk3 gtk3
   ++ lib.optional developerBuild gdb
@@ -195,6 +195,8 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [ moveBuildTree ];
 
   propagatedNativeBuildInputs = [ lndir ];
+
+  strictDeps = true;
 
   enableParallelBuilding = true;
 
@@ -243,7 +245,8 @@ stdenv.mkDerivation rec {
   moveToDev = false;
 
   postFixup = ''
-    fixQtModulePaths  "$out/mkspecs/modules"
+    moveToOutput      "mkspecs/modules" "$dev"
+    fixQtModulePaths  "$dev/mkspecs/modules"
     fixQtBuiltinPaths "$out" '*.pr?'
   '';
 

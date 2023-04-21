@@ -6,13 +6,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-llvm-cov";
-  version = "0.5.13";
+  version = "0.5.16";
 
   src = fetchzip {
     url = "https://crates.io/api/v1/crates/${pname}/${version}/download#${pname}-${version}.tar.gz";
-    sha256 = "sha256-kgs5WvawX2YvahE7hrheA3CHhcON+yrxMlv/nDAwDIw=";
+    sha256 = "sha256-aVvYQ9/04juse89EzYY6f9HEwRHjZxbDnuJpX6jzlbc=";
   };
-  cargoSha256 = "sha256-qaFUMP37qvvNndBhypxC8ZExJExUQFAca7I/mlxKezE=";
+  cargoSha256 = "sha256-dxKtOWhHSZdr5RNQ+w+CXFHN+oQXUmSQ7w9i9IO7Q6I=";
 
   # skip tests which require llvm-tools-preview
   checkFlags = [
