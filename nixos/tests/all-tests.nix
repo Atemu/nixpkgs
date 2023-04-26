@@ -67,6 +67,7 @@ let
 
 in {
   _3proxy = runTest ./3proxy.nix;
+  aaaaxy = runTest ./aaaaxy.nix;
   acme = runTest ./acme.nix;
   adguardhome = runTest ./adguardhome.nix;
   aesmd = runTestOn ["x86_64-linux"] ./aesmd.nix;
@@ -644,6 +645,7 @@ in {
   sslh = handleTest ./sslh.nix {};
   sssd = handleTestOn ["x86_64-linux"] ./sssd.nix {};
   sssd-ldap = handleTestOn ["x86_64-linux"] ./sssd-ldap.nix {};
+  stargazer = runTest ./web-servers/stargazer.nix;
   starship = handleTest ./starship.nix {};
   step-ca = handleTestOn ["x86_64-linux"] ./step-ca.nix {};
   stratis = handleTest ./stratis {};
@@ -679,6 +681,9 @@ in {
   systemd-initrd-simple = handleTest ./systemd-initrd-simple.nix {};
   systemd-initrd-swraid = handleTest ./systemd-initrd-swraid.nix {};
   systemd-initrd-vconsole = handleTest ./systemd-initrd-vconsole.nix {};
+  systemd-initrd-networkd = handleTest ./systemd-initrd-networkd.nix {};
+  systemd-initrd-networkd-ssh = handleTest ./systemd-initrd-networkd-ssh.nix {};
+  systemd-initrd-networkd-openvpn = handleTest ./initrd-network-openvpn { systemdStage1 = true; };
   systemd-journal = handleTest ./systemd-journal.nix {};
   systemd-machinectl = handleTest ./systemd-machinectl.nix {};
   systemd-networkd = handleTest ./systemd-networkd.nix {};
@@ -708,6 +713,7 @@ in {
   tiddlywiki = handleTest ./tiddlywiki.nix {};
   tigervnc = handleTest ./tigervnc.nix {};
   timescaledb = handleTest ./timescaledb.nix {};
+  promscale = handleTest ./promscale.nix {};
   timezone = handleTest ./timezone.nix {};
   tinc = handleTest ./tinc {};
   tinydns = handleTest ./tinydns.nix {};
