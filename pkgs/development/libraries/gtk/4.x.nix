@@ -48,6 +48,7 @@
 , cups
 , AppKit
 , Cocoa
+, libexecinfo
 , broadwaySupport ? true
 }:
 
@@ -138,6 +139,8 @@ stdenv.mkDerivation rec {
     cups
   ] ++ lib.optionals stdenv.isDarwin [
     Cocoa
+  ] ++ lib.optionals stdenv.hostPlatform.isMusl [
+    libexecinfo
   ];
   #TODO: colord?
 
@@ -168,7 +171,7 @@ stdenv.mkDerivation rec {
     "-Dvulkan=enabled"
   ] ++ lib.optionals (!cupsSupport) [
     "-Dprint-cups=disabled"
-  ] ++ lib.optionals stdenv.isDarwin [
+  ] ++ lib.optionals (stdenv.isDarwin && !stdenv.isAarch64) [
     "-Dmedia-gstreamer=disabled" # requires gstreamer-gl
   ] ++ lib.optionals (!x11Support) [
     "-Dx11-backend=false"
@@ -180,7 +183,11 @@ stdenv.mkDerivation rec {
 
   # These are the defines that'd you'd get with --enable-debug=minimum (default).
   # See: https://developer.gnome.org/gtk3/stable/gtk-building.html#extra-configuration-options
-  env.NIX_CFLAGS_COMPILE = "-DG_ENABLE_DEBUG -DG_DISABLE_CAST_CHECKS";
+  env = {
+    NIX_CFLAGS_COMPILE = "-DG_ENABLE_DEBUG -DG_DISABLE_CAST_CHECKS";
+  } // lib.optionalAttrs stdenv.hostPlatform.isMusl {
+    NIX_LDFLAGS = "-lexecinfo";
+  };
 
   postPatch = ''
     files=(
