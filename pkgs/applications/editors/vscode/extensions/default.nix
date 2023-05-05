@@ -19,6 +19,7 @@
 , alejandra
 , millet
 , shfmt
+, typst-lsp
 , autoPatchelfHook
 , zlib
 , stdenv
@@ -1807,11 +1808,16 @@ let
         mktplcRef = {
           name = "vscode-clangd";
           publisher = "llvm-vs-code-extensions";
-          version = "0.1.23";
-          sha256 = "125incws4n688irqii3s2a1cznj0kvkbhv3sa8585chj5g4zvmfy";
+          version = "0.1.24";
+          sha256 = "sha256-yOpsYjjwHRXxbiHDPgrtswUtgbQAo+3RgN2s6UYe9mg=";
         };
         meta = {
+          description = "C/C++ completion, navigation, and insights";
+          downloadPage = "https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd";
+          homepage = "https://github.com/clangd/vscode-clangd";
+          changelog = "https://marketplace.visualstudio.com/items/llvm-vs-code-extensions.vscode-clangd/changelog";
           license = lib.licenses.mit;
+          maintainers = [ lib.maintainers.wackbyte ];
         };
       };
 
@@ -2273,6 +2279,14 @@ let
           version = "0.4.1";
           sha256 = "sha256-NZejUb99JDcnqjihLTPkNzVCgpqDkbiwAySbBVZ0esY=";
         };
+
+        nativeBuildInputs = [ jq moreutils ];
+
+        postInstall = ''
+          cd "$out/$installPrefix"
+          jq '.contributes.configuration.properties."typst-lsp.serverPath".default = "${typst-lsp}/bin/typst-lsp"' package.json | sponge package.json
+        '';
+
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/nvarner.typst-lsp/changelog";
           description = "A VSCode extension for providing a language server for Typst";

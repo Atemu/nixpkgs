@@ -146,6 +146,7 @@ in {
   collectd = handleTest ./collectd.nix {};
   connman = handleTest ./connman.nix {};
   consul = handleTest ./consul.nix {};
+  consul-template = handleTest ./consul-template.nix {};
   containers-bridge = handleTest ./containers-bridge.nix {};
   containers-custom-pkgs.nix = handleTest ./containers-custom-pkgs.nix {};
   containers-ephemeral = handleTest ./containers-ephemeral.nix {};
@@ -170,6 +171,7 @@ in {
   cups-pdf = handleTest ./cups-pdf.nix {};
   custom-ca = handleTest ./custom-ca.nix {};
   croc = handleTest ./croc.nix {};
+  deepin = handleTest ./deepin.nix {};
   deluge = handleTest ./deluge.nix {};
   dendrite = handleTest ./matrix/dendrite.nix {};
   dex-oidc = handleTest ./dex-oidc.nix {};
@@ -379,6 +381,7 @@ in {
   limesurvey = handleTest ./limesurvey.nix {};
   listmonk = handleTest ./listmonk.nix {};
   litestream = handleTest ./litestream.nix {};
+  lldap = handleTest ./lldap.nix {};
   locate = handleTest ./locate.nix {};
   login = handleTest ./login.nix {};
   logrotate = handleTest ./logrotate.nix {};
@@ -390,7 +393,7 @@ in {
   lxd-image-server = handleTest ./lxd-image-server.nix {};
   #logstash = handleTest ./logstash.nix {};
   lorri = handleTest ./lorri/default.nix {};
-  maddy = handleTest ./maddy.nix {};
+  maddy = discoverTests (import ./maddy { inherit handleTest; });
   maestral = handleTest ./maestral.nix {};
   magic-wormhole-mailbox-server = handleTest ./magic-wormhole-mailbox-server.nix {};
   magnetico = handleTest ./magnetico.nix {};
@@ -752,6 +755,7 @@ in {
   varnish60 = handleTest ./varnish.nix { package = pkgs.varnish60; };
   varnish72 = handleTest ./varnish.nix { package = pkgs.varnish72; };
   vault = handleTest ./vault.nix {};
+  vault-agent = handleTest ./vault-agent.nix {};
   vault-dev = handleTest ./vault-dev.nix {};
   vault-postgresql = handleTest ./vault-postgresql.nix {};
   vaultwarden = handleTest ./vaultwarden.nix {};
