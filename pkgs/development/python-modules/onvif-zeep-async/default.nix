@@ -8,14 +8,14 @@
 
 buildPythonPackage rec {
   pname = "onvif-zeep-async";
-  version = "2.1.1";
+  version = "3.1.3";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-y4o3zsLacbOVLZpa3mljdXuzVEGRzkc+Be6pt+UMLrA=";
+    hash = "sha256-Lq8jYLEJKluRfsuRghkp7VPIcrHn3qaJTyid9O8lriA=";
   };
 
   propagatedBuildInputs = [

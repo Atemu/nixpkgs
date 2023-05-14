@@ -16,7 +16,7 @@
 , customPackageOverrides ? { }
 , autoDepsList ? false
 , depsListFile ? null
-, vendorHash
+, vendorHash ? ""
 , pubspecLockFile ? null
 , nativeBuildInputs ? [ ]
 , preUnpack ? ""
@@ -76,7 +76,7 @@ let
 
       mkdir -p build/flutter_assets/fonts
 
-      flutter packages get --offline -v
+      doPubGet flutter pub get --offline -v
       flutter build linux -v --release --split-debug-info="$debug" ${builtins.concatStringsSep " " (map (flag: "\"${flag}\"") finalAttrs.flutterBuildFlags)}
 
       runHook postBuild
