@@ -2169,6 +2169,11 @@ self: super: with self; {
 
   css-html-js-minify = callPackage ../development/python-modules/css-html-js-minify { };
 
+  css-inline = callPackage ../development/python-modules/css-inline {
+    inherit (pkgs.darwin) libiconv;
+    inherit (pkgs.darwin.apple_sdk.frameworks) Security;
+  };
+
   css-parser = callPackage ../development/python-modules/css-parser { };
 
   cssselect2 = callPackage ../development/python-modules/cssselect2 { };
@@ -2711,6 +2716,8 @@ self: super: with self; {
 
   django-login-required-middleware = callPackage ../development/python-modules/django-login-required-middleware { };
 
+  django-localflavor = callPackage ../development/python-modules/django-localflavor { };
+
   django-mailman3 = callPackage ../development/python-modules/django-mailman3 { };
 
   django-markup = callPackage ../development/python-modules/django-markup { };
@@ -2842,6 +2849,8 @@ self: super: with self; {
   dj-rest-auth = callPackage ../development/python-modules/dj-rest-auth { };
 
   dj-search-url = callPackage ../development/python-modules/dj-search-url { };
+
+  dj-static = callPackage ../development/python-modules/dj-static { };
 
   dkimpy = callPackage ../development/python-modules/dkimpy { };
 
@@ -4872,6 +4881,8 @@ self: super: with self; {
   inotifyrecursive = callPackage ../development/python-modules/inotifyrecursive { };
 
   inquirer = callPackage ../development/python-modules/inquirer { };
+
+  inquirerpy = callPackage ../development/python-modules/inquirerpy { };
 
   inscriptis = callPackage ../development/python-modules/inscriptis { };
 
@@ -7378,6 +7389,8 @@ self: super: with self; {
 
   pexpect = callPackage ../development/python-modules/pexpect { };
 
+  pfzy = callPackage ../development/python-modules/pfzy { };
+
   pg8000 = callPackage ../development/python-modules/pg8000 { };
 
   pgcli = callPackage ../development/python-modules/pgcli { };
@@ -9753,7 +9766,7 @@ self: super: with self; {
 
   python-mapnik = callPackage ../development/python-modules/python-mapnik rec {
     inherit (pkgs) pkg-config cairo icu libjpeg libpng libtiff libwebp proj zlib;
-    boost = pkgs.boost.override {
+    boost182 = pkgs.boost182.override {
       enablePython = true;
       inherit python;
     };
@@ -10466,8 +10479,6 @@ self: super: with self; {
 
   returns = callPackage ../development/python-modules/returns { };
 
-  retworkx = callPackage ../development/python-modules/retworkx { };
-
   rfc3339 = callPackage ../development/python-modules/rfc3339 { };
 
   rfc3339-validator = callPackage ../development/python-modules/rfc3339-validator { };
@@ -10772,7 +10783,7 @@ self: super: with self; {
 
   scikit-hep-testdata = callPackage ../development/python-modules/scikit-hep-testdata { };
 
-  scikitimage = callPackage ../development/python-modules/scikit-image { };
+  scikit-image = callPackage ../development/python-modules/scikit-image { };
 
   scikit-learn = callPackage ../development/python-modules/scikit-learn {
     inherit (pkgs) gfortran glibcLocales;
@@ -11562,6 +11573,8 @@ self: super: with self; {
   stdlib-list = callPackage ../development/python-modules/stdlib-list { };
 
   steamodd = callPackage ../development/python-modules/steamodd { };
+
+  steamship = callPackage ../development/python-modules/steamship { };
 
   stem = callPackage ../development/python-modules/stem { };
 
@@ -12989,6 +13002,8 @@ self: super: with self; {
   xcffib = callPackage ../development/python-modules/xcffib { };
 
   xdg = callPackage ../development/python-modules/xdg { };
+
+  xdg-base-dirs = callPackage ../development/python-modules/xdg-base-dirs { };
 
   xdis = callPackage ../development/python-modules/xdis { };
 

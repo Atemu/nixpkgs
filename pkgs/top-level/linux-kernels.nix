@@ -178,6 +178,7 @@ in {
       kernelPatches = [
         kernelPatches.bridge_stp_helper
         kernelPatches.request_key_helper
+        kernelPatches.make-maple-state-reusable-after-mas_empty_area
         kernelPatches.fix-em-ice-bonding
       ];
     };
@@ -186,6 +187,7 @@ in {
       kernelPatches = [
         kernelPatches.bridge_stp_helper
         kernelPatches.request_key_helper
+        kernelPatches.make-maple-state-reusable-after-mas_empty_area
         kernelPatches.fix-em-ice-bonding
         kernelPatches.export-rt-sched-migrate
         kernelPatches.CVE-2023-32233
@@ -196,6 +198,7 @@ in {
       kernelPatches = [
         kernelPatches.bridge_stp_helper
         kernelPatches.request_key_helper
+        kernelPatches.make-maple-state-reusable-after-mas_empty_area
         kernelPatches.fix-em-ice-bonding
       ];
     };
@@ -204,6 +207,7 @@ in {
       kernelPatches = [
         kernelPatches.bridge_stp_helper
         kernelPatches.request_key_helper
+        kernelPatches.make-maple-state-reusable-after-mas_empty_area
         kernelPatches.fix-em-ice-bonding
       ];
     };
@@ -213,6 +217,7 @@ in {
         kernelPatches = [
           kernelPatches.bridge_stp_helper
           kernelPatches.request_key_helper
+          kernelPatches.make-maple-state-reusable-after-mas_empty_area
         ];
       };
       latest = packageAliases.linux_latest.kernel;
@@ -558,10 +563,14 @@ in {
 
     zenpower = callPackage ../os-specific/linux/zenpower { };
 
-    inherit (callPackage ../os-specific/linux/zfs {
-        configFile = "kernel";
-        inherit pkgs kernel;
-      }) zfsStable zfsUnstable;
+    zfsStable = callPackage ../os-specific/linux/zfs/stable.nix {
+      configFile = "kernel";
+      inherit pkgs kernel;
+    };
+    zfsUnstable = callPackage ../os-specific/linux/zfs/unstable.nix {
+      configFile = "kernel";
+      inherit pkgs kernel;
+    };
     zfs = zfsStable;
 
     can-isotp = callPackage ../os-specific/linux/can-isotp { };

@@ -15,15 +15,6 @@
 
 let
 
-  # version of wasm-opt, with https://github.com/rustwasm/wasm-pack/pull/1257 backported
-  wasm-pack-git = wasm-pack.overrideAttrs (oldAttrs: {
-    version = oldAttrs.version + "-git";
-    patches = [(fetchpatch {
-      url = "https://patch-diff.githubusercontent.com/raw/rustwasm/wasm-pack/pull/1257.patch";
-      sha256 = "sha256-npi9ewh0NaD67crTcje9AYxaLLOJOMzqjqEJXZF2LbQ=";
-    })];
-  });
-
   # replace with upstream wasm rustc, after resolution of
   # https://github.com/NixOS/nixpkgs/issues/89426
   rustc-wasm = (rustc.override {
@@ -74,7 +65,7 @@ let
     pname = commonDerivationAttrs.pname + "-frontend";
 
     nativeBuildInputs = [
-      wasm-pack-git wasm-bindgen-cli binaryen which rustc-wasm rustc-wasm.llvmPackages.lld
+      wasm-pack wasm-bindgen-cli binaryen which rustc-wasm rustc-wasm.llvmPackages.lld
     ];
 
     buildPhase = ''
@@ -90,12 +81,19 @@ let
   });
 
 in rustPlatform.buildRustPackage (commonDerivationAttrs // {
+
+  cargoBuildFlags = [ "-p" "lldap" "-p" "migration-tool" "-p" "lldap_set_password" ];
+
   patches = [
     ./static-frontend-path.patch
   ];
 
   postPatch = commonDerivationAttrs.postPatch + ''
     substituteInPlace server/src/infra/tcp_server.rs --subst-var-by frontend '${frontend}'
+  '';
+
+  postInstall = ''
+    mv $out/bin/migration-tool $out/bin/lldap_migration_tool
   '';
 
   passthru = {
