@@ -459,7 +459,7 @@ mapAliases ({
   enyo-doom = enyo-launcher; # Added 2022-09-09
   epoxy = libepoxy; # Added 2021-11-11
   epsxe = throw "epsxe has been removed from nixpkgs, as it was unmaintained."; # added 2021-12-15
-  inherit (beam.interpreters) erlangR25 erlangR24 erlangR23; # added 2023-03-21
+  inherit (beam.interpreters) erlangR26 erlangR25 erlangR24 erlangR23; # added 2023-03-21
   erlang_21 = throw "erlangR21 has been removed in favor of newer versions."; # added 2023-03-21
   erlangR21 = erlang_21;
   erlang_22 = throw "erlangR22 has been removed in favor of newer versions."; # added 2023-03-21
@@ -1203,6 +1203,7 @@ mapAliases ({
 
   p11_kit = throw "'p11_kit' has been renamed to/replaced by 'p11-kit'"; # Converted to throw 2022-02-22
   packet-cli = metal-cli; # Added 2021-10-25
+  palemoon = throw "palemoon has been dropped due to python2 being EOL and marked insecure. Use 'palemoon-bin' instead"; # Added 2023-05-18
   paperless = paperless-ngx; # Added 2021-06-06
   paperless-ng = paperless-ngx; # Added 2022-04-11
   paper-note = throw "paper-note has been removed: abandoned by upstream"; # Added 2023-05-03

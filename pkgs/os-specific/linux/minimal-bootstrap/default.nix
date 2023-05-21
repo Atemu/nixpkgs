@@ -11,6 +11,10 @@ lib.makeScope
   (extra: lib.callPackageWith ({ inherit lib config buildPlatform hostPlatform; } // extra))
   (self: with self; {
 
+    bash_2_05 = callPackage ./bash/2.nix { tinycc = tinycc-mes; };
+
+    coreutils = callPackage ./coreutils { tinycc = tinycc-mes; };
+
     gnupatch = callPackage ./gnupatch { tinycc = tinycc-mes; };
 
     gnumake = callPackage ./gnumake { tinycc = tinycc-mes; };
@@ -32,6 +36,7 @@ lib.makeScope
     test = kaem.runCommand "minimal-bootstrap-test" {} ''
       echo ${mes.compiler.tests.get-version}
       echo ${tinycc-mes.compiler.tests.chain}
+      echo ${bash_2_05.tests.get-version}
       mkdir ''${out}
     '';
   })
