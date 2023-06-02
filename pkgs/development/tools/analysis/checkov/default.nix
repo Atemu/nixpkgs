@@ -22,14 +22,14 @@ with py.pkgs;
 
 buildPythonApplication rec {
   pname = "checkov";
-  version = "2.3.251";
+  version = "2.3.267";
   format = "setuptools";
 
   src = fetchFromGitHub {
     owner = "bridgecrewio";
     repo = pname;
     rev = "refs/tags/${version}";
-    hash = "sha256-qbnGibGpAH5Lg2VuJBLx+Jdh6/IYkk54SA8Gr8UtnYg=";
+    hash = "sha256-tqVNjabONdC/xL/tHMyPIXKjKk/3cWuchKAr9lE7S1g=";
   };
 
   patches = [
@@ -37,11 +37,12 @@ buildPythonApplication rec {
   ];
 
   pythonRelaxDeps = [
-    "dpath"
     "bc-detect-secrets"
     "bc-python-hcl2"
-    "pycep-parser"
+    "dpath"
+    "license-expression"
     "networkx"
+    "pycep-parser"
   ];
 
   nativeBuildInputs = [

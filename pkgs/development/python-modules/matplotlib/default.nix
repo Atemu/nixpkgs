@@ -9,14 +9,11 @@
 # build-system
 , pkg-config
 , pybind11
-, setuptools
 , setuptools-scm
 
 # native libraries
 , ffmpeg-headless
-, fontconfig
 , freetype
-, imagemagick
 , qhull
 
 # propagates
@@ -76,7 +73,7 @@ let
 in
 
 buildPythonPackage rec {
-  version = "3.7.0";
+  version = "3.7.1";
   pname = "matplotlib";
   format = "pyproject";
 
@@ -84,7 +81,7 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-j279MTQw1+9wo4oydigcsuhkazois7IesifaIOFeaBM=";
+    hash = "sha256-e3MwXyXqtFQb1+4Llth+U66cnxgjvlZZuAbNhXhv6II=";
   };
 
   env.XDG_RUNTIME_DIR = "/tmp";

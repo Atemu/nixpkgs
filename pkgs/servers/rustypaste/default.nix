@@ -2,16 +2,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "rustypaste";
-  version = "0.9.0";
+  version = "0.10.0";
 
-  src = fetchFromGitHub{
+  src = fetchFromGitHub {
     owner = "orhun";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-s0IpyybF0haTQu30QBaPDmCSFivpMeESt9S6a6NWfTM=";
+    sha256 = "sha256-qzSrxkq63SFcP/sQeORqG9+c+ct/n29jdIFUL9jut0w=";
   };
 
-  cargoHash = "sha256-87JxmZsjXZ7kf4LHgqrgrWbQtVj/XdZrf0G/6wP/ip8=";
+  cargoHash = "sha256-EDnc3P4sIpUyCDSozvaVeWI3y2KWDXKVcnkZ7M3Xx4w=";
 
   buildInputs = lib.optionals stdenv.isDarwin [
     darwin.apple_sdk.frameworks.CoreServices
@@ -19,10 +19,10 @@ rustPlatform.buildRustPackage rec {
 
   # Some tests need network
   checkFlags = [
-    "--skip paste::tests::test_paste_data"
-    "--skip server::tests::test_upload_file"
-    "--skip server::tests::test_upload_remote_file"
-    "--skip util::tests::test_get_expired_files"
+    "--skip=paste::tests::test_paste_data"
+    "--skip=server::tests::test_upload_file"
+    "--skip=server::tests::test_upload_remote_file"
+    "--skip=util::tests::test_get_expired_files"
   ];
 
   meta = with lib; {

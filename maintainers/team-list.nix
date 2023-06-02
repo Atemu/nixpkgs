@@ -213,7 +213,7 @@ with lib.maintainers; {
 
   dhall = {
     members = [
-      Gabriel439
+      Gabriella439
       ehmry
     ];
     scope = "Maintain Dhall and related packages.";
@@ -292,6 +292,8 @@ with lib.maintainers; {
     members = [
       imincik
       sikmir
+      nh2
+      willcohen
     ];
     scope = "Maintain geospatial packages.";
     shortName = "Geospatial";
@@ -383,7 +385,6 @@ with lib.maintainers; {
     members = [
       cleeyv
       ryantm
-      yuka
     ];
     scope = "Maintain Jitsi.";
     shortName = "Jitsi";
@@ -557,6 +558,15 @@ with lib.maintainers; {
     shortName = "Minimal Bootstrap";
   };
 
+  mercury = {
+    members = [
+      _9999years
+      Gabriella439
+    ];
+    scope = "Group registry for packages maintained by Mercury";
+    shortName = "Mercury Employees";
+  };
+
   mobile = {
     members = [
       samueldr
@@ -594,7 +604,6 @@ with lib.maintainers; {
       lilyinstarlight
       marsam
       winter
-      yuka
     ];
     scope = "Maintain Node.js runtimes and build tooling.";
     shortName = "Node.js";

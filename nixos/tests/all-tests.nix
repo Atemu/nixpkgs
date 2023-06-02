@@ -95,6 +95,7 @@ in {
   _3proxy = runTest ./3proxy.nix;
   aaaaxy = runTest ./aaaaxy.nix;
   acme = runTest ./acme.nix;
+  acme-dns = handleTest ./acme-dns.nix {};
   adguardhome = runTest ./adguardhome.nix;
   aesmd = runTestOn ["x86_64-linux"] ./aesmd.nix;
   agate = runTest ./web-servers/agate.nix;
@@ -170,6 +171,7 @@ in {
   cntr = handleTestOn ["aarch64-linux" "x86_64-linux"] ./cntr.nix {};
   cockpit = handleTest ./cockpit.nix {};
   cockroachdb = handleTestOn ["x86_64-linux"] ./cockroachdb.nix {};
+  code-server = handleTest ./code-server.nix {};
   coder = handleTest ./coder.nix {};
   collectd = handleTest ./collectd.nix {};
   connman = handleTest ./connman.nix {};
@@ -278,6 +280,7 @@ in {
   fsck = handleTest ./fsck.nix {};
   fsck-systemd-stage-1 = handleTest ./fsck.nix { systemdStage1 = true; };
   ft2-clone = handleTest ./ft2-clone.nix {};
+  legit = handleTest ./legit.nix {};
   mimir = handleTest ./mimir.nix {};
   garage = handleTest ./garage {};
   gemstash = handleTest ./gemstash.nix {};
@@ -521,6 +524,7 @@ in {
   nginx-sandbox = handleTestOn ["x86_64-linux"] ./nginx-sandbox.nix {};
   nginx-sso = handleTest ./nginx-sso.nix {};
   nginx-variants = handleTest ./nginx-variants.nix {};
+  nginx-proxyprotocol = handleTest ./nginx-proxyprotocol {};
   nifi = handleTestOn ["x86_64-linux"] ./web-apps/nifi.nix {};
   nitter = handleTest ./nitter.nix {};
   nix-ld = handleTest ./nix-ld.nix {};
@@ -665,6 +669,7 @@ in {
   seafile = handleTest ./seafile.nix {};
   searx = handleTest ./searx.nix {};
   service-runner = handleTest ./service-runner.nix {};
+  sftpgo = runTest ./sftpgo.nix;
   sfxr-qt = handleTest ./sfxr-qt.nix {};
   sgtpuzzles = handleTest ./sgtpuzzles.nix {};
   shadow = handleTest ./shadow.nix {};
