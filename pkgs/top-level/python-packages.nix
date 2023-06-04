@@ -106,6 +106,8 @@ self: super: with self; {
 
   aggdraw = callPackage ../development/python-modules/aggdraw { };
 
+  aigpy = callPackage ../development/python-modules/aigpy { };
+
   aio-geojson-client = callPackage ../development/python-modules/aio-geojson-client { };
 
   aio-geojson-generic-client = callPackage ../development/python-modules/aio-geojson-generic-client { };
@@ -627,6 +629,8 @@ self: super: with self; {
   arrow = callPackage ../development/python-modules/arrow { };
 
   arsenic = callPackage ../development/python-modules/arsenic { };
+
+  art = callPackage ../development/python-modules/art { };
 
   arviz = callPackage ../development/python-modules/arviz { };
 
@@ -1861,6 +1865,8 @@ self: super: with self; {
 
   cock = callPackage ../development/python-modules/cock { };
 
+  class-doc = callPackage ../development/python-modules/class-doc { };
+
   click = callPackage ../development/python-modules/click { };
 
   clickclick = callPackage ../development/python-modules/clickclick { };
@@ -2556,6 +2562,8 @@ self: super: with self; {
   dissect-cim = callPackage ../development/python-modules/dissect-cim { };
 
   dissect-clfs = callPackage ../development/python-modules/dissect-clfs { };
+
+  dissect-cobaltstrike = callPackage ../development/python-modules/dissect-cobaltstrike { };
 
   dissect-cstruct = callPackage ../development/python-modules/dissect-cstruct { };
 
@@ -7225,6 +7233,8 @@ self: super: with self; {
 
   pallets-sphinx-themes = callPackage ../development/python-modules/pallets-sphinx-themes { };
 
+  python_docs_theme = callPackage ../development/python-modules/python_docs_theme { };
+
   pamela = callPackage ../development/python-modules/pamela { };
 
   pamqp = callPackage ../development/python-modules/pamqp { };
@@ -10577,6 +10587,8 @@ self: super: with self; {
 
   rich-click = callPackage ../development/python-modules/rich-click { };
 
+  rich-pixels = callPackage ../development/python-modules/rich-pixels { };
+
   rich-rst = callPackage ../development/python-modules/rich-rst { };
 
   ring-doorbell = callPackage ../development/python-modules/ring-doorbell { };
@@ -10914,6 +10926,8 @@ self: super: with self; {
   scs = callPackage ../development/python-modules/scs { };
 
   sdds = callPackage ../development/python-modules/sdds { };
+
+  sdkmanager = callPackage ../development/python-modules/sdkmanager { };
 
   sdnotify = callPackage ../development/python-modules/sdnotify { };
 
@@ -12605,6 +12619,8 @@ self: super: with self; {
   unittest-xml-reporting = callPackage ../development/python-modules/unittest-xml-reporting { };
 
   univers = callPackage ../development/python-modules/univers { };
+
+  universal-pathlib = callPackage ../development/python-modules/universal-pathlib { };
 
   unpaddedbase64 = callPackage ../development/python-modules/unpaddedbase64 { };
 
