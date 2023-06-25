@@ -87,6 +87,10 @@ rec {
       inherit buildCommand name;
       passAsFile = [ "buildCommand" ]
         ++ (derivationArgs.passAsFile or []);
+      pos = let args = builtins.attrNames derivationArgs; in
+        if builtins.length args > 0
+        then builtins.unsafeGetAttrPos (builtins.head args) derivationArgs
+        else null;
     }
     // (lib.optionalAttrs runLocal {
           preferLocalBuild = true;
@@ -141,7 +145,7 @@ rec {
     runCommand name
       { inherit text executable checkPhase allowSubstitutes preferLocalBuild;
         passAsFile = [ "text" ];
-        meta = lib.optionalAttrs (toString executable != "" && matches != null) {
+        meta = lib.optionalAttrs (executable && matches != null) {
           mainProgram = lib.head matches;
         } // meta;
       }

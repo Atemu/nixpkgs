@@ -81,25 +81,6 @@ let
 
   drivesCmdLine = drives: concatStringsSep "\\\n    " (imap1 driveCmdline drives);
 
-
-  # Creates a device name from a 1-based a numerical index, e.g.
-  # * `driveDeviceName 1` -> `/dev/vda`
-  # * `driveDeviceName 2` -> `/dev/vdb`
-  driveDeviceName = idx:
-    let letter = elemAt lowerChars (idx - 1);
-    in if cfg.qemu.diskInterface == "scsi" then
-      "/dev/sd${letter}"
-    else
-      "/dev/vd${letter}";
-
-  lookupDriveDeviceName = driveName: driveList:
-    (findSingle (drive: drive.name == driveName)
-      (throw "Drive ${driveName} not found")
-      (throw "Multiple drives named ${driveName}") driveList).device;
-
-  addDeviceNames =
-    imap1 (idx: drive: drive // { device = driveDeviceName idx; });
-
   # Shell script to start the VM.
   startVM =
     ''
@@ -109,25 +90,41 @@ let
 
       set -e
 
+      # Create an empty ext4 filesystem image. A filesystem image does not
+      # contain a partition table but just a filesystem.
+      createEmptyFilesystemImage() {
+        local name=$1
+        local size=$2
+        local temp=$(mktemp)
+        ${qemu}/bin/qemu-img create -f raw "$temp" "$size"
+        ${pkgs.e2fsprogs}/bin/mkfs.ext4 -L ${rootFilesystemLabel} "$temp"
+        ${qemu}/bin/qemu-img convert -f raw -O qcow2 "$temp" "$name"
+        rm "$temp"
+      }
+
       NIX_DISK_IMAGE=$(readlink -f "''${NIX_DISK_IMAGE:-${toString config.virtualisation.diskImage}}") || test -z "$NIX_DISK_IMAGE"
 
       if test -n "$NIX_DISK_IMAGE" && ! test -e "$NIX_DISK_IMAGE"; then
           echo "Disk image do not exist, creating the virtualisation disk image..."
-          # If we are using a bootloader and default filesystems layout.
-          # We have to reuse the system image layout as a backing image format (CoW)
-          # So we can write on the top of it.
 
-          # If we are not using the default FS layout, potentially, we are interested into
-          # performing operations in postDeviceCommands or at early boot on the raw device.
-          # We can still boot through QEMU direct kernel boot feature.
+          ${if (cfg.useBootLoader && cfg.useDefaultFilesystems) then ''
+            # Create a writable qcow2 image using the systemImage as a backing
+            # image.
 
-          # CoW prevent size to be attributed to an image.
-          # FIXME: raise this issue to upstream.
-          ${qemu}/bin/qemu-img create \
-          ${concatStringsSep " \\\n" ([ "-f qcow2" ]
-          ++ optional (cfg.useBootLoader && cfg.useDefaultFilesystems) "-F qcow2 -b ${systemImage}/nixos.qcow2"
-          ++ optional (!(cfg.useBootLoader && cfg.useDefaultFilesystems)) "-o size=${toString config.virtualisation.diskSize}M"
-          ++ [ ''"$NIX_DISK_IMAGE"'' ])}
+            # CoW prevent size to be attributed to an image.
+            # FIXME: raise this issue to upstream.
+            ${qemu}/bin/qemu-img create \
+              -f qcow2 \
+              -b ${systemImage}/nixos.qcow2 \
+              -F qcow2 \
+              "$NIX_DISK_IMAGE"
+          '' else if cfg.useDefaultFilesystems then ''
+            createEmptyFilesystemImage "$NIX_DISK_IMAGE" "${toString cfg.diskSize}M"
+          '' else ''
+            # Create an empty disk image without a filesystem.
+            ${qemu}/bin/qemu-img create -f qcow2 "$NIX_DISK_IMAGE" "${toString cfg.diskSize}M"
+          ''
+          }
           echo "Virtualisation disk image created."
       fi
 
@@ -148,6 +145,7 @@ let
               ${pkgs.erofs-utils}/bin/mkfs.erofs \
                 --force-uid=0 \
                 --force-gid=0 \
+                -L ${nixStoreFilesystemLabel} \
                 -U eb176051-bd15-49b7-9e6b-462e0b467019 \
                 -T 0 \
                 --exclude-regex="$(
@@ -218,6 +216,19 @@ let
 
   regInfo = pkgs.closureInfo { rootPaths = config.virtualisation.additionalPaths; };
 
+  # Use well-defined and persistent filesystem labels to identify block devices.
+  rootFilesystemLabel = "nixos";
+  espFilesystemLabel = "ESP"; # Hard-coded by make-disk-image.nix
+  nixStoreFilesystemLabel = "nix-store";
+
+  # The root drive is a raw disk which does not necessarily contain a
+  # filesystem or partition table. It thus cannot be identified via the typical
+  # persistent naming schemes (e.g. /dev/disk/by-{label, uuid, partlabel,
+  # partuuid}. Instead, supply a well-defined and persistent serial attribute
+  # via QEMU. Inside the running system, the disk can then be identified via
+  # the /dev/disk/by-id scheme.
+  rootDriveSerialAttr = "root";
+
   # System image is akin to a complete NixOS install with
   # a boot partition and root partition.
   systemImage = import ../../lib/make-disk-image.nix {
@@ -225,6 +236,7 @@ let
     additionalPaths = [ regInfo ];
     format = "qcow2";
     onlyNixStore = false;
+    label = rootFilesystemLabel;
     partitionTableType = selectPartitionTableLayout { inherit (cfg) useDefaultFilesystems useEFIBoot; };
     # Bootloader should be installed on the system image only if we are booting through bootloaders.
     # Though, if a user is not using our default filesystems, it is possible to not have any ESP
@@ -247,6 +259,7 @@ let
     additionalPaths = [ regInfo ];
     format = "qcow2";
     onlyNixStore = true;
+    label = nixStoreFilesystemLabel;
     partitionTableType = "none";
     installBootLoader = false;
     touchEFIVars = false;
@@ -255,27 +268,6 @@ let
     copyChannel = false;
   };
 
-  bootConfiguration =
-    if cfg.useDefaultFilesystems
-    then
-      if cfg.useBootLoader
-      then
-        if cfg.useEFIBoot then "efi_bootloading_with_default_fs"
-        else "legacy_bootloading_with_default_fs"
-      else
-        "direct_boot_with_default_fs"
-    else
-      "custom";
-  suggestedRootDevice = {
-    "efi_bootloading_with_default_fs" = "${cfg.bootLoaderDevice}2";
-    "legacy_bootloading_with_default_fs" = "${cfg.bootLoaderDevice}1";
-    "direct_boot_with_default_fs" = cfg.bootLoaderDevice;
-    # This will enforce a NixOS module type checking error
-    # to ask explicitly the user to set a rootDevice.
-    # As it will look like `rootDevice = lib.mkDefault null;` after
-    # all "computations".
-    "custom" = null;
-  }.${bootConfiguration};
 in
 
 {
@@ -342,44 +334,39 @@ in
     virtualisation.bootLoaderDevice =
       mkOption {
         type = types.path;
-        default = lookupDriveDeviceName "root" cfg.qemu.drives;
-        defaultText = literalExpression ''lookupDriveDeviceName "root" cfg.qemu.drives'';
-        example = "/dev/vda";
+        default = "/dev/disk/by-id/virtio-${rootDriveSerialAttr}";
+        defaultText = literalExpression ''/dev/disk/by-id/virtio-${rootDriveSerialAttr}'';
+        example = "/dev/disk/by-id/virtio-boot-loader-device";
         description =
           lib.mdDoc ''
-            The disk to be used for the boot filesystem.
-            By default, it is the same disk as the root filesystem.
+            The path (inside th VM) to the device to boot from when legacy booting.
           '';
         };
 
     virtualisation.bootPartition =
       mkOption {
         type = types.nullOr types.path;
-        default = if cfg.useEFIBoot then "${cfg.bootLoaderDevice}1" else null;
-        defaultText = literalExpression ''if cfg.useEFIBoot then "''${cfg.bootLoaderDevice}1" else null'';
-        example = "/dev/vda1";
+        default = if cfg.useEFIBoot then "/dev/disk/by-label/${espFilesystemLabel}" else null;
+        defaultText = literalExpression ''if cfg.useEFIBoot then "/dev/disk/by-label/${espFilesystemLabel}" else null'';
+        example = "/dev/disk/by-label/esp";
         description =
           lib.mdDoc ''
-            The boot partition to be used to mount /boot filesystem.
-            In legacy boots, this should be null.
-            By default, in EFI boot, it is the first partition of the boot device.
+            The path (inside the VM) to the device containing the EFI System Partition (ESP).
+
+            If you are *not* booting from a UEFI firmware, this value is, by
+            default, `null`. The ESP is mounted under `/boot`.
           '';
       };
 
     virtualisation.rootDevice =
       mkOption {
         type = types.nullOr types.path;
-        example = "/dev/vda2";
+        default = "/dev/disk/by-label/${rootFilesystemLabel}";
+        defaultText = literalExpression ''/dev/disk/by-label/${rootFilesystemLabel}'';
+        example = "/dev/disk/by-label/nixos";
         description =
           lib.mdDoc ''
-            The disk or partition to be used for the root filesystem.
-            By default (read the source code for more details):
-
-            - under EFI with a bootloader: 2nd partition of the boot disk
-            - in legacy boot with a bootloader: 1st partition of the boot disk
-            - in direct boot (i.e. without a bootloader): whole disk
-
-            In case you are not using a default boot device or a default filesystem, you have to set explicitly your root device.
+            The path (inside the VM) to the device containing the root filesystem.
           '';
       };
 
@@ -710,7 +697,6 @@ in
         mkOption {
           type = types.listOf (types.submodule driveOpts);
           description = lib.mdDoc "Drives passed to qemu.";
-          apply = addDeviceNames;
         };
 
       diskInterface =
@@ -768,6 +754,40 @@ in
           Mount the host Nix store as a 9p mount.
         '';
       };
+
+    virtualisation.directBoot = {
+      enable =
+        mkOption {
+          type = types.bool;
+          default = !cfg.useBootLoader;
+          defaultText = "!cfg.useBootLoader";
+          description =
+            lib.mdDoc ''
+              If enabled, the virtual machine will boot directly into the kernel instead of through a bootloader. Other relevant parameters such as the initrd are also passed to QEMU.
+
+              If you want to test netboot, consider disabling this option.
+
+              This will not boot / reboot correctly into a system that has switched to a different configuration on disk.
+
+              This is enabled by default if you don't enable bootloaders, but you can still enable a bootloader if you need.
+              Read more about this feature: <https://qemu-project.gitlab.io/qemu/system/linuxboot.html>.
+            '';
+        };
+      initrd =
+        mkOption {
+          type = types.str;
+          default = "${config.system.build.initialRamdisk}/${config.system.boot.loader.initrdFile}";
+          defaultText = "\${config.system.build.initialRamdisk}/\${config.system.boot.loader.initrdFile}";
+          description =
+            lib.mdDoc ''
+              In direct boot situations, you may want to influence the initrd to load
+              to use your own customized payload.
+
+              This is useful if you want to test the netboot image without
+              testing the firmware or the loading part.
+            '';
+        };
+    };
 
     virtualisation.useBootLoader =
       mkOption {
@@ -895,6 +915,18 @@ in
               virtualisation.memorySize is above 2047, but qemu is only able to allocate 2047MB RAM on 32bit max.
             '';
           }
+          { assertion = cfg.directBoot.initrd != options.virtualisation.directBoot.initrd.default -> cfg.directBoot.enable;
+            message =
+              ''
+                You changed the default of `virtualisation.directBoot.initrd` but you are not
+                using QEMU direct boot. This initrd will not be used in your current
+                boot configuration.
+
+                Either do not mutate `virtualisation.directBoot.initrd` or enable direct boot.
+
+                If you have a more advanced usecase, please open an issue or a pull request.
+              '';
+          }
         ];
 
     warnings =
@@ -915,6 +947,11 @@ in
           Otherwise, we recommend
 
             ${opt.writableStore} = false;
+            ''
+      ++ optional (cfg.directBoot.enable && cfg.useBootLoader)
+        ''
+          You enabled direct boot and a bootloader, QEMU will not boot your bootloader, rendering
+          `useBootLoader` useless. You might want to disable one of those options.
         '';
 
     # In UEFI boot, we use a EFI-only partition table layout, thus GRUB will fail when trying to install
@@ -923,28 +960,10 @@ in
     # FIXME: make a sense of this mess wrt to multiple ESP present in the system, probably use boot.efiSysMountpoint?
     boot.loader.grub.device = mkVMOverride (if cfg.useEFIBoot then "nodev" else cfg.bootLoaderDevice);
     boot.loader.grub.gfxmodeBios = with cfg.resolution; "${toString x}x${toString y}";
-    virtualisation.rootDevice = mkDefault suggestedRootDevice;
 
     boot.initrd.kernelModules = optionals (cfg.useNixStoreImage && !cfg.writableStore) [ "erofs" ];
 
     boot.loader.supportsInitrdSecrets = mkIf (!cfg.useBootLoader) (mkVMOverride false);
-
-    boot.initrd.extraUtilsCommands = lib.mkIf (cfg.useDefaultFilesystems && !config.boot.initrd.systemd.enable)
-      ''
-        # We need mke2fs in the initrd.
-        copy_bin_and_libs ${pkgs.e2fsprogs}/bin/mke2fs
-      '';
-
-    boot.initrd.postDeviceCommands = lib.mkIf (cfg.useDefaultFilesystems && !config.boot.initrd.systemd.enable)
-      ''
-        # If the disk image appears to be empty, run mke2fs to
-        # initialise.
-        FSTYPE=$(blkid -o value -s TYPE ${cfg.rootDevice} || true)
-        PARTTYPE=$(blkid -o value -s PTTYPE ${cfg.rootDevice} || true)
-        if test -z "$FSTYPE" -a -z "$PARTTYPE"; then
-            mke2fs -t ext4 ${cfg.rootDevice}
-        fi
-      '';
 
     boot.initrd.postMountCommands = lib.mkIf (!config.boot.initrd.systemd.enable)
       ''
@@ -1036,9 +1055,9 @@ in
         alphaNumericChars = lowerChars ++ upperChars ++ (map toString (range 0 9));
         # Replace all non-alphanumeric characters with underscores
         sanitizeShellIdent = s: concatMapStrings (c: if builtins.elem c alphaNumericChars then c else "_") (stringToCharacters s);
-      in mkIf (!cfg.useBootLoader) [
+      in mkIf cfg.directBoot.enable [
         "-kernel \${NIXPKGS_QEMU_KERNEL_${sanitizeShellIdent config.system.name}:-${config.system.build.toplevel}/kernel}"
-        "-initrd ${config.system.build.toplevel}/initrd"
+        "-initrd ${cfg.directBoot.initrd}"
         ''-append "$(cat ${config.system.build.toplevel}/kernel-params) init=${config.system.build.toplevel}/init regInfo=${regInfo}/registration ${consoles} $QEMU_KERNEL_PARAMS"''
       ])
       (mkIf cfg.useEFIBoot [
@@ -1060,6 +1079,7 @@ in
         driveExtraOpts.cache = "writeback";
         driveExtraOpts.werror = "report";
         deviceExtraOpts.bootindex = "1";
+        deviceExtraOpts.serial = rootDriveSerialAttr;
       }])
       (mkIf cfg.useNixStoreImage [{
         name = "nix-store";
@@ -1102,7 +1122,6 @@ in
         } else {
           device = cfg.rootDevice;
           fsType = "ext4";
-          autoFormat = true;
         });
         "/tmp" = lib.mkIf config.boot.tmp.useTmpfs {
           device = "tmpfs";
@@ -1112,7 +1131,7 @@ in
           options = [ "mode=1777" "strictatime" "nosuid" "nodev" "size=${toString config.boot.tmp.tmpfsSize}" ];
         };
         "/nix/${if cfg.writableStore then ".ro-store" else "store"}" = lib.mkIf cfg.useNixStoreImage {
-          device = "${lookupDriveDeviceName "nix-store" cfg.qemu.drives}";
+          device = "/dev/disk/by-label/${nixStoreFilesystemLabel}";
           neededForBoot = true;
           options = [ "ro" ];
         };
@@ -1122,7 +1141,7 @@ in
           neededForBoot = true;
         };
         "/boot" = lib.mkIf (cfg.useBootLoader && cfg.bootPartition != null) {
-          device = cfg.bootPartition; # 1 for e.g. `vda1`, as created in `systemImage`
+          device = cfg.bootPartition;
           fsType = "vfat";
           noCheck = true; # fsck fails on a r/o filesystem
         };

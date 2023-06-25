@@ -55,6 +55,7 @@
 , nodejs
 , xdotool
 , xorg
+, xxd
 , zathura
 , zsh
 
@@ -165,6 +166,12 @@ self: super: {
     preFixup = ''
       sed "/^let g:clighter8_libclang_path/s|')$|${llvmPackages.clang.cc.lib}/lib/libclang.so')|" \
         -i "$out"/plugin/clighter8.vim
+    '';
+  });
+
+  clipboard-image-nvim = super.clipboard-image-nvim.overrideAttrs (old: {
+    postPatch = ''
+      sed -i -e 's/require "health"/vim.health/' lua/clipboard-image/health.lua
     '';
   });
 
@@ -569,6 +576,12 @@ self: super: {
     dependencies = with self; [ plenary-nvim ];
   });
 
+  hex-nvim = super.hex-nvim.overrideAttrs (old: {
+    postPatch = ''
+      substituteInPlace lua/hex.lua --replace xxd ${xxd}/bin/xxd
+    '';
+  });
+
   himalaya-vim = super.himalaya-vim.overrideAttrs (old: {
     buildInputs = [ himalaya ];
     src = fetchFromSourcehut {
@@ -799,6 +812,10 @@ self: super: {
     dependencies = with self; [ plenary-nvim ];
   });
 
+  nvim-coverage = super.nvim-coverage.overrideAttrs(old: {
+    dependencies = with self; [ plenary-nvim ];
+  });
+
   nvim-dap-python = super.nvim-dap-python.overrideAttrs (old: {
     dependencies = with self; [ nvim-dap ];
   });
@@ -912,7 +929,7 @@ self: super: {
         pname = "sg-nvim-rust";
         inherit (old) version src;
 
-        cargoHash = "sha256-9iXKVlhoyyRXCP4Bx9rCHljETdE9UD9PNWqPYDurQnI=";
+        cargoHash = "sha256-lYyIWNn10wFU97k6c2F5fCtHKMP5Y5tW41cvMRWXzTk=";
 
         nativeBuildInputs = [ pkg-config ];
 
@@ -946,24 +963,18 @@ self: super: {
 
   sniprun =
     let
-      version = "1.3.3";
+      version = "1.3.4";
       src = fetchFromGitHub {
         owner = "michaelb";
         repo = "sniprun";
         rev = "v${version}";
-        hash = "sha256-my06P2fqWjZAnxVjVzIV8q+FQOlxRLVZs3OZ0XBR6N0=";
+        hash = "sha256-H1PmjiNyUp+fTDqnfppFii+aDh8gPD/ALHFNWVXch3w=";
       };
       sniprun-bin = rustPlatform.buildRustPackage {
         pname = "sniprun-bin";
         inherit version src;
 
-        cargoLock = {
-          lockFile = ./sniprun/Cargo.lock;
-        };
-
-        postPatch = ''
-          ln -s ${./sniprun/Cargo.lock} Cargo.lock
-        '';
+        cargoHash = "sha256-WXhH0zqGj/D83AoEfs0kPqW7UXIAkURTJ+/BKbuUvss=";
 
         nativeBuildInputs = [ makeWrapper ];
 

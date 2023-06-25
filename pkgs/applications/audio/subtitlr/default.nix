@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "Subtitlr";
-  version = "0.1.0";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "yoanbernabeu";
     repo = pname;
     rev = version;
-    hash = "sha256-fwDIE8DFVd7NRhi8bBmFxrmGdT2ZtSFWBaynV+xz3ms=";
+    hash = "sha256-PbeQzNkFj4eSg/zhk8bXij36DvJ9+g22kF5TqdX5O04=";
   };
 
-  vendorHash = "sha256-t92nz42sv8bE0JIkSFB2+WBz1Um8kcRSotpXcPIy3eQ=";
+  vendorHash = "sha256-ZgJCk9vbbQ0dcYSdKm0Cbw2AmwjpMvGb5zJkgbD+xig=";
 
   ldflags = [ "-s" "-w" ];
 
