@@ -445,6 +445,7 @@ mapAliases ({
   electron_8 = throw "electron_8 has been removed in favor of newer versions"; # added 2022-02-08
 
   electrum-dash = throw "electrum-dash has been removed from nixpkgs as the project is abandoned"; # Added 2022-01-01
+  elementary-planner = throw "elementary-planner has been renamed to planify"; # Added 2023-06-24
 
   elixir_ls = elixir-ls; # Added 2023-03-20
 
@@ -767,6 +768,8 @@ mapAliases ({
   jbuilder = throw "'jbuilder' has been renamed to/replaced by 'dune_1'"; # Converted to throw 2022-02-22
   jd = throw "jd has been dropped due to the lack of maintenance from upstream since 2016"; # Added 2022-06-03
   jellyfin_10_5 = throw "Jellyfin 10.5 is no longer supported and contains a security vulnerability. Please upgrade to a newer version"; # Added 2021-04-26
+  jfbpdf = throw "'jfbpdf' has been removed, because it depends on an outdated and insecure version of mupdf"; # Added 2023-06-27
+  jfbview = throw "'jfbview' has been removed, because it depends on an outdated and insecure version of mupdf"; # Added 2023-06-27
   jira-cli = throw "jira-cli was removed because it is no longer maintained"; # Added 2023-02-28
   joseki = throw "'joseki' has been renamed to/replaced by 'apache-jena-fuseki'"; # Converted to throw 2022-02-22
   journalbeat = throw "journalbeat7 has been removed upstream. Use filebeat with the journald input instead"; # Added 2022-10-04
@@ -943,6 +946,7 @@ mapAliases ({
   linuxPackages_6_1 = linuxKernel.packages.linux_6_1;
   linuxPackages_6_2 = linuxKernel.packages.linux_6_2;
   linuxPackages_6_3 = linuxKernel.packages.linux_6_3;
+  linuxPackages_6_4 = linuxKernel.packages.linux_6_4;
   linuxPackages_hardkernel_4_14 = linuxKernel.packages.hardkernel_4_14;
   linuxPackages_rpi0 = linuxKernel.packages.linux_rpi1;
   linuxPackages_rpi02w = linuxKernel.packages.linux_rpi3;
@@ -966,6 +970,7 @@ mapAliases ({
   linux_6_1 = linuxKernel.kernels.linux_6_1;
   linux_6_2 = linuxKernel.kernels.linux_6_2;
   linux_6_3 = linuxKernel.kernels.linux_6_3;
+  linux_6_4 = linuxKernel.kernels.linux_6_4;
   linuxPackages_mptcp = throw "'linuxPackages_mptcp' has been moved to https://github.com/teto/mptcp-flake"; # Converted to throw 2022-10-04
   linux_mptcp = throw "'linux_mptcp' has been moved to https://github.com/teto/mptcp-flake"; # Converted to throw 2022-10-04
   linux_mptcp_95 = throw "'linux_mptcp_95' has been moved to https://github.com/teto/mptcp-flake"; # Converted to throw 2022-10-04
@@ -1534,6 +1539,7 @@ mapAliases ({
   seeks = throw "seeks has been removed from nixpkgs, as it was unmaintained"; # Added 2020-06-21
   sepolgen = throw "sepolgen was merged into selinux-python"; # Added 2021-11-11
   session-desktop-appimage = session-desktop;
+  sequoia = sequoia-sq; # Added 2023-06-26
   sget = throw "sget has been removed from nixpkgs, as it is not supported upstream anymore see https://github.com/sigstore/sget/issues/145"; # Added 2023-05-26
   shared_mime_info = throw "'shared_mime_info' has been renamed to/replaced by 'shared-mime-info'"; # Converted to throw 2022-02-22
   inherit (libsForQt5.mauiPackages) shelf; # added 2022-05-17
@@ -1676,6 +1682,7 @@ mapAliases ({
   timescale-prometheus = promscale; # Added 2020-09-29
   timedoctor = throw "'timedoctor' has been removed from nixpkgs"; # Added 2022-10-09
   timetable = throw "timetable has been removed, as the upstream project has been abandoned"; # Added 2021-09-05
+  tinygltf = throw "TinyglTF has been embedded in draco due to lack of other users and compatibility breaks."; # Added 2023-06-25
   tixati = throw "'tixati' has been removed from nixpkgs as it is unfree and unmaintained"; # Added 2023-03-17
   tkcvs = tkrev; # Added 2022-03-07
   togglesg-download = throw "togglesg-download was removed 2021-04-30 as it's unmaintained"; # Added 2021-04-30

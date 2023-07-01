@@ -20,9 +20,12 @@ ocamlPackages.buildDunePackage rec {
     owner = "ligolang";
     repo = "ligo";
     rev = version;
-    sha256 = "sha256-NGjys54VWzgy1SE93/zt8xooJhnZTst3jsjU36yp7Uk=";
+    sha256 = "sha256-XHfpYX0lXzT15fuFQcmRBhhaKI9Y4bYOy6kXR320BV0=";
     fetchSubmodules = true;
   };
+
+  # https://gitlab.com/ligolang/ligo/-/merge_requests/2706.diff
+  patches = [ ./2706.diff ];
 
   postPatch = ''
     substituteInPlace "vendors/tezos-ligo/src/lib_hacl/hacl.ml" \

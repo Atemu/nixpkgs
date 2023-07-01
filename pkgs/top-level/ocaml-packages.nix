@@ -56,8 +56,6 @@ let
 
     awa = callPackage ../development/ocaml-modules/awa { mtime = mtime_1; };
 
-    awa-lwt = callPackage ../development/ocaml-modules/awa/lwt.nix { mtime = mtime_1; };
-
     awa-mirage = callPackage ../development/ocaml-modules/awa/mirage.nix { mtime = mtime_1; };
 
     ### B ###
@@ -1172,7 +1170,9 @@ let
 
     ocamlc-loc = callPackage ../development/ocaml-modules/ocamlc-loc { };
 
-    ocamlformat-rpc-lib = callPackage ../development/ocaml-modules/ocamlformat-rpc-lib { };
+    ocamlformat-lib = callPackage ../development/ocaml-modules/ocamlformat/ocamlformat-lib.nix { };
+
+    ocamlformat-rpc-lib = callPackage ../development/ocaml-modules/ocamlformat/ocamlformat-rpc-lib.nix { };
 
     ocamlfuse = callPackage ../development/ocaml-modules/ocamlfuse { };
 
