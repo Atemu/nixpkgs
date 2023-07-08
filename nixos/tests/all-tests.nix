@@ -256,6 +256,7 @@ in {
   etebase-server = handleTest ./etebase-server.nix {};
   etesync-dav = handleTest ./etesync-dav.nix {};
   evcc = handleTest ./evcc.nix {};
+  fail2ban = handleTest ./fail2ban.nix { };
   fakeroute = handleTest ./fakeroute.nix {};
   fancontrol = handleTest ./fancontrol.nix {};
   fcitx5 = handleTest ./fcitx5 {};
@@ -266,6 +267,7 @@ in {
   firefox-devedition = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-devedition; };
   firefox-esr    = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-esr; }; # used in `tested` job
   firefox-esr-102 = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-esr-102; };
+  firefox-esr-115 = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-esr-115; };
   firejail = handleTest ./firejail.nix {};
   firewall = handleTest ./firewall.nix { nftables = false; };
   firewall-nftables = handleTest ./firewall.nix { nftables = true; };
@@ -709,6 +711,7 @@ in {
   sssd-ldap = handleTestOn ["x86_64-linux"] ./sssd-ldap.nix {};
   stargazer = runTest ./web-servers/stargazer.nix;
   starship = handleTest ./starship.nix {};
+  static-web-server = handleTest ./web-servers/static-web-server.nix {};
   step-ca = handleTestOn ["x86_64-linux"] ./step-ca.nix {};
   stratis = handleTest ./stratis {};
   strongswan-swanctl = handleTest ./strongswan-swanctl.nix {};

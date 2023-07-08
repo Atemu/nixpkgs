@@ -476,6 +476,7 @@
   ./services/games/deliantra-server.nix
   ./services/games/factorio.nix
   ./services/games/freeciv.nix
+  ./services/games/mchprs.nix
   ./services/games/minecraft-server.nix
   ./services/games/minetest-server.nix
   ./services/games/openarena.nix
@@ -1282,6 +1283,7 @@
   ./services/web-servers/pomerium.nix
   ./services/web-servers/rustus.nix
   ./services/web-servers/stargazer.nix
+  ./services/web-servers/static-web-server.nix
   ./services/web-servers/tomcat.nix
   ./services/web-servers/traefik.nix
   ./services/web-servers/trafficserver/default.nix
