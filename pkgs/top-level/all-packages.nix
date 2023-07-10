@@ -1679,6 +1679,8 @@ with pkgs;
 
   fabs = callPackage ../tools/backup/fabs { };
 
+  fm-tune = callPackage ../applications/radio/fm-tune { };
+
   fwbuilder = libsForQt5.callPackage ../tools/security/fwbuilder { };
 
   hblock = callPackage ../tools/networking/hblock { };
@@ -4288,6 +4290,8 @@ with pkgs;
 
   traefik-certs-dumper = callPackage ../tools/misc/traefik-certs-dumper { };
 
+  caffeine = callPackage ../tools/misc/caffeine { };
+
   calamares = libsForQt5.callPackage ../tools/misc/calamares {
     python = python3;
     boost = boost.override { enablePython = true; python = python3; };
@@ -4519,6 +4523,8 @@ with pkgs;
   wdomirror = callPackage ../tools/wayland/wdomirror { };
 
   wdt = callPackage ../applications/networking/sync/wdt { };
+
+  wlay = callPackage ../tools/wayland/wlay { };
 
   wl-clip-persist = callPackage ../tools/wayland/wl-clip-persist { };
 
@@ -4824,6 +4830,8 @@ with pkgs;
   dotenv-linter = callPackage ../development/tools/analysis/dotenv-linter {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
+
+  dotool = callPackage ../tools/dotool { };
 
   inherit (ocamlPackages) dot-merlin-reader;
 
@@ -5536,6 +5544,8 @@ with pkgs;
   lifeograph = callPackage ../applications/editors/lifeograph { };
 
   limitcpu = callPackage ../tools/misc/limitcpu { };
+
+  lineselect = callPackage ../tools/misc/lineselect { };
 
   link-grammar = callPackage ../tools/text/link-grammar { };
 
@@ -6992,8 +7002,6 @@ with pkgs;
   ddcui = libsForQt5.callPackage ../applications/misc/ddcui { };
 
   ddcutil = callPackage ../tools/misc/ddcutil { };
-
-  ddclient = callPackage ../tools/networking/ddclient { };
 
   dd_rescue = callPackage ../tools/system/dd_rescue { };
 
@@ -8471,17 +8479,7 @@ with pkgs;
 
   grpc-client-cli = callPackage ../development/tools/misc/grpc-client-cli { };
 
-  grub2 = callPackage ../tools/misc/grub/default.nix {
-    # update breaks grub2
-    gnulib = pkgs.gnulib.overrideAttrs {
-      version = "20200223";
-      src = fetchgit {
-        url = "https://git.savannah.gnu.org/r/gnulib.git";
-        rev = "292fd5d6ff5ecce81ec3c648f353732a9ece83c0";
-        sha256 = "0hkg3nql8nsll0vrqk4ifda0v4kpi67xz42r8daqsql6c4rciqnw";
-      };
-    };
-  };
+  grub2 = callPackage ../tools/misc/grub/default.nix { };
 
   grub2_efi = grub2.override {
     efiSupport = true;
@@ -9009,6 +9007,8 @@ with pkgs;
   iperf2 = callPackage ../tools/networking/iperf/2.nix { };
   iperf3 = callPackage ../tools/networking/iperf/3.nix { };
   iperf = iperf3;
+
+  iperf3d = callPackage ../tools/networking/iperf3d { };
 
   ipfetch = callPackage ../tools/networking/ipfetch { };
 
@@ -9808,9 +9808,8 @@ with pkgs;
 
   npmHooks = callPackage ../build-support/node/build-npm-package/hooks { };
 
-  inherit (callPackage ../build-support/node/fetch-npm-deps {
-    inherit (darwin.apple_sdk.frameworks) Security;
-  }) fetchNpmDeps prefetch-npm-deps;
+  inherit (callPackage ../build-support/node/fetch-npm-deps { })
+    fetchNpmDeps prefetch-npm-deps;
 
   nodePackages_latest = dontRecurseIntoAttrs nodejs_latest.pkgs;
 
@@ -11707,7 +11706,11 @@ with pkgs;
 
   pre-commit = callPackage ../tools/misc/pre-commit { };
 
+  pre-commit-hook-ensure-sops = callPackage ../tools/misc/pre-commit-hook-ensure-sops { };
+
   pretender = callPackage ../tools/security/pretender { };
+
+  prettierd = callPackage ../development/tools/prettierd { };
 
   pretty-simple = callPackage ../development/tools/pretty-simple { };
 
@@ -14808,7 +14811,8 @@ with pkgs;
 
   rush = callPackage ../shells/rush { };
 
-  xonsh = callPackage ../shells/xonsh { };
+  xonsh = callPackage ../shells/xonsh/wrapper.nix { };
+  xonsh-unwrapped = callPackage ../shells/xonsh { };
 
   zsh = callPackage ../shells/zsh { };
 
@@ -16693,6 +16697,7 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) Security SystemConfiguration;
   };
   cargo-component = callPackage ../development/tools/rust/cargo-component { };
+  cargo-cranky = callPackage ../development/tools/rust/cargo-cranky { };
   cargo-criterion = callPackage ../development/tools/rust/cargo-criterion { };
   cargo-cyclonedx = callPackage ../development/tools/rust/cargo-cyclonedx {
     inherit (darwin.apple_sdk.frameworks) Security SystemConfiguration CoreFoundation;
@@ -18501,6 +18506,8 @@ with pkgs;
 
   complexity = callPackage ../development/tools/misc/complexity { };
 
+  complgen = callPackage ../development/tools/misc/complgen { };
+
   conan = callPackage ../development/tools/build-managers/conan { };
 
   cookiecutter = with python3Packages; toPythonApplication cookiecutter;
@@ -19515,6 +19522,8 @@ with pkgs;
   regclient = callPackage ../development/tools/regclient { };
   inherit (regclient) regbot regctl regsync;
 
+  regex-cli = callPackage ../development/tools/misc/regex-cli { };
+
   reno = callPackage ../development/tools/reno { };
 
   re2c = callPackage ../development/tools/parsing/re2c { };
@@ -19857,6 +19866,8 @@ with pkgs;
 
   typical = callPackage ../development/tools/misc/typical { };
 
+  tyson = callPackage ../development/tools/misc/tyson { };
+
   uddup = callPackage ../tools/security/uddup { };
 
   udis86 = callPackage  ../development/tools/udis86 { };
@@ -19918,6 +19929,8 @@ with pkgs;
   vtable-dumper = callPackage ../development/tools/misc/vtable-dumper { };
 
   wails = callPackage ../development/tools/wails { };
+
+  wasmer-pack = callPackage ../development/tools/misc/wasmer-pack { };
 
   whatsapp-for-linux = callPackage ../applications/networking/instant-messengers/whatsapp-for-linux { };
 
@@ -23246,6 +23259,8 @@ with pkgs;
 
   yaml-cpp_0_3 = callPackage ../development/libraries/yaml-cpp/0.3.0.nix { };
 
+  yas = callPackage ../development/libraries/yas { };
+
   libyang = callPackage ../development/libraries/libyang { };
 
   libcyaml = callPackage ../development/libraries/libcyaml { };
@@ -23618,7 +23633,9 @@ with pkgs;
   ngtcp2 = callPackage ../development/libraries/ngtcp2 { };
   ngtcp2-gnutls = callPackage ../development/libraries/ngtcp2/gnutls.nix { };
 
-  nix-plugins = callPackage ../development/libraries/nix-plugins { };
+  nix-plugins = callPackage ../development/libraries/nix-plugins {
+    nix = nixVersions.nix_2_16;
+  };
 
   nika-fonts = callPackage ../data/fonts/nika-fonts { };
 
@@ -27017,6 +27034,8 @@ with pkgs;
 
   acpitool = callPackage ../os-specific/linux/acpitool { };
 
+  aldente = callPackage ../os-specific/darwin/aldente { };
+
   alfred = callPackage ../os-specific/linux/batman-adv/alfred.nix { };
 
   alertmanager-bot = callPackage ../servers/monitoring/alertmanager-bot { };
@@ -27621,7 +27640,7 @@ with pkgs;
 
   libraw1394 = callPackage ../development/libraries/libraw1394 { };
 
-  librealsense = callPackage ../development/libraries/librealsense { };
+  librealsense = darwin.apple_sdk_11_0.callPackage ../development/libraries/librealsense { };
 
   librealsenseWithCuda = callPackage ../development/libraries/librealsense {
     cudaSupport = true;
@@ -35585,19 +35604,10 @@ with pkgs;
 
   vkeybd = callPackage ../applications/audio/vkeybd { };
 
-  vlc = libsForQt5.callPackage ../applications/video/vlc {
-    # Newest libcaca changed the API, and libvlc didn't catch it. Until next
-    # version arrives, it is safer to disable it.
-    # Upstream thread: https://code.videolan.org/videolan/vlc/-/issues/26389
-    libcaca = null;
-  };
+  vlc = libsForQt5.callPackage ../applications/video/vlc { };
 
   libvlc = vlc.override {
     withQt5 = false;
-    qtbase = null;
-    qtsvg = null;
-    qtx11extras = null;
-    wrapQtAppsHook = null;
     onlyLibVLC = true;
   };
 
@@ -36137,6 +36147,8 @@ with pkgs;
   xnee = callPackage ../tools/X11/xnee { };
 
   xnotify = callPackage ../tools/X11/xnotify { };
+
+  xv = callPackage ../applications/graphics/xv { };
 
   xygrib = libsForQt5.callPackage ../applications/misc/xygrib { };
 
@@ -39248,6 +39260,8 @@ with pkgs;
     stdenv = if stdenv.cc.isClang then llvmPackages_5.stdenv else stdenv;
   });
 
+  rinetd = callPackage ../servers/rinetd { };
+
   rink = callPackage ../applications/science/misc/rink {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
@@ -40337,7 +40351,7 @@ with pkgs;
 
   soundmodem = callPackage ../applications/radio/soundmodem { };
 
-  soundOfSorting = callPackage ../misc/sound-of-sorting { };
+  sound-of-sorting = callPackage ../misc/sound-of-sorting { };
 
   sourceAndTags = callPackage ../misc/source-and-tags {
     hasktags = haskellPackages.hasktags;
