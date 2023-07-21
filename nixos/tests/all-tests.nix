@@ -138,6 +138,7 @@ in {
   borgbackup = handleTest ./borgbackup.nix {};
   botamusique = handleTest ./botamusique.nix {};
   bpf = handleTestOn ["x86_64-linux" "aarch64-linux"] ./bpf.nix {};
+  bpftune = handleTest ./bpftune.nix {};
   breitbandmessung = handleTest ./breitbandmessung.nix {};
   brscan5 = handleTest ./brscan5.nix {};
   btrbk = handleTest ./btrbk.nix {};
@@ -576,6 +577,7 @@ in {
   openvscode-server = handleTest ./openvscode-server.nix {};
   orangefs = handleTest ./orangefs.nix {};
   os-prober = handleTestOn ["x86_64-linux"] ./os-prober.nix {};
+  osquery = handleTestOn ["x86_64-linux"] ./osquery.nix {};
   osrm-backend = handleTest ./osrm-backend.nix {};
   overlayfs = handleTest ./overlayfs.nix {};
   pacemaker = handleTest ./pacemaker.nix {};

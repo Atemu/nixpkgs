@@ -222,6 +222,7 @@
   ./programs/noisetorch.nix
   ./programs/npm.nix
   ./programs/oblogout.nix
+  ./programs/oddjobd.nix
   ./programs/openvpn3.nix
   ./programs/pantheon-tweaks.nix
   ./programs/partition-manager.nix
@@ -608,6 +609,7 @@
   ./services/misc/autorandr.nix
   ./services/misc/autosuspend.nix
   ./services/misc/bazarr.nix
+  ./services/misc/bcg.nix
   ./services/misc/beanstalkd.nix
   ./services/misc/bees.nix
   ./services/misc/bepasty.nix
@@ -665,6 +667,7 @@
   ./services/misc/mediatomb.nix
   ./services/misc/metabase.nix
   ./services/misc/moonraker.nix
+  ./services/misc/mqtt2influxdb.nix
   ./services/misc/n8n.nix
   ./services/misc/nitter.nix
   ./services/misc/nix-gc.nix
@@ -761,6 +764,7 @@
   ./services/monitoring/nagios.nix
   ./services/monitoring/netdata.nix
   ./services/monitoring/opentelemetry-collector.nix
+  ./services/monitoring/osquery.nix
   ./services/monitoring/parsedmarc.nix
   ./services/monitoring/prometheus/alertmanager-irc-relay.nix
   ./services/monitoring/prometheus/alertmanager.nix
@@ -1142,6 +1146,7 @@
   ./services/security/vaultwarden/default.nix
   ./services/security/yubikey-agent.nix
   ./services/system/automatic-timezoned.nix
+  ./services/system/bpftune.nix
   ./services/system/cachix-agent/default.nix
   ./services/system/cachix-watch-store.nix
   ./services/system/cloud-init.nix
@@ -1255,6 +1260,7 @@
   ./services/web-apps/rss-bridge.nix
   ./services/web-apps/selfoss.nix
   ./services/web-apps/shiori.nix
+  ./services/web-apps/slskd.nix
   ./services/web-apps/snipe-it.nix
   ./services/web-apps/sogo.nix
   ./services/web-apps/trilium.nix

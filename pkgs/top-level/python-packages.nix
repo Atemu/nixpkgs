@@ -442,6 +442,8 @@ self: super: with self; {
 
   altair = callPackage ../development/python-modules/altair { };
 
+  altgraph = callPackage ../development/python-modules/altgraph { };
+
   amarna = callPackage ../development/python-modules/amarna { };
 
   amazon-ion = callPackage ../development/python-modules/amazon-ion { };
@@ -1167,7 +1169,7 @@ self: super: with self; {
 
   pad4pi = callPackage ../development/python-modules/pad4pi { };
 
-  paddle_bfloat = callPackage ../development/python-modules/paddle_bfloat { };
+  paddle-bfloat = callPackage ../development/python-modules/paddle-bfloat { };
 
   paddle2onnx = callPackage ../development/python-modules/paddle2onnx { };
 
@@ -1266,6 +1268,12 @@ self: super: with self; {
   bc-python-hcl2 = callPackage ../development/python-modules/bc-python-hcl2 { };
 
   bcdoc = callPackage ../development/python-modules/bcdoc { };
+
+  bcf = callPackage ../development/python-modules/bcf { };
+
+  bcg = callPackage ../development/python-modules/bcg { };
+
+  bch = callPackage ../development/python-modules/bch { };
 
   bcrypt = if stdenv.hostPlatform.system == "i686-linux" then
     callPackage ../development/python-modules/bcrypt/3.nix { }
@@ -3135,6 +3143,8 @@ self: super: with self; {
 
   duckduckgo-search = callPackage ../development/python-modules/duckduckgo-search { };
 
+  duct-py = callPackage ../development/python-modules/duct-py { };
+
   duecredit = callPackage ../development/python-modules/duecredit { };
 
   duet = callPackage ../development/python-modules/duet { };
@@ -4692,6 +4702,8 @@ self: super: with self; {
     inherit (pkgs) udev libusb1;
   };
 
+  hid-parser = callPackage ../development/python-modules/hid-parser { };
+
   hieroglyph = callPackage ../development/python-modules/hieroglyph { };
 
   hijri-converter = callPackage ../development/python-modules/hijri-converter { };
@@ -5423,13 +5435,21 @@ self: super: with self; {
 
   jupyter-client = callPackage ../development/python-modules/jupyter-client { };
 
+  jupyter-contrib-core = callPackage ../development/python-modules/jupyter-contrib-core { };
+
+  jupyter-contrib-nbextensions = callPackage ../development/python-modules/jupyter-contrib-nbextensions { };
+
   jupyter_console = callPackage ../development/python-modules/jupyter_console { };
 
   jupyter-core = callPackage ../development/python-modules/jupyter-core { };
 
   jupyter-events = callPackage ../development/python-modules/jupyter-events { };
 
+  jupyter-highlight-selected-word = callPackage ../development/python-modules/jupyter-highlight-selected-word { };
+
   jupyter-lsp = callPackage ../development/python-modules/jupyter-lsp { };
+
+  jupyter-nbextensions-configurator = callPackage ../development/python-modules/jupyter-nbextensions-configurator { };
 
   jupyter-server = callPackage ../development/python-modules/jupyter-server { };
 
@@ -7124,11 +7144,15 @@ self: super: with self; {
 
   python-nvd3 = callPackage ../development/python-modules/python-nvd3 { };
 
+  python-youtube = callPackage ../development/python-modules/python-youtube { };
+
   py-deprecate = callPackage ../development/python-modules/py-deprecate { };
 
   py-ecc = callPackage ../development/python-modules/py-ecc { };
 
   py-eth-sig-utils = callPackage ../development/python-modules/py-eth-sig-utils { };
+
+  py-expression-eval = callPackage ../development/python-modules/py-expression-eval { };
 
   nwdiag = callPackage ../development/python-modules/nwdiag { };
 
@@ -7738,6 +7762,8 @@ self: super: with self; {
 
   micloud = callPackage ../development/python-modules/micloud { };
 
+  mqtt2influxdb = callPackage ../development/python-modules/mqtt2influxdb { };
+
   msgraph-core = callPackage ../development/python-modules/msgraph-core { };
 
   multipart = callPackage ../development/python-modules/multipart { };
@@ -7898,6 +7924,8 @@ self: super: with self; {
   proxy_tools = callPackage ../development/python-modules/proxy_tools { };
 
   py-nextbusnext = callPackage ../development/python-modules/py-nextbusnext { };
+
+  py65 = callPackage ../development/python-modules/py65 { };
 
   pyaehw4a1 = callPackage ../development/python-modules/pyaehw4a1 { };
 
@@ -9108,6 +9136,8 @@ self: super: with self; {
   pymata-express = callPackage ../development/python-modules/pymata-express { };
 
   pymatgen = callPackage ../development/python-modules/pymatgen { };
+
+  pymatting = callPackage ../development/python-modules/pymatting { };
 
   pymaven-patch = callPackage ../development/python-modules/pymaven-patch { };
 
@@ -11701,6 +11731,8 @@ self: super: with self; {
 
   spacy-loggers = callPackage ../development/python-modules/spacy-loggers { };
 
+  spacy-lookups-data = callPackage ../development/python-modules/spacy/lookups-data.nix { };
+
   spacy_models = callPackage ../development/python-modules/spacy/models.nix {
       inherit (pkgs) jq;
   };
@@ -12382,6 +12414,8 @@ self: super: with self; {
   textwrap3 = callPackage ../development/python-modules/textwrap3 { };
 
   textx = callPackage ../development/python-modules/textx { };
+
+  tf2onnx = callPackage ../development/python-modules/tf2onnx { };
 
   tflearn = callPackage ../development/python-modules/tflearn { };
 
