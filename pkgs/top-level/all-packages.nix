@@ -475,6 +475,10 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) Security;
   };
 
+  codeberg-cli = callPackage ../applications/version-management/codeberg-cli {
+    inherit (darwin.apple_sdk.frameworks) Security CoreServices;
+  };
+
   conftest = callPackage ../development/tools/conftest { };
 
   coldsnap = callPackage ../tools/admin/coldsnap {
@@ -583,7 +587,20 @@ with pkgs;
 
   each = callPackage ../tools/text/each { };
 
+  ebusd = callPackage ../servers/ebusd { };
+
   eclipse-mat = callPackage ../development/tools/eclipse-mat { };
+
+  ebpf-verifier = callPackage ../tools/networking/ebpf-verifier {
+    # Replace this to `catch2 = catch2_3` when catch2 3.4.0 is merged
+    # https://github.com/NixOS/nixpkgs/pull/243485
+    catch2.src = fetchFromGitHub {
+      owner = "catchorg";
+      repo = "Catch2";
+      rev = "v3.4.0";
+      hash = "sha256-DqGGfNjKPW9HFJrX9arFHyNYjB61uoL6NabZatTWrr0=";
+    };
+  };
 
   edgedb = callPackage ../tools/networking/edgedb {
     inherit (darwin.apple_sdk.frameworks) CoreServices Security;
@@ -2068,6 +2085,8 @@ with pkgs;
   git-appraise = callPackage ../applications/version-management/git-appraise { };
 
   git-archive-all = python3.pkgs.callPackage ../applications/version-management/git-archive-all { };
+
+  git-backdate = callPackage ../applications/version-management/git-backdate { };
 
   git-backup = callPackage ../applications/version-management/git-backup {
     inherit (darwin.apple_sdk.frameworks) Security;
@@ -4812,6 +4831,8 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) Security;
   };
 
+  diesel-cli-ext = callPackage ../development/tools/diesel-cli-ext { };
+
   refinery-cli = callPackage ../development/tools/refinery-cli { };
 
   digitemp = callPackage ../tools/misc/digitemp { };
@@ -5450,6 +5471,8 @@ with pkgs;
   hyx = callPackage ../tools/text/hyx { };
 
   icdiff = callPackage ../tools/text/icdiff { };
+
+  ictree = callPackage ../tools/misc/ictree { };
 
   inchi = callPackage ../development/libraries/inchi { };
 
@@ -6229,6 +6252,8 @@ with pkgs;
   moosefs = callPackage ../tools/filesystems/moosefs { };
 
   mountain-duck = callPackage ../tools/filesystems/mountain-duck { };
+
+  mox = callPackage ../servers/mail/mox { };
 
   mozlz4a = callPackage ../tools/compression/mozlz4a { };
 
@@ -14403,6 +14428,8 @@ with pkgs;
 
   wdisplays = callPackage ../tools/graphics/wdisplays { };
 
+  weaviate = callPackage ../servers/search/weaviate { };
+
   webalizer = callPackage ../tools/networking/webalizer { };
 
   wget = callPackage ../tools/networking/wget { };
@@ -22431,6 +22458,8 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) AudioUnit;
   };
 
+  libspelling = callPackage ../development/libraries/libspelling { };
+
   libsystemtap = callPackage ../development/libraries/libsystemtap { };
 
   libgtop = callPackage ../development/libraries/libgtop { };
@@ -26406,10 +26435,7 @@ with pkgs;
 
   petidomo = callPackage ../servers/mail/petidomo { };
 
-  pict-rs = callPackage ../servers/web-apps/pict-rs {
-    inherit (darwin.apple_sdk.frameworks) Security;
-    ffmpeg = ffmpeg_4;
-  };
+  pict-rs = callPackage ../servers/web-apps/pict-rs { };
 
   pict-rs_0_3 = callPackage ../servers/web-apps/pict-rs/0.3.nix {
     inherit (darwin.apple_sdk.frameworks) Security;
@@ -34325,6 +34351,8 @@ with pkgs;
 
   pwdsafety = callPackage ../tools/security/pwdsafety { };
 
+  pyload-ng = callPackage ../applications/networking/pyload-ng {};
+
   pyrosimple = callPackage ../applications/networking/p2p/pyrosimple { };
 
   qbittorrent = libsForQt5.callPackage ../applications/networking/p2p/qbittorrent { };
@@ -34544,6 +34572,7 @@ with pkgs;
 
   reaper = callPackage ../applications/audio/reaper {
     jackLibrary = libjack2; # Another option is "pipewire.jack".
+    ffmpeg = ffmpeg_4-headless;
   };
 
   recapp = callPackage ../applications/video/recapp { };
@@ -36413,6 +36442,8 @@ with pkgs;
     withGui = false;
   };
 
+  aperture = callPackage ../applications/blockchains/aperture { };
+
   balanceofsatoshis = nodePackages.balanceofsatoshis;
 
   bitcoin  = libsForQt5.callPackage ../applications/blockchains/bitcoin {
@@ -37092,7 +37123,9 @@ with pkgs;
     d1x-rebirth-full
     d2x-rebirth-full;
 
-  easyrpg-player = callPackage ../games/easyrpg-player { };
+  easyrpg-player = callPackage ../games/easyrpg-player {
+    inherit (darwin.apple_sdk.frameworks) Foundation AudioUnit AudioToolbox;
+  };
 
   eboard = callPackage ../games/eboard { };
 
@@ -39652,8 +39685,6 @@ with pkgs;
   glee = callPackage ../tools/graphics/glee { };
 
   faust = res.faust2;
-
-  faust1 = callPackage ../applications/audio/faust/faust1.nix { };
 
   faust2 = callPackage ../applications/audio/faust/faust2.nix { };
 

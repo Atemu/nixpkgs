@@ -404,6 +404,8 @@ self: super: with self; {
 
   alarmdecoder = callPackage ../development/python-modules/alarmdecoder { };
 
+  albumentations = callPackage ../development/python-modules/albumentations { };
+
   ale-py = callPackage ../development/python-modules/ale-py { };
 
   alectryon = callPackage ../development/python-modules/alectryon { };
@@ -3838,6 +3840,8 @@ self: super: with self; {
 
   flask-testing = callPackage ../development/python-modules/flask-testing { };
 
+  flask-themes2 = callPackage ../development/python-modules/flask-themes2 { };
+
   flask-versioned = callPackage ../development/python-modules/flask-versioned { };
 
   flask-wtf = callPackage ../development/python-modules/flask-wtf { };
@@ -4251,6 +4255,8 @@ self: super: with self; {
 
   goalzero = callPackage ../development/python-modules/goalzero { };
 
+  gocardless-pro = callPackage ../development/python-modules/gocardless-pro { };
+
   goobook = callPackage ../development/python-modules/goobook { };
 
   goocalendar = callPackage ../development/python-modules/goocalendar { };
@@ -4276,6 +4282,8 @@ self: super: with self; {
   google-cloud-access-context-manager = callPackage ../development/python-modules/google-cloud-access-context-manager { };
 
   google-cloud-appengine-logging = callPackage ../development/python-modules/google-cloud-appengine-logging { };
+
+  google-cloud-artifact-registry = callPackage ../development/python-modules/google-cloud-artifact-registry { };
 
   google-cloud-asset = callPackage ../development/python-modules/google-cloud-asset { };
 
@@ -5378,6 +5386,8 @@ self: super: with self; {
   json-stream = callPackage ../development/python-modules/json-stream { };
 
   json-stream-rs-tokenizer = callPackage ../development/python-modules/json-stream-rs-tokenizer { };
+
+  jsonable = callPackage ../development/python-modules/jsonable { };
 
   jsonnet = buildPythonPackage { inherit (pkgs.jsonnet) name src; };
 
@@ -6720,6 +6730,8 @@ self: super: with self; {
 
   mujson = callPackage ../development/python-modules/mujson { };
 
+  mwcli = callPackage ../development/python-modules/mwcli { };
+
   mwclient = callPackage ../development/python-modules/mwclient { };
 
   mwdblib = callPackage ../development/python-modules/mwdblib { };
@@ -6727,6 +6739,10 @@ self: super: with self; {
   mwoauth = callPackage ../development/python-modules/mwoauth { };
 
   mwparserfromhell = callPackage ../development/python-modules/mwparserfromhell { };
+
+  mwtypes = callPackage ../development/python-modules/mwtypes { };
+
+  mwxml = callPackage ../development/python-modules/mwxml { };
 
   mxnet = callPackage ../development/python-modules/mxnet { };
 
@@ -7536,6 +7552,8 @@ self: super: with self; {
   papis = callPackage ../development/python-modules/papis { };
 
   papis-python-rofi = callPackage ../development/python-modules/papis-python-rofi { };
+
+  para = callPackage ../development/python-modules/para { };
 
   param = callPackage ../development/python-modules/param { };
 
@@ -10660,6 +10678,8 @@ self: super: with self; {
 
   quart-cors = callPackage ../development/python-modules/quart-cors { };
 
+  qudida = callPackage ../development/python-modules/qudida { };
+
   querystring_parser = callPackage ../development/python-modules/querystring-parser { };
 
   questionary = callPackage ../development/python-modules/questionary { };
@@ -10721,6 +10741,8 @@ self: super: with self; {
   ratelimit = callPackage ../development/python-modules/ratelimit { };
 
   ratelimiter = callPackage ../development/python-modules/ratelimiter { };
+
+  rauth = callPackage ../development/python-modules/rauth { };
 
   raven = callPackage ../development/python-modules/raven { };
 
@@ -11572,6 +11594,8 @@ self: super: with self; {
   };
 
   skytemple-ssb-debugger = callPackage ../development/python-modules/skytemple-ssb-debugger { };
+
+  slack-bolt = callPackage ../development/python-modules/slack-bolt { };
 
   slack-sdk = callPackage ../development/python-modules/slack-sdk { };
 
@@ -13038,6 +13062,8 @@ self: super: with self; {
   unrardll = callPackage ../development/python-modules/unrardll { };
 
   unrpa = callPackage ../development/python-modules/unrpa { };
+
+  unstructured-inference = callPackage ../development/python-modules/unstructured-inference { };
 
   untangle = callPackage ../development/python-modules/untangle { };
 

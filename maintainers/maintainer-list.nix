@@ -2778,6 +2778,13 @@
     githubId = 64804;
     name = "Dennis Gosnell";
   };
+  cdmistman = {
+    name = "Colton Donnelly";
+    email = "colton@donn.io";
+    matrix = "@donnellycolton:matrix.org";
+    github = "cdmistman";
+    githubId = 23486351;
+  };
   ceedubs = {
     email = "ceedubs@gmail.com";
     github = "ceedubs";
@@ -5331,6 +5338,12 @@
     githubId = 4246921;
     name = "Florian Beeres";
   };
+  fd = {
+    email = "simon.menke@gmail.com";
+    github = "fd";
+    githubId = 591;
+    name = "Simon Menke";
+  };
   fdns = {
     email = "fdns02@gmail.com";
     github = "fdns";
@@ -5619,6 +5632,12 @@
     github = "fps";
     githubId = 84968;
     name = "Florian Paul Schmidt";
+  };
+  fptje = {
+    email = "fpeijnenburg@gmail.com";
+    github = "FPtje";
+    githubId = 1202014;
+    name = "Falco Peijnenburg";
   };
   fragamus = {
     email = "innovative.engineer@gmail.com";
@@ -6035,6 +6054,9 @@
     github = "gigglesquid";
     githubId = 3685154;
     name = "Jack connors";
+    keys = [{
+      fingerprint = "21DF 8034 B212 EDFF 9F19  9C19 F65B 7583 7ABF D019";
+    }];
   };
   gila = {
     email = "jeffry.molanus@gmail.com";
@@ -14216,6 +14238,12 @@
     githubId = 1069318;
     name = "Robin Lambertz";
   };
+  robwalt = {
+    email = "robwalter96@gmail.com";
+    github = "robwalt";
+    githubId = 26892280;
+    name = "Robert Walter";
+  };
   roconnor = {
     email = "roconnor@theorem.ca";
     github = "roconnor";
@@ -15555,6 +15583,12 @@
     github = "sprock";
     githubId = 6391601;
     name = "Roger Mason";
+  };
+  sputn1ck = {
+    email = "kon@kon.ninja";
+    github = "sputn1ck";
+    githubId = 8904314;
+    name = "Konstantin Nick";
   };
   squalus = {
     email = "squalus@squalus.net";
