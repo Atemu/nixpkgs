@@ -194,6 +194,8 @@ self: super: with self; {
 
   aiogithubapi = callPackage ../development/python-modules/aiogithubapi { };
 
+  aiogram = callPackage ../development/python-modules/aiogram { };
+
   aioharmony = callPackage ../development/python-modules/aioharmony { };
 
   aiohomekit = callPackage ../development/python-modules/aiohomekit { };
@@ -734,6 +736,8 @@ self: super: with self; {
 
   async-dns = callPackage ../development/python-modules/async-dns { };
 
+  async-interrupt = callPackage ../development/python-modules/async-interrupt { };
+
   async-lru = callPackage ../development/python-modules/async-lru { };
 
   async-modbus = callPackage ../development/python-modules/async-modbus { };
@@ -1195,23 +1199,13 @@ self: super: with self; {
 
   backports-cached-property = callPackage ../development/python-modules/backports-cached-property { };
 
-  backports_csv = callPackage ../development/python-modules/backports_csv { };
-
   backports-datetime-fromisoformat = callPackage ../development/python-modules/backports-datetime-fromisoformat { };
 
   backports-entry-points-selectable = callPackage ../development/python-modules/backports-entry-points-selectable { };
 
-  backports_functools_lru_cache = callPackage ../development/python-modules/backports_functools_lru_cache { };
-
   backports_shutil_get_terminal_size = callPackage ../development/python-modules/backports_shutil_get_terminal_size { };
 
   backports-shutil-which = callPackage ../development/python-modules/backports-shutil-which { };
-
-  backports_tempfile = callPackage ../development/python-modules/backports_tempfile { };
-
-  backports_unittest-mock = callPackage ../development/python-modules/backports_unittest-mock { };
-
-  backports_weakref = callPackage ../development/python-modules/backports_weakref { };
 
   backports-zoneinfo = callPackage ../development/python-modules/backports-zoneinfo { };
 
@@ -1317,6 +1311,8 @@ self: super: with self; {
   bencoder = callPackage ../development/python-modules/bencoder { };
 
   beniget = callPackage ../development/python-modules/beniget { };
+
+  bentoml = callPackage ../development/python-modules/bentoml { };
 
   bespon = callPackage ../development/python-modules/bespon { };
 
@@ -3922,6 +3918,8 @@ self: super: with self; {
 
   folium = callPackage ../development/python-modules/folium { };
 
+  fontawesomefree = callPackage ../development/python-modules/fontawesomefree { };
+
   fontforge = toPythonModule (pkgs.fontforge.override {
     withPython = true;
     inherit python;
@@ -5900,6 +5898,8 @@ self: super: with self; {
     (p: p.py)
   ];
 
+  librespot = callPackage ../development/python-modules/librespot { };
+
   libretranslate = callPackage ../development/python-modules/libretranslate { };
 
   librosa = callPackage ../development/python-modules/librosa { };
@@ -6182,6 +6182,8 @@ self: super: with self; {
   magic = callPackage ../development/python-modules/magic { };
 
   magicgui = callPackage ../development/python-modules/magicgui { };
+
+  magic-filter = callPackage ../development/python-modules/magic-filter { };
 
   magic-wormhole = callPackage ../development/python-modules/magic-wormhole { };
 
@@ -6530,6 +6532,7 @@ self: super: with self; {
   mkdocs-exclude = callPackage ../development/python-modules/mkdocs-exclude { };
   mkdocs-jupyter = callPackage ../development/python-modules/mkdocs-jupyter { };
   mkdocs-gitlab = callPackage ../development/python-modules/mkdocs-gitlab-plugin { };
+  mkdocs-git-authors-plugin = callPackage ../development/python-modules/mkdocs-git-authors-plugin { };
   mkdocs-linkcheck = callPackage ../development/python-modules/mkdocs-linkcheck { };
   mkdocs-macros = callPackage ../development/python-modules/mkdocs-macros { };
   mkdocs-material = callPackage ../development/python-modules/mkdocs-material { };
@@ -6754,6 +6757,8 @@ self: super: with self; {
   muscima = callPackage ../development/python-modules/muscima { };
 
   musicbrainzngs = callPackage ../development/python-modules/musicbrainzngs { };
+
+  music-tag = callPackage ../development/python-modules/music-tag { };
 
   mutag = callPackage ../development/python-modules/mutag { };
 
@@ -7303,6 +7308,8 @@ self: super: with self; {
   onnx = callPackage ../development/python-modules/onnx { };
 
   onnxconverter-common = callPackage ../development/python-modules/onnxconverter-common { };
+
+  onnxmltools = callPackage ../development/python-modules/onnxmltools { };
 
   onnxruntime = callPackage ../development/python-modules/onnxruntime {
     onnxruntime = pkgs.onnxruntime.override {
@@ -13116,6 +13123,8 @@ self: super: with self; {
 
   unstructured = callPackage ../development/python-modules/unstructured { };
 
+  unstructured-api-tools = callPackage ../development/python-modules/unstructured-api-tools { };
+
   unstructured-inference = callPackage ../development/python-modules/unstructured-inference { };
 
   untangle = callPackage ../development/python-modules/untangle { };
@@ -13894,11 +13903,9 @@ self: super: with self; {
 
   zodbpickle = callPackage ../development/python-modules/zodbpickle { };
 
-  zope_broken = callPackage ../development/python-modules/zope_broken { };
-
   zope-cachedescriptors = callPackage ../development/python-modules/zope-cachedescriptors { };
 
-  zope_component = callPackage ../development/python-modules/zope_component { };
+  zope-component = callPackage ../development/python-modules/zope-component { };
 
   zope_configuration = callPackage ../development/python-modules/zope_configuration { };
 

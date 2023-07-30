@@ -264,6 +264,7 @@
   ./programs/wayland/river.nix
   ./programs/wayland/sway.nix
   ./programs/wayland/waybar.nix
+  ./programs/wayland/wayfire.nix
   ./programs/weylus.nix
   ./programs/wireshark.nix
   ./programs/xastir.nix
@@ -1398,6 +1399,7 @@
   ./system/boot/systemd/oomd.nix
   ./system/boot/systemd/repart.nix
   ./system/boot/systemd/shutdown.nix
+  ./system/boot/systemd/sysupdate.nix
   ./system/boot/systemd/tmpfiles.nix
   ./system/boot/systemd/user.nix
   ./system/boot/systemd/userdbd.nix
