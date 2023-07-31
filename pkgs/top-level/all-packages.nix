@@ -2491,18 +2491,23 @@ with pkgs;
       (builtins.attrValues libretro);
   };
 
-  wrapRetroArch = { retroarch }:
+  wrapRetroArch = { retroarch, settings ? {} }:
     callPackage ../applications/emulators/retroarch/wrapper.nix
-      { inherit retroarch; };
+      { inherit retroarch settings; };
 
   retroarch = wrapRetroArch {
     retroarch = retroarchBare.override {
       withAssets = true;
       withCoreInfo = true;
     };
+    settings = {
+      joypad_autoconfig_dir = "${retroarch-joypad-autoconfig}/share/libretro/autoconfig";
+    };
   };
 
   retroarch-assets = callPackage ../applications/emulators/retroarch/retroarch-assets.nix { };
+
+  retroarch-joypad-autoconfig = callPackage ../applications/emulators/retroarch/retroarch-joypad-autoconfig.nix { };
 
   libretro = recurseIntoAttrs
     (callPackage ../applications/emulators/retroarch/cores.nix {
@@ -5655,6 +5660,8 @@ with pkgs;
 
   pbzx = callPackage ../tools/compression/pbzx { };
 
+  pc = callPackage ../tools/misc/pc { };
+
   pcb2gcode = callPackage ../tools/misc/pcb2gcode { };
 
   pcp = callPackage ../tools/misc/pcp { };
@@ -6476,6 +6483,8 @@ with pkgs;
   age = callPackage ../tools/security/age { };
 
   agebox = callPackage ../tools/security/agebox { };
+
+  age-plugin-tpm = callPackage ../tools/security/age-plugin-tpm { };
 
   age-plugin-yubikey = darwin.apple_sdk_11_0.callPackage ../tools/security/age-plugin-yubikey {
     inherit (darwin.apple_sdk_11_0.frameworks) Foundation PCSC IOKit;
@@ -15388,9 +15397,10 @@ with pkgs;
   gcc-arm-embedded-12 = callPackage ../development/compilers/gcc-arm-embedded/12 { };
   gcc-arm-embedded = gcc-arm-embedded-12;
 
-  # Has to match the default gcc so that there are no linking errors when
-  # using C/C++ libraries in D packages
-  gdc = wrapCC (gcc.cc.override {
+  # It would be better to match the default gcc so that there are no linking errors
+  # when using C/C++ libraries in D packages, but right now versions >= 12 are broken.
+  gdc = gdc11;
+  gdc11 = wrapCC (gcc11.cc.override {
     name = "gdc";
     langCC = false;
     langC = false;
@@ -25990,6 +26000,8 @@ with pkgs;
 
   pgbouncer = callPackage ../servers/sql/pgbouncer { };
 
+  pgcat = callPackage ../servers/sql/pgcat {};
+
   pgpool = callPackage ../servers/sql/pgpool { };
 
   tang = callPackage ../servers/tang {
@@ -27061,6 +27073,8 @@ with pkgs;
   linux_6_1_hardened = linuxKernel.kernels.linux_6_1_hardened;
   linuxPackages_6_3_hardened = linuxKernel.packages.linux_6_3_hardened;
   linux_6_3_hardened = linuxKernel.kernels.linux_6_3_hardened;
+  linuxPackages_6_4_hardened = linuxKernel.packages.linux_6_4_hardened;
+  linux_6_4_hardened = linuxKernel.kernels.linux_6_4_hardened;
 
   # Hardkernel (Odroid) kernels.
   linuxPackages_hardkernel_latest = linuxKernel.packageAliases.linux_hardkernel_latest;
@@ -28305,6 +28319,8 @@ with pkgs;
   inconsolata-nerdfont = nerdfonts.override {
     fonts = [ "Inconsolata" ];
   };
+
+  intel-one-mono = callPackage ../data/fonts/intel-one-mono {};
 
   input-fonts = callPackage ../data/fonts/input-fonts { };
 
@@ -30941,6 +30957,8 @@ with pkgs;
   moe =  callPackage ../applications/editors/moe { };
 
   molsketch = libsForQt5.callPackage ../applications/editors/molsketch { };
+
+  multiviewer-for-f1 = callPackage ../applications/video/multiviewer-for-f1 { };
 
   pattypan = callPackage ../applications/misc/pattypan {
     jdk = jdk.override { enableJavaFX = true; };
@@ -33828,6 +33846,7 @@ with pkgs;
 
   reaper = callPackage ../applications/audio/reaper {
     jackLibrary = libjack2; # Another option is "pipewire.jack".
+    ffmpeg = ffmpeg_4-headless;
   };
 
   recapp = callPackage ../applications/video/recapp { };
