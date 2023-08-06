@@ -39,7 +39,6 @@
 , "awesome-lint"
 , "balanceofsatoshis"
 , "bash-language-server"
-, "bibtex-tidy"
 , "bower"
 , "bower2nix"
 , "browserify"
@@ -141,7 +140,6 @@
 , "fixjson"
 , "fkill-cli"
 , "fleek-cli"
-, "flood"
 , "forever"
 , "fx"
 , "ganache"
@@ -164,7 +162,6 @@
 , "makam"
 , "meshcommander"
 , "gqlint"
-, "gtop"
 , "gulp"
 , "gulp-cli"
 , "he"
@@ -274,7 +271,6 @@
 , "redoc-cli"
 , "remod-cli"
 , "reveal.js"
-, "reveal-md"
 , "rimraf"
 , "rollup"
 , {"rust-analyzer-build-deps": "../../applications/editors/vscode/extensions/rust-lang.rust-analyzer/build-deps"}
@@ -397,5 +393,4 @@
 , "yarn"
 , "yo"
 , "@zwave-js/server"
-, "zx"
 ]
