@@ -883,6 +883,21 @@ self: super: {
     dependencies = with self; [ (nvim-treesitter.withPlugins (p: [ p.org ])) ];
   };
 
+  overseer-nvim = super.overseer-nvim.overrideAttrs {
+    doCheck = true;
+    checkPhase = ''
+      runHook preCheck
+
+      plugins=.testenv/data/nvim/site/pack/plugins/start
+      mkdir -p "$plugins"
+      ln -s ${self.plenary-nvim} "$plugins/plenary.nvim"
+      bash run_tests.sh
+      rm -r .testenv
+
+      runHook postCheck
+    '';
+  };
+
   inherit parinfer-rust;
 
   phpactor = buildVimPluginFrom2Nix {
@@ -932,7 +947,7 @@ self: super: {
         pname = "sg-nvim-rust";
         inherit (old) version src;
 
-        cargoHash = "sha256-bgroNNFRoKiySTC6Rldoy8Unepxd2OXwqcy3fA+CETs=";
+        cargoHash = "sha256-cDlqJBx9p/rA+OAHZW2GcOiQmroU66urZ+qv2lXhg/4=";
 
         nativeBuildInputs = [ pkg-config ];
 
@@ -1060,9 +1075,8 @@ self: super: {
       svedbackend = stdenv.mkDerivation {
         name = "svedbackend-${super.sved.name}";
         inherit (super.sved) src;
-        nativeBuildInputs = [ wrapGAppsHook ];
+        nativeBuildInputs = [ wrapGAppsHook gobject-introspection ];
         buildInputs = [
-          gobject-introspection
           glib
           (python3.withPackages (ps: with ps; [ pygobject3 pynvim dbus-python ]))
         ];

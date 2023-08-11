@@ -600,6 +600,7 @@
   ./services/matrix/dendrite.nix
   ./services/matrix/mautrix-facebook.nix
   ./services/matrix/mautrix-telegram.nix
+  ./services/matrix/mautrix-whatsapp.nix
   ./services/matrix/mjolnir.nix
   ./services/matrix/mx-puppet-discord.nix
   ./services/matrix/pantalaimon.nix
@@ -806,6 +807,7 @@
   ./services/network-filesystems/davfs2.nix
   ./services/network-filesystems/diod.nix
   ./services/network-filesystems/drbd.nix
+  ./services/network-filesystems/eris-server.nix
   ./services/network-filesystems/glusterfs.nix
   ./services/network-filesystems/kbfs.nix
   ./services/network-filesystems/kubo.nix
@@ -863,6 +865,7 @@
   ./services/networking/coturn.nix
   ./services/networking/create_ap.nix
   ./services/networking/croc.nix
+  ./services/networking/dae.nix
   ./services/networking/dante.nix
   ./services/networking/dhcpcd.nix
   ./services/networking/dnscache.nix

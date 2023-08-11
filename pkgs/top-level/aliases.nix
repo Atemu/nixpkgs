@@ -1362,7 +1362,6 @@ mapAliases ({
   pixie = throw "pixie has been removed: abandoned by upstream"; # Added 2022-04-21
   pkgconfig = pkg-config; # Added 2018-02-02, moved to aliases.nix 2021-01-18
   pkgconfigUpstream = throw "'pkgconfigUpstream' has been renamed to/replaced by 'pkg-configUpstream'"; # Converted to throw 2022-02-22
-  planner = throw "planner has been removed from nixpkgs, as it is no longer developed and still uses python2/PyGTK"; # Added 2021-02-02
   pleroma-otp = pleroma; # Added 2021-07-10
   plexpy = throw "'plexpy' has been renamed to/replaced by 'tautulli'"; # Converted to throw 2022-02-22
   pltScheme = racket; # just to be sure
@@ -1417,6 +1416,7 @@ mapAliases ({
   prometheus-dmarc-exporter = dmarc-metrics-exporter; # added 2022-05-31
   prometheus-mesos-exporter = throw "prometheus-mesos-exporter is deprecated and archived by upstream"; # Added 2022-04-05
   prometheus-unifi-exporter = throw "prometheus-unifi-exporter is deprecated and archived by upstream, use unifi-poller instead"; # Added 2022-06-03
+  prometheus-speedtest-exporter = throw "prometheus-speedtest-exporter was removed as unmaintained"; # Added 2023-07-31
   protobuf3_7 = throw "protobuf3_7 does not receive updates anymore and has been removed"; # Added 2022-10-03
   protobuf3_11 = throw "protobuf3_11 does not receive updates anymore and has been removed"; # Added 2022-09-28
   protobuf3_17 = throw "protobuf3_17 does not receive updates anymore and has been removed"; # Added 2023-05-21
@@ -1627,6 +1627,7 @@ mapAliases ({
   speech_tools = throw "'speech_tools' has been renamed to/replaced by 'speech-tools'"; # Converted to throw 2022-02-22
   speedometer = throw "speedometer has been removed: abandoned by upstream"; # Added 2022-04-24
   speedtest_cli = throw "'speedtest_cli' has been renamed to/replaced by 'speedtest-cli'"; # Converted to throw 2022-02-22
+  speedtest-exporter = throw "'speedtest-exporter' has been removed as unmaintained"; # Added 2023-07-31
   sphinxbase = throw "sphinxbase has been removed: unmaintained"; # Added 2022-04-24
   spice-gtk_libsoup2 = throw "'spice-gtk_libsoup2' has been renamed to/replaced by 'spice-gtk'"; # Added 2023-02-21
   spice_gtk = throw "'spice_gtk' has been renamed to/replaced by 'spice-gtk'"; # Converted to throw 2022-02-22

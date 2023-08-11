@@ -21,7 +21,7 @@ let
     if isAttrs val
     then
       if hasAttr "test" val then callTest val
-      else mapAttrs (n: s: discoverTests s) val
+      else mapAttrs (n: s: if n == "passthru" then s else discoverTests s) val
     else if isFunction val
       then
         # Tests based on make-test-python.nix will return the second lambda
@@ -167,6 +167,7 @@ in {
   cgit = handleTest ./cgit.nix {};
   charliecloud = handleTest ./charliecloud.nix {};
   chromium = (handleTestOn ["aarch64-linux" "x86_64-linux"] ./chromium.nix {}).stable or {};
+  chrony = handleTestOn ["aarch64-linux" "x86_64-linux"] ./chrony.nix {};
   chrony-ptp = handleTestOn ["aarch64-linux" "x86_64-linux"] ./chrony-ptp.nix {};
   cinnamon = handleTest ./cinnamon.nix {};
   cjdns = handleTest ./cjdns.nix {};
@@ -217,7 +218,7 @@ in {
   disable-installer-tools = handleTest ./disable-installer-tools.nix {};
   discourse = handleTest ./discourse.nix {};
   dnscrypt-proxy2 = handleTestOn ["x86_64-linux"] ./dnscrypt-proxy2.nix {};
-  dnscrypt-wrapper = handleTestOn ["x86_64-linux"] ./dnscrypt-wrapper {};
+  dnscrypt-wrapper = runTestOn ["x86_64-linux"] ./dnscrypt-wrapper;
   dnsdist = handleTest ./dnsdist.nix {};
   doas = handleTest ./doas.nix {};
   docker = handleTestOn ["aarch64-linux" "x86_64-linux"] ./docker.nix {};
@@ -252,6 +253,7 @@ in {
   envoy = handleTest ./envoy.nix {};
   ergo = handleTest ./ergo.nix {};
   ergochat = handleTest ./ergochat.nix {};
+  eris-server = handleTest ./eris-server.nix {};
   esphome = handleTest ./esphome.nix {};
   etc = pkgs.callPackage ../modules/system/etc/test.nix { inherit evalMinimalConfig; };
   activation = pkgs.callPackage ../modules/system/activation/test.nix { };

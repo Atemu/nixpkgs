@@ -2,7 +2,7 @@
 , unzip, libsecret, libXScrnSaver, libxshmfence, buildPackages
 , atomEnv, at-spi2-atk, autoPatchelfHook
 , systemd, fontconfig, libdbusmenu, glib, buildFHSEnv, wayland
-, libglvnd
+, libglvnd, libkrb5
 
 # Populate passthru.tests
 , tests
@@ -15,11 +15,7 @@
 , executableName, longName, shortName, pname, updateScript
 , dontFixup ? false
 , rev ? null, vscodeServer ? null
-
-# sourceExecutableName is the name of the binary in the source archive, over
-# which we have no control
 , sourceExecutableName ? executableName
-
 , useVSCodeRipgrep ? false
 , ripgrep
 }:
@@ -71,7 +67,7 @@ let
     };
 
     buildInputs = [ libsecret libXScrnSaver libxshmfence ]
-      ++ lib.optionals (!stdenv.isDarwin) ([ at-spi2-atk ] ++ atomEnv.packages);
+      ++ lib.optionals (!stdenv.isDarwin) ([ at-spi2-atk libkrb5 ] ++ atomEnv.packages);
 
     runtimeDependencies = lib.optionals stdenv.isLinux [ (lib.getLib systemd) fontconfig.lib libdbusmenu wayland ];
 

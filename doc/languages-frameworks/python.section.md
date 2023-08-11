@@ -997,13 +997,18 @@ and in this case the `python3` interpreter is automatically used.
 
 ### Interpreters {#interpreters}
 
-Versions 2.7, 3.8, 3.9, 3.10 and 3.11 of the CPython interpreter are available
-as respectively `python27`, `python38`, `python39`, `python310` and `python311`.
-The aliases `python2` and `python3` correspond to respectively `python27` and
-`python310`. The attribute `python` maps to `python2`. The PyPy interpreters
-compatible with Python 2.7 and 3 are available as `pypy27` and `pypy3`, with
-aliases `pypy2` mapping to `pypy27` and `pypy` mapping to `pypy2`. The Nix
-expressions for the interpreters can be found in
+| Package    | Aliases         | Interpreter |
+|------------|-----------------|-------------|
+| python27   | python2, python | CPython 2.7 |
+| python38   |                 | CPython 3.8 |
+| python39   |                 | CPython 3.9 |
+| python310  | python3         | CPython 3.10 |
+| python311  |                 | CPython 3.11 |
+| python312  |                 | CPython 3.12 |
+| pypy27     | pypy2, pypy     | PyPy2.7 |
+| pypy39     | pypy3           | PyPy 3.9 |
+
+The Nix expressions for the interpreters can be found in
 `pkgs/development/interpreters/python`.
 
 All packages depending on any Python interpreter get appended
@@ -1185,11 +1190,12 @@ following are specific to `buildPythonPackage`:
   variables which will be available when the binary is run. For example,
   `makeWrapperArgs = ["--set FOO BAR" "--set BAZ QUX"]`.
 * `namePrefix`: Prepends text to `${name}` parameter. In case of libraries, this
-  defaults to `"python3.8-"` for Python 3.8, etc., and in case of applications
-  to `""`.
+  defaults to `"python3.8-"` for Python 3.8, etc., and in case of applications to `""`.
 * `pipInstallFlags ? []`: A list of strings. Arguments to be passed to `pip
   install`. To pass options to `python setup.py install`, use
   `--install-option`. E.g., `pipInstallFlags=["--install-option='--cpp_implementation'"]`.
+* `pipBuildFlags ? []`: A list of strings. Arguments to be passed to `pip wheel`.
+* `pypaBuildFlags ? []`: A list of strings. Arguments to be passed to `python -m build --wheel`.
 * `pythonPath ? []`: List of packages to be added into `$PYTHONPATH`. Packages
   in `pythonPath` are not propagated (contrary to `propagatedBuildInputs`).
 * `preShellHook`: Hook to execute commands before `shellHook`.
@@ -1243,6 +1249,27 @@ with import <nixpkgs> {};
 
 in python.withPackages(ps: [ ps.blaze ])).env
 ```
+
+The next example shows a non trivial overriding of the `blas` implementation to
+be used through out all of the Python package set:
+
+```nix
+python3MyBlas = pkgs.python3.override {
+  packageOverrides = self: super: {
+    # We need toPythonModule for the package set to evaluate this
+    blas = super.toPythonModule(super.pkgs.blas.override {
+      blasProvider = super.pkgs.mkl;
+    });
+    lapack = super.toPythonModule(super.pkgs.lapack.override {
+      lapackProvider = super.pkgs.mkl;
+    });
+  };
+};
+```
+
+This is particularly useful for numpy and scipy users who want to gain speed with other blas implementations.
+Note that using simply `scipy = super.scipy.override { blas = super.pkgs.mkl; };` will likely result in
+compilation issues, because scipy dependencies need to use the same blas implementation as well.
 
 #### Optional extra dependencies {#python-optional-dependencies}
 
@@ -1463,6 +1490,10 @@ are used in `buildPythonPackage`.
 - `flitBuildHook` to build a wheel using `flit`.
 - `pipBuildHook` to build a wheel using `pip` and PEP 517. Note a build system
   (e.g. `setuptools` or `flit`) should still be added as `nativeBuildInput`.
+- `pypaBuildHook` to build a wheel using
+  [`pypa/build`](https://pypa-build.readthedocs.io/en/latest/index.html) and
+  PEP 517/518. Note a build system (e.g. `setuptools` or `flit`) should still
+  be added as `nativeBuildInput`.
 - `pipInstallHook` to install wheels.
 - `pytestCheckHook` to run tests with `pytest`. See [example usage](#using-pytestcheckhook).
 - `pythonCatchConflictsHook` to check whether a Python package is not already existing.
