@@ -21,7 +21,7 @@ set which contains `emacs.pkgs.withPackages`. For example, to override
 `emacs.pkgs.emacs.pkgs.withPackages`,
 ```
 let customEmacsPackages =
-      emacs.pkgs.overrideScope' (self: super: {
+      emacs.pkgs.overrideScope (self: super: {
         # use a custom version of emacs
         emacs = ...;
         # use the unstable MELPA version of magit
@@ -200,7 +200,7 @@ runCommand
       substitute ${./wrapper.sh} $out/bin/$progname \
         --subst-var-by bash ${emacs.stdenv.shell} \
         --subst-var-by wrapperSiteLisp "$deps/share/emacs/site-lisp" \
-        --subst-var-by wrapperSiteLispNative "$deps/share/emacs/native-lisp:" \
+        --subst-var-by wrapperSiteLispNative "$deps/share/emacs/native-lisp" \
         --subst-var prog
       chmod +x $out/bin/$progname
     done
@@ -219,7 +219,7 @@ runCommand
       substitute ${./wrapper.sh} $out/Applications/Emacs.app/Contents/MacOS/Emacs \
         --subst-var-by bash ${emacs.stdenv.shell} \
         --subst-var-by wrapperSiteLisp "$deps/share/emacs/site-lisp" \
-        --subst-var-by wrapperSiteLispNative "$deps/share/emacs/native-lisp:" \
+        --subst-var-by wrapperSiteLispNative "$deps/share/emacs/native-lisp" \
         --subst-var-by prog "$emacs/Applications/Emacs.app/Contents/MacOS/Emacs"
       chmod +x $out/Applications/Emacs.app/Contents/MacOS/Emacs
     fi

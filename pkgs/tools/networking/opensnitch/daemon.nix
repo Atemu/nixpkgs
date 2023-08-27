@@ -13,17 +13,18 @@
 , protoc-gen-go-grpc
 , testers
 , opensnitch
+, nixosTests
 }:
 
 buildGoModule rec {
   pname = "opensnitch";
-  version = "1.6.1";
+  version = "1.6.3";
 
   src = fetchFromGitHub {
     owner = "evilsocket";
     repo = "opensnitch";
     rev = "v${version}";
-    sha256 = "sha256-yEo5nga0WTbgZm8W2qbJcTOO4cCzFWrjRmTBCFH7GLg=";
+    hash = "sha256-C8Uuz2FC7Zu07ZmFpp+ejpNxkyC3/mM9J2dc5FUKx64=";
   };
 
   modRoot = "daemon";
@@ -41,7 +42,7 @@ buildGoModule rec {
     protoc-gen-go-grpc
   ];
 
-  vendorSha256 = "sha256-bUzGWpQxeXzvkzQ7G53ljQJq6wwqiXqbi6bgeFlNvvM=";
+  vendorHash = "sha256-bUzGWpQxeXzvkzQ7G53ljQJq6wwqiXqbi6bgeFlNvvM=";
 
   preBuild = ''
     # Fix inconsistent vendoring build error
@@ -56,10 +57,8 @@ buildGoModule rec {
     mv $GOPATH/bin/daemon $GOPATH/bin/opensnitchd
     mkdir -p $out/etc/opensnitchd $out/lib/systemd/system
     cp system-fw.json $out/etc/opensnitchd/
-    substitute default-config.json $out/etc/default-config.json \
-      --replace "/var/log/opensnitchd.log" "/dev/stdout" \
-      --replace "iptables" "nftables" \
-      --replace "ebpf" "proc"
+    substitute default-config.json $out/etc/opensnitchd/default-config.json \
+      --replace "/var/log/opensnitchd.log" "/dev/stdout"
     substitute opensnitchd.service $out/lib/systemd/system/opensnitchd.service \
       --replace "/usr/local/bin/opensnitchd" "$out/bin/opensnitchd" \
       --replace "/etc/opensnitchd/rules" "/var/lib/opensnitch/rules" \
@@ -71,9 +70,12 @@ buildGoModule rec {
       --prefix PATH : ${lib.makeBinPath [ iptables ]}
   '';
 
-  passthru.tests.version = testers.testVersion {
-    package = opensnitch;
-    command = "opensnitchd -version";
+  passthru.tests = {
+    inherit (nixosTests) opensnitch;
+    version = testers.testVersion {
+      package = opensnitch;
+      command = "opensnitchd -version";
+    };
   };
 
   meta = with lib; {

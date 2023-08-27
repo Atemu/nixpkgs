@@ -13,13 +13,13 @@
 
 stdenv.mkDerivation rec {
   pname = "cbmc";
-  version = "5.88.1";
+  version = "5.90.0";
 
   src = fetchFromGitHub {
     owner = "diffblue";
     repo = pname;
     rev = "${pname}-${version}";
-    sha256 = "sha256-bfrtYqTMU/Nib0wZjS/t0kg5sBsuQuq9GaHX4PxL7tU=";
+    sha256 = "sha256-c6Ms/IStmKug5nz37TzjeexkY3YfWaUqEKIC2viMK9g=";
   };
 
   nativeBuildInputs = [

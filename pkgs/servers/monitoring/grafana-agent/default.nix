@@ -10,16 +10,16 @@
 
 buildGoModule rec {
   pname = "grafana-agent";
-  version = "0.35.2";
+  version = "0.35.4";
 
   src = fetchFromGitHub {
     owner = "grafana";
     repo = "agent";
     rev = "v${version}";
-    hash = "sha256-jotJe7DIPYNekAxiMdghdykEXVD7Pk/MPWSH2XjhkL8=";
+    hash = "sha256-3pUKqmqnRm3/e/fhAV5cq16wcK/f7KWb3aoFbPXCC3o=";
   };
 
-  vendorHash = "sha256-MqUkGKOzx8Qo9xbD9GdUryVwKjpVUOXFo2x0/2uz8Uk=";
+  vendorHash = "sha256-vzrp20Mg6AA0h3+5+qbKRa7nhx/hgiIHG6RNXLATpHE=";
   proxyVendor = true; # darwin/linux hash mismatch
 
   ldflags = let

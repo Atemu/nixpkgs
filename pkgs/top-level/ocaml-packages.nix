@@ -343,6 +343,8 @@ let
 
     domain-local-await = callPackage ../development/ocaml-modules/domain-local-await { };
 
+    domain-local-timeout = callPackage ../development/ocaml-modules/domain-local-timeout { };
+
     domain-name = callPackage ../development/ocaml-modules/domain-name { };
 
     domainslib = callPackage ../development/ocaml-modules/domainslib { };
@@ -797,6 +799,8 @@ let
 
     kafka_lwt = callPackage ../development/ocaml-modules/kafka/lwt.nix { };
 
+    kcas = callPackage ../development/ocaml-modules/kcas { };
+
     ke = callPackage ../development/ocaml-modules/ke { };
 
     kicadsch = callPackage ../development/ocaml-modules/kicadsch { };
@@ -1000,7 +1004,7 @@ let
 
     mirage-clock = callPackage ../development/ocaml-modules/mirage-clock { };
 
-    mirage-clock-freestanding = callPackage ../development/ocaml-modules/mirage-clock/freestanding.nix { };
+    mirage-clock-solo5 = callPackage ../development/ocaml-modules/mirage-clock/solo5.nix { };
 
     mirage-clock-unix = callPackage ../development/ocaml-modules/mirage-clock/unix.nix { };
 
@@ -1148,6 +1152,8 @@ let
     ocaml-print-intf = callPackage ../development/ocaml-modules/ocaml-print-intf { };
 
     ocaml-protoc = callPackage ../development/ocaml-modules/ocaml-protoc { };
+
+    ocaml-protoc-plugin = callPackage ../development/ocaml-modules/ocaml-protoc-plugin { };
 
     ocaml-r = callPackage ../development/ocaml-modules/ocaml-r { };
 
@@ -1458,7 +1464,13 @@ let
 
     qcheck-core = callPackage ../development/ocaml-modules/qcheck/core.nix { };
 
+    qcheck-lin = callPackage ../development/ocaml-modules/qcheck/lin.nix { };
+
+    qcheck-multicoretests-util = callPackage ../development/ocaml-modules/qcheck/multicoretests-util.nix { };
+
     qcheck-ounit = callPackage ../development/ocaml-modules/qcheck/ounit.nix { };
+
+    qcheck-stm = callPackage ../development/ocaml-modules/qcheck/stm.nix { };
 
     qtest = callPackage ../development/ocaml-modules/qtest { };
 
@@ -1534,6 +1546,8 @@ let
     secp256k1-internal = callPackage ../development/ocaml-modules/secp256k1-internal { };
 
     sedlex = callPackage ../development/ocaml-modules/sedlex { };
+
+    sel = callPackage ../development/ocaml-modules/sel {};
 
     semaphore-compat = callPackage ../development/ocaml-modules/semaphore-compat { };
 
@@ -1799,7 +1813,7 @@ let
 
     ### End ###
 
-  })).overrideScope' liftJaneStreet;
+  })).overrideScope liftJaneStreet;
 
 in let inherit (pkgs) callPackage; in rec
 {

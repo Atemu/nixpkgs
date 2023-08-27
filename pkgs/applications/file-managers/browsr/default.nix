@@ -50,6 +50,7 @@ python3.pkgs.buildPythonApplication rec {
 
   pythonRelaxDeps = [
     "art"
+    "pandas"
     "pymupdf"
     "rich-click"
     "textual"

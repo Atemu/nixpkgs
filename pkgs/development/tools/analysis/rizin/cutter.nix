@@ -1,4 +1,6 @@
 { fetchFromGitHub, lib, mkDerivation
+# for passthru.plugins
+, pkgs
 # nativeBuildInputs
 , qmake, pkg-config, cmake
 # Qt
@@ -10,15 +12,15 @@
 , wrapQtAppsHook
 }:
 
-mkDerivation rec {
+let cutter = mkDerivation rec {
   pname = "cutter";
-  version = "2.3.0";
+  version = "2.3.1";
 
   src = fetchFromGitHub {
     owner = "rizinorg";
     repo = "cutter";
     rev = "v${version}";
-    hash = "sha256-oQ3sLIGKMEw3k27aSFcrJqo0TgGkkBNdzl6GSoOIYak=";
+    hash = "sha256-OxF6lKH4nnBU8pLzaCGVl8DUIxsbWD4RMevyGRirkPM=";
     fetchSubmodules = true;
   };
 
@@ -37,10 +39,25 @@ mkDerivation rec {
     qtWrapperArgs+=(--prefix PYTHONPATH : "$PYTHONPATH")
   '';
 
+  passthru = rec {
+    plugins = rizin.plugins // {
+      rz-ghidra = rizin.plugins.rz-ghidra.override {
+        inherit cutter qtbase qtsvg;
+        enableCutterPlugin = true;
+      };
+    };
+    withPlugins = filter: pkgs.callPackage ./wrapper.nix {
+      inherit rizin cutter;
+      isCutter = true;
+      plugins = filter plugins;
+    };
+  };
+
   meta = with lib; {
     description = "Free and Open Source Reverse Engineering Platform powered by rizin";
     homepage = src.meta.homepage;
     license = licenses.gpl3;
+    mainProgram = "cutter";
     maintainers = with maintainers; [ mic92 dtzWill ];
   };
-}
+}; in cutter
