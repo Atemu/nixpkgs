@@ -26,7 +26,6 @@
 , {"@webassemblyjs/wast-refmt": "1.11.1"}
 , "alex"
 , "alloy"
-, "asar"
 , "audiosprite"
 , "autoprefixer"
 , "auto-changelog"
@@ -147,7 +146,6 @@
 , "gulp"
 , "gulp-cli"
 , "he"
-, "html-minifier"
 , "http-server"
 , "hsd"
 , "hs-airdrop"
@@ -204,7 +202,6 @@
 , "nodemon"
 , "np"
 , "npm"
-, "npm-check-updates"
 , "npm-merge-driver"
 , "nrm"
 , "ocaml-language-server"
