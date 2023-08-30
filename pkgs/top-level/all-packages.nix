@@ -378,6 +378,8 @@ with pkgs;
 
   circumflex = callPackage ../applications/networking/circumflex { };
 
+  citron = callPackage ../tools/misc/citron { };
+
   cxx-rs = callPackage ../development/libraries/cxx-rs { };
 
   elfcat = callPackage ../tools/misc/elfcat { };
@@ -675,6 +677,8 @@ with pkgs;
   glade = callPackage ../development/tools/glade { };
 
   goda = callPackage ../development/tools/goda { };
+
+  gokrazy = callPackage ../development/misc/gokrazy { };
 
   gojq = callPackage ../development/tools/gojq { };
 
@@ -1302,6 +1306,8 @@ with pkgs;
 
   singularity-tools = callPackage ../build-support/singularity-tools { };
 
+  stacktile = callPackage ../tools/wayland/stacktile { };
+
   sirula = callPackage ../tools/wayland/sirula { };
 
   sitelen-seli-kiwen = callPackage ../data/fonts/sitelen-seli-kiwen { };
@@ -1883,6 +1889,8 @@ with pkgs;
   };
 
   nominatim = callPackage ../servers/nominatim { };
+
+  ntpd-rs = callPackage ../tools/networking/ntpd-rs { };
 
   ocs-url = libsForQt5.callPackage ../tools/misc/ocs-url { };
 
@@ -3330,6 +3338,8 @@ with pkgs;
 
   azure-storage-azcopy = callPackage ../development/tools/azcopy { };
 
+  bark = callPackage ../tools/audio/bark { };
+
   bashblog = callPackage ../tools/text/bashblog { };
 
   berglas = callPackage ../tools/admin/berglas { };
@@ -3853,6 +3863,8 @@ with pkgs;
 
   hakrawler = callPackage ../tools/security/hakrawler { };
 
+  harsh = callPackage ../applications/misc/harsh { };
+
   harvid = callPackage ../tools/video/harvid { };
 
   headset = callPackage ../applications/audio/headset { };
@@ -4241,11 +4253,13 @@ with pkgs;
   bchunk = callPackage ../tools/cd-dvd/bchunk { };
 
   inherit (callPackages ../misc/logging/beats/7.x.nix { })
+    auditbeat7
     filebeat7
     heartbeat7
     metricbeat7
     packetbeat7;
 
+  auditbeat = auditbeat7;
   filebeat = filebeat7;
   heartbeat = heartbeat7;
   metricbeat = metricbeat7;
@@ -5675,8 +5689,6 @@ with pkgs;
 
   jellyfin-media-player = libsForQt5.callPackage ../applications/video/jellyfin-media-player {
     inherit (darwin.apple_sdk.frameworks) CoreFoundation Cocoa CoreAudio MediaPlayer;
-    # Disable pipewire to avoid segfault, see https://github.com/jellyfin/jellyfin-media-player/issues/341
-    mpv = wrapMpv (mpv-unwrapped.override { pipewireSupport = false; }) { };
   };
 
   jellyfin-mpv-shim = python3Packages.callPackage ../applications/video/jellyfin-mpv-shim { };
@@ -6091,6 +6103,7 @@ with pkgs;
   };
 
   odoo = callPackage ../applications/finance/odoo { };
+  odoo15 = callPackage ../applications/finance/odoo/odoo15.nix { };
 
   odafileconverter = libsForQt5.callPackage ../applications/graphics/odafileconverter { };
 
@@ -6453,6 +6466,8 @@ with pkgs;
   mcelog = callPackage ../os-specific/linux/mcelog {
     util-linux = util-linuxMinimal;
   };
+
+  sqldef = callPackage ../development/tools/sqldef { };
 
   sqlint = callPackage ../development/tools/sqlint { };
 
@@ -9592,6 +9607,14 @@ with pkgs;
 
   jupyter = callPackage ../applications/editors/jupyter { };
 
+  jupyter-all = jupyter.override {
+    definitions = {
+      clojure = clojupyter.definition;
+      octave = octave-kernel.definition;
+      # wolfram = wolfram-for-jupyter-kernel.definition; # unfree
+    };
+  };
+
   jupyter-kernel = callPackage ../applications/editors/jupyter/kernel.nix { };
 
   justify = callPackage ../tools/text/justify { };
@@ -12193,6 +12216,8 @@ with pkgs;
 
   ps3-disc-dumper = callPackage ../tools/games/ps3-disc-dumper { };
 
+  ps3iso-utils = callPackage ../tools/games/ps3iso-utils { };
+
   ps3netsrv = callPackage ../servers/ps3netsrv { };
 
   pscircle = callPackage ../os-specific/linux/pscircle { };
@@ -12321,6 +12346,7 @@ with pkgs;
   outils = callPackage ../tools/misc/outils { };
 
   mpi = openmpi; # this attribute should used to build MPI applications
+  mpiCheckPhaseHook = callPackage ../build-support/setup-hooks/mpi-check-hook { };
 
   ucc = callPackage ../development/libraries/ucc { };
 
@@ -13104,7 +13130,7 @@ with pkgs;
   sixpair = callPackage ../tools/misc/sixpair { };
 
   sketchybar = darwin.apple_sdk_11_0.callPackage ../os-specific/darwin/sketchybar {
-    inherit (darwin.apple_sdk_11_0.frameworks) Carbon Cocoa CoreWLAN DisplayServices MediaRemote SkyLight;
+    inherit (darwin.apple_sdk_11_0.frameworks) AppKit CoreAudio CoreWLAN CoreVideo DisplayServices IOKit MediaRemote SkyLight;
   };
 
   sketchybar-app-font = callPackage ../data/fonts/sketchybar-app-font { };
@@ -13208,7 +13234,9 @@ with pkgs;
   };
 
   soapui = callPackage ../applications/networking/soapui {
-    jdk = jdk11;
+    jdk = if stdenv.isDarwin
+      then (jdk11.override { enableJavaFX = true; })
+      else jdk11;
   };
 
   sockdump = callPackage ../tools/networking/sockdump { };
@@ -14760,7 +14788,7 @@ with pkgs;
   volumeicon = callPackage ../tools/audio/volumeicon { };
 
   waf = callPackage ../development/tools/build-managers/waf { };
-  wafHook = callPackage ../development/tools/build-managers/wafHook { };
+  wafHook = callPackage ../development/tools/build-managers/waf/hook.nix { };
 
   waf-tester = callPackage ../tools/security/waf-tester { };
 
@@ -17223,6 +17251,7 @@ with pkgs;
   };
   cargo-readme = callPackage ../development/tools/rust/cargo-readme { };
   cargo-risczero = callPackage ../development/tools/rust/cargo-risczero { };
+  cargo-run-bin = callPackage ../development/tools/rust/cargo-run-bin {};
   cargo-semver-checks = callPackage ../development/tools/rust/cargo-semver-checks { };
 
   cargo-show-asm = callPackage ../development/tools/rust/cargo-show-asm { };
@@ -19143,7 +19172,15 @@ with pkgs;
 
   doclifter = callPackage ../development/tools/misc/doclifter { };
 
-  docutils = with python3Packages; toPythonApplication docutils;
+  docutils = with python3Packages; toPythonApplication (
+    docutils.overridePythonAttrs (attrs: rec {
+      version = "0.20.1";
+      src = attrs.src.override {
+        inherit version;
+        hash = "sha256-8IpOJ2w6FYOobc4+NKuj/gTQK7ot1R7RYQYkToqSPjs=";
+      };
+    })
+  );
 
   doctl = callPackage ../development/tools/doctl { };
 
@@ -20671,6 +20708,8 @@ with pkgs;
   ayatana-ido = callPackage ../development/libraries/ayatana-ido { };
 
   ayatana-webmail = callPackage ../applications/networking/mailreaders/ayatana-webmail { };
+
+  azmq = callPackage ../development/libraries/azmq { };
 
   babl = callPackage ../development/libraries/babl { };
 
@@ -22324,6 +22363,8 @@ with pkgs;
   libb64 = callPackage ../development/libraries/libb64 { };
 
   judy = callPackage ../development/libraries/judy { };
+
+  kcp = callPackage ../development/libraries/kcp { };
 
   kddockwidgets = libsForQt5.callPackage ../development/libraries/kddockwidgets { };
 
@@ -25594,6 +25635,7 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) AppKit Cocoa;
   };
   vulkan-tools-lunarg = callPackage ../tools/graphics/vulkan-tools-lunarg { };
+  vulkan-utility-libraries = callPackage ../development/libraries/vulkan-utility-libraries { };
   vulkan-validation-layers = callPackage ../development/tools/vulkan-validation-layers { };
 
   vxl = callPackage ../development/libraries/vxl { };
@@ -26983,12 +27025,14 @@ with pkgs;
 
   rpcsvc-proto = callPackage ../tools/misc/rpcsvc-proto { };
 
-  libmysqlclient = libmysqlclient_3_2;
+  libmysqlclient = libmysqlclient_3_3;
   libmysqlclient_3_1 = mariadb-connector-c_3_1;
   libmysqlclient_3_2 = mariadb-connector-c_3_2;
-  mariadb-connector-c = mariadb-connector-c_3_2;
+  libmysqlclient_3_3 = mariadb-connector-c_3_3;
+  mariadb-connector-c = mariadb-connector-c_3_3;
   mariadb-connector-c_3_1 = callPackage ../servers/sql/mariadb/connector-c/3_1.nix { };
   mariadb-connector-c_3_2 = callPackage ../servers/sql/mariadb/connector-c/3_2.nix { };
+  mariadb-connector-c_3_3 = callPackage ../servers/sql/mariadb/connector-c/3_3.nix { };
 
   mariadb-galera = callPackage ../servers/sql/mariadb/galera { };
 
@@ -30268,6 +30312,8 @@ with pkgs;
 
   whitesur-icon-theme = callPackage ../data/icons/whitesur-icon-theme { };
 
+  whitesur-kde = callPackage ../data/themes/whitesur-kde { };
+
   wireless-regdb = callPackage ../data/misc/wireless-regdb { };
 
   work-sans  = callPackage ../data/fonts/work-sans { };
@@ -30544,7 +30590,6 @@ with pkgs;
   asap = callPackage ../tools/audio/asap { };
 
   aseprite = callPackage ../applications/editors/aseprite { };
-  aseprite-unfree = aseprite.override { unfree = true; };
 
   assign-lb-ip = callPackage ../applications/networking/cluster/assign-lb-ip { };
 
@@ -33335,10 +33380,6 @@ with pkgs;
     components = ["kuma-dp"];
     pname = "kuma-dp";
   };
-  kuma-prometheus-sd = callPackage ../applications/networking/cluster/kuma {
-    components = ["kuma-prometheus-sd"];
-    pname = "kuma-prometheus-sd";
-  };
 
   kile-wl = callPackage ../applications/misc/kile-wl { };
 
@@ -34281,6 +34322,8 @@ with pkgs;
   qbec = callPackage ../applications/networking/cluster/qbec { };
 
   qemacs = callPackage ../applications/editors/qemacs { };
+
+  ragnarwm = callPackage ../applications/window-managers/ragnarwm {};
 
   rime-cli = callPackage ../applications/office/rime-cli { };
 
@@ -35366,6 +35409,8 @@ with pkgs;
   skypeforlinux = callPackage ../applications/networking/instant-messengers/skypeforlinux { };
 
   SkypeExport = callPackage ../applications/networking/instant-messengers/SkypeExport { };
+
+  slingshot = callPackage ../tools/misc/slingshot { };
 
   slop = callPackage ../tools/misc/slop { };
 
@@ -39351,6 +39396,7 @@ with pkgs;
 
   or-tools = callPackage ../development/libraries/science/math/or-tools {
     python = python3;
+    protobuf = protobuf3_21;
     # or-tools builds with -std=c++20, so abseil-cpp must
     # also be built that way
     abseil-cpp = abseil-cpp_202206.override {
@@ -42140,4 +42186,6 @@ with pkgs;
   wpm = callPackage ../applications/misc/wpm { };
 
   yazi = callPackage ../applications/file-managers/yazi { inherit (darwin.apple_sdk.frameworks) Foundation; };
+
+  ssl-proxy = callPackage ../tools/networking/ssl-proxy { };
 }
