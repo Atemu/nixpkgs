@@ -6,13 +6,13 @@
 
 stdenv.mkDerivation rec {
   pname = "cyber";
-  version = "unstable-2023-08-24";
+  version = "unstable-2023-09-07";
 
   src = fetchFromGitHub {
     owner = "fubark";
     repo = "cyber";
-    rev = "be76bc13590285cffa502c3c97470a80ff1f27bd";
-    hash = "sha256-DhGp+vHz+FfF9ZGopQshF2t0Q4/yeN7CEpIlPliPBgQ=";
+    rev = "98022d0b8d266ee4f9d8c524a42abad3ad4134c9";
+    hash = "sha256-FEvNSHG/sMB1jBjbBaunGxb6/fSvKhKschFvghsW2Ls=";
   };
 
   nativeBuildInputs = [

@@ -12,7 +12,7 @@ nimPackages.buildNimPackage rec {
   };
 
 
-  buildInputs = with nimPackages; [ parsetoml x11 safeset libX11 libXft libXinerama ];
+  buildInputs = with nimPackages; [ parsetoml x11 safeseq safeset libX11 libXft libXinerama ];
 
   postInstall = ''
     install -D config.default.toml $out/share/nimdow/config.default.toml
