@@ -46,7 +46,6 @@
   less = "lessc";
   localtunnel = "lt";
   lua-fmt = "luafmt";
-  near-cli = "near";
   neovim = "neovim-node-host";
   parsoid = "parse.js";
   poor-mans-t-sql-formatter-cli = "sqlformat";
@@ -62,7 +61,6 @@
   typescript-language-server = "typescript-language-server";
   uglify-js = "uglifyjs";
   undollar = "$";
-  vsc-leetcode-cli = "leetcode";
   vscode-css-languageserver-bin = "css-languageserver";
   vscode-html-languageserver-bin = "html-languageserver";
   vscode-json-languageserver-bin = "json-languageserver";

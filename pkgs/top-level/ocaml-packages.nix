@@ -1396,6 +1396,8 @@ let
 
     pbkdf = callPackage ../development/ocaml-modules/pbkdf { };
 
+    pbrt = callPackage ../development/ocaml-modules/pbrt { };
+
     pcap-format = callPackage ../development/ocaml-modules/pcap-format { };
 
     pecu = callPackage ../development/ocaml-modules/pecu { };
@@ -1437,6 +1439,8 @@ let
     };
 
     pp = callPackage ../development/ocaml-modules/pp { };
+
+    pp_loc = callPackage ../development/ocaml-modules/pp_loc { };
 
     pprint = callPackage ../development/ocaml-modules/pprint { };
 
@@ -1693,7 +1697,9 @@ let
 
     tar = callPackage ../development/ocaml-modules/tar { };
 
-    tar-unix = callPackage ../development/ocaml-modules/tar/unix.nix { };
+    tar-unix = callPackage ../development/ocaml-modules/tar/unix.nix {
+      inherit (pkgs) git;
+    };
 
     tcpip = callPackage ../development/ocaml-modules/tcpip { };
 
