@@ -11,16 +11,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "biome";
-  version = "1.1.2";
+  version = "1.2.2";
 
   src = fetchFromGitHub {
     owner = "biomejs";
     repo = "biome";
     rev = "cli/v${version}";
-    hash = "sha256-DE5D4WLO41JA9f3zy3sBiBQ8MOQCbosx6p9AqIM3ddc=";
+    hash = "sha256-WiyORFXS1kpOaMCbnPdr5ewa6D4ozFTIRSArVlA2FvY=";
   };
 
-  cargoHash = "sha256-qP8CyGiWfytjAsxo6xS1ubowzwEqZN0vM/kQSOnS3rw=";
+  cargoHash = "sha256-s2CVEGYRzJgsg4soETStpaJ7GDNdJCBJ+Qbn88sFlDQ=";
 
   nativeBuildInputs = [
     pkg-config
@@ -37,7 +37,7 @@ rustPlatform.buildRustPackage rec {
     git
   ];
 
-  cargoBuildFlags = [ "-p=rome_cli" ];
+  cargoBuildFlags = [ "-p=biome_cli" ];
   cargoTestFlags = cargoBuildFlags;
 
   env = {

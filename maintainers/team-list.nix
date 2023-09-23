@@ -287,7 +287,7 @@ with lib.maintainers; {
   };
 
   flutter = {
-    members = [ gilice mkg20001 RossComputerGuy FlafyDev hacker1024 ];
+    members = [ mkg20001 RossComputerGuy FlafyDev hacker1024 ];
     scope = "Maintain Flutter and Dart-related packages and build tools";
     shortName = "flutter";
     enableFeatureFreezePing = false;
@@ -649,15 +649,13 @@ with lib.maintainers; {
     enableFeatureFreezePing = true;
   };
 
-  nixos-modules = {
+  module-system = {
     members = [
-      ericson2314
       infinisil
-      qyliss
       roberth
     ];
-    scope = "Maintain nixpkgs module system internals.";
-    shortName = "NixOS Modules / internals";
+    scope = "Maintain the Nixpkgs module system.";
+    shortName = "Module system";
     enableFeatureFreezePing = true;
   };
 
