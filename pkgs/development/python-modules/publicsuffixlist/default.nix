@@ -9,14 +9,14 @@
 
 buildPythonPackage rec {
   pname = "publicsuffixlist";
-  version = "0.10.0.20230828";
+  version = "0.10.0.20230927";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-eVPcj1gMY9a8Znhon2lEs9EKWgc55euyvzxnrkDH05o=";
+    hash = "sha256-GmDnm2qEpf3RL08tmiyYVUij9ija8qx8f5r0e2SStAM=";
   };
 
   passthru.optional-dependencies = {
