@@ -1825,6 +1825,8 @@ self: super: with self; {
     inherit (pkgs) secp256k1;
   };
 
+  comicon = callPackage ../development/python-modules/comicon { };
+
   connect-box = callPackage ../development/python-modules/connect_box { };
 
   connection-pool = callPackage ../development/python-modules/connection-pool { };
@@ -2255,6 +2257,8 @@ self: super: with self; {
 
   contourpy = callPackage ../development/python-modules/contourpy { };
 
+  controku = callPackage ../development/python-modules/controku { };
+
   convertdate = callPackage ../development/python-modules/convertdate { };
 
   cookiecutter = callPackage ../development/python-modules/cookiecutter { };
@@ -2466,6 +2470,8 @@ self: super: with self; {
   daphne = callPackage ../development/python-modules/daphne { };
 
   daqp = callPackage ../development/python-modules/daqp { };
+
+  darkdetect = callPackage ../development/python-modules/darkdetect { };
 
   dasbus = callPackage ../development/python-modules/dasbus { };
 
@@ -3140,6 +3146,8 @@ self: super: with self; {
 
   dnspython = callPackage ../development/python-modules/dnspython { };
 
+  dns-lexicon = callPackage ../development/python-modules/dns-lexicon { };
+
   doc8 = callPackage ../development/python-modules/doc8 { };
 
   docformatter = callPackage ../development/python-modules/docformatter { };
@@ -3351,6 +3359,8 @@ self: super: with self; {
   easywatch = callPackage ../development/python-modules/easywatch { };
 
   ebaysdk = callPackage ../development/python-modules/ebaysdk { };
+
+  ebooklib = callPackage ../development/python-modules/ebooklib { };
 
   ec2instanceconnectcli = callPackage ../tools/virtualization/ec2instanceconnectcli { };
 
@@ -3635,6 +3645,8 @@ self: super: with self; {
   explorerscript = callPackage ../development/python-modules/explorerscript { };
 
   exrex = callPackage ../development/python-modules/exrex { };
+
+  exitcode = callPackage ../development/python-modules/exitcode { };
 
   extractcode = callPackage ../development/python-modules/extractcode { };
 
@@ -4069,6 +4081,8 @@ self: super: with self; {
   skia-pathops = callPackage ../development/python-modules/skia-pathops {
     inherit (pkgs.darwin.apple_sdk.frameworks) ApplicationServices OpenGL;
   };
+
+  oelint-parser = callPackage ../development/python-modules/oelint-parser { };
 
   openllm = callPackage ../development/python-modules/openllm { };
 
@@ -5239,6 +5253,12 @@ self: super: with self; {
   incomfort-client = callPackage ../development/python-modules/incomfort-client { };
 
   incremental = callPackage ../development/python-modules/incremental { };
+
+  indexed-bzip2 = callPackage ../development/python-modules/indexed-bzip2 { };
+
+  indexed-gzip = callPackage ../development/python-modules/indexed-gzip { inherit (pkgs) zlib; };
+
+  indexed-zstd = callPackage ../development/python-modules/indexed-zstd { inherit (pkgs) zstd; };
 
   infinity = callPackage ../development/python-modules/infinity { };
 
@@ -6429,6 +6449,8 @@ self: super: with self; {
 
   managesieve = callPackage ../development/python-modules/managesieve { };
 
+  mandown = callPackage ../development/python-modules/mandown { };
+
   manhole = callPackage ../development/python-modules/manhole { };
 
   manimpango = callPackage ../development/python-modules/manimpango {
@@ -6811,6 +6833,8 @@ self: super: with self; {
   mnist = callPackage ../development/python-modules/mnist { };
 
   moat-ble = callPackage ../development/python-modules/moat-ble { };
+
+  mobi = callPackage ../development/python-modules/mobi { };
 
   mobly = callPackage ../development/python-modules/mobly { };
 
@@ -8743,6 +8767,8 @@ self: super: with self; {
 
   psutil-home-assistant = callPackage ../development/python-modules/psutil-home-assistant { };
 
+  psychrolib = callPackage ../development/python-modules/psychrolib { };
+
   psycopg = callPackage ../development/python-modules/psycopg { };
 
   psycopg2 = callPackage ../development/python-modules/psycopg2 { };
@@ -8930,6 +8956,8 @@ self: super: with self; {
   pybindgen = callPackage ../development/python-modules/pybindgen { };
 
   pyblackbird = callPackage ../development/python-modules/pyblackbird { };
+
+  pybloom-live = callPackage ../development/python-modules/pybloom-live { };
 
   pybluez = callPackage ../development/python-modules/pybluez {
     inherit (pkgs) bluez;
@@ -10746,6 +10774,8 @@ self: super: with self; {
 
   python-xmp-toolkit = callPackage ../development/python-modules/python-xmp-toolkit { };
 
+  python-xz = callPackage ../development/python-modules/python-xz { };
+
   python-zbar = callPackage ../development/python-modules/python-zbar { };
 
   pythran = callPackage ../development/python-modules/pythran {
@@ -10915,6 +10945,8 @@ self: super: with self; {
 
   pyweatherflowrest = callPackage ../development/python-modules/pyweatherflowrest { };
 
+  pyweatherflowudp = callPackage ../development/python-modules/pyweatherflowudp { };
+
   pywebpush = callPackage ../development/python-modules/pywebpush { };
 
   pywebview = callPackage ../development/python-modules/pywebview { };
@@ -10930,7 +10962,7 @@ self: super: with self; {
   pywizlight = callPackage ../development/python-modules/pywizlight { };
 
   pywlroots = callPackage ../development/python-modules/pywlroots {
-    wlroots = pkgs.wlroots_0_15;
+    wlroots = pkgs.wlroots_0_16;
   };
 
   pyws66i = callPackage ../development/python-modules/pyws66i { };
@@ -11050,7 +11082,7 @@ self: super: with self; {
   qtconsole = callPackage ../development/python-modules/qtconsole { };
 
   qtile = callPackage ../development/python-modules/qtile {
-    wlroots = pkgs.wlroots_0_15;
+    wlroots = pkgs.wlroots_0_16;
   };
   qtile-extras = callPackage ../development/python-modules/qtile-extras { };
 
@@ -11130,6 +11162,8 @@ self: super: with self; {
 
   rapidfuzz-capi = callPackage ../development/python-modules/rapidfuzz-capi { };
 
+  rapidgzip = callPackage ../development/python-modules/rapidgzip { inherit (pkgs) nasm; };
+
   rapt-ble = callPackage ../development/python-modules/rapt-ble { };
 
   rarfile = callPackage ../development/python-modules/rarfile {
@@ -11137,6 +11171,10 @@ self: super: with self; {
   };
 
   rasterio = callPackage ../development/python-modules/rasterio { };
+
+  ratarmountcore = callPackage ../development/python-modules/ratarmountcore { inherit (pkgs) zstd; };
+
+  ratarmount = callPackage ../development/python-modules/ratarmount { };
 
   ratelim = callPackage ../development/python-modules/ratelim { };
 
@@ -11789,6 +11827,8 @@ self: super: with self; {
     inherit (pkgs) sentencepiece;
   };
 
+  sentence-splitter = callPackage ../development/python-modules/sentence-splitter { };
+
   sentence-transformers = callPackage ../development/python-modules/sentence-transformers { };
 
   sentinel = callPackage ../development/python-modules/sentinel { };
@@ -11938,6 +11978,8 @@ self: super: with self; {
   simplekml = callPackage ../development/python-modules/simplekml { };
 
   simplekv = callPackage ../development/python-modules/simplekv { };
+
+  simplemma = callPackage ../development/python-modules/simplemma { };
 
   simplenote = callPackage ../development/python-modules/simplenote { };
 
@@ -12447,6 +12489,8 @@ self: super: with self; {
 
   ssdp = callPackage ../development/python-modules/ssdp { };
 
+  ssdpy = callPackage ../development/python-modules/ssdpy { };
+
   sseclient = callPackage ../development/python-modules/sseclient { };
 
   sseclient-py = callPackage ../development/python-modules/sseclient-py { };
@@ -12508,6 +12552,8 @@ self: super: with self; {
   stickytape = callPackage ../development/python-modules/stickytape { };
 
   stim = callPackage ../development/python-modules/stim { };
+
+  stix2-patterns = callPackage ../development/python-modules/stix2-patterns { };
 
   stm32loader = callPackage ../development/python-modules/stm32loader { };
 

@@ -603,6 +603,8 @@ with pkgs;
 
   documenso = callPackage ../applications/office/documenso { };
 
+  domine = callPackage ../tools/misc/domine { };
+
   dsq = callPackage ../tools/misc/dsq { };
 
   dt = callPackage ../tools/text/dt { };
@@ -1913,6 +1915,8 @@ with pkgs;
   mgmt = callPackage ../applications/system/mgmt { };
 
   mkosi = python3Packages.callPackage ../tools/virtualization/mkosi { inherit systemd; };
+
+  mkosi-full = mkosi.override { withQemu = true; };
 
   monica = callPackage ../servers/web-apps/monica { };
 
@@ -7812,6 +7816,8 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) Security;
   };
 
+  uutils-coreutils-noprefix = uutils-coreutils.override { prefix = null; };
+
   volctl = callPackage ../tools/audio/volctl { };
 
   volk = if (stdenv.isDarwin && stdenv.isAarch64) then
@@ -7825,8 +7831,6 @@ with pkgs;
   vowpal-wabbit = callPackage ../applications/science/machine-learning/vowpal-wabbit { };
 
   vt-cli = callPackage ../tools/security/vt-cli { };
-
-  utahfs = callPackage ../applications/networking/utahfs { };
 
   wakeonlan = callPackage ../tools/networking/wakeonlan { };
 
@@ -8037,10 +8041,6 @@ with pkgs;
 
   expliot = callPackage ../tools/security/expliot { };
 
-  eza = callPackage ../tools/misc/eza {
-    inherit (darwin.apple_sdk.frameworks) Security;
-  };
-
   f2fs-tools = callPackage ../tools/filesystems/f2fs-tools { };
 
   Fabric = with python3Packages; toPythonApplication fabric;
@@ -8170,9 +8170,7 @@ with pkgs;
 
   findex = callPackage ../applications/misc/findex { };
 
-  findomain = callPackage ../tools/networking/findomain {
-    inherit (darwin.apple_sdk.frameworks) Security;
-  };
+  findomain = callPackage ../tools/networking/findomain { };
 
   findutils = callPackage ../tools/misc/findutils { };
 
@@ -8636,7 +8634,7 @@ with pkgs;
   };
   dapl-native = callPackage ../development/interpreters/dzaima-apl {
     buildNativeImage = true;
-    jdk = graalvm11-ce;
+    jdk = graalvm-ce;
   };
 
   gnucap = callPackage ../applications/science/electronics/gnucap { };
@@ -9375,6 +9373,8 @@ with pkgs;
   inadyn = callPackage ../tools/networking/inadyn { };
 
   incron = callPackage ../tools/system/incron { };
+
+  indexed-bzip2 = with python3Packages; toPythonApplication indexed-bzip2;
 
   industrializer = callPackage ../applications/audio/industrializer { };
 
@@ -11081,7 +11081,7 @@ with pkgs;
   netbootxyz-efi = callPackage ../tools/misc/netbootxyz-efi { };
 
   inherit (callPackage ../servers/web-apps/netbox { })
-    netbox_3_3 netbox;
+    netbox netbox_3_5 netbox_3_6;
 
   netbox2netshot = callPackage ../tools/admin/netbox2netshot { };
 
@@ -12215,6 +12215,8 @@ with pkgs;
 
   ppl = callPackage ../development/libraries/ppl { };
 
+  pplite = callPackage ../development/libraries/pplite { };
+
   ppp = callPackage ../tools/networking/ppp { };
 
   pptp = callPackage ../tools/networking/pptp { };
@@ -12548,6 +12550,8 @@ with pkgs;
 
   ramfetch = callPackage ../tools/misc/ramfetch { };
 
+  rapidgzip = with python3Packages; toPythonApplication rapidgzip;
+
   rar = callPackage ../tools/archivers/rar { };
 
   rarcrack = callPackage ../tools/security/rarcrack { };
@@ -12555,6 +12559,8 @@ with pkgs;
   rare-regex = callPackage ../tools/text/rare-regex { };
 
   ratman = callPackage ../tools/networking/ratman { };
+
+  ratarmount = with python3Packages; toPythonApplication ratarmount;
 
   ratools = callPackage ../tools/networking/ratools { };
 
@@ -13499,8 +13505,6 @@ with pkgs;
 
   sumorobot-manager = python3Packages.callPackage ../applications/science/robotics/sumorobot-manager { };
 
-  super = callPackage ../tools/security/super { };
-
   supertag = callPackage ../tools/filesystems/supertag { };
 
   supertux-editor = callPackage ../applications/editors/supertux-editor { };
@@ -13957,7 +13961,7 @@ with pkgs;
 
   tor = callPackage ../tools/security/tor { };
 
-  tor-browser-bundle-bin = callPackage ../applications/networking/browsers/tor-browser-bundle-bin { };
+  tor-browser = callPackage ../applications/networking/browsers/tor-browser { };
 
   touchegg = callPackage ../tools/inputmethods/touchegg { };
 
@@ -16473,10 +16477,7 @@ with pkgs;
 
   graalvmCEPackages =
     recurseIntoAttrs (callPackage ../development/compilers/graalvm/community-edition { });
-  graalvm-ce = graalvm11-ce;
-  graalvm11-ce = graalvmCEPackages.graalvm11-ce;
-  graalvm17-ce = graalvmCEPackages.graalvm17-ce;
-  graalvm19-ce = graalvmCEPackages.graalvm19-ce;
+  graalvm-ce = graalvmCEPackages.graalvm-ce;
   buildGraalvmNativeImage = (callPackage ../build-support/build-graalvm-native-image {
     graalvmDrv = graalvm-ce;
   }).override;
@@ -16860,6 +16861,8 @@ with pkgs;
     ocamlformat_0_19_0 ocamlformat_0_20_0 ocamlformat_0_20_1 ocamlformat_0_21_0
     ocamlformat_0_22_4 ocamlformat_0_23_0 ocamlformat_0_24_1 ocamlformat_0_25_1
     ocamlformat_0_26_0;
+
+  inherit (ocamlPackages) odig;
 
   orc = callPackage ../development/compilers/orc { };
 
@@ -17762,7 +17765,7 @@ with pkgs;
   };
   dbqn-native = callPackage ../development/interpreters/bqn/dzaima-bqn {
     buildNativeImage = true;
-    jdk = graalvm11-ce;
+    jdk = graalvm-ce;
   };
 
   chibi = callPackage ../development/interpreters/chibi { };
@@ -18673,6 +18676,8 @@ with pkgs;
 
   aws-adfs = with python3Packages; toPythonApplication aws-adfs;
 
+  electron-source = callPackage ../development/tools/electron { };
+
   inherit (callPackages ../development/tools/electron/binary { })
     electron-bin
     electron_10-bin
@@ -18693,7 +18698,6 @@ with pkgs;
     electron_25-bin
     electron_26-bin;
 
-  electron = electron-bin;
   electron_10 = electron_10-bin;
   electron_11 = electron_11-bin;
   electron_12 = electron_12-bin;
@@ -18709,8 +18713,9 @@ with pkgs;
   electron_22 = electron_22-bin;
   electron_23 = electron_23-bin;
   electron_24 = electron_24-bin;
-  electron_25 = electron_25-bin;
-  electron_26 = electron_26-bin;
+  electron_25 = if lib.meta.availableOn stdenv.hostPlatform electron-source.electron_25 then electron-source.electron_25 else electron_25-bin;
+  electron_26 = if lib.meta.availableOn stdenv.hostPlatform electron-source.electron_26 then electron-source.electron_26 else electron_26-bin;
+  electron = electron_26;
 
   autobuild = callPackage ../development/tools/misc/autobuild { };
 
@@ -24194,7 +24199,7 @@ with pkgs;
 
   nanomq = callPackage ../servers/mqtt/nanomq { };
 
-  mps = callPackage ../development/libraries/mps { stdenv = gcc10StdenvCompat; };
+  mps = callPackage ../development/libraries/mps { };
 
   libmpeg2 = callPackage ../development/libraries/libmpeg2 { };
 
@@ -26246,13 +26251,13 @@ with pkgs;
 
   ### DEVELOPMENT / R MODULES
 
-  R = callPackage ../applications/science/math/R {
+  R = darwin.apple_sdk_11_0.callPackage ../applications/science/math/R {
     # TODO: split docs into a separate output
     texLive = texlive.combine {
       inherit (texlive) scheme-small inconsolata helvetic texinfo fancyvrb cm-super rsfs;
     };
     withRecommendedPackages = false;
-    inherit (darwin.apple_sdk.frameworks) Cocoa Foundation;
+    inherit (darwin.apple_sdk_11_0.frameworks) Cocoa Foundation;
     inherit (darwin) libobjc;
   };
 
