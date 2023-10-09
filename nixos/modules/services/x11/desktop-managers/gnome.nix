@@ -282,9 +282,6 @@ in
 
       # Override GSettings schemas
       environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR = "${nixos-gsettings-desktop-schemas}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
-
-       # If gnome is installed, build vim for gtk3 too.
-      nixpkgs.config.vim.gui = "gtk3";
     })
 
     (mkIf flashbackEnabled {
@@ -310,10 +307,9 @@ in
         gnome-flashback
       ] ++ map gnome-flashback.mkSystemdTargetForWm flashbackWms;
 
-      # gnome-panel needs these for menu applet
-      environment.sessionVariables.XDG_DATA_DIRS = [ "${pkgs.gnome.gnome-flashback}/share" ];
-      # TODO: switch to sessionVariables (resolve conflict)
-      environment.variables.XDG_CONFIG_DIRS = [ "${pkgs.gnome.gnome-flashback}/etc/xdg" ];
+      environment.systemPackages = with pkgs.gnome; [
+        gnome-flashback
+      ];
     })
 
     (mkIf serviceCfg.core-os-services.enable {
