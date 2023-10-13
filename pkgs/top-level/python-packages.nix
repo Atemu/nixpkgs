@@ -572,6 +572,8 @@ self: super: with self; {
 
   ansiwrap = callPackage ../development/python-modules/ansiwrap { };
 
+  anthemav = callPackage ../development/python-modules/anthemav { };
+
   anthropic = callPackage ../development/python-modules/anthropic { };
 
   antlr4-python3-runtime = callPackage ../development/python-modules/antlr4-python3-runtime {
@@ -856,7 +858,7 @@ self: super: with self; {
 
   atpublic = callPackage ../development/python-modules/atpublic { };
 
-  atsim_potentials = callPackage ../development/python-modules/atsim_potentials { };
+  atsim-potentials = callPackage ../development/python-modules/atsim-potentials { };
 
   attrdict = callPackage ../development/python-modules/attrdict { };
 
@@ -2653,8 +2655,6 @@ self: super: with self; {
 
   deep-chainmap = callPackage ../development/python-modules/deep-chainmap { };
 
-  deep_merge = callPackage ../development/python-modules/deep_merge { };
-
   deepdiff = callPackage ../development/python-modules/deepdiff { };
 
   deepdish = callPackage ../development/python-modules/deepdish { };
@@ -3968,6 +3968,8 @@ self: super: with self; {
   flask-migrate = callPackage ../development/python-modules/flask-migrate { };
 
   flask-mongoengine = callPackage ../development/python-modules/flask-mongoengine { };
+
+  flask-mysqldb = callPackage ../development/python-modules/flask-mysqldb { };
 
   flask-openid = callPackage ../development/python-modules/flask-openid { };
 
@@ -6367,6 +6369,8 @@ self: super: with self; {
 
   looseversion = callPackage ../development/python-modules/looseversion { };
 
+  loqedapi = callPackage ../development/python-modules/loqedapi { };
+
   losant-rest = callPackage ../development/python-modules/losant-rest { };
 
   lrcalc-python = callPackage ../development/python-modules/lrcalc-python { };
@@ -6470,6 +6474,8 @@ self: super: with self; {
   malduck= callPackage ../development/python-modules/malduck { };
 
   managesieve = callPackage ../development/python-modules/managesieve { };
+
+  mando = callPackage ../development/python-modules/mando { };
 
   mandown = callPackage ../development/python-modules/mandown { };
 
@@ -9185,6 +9191,8 @@ self: super: with self; {
 
   python-heatclient = callPackage ../development/python-modules/python-heatclient { };
 
+  python-hl7 = callPackage ../development/python-modules/python-hl7 { };
+
   python-ipmi = callPackage ../development/python-modules/python-ipmi { };
 
   python-ipware = callPackage ../development/python-modules/python-ipware { };
@@ -9929,6 +9937,8 @@ self: super: with self; {
 
   pyeclib = callPackage ../development/python-modules/pyeclib { };
 
+  pyecoforest = callPackage ../development/python-modules/pyecoforest { };
+
   pyeconet = callPackage ../development/python-modules/pyeconet { };
 
   pyecowitt = callPackage ../development/python-modules/pyecowitt { };
@@ -10599,6 +10609,8 @@ self: super: with self; {
   pyqt-builder = callPackage ../development/python-modules/pyqt-builder { };
 
   pyqt5 = callPackage ../development/python-modules/pyqt/5.x.nix { };
+
+  pyqt5-stubs = callPackage ../development/python-modules/pyqt5-stubs { };
 
   pyqt5_sip = callPackage ../development/python-modules/pyqt/sip.nix { };
 
@@ -11705,6 +11717,8 @@ self: super: with self; {
 
   pywerview = callPackage ../development/python-modules/pywerview { };
 
+  pywfa = callPackage ../development/python-modules/pywfa { };
+
   pywilight = callPackage ../development/python-modules/pywilight { };
 
   pywinrm = callPackage ../development/python-modules/pywinrm { };
@@ -11744,6 +11758,8 @@ self: super: with self; {
   pyyaml-env-tag = callPackage ../development/python-modules/pyyaml-env-tag { };
 
   pyyaml-include = callPackage ../development/python-modules/pyyaml-include { };
+
+  pyyardian = callPackage ../development/python-modules/pyyardian { };
 
   pyzerproc = callPackage ../development/python-modules/pyzerproc { };
 
@@ -11821,6 +11837,8 @@ self: super: with self; {
 
   qstylizer = callPackage ../development/python-modules/qstylizer { };
 
+  qt-material = callPackage ../development/python-modules/qt-material { };
+
   qt5reactor = callPackage ../development/python-modules/qt5reactor { };
 
   qt6 = pkgs.qt6.override {
@@ -11893,6 +11911,8 @@ self: super: with self; {
   radiotherm = callPackage ../development/python-modules/radiotherm { };
 
   radish-bdd = callPackage ../development/python-modules/radish-bdd { };
+
+  radon = callPackage ../development/python-modules/radon { };
 
   railroad-diagrams = callPackage ../development/python-modules/railroad-diagrams { };
 
@@ -13191,6 +13211,8 @@ self: super: with self; {
 
   spyse-python = callPackage ../development/python-modules/spyse-python { };
 
+  sqids = callPackage ../development/python-modules/sqids { };
+
   sqlalchemy = callPackage ../development/python-modules/sqlalchemy { };
 
   sqlalchemy-citext = callPackage ../development/python-modules/sqlalchemy-citext { };
@@ -13262,6 +13284,8 @@ self: super: with self; {
   sslib = callPackage ../development/python-modules/sslib { };
 
   stack-data = callPackage ../development/python-modules/stack-data { };
+
+  stanio = callPackage ../development/python-modules/stanio { };
 
   stanza = callPackage ../development/python-modules/stanza { };
 
