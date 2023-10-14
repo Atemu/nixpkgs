@@ -607,6 +607,11 @@ with pkgs;
     inherit (darwin) DarwinTools;
   };
 
+  rtthost = callPackage ../development/tools/rust/rtthost {
+    inherit (darwin.apple_sdk.frameworks) AppKit;
+    inherit (darwin) DarwinTools;
+  };
+
   mix2nix = callPackage ../development/tools/mix2nix { };
 
   n98-magerun = callPackage ../development/tools/misc/n98-magerun { };
@@ -27097,8 +27102,6 @@ with pkgs;
   linux_5_15_hardened = linuxKernel.kernels.linux_5_15_hardened;
   linuxPackages_6_1_hardened = linuxKernel.packages.linux_6_1_hardened;
   linux_6_1_hardened = linuxKernel.kernels.linux_6_1_hardened;
-  linuxPackages_6_4_hardened = linuxKernel.packages.linux_6_4_hardened;
-  linux_6_4_hardened = linuxKernel.kernels.linux_6_4_hardened;
   linuxPackages_6_5_hardened = linuxKernel.packages.linux_6_5_hardened;
   linux_6_5_hardened = linuxKernel.kernels.linux_6_5_hardened;
 
