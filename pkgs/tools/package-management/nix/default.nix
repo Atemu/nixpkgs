@@ -187,8 +187,8 @@ in lib.makeExtensible (self: ({
   };
 
   nix_2_17 = common {
-    version = "2.17.0";
-    hash = "sha256-QMYAkdtU+g9HlZKtoJ+AI6TbWzzovKGnPZJHfZdclc8=";
+    version = "2.17.1";
+    hash = "sha256-Q5L+rHzjp0bYuR2ogg+YPCn6isjmlQ4CJVT0zpn/hFc=";
   };
 
   nix_2_18 = common {
@@ -215,7 +215,7 @@ in lib.makeExtensible (self: ({
 
   stable = self.nix_2_17;
 
-  unstable = self.stable;
+  unstable = self.nix_2_18;
 } // lib.optionalAttrs config.allowAliases {
   nix_2_4 = throw "nixVersions.nix_2_4 has been removed";
 

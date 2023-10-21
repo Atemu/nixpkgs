@@ -314,7 +314,7 @@ in {
         queue_dir = "$var_dir/queue";
         template_dir = "$var_dir/templates";
         log_dir = "/var/log/mailman";
-        lock_dir = "$var_dir/lock";
+        lock_dir = "/run/mailman/lock";
         etc_dir = "/etc";
         pid_file = "/run/mailman/master.pid";
       };
@@ -644,7 +644,7 @@ in {
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ lheckemann qyliss ma27 ];
+    maintainers = with lib.maintainers; [ lheckemann qyliss ];
     doc = ./mailman.md;
   };
 
