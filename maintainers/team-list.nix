@@ -350,6 +350,7 @@ with lib.maintainers; {
       mic92
       zowoq
       qbit
+      mfrw
     ];
     githubTeams = [
       "golang"
@@ -406,7 +407,6 @@ with lib.maintainers; {
   home-assistant = {
     members = [
       fab
-      globin
       hexa
       mic92
     ];
@@ -611,6 +611,7 @@ with lib.maintainers; {
 
   minimal-bootstrap = {
     members = [
+      alejandrosame
       artturin
       emilytrau
       ericson2314
@@ -740,7 +741,6 @@ with lib.maintainers; {
       aanderse
       drupol
       etu
-      globin
       ma27
       talyz
     ];

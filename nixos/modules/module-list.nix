@@ -2,6 +2,7 @@
   ./config/appstream.nix
   ./config/console.nix
   ./config/debug-info.nix
+  ./config/fanout.nix
   ./config/fonts/fontconfig.nix
   ./config/fonts/fontdir.nix
   ./config/fonts/ghostscript.nix
@@ -54,6 +55,7 @@
   ./hardware/cpu/amd-sev.nix
   ./hardware/cpu/intel-microcode.nix
   ./hardware/cpu/intel-sgx.nix
+  ./hardware/cpu/x86-msr.nix
   ./hardware/decklink.nix
   ./hardware/device-tree.nix
   ./hardware/digitalbitbox.nix
@@ -266,6 +268,7 @@
   ./programs/usbtop.nix
   ./programs/vim.nix
   ./programs/wavemon.nix
+  ./programs/wayland/cardboard.nix
   ./programs/wayland/river.nix
   ./programs/wayland/sway.nix
   ./programs/wayland/waybar.nix
@@ -518,6 +521,7 @@
   ./services/hardware/hddfancontrol.nix
   ./services/hardware/illum.nix
   ./services/hardware/interception-tools.nix
+  ./services/hardware/iptsd.nix
   ./services/hardware/irqbalance.nix
   ./services/hardware/joycond.nix
   ./services/hardware/kanata.nix
@@ -556,6 +560,7 @@
   ./services/home-automation/esphome.nix
   ./services/home-automation/evcc.nix
   ./services/home-automation/home-assistant.nix
+  ./services/home-automation/homeassistant-satellite.nix
   ./services/home-automation/zigbee2mqtt.nix
   ./services/logging/SystemdJournal2Gelf.nix
   ./services/logging/awstats.nix
@@ -621,6 +626,7 @@
   ./services/matrix/matrix-sliding-sync.nix
   ./services/matrix/synapse.nix
   ./services/misc/airsonic.nix
+  ./services/misc/amazon-ssm-agent.nix
   ./services/misc/ananicy.nix
   ./services/misc/ankisyncd.nix
   ./services/misc/apache-kafka.nix
@@ -722,6 +728,7 @@
   ./services/misc/ripple-data-api.nix
   ./services/misc/rippled.nix
   ./services/misc/rmfakecloud.nix
+  ./services/misc/rkvm.nix
   ./services/misc/rshim.nix
   ./services/misc/safeeyes.nix
   ./services/misc/sdrplay.nix
@@ -730,11 +737,12 @@
   ./services/misc/signald.nix
   ./services/misc/siproxd.nix
   ./services/misc/snapper.nix
+  ./services/misc/soft-serve.nix
   ./services/misc/sonarr.nix
   ./services/misc/sourcehut
+  ./services/misc/spice-autorandr.nix
   ./services/misc/spice-vdagentd.nix
   ./services/misc/spice-webdavd.nix
-  ./services/misc/ssm-agent.nix
   ./services/misc/sssd.nix
   ./services/misc/subsonic.nix
   ./services/misc/sundtek.nix
@@ -884,6 +892,7 @@
   ./services/networking/dae.nix
   ./services/networking/dante.nix
   ./services/networking/deconz.nix
+  ./services/networking/ddclient.nix
   ./services/networking/dhcpcd.nix
   ./services/networking/dnscache.nix
   ./services/networking/dnscrypt-proxy2.nix
@@ -899,6 +908,7 @@
   ./services/networking/eternal-terminal.nix
   ./services/networking/expressvpn.nix
   ./services/networking/fakeroute.nix
+  ./services/networking/fastnetmon-advanced.nix
   ./services/networking/ferm.nix
   ./services/networking/firefox-syncserver.nix
   ./services/networking/fireqos.nix
@@ -1039,6 +1049,7 @@
   ./services/networking/redsocks.nix
   ./services/networking/resilio.nix
   ./services/networking/robustirc-bridge.nix
+  ./services/networking/rosenpass.nix
   ./services/networking/routedns.nix
   ./services/networking/rpcbind.nix
   ./services/networking/rxe.nix
@@ -1153,6 +1164,7 @@
   ./services/security/hologram-agent.nix
   ./services/security/hologram-server.nix
   ./services/security/infnoise.nix
+  ./services/security/jitterentropy-rngd.nix
   ./services/security/kanidm.nix
   ./services/security/munge.nix
   ./services/security/nginx-sso.nix
@@ -1259,6 +1271,7 @@
   ./services/web-apps/kavita.nix
   ./services/web-apps/keycloak.nix
   ./services/web-apps/komga.nix
+  ./services/web-apps/lanraragi.nix
   ./services/web-apps/lemmy.nix
   ./services/web-apps/limesurvey.nix
   ./services/web-apps/mainsail.nix
@@ -1267,6 +1280,7 @@
   ./services/web-apps/mattermost.nix
   ./services/web-apps/mediawiki.nix
   ./services/web-apps/meme-bingo-web.nix
+  ./services/web-apps/microbin.nix
   ./services/web-apps/miniflux.nix
   ./services/web-apps/monica.nix
   ./services/web-apps/moodle.nix

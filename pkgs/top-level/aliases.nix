@@ -92,7 +92,6 @@ mapAliases ({
   bird2 = bird; # Added 2022-02-21
   bitwig-studio1 = throw "bitwig-studio1 has been removed, you can upgrade to 'bitwig-studio'"; # Added 2023-01-03
   bitwig-studio2 = throw "bitwig-studio2 has been removed, you can upgrade to 'bitwig-studio'"; # Added 2023-01-03
-  ddclient = throw "ddclient has been removed on the request of the upstream maintainer because it is unmaintained and has bugs. Please switch to a different software like `inadyn` or `knsupdate`."; # Added 2023-07-04
   bluezFull = throw "'bluezFull' has been renamed to/replaced by 'bluez'"; # Converted to throw 2023-09-10
   boost168 = throw "boost168 has been deprecated in favor of the latest version"; # Added 2023-06-08
   boost169 = throw "boost169 has been deprecated in favor of the latest version"; # Added 2023-06-08
@@ -626,6 +625,7 @@ mapAliases ({
   opa = throw "opa has been removed from nixpkgs as upstream has abandoned the project"; # Added 2023-03-21
   opam_1_2 = throw "'opam_1_2' has been renamed to/replaced by 'opam'"; # Added 2023-03-08
   openafs_1_8 = openafs; # Added 2022-08-22
+  openbangla-keyboard = throw "openbangla-keyboard has been replaced by ibus-engines.openbangla-keyboard and fcitx5-openbangla-keyboard"; # added 2023-10-10
   opencascade = throw "'opencascade' has been removed as it is unmaintained; consider opencascade-occt instead'"; # Added 2023-09-18
   openconnect_head = openconnect_unstable; # Added 2022-03-29
   openconnect_gnutls = openconnect; # Added 2022-03-29
@@ -652,6 +652,7 @@ mapAliases ({
   paper-note = throw "paper-note has been removed: abandoned by upstream"; # Added 2023-05-03
   parity = openethereum; # Added 2020-08-01
   pash = throw "'pash' has been removed: abandoned by upstream. Use 'powershell' instead"; # Added 2023-09-16
+  pdf2xml = throw "'pdf2xml' was removed: abandoned for years."; # Added 2023-10-22
   peach = asouldocs; # Added 2022-08-28
   pentablet-driver = xp-pen-g430-driver; # Added 2022-06-23
   perldevel = throw "'perldevel' has been dropped due to lack of updates in nixpkgs and lack of consistent support for devel versions by 'perl-cross' releases, use 'perl' instead";
@@ -849,6 +850,7 @@ mapAliases ({
   spotify-unwrapped = spotify; # added 2022-11-06
   spring-boot = spring-boot-cli; # added 2020-04-24
   squid4 = throw "'squid4' has been renamed to/replaced by 'squid'"; # Converted to throw 2023-09-10
+  ssm-agent = amazon-ssm-agent; # Added 2023-10-17
   starboard-octant-plugin = throw "starboard-octant-plugin has been dropped due to needing octant which is archived"; # Added 2023-09-29
   steam-run-native = steam-run; # added 2022-02-21
   sumneko-lua-language-server = lua-language-server; # Added 2023-02-07
@@ -972,6 +974,7 @@ mapAliases ({
   ### Z ###
 
   zinc = zincsearch; # Added 2023-05-28
+  zkg = throw "'zkg' has been replaced by 'zeek'";
   zq = zed.overrideAttrs (old: { meta = old.meta // { mainProgram = "zq"; }; }); # Added 2023-02-06
 
   ### UNSORTED ###
