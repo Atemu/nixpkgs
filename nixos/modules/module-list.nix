@@ -767,12 +767,14 @@
   ./services/monitoring/below.nix
   ./services/monitoring/bosun.nix
   ./services/monitoring/cadvisor.nix
+  ./services/monitoring/certspotter.nix
   ./services/monitoring/cockpit.nix
   ./services/monitoring/collectd.nix
   ./services/monitoring/das_watchdog.nix
   ./services/monitoring/datadog-agent.nix
   ./services/monitoring/do-agent.nix
   ./services/monitoring/fusion-inventory.nix
+  ./services/monitoring/goss.nix
   ./services/monitoring/grafana-agent.nix
   ./services/monitoring/grafana-image-renderer.nix
   ./services/monitoring/grafana-reporter.nix
@@ -1232,6 +1234,7 @@
   ./services/web-apps/atlassian/jira.nix
   ./services/web-apps/audiobookshelf.nix
   ./services/web-apps/bookstack.nix
+  ./services/web-apps/c2fmzq-server.nix
   ./services/web-apps/calibre-web.nix
   ./services/web-apps/coder.nix
   ./services/web-apps/changedetection-io.nix
@@ -1405,6 +1408,7 @@
   ./system/activation/activatable-system.nix
   ./system/activation/activation-script.nix
   ./system/activation/specialisation.nix
+  ./system/activation/switchable-system.nix
   ./system/activation/bootspec.nix
   ./system/activation/top-level.nix
   ./system/boot/binfmt.nix

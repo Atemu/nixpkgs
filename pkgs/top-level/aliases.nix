@@ -124,6 +124,7 @@ mapAliases ({
   ### C ###
 
   callPackage_i686 = pkgsi686Linux.callPackage;
+  cadence = throw "cadence has been removed from nixpkgs, as it was archived upstream"; # Added 2023-10-28
   cask = emacs.pkgs.cask; # Added 2022-11-12
   cargo-embed = throw "cargo-embed is now part of the probe-rs package"; # Added 2023-07-03
   cargo-flash = throw "cargo-flash is now part of the probe-rs package"; # Added 2023-07-03
@@ -327,6 +328,9 @@ mapAliases ({
   gradle_5 = throw "gradle_5 has been removed because it's no longer being updated"; # Added 2023-01-17
   gr-ais = throw "'gr-ais' has been renamed to/replaced by 'gnuradio3_7.pkgs.ais'"; # Converted to throw 2023-09-10
   graylog = throw "graylog is now available in versions 3.3 up to 5.0. Please mind the upgrade path and choose the appropriate version. Direct upgrading from 3.3 to 4.3 or above is not supported"; # Added 2023-04-24
+  graylog-3_3 = throw "graylog 3.x is EOL. Please consider downgrading nixpkgs if you need an upgrade from 3.x to latest series."; # Added 2023-10-09
+  graylog-4_0 = throw "graylog 4.x is EOL. Please consider downgrading nixpkgs if you need an upgrade from 4.x to latest series."; # Added 2023-10-09
+  graylog-4_3 = throw "graylog 4.x is EOL. Please consider downgrading nixpkgs if you need an upgrade from 4.x to latest series."; # Added 2023-10-09
   gr-gsm = throw "'gr-gsm' has been renamed to/replaced by 'gnuradio3_7.pkgs.gsm'"; # Converted to throw 2023-09-10
   gringo = clingo; # added 2022-11-27
   gr-limesdr = throw "'gr-limesdr' has been renamed to/replaced by 'gnuradio3_7.pkgs.limesdr'"; # Converted to throw 2023-09-10
@@ -335,6 +339,7 @@ mapAliases ({
   gr-rds = throw "'gr-rds' has been renamed to/replaced by 'gnuradio3_7.pkgs.rds'"; # Converted to throw 2023-09-10
   grub2_full = grub2; # Added 2022-11-18
   grub = throw "grub1 was removed after not being maintained upstream for a decade. Please switch to another bootloader"; # Added 2023-04-11
+  guile-disarchive = disarchive; # Added 2023-10-27
   guile-lint = throw "'guile-lint' has been removed, please use 'guild lint' instead"; # Added 2023-10-16
 
   ### H ###
@@ -449,6 +454,7 @@ mapAliases ({
   librtlsdr = rtl-sdr; # Added 2023-02-18
   librewolf-wayland = librewolf; # Added 2022-11-15
   libseat = seatd; # Added 2021-06-24
+  libsigcxx12 = throw "'libsigcxx12' has been removed, please use newer versions"; # Added 2023-10-20
   libsForQt515 = libsForQt5;  # Added 2022-11-24
   libtensorflow-bin = libtensorflow; # Added 2022-09-25
   libtorrentRasterbar = libtorrent-rasterbar; # Added 2020-12-20
@@ -597,6 +603,7 @@ mapAliases ({
   nix_2_4 = nixVersions.nix_2_4;
   nix_2_5 = nixVersions.nix_2_5;
   nix_2_6 = nixVersions.nix_2_6;
+  nixops = throw "'nixops' has been removed. Please use 'nixops_unstable' for the time being."; # Added 2023-10-26
   nixopsUnstable = nixops_unstable; # Added 2022-03-03
   nixosTest = testers.nixosTest; # Added 2022-05-05
   nmap-unfree = nmap; # Added 2021-04-06
@@ -696,6 +703,7 @@ mapAliases ({
   pinentry_gtk2 = throw "'pinentry_gtk2' has been renamed to/replaced by 'pinentry-gtk2'"; # Converted to throw 2023-09-10
   pinentry_qt = throw "'pinentry_qt' has been renamed to/replaced by 'pinentry-qt'"; # Converted to throw 2023-09-10
   pinentry_qt5 = pinentry-qt; # Added 2020-02-11
+  poetry2nix = throw "poetry2nix is now maintained out-of-tree. Please use https://github.com/nix-community/poetry2nix/"; # Added 2023-10-26
   probe-rs-cli = throw "probe-rs-cli is now part of the probe-rs package"; # Added 2023-07-03
   processing3 = throw "'processing3' has been renamed to/replaced by 'processing'"; # Converted to throw 2023-09-10
   prometheus-dmarc-exporter = dmarc-metrics-exporter; # added 2022-05-31

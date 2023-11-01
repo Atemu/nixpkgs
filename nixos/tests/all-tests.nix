@@ -90,6 +90,14 @@ in {
     lib-extend = handleTestOn [ "x86_64-linux" "aarch64-linux" ] ./nixos-test-driver/lib-extend.nix {};
     node-name = runTest ./nixos-test-driver/node-name.nix;
     busybox = runTest ./nixos-test-driver/busybox.nix;
+    driver-timeout = pkgs.runCommand "ensure-timeout-induced-failure" {
+      failed = pkgs.testers.testBuildFailure ((runTest ./nixos-test-driver/timeout.nix).config.rawTestDerivation);
+    } ''
+      grep -F "timeout reached; test terminating" $failed/testBuildFailure.log
+      # The program will always be terminated by SIGTERM (143) if it waits for the deadline thread.
+      [[ 143 = $(cat $failed/testBuildFailure.exit) ]]
+      touch $out
+    '';
   };
 
   # NixOS vm tests and non-vm unit tests
@@ -153,6 +161,7 @@ in {
   budgie = handleTest ./budgie.nix {};
   buildbot = handleTest ./buildbot.nix {};
   buildkite-agents = handleTest ./buildkite-agents.nix {};
+  c2fmzq = handleTest ./c2fmzq.nix {};
   caddy = handleTest ./caddy.nix {};
   cadvisor = handleTestOn ["x86_64-linux"] ./cadvisor.nix {};
   cage = handleTest ./cage.nix {};
@@ -265,6 +274,8 @@ in {
   esphome = handleTest ./esphome.nix {};
   etc = pkgs.callPackage ../modules/system/etc/test.nix { inherit evalMinimalConfig; };
   activation = pkgs.callPackage ../modules/system/activation/test.nix { };
+  activation-var = runTest ./activation/var.nix;
+  activation-nix-channel = runTest ./activation/nix-channel.nix;
   etcd = handleTestOn ["x86_64-linux"] ./etcd.nix {};
   etcd-cluster = handleTestOn ["x86_64-linux"] ./etcd-cluster.nix {};
   etebase-server = handleTest ./etebase-server.nix {};
@@ -288,6 +299,7 @@ in {
   firewall-nftables = handleTest ./firewall.nix { nftables = true; };
   fish = handleTest ./fish.nix {};
   flannel = handleTestOn ["x86_64-linux"] ./flannel.nix {};
+  floorp = handleTest ./firefox.nix { firefoxPackage = pkgs.floorp; };
   fluentd = handleTest ./fluentd.nix {};
   fluidd = handleTest ./fluidd.nix {};
   fontconfig-default-fonts = handleTest ./fontconfig-default-fonts.nix {};
@@ -327,6 +339,7 @@ in {
   gollum = handleTest ./gollum.nix {};
   gonic = handleTest ./gonic.nix {};
   google-oslogin = handleTest ./google-oslogin {};
+  goss = handleTest ./goss.nix {};
   gotify-server = handleTest ./gotify-server.nix {};
   gotosocial = runTest ./web-apps/gotosocial.nix;
   grafana = handleTest ./grafana {};
@@ -577,6 +590,7 @@ in {
   node-red = handleTest ./node-red.nix {};
   nomad = handleTest ./nomad.nix {};
   non-default-filesystems = handleTest ./non-default-filesystems.nix {};
+  non-switchable-system = runTest ./non-switchable-system.nix;
   noto-fonts = handleTest ./noto-fonts.nix {};
   noto-fonts-cjk-qt-default-weight = handleTest ./noto-fonts-cjk-qt-default-weight.nix {};
   novacomd = handleTestOn ["x86_64-linux"] ./novacomd.nix {};
@@ -847,6 +861,7 @@ in {
   trezord = handleTest ./trezord.nix {};
   trickster = handleTest ./trickster.nix {};
   trilium-server = handleTestOn ["x86_64-linux"] ./trilium-server.nix {};
+  tsja = handleTest ./tsja.nix {};
   tsm-client-gui = handleTest ./tsm-client-gui.nix {};
   txredisapi = handleTest ./txredisapi.nix {};
   tuptime = handleTest ./tuptime.nix {};

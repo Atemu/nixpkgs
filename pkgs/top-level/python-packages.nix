@@ -304,8 +304,6 @@ self: super: with self; {
 
   aionanoleaf = callPackage ../development/python-modules/aionanoleaf { };
 
-  aionotify = callPackage ../development/python-modules/aionotify { };
-
   aionotion = callPackage ../development/python-modules/aionotion { };
 
   aiooncue = callPackage ../development/python-modules/aiooncue { };
@@ -2124,6 +2122,8 @@ self: super: with self; {
 
   cloudflare = callPackage ../development/python-modules/cloudflare { };
 
+  cloudpathlib = callPackage ../development/python-modules/cloudpathlib { };
+
   cloudpickle = callPackage ../development/python-modules/cloudpickle { };
 
   cloudscraper = callPackage ../development/python-modules/cloudscraper { };
@@ -2238,7 +2238,11 @@ self: super: with self; {
 
   compiledb = callPackage ../development/python-modules/compiledb { };
 
+  complycube = callPackage ../development/python-modules/complycube { };
+
   compreffor = callPackage ../development/python-modules/compreffor { };
+
+  compressai = callPackage ../development/python-modules/compressai { };
 
   concurrent-log-handler = callPackage ../development/python-modules/concurrent-log-handler { };
 
@@ -2894,6 +2898,8 @@ self: super: with self; {
 
   django-allauth = callPackage ../development/python-modules/django-allauth { };
 
+  django-allauth-2fa = callPackage ../development/python-modules/django-allauth-2fa { };
+
   django-anymail = callPackage ../development/python-modules/django-anymail { };
 
   django-annoying = callPackage ../development/python-modules/django-annoying { };
@@ -3051,6 +3057,8 @@ self: super: with self; {
   django-postgresql-netfields = callPackage ../development/python-modules/django-postgresql-netfields { };
 
   django-prometheus = callPackage ../development/python-modules/django-prometheus { };
+
+  django-pwa = callPackage ../development/python-modules/django-pwa { };
 
   django-q = callPackage ../development/python-modules/django-q { };
 
@@ -3526,8 +3534,6 @@ self: super: with self; {
   energyflow = callPackage ../development/python-modules/energyflow { };
 
   energyzero =  callPackage ../development/python-modules/energyzero { };
-
-  enhancements = callPackage ../development/python-modules/enhancements { };
 
   enlighten = callPackage ../development/python-modules/enlighten { };
 
@@ -4090,6 +4096,8 @@ self: super: with self; {
   flit-core = callPackage ../development/python-modules/flit-core { };
 
   flit-scm = callPackage ../development/python-modules/flit-scm { };
+
+  floret = callPackage ../development/python-modules/floret { };
 
   flow-record = callPackage ../development/python-modules/flow-record { };
 
@@ -5973,6 +5981,8 @@ self: super: with self; {
   kornia = callPackage ../development/python-modules/kornia { };
 
   krakenex = callPackage ../development/python-modules/krakenex { };
+
+  krfzf-py = callPackage ../development/python-modules/krfzf-py { };
 
   kubernetes = callPackage ../development/python-modules/kubernetes { };
 
@@ -11494,6 +11504,8 @@ self: super: with self; {
 
   python-olm = callPackage ../development/python-modules/python-olm { };
 
+  python-on-whales = callPackage ../development/python-modules/python-on-whales { };
+
   python-opendata-transport = callPackage ../development/python-modules/python-opendata-transport { };
 
   python-openstackclient = callPackage ../development/python-modules/python-openstackclient { };
@@ -11637,6 +11649,8 @@ self: super: with self; {
   pytorch-lightning = callPackage ../development/python-modules/pytorch-lightning { };
 
   pytorch-metric-learning = callPackage ../development/python-modules/pytorch-metric-learning { };
+
+  pytorch-msssim = callPackage ../development/python-modules/pytorch-msssim { };
 
   pytorch-pfn-extras = callPackage ../development/python-modules/pytorch-pfn-extras { };
 
@@ -13681,16 +13695,62 @@ self: super: with self; {
     inherit (pkgs.config) cudaSupport;
   };
 
-  tensorflow-build = callPackage ../development/python-modules/tensorflow {
+  tensorflow-build = let
+    compat = rec {
+      protobufTF = pkgs.protobuf3_21.override {
+        abseil-cpp = pkgs.abseil-cpp;
+      };
+      grpcTF = (pkgs.grpc.overrideAttrs (
+        oldAttrs: rec {
+          # nvcc fails on recent grpc versions, so we use the latest patch level
+          #  of the grpc version bundled by upstream tensorflow to allow CUDA
+          #  support
+          version = "1.27.3";
+          src = pkgs.fetchFromGitHub {
+            owner = "grpc";
+            repo = "grpc";
+            rev = "v${version}";
+            hash = "sha256-PpiOT4ZJe1uMp5j+ReQulC9jpT0xoR2sAl6vRYKA0AA=";
+            fetchSubmodules = true;
+          };
+          patches = [ ];
+          postPatch = ''
+            sed -i "s/-std=c++11/-std=c++17/" CMakeLists.txt
+            echo "set(CMAKE_CXX_STANDARD 17)" >> CMakeLists.txt
+          '';
+        })
+      ).override {
+        protobuf = protobufTF;
+      };
+      protobuf-pythonTF = self.protobuf.override {
+        protobuf = protobufTF;
+      };
+      grpcioTF = self.grpcio.override {
+        protobuf = protobufTF;
+        grpc = grpcTF;
+      };
+      tensorboard-plugin-profileTF = self.tensorboard-plugin-profile.override {
+        protobuf = protobuf-pythonTF;
+      };
+      tensorboardTF = self.tensorboard.override {
+        grpcio = grpcioTF;
+        protobuf = protobuf-pythonTF;
+        tensorboard-plugin-profile = tensorboard-plugin-profileTF;
+      };
+    };
+  in
+  callPackage ../development/python-modules/tensorflow {
     inherit (pkgs.darwin) cctools;
     inherit (pkgs.config) cudaSupport;
     inherit (self.tensorflow-bin) cudaPackages;
     inherit (pkgs.darwin.apple_sdk.frameworks) Foundation Security;
     flatbuffers-core = pkgs.flatbuffers;
     flatbuffers-python = self.flatbuffers;
-    protobuf-core = pkgs.protobuf;
-    protobuf-python = self.protobuf;
-    lmdb-core = pkgs.lmdb;
+    protobuf-core = compat.protobufTF;
+    protobuf-python = compat.protobuf-pythonTF;
+    grpc = compat.grpcTF;
+    grpcio = compat.grpcioTF;
+    tensorboard = compat.tensorboardTF;
   };
 
   tensorflow-datasets = callPackage ../development/python-modules/tensorflow-datasets { };
@@ -15487,6 +15547,8 @@ self: super: with self; {
   wcmatch = callPackage ../development/python-modules/wcmatch { };
 
   wcwidth = callPackage ../development/python-modules/wcwidth { };
+
+  weasel = callPackage ../development/python-modules/weasel { };
 
   weasyprint = callPackage ../development/python-modules/weasyprint { };
 
