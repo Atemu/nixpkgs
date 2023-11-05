@@ -18,6 +18,8 @@ self: super: {
 
     pg_ed25519 = super.callPackage ./ext/pg_ed25519.nix { };
 
+    pg_embedding = super.callPackage ./ext/pg_embedding.nix { };
+
     pg_hint_plan = super.callPackage ./ext/pg_hint_plan.nix { };
 
     pg_ivm = super.callPackage ./ext/pg_ivm.nix { };
@@ -55,8 +57,6 @@ self: super: {
     pg_net = super.callPackage ./ext/pg_net.nix { };
 
     pgtap = super.callPackage ./ext/pgtap.nix { };
-
-    pipelinedb = super.callPackage ./ext/pipelinedb.nix { };
 
     smlar = super.callPackage ./ext/smlar.nix { };
 

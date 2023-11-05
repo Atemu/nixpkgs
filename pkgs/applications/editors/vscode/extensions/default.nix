@@ -1229,8 +1229,8 @@ let
         mktplcRef = {
           name = "elixir-ls";
           publisher = "JakeBecker";
-          version = "0.17.1";
-          sha256 = "sha256-WBtIdz+8zsyTl43ovU3Dz+8p154ZGvHp6BA3AQtXN/U=";
+          version = "0.17.5";
+          sha256 = "sha256-2iOyLNLMQ6Snm0gvv7Yl6von/A9UTfLYrH5l1PoJwUc=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/JakeBecker.elixir-ls/changelog";
@@ -2735,8 +2735,8 @@ let
           publisher = "nvarner";
           # Please update the corresponding binary (typst-lsp) when updating
           # this extension.
-          version = "0.10.1";
-          sha256 = "sha256-+LOw9JPpL5eLNxmP4kyPo9S/w8ZxfPGSaY1oR8THmvI=";
+          version = "0.11.0";
+          sha256 = "sha256-fs+CBg3FwzTn608dm9EvfF2UrI2Sa5hsm0OK/WQyy6o=";
         };
 
         nativeBuildInputs = [ jq moreutils ];
@@ -3537,15 +3537,15 @@ let
         mktplcRef = {
           name = "uiua-vscode";
           publisher = "uiua-lang";
-          version = "0.0.21";
-          sha256 = "sha256-u57U/MmxvionFZp/tLK/KpddaxA/SUffeggKBSzmsXo=";
+          version = "0.0.22";
+          sha256 = "sha256-fJcSJwwRVofduWEEMa5f2VrSfyONKPkFl9OW+++lSRw=";
         };
         meta = {
           description = "VSCode language extension for Uiua";
           downloadPage = "https://marketplace.visualstudio.com/items?itemName=uiua-lang.uiua-vscode";
           homepage = "https://github.com/uiua-lang/uiua-vscode";
           license = lib.licenses.mit;
-          maintainers = [ lib.maintainers.wackbyte ];
+          maintainers = with lib.maintainers; [ tomasajt wackbyte ];
         };
       };
 

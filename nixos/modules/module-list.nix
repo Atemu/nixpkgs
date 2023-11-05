@@ -267,6 +267,7 @@
   ./programs/udevil.nix
   ./programs/usbtop.nix
   ./programs/vim.nix
+  ./programs/virt-manager.nix
   ./programs/wavemon.nix
   ./programs/wayland/cardboard.nix
   ./programs/wayland/river.nix
@@ -485,6 +486,7 @@
   ./services/development/hoogle.nix
   ./services/development/jupyter/default.nix
   ./services/development/jupyterhub/default.nix
+  ./services/development/livebook.nix
   ./services/development/lorri.nix
   ./services/development/rstudio-server/default.nix
   ./services/development/zammad.nix
@@ -1175,7 +1177,6 @@
   ./services/security/opensnitch.nix
   ./services/security/pass-secret-service.nix
   ./services/security/physlock.nix
-  ./services/security/privacyidea.nix
   ./services/security/shibboleth-sp.nix
   ./services/security/sks.nix
   ./services/security/sshguard.nix
@@ -1506,6 +1507,7 @@
   ./virtualisation/docker.nix
   ./virtualisation/ecs-agent.nix
   ./virtualisation/hyperv-guest.nix
+  ./virtualisation/incus.nix
   ./virtualisation/kvmgt.nix
   ./virtualisation/libvirtd.nix
   ./virtualisation/lxc.nix
@@ -1530,5 +1532,9 @@
   ./virtualisation/waydroid.nix
   ./virtualisation/xe-guest-utilities.nix
   ./virtualisation/xen-dom0.nix
-  { documentation.nixos.extraModules = [ ./virtualisation/qemu-vm.nix ]; }
+  { documentation.nixos.extraModules = [
+    ./virtualisation/qemu-vm.nix
+    ./image/repart.nix
+    ];
+  }
 ]
