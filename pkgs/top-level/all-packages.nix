@@ -5700,7 +5700,7 @@ with pkgs;
   pn = callPackage ../tools/text/pn { };
 
   pocket-casts = callPackage ../applications/audio/pocket-casts {
-    electron = electron_22;
+    electron = electron_27;
   };
 
   portal = callPackage ../tools/misc/portal { };
@@ -7941,7 +7941,9 @@ with pkgs;
 
   gitlab-pages = callPackage ../applications/version-management/gitlab/gitlab-pages { };
 
-  gitlab-runner = callPackage ../development/tools/continuous-integration/gitlab-runner { };
+  gitlab-runner = callPackage ../development/tools/continuous-integration/gitlab-runner {
+    buildGoModule = buildGo120Module;
+  };
 
   gitlab-shell = callPackage ../applications/version-management/gitlab/gitlab-shell { };
 
@@ -17764,7 +17766,8 @@ with pkgs;
     electron_23-bin
     electron_24-bin
     electron_25-bin
-    electron_26-bin;
+    electron_26-bin
+    electron_27-bin;
 
   electron = electron-bin;
   electron_9 = electron_9-bin;
@@ -17785,6 +17788,7 @@ with pkgs;
   electron_24 = electron_24-bin;
   electron_25 = electron_25-bin;
   electron_26 = electron_26-bin;
+  electron_27 = electron_27-bin;
 
   autobuild = callPackage ../development/tools/misc/autobuild { };
 
@@ -29196,8 +29200,6 @@ with pkgs;
   adl = callPackage ../applications/video/adl { };
 
   appvm = callPackage ../applications/virtualization/appvm { };
-
-  yggdrasil = callPackage ../tools/networking/yggdrasil { };
 
   masterpdfeditor = libsForQt5.callPackage ../applications/misc/masterpdfeditor { };
 
