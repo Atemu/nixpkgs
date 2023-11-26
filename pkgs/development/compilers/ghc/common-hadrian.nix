@@ -150,7 +150,7 @@
 
   # GHC's build system hadrian built from the GHC-to-build's source tree
   # using our bootstrap GHC.
-, hadrian ? bootPkgs.callPackage ../../tools/haskell/hadrian {
+, hadrian ? import ../../tools/haskell/hadrian/make-hadrian.nix { inherit bootPkgs lib; } {
     ghcSrc = ghcSrc;
     ghcVersion = version;
     userSettings = hadrianUserSettings;
@@ -266,6 +266,12 @@ stdenv.mkDerivation ({
 
   enableParallelBuilding = true;
 
+  patches = [
+    # Fix docs build with Sphinx >= 7 https://gitlab.haskell.org/ghc/ghc/-/issues/24129
+    (if lib.versionAtLeast version "9.8"
+      then ./docs-sphinx-7-ghc98.patch
+      else ./docs-sphinx-7.patch )
+  ];
   postPatch = ''
     patchShebangs --build .
   '';

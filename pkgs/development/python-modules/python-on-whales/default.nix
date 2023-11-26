@@ -11,7 +11,7 @@
 
 buildPythonPackage rec {
   pname = "python-on-whales";
-  version = "0.65.0";
+  version = "0.67.0";
   pyproject = true;
 
   disabled = pythonOlder "3.8";
@@ -20,7 +20,7 @@ buildPythonPackage rec {
     owner = "gabrieldemarmiesse";
     repo = "python-on-whales";
     rev = "refs/tags/v${version}";
-    hash = "sha256-aFE4qeNMSxhHs7IAjYQYl15s4NkHH8balTV3N0obNPs=";
+    hash = "sha256-wO2ZSELxu8BmIZN4x2mSLzsbU3sU49MEpjTfiSzVzaE=";
   };
 
   nativeBuildInputs = [ setuptools ];

@@ -1,5 +1,4 @@
-# General list operations.
-
+/* General list operations. */
 { lib }:
 let
   inherit (lib.strings) toInt;
@@ -820,6 +819,19 @@ rec {
        => [ 3 2 4 ]
    */
   unique = foldl' (acc: e: if elem e acc then acc else acc ++ [ e ]) [];
+
+  /* Check if list contains only unique elements. O(n^2) complexity.
+
+     Type: allUnique :: [a] -> bool
+
+     Example:
+       allUnique [ 3 2 3 4 ]
+       => false
+       allUnique [ 3 2 4 1 ]
+       => true
+   */
+  allUnique = list: (length (unique list) == length list);
+
 
   /* Intersects list 'e' and another list. O(nm) complexity.
 

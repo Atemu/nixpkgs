@@ -14,9 +14,9 @@
 , openssl
 , pango
 , pixman
+, giflib
 , pkg-config
 , python3
-, rust
 , rustfmt
 , stdenv
 , swagger-cli
@@ -24,13 +24,13 @@
 
 let
   pname = "windmill";
-  version = "1.188.1";
+  version = "1.210.1";
 
   fullSrc = fetchFromGitHub {
     owner = "windmill-labs";
     repo = "windmill";
     rev = "v${version}";
-    hash = "sha256-IiCIiP5KYRw10aPlR40RPW0ynXq5itf0LLtpDtxCNE4=";
+    hash = "sha256-ss3EsIqfuctPOEdI5IQtyFFcDzIqnFm6UUG1vA+OlkQ=";
   };
 
   pythonEnv = python3.withPackages (ps: [ ps.pip-tools ]);
@@ -43,7 +43,7 @@ let
 
     sourceRoot = "${fullSrc.name}/frontend";
 
-    npmDepsHash = "sha256-TgAv3iUD0kP2mOvMVOW4yYCDCsf2Cr8IfXK+V+f35uw";
+    npmDepsHash = "sha256-l9MRaa6TaBg9vFoVuIGZNC9jLS29TlWeSniIBRNDRgU=";
 
     # without these you get a
     # FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory
@@ -53,7 +53,7 @@ let
       npm run generate-backend-client
     '';
 
-    buildInputs = [ pixman cairo pango ];
+    buildInputs = [ pixman cairo pango giflib ];
     nativeBuildInputs = [ python3 pkg-config ];
 
     installPhase = ''
@@ -70,11 +70,10 @@ rustPlatform.buildRustPackage {
     SQLX_OFFLINE = "true";
     RUSTY_V8_ARCHIVE =
       let
-        arch = rust.toRustTarget stdenv.hostPlatform;
         fetch_librusty_v8 = args:
           fetchurl {
             name = "librusty_v8-${args.version}";
-            url = "https://github.com/denoland/rusty_v8/releases/download/v${args.version}/librusty_v8_release_${arch}.a";
+            url = "https://github.com/denoland/rusty_v8/releases/download/v${args.version}/librusty_v8_release_${stdenv.hostPlatform.rust.rustcTarget}.a";
             sha256 = args.shas.${stdenv.hostPlatform.system} or (throw "Unsupported platform ${stdenv.hostPlatform.system}");
             meta = { inherit (args) version; };
           };
@@ -95,6 +94,8 @@ rustPlatform.buildRustPackage {
     outputHashes = {
       "progenitor-0.3.0" = "sha256-F6XRZFVIN6/HfcM8yI/PyNke45FL7jbcznIiqj22eIQ=";
       "tinyvector-0.1.0" = "sha256-NYGhofU4rh+2IAM+zwe04YQdXY8Aa4gTmn2V2HtzRfI=";
+      "archiver-rs-0.5.1" = "sha256-ZIik0mMABmhdx/ullgbOrKH5GAtqcOKq5A6vB7aBSjk=";
+      "pg-embed-0.7.2" = "sha256-R/SrlzNK7aAOyXVTQ/WPkiQb6FyMg9tpsmPTsiossDY=";
     };
   };
 
@@ -120,6 +121,7 @@ rustPlatform.buildRustPackage {
     openssl
     rustfmt
     lld
+    stdenv.cc.cc.lib
   ];
 
   nativeBuildInputs = [
@@ -148,6 +150,7 @@ rustPlatform.buildRustPackage {
 
     wrapProgram "$out/bin/windmill" \
       --prefix PATH : ${lib.makeBinPath [go pythonEnv deno nsjail bash]} \
+      --prefix LD_LIBRARY_PATH : "${stdenv.cc.cc.lib}/lib" \
       --set PYTHON_PATH "${pythonEnv}/bin/python3" \
       --set GO_PATH "${go}/bin/go" \
       --set DENO_PATH "${deno}/bin/deno" \

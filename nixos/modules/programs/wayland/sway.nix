@@ -42,11 +42,6 @@ in {
       <https://github.com/swaywm/sway/wiki> and
       "man 5 sway" for more information'');
 
-    enableRealtime = mkEnableOption (lib.mdDoc ''
-      add CAP_SYS_NICE capability on `sway` binary for realtime scheduling
-      privileges. This may improve latency and reduce stuttering, specially in
-      high load scenarios'') // { default = true; };
-
     package = mkOption {
       type = with types; nullOr package;
       default = defaultSwayPackage;
@@ -154,14 +149,8 @@ in {
             "sway/config".source = mkOptionDefault "${cfg.package}/etc/sway/config";
           };
         };
-        security.wrappers = mkIf (cfg.enableRealtime && cfg.package != null) {
-          sway = {
-            owner = "root";
-            group = "root";
-            source = "${cfg.package}/bin/sway";
-            capabilities = "cap_sys_nice+ep";
-          };
-        };
+        # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1050913
+        xdg.portal.config.sway.default = mkDefault [ "wlr" "gtk" ];
         # To make a Sway session available if a display manager like SDDM is enabled:
         services.xserver.displayManager.sessionPackages = optionals (cfg.package != null) [ cfg.package ]; }
       (import ./wayland-session.nix { inherit lib pkgs; })

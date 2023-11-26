@@ -40,9 +40,10 @@ lib.fix (self: {
 let
   ### texlive.combine backward compatibility
   # if necessary, convert old style { pkgs = [ ... ]; } packages to attribute sets
-  ensurePkgSets = ps: if ! __fromCombineWrapper && builtins.any (p: p ? pkgs && builtins.all (p: p ? tlType) p.pkgs) ps
-    then let oldStyle = builtins.partition (p: p ? pkgs && builtins.all (p: p ? tlType) p.pkgs) ps;
-      in oldStyle.wrong ++ lib.concatMap toTLPkgSets oldStyle.right
+  isOldPkgList = p: ! p.outputSpecified or false && p ? pkgs && builtins.all (p: p ? tlType) p.pkgs;
+  ensurePkgSets = ps: if ! __fromCombineWrapper && builtins.any isOldPkgList ps
+    then let oldPkgLists = builtins.partition isOldPkgList ps;
+      in oldPkgLists.wrong ++ lib.concatMap toTLPkgSets oldPkgLists.right
     else ps;
 
   pkgList = rec {
@@ -57,7 +58,7 @@ let
         keySet = p: {
           key = ((p.name or "${p.pname}-${p.version}") + "-" + p.tlOutputName or p.outputName or "");
           inherit p;
-          tlDeps = p.tlDeps or (p.requiredTeXPackages or (_: [ ]) [ ]);
+          tlDeps = if p ? tlDeps then ensurePkgSets p.tlDeps else (p.requiredTeXPackages or (_: [ ]) tl);
         };
       in
       # texlive.combine: the wrapper already resolves all dependencies
@@ -69,7 +70,7 @@ let
 
     # group the specified outputs
     specified = builtins.partition (p: p.outputSpecified or false) all;
-    specifiedOutputs = builtins.groupBy (p: p.tlOutputName or p.outputName) specified.right;
+    specifiedOutputs = lib.groupBy (p: p.tlOutputName or p.outputName) specified.right;
     otherOutputNames = builtins.catAttrs "key" (builtins.genericClosure {
       startSet = map (key: { inherit key; }) (lib.concatLists (builtins.catAttrs "outputs" specified.wrong));
       operator = _: [ ];

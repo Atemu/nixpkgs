@@ -20,8 +20,9 @@ stdenv.mkDerivation rec {
     # https://github.com/neomutt/neomutt/issues/3773#issuecomment-1493295144
     ./fix-open-very-large-mailbox.patch
     (fetchpatch {
+      # https://github.com/neomutt/neomutt/pull/3933
       name = "disable-incorrect-tests.patch";
-      url = "https://github.com/neomutt/neomutt/pull/3933.patch";
+      url = "https://github.com/neomutt/neomutt/compare/f624551b86cdb53224b5b48304a808ca2815111e...a9a1d99e6c0fdf367188125451300fa89d3e801a.patch";
       hash = "sha256-Plei063T8XyXF4/7/nAb6/4OyXz72vBAXHwls9WL1vM=";
       excludes = [".github/workflows/macos.yml"];
     })
@@ -118,7 +119,7 @@ stdenv.mkDerivation rec {
     description = "A small but very powerful text-based mail client";
     homepage    = "http://www.neomutt.org";
     license     = licenses.gpl2Plus;
-    maintainers = with maintainers; [ erikryb jfrankenau vrthra ma27 raitobezarius ];
+    maintainers = with maintainers; [ erikryb vrthra ma27 raitobezarius ];
     platforms   = platforms.unix;
   };
 }

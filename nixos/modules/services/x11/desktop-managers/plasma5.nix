@@ -29,7 +29,7 @@ let
   libsForQt5 = pkgs.plasma5Packages;
   inherit (libsForQt5) kdeGear kdeFrameworks plasma5;
   inherit (lib)
-    getBin optionalString literalExpression
+    getBin optionalAttrs optionalString literalExpression
     mkRemovedOptionModule mkRenamedOptionModule
     mkDefault mkIf mkMerge mkOption mkPackageOptionMD types;
 
@@ -178,7 +178,7 @@ in
           capabilities = "cap_sys_nice+ep";
           source = "${getBin plasma5.kwin}/bin/kwin_wayland";
         };
-      } // mkIf (!cfg.runUsingSystemd) {
+      } // optionalAttrs (!cfg.runUsingSystemd) {
         start_kdeinit = {
           setuid = true;
           owner = "root";
@@ -372,6 +372,7 @@ in
 
       xdg.portal.enable = true;
       xdg.portal.extraPortals = [ plasma5.xdg-desktop-portal-kde ];
+      xdg.portal.configPackages = mkDefault [ plasma5.xdg-desktop-portal-kde ];
       # xdg-desktop-portal-kde expects PipeWire to be running.
       # This does not, by default, replace PulseAudio.
       services.pipewire.enable = mkDefault true;

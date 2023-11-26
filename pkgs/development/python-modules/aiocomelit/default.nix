@@ -1,6 +1,7 @@
 { lib
 , aiohttp
 , buildPythonPackage
+, colorlog
 , fetchFromGitHub
 , pint
 , poetry-core
@@ -10,7 +11,7 @@
 
 buildPythonPackage rec {
   pname = "aiocomelit";
-  version = "0.3.0";
+  version = "0.6.0";
   format = "pyproject";
 
   disabled = pythonOlder "3.10";
@@ -19,7 +20,7 @@ buildPythonPackage rec {
     owner = "chemelli74";
     repo = "aiocomelit";
     rev = "refs/tags/v${version}";
-    hash = "sha256-o8i1H4MsK21kJVbLD22PAUqj5Q9k31JfdZQYARPQICc=";
+    hash = "sha256-bs+iSe4vu0ej4SQww6mvQqboVKfQrkd9OirBLGbU3gs=";
   };
 
   postPatch = ''
@@ -37,6 +38,7 @@ buildPythonPackage rec {
   ];
 
   nativeCheckInputs = [
+    colorlog
     pytestCheckHook
   ];
 

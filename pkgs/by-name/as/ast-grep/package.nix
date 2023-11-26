@@ -6,16 +6,21 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "ast-grep";
-  version = "0.12.5";
+  version = "0.13.1";
 
   src = fetchFromGitHub {
     owner = "ast-grep";
     repo = "ast-grep";
     rev = version;
-    hash = "sha256-oFe3AbMpBVBAm/W4IowXAKcEN7CDrrAXhx4dzMXppUM=";
+    hash = "sha256-Wee+npgL0+7pv9ph3S93fIXr8z/FWp/TBthJhVSx3zI=";
   };
 
-  cargoHash = "sha256-f4tcJqT3l9G6FimBb0D4PATgQYUkSG5uIQ9BbsbgC/U=";
+  cargoHash = "sha256-OFNqBkPAKaSqDQUWisupj6FlDbm3kw0xq5nbvj04H5U=";
+
+  # Work around https://github.com/NixOS/nixpkgs/issues/166205.
+  env = lib.optionalAttrs stdenv.cc.isClang {
+    NIX_LDFLAGS = "-l${stdenv.cc.libcxx.cxxabi.libName}";
+  };
 
   # error: linker `aarch64-linux-gnu-gcc` not found
   postPatch = ''

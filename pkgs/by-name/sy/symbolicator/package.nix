@@ -11,13 +11,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "symbolicator";
-  version = "23.10.1";
+  version = "23.11.0";
 
   src = fetchFromGitHub {
     owner = "getsentry";
     repo = "symbolicator";
     rev = version;
-    hash = "sha256-G8ElLH6u07uJR2Jz05rM59tnVADaDQ768lK477NuWuM=";
+    hash = "sha256-eXMMk12ZxRs5k3DaRhGADwLbE62L8e4N3R5Rw8kZMKI=";
     fetchSubmodules = true;
   };
 
@@ -46,6 +46,9 @@ rustPlatform.buildRustPackage rec {
     SYMBOLICATOR_GIT_VERSION = src.rev;
     SYMBOLICATOR_RELEASE = version;
     ZSTD_SYS_USE_PKG_CONFIG = true;
+  } // lib.optionalAttrs stdenv.cc.isClang {
+    # Work around https://github.com/NixOS/nixpkgs/issues/166205.
+    NIX_LDFLAGS = "-l${stdenv.cc.libcxx.cxxabi.libName}";
   };
 
   # tests require network access

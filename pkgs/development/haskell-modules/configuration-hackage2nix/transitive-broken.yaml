@@ -22,7 +22,6 @@ dont-distribute-packages:
  - Advise-me
  - AlgoRhythm
  - AlignmentAlgorithms
- - Allure
  - AndroidViewHierarchyImporter
  - Annotations
  - ApplePush
@@ -122,11 +121,8 @@ dont-distribute-packages:
  - Forestry
  - FormalGrammars
  - Foster
- - Frames
- - Frames-beam
  - Frames-dsv
  - Frames-map-reduce
- - Frames-streamly
  - Frank
  - GLFW-OGL
  - GLFW-task
@@ -254,7 +250,6 @@ dont-distribute-packages:
  - LDAPv3
  - LPFP
  - LPPaver
- - LambdaHack
  - LambdaINet
  - LambdaPrettyQuote
  - LambdaShell
@@ -708,6 +703,7 @@ dont-distribute-packages:
  - borel
  - both
  - breakout
+ - brick_2_1_1
  - bricks
  - bricks-internal-test
  - bricks-parsec
@@ -1021,6 +1017,8 @@ dont-distribute-packages:
  - curryer-rpc
  - cv-combinators
  - cypher
+ - dahdit-network
+ - dahdit-test
  - daino
  - dapi
  - darcs-benchmark
@@ -1486,9 +1484,11 @@ dont-distribute-packages:
  - ghc-dump-util
  - ghc-imported-from
  - ghc-instances
+ - ghc-lib_9_8_1_20231009
  - ghc-mod
  - ghc-plugs-out
  - ghc-session
+ - ghc_9_8_1
  - ghci-pretty
  - ghcide-bench
  - ghcjs-dom-hello
@@ -1498,7 +1498,6 @@ dont-distribute-packages:
  - ght
  - gi-cairo-again
  - gi-ges
- - gi-gsk
  - gi-gstpbutils
  - gi-gtk-declarative-app-simple
  - gi-gtk_4_0_8
@@ -1728,7 +1727,6 @@ dont-distribute-packages:
  - google-drive
  - google-mail-filters
  - google-maps-geocoding
- - google-static-maps
  - googleplus
  - gore-and-ash-actor
  - gore-and-ash-async
@@ -1894,7 +1892,6 @@ dont-distribute-packages:
  - haskell-pdf-presenter
  - haskell-platform-test
  - haskell-reflect
- - haskell-snake
  - haskell-src-exts-observe
  - haskell-token-utils
  - haskell-tools-ast
@@ -2035,7 +2032,7 @@ dont-distribute-packages:
  - hesql
  - heterolist
  - hetzner
- - hetzner_0_4_0_1
+ - hetzner_0_6_0_0
  - hevolisa
  - hevolisa-dph
  - hexpat-conduit
@@ -2177,6 +2174,9 @@ dont-distribute-packages:
  - hsql-odbc
  - hsql-postgresql
  - hsql-sqlite3
+ - hsqml-datamodel-vinyl
+ - hsqml-demo-morris
+ - hsqml-morris
  - hsreadability
  - hssqlppp-th
  - hstar
@@ -2547,6 +2547,7 @@ dont-distribute-packages:
  - liquid-prelude
  - liquid-vector
  - liquidhaskell
+ - liquidhaskell-boot
  - liquidhaskell-cabal-demo
  - list-t-attoparsec
  - list-t-html-parser
@@ -2681,6 +2682,12 @@ dont-distribute-packages:
  - micro-gateway
  - microformats2-types
  - midimory
+ - mig
+ - mig-client
+ - mig-extra
+ - mig-server
+ - mig-swagger-ui
+ - mig-wai
  - mighttpd
  - minecraft-data
  - minesweeper
@@ -2813,6 +2820,7 @@ dont-distribute-packages:
  - named-servant-client
  - named-servant-server
  - nanq
+ - national-australia-bank
  - nats-queue
  - natural-number
  - nemesis-titan
@@ -3507,6 +3515,7 @@ dont-distribute-packages:
  - selda-sqlite
  - selenium-server
  - semantic-source
+ - semantic-version
  - semi-iso
  - semialign-extras
  - semiring
@@ -3569,7 +3578,6 @@ dont-distribute-packages:
  - shady-gen
  - shady-graphics
  - shake-bindist
- - shake-futhark
  - shake-minify-css
  - shakebook
  - shaker
@@ -4107,6 +4115,7 @@ dont-distribute-packages:
  - voicebase
  - vorbiscomment
  - vpq
+ - vty-crossplatform
  - vty-ui-extras
  - waargonaut
  - wahsp

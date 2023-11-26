@@ -1,6 +1,6 @@
-{ lib, stdenvNoCC, fetchFromGitHub, python3 }:
+{ lib, buildLua, fetchFromGitHub, python3 }:
 
-stdenvNoCC.mkDerivation rec {
+buildLua rec {
   pname = "mpv-thumbnail-script";
   version = "0.5.3";
 
@@ -12,18 +12,11 @@ stdenvNoCC.mkDerivation rec {
   };
 
   nativeBuildInputs = [ python3 ];
+  postPatch = "patchShebangs concat_files.py";
+  dontBuild = false;
 
-  postPatch = ''
-    patchShebangs concat_files.py
-  '';
-
-  installPhase = ''
-    runHook preInstall
-    mkdir -p $out/share/mpv/scripts
-    cp mpv_thumbnail_script_{client_osc,server}.lua $out/share/mpv/scripts
-    runHook postInstall
-  '';
-
+  scriptPath = "mpv_thumbnail_script_client_osc.lua";
+  extraScripts = [ "mpv_thumbnail_script_server.lua" ];
   passthru.scriptName = "mpv_thumbnail_script_{client_osc,server}.lua";
 
   meta = with lib; {
