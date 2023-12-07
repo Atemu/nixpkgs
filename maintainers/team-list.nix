@@ -127,14 +127,6 @@ with lib.maintainers; {
     enableFeatureFreezePing = true;
   };
 
-  chia = {
-    members = [
-      lourkeur
-    ];
-    scope = "Maintain the Chia blockchain and its dependencies";
-    shortName = "Chia Blockchain";
-  };
-
   coq = {
     members = [
       cohencyril
@@ -322,8 +314,10 @@ with lib.maintainers; {
 
   geospatial = {
     members = [
+      das-g
       imincik
       nh2
+      nialov
       sikmir
       willcohen
     ];

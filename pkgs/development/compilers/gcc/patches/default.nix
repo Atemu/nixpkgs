@@ -175,9 +175,6 @@ in
 
 ## gcc 11.0 and older ##############################################################################
 
-# https://github.com/osx-cross/homebrew-avr/issues/280#issuecomment-1272381808
-++ optional (is11 && stdenv.isDarwin && targetPlatform.isAvr) ./avr-gcc-11.3-darwin.patch
-
 # libgcc’s `configure` script misdetects aarch64-darwin, resulting in an invalid deployment target.
 ++ optional (is11 && stdenv.isDarwin && stdenv.isAarch64) ./11/libgcc-aarch64-darwin-detection.patch
 
@@ -259,6 +256,9 @@ in
 # This patch can be dropped should darwin.cctools-llvm ever implement support.
 ++ optional (!atLeast7 && hostPlatform.isDarwin && lib.versionAtLeast (lib.getVersion stdenv.cc) "12") ./4.9/darwin-clang-as.patch
 
+# Building libstdc++ with flat namespaces results in trying to link CoreFoundation, which
+# defaults to the impure, system location and causes the build to fail.
+++ optional (is6 && hostPlatform.isDarwin) ./6/libstdc++-disable-flat_namespace.patch
 
 ## gcc 4.9 and older ##############################################################################
 

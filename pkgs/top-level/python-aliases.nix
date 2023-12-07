@@ -264,6 +264,7 @@ mapAliases ({
   pam = python-pam; # added 2020-09-07.
   PasteDeploy = pastedeploy; # added 2021-10-07
   pathpy = path; # added 2022-04-12
+  paypalrestsdk = throw "paypalrestsdk was removed, the upstream repo was archived back in 2020"; # Added 2023-11-25
   pdfposter = throw "pdfposter was promoted to a top-level attribute"; # Added 2023-06-29
   pdfminer = pdfminer-six; # added 2022-05-25
   pep257 = pydocstyle; # added 2022-04-12
@@ -373,6 +374,7 @@ mapAliases ({
   qasm2image = throw "qasm2image is no longer maintained (since November 2018), and is not compatible with the latest pythonPackages.qiskit versions."; # added 2020-12-09
   qds_sdk = qds-sdk; # added 2023-10-21
   Quandl = quandl; # added 2023-02-19
+  qcodes-loop = throw "qcodes-loop has been removed due to deprecation"; # added 2023-11-30
   qiskit-aqua = throw "qiskit-aqua has been removed due to deprecation, with its functionality moved to different qiskit packages";
   rabbitpy = throw "rabbitpy has been removed, since it is unmaintained and broken"; # added 2023-07-01
   radio_beam = radio-beam; # added 2023-11-04
@@ -465,11 +467,13 @@ mapAliases ({
   zc_buildout_nix = throw "zc_buildout_nix was pinned to a version no longer compatible with other modules";
   zope_broken = throw "zope_broken has been removed because it is obsolete and not needed in zodb>=3.10"; # added 2023-07-26
   zope_component = zope-component; # added 2023-07-28
+  zope_configuration = zope-configuration; # added 2023-11-12
   zope_contenttype = zope-contenttype; # added 2023-10-11
   zope_deprecation = zope-deprecation; # added 2023-10-07
   zope_dottedname = zope-dottedname; # added 2023-11-12
   zope_i18nmessageid = zope-i18nmessageid; # added 2023-07-29
   zope_lifecycleevent = zope-lifecycleevent; # added 2023-10-11
   zope_proxy = zope-proxy; # added 2023-10-07
+  zope_testing = zope-testing; # added 2023-11-12
   zxing_cpp = zxing-cpp; # added 2023-11-05
 })

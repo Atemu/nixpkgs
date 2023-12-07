@@ -137,6 +137,7 @@ mapAliases ({
   catfish = throw "'catfish' has been renamed to/replaced by 'xfce.catfish'"; # Converted to throw 2023-09-10
   cawbird = throw "cawbird has been abandoned upstream and is broken anyways due to Twitter closing its API";
   ccloud-cli = throw "ccloud-cli has been removed, please use confluent-cli instead"; # Added 2023-06-09
+  certmgr-selfsigned = certmgr; # Added 2023-11-30
   chefdk = throw "chefdk has been removed due to being deprecated upstream by Chef Workstation"; # Added 2023-03-22
   chocolateDoom = chocolate-doom; # Added 2023-05-01
   chrome-gnome-shell = gnome-browser-connector; # Added 2022-07-27
@@ -263,6 +264,7 @@ mapAliases ({
   foundationdb60 = throw "foundationdb60 is no longer maintained, use foundationdb71 instead"; # added 2023-06-06
   foundationdb61 = throw "foundationdb61 is no longer maintained, use foundationdb71 instead"; # added 2023-06-06
   foxitreader = throw "foxitreader has been removed because it had vulnerabilities and was unmaintained"; # added 2023-02-20
+  fractal-next = fractal; # added 2023-11-25
   fuse2fs = if stdenv.isLinux then e2fsprogs.fuse2fs else null; # Added 2022-03-27 preserve, reason: convenience, arch has a package named fuse2fs too.
   fx_cast_bridge = fx-cast-bridge; # added 2023-07-26
 
@@ -357,7 +359,6 @@ mapAliases ({
 
   ### H ###
 
-  inherit (harePackages) hare harec; # Added 2022-08-10
   haxe_3_2 = throw "'haxe_3_2' has been removed because it is old and no longer used by any packages in nixpkgs"; # Added 2023-03-15
   haxe_3_4 = throw "'haxe_3_4' has been removed because it is old and no longer used by any packages in nixpkgs"; # Added 2023-03-15
   hepmc = throw "'hepmc' has been renamed to/replaced by 'hepmc2'"; # Converted to throw 2023-09-10
@@ -585,10 +586,11 @@ mapAliases ({
   miopen-opencl = throw "'miopen-opencl' has been replaced with 'rocmPackages.miopen-opencl'"; # Added 2023-10-08
   mime-types = mailcap; # Added 2022-01-21
   minizip2 = pkgs.minizip-ng; # Added 2022-12-28
+  mirage-im = throw "'mirage-im' has been removed, as it was broken and unmaintained"; # Added 2023-11-26
   monero = monero-cli; # Added 2021-11-28
   mongodb-4_0 = throw "mongodb-4_0 has been removed, it's end of life since April 2022"; # Added 2023-01-05
   mongodb-4_2 = throw "mongodb-4_2 has been removed, it's end of life since April 2023"; # Added 2023-06-06
-
+  moonlander = throw "'moonlander' has been removed due to it being broken and unmaintained"; # Added 2023-11-26
   moz-phab = mozphab; # Added 2022-08-09
   mozart-binary = throw "'mozart-binary' has been renamed to/replaced by 'mozart2-binary'"; # Converted to throw 2023-09-10
   mozart = throw "'mozart' has been renamed to/replaced by 'mozart2-binary'"; # Converted to throw 2023-09-10
@@ -767,6 +769,7 @@ mapAliases ({
   qtcurve = libsForQt5.qtcurve; # Added 2020-11-07
   qtile-unwrapped = python3.pkgs.qtile; # Added 2023-05-12
   qutebrowser-qt6 = throw "'qutebrowser-qt6' has been replaced by 'qutebrowser', since the the qt5 version has been removed"; # Added 2023-08-19
+  quvi = throw "'quvi' has been removed, as it was broken and unmaintained"; # Added 2023-11-25
 
   ### R ###
 
@@ -902,6 +905,7 @@ mapAliases ({
   taro = taproot-assets; # Added 2023-07-04
   tdesktop = telegram-desktop; # Added 2023-04-07
   telegram-cli = throw "telegram-cli was removed because it was broken and abandoned upstream"; # Added 2023-07-28
+  teleport_11 = throw "teleport 11 has been removed as it is EOL. Please upgrade to Teleport 12 or later"; # Added 2023-11-27
   tensile = throw "'tensile' has been replaced with 'rocmPackages.tensile'"; # Added 2023-10-08
   testVersion = testers.testVersion; # Added 2022-04-20
   tfplugindocs = terraform-plugin-docs; # Added 2023-11-01
@@ -923,6 +927,7 @@ mapAliases ({
   uade123 = uade; # Added 2022-07-30
   uberwriter = apostrophe; # Added 2020-04-23
   ubootBeagleboneBlack = ubootAmx335xEVM; # Added 2020-01-21
+  ue4 = throw "ue4 has been removed, because the package was broken for years"; # Added 2023-11-22
   uhd3_5 = throw "uhd3_5 has been removed, because it was no longer needed"; # Added 2023-10-07
   uhhyou.lv2 = throw "'uhhyou.lv2' has been removed, upstream gone"; # Added 2023-06-21
   unicorn-emu = unicorn; # Added 2020-10-29

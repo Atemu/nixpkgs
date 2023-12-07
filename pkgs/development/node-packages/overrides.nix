@@ -244,7 +244,10 @@ final: prev: {
         inherit (final) postcss-cli;
       };
     };
-    meta = oldAttrs.meta // { maintainers = with lib.maintainers; [ Luflosi ]; };
+    meta = oldAttrs.meta // {
+      maintainers = with lib.maintainers; [ Luflosi ];
+      license = lib.licenses.mit;
+    };
   });
 
   # To update prisma, please first update prisma-engines to the latest
@@ -257,7 +260,7 @@ final: prev: {
 
     src = fetchurl {
       url = "https://registry.npmjs.org/prisma/-/prisma-${version}.tgz";
-      hash = "sha256-rwpwB+vli3CXRhUFL+UvyUpPlxRk6P/2zLCn0SL9E6s=";
+      hash = "sha256-ej3h4LlF/pkAYeDxePb7wMc8zrfxKMnrp1ogZLoFU+0=";
     };
     postInstall = with pkgs; ''
       wrapProgram "$out/bin/prisma" \
@@ -311,10 +314,11 @@ final: prev: {
     };
   };
 
-  teck-programmer = prev.teck-programmer.override {
+  teck-programmer = prev.teck-programmer.override ({ meta, ... }: {
     nativeBuildInputs = [ final.node-gyp-build ];
     buildInputs = [ pkgs.libusb1 ];
-  };
+    meta = meta // { license = lib.licenses.gpl3Plus; };
+  });
 
   thelounge-plugin-closepms = prev.thelounge-plugin-closepms.override {
     nativeBuildInputs = [ final.node-pre-gyp ];
