@@ -26,7 +26,12 @@ rec {
     ];
   };
 
-  extract = args@{ name ? "${args.pname}-${args.version}", postExtract ? "", src, ... }: pkgs.runCommand "${name}-extracted" {
+  extract = args@{
+    name ? "appimage",
+    postExtract ? "",
+    src,
+    ...
+  }: pkgs.runCommand "${name}-extracted" {
       buildInputs = [ appimage-exec ];
     } ''
       appimage-exec.sh -x $out ${src}
@@ -39,14 +44,15 @@ rec {
   wrapType1 = wrapType2;
 
   wrapAppImage = args@{
-    name ? "${args.pname}-${args.version}",
+    pname ? null,
+    version ? null,
+    name ? null,
     src,
     extraPkgs,
     meta ? {},
     ...
-  }: buildFHSEnv
-    (defaultFhsEnvArgs // {
-      inherit name;
+  }: buildFHSEnv (defaultFhsEnvArgs // {
+      inherit pname version name;
 
       targetPkgs = pkgs: [ appimage-exec ]
         ++ defaultFhsEnvArgs.targetPkgs pkgs ++ extraPkgs pkgs;
@@ -56,12 +62,22 @@ rec {
       meta = {
         sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
       } // meta;
-    } // (removeAttrs args ([ "pname" "version" ] ++ (builtins.attrNames (builtins.functionArgs wrapAppImage)))));
+    } // (removeAttrs args (builtins.attrNames (builtins.functionArgs wrapAppImage))));
 
-  wrapType2 = args@{ name ? "${args.pname}-${args.version}", src, extraPkgs ? pkgs: [ ], ... }: wrapAppImage
-    (args // {
-      inherit name extraPkgs;
-      src = extract { inherit name src; };
+  wrapType2 = args@{
+    name ? null,
+    pname ? null,
+    src,
+    extraPkgs ? pkgs: [ ],
+    ...
+  }: wrapAppImage (args // {
+      src = extract {
+        inherit src;
+        name = if pname != null then pname else name;
+      };
+
+      # Nix doesn't pass through arg defaults
+      inherit extraPkgs;
 
       # passthru src to make nix-update work
       # hack to keep the origin position (unsafeGetAttrPos)
