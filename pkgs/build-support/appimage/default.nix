@@ -27,7 +27,9 @@ rec {
   };
 
   extract = args@{
-    name ? "appimage",
+    pname ? null,
+    version ? null,
+    name ? "${pname}-${version}",
     postExtract ? "",
     src,
     ...
@@ -67,13 +69,13 @@ rec {
   wrapType2 = args@{
     name ? null,
     pname ? null,
+    version ? null,
     src,
     extraPkgs ? pkgs: [ ],
     ...
   }: wrapAppImage (args // {
       src = extract {
-        inherit src;
-        name = if pname != null then pname else name;
+        inherit name pname version src;
       };
 
       # Nix doesn't pass through arg defaults
