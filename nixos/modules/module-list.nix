@@ -971,6 +971,7 @@
   ./services/networking/iwd.nix
   ./services/networking/jibri/default.nix
   ./services/networking/jicofo.nix
+  ./services/networking/jigasi.nix
   ./services/networking/jitsi-videobridge.nix
   ./services/networking/jool.nix
   ./services/networking/kea.nix
@@ -1334,6 +1335,7 @@
   ./services/web-apps/vikunja.nix
   ./services/web-apps/whitebophir.nix
   ./services/web-apps/wiki-js.nix
+  ./services/web-apps/windmill.nix
   ./services/web-apps/wordpress.nix
   ./services/web-apps/writefreely.nix
   ./services/web-apps/youtrack.nix
@@ -1359,6 +1361,7 @@
   ./services/web-servers/molly-brown.nix
   ./services/web-servers/nginx/default.nix
   ./services/web-servers/nginx/gitweb.nix
+  ./services/web-servers/nginx/tailscale-auth.nix
   ./services/web-servers/phpfpm/default.nix
   ./services/web-servers/pomerium.nix
   ./services/web-servers/rustus.nix

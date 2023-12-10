@@ -2123,19 +2123,19 @@ let
 
       kddejong.vscode-cfn-lint =
         let
-          inherit (python3Packages) cfn-lint;
+          inherit (python3Packages) cfn-lint pydot;
         in
         buildVscodeMarketplaceExtension {
           mktplcRef = {
             name = "vscode-cfn-lint";
             publisher = "kddejong";
-            version = "0.21.0";
+            version = "0.25.1";
             sha256 = "sha256-IueXiN+077tiecAsVCzgYksWYTs00mZv6XJVMtRJ/PQ=";
           };
 
           nativeBuildInputs = [ jq moreutils ];
 
-          buildInputs = [ cfn-lint ];
+          buildInputs = [ cfn-lint pydot ];
 
           postInstall = ''
             cd "$out/$installPrefix"
@@ -2749,8 +2749,8 @@ let
           publisher = "nvarner";
           # Please update the corresponding binary (typst-lsp) when updating
           # this extension.
-          version = "0.11.0";
-          sha256 = "sha256-fs+CBg3FwzTn608dm9EvfF2UrI2Sa5hsm0OK/WQyy6o=";
+          version = "0.12.0";
+          sha256 = "sha256-5DwpgDstKJXo9jEWORXKr3B6Hnd/YOktiaJL2RFWCSA=";
         };
 
         nativeBuildInputs = [ jq moreutils ];
@@ -3136,15 +3136,17 @@ let
         mktplcRef = {
           publisher = "shd101wyy";
           name = "markdown-preview-enhanced";
-          version = "0.6.10";
-          sha256 = "sha256-nCsl7ZYwuTvNZSTUMR6jEywClmcPm8xW6ABu9220wJI=";
+          version = "0.8.10";
+          sha256 = "sha256-BjTV2uH9QqCS1VJ94XXgzNMJb4FB4Ee+t/5uAQfJCuM=";
         };
         meta = {
           description = "Provides a live preview of markdown using either markdown-it or pandoc";
           longDescription = ''
-            Markdown Preview Enhanced provides you with many useful functionalities
-            such as automatic scroll sync, math typesetting, mermaid, PlantUML,
-            pandoc, PDF export, code chunk, presentation writer, etc.
+            Markdown Preview Enhanced is an extension that provides you with
+            many useful functionalities such as automatic scroll sync, math
+            typesetting, mermaid, PlantUML, pandoc, PDF export, code chunk,
+            presentation writer, etc. A lot of its ideas are inspired by
+            Markdown Preview Plus and RStudio Markdown.
           '';
           homepage = "https://github.com/shd101wyy/vscode-markdown-preview-enhanced";
           license = lib.licenses.ncsa;
@@ -3555,8 +3557,8 @@ let
         mktplcRef = {
           name = "uiua-vscode";
           publisher = "uiua-lang";
-          version = "0.0.25";
-          sha256 = "sha256-qM+CLV8jWYkJWXZyELnR1H9pSWFifAOGqH+LgHr7nNA=";
+          version = "0.0.26";
+          sha256 = "sha256-EKWThidMgbd+a4Vw4SQo988ggVbCTnCakohvq3/mZQ0=";
         };
         meta = {
           description = "VSCode language extension for Uiua";
