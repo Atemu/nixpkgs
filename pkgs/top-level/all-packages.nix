@@ -1528,6 +1528,8 @@ with pkgs;
 
   dolbybcsoftwaredecode = callPackage ../applications/audio/dolbybcsoftwaredecode { };
 
+  dualsensectl = callPackage ../tools/games/dualsensectl { };
+
   dwarfs = callPackage ../tools/filesystems/dwarfs { };
 
   etlegacy = callPackage ../games/etlegacy { lua = lua5_4; };
@@ -4763,7 +4765,7 @@ with pkgs;
 
   element-desktop = callPackage ../applications/networking/instant-messengers/element/element-desktop.nix {
     inherit (darwin.apple_sdk.frameworks) Security AppKit CoreServices;
-    electron = electron_26;
+    electron = electron_27;
   };
   element-desktop-wayland = writeScriptBin "element-desktop" ''
     #!/bin/sh
@@ -9443,6 +9445,10 @@ with pkgs;
   };
 
   mdbook-admonish = callPackage ../tools/text/mdbook-admonish {
+    inherit (darwin.apple_sdk.frameworks) CoreServices;
+  };
+
+  mdbook-footnote = callPackage ../tools/text/mdbook-footnote {
     inherit (darwin.apple_sdk.frameworks) CoreServices;
   };
 
