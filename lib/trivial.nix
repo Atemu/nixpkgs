@@ -1,6 +1,18 @@
 { lib }:
 
-rec {
+let
+  inherit (lib.trivial)
+    isFunction
+    isInt
+    functionArgs
+    pathExists
+    release
+    setFunctionArgs
+    toBaseDigits
+    version
+    versionSuffix
+    warn;
+in {
 
   ## Simple (higher order) functions
 
@@ -58,9 +70,7 @@ rec {
      of the next function, and the last function returns the
      final value.
   */
-  pipe = val: functions:
-    let reverseApply = x: f: f x;
-    in builtins.foldl' reverseApply val functions;
+  pipe = builtins.foldl' (x: f: f x);
 
   # note please don’t add a function like `compose = flip pipe`.
   # This would confuse users, because the order of the functions
@@ -439,7 +449,7 @@ rec {
   */
   functionArgs = f:
     if f ? __functor
-    then f.__functionArgs or (lib.functionArgs (f.__functor f))
+    then f.__functionArgs or (functionArgs (f.__functor f))
     else builtins.functionArgs f;
 
   /* Check whether something is a function or something
