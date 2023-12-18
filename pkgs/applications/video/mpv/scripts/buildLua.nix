@@ -2,7 +2,6 @@
 , stdenvNoCC }:
 
 let
-  inherit (lib) hasPrefix hasSuffix removeSuffix;
   escapedList = with lib; concatMapStringsSep " " (s: "'${escape [ "'" ] s}'");
   fileName = pathStr: lib.last (lib.splitString "/" pathStr);
   scriptsDir = "$out/share/mpv/scripts";
@@ -20,11 +19,17 @@ lib.makeOverridable (args: stdenvNoCC.mkDerivation (extendedBy
   , extraScripts ? []
   , ... }@args:
   let
+    strippedName = with builtins;
+      let groups = match "mpv[-_](.*)" pname; in
+      if groups != null
+      then head groups
+      else pname
+    ;
     # either passthru.scriptName, inferred from scriptPath, or from pname
     scriptName = (args.passthru or {}).scriptName or (
       if args ? scriptPath
       then fileName args.scriptPath
-      else "${pname}.lua"
+      else "${strippedName}.lua"
     );
     scriptPath = args.scriptPath or "./${scriptName}";
   in {
