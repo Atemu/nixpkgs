@@ -1,7 +1,7 @@
 { lib, stdenv
-, lapack-reference, openblas
+, lapack-reference, mkl
 , isILP64 ? false
-, blasProvider ? openblas }:
+, blasProvider ? mkl }:
 
 let
   blasFortranSymbols = [
