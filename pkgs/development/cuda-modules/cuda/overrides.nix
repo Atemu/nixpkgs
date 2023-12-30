@@ -1,4 +1,4 @@
-{cudaVersion, lib}:
+{cudaVersion, lib, addDriverRunpath}:
 let
   inherit (lib) attrsets lists strings;
   # cudaVersionOlder : Version -> Boolean
@@ -42,6 +42,31 @@ attrsets.filterAttrs (attr: _: (builtins.hasAttr attr prev)) {
     lists.optionals (cudaVersionAtLeast "12.0") [final.libnvjitlink.lib]
   );
 
+  cuda_cudart = prev.cuda_cudart.overrideAttrs (
+    prevAttrs: {
+      allowFHSReferences = false;
+
+      # The libcuda stub's pkg-config doesn't follow the general pattern:
+      postPatch =
+        prevAttrs.postPatch or ""
+        + ''
+          while IFS= read -r -d $'\0' path ; do
+            sed -i \
+              -e "s|^libdir\s*=.*/lib\$|libdir=''${!outputLib}/lib/stubs|" \
+              -e "s|^Libs\s*:\(.*\)\$|Libs: \1 -Wl,-rpath,${addDriverRunpath.driverLink}/lib|" \
+              "$path"
+          done < <(find -iname 'cuda-*.pc' -print0)
+        ''
+        + ''
+          # Namelink may not be enough, add a soname.
+          # Cf. https://gitlab.kitware.com/cmake/cmake/-/issues/25536
+          if [[ -f lib/stubs/libcuda.so && ! -f lib/stubs/libcuda.so.1 ]] ; then
+            ln -s libcuda.so lib/stubs/libcuda.so.1
+          fi
+        '';
+    }
+  );
+
   cuda_compat = prev.cuda_compat.overrideAttrs (
     prevAttrs: {
       env.autoPatchelfIgnoreMissingDeps =
@@ -62,7 +87,7 @@ attrsets.filterAttrs (attr: _: (builtins.hasAttr attr prev)) {
   cuda_nvcc = prev.cuda_nvcc.overrideAttrs (
     oldAttrs: {
 
-      outputs = oldAttrs.outputs ++ [ "lib" ];
+      outputs = oldAttrs.outputs ++ lists.optionals (!(builtins.elem "lib" oldAttrs.outputs)) [ "lib" ];
 
       # Patch the nvcc.profile.
       # Syntax:
@@ -115,7 +140,10 @@ attrsets.filterAttrs (attr: _: (builtins.hasAttr attr prev)) {
           moveToOutput "nvvm" "''${!outputBin}"
         '';
 
-      meta = (oldAttrs.meta or {}) // {
+      # The nvcc and cicc binaries contain hard-coded references to /usr
+      allowFHSReferences = true;
+
+      meta = (oldAttrs.meta or { }) // {
         mainProgram = "nvcc";
       };
     }
