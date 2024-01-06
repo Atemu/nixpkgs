@@ -18321,10 +18321,10 @@ with pkgs;
   ansible = ansible_2_15;
   ansible_2_15 = python3Packages.toPythonApplication python3Packages.ansible-core;
   ansible_2_14 = python3Packages.toPythonApplication (python3Packages.ansible-core.overridePythonAttrs (oldAttrs: rec {
-    version = "2.14.6";
+    version = "2.14.13";
     src = oldAttrs.src.override {
       inherit version;
-      hash = "sha256-DN2w30VFYZgfHFQdt6xTmNXp3kUuofAYR6y9Ax/X0rI=";
+      hash = "sha256-ThuzNPDDImq0jFme/knNX+A/JdRVi8BsJ0reK6PiV2o=";
     };
   }));
   ansible_2_13 = python3Packages.toPythonApplication (python3Packages.ansible-core.overridePythonAttrs (oldAttrs: rec {
@@ -18596,6 +18596,17 @@ with pkgs;
       darwin.apple_sdk_11_0.stdenv else
       if stdenv.cc.isClang then llvmPackages.stdenv else stdenv;
     bazel_self = bazel_6;
+  };
+
+  bazel_7 = darwin.apple_sdk_11_0.callPackage ../development/tools/build-managers/bazel/bazel_7 {
+    inherit (darwin) cctools sigtool;
+    inherit (darwin.apple_sdk_11_0.frameworks) CoreFoundation CoreServices Foundation IOKit;
+    buildJdk = jdk17_headless;
+    runJdk = jdk17_headless;
+    stdenv = if stdenv.isDarwin then darwin.apple_sdk_11_0.stdenv
+      else if stdenv.cc.isClang then llvmPackages.stdenv
+      else stdenv;
+    bazel_self = bazel_7;
   };
 
   bazel-buildtools = callPackage ../development/tools/build-managers/bazel/buildtools { };
@@ -34144,8 +34155,6 @@ with pkgs;
 
   nwg-wrapper = callPackage ../applications/misc/nwg-wrapper { };
 
-  ocenaudio = callPackage ../applications/audio/ocenaudio { };
-
   ocm = callPackage ../applications/networking/cluster/ocm { };
 
   odo = callPackage ../applications/networking/cluster/odo { };
@@ -35744,7 +35753,7 @@ with pkgs;
   teams = callPackage ../applications/networking/instant-messengers/teams { };
 
   teams-for-linux = callPackage ../applications/networking/instant-messengers/teams-for-linux {
-    electron = electron_27;
+    electron = electron_28;
   };
 
   teamspeak_client = libsForQt5.callPackage ../applications/networking/instant-messengers/teamspeak/client.nix { };
@@ -41443,7 +41452,7 @@ with pkgs;
   wamr = callPackage ../development/interpreters/wamr { };
 
   wasmer = callPackage ../development/interpreters/wasmer {
-    llvmPackages = llvmPackages_14;
+    llvmPackages = llvmPackages_15;
     inherit (darwin.apple_sdk.frameworks) CoreFoundation SystemConfiguration Security;
   };
 
