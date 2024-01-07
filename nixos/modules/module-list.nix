@@ -620,6 +620,7 @@
   ./services/mail/public-inbox.nix
   ./services/mail/roundcube.nix
   ./services/mail/rspamd.nix
+  ./services/mail/rspamd-trainer.nix
   ./services/mail/rss2email.nix
   ./services/mail/schleuder.nix
   ./services/mail/spamassassin.nix
@@ -722,6 +723,7 @@
   ./services/misc/nzbget.nix
   ./services/misc/nzbhydra2.nix
   ./services/misc/octoprint.nix
+  ./services/misc/ollama.nix
   ./services/misc/ombi.nix
   ./services/misc/osrm.nix
   ./services/misc/owncast.nix

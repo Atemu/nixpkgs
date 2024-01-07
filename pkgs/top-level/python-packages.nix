@@ -624,6 +624,8 @@ self: super: with self; {
 
   apispec-webframeworks = callPackage ../development/python-modules/apispec-webframeworks { };
 
+  apkinspector = callPackage ../development/python-modules/apkinspector { };
+
   apkit = callPackage ../development/python-modules/apkit { };
 
   aplpy = callPackage ../development/python-modules/aplpy { };
@@ -1456,6 +1458,8 @@ self: super: with self; {
 
   binary = callPackage ../development/python-modules/binary { };
 
+  binary2strings = callPackage ../development/python-modules/binary2strings { };
+
   binaryornot = callPackage ../development/python-modules/binaryornot { };
 
   bincopy = callPackage ../development/python-modules/bincopy { };
@@ -1604,6 +1608,8 @@ self: super: with self; {
     inherit (self) python numpy;
     enablePython = true;
   });
+
+  borb = callPackage ../development/python-modules/borb { };
 
   bork = callPackage ../development/python-modules/bork { };
 
@@ -3471,6 +3477,8 @@ self: super: with self; {
 
   dynalite-devices = callPackage ../development/python-modules/dynalite-devices { };
 
+  dynalite-panel = callPackage ../development/python-modules/dynalite-panel { };
+
   dynd = callPackage ../development/python-modules/dynd { };
 
   e3-core = callPackage ../development/python-modules/e3-core { };
@@ -3833,6 +3841,8 @@ self: super: with self; {
 
   face-recognition = callPackage ../development/python-modules/face-recognition { };
 
+  facenet-pytorch = callPackage ../development/python-modules/facenet-pytorch { };
+
   face-recognition-models = callPackage ../development/python-modules/face-recognition/models.nix { };
 
   factory-boy = callPackage ../development/python-modules/factory-boy { };
@@ -3953,6 +3963,8 @@ self: super: with self; {
   ffmpeg-progress-yield = callPackage ../development/python-modules/ffmpeg-progress-yield { };
 
   ffmpy = callPackage ../development/python-modules/ffmpy { };
+
+  fhir-py = callPackage ../development/python-modules/fhir-py { };
 
   fiblary3-fork = callPackage ../development/python-modules/fiblary3-fork { };
 
@@ -6143,8 +6155,6 @@ self: super: with self; {
 
   langchain = callPackage ../development/python-modules/langchain { };
 
-  langchainplus-sdk = callPackage ../development/python-modules/langchainplus-sdk { };
-
   langcodes = callPackage ../development/python-modules/langcodes { };
 
   langdetect = callPackage ../development/python-modules/langdetect { };
@@ -7165,6 +7175,8 @@ self: super: with self; {
   mongoengine = callPackage ../development/python-modules/mongoengine { };
 
   mongoquery = callPackage ../development/python-modules/mongoquery { };
+
+  monitorcontrol = callPackage ../development/python-modules/monitorcontrol { };
 
   monkeyhex = callPackage ../development/python-modules/monkeyhex { };
 
@@ -9479,6 +9491,8 @@ self: super: with self; {
 
   python-csxcad = callPackage ../development/python-modules/python-csxcad { };
 
+  python-djvulibre = callPackage ../development/python-modules/python-djvulibre { };
+
   python-ecobee-api = callPackage ../development/python-modules/python-ecobee-api { };
 
   python-flirt = callPackage ../development/python-modules/python-flirt { };
@@ -10572,6 +10586,8 @@ self: super: with self; {
 
   pylast = callPackage ../development/python-modules/pylast { };
 
+  pylatex = callPackage ../development/python-modules/pylatex { };
+
   pylatexenc = callPackage ../development/python-modules/pylatexenc { };
 
   pylaunches = callPackage ../development/python-modules/pylaunches { };
@@ -10593,6 +10609,8 @@ self: super: with self; {
   pylibftdi = callPackage ../development/python-modules/pylibftdi {
     inherit (pkgs) libusb1;
   };
+
+  pylibjpeg = callPackage ../development/python-modules/pylibjpeg { };
 
   pylibjpeg-libjpeg = callPackage ../development/python-modules/pylibjpeg-libjpeg { };
 
@@ -13113,6 +13131,8 @@ self: super: with self; {
   simanneal = callPackage ../development/python-modules/simanneal { };
 
   simber = callPackage ../development/python-modules/simber { };
+
+  simple-term-menu = callPackage ../development/python-modules/simple-term-menu { };
 
   simpleaudio = callPackage ../development/python-modules/simpleaudio { };
 
@@ -15663,6 +15683,10 @@ self: super: with self; {
 
   vaa = callPackage ../development/python-modules/vaa { };
 
+  vacuum-map-parser-base = callPackage ../development/python-modules/vacuum-map-parser-base { };
+
+  vacuum-map-parser-roborock = callPackage ../development/python-modules/vacuum-map-parser-roborock { };
+
   validate-email = callPackage ../development/python-modules/validate-email { };
 
   validators = callPackage ../development/python-modules/validators { };
@@ -16425,7 +16449,7 @@ self: super: with self; {
 
   zope_event = callPackage ../development/python-modules/zope_event { };
 
-  zope_exceptions = callPackage ../development/python-modules/zope_exceptions { };
+  zope-exceptions = callPackage ../development/python-modules/zope-exceptions { };
 
   zope_filerepresentation = callPackage ../development/python-modules/zope_filerepresentation { };
 
