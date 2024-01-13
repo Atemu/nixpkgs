@@ -26,20 +26,9 @@ let
     };
 
     structuredExtraConfig = with lib.kernel; {
-      # AMD P-state driver
-      X86_AMD_PSTATE = lib.mkOverride 60 yes;
-
       # Google's BBRv3 TCP congestion Control
       TCP_CONG_BBR = yes;
       DEFAULT_BBR = yes;
-
-      # FQ-PIE Packet Scheduling
-      NET_SCH_DEFAULT = yes;
-      DEFAULT_FQ_PIE = yes;
-
-      # Futex WAIT_MULTIPLE implementation for Wine / Proton Fsync.
-      FUTEX = yes;
-      FUTEX_PI = yes;
 
       # WineSync driver for fast kernel-backed Wine
       WINESYNC = module;
