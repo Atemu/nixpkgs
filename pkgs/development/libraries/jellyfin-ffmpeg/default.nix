@@ -3,9 +3,15 @@
 , lib
 }:
 
-ffmpeg_6-full.overrideAttrs (old: rec {
-  pname = "jellyfin-ffmpeg";
+let
   version = "6.0.1-1";
+in
+
+(ffmpeg_6-full.override {
+  inherit version; # Important! This sets the ABI.
+  confAACPSTablegenFix = false; # Has patch included
+}).overrideAttrs (old: {
+  pname = "jellyfin-ffmpeg";
 
   src = fetchFromGitHub {
     owner = "jellyfin";
