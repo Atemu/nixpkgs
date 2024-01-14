@@ -94,6 +94,7 @@ mapAliases ({
   bash_5 = bash; # Added 2021-08-20
   bazel_3 = throw "bazel 3 is past end of life as it is not an lts version"; # Added 2023-02-02
   bedup = throw "bedup was removed because it was broken and abandoned upstream"; # added 2023-02-04
+  beignet = throw "beignet was removed as it was never ported from old llvmPackages_6 upstream"; # added 2024-01-08
   binance = throw "binance has been removed, because it depends on a very outdated and insecure version of electron"; # Added 2023-11-09
   bird2 = bird; # Added 2022-02-21
   bitwig-studio1 = throw "bitwig-studio1 has been removed, you can upgrade to 'bitwig-studio'"; # Added 2023-01-03
@@ -171,7 +172,7 @@ mapAliases ({
   cvs_fast_export = cvs-fast-export; # Added 2021-06-10
 
   # these are for convenience, not for backward compat and shouldn't expire
-  clang6Stdenv = lowPrio llvmPackages_6.stdenv;
+  clang6Stdenv = throw "clang6Stdenv has been removed from nixpkgs"; # Added 2024-01-08
   clang7Stdenv = throw "clang7Stdenv has been removed from nixpkgs"; # Added 2023-11-19
   clang8Stdenv = lowPrio llvmPackages_8.stdenv;
   clang9Stdenv = lowPrio llvmPackages_9.stdenv;
@@ -184,7 +185,9 @@ mapAliases ({
   clang16Stdenv = lowPrio llvmPackages_16.stdenv;
   clang17Stdenv = lowPrio llvmPackages_17.stdenv;
 
+  clang-tools_6  = throw "clang-tools_6 has been removed from nixpkgs"; # Added 2024-01-08
   clang-tools_7  = throw "clang-tools_7 has been removed from nixpkgs"; # Added 2023-11-19
+  clang_6  = throw "clang_6 has been removed from nixpkgs"; # Added 2024-01-08
   clang_7  = throw "clang_7 has been removed from nixpkgs"; # Added 2023-11-19
 
   ### D ###
@@ -287,6 +290,7 @@ mapAliases ({
   framework-system-tools = framework-tool; # added 2023-12-09
   fritzprofiles = throw "fritzprofiles was removed from nixpkgs, because it was removed as dependency of home-assistant for which it was pacakged."; # added 2024-01-05
   fuse2fs = if stdenv.isLinux then e2fsprogs.fuse2fs else null; # Added 2022-03-27 preserve, reason: convenience, arch has a package named fuse2fs too.
+  futuresql = libsForQt5.futuresql; # added 2023-11-11
   fx_cast_bridge = fx-cast-bridge; # added 2023-07-26
 
   fcitx = throw "fcitx is deprecated, please use fcitx5 instead."; # Added 2023-03-13
@@ -298,7 +302,9 @@ mapAliases ({
   g4py = python3Packages.geant4; # Added 2020-06-06
   garage_0_7 = throw "garage 0.7.x has been removed as it is EOL. Please upgrade to 0.8 series."; # Added 2023-10-10
   garage_0_7_3 = throw "garage 0.7.x has been removed as it is EOL. Please upgrade to 0.8 series."; # Added 2023-10-10
+  garmin-plugin = throw "garmin-plugin has been removed, as it is unmaintained upstream and no longer works with modern browsers."; # Added 2024-01-12
   garmindev = throw "'garmindev' has been removed as the dependent software 'qlandkartegt' has been removed"; # Added 2023-04-17
+  gcl_2_6_13_pre = throw "'gcl_2_6_13_pre' has been removed in favor of 'gcl'"; # Added 2024-01-11
   geekbench4 = throw "'geekbench4' has been renamed to 'geekbench_4'"; # Added 2023-03-10
   geekbench5 = throw "'geekbench5' has been renamed to 'geekbench_5'"; # Added 2023-03-10
   ghostwriter = libsForQt5.kdeGear.ghostwriter; # Added 2023-03-18
@@ -409,6 +415,7 @@ mapAliases ({
   i3-gaps = i3; # Added 2023-01-03
   icedtea8_web = throw "'icedtea8_web' has been renamed to/replaced by 'adoptopenjdk-icedtea-web'"; # Converted to throw 2023-09-10
   icedtea_web = throw "'icedtea_web' has been renamed to/replaced by 'adoptopenjdk-icedtea-web'"; # Converted to throw 2023-09-10
+  ignite = throw "'ignite' has been removed as the upstream project was archived, please use 'flintlock' instead"; # Added 2024-01-07
   imag = throw "'imag' has been removed, upstream gone"; # Added 2023-01-13
   imagemagick7Big = imagemagickBig; # Added 2021-02-22
   imagemagick7 = imagemagick; # Added 2021-02-22
@@ -441,7 +448,8 @@ mapAliases ({
   join-desktop = throw "'join-desktop' has been removed because it is unmaintained upstream"; # Added 2023-10-04
 
   # Julia
-
+  julia_18 = throw "'julia_18' has been removed from nixpkgs as it has reached end of life"; # Added 2024-01-11
+  julia_18-bin = throw "'julia_18-bin' has been removed from nixpkgs as it has reached end of life"; # Added 2024-01-11
 
   ### K ###
 
@@ -495,6 +503,7 @@ mapAliases ({
   liblastfm = libsForQt5.liblastfm; # Added 2020-06-14
   libmongo-client = throw "'libmongo-client' has been removed, upstream gone"; # Added 2023-06-22
   libpulseaudio-vanilla = libpulseaudio; # Added 2022-04-20
+  libquotient = libsForQt5.libquotient; # Added 2023-11-11
   libraw_unstable = throw "'libraw_unstable' has been removed, please use libraw"; # Added 2023-01-30
   librdf = lrdf; # Added 2020-03-22
   libressl_3_5 = throw "'libressl_3_5' has reached end-of-life "; # Added 2023-05-07
@@ -593,9 +602,13 @@ mapAliases ({
   linuxPackages_testing_bcachefs = throw "'linuxPackages_testing_bcachefs' has been removed, please use 'linuxPackages_testing', or any other linux kernel with bcachefs support";
   linux_testing_bcachefs = throw "'linux_testing_bcachefs' has been removed, please use 'linux_testing', or any other linux kernel with bcachefs support";
 
+  lld_6 = throw "lld_6 has been removed from nixpkgs"; # Added 2024-01-08
   lld_7 = throw "lld_7 has been removed from nixpkgs"; # Added 2023-11-19
+  lldb_6 = throw "lldb_6 has been removed from nixpkgs"; # Added 2024-01-08
   lldb_7 = throw "lldb_7 has been removed from nixpkgs"; # Added 2023-11-19
+  llvmPackages_6 = throw "llvmPackages_6 has been removed from nixpkgs"; # Added 2024-01-09
   llvmPackages_7 = throw "llvmPackages_7 has been removed from nixpkgs"; # Added 2023-11-19
+  llvm_6 = throw "llvm_6 has been removed from nixpkgs"; # Added 2024-01-08
   llvm_7 = throw "llvm_7 has been removed from nixpkgs"; # Added 2023-11-19
 
   lobster-two = google-fonts; # Added 2021-07-22
@@ -896,6 +909,7 @@ mapAliases ({
   rtsp-simple-server = throw "rtsp-simple-server is rebranded as mediamtx, including default config path update"; # Added 2023-04-11
   runCommandNoCC = runCommand;
   runCommandNoCCLocal = runCommandLocal;
+  rustc-wasm32 = rustc; # Added 2023-12-01
   rxvt_unicode = rxvt-unicode-unwrapped; # Added 2020-02-02
   rxvt_unicode-with-plugins = rxvt-unicode; # Added 2020-02-02
 

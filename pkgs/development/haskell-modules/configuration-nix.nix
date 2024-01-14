@@ -229,11 +229,7 @@ self: super: builtins.intersectAttrs super {
   # hledger* overrides
   inherit (
     let
-      # Copy hledger man pages from the source tarball into the proper place.
-      # It always contains the relevant man page(s) at the top level. For
-      # hledger it additionally has all the other man pages in embeddedfiles/
-      # which we ignore.
-      installHledgerManPages = overrideCabal (drv: {
+      installHledgerExtraFiles = overrideCabal (drv: {
         buildTools = drv.buildTools or [] ++ [
           pkgs.buildPackages.installShellFiles
         ];
@@ -243,6 +239,10 @@ self: super: builtins.intersectAttrs super {
           done
 
           install -v -Dm644 *.info* -t "$out/share/info/"
+
+          if [ -e shell-completion/hledger-completion.bash ]; then
+            installShellCompletion --name hledger shell-completion/hledger-completion.bash
+          fi
         '';
       });
 
@@ -254,15 +254,15 @@ self: super: builtins.intersectAttrs super {
       });
     in
     {
-      hledger = installHledgerManPages super.hledger;
-      hledger-web = installHledgerManPages (hledgerWebTestFix super.hledger-web);
-      hledger-ui = installHledgerManPages super.hledger-ui;
+      hledger = installHledgerExtraFiles super.hledger;
+      hledger-web = installHledgerExtraFiles (hledgerWebTestFix super.hledger-web);
+      hledger-ui = installHledgerExtraFiles super.hledger-ui;
 
-      hledger_1_30_1 = installHledgerManPages
+      hledger_1_30_1 = installHledgerExtraFiles
         (doDistribute (super.hledger_1_30_1.override {
           hledger-lib = self.hledger-lib_1_30;
         }));
-      hledger-web_1_30 = installHledgerManPages (hledgerWebTestFix
+      hledger-web_1_30 = installHledgerExtraFiles (hledgerWebTestFix
         (doDistribute (super.hledger-web_1_30.override {
           hledger = self.hledger_1_30_1;
           hledger-lib = self.hledger-lib_1_30;
@@ -1092,41 +1092,8 @@ self: super: builtins.intersectAttrs super {
   # won't work (or would need to patch test suite).
   domaindriven-core = dontCheck super.domaindriven-core;
 
-  cachix-api = overrideCabal (drv: {
-    version = "1.6.1";
-    src = pkgs.fetchFromGitHub {
-      owner = "cachix";
-      repo = "cachix";
-      rev = "v1.6.1";
-      sha256 = "sha256-6S8EOs7bGTyY4eDXGuTbJMTlaz0n1JYIAPKIB2cVYxg=";
-    };
-    postUnpack = "sourceRoot=$sourceRoot/cachix-api";
-    postPatch = ''
-      sed -i 's/1.6/1.6.1/' cachix-api.cabal
-    '';
-  }) super.cachix-api;
-  cachix = overrideCabal (drv: {
-    version = "1.6.1";
-    src = pkgs.fetchFromGitHub {
-      owner = "cachix";
-      repo = "cachix";
-      rev = "v1.6.1";
-      sha256 = "sha256-6S8EOs7bGTyY4eDXGuTbJMTlaz0n1JYIAPKIB2cVYxg=";
-    };
-    postUnpack = "sourceRoot=$sourceRoot/cachix";
-    postPatch = ''
-      sed -i 's/1.6/1.6.1/' cachix.cabal
-    '';
-  }) (lib.pipe
-        (super.cachix.override {
-          nix = self.hercules-ci-cnix-store.nixPackage;
-        })
-        [
-         (addBuildTool self.hercules-ci-cnix-store.nixPackage)
-         (addBuildTool pkgs.pkg-config)
-         (addBuildDepend self.immortal)
-        ]
-  );
+  cachix = self.generateOptparseApplicativeCompletions [ "cachix" ]
+    (enableSeparateBinOutput super.cachix);
 
   hercules-ci-agent = super.hercules-ci-agent.override { nix = self.hercules-ci-cnix-store.passthru.nixPackage; };
   hercules-ci-cnix-expr = addTestToolDepend pkgs.git (super.hercules-ci-cnix-expr.override { nix = self.hercules-ci-cnix-store.passthru.nixPackage; });
