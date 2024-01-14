@@ -199,6 +199,11 @@ initArgs@{
 , withStripping ? false
 
 /*
+ *  Misc
+ */
+, confAACPSTablegenFix ? lib.versionAtLeast version "6" && lib.versionOlder version "6.1"
+
+/*
  *  External libraries options
  */
 , alsa-lib
@@ -405,7 +410,7 @@ stdenv.mkDerivation (finalAttrs: {
         hash = "sha256-Z5HSe7YpryYGHD3BYXejAhqR4EPnmfTGyccxNvU3AaU=";
       }
     ]
-    ++ optionals (versionAtLeast version "6" && versionOlder version "6.1") [
+    ++ optionals (confAACPSTablegenFix) [
       {
         name = "fix_aacps_tablegen";
         url = "https://git.ffmpeg.org/gitweb/ffmpeg.git/patch/814178f92647be2411516bbb82f48532373d2554";
