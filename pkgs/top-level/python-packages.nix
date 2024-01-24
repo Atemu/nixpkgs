@@ -349,8 +349,6 @@ self: super: with self; {
 
   aioquic = callPackage ../development/python-modules/aioquic { };
 
-  aioquic-mitmproxy = callPackage ../development/python-modules/aioquic-mitmproxy { };
-
   aiorecollect = callPackage ../development/python-modules/aiorecollect { };
 
   aioredis = callPackage ../development/python-modules/aioredis { };
@@ -1585,6 +1583,8 @@ self: super: with self; {
 
   blurhash = callPackage ../development/python-modules/blurhash { };
 
+  blurhash-python = callPackage ../development/python-modules/blurhash-python { };
+
   bme280spi = callPackage ../development/python-modules/bme280spi { };
 
   bme680 = callPackage ../development/python-modules/bme680 { };
@@ -2080,6 +2080,8 @@ self: super: with self; {
   cjkwrap = callPackage ../development/python-modules/cjkwrap { };
 
   ckcc-protocol = callPackage ../development/python-modules/ckcc-protocol { };
+
+  clarabel = callPackage ../development/python-modules/clarabel { };
 
   clarifai = callPackage ../development/python-modules/clarifai { };
 
@@ -2804,6 +2806,8 @@ self: super: with self; {
 
   denonavr = callPackage ../development/python-modules/denonavr { };
 
+  dep-logic = callPackage ../development/python-modules/dep-logic { };
+
   dependency-injector = callPackage ../development/python-modules/dependency-injector { };
 
   deploykit = callPackage ../development/python-modules/deploykit { };
@@ -3472,7 +3476,11 @@ self: super: with self; {
 
   dvc-data = callPackage ../development/python-modules/dvc-data {  };
 
+  dvc-gdrive = callPackage ../development/python-modules/dvc-gdrive {  };
+
   dvc-gs = callPackage ../development/python-modules/dvc-gs { };
+
+  dvc-hdfs = callPackage ../development/python-modules/dvc-hdfs {  };
 
   dvc-http = callPackage ../development/python-modules/dvc-http {  };
 
@@ -4423,6 +4431,8 @@ self: super: with self; {
 
   gaphas = callPackage ../development/python-modules/gaphas { };
 
+  gardena-bluetooth = callPackage ../development/python-modules/gardena-bluetooth { };
+
   garminconnect-aio = callPackage ../development/python-modules/garminconnect-aio { };
 
   garminconnect = callPackage ../development/python-modules/garminconnect { };
@@ -4973,6 +4983,8 @@ self: super: with self; {
   gtfs-realtime-bindings = callPackage ../development/python-modules/gtfs-realtime-bindings { };
 
   gtimelog = callPackage ../development/python-modules/gtimelog { };
+
+  gto = callPackage ../development/python-modules/gto { };
 
   gtts = callPackage ../development/python-modules/gtts { };
 
@@ -6180,6 +6192,10 @@ self: super: with self; {
 
   langchain = callPackage ../development/python-modules/langchain { };
 
+  langchain-community = callPackage ../development/python-modules/langchain-community { };
+
+  langchain-core = callPackage ../development/python-modules/langchain-core { };
+
   langcodes = callPackage ../development/python-modules/langcodes { };
 
   langdetect = callPackage ../development/python-modules/langdetect { };
@@ -6572,6 +6588,8 @@ self: super: with self; {
     # llvmlite always requires a specific version of llvm.
     llvm = pkgs.llvm_14;
   };
+
+  lmcloud = callPackage ../development/python-modules/lmcloud { };
 
   lmdb = callPackage ../development/python-modules/lmdb {
     inherit (pkgs) lmdb;
@@ -8407,7 +8425,7 @@ self: super: with self; {
 
   nose-randomly = callPackage ../development/python-modules/nose-randomly { };
 
-  nose_warnings_filters = callPackage ../development/python-modules/nose_warnings_filters { };
+  nose-warnings-filters = callPackage ../development/python-modules/nose-warnings-filters { };
 
   nosexcover = callPackage ../development/python-modules/nosexcover { };
 
@@ -8644,6 +8662,8 @@ self: super: with self; {
   open-clip-torch = callPackage ../development/python-modules/open-clip-torch { };
 
   open-garage = callPackage ../development/python-modules/open-garage { };
+
+  open-interpreter = callPackage ../development/python-modules/open-interpreter { };
 
   open-meteo = callPackage ../development/python-modules/open-meteo { };
 
@@ -9077,6 +9097,8 @@ self: super: with self; {
 
   pdfrw = callPackage ../development/python-modules/pdfrw { };
 
+  pdfrw2 = callPackage ../development/python-modules/pdfrw2 { };
+
   pdftotext = callPackage ../development/python-modules/pdftotext { };
 
   pdfx = callPackage ../development/python-modules/pdfx { };
@@ -9086,6 +9108,8 @@ self: super: with self; {
   pdm-pep517 = callPackage ../development/python-modules/pdm-pep517 { };
 
   pdoc = callPackage ../development/python-modules/pdoc { };
+
+  pdoc-pyo3-sample-library = callPackage ../development/python-modules/pdoc-pyo3-sample-library { };
 
   pdoc3 = callPackage ../development/python-modules/pdoc3 { };
 
@@ -9159,6 +9183,8 @@ self: super: with self; {
   pfzy = callPackage ../development/python-modules/pfzy { };
 
   ping3 = callPackage ../development/python-modules/ping3 { };
+
+  pins = callPackage ../development/python-modules/pins { };
 
   pg8000 = callPackage ../development/python-modules/pg8000 { };
 
@@ -9432,6 +9458,8 @@ self: super: with self; {
   pyhumps = callPackage ../development/python-modules/pyhumps { };
 
   pyinstaller-versionfile = callPackage ../development/python-modules/pyinstaller-versionfile { };
+
+  pyisemail = callPackage ../development/python-modules/pyisemail { };
 
   pyisy = callPackage ../development/python-modules/pyisy { };
 
@@ -10044,6 +10072,8 @@ self: super: with self; {
     inherit (pkgs) arrow-cpp cmake;
   };
 
+  pyarrow-hotfix = callPackage ../development/python-modules/pyarrow-hotfix { };
+
   pyasn = callPackage ../development/python-modules/pyasn { };
 
   pyasn1 = callPackage ../development/python-modules/pyasn1 { };
@@ -10051,6 +10081,8 @@ self: super: with self; {
   pyasn1-modules = callPackage ../development/python-modules/pyasn1-modules { };
 
   pyasuswrt = callPackage ../development/python-modules/pyasuswrt { };
+
+  pyasyncore = callPackage ../development/python-modules/pyasyncore { };
 
   pyathena = callPackage ../development/python-modules/pyathena { };
 
@@ -10442,7 +10474,7 @@ self: super: with self; {
 
   pygame = callPackage ../development/python-modules/pygame {
     inherit (pkgs.darwin.apple_sdk.frameworks) AppKit;
-    SDL2_image = pkgs.SDL2_image_2_0_5;
+    SDL2_image = pkgs.SDL2_image_2_0;
   };
 
   pygame-sdl2 = callPackage ../development/python-modules/pygame-sdl2 { };
@@ -10910,6 +10942,8 @@ self: super: with self; {
     inherit (pkgs) lz4;
   };
 
+  pyosohotwaterapi = callPackage ../development/python-modules/pyosohotwaterapi { };
+
   pyotgw = callPackage ../development/python-modules/pyotgw { };
 
   pyotp = callPackage ../development/python-modules/pyotp { };
@@ -11009,9 +11043,9 @@ self: super: with self; {
 
   pyqt5-stubs = callPackage ../development/python-modules/pyqt5-stubs { };
 
-  pyqt5_sip = callPackage ../development/python-modules/pyqt/sip.nix { };
+  pyqt5-sip = callPackage ../development/python-modules/pyqt/sip.nix { };
 
-  pyqt5_with_qtmultimedia = self.pyqt5.override {
+  pyqt5-multimedia = self.pyqt5.override {
     withMultimedia = true;
   };
 
@@ -11274,6 +11308,10 @@ self: super: with self; {
   pysmt = callPackage ../development/python-modules/pysmt { };
 
   pysnmp = callPackage ../development/python-modules/pysnmp { };
+
+  pysnmpcrypto = callPackage ../development/python-modules/pysnmpcrypto { };
+
+  pysnmp-lextudio = callPackage ../development/python-modules/pysnmp-lextudio { };
 
   pysnmp-pyasn1 = callPackage ../development/python-modules/pysnmp-pyasn1 { };
 
@@ -12566,7 +12604,7 @@ self: super: with self; {
 
   retry = callPackage ../development/python-modules/retry { };
 
-  retry_decorator = callPackage ../development/python-modules/retry_decorator { };
+  retry-decorator = callPackage ../development/python-modules/retry-decorator { };
 
   retrying = callPackage ../development/python-modules/retrying { };
 
@@ -13238,7 +13276,7 @@ self: super: with self; {
 
   sip = callPackage ../development/python-modules/sip { };
 
-  sip_4 = callPackage ../development/python-modules/sip/4.x.nix { };
+  sip4 = callPackage ../development/python-modules/sip/4.x.nix { };
 
   sipyco = callPackage ../development/python-modules/sipyco { };
 
@@ -14145,6 +14183,13 @@ self: super: with self; {
     grpc = compat.grpcTF;
     grpcio = compat.grpcioTF;
     tensorboard = compat.tensorboardTF;
+
+    # Tensorflow 2.13 doesn't support gcc13:
+    # https://github.com/tensorflow/tensorflow/issues/61289
+    #
+    # We use the nixpkgs' default libstdc++ to stay compatible with other
+    # python modules
+    stdenv = pkgs.stdenvAdapters.useLibsFrom stdenv pkgs.gcc12Stdenv;
   };
 
   tensorflow-datasets = callPackage ../development/python-modules/tensorflow-datasets { };
@@ -15625,6 +15670,8 @@ self: super: with self; {
 
   unifiled = callPackage ../development/python-modules/unifiled { };
 
+  unique-log-filter = callPackage ../development/python-modules/unique-log-filter { };
+
   units = callPackage ../development/python-modules/units { };
 
   unittest-data-provider = callPackage ../development/python-modules/unittest-data-provider { };
@@ -15663,7 +15710,7 @@ self: super: with self; {
 
   upcloud-api = callPackage ../development/python-modules/upcloud-api { };
 
-  update_checker = callPackage ../development/python-modules/update_checker { };
+  update-checker = callPackage ../development/python-modules/update-checker { };
 
   update-copyright = callPackage ../development/python-modules/update-copyright { };
 
@@ -16414,7 +16461,7 @@ self: super: with self; {
 
   zc-buildout = callPackage ../development/python-modules/buildout { };
 
-  zc_lockfile = callPackage ../development/python-modules/zc_lockfile { };
+  zc-lockfile = callPackage ../development/python-modules/zc-lockfile { };
 
   zcbor = callPackage ../development/python-modules/zcbor { };
 

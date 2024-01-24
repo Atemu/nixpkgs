@@ -110,6 +110,9 @@ let
   gccForLibs_solib = getLib gccForLibs
     + optionalString (targetPlatform != hostPlatform) "/${targetPlatform.config}";
 
+  # Analogously to cc_solib and gccForLibs_solib
+  libcxx_solib = "${lib.getLib libcxx}/lib";
+
   # The following two functions, `isGccArchSupported` and
   # `isGccTuneSupported`, only handle those situations where a flag
   # (`-march` or `-mtune`) is accepted by one compiler but rejected
@@ -564,7 +567,7 @@ stdenv.mkDerivation {
       echo "$ccLDFlags" >> $out/nix-support/cc-ldflags
       echo "$ccCFlags" >> $out/nix-support/cc-cflags
     '' + optionalString (targetPlatform.isDarwin && (libcxx != null) && (cc.isClang or false)) ''
-      echo " -L${lib.getLib libcxx}/lib" >> $out/nix-support/cc-ldflags
+      echo " -L${libcxx_solib}" >> $out/nix-support/cc-ldflags
     ''
 
     ##
