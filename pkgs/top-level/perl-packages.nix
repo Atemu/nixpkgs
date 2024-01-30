@@ -9796,6 +9796,20 @@ with self; {
     };
   };
 
+  FileFcntlLock = buildPerlPackage {
+    pname = "File-FcntlLock";
+    version = "0.22";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/J/JT/JTT/File-FcntlLock-0.22.tar.gz";
+      hash = "sha256-mpq7Lv/5Orc3QaEo0/cA5SUnNUbBXQTnxRxwSrCdvN8=";
+    };
+    meta = {
+      description = "File locking with fcntl(2)";
+      license = with lib.licenses; [ artistic1 ];
+      maintainers = with maintainers; [ ajs124 das_j ];
+    };
+  };
+
   FileGrep = buildPerlPackage {
     pname = "File-Grep";
     version = "0.02";
@@ -19937,6 +19951,19 @@ with self; {
     meta = {
       description = "Establish an ISA relationship with base classes at compile time";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
+    };
+  };
+
+  ParseWin32Registry = buildPerlPackage {
+    pname = "ParseWin32Registry";
+    version = "1.1";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/J/JM/JMACFARLA/Parse-Win32Registry-1.1.tar.gz";
+      hash = "sha256-wWOyAr5q17WPSEZJT/crjJqXloPKmU5DgOmsZWTcBbo=";
+    };
+    meta = with lib; {
+      description = "Module for parsing Windows Registry files";
+      license = with licenses; [ artistic1 gpl1Only ];
     };
   };
 
