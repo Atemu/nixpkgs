@@ -13963,6 +13963,12 @@
     github = "pbsds";
     githubId = 140964;
   };
+  pca006132 = {
+    name = "pca006132";
+    email = "john.lck40@gmail.com";
+    github = "pca006132";
+    githubId = 12198657;
+  };
   pcarrier = {
     email = "pc@rrier.ca";
     github = "pcarrier";
@@ -18649,6 +18655,11 @@
     github = "ulrikstrid";
     githubId = 1607770;
     name = "Ulrik Strid";
+  };
+  umlx5h = {
+    github = "umlx5h";
+    githubId = 20206121;
+    name = "umlx5h";
   };
   unclamped = {
     name = "Maru";
