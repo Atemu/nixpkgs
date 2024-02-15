@@ -5,13 +5,13 @@
 
 buildGoModule rec {
   pname = "weaviate";
-  version = "1.23.7";
+  version = "1.23.9";
 
   src = fetchFromGitHub {
     owner = "weaviate";
     repo = "weaviate";
     rev = "v${version}";
-    hash = "sha256-m0CC45C84A/Df526HiKPVmunwcUccamYKHm5KUiB19M=";
+    hash = "sha256-cl8jTMrX/N/MNxmFtF818veZEFuBQ1APXzqs8WC/Bt4=";
   };
 
   vendorHash = "sha256-UEdGoXKq7ewNszahgcomjjuO2uzRZpiwkvvnXyFc9Og=";
