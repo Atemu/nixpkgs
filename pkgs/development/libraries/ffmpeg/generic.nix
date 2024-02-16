@@ -41,7 +41,7 @@ initArgs@{
   # Feature flags
 , withAlsa ? withHeadlessDeps && stdenv.isLinux # Alsa in/output supporT
 , withAom ? withFullDeps # AV1 reference encoder
-, withAribcaption ? withFullDeps && lib.versionAtLeast version "6.1" # ARIB STD-B24 Caption Decoder/Renderer
+, withAribcaption ? withFullDeps # ARIB STD-B24 Caption Decoder/Renderer
 , withAss ? withHeadlessDeps && stdenv.hostPlatform == stdenv.buildPlatform # (Advanced) SubStation Alpha subtitle rendering
 , withBluray ? withFullDeps # BluRay reading
 , withBs2b ? withFullDeps # bs2b DSP library
