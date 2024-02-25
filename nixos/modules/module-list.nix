@@ -241,6 +241,7 @@
   ./programs/proxychains.nix
   ./programs/qdmr.nix
   ./programs/qt5ct.nix
+  ./programs/quark-goldleaf.nix
   ./programs/regreet.nix
   ./programs/rog-control-center.nix
   ./programs/rust-motd.nix
@@ -545,6 +546,7 @@
   ./services/hardware/kanata.nix
   ./services/hardware/lcd.nix
   ./services/hardware/lirc.nix
+  ./services/hardware/nvidia-container-toolkit-cdi-generator
   ./services/hardware/nvidia-optimus.nix
   ./services/hardware/openrgb.nix
   ./services/hardware/pcscd.nix
@@ -839,6 +841,7 @@
   ./services/monitoring/riemann.nix
   ./services/monitoring/rustdesk-server.nix
   ./services/monitoring/scollector.nix
+  ./services/monitoring/scrutiny.nix
   ./services/monitoring/smartd.nix
   ./services/monitoring/snmpd.nix
   ./services/monitoring/statsd.nix
@@ -897,7 +900,6 @@
   ./services/networking/autossh.nix
   ./services/networking/avahi-daemon.nix
   ./services/networking/babeld.nix
-  ./services/networking/bee-clef.nix
   ./services/networking/bee.nix
   ./services/networking/biboumi.nix
   ./services/networking/bind.nix
@@ -962,6 +964,7 @@
   ./services/networking/gns3-server.nix
   ./services/networking/gnunet.nix
   ./services/networking/go-autoconfig.nix
+  ./services/networking/go-camo.nix
   ./services/networking/go-neb.nix
   ./services/networking/go-shadowsocks2.nix
   ./services/networking/gobgpd.nix
@@ -1400,7 +1403,6 @@
   ./services/web-servers/unit/default.nix
   ./services/web-servers/uwsgi.nix
   ./services/web-servers/varnish/default.nix
-  ./services/web-servers/zope2.nix
   ./services/x11/clight.nix
   ./services/x11/colord.nix
   ./services/x11/desktop-managers/default.nix

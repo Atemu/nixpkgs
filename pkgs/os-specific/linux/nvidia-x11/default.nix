@@ -70,11 +70,11 @@ rec {
   # Vulkan developer beta driver
   # See here for more information: https://developer.nvidia.com/vulkan-driver
   vulkan_beta = generic rec {
-    version = "535.43.25";
+    version = "535.43.28";
     persistencedVersion = "535.98";
     settingsVersion = "535.98";
-    sha256_64bit = "sha256-Ir75rT1xs3Cycd1Wl7EqIUuU5bGfeSPYbGiq2Eqjlsw=";
-    openSha256 = "sha256-HnM4/sUKvZ8hGuwa0YSTAuC9HShw6on3+lk0TcqcPEQ=";
+    sha256_64bit = "sha256-ic7r3MPp65fdEwqDRyc0WiKonL5eF6KZUpfD/C3vYaU=";
+    openSha256 = "sha256-a5iccyISHheOfTwpsrz6puqrVhgzYWFvNlykVG3+PVc=";
     settingsSha256 = "sha256-jCRfeB1w6/dA27gaz6t5/Qo7On0zbAPIi74LYLel34s=";
     persistencedSha256 = "sha256-WviDU6B50YG8dO64CGvU3xK8WFUX8nvvVYm/fuGyroM=";
     url = "https://developer.nvidia.com/downloads/vulkan-beta-${lib.concatStrings (lib.splitVersion version)}-linux";
@@ -99,11 +99,11 @@ rec {
   };
 
   dc_535 = generic rec {
-    version = "535.129.03";
+    version = "535.154.05";
     url = "https://us.download.nvidia.com/tesla/${version}/NVIDIA-Linux-x86_64-${version}.run";
-    sha256_64bit = "sha256-5tylYmomCMa7KgRs/LfBrzOLnpYafdkKwJu4oSb/AC4=";
-    persistencedSha256 = "sha256-FRMqY5uAJzq3o+YdM2Mdjj8Df6/cuUUAnh52Ne4koME=";
-    fabricmanagerSha256 = "sha256-5KRYS+JLVAhDkBn8Z7e0uJvULQy6dSpwnYsbBxw7Mxg=";
+    sha256_64bit = "sha256-fpUGXKprgt6SYRDxSCemGXLrEsIA6GOinp+0eGbqqJg=";
+    persistencedSha256 = "sha256-d0Q3Lk80JqkS1B54Mahu2yY/WocOqFFbZVBh+ToGhaE=";
+    fabricmanagerSha256 = "sha256-/HQfV7YA3MYVmre/sz897PF6tc6MaMiS/h7Q10m2p/o=";
     useSettings = false;
     usePersistenced = true;
     useFabricmanager = true;

@@ -98,6 +98,23 @@ let
         };
       };
 
+      aaron-bond.better-comments = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "better-comments";
+          publisher = "aaron-bond";
+          version = "3.0.2";
+          sha256 = "850980f0f5a37f635deb4bf9100baaa83f0b204bbbb25acdb3c96e73778f8197";
+        };
+        meta = {
+          changelog = "https://marketplace.visualstudio.com/items/aaron-bond.better-comments/changelog";
+          description = "Improve your code commenting by annotating with alert, informational, TODOs, and more!";
+          downloadPage = "https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments";
+          homepage = "https://github.com/aaron-bond/better-comments";
+          license = lib.licenses.mit;
+          maintainers = [ lib.maintainers.DataHearth ];
+        };
+      };
+
       adpyke.codesnap = buildVscodeMarketplaceExtension {
         mktplcRef = {
           name = "codesnap";
@@ -170,6 +187,23 @@ let
         };
         meta = {
           license = lib.licenses.mit;
+        };
+      };
+
+      alexisvt.flutter-snippets = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "flutter-snippets";
+          publisher = "alexisvt";
+          version = "3.0.0";
+          sha256 = "44ac46f826625f0a4aec40f2542f32c161e672ff96f45a548d0bccd9feed04ef";
+        };
+        meta = {
+          changelog = "https://marketplace.visualstudio.com/items/alexisvt.flutter-snippets/changelog";
+          description = "A set of helpful widget snippets for day to day Flutter development";
+          downloadPage = "https://marketplace.visualstudio.com/items?itemName=alexisvt.flutter-snippets";
+          homepage = "https://github.com/Alexisvt/flutter-snippets";
+          license = lib.licenses.mit;
+          maintainers = [ lib.maintainers.DataHearth ];
         };
       };
 
@@ -753,19 +787,54 @@ let
       };
 
       charliermarsh.ruff = buildVscodeMarketplaceExtension {
-        mktplcRef = {
+        mktplcRef = let
+          sources = {
+            "x86_64-linux" = {
+              arch = "linux-x64";
+              sha256 = "sha256-2c0tH/MlDOqeyffcV8ZCy4woogBTcf1GCuPPO8JXaWc=";
+            };
+            "x86_64-darwin" = {
+              arch = "darwin-x64";
+              sha256 = "sha256-euvGIlO7931N56R5BWKu3F9nSEoDgf+DXk7Hgl1qSUw=";
+            };
+            "aarch64-linux" = {
+              arch = "linux-arm64";
+              sha256 = "sha256-dGpIHChnfrQbxRZDuoAi4imgStyyPdxdvTQ3lknMYu0=";
+            };
+            "aarch64-darwin" = {
+              arch = "darwin-arm64";
+              sha256 = "sha256-tElX4C0I5AmpxSHMtqOsxSAUImD1tqArB5fnvhw4LFc=";
+            };
+          };
+        in {
           name = "ruff";
           publisher = "charliermarsh";
-          version = "2023.60.0";
-          sha256 = "sha256-qgwud2gzHLHID45VxDlngFMoks5O3pTHQe+Q7bdf8+I=";
-        };
+          version = "2024.4.0";
+        } // sources.${stdenv.system} or (throw "Unsupported system ${stdenv.system}");
         meta = {
           license = lib.licenses.mit;
-          changelog = "https://github.com/astral-sh/ruff-vscode/releases";
-          description = "Ruff extension for Visual Studio Code";
+          changelog = "https://marketplace.visualstudio.com/items/charliermarsh.ruff/changelog";
+          description = "A Visual Studio Code extension with support for the Ruff linter.";
           downloadPage = "https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff";
-          homepage = "https://github.com/astral-sh/ruff-vscode/";
+          homepage = "https://github.com/astral-sh/ruff-vscode";
           maintainers = [ lib.maintainers.azd325 ];
+        };
+      };
+
+      christian-kohler.npm-intellisense = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "npm-intellisense";
+          publisher = "christian-kohler";
+          version = "1.4.5";
+          sha256 = "962b851a7cafbd51f34afeb4a0b91e985caff3947e46218a12b448533d8f60ab";
+        };
+        meta = {
+          changelog = "https://marketplace.visualstudio.com/items/christian-kohler.npm-intellisense/changelog";
+          description = "Visual Studio Code plugin that autocompletes npm modules in import statements";
+          downloadPage = "https://marketplace.visualstudio.com/items?itemName=christian-kohler.npm-intellisense";
+          homepage = "https://github.com/ChristianKohler/NpmIntellisense";
+          license = lib.licenses.mit;
+          maintainers = [ lib.maintainers.DataHearth ];
         };
       };
 
@@ -1252,6 +1321,40 @@ let
         };
       };
 
+      earthly.earthfile-syntax-highlighting = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "earthfile-syntax-highlighting";
+          publisher = "earthly";
+          version = "0.0.16";
+          sha256 = "c54d6fd4d2f503a1031be92ff118b5eb1b997907511734e730e08b1a90a6960f";
+        };
+        meta = {
+          changelog = "https://marketplace.visualstudio.com/items/earthly.earthfile-syntax-highlighting/changelog";
+          description = "Syntax highlighting for Earthly build Earthfiles.";
+          downloadPage = "https://marketplace.visualstudio.com/items?itemName=earthly.earthfile-syntax-highlighting";
+          homepage = "https://github.com/earthly/earthfile-grammar";
+          license = lib.licenses.mpl20;
+          maintainers = [ lib.maintainers.DataHearth ];
+        };
+      };
+
+      ecmel.vscode-html-css = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "vscode-html-css";
+          publisher = "ecmel";
+          version = "2.0.9";
+          sha256 = "7c30d57d2ff9986bd5daa2c9f51ec4bb04239ca23a51e971a63f7b93d005d297";
+        };
+        meta = {
+          changelog = "https://marketplace.visualstudio.com/items/ecmel.vscode-html-css/changelog";
+          description = "CSS Intellisense for HTML";
+          downloadPage = "https://marketplace.visualstudio.com/items?itemName=ecmel.vscode-html-css";
+          homepage = "https://github.com/ecmel/vscode-html-css";
+          license = lib.licenses.mit;
+          maintainers = [ lib.maintainers.DataHearth ];
+        };
+      };
+
       editorconfig.editorconfig = buildVscodeMarketplaceExtension {
         mktplcRef = {
           name = "EditorConfig";
@@ -1297,8 +1400,8 @@ let
         mktplcRef = {
           name = "elixir-ls";
           publisher = "JakeBecker";
-          version = "0.19.0";
-          sha256 = "sha256-31eenBOVUEY3MFaVmAjZsypr7U0d6IfVR3ZJfDqi3OY=";
+          version = "0.20.0";
+          sha256 = "sha256-p+YNBRzzA/EezBMxI5Rmdb8SdJgFV7QwuLVi1mcJV+E=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/JakeBecker.elixir-ls/changelog";
@@ -2220,6 +2323,16 @@ let
         };
       };
 
+      karunamurti.haml = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "haml";
+          publisher = "karunamurti";
+          version = "1.4.1";
+          sha256 = "123cwfajakkg2pr0z4v289fzzlhwbxx9dvb5bjc32l3pzvbhq4gv";
+        };
+        meta.license = lib.licenses.mit;
+      };
+
       kddejong.vscode-cfn-lint =
         let
           inherit (python3Packages) cfn-lint pydot;
@@ -2411,8 +2524,8 @@ let
         mktplcRef = {
           name = "typst-preview";
           publisher = "mgt19937";
-          version = "0.10.5";
-          sha256 = "sha256-cR5Pyokzmf8dNlsUkcwwfPx3jtJCQHRwTpYk78ovgrM=";
+          version = "0.10.8";
+          sha256 = "sha256-Ad6eCAuueeAeh6z/kk/F2HhbV4tp/XmiGySA2fn5wqY=";
         };
 
         buildInputs = [
@@ -2484,6 +2597,23 @@ let
           license = lib.licenses.bsd0;
           downloadPage = "https://marketplace.visualstudio.com/items?itemName=mkhl.direnv";
           maintainers = [ lib.maintainers.nullx76 ];
+        };
+      };
+
+      moshfeu.compare-folders = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "compare-folders";
+          publisher = "moshfeu";
+          version = "0.24.2";
+          sha256 = "sha256-EiGuYRMN8bXq+Cya38U+dCX2W0wzIeP0yb39WBJaX1U=";
+        };
+
+        meta = {
+          changelog = "https://github.com/moshfeu/vscode-compare-folders/releases";
+          description = "The extension allows you to compare folders, show the diffs in a list and present diff in a splitted view side by side";
+          downloadPage = "https://marketplace.visualstudio.com/items?itemName=moshfeu.compare-folders";
+          homepage = "https://github.com/moshfeu/vscode-compare-folders";
+          license = lib.licenses.mit;
         };
       };
 

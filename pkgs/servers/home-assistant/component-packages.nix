@@ -2,7 +2,7 @@
 # Do not edit!
 
 {
-  version = "2024.2.1";
+  version = "2024.2.2";
   components = {
     "3_day_blinds" = ps: with ps; [
     ];
@@ -1807,10 +1807,11 @@
       aiohttp-fast-url-dispatcher
       aiohttp-zlib-ng
       fnv-hash-fast
+      govee-local-api
       ifaddr
       psutil-home-assistant
       sqlalchemy
-    ]; # missing inputs: govee-local-api
+    ];
     "gpsd" = ps: with ps; [
       gps3
     ];
@@ -2731,7 +2732,8 @@
       limitlessled
     ];
     "linear_garage_door" = ps: with ps; [
-    ]; # missing inputs: linear-garage-door
+      linear-garage-door
+    ];
     "linksys_smart" = ps: with ps; [
     ];
     "linode" = ps: with ps; [
@@ -3017,6 +3019,9 @@
     ];
     "meteoclimatic" = ps: with ps; [
       pymeteoclimatic
+    ];
+    "metoffice" = ps: with ps; [
+      datapoint
     ];
     "mfi" = ps: with ps; [
     ]; # missing inputs: mficlient
@@ -4911,7 +4916,8 @@
       tank-utility
     ];
     "tankerkoenig" = ps: with ps; [
-    ]; # missing inputs: aiotankerkoenig
+      aiotankerkoenig
+    ];
     "tapsaff" = ps: with ps; [
     ]; # missing inputs: tapsaff
     "tasmota" = ps: with ps; [
@@ -4928,7 +4934,8 @@
     "tcp" = ps: with ps; [
     ];
     "technove" = ps: with ps; [
-    ]; # missing inputs: python-technove
+      python-technove
+    ];
     "ted5000" = ps: with ps; [
       xmltodict
     ];
@@ -6072,6 +6079,7 @@
     "google_travel_time"
     "google_wifi"
     "govee_ble"
+    "govee_light_local"
     "gpsd"
     "gpslogger"
     "graphite"
@@ -6181,6 +6189,7 @@
     "life360"
     "lifx"
     "light"
+    "linear_garage_door"
     "litterrobot"
     "livisi"
     "local_calendar"
@@ -6220,6 +6229,7 @@
     "met_eireann"
     "meteo_france"
     "meteoclimatic"
+    "metoffice"
     "microsoft_face"
     "microsoft_face_detect"
     "microsoft_face_identify"
@@ -6487,9 +6497,11 @@
     "tag"
     "tailscale"
     "tailwind"
+    "tankerkoenig"
     "tasmota"
     "tautulli"
     "tcp"
+    "technove"
     "tedee"
     "telegram"
     "telegram_bot"
