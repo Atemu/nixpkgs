@@ -14,7 +14,7 @@
 
 buildPythonPackage rec {
   pname = "huggingface-hub";
-  version = "0.21.2";
+  version = "0.21.4";
   pyproject = true;
 
   disabled = pythonOlder "3.8";
@@ -23,7 +23,7 @@ buildPythonPackage rec {
     owner = "huggingface";
     repo = "huggingface_hub";
     rev = "refs/tags/v${version}";
-    hash = "sha256-0Nr6qs9rzuBQo8SGuQ2Ai2Q+E+Gs4DT/AMrYf7dYM/E=";
+    hash = "sha256-SN0FDOuXvgDqxpK4RRRXQDTPG5/BV3DJsiEq2q5WvsY=";
   };
 
   nativeBuildInputs = [
@@ -52,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/huggingface/huggingface_hub";
     changelog = "https://github.com/huggingface/huggingface_hub/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [ ];
   };
 }

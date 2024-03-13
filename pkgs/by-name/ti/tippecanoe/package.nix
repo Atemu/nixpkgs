@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "tippecanoe";
-  version = "2.46.0";
+  version = "2.51.0";
 
   src = fetchFromGitHub {
     owner = "felt";
     repo = "tippecanoe";
     rev = finalAttrs.version;
-    hash = "sha256-UsQb90DKK05JByF3rh6kcvSaugEemU2Gg4c/owImNVs=";
+    hash = "sha256-5Cu+0Tn+ExxJTO5AjeTnIJtnpBNKR7nxudD77X696H0=";
   };
 
   buildInputs = [ sqlite zlib ];
@@ -32,5 +32,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.bsd2;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.unix;
+    mainProgram = "tippecanoe";
   };
 })

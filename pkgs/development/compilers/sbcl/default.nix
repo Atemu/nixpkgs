@@ -24,11 +24,11 @@ let
       sha256 = "189gjqzdz10xh3ybiy4ch1r98bsmkcb4hpnrmggd4y2g5kqnyx4y";
     };
 
-    "2.4.0" = {
-      sha256 = "sha256-g9i3TwjSJUxZuXkLwfZp4JCZRXuIRyDs7L9F9LRtF3Y=";
-    };
     "2.4.1" = {
       sha256 = "sha256-2k+UhvrUE9OversbCSaTJf20v/fnuI8hld3udDJjz34=";
+    };
+    "2.4.2" = {
+      sha256 = "sha256-/APLUtEqr+h1nmMoRQogG73fibFwcaToPznoC0Pd7w8=";
     };
   };
   # Collection of pre-built SBCL binaries for platforms that need them for
@@ -94,12 +94,18 @@ stdenv.mkDerivation (self: rec {
       strace
     ]
   );
-  buildInputs = lib.optionals coreCompression [ zstd ];
+  buildInputs = lib.optionals coreCompression (
+    # Declare at the point of actual use in case the caller wants to override
+    # buildInputs to sidestep this.
+    assert lib.assertMsg (!purgeNixReferences) ''
+      Cannot enable coreCompression when purging Nix references, because compression requires linking in zstd
+    '';
+    [ zstd ]
+  );
 
-  patches = [
+  patches = lib.optionals (lib.versionOlder self.version "2.4.2") [
+    # Fixed in 2.4.2
     ./search-for-binaries-in-PATH.patch
-  ] ++ lib.optionals (version == "2.4.0") [
-    ./fix-2.4.0-aarch64-darwin.patch
   ];
 
   # I don’t know why these are failing (on ofBorg), and I’d rather just disable
@@ -231,6 +237,7 @@ stdenv.mkDerivation (self: rec {
     description = "Common Lisp compiler";
     homepage = "https://sbcl.org";
     license = licenses.publicDomain; # and FreeBSD
+    mainProgram = "sbcl";
     maintainers = lib.teams.lisp.members;
     platforms = attrNames bootstrapBinaries ++ [
       # These aren’t bootstrapped using the binary distribution but compiled

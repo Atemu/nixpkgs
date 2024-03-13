@@ -163,6 +163,7 @@
   ./programs/clash-verge.nix
   ./programs/cnping.nix
   ./programs/command-not-found/command-not-found.nix
+  ./programs/coolercontrol.nix
   ./programs/criu.nix
   ./programs/darling.nix
   ./programs/dconf.nix
@@ -512,6 +513,7 @@
   ./services/editors/infinoted.nix
   ./services/finance/odoo.nix
   ./services/games/archisteamfarm.nix
+  ./services/games/armagetronad.nix
   ./services/games/crossfire-server.nix
   ./services/games/deliantra-server.nix
   ./services/games/factorio.nix
@@ -584,6 +586,7 @@
   ./services/home-automation/govee2mqtt.nix
   ./services/home-automation/home-assistant.nix
   ./services/home-automation/homeassistant-satellite.nix
+  ./services/home-automation/matter-server.nix
   ./services/home-automation/zigbee2mqtt.nix
   ./services/home-automation/zwave-js.nix
   ./services/logging/SystemdJournal2Gelf.nix
@@ -717,6 +720,7 @@
   ./services/misc/libreddit.nix
   ./services/misc/lidarr.nix
   ./services/misc/lifecycled.nix
+  ./services/misc/llama-cpp.nix
   ./services/misc/logkeys.nix
   ./services/misc/mame.nix
   ./services/misc/mbpfan.nix
@@ -779,12 +783,14 @@
   ./services/misc/svnserve.nix
   ./services/misc/synergy.nix
   ./services/misc/sysprof.nix
+  ./services/misc/tabby.nix
   ./services/misc/tandoor-recipes.nix
   ./services/misc/taskserver
   ./services/misc/tautulli.nix
   ./services/misc/tiddlywiki.nix
   ./services/misc/tp-auto-kbbl.nix
   ./services/misc/tuxclocker.nix
+  ./services/misc/transfer-sh.nix
   ./services/misc/tzupdate.nix
   ./services/misc/uhub.nix
   ./services/misc/weechat.nix
