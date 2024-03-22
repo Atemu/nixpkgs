@@ -9,7 +9,7 @@
 
 buildPythonPackage rec {
   pname = "yamale";
-  version = "4.0.4";
+  version = "5.0.0";
   format = "setuptools";
 
   disabled = pythonOlder "3.6";
@@ -17,8 +17,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "23andMe";
     repo = pname;
-    rev = version;
-    hash = "sha256-1GFvgfy3MDsJGKSEm0yaQoLM7VqIS2wphw16trNTUOc=";
+    rev = "refs/tags/${version}";
+    hash = "sha256-T//hmZNVU6zDBaX/79KjdZwaReI4v73Ny7uQGKQREiI=";
   };
 
   propagatedBuildInputs = [
@@ -36,6 +36,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "A schema and validator for YAML";
+    mainProgram = "yamale";
     homepage = "https://github.com/23andMe/Yamale";
     license = licenses.mit;
     maintainers = with maintainers; [ rtburns-jpl ];

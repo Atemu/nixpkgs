@@ -31,11 +31,6 @@ rustPlatform.buildRustPackage {
 
   cargoSha256 = "sha256-I5CfrLWVTUwOtZrje3eATFen5u9MEH79Rk30ZNhaG98=";
 
-  # Workaround for https://github.com/nixos/nixpkgs/issues/166205
-  env = lib.optionalAttrs stdenv.cc.isClang {
-    NIX_LDFLAGS = "-l${stdenv.cc.libcxx.cxxabi.libName}";
-  };
-
   nativeBuildInputs = [
     pkg-config
   ];
@@ -61,6 +56,7 @@ rustPlatform.buildRustPackage {
   meta = with lib; {
     changelog = "https://github.com/mozilla/dump_syms/releases/tag/v${version}";
     description = "Command-line utility for parsing the debugging information the compiler provides in ELF or stand-alone PDB files";
+    mainProgram = "dump_syms";
     license = licenses.asl20;
     homepage = "https://github.com/mozilla/dump_syms/";
     maintainers = with maintainers; [ hexa ];

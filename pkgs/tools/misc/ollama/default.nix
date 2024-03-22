@@ -1,5 +1,5 @@
 { lib
-, buildGoModule
+, buildGo122Module
 , fetchFromGitHub
 , fetchpatch
 , buildEnv
@@ -21,16 +21,19 @@
 
   # one of `[ null "rocm" "cuda" ]`
 , acceleration ? null
+
+, testers
+, ollama
 }:
 
 let
   pname = "ollama";
-  version = "0.1.28";
+  version = "0.1.29";
   src = fetchFromGitHub {
     owner = "jmorganca";
     repo = "ollama";
     rev = "v${version}";
-    hash = "sha256-8f7veZitorNiqGBPJuf/Y36TcFK8Q75Vw4w6CeTk8qs=";
+    hash = "sha256-M2G53DJF/22ZVCAb4jGjyErKO6q2argehHSV7AEef6w=";
     fetchSubmodules = true;
   };
 
@@ -79,9 +82,9 @@ let
 
   goBuild =
     if enableCuda then
-      buildGoModule.override { stdenv = overrideCC stdenv gcc12; }
+      buildGo122Module.override { stdenv = overrideCC stdenv gcc12; }
     else
-      buildGoModule;
+      buildGo122Module;
   preparePatch = patch: hash: fetchpatch {
     url = "file://${src}/llm/patches/${patch}";
     inherit hash;
@@ -99,7 +102,7 @@ goBuild ((lib.optionalAttrs enableRocm {
   CUDAToolkit_ROOT = cudaToolkit;
 }) // {
   inherit pname version src;
-  vendorHash = "sha256-DPIhDqE/yXpSQqrx07osMBMafK61yU2dl4cZhxSTvm8=";
+  vendorHash = "sha256-Lj7CBvS51RqF63c01cOCgY7BCQeCKGu794qzb/S80C0=";
 
   nativeBuildInputs = [
     cmake
@@ -129,8 +132,11 @@ goBuild ((lib.optionalAttrs enableRocm {
 
     # ollama's patches of llama.cpp's example server
     # `ollama/llm/generate/gen_common.sh` -> "apply temporary patches until fix is upstream"
-    (preparePatch "01-cache.diff" "sha256-MTTln2G0G8dntihUzEjPM1ruTsApb4ZToBczJb8EG68=")
-    (preparePatch "02-cudaleaks.diff" "sha256-Cu7E9iEcvddPL9mPPI5Z96qmwWigi3f0WgSpPRjGc88=")
+    (preparePatch "01-cache.diff" "sha256-VDwu/iK6taBCyscpndQiOJ3eGqonnLVwmS2rJNMBVGU=")
+    (preparePatch "02-cudaleaks.diff" "sha256-nxsWgrePUMsZBWWQAjqVHWMJPzr1owH1zSJvUU7Q5pA=")
+    (preparePatch "03-load_exception.diff" "sha256-1DfNahFYYxqlx4E4pwMKQpL+XR0bibYnDFGt6dCL4TM=")
+    (preparePatch "04-locale.diff" "sha256-r5nHiP6yN/rQObRu2FZIPBKpKP9yByyZ6sSI2SKj6Do=")
+    (preparePatch "05-fix-clip-free.diff" "sha256-EFZ+QTtZCvstVxYgVdFKHsQqdkL98T0eXOEBOqCrlL4=")
   ];
   postPatch = ''
     # use a patch from the nix store in the `go generate` script
@@ -168,9 +174,14 @@ goBuild ((lib.optionalAttrs enableRocm {
     service = nixosTests.ollama;
     rocm = pkgs.ollama.override { acceleration = "rocm"; };
     cuda = pkgs.ollama.override { acceleration = "cuda"; };
+    version = testers.testVersion {
+      inherit version;
+      package = ollama;
+    };
   };
 
   meta = {
+    changelog = "https://github.com/ollama/ollama/releases/tag/v${version}";
     description = "Get up and running with large language models locally";
     homepage = "https://github.com/jmorganca/ollama";
     license = licenses.mit;

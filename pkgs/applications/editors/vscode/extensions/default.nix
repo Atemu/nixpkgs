@@ -409,8 +409,8 @@ let
         mktplcRef = {
           name = "vscode-neovim";
           publisher = "asvetliakov";
-          version = "1.5.0";
-          sha256 = "1glad9xmzq58jc7js8afjmqrxgd3rqm80fk528wv5kqcmn90bgk3";
+          version = "1.7.1";
+          sha256 = "0ib4sjk7r370ckvaqb4yzgy7csy8pli9z2jhibhhwwcq2748ah4q";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/asvetliakov.vscode-neovim/changelog";
@@ -1866,8 +1866,8 @@ let
         mktplcRef = {
           publisher = "github";
           name = "copilot-chat";
-          version = "0.14.2024030801"; # compatible with vscode >= 1.87
-          sha256 = "sha256-v9RS+pEEQzq2t0EY/gVTTfIwRlGmIuIq2qCockDpsn8=";
+          version = "0.13.2024022301"; # compatible with vscode >= 1.87
+          sha256 = "sha256-WdojLEdrg6iqTH/cNPEWb6VEfk+gIHh2M5GHrAURjy8=";
         };
         meta = {
           description = "GitHub Copilot Chat is a companion extension to GitHub Copilot that houses experimental chat features";
@@ -2685,8 +2685,8 @@ let
         mktplcRef = {
           name = "typst-preview";
           publisher = "mgt19937";
-          version = "0.10.8";
-          sha256 = "sha256-Ad6eCAuueeAeh6z/kk/F2HhbV4tp/XmiGySA2fn5wqY=";
+          version = "0.11.1";
+          sha256 = "sha256-OsCgkq0OSBu7RZYHlxgy7W7zDNDUgJFSeSET20CX8zA=";
         };
 
         buildInputs = [
@@ -3325,6 +3325,23 @@ let
           description = "VSCode extension for syntax highlighting, formatting, auto-completion, jump-to-definition and linting for .prisma files";
           downloadPage = "https://marketplace.visualstudio.com/items?itemName=Prisma.prisma";
           homepage = "https://github.com/prisma/language-tools";
+          license = lib.licenses.asl20;
+          maintainers = [ ];
+        };
+      };
+
+      pythagoratechnologies.gpt-pilot-vs-code = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "gpt-pilot-vs-code";
+          publisher = "PythagoraTechnologies";
+          version = "0.1.7";
+          sha256 = "sha256-EUddanrB6h5cn3pK2JTkEPffVb06ZMI2qDPh0kFfJjA=";
+        };
+        meta = {
+          changelog = "https://marketplace.visualstudio.com/items/PythagoraTechnologies.gpt-pilot-vs-code/changelog";
+          description = "A VSCode extension for assisting the developer to code, debug, build applications using LLMs/AI";
+          downloadPage = "https://marketplace.visualstudio.com/items?itemName=PythagoraTechnologies.gpt-pilot-vs-code";
+          homepage = "https://github.com/Pythagora-io/gpt-pilot/";
           license = lib.licenses.asl20;
           maintainers = [ ];
         };
@@ -4687,6 +4704,7 @@ let
     };
 
   aliases = super: {
+    _13xforever = super."13xforever";
     _1Password = super."1Password";
     _2gua = super."2gua";
     _4ops = super."4ops";
