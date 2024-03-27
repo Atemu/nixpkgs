@@ -3,8 +3,8 @@
 let
   # These names are how they are designated in https://xanmod.org.
   ltsVariant = {
-    version = "6.6.22";
-    hash = "sha256-vpWUdzgI8i/1r5nMp0tx+x67GDTnjQF5ueITIl36lvA=";
+    version = "6.6.23";
+    hash = "sha256-RaHM7eZDuOtEdISO6trTLE1QN91VFyXe0NuwLvvz9p4=";
     variant = "lts";
   };
 
