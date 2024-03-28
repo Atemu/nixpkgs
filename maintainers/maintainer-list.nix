@@ -2432,6 +2432,12 @@
     github = "blaggacao";
     githubId = 7548295;
   };
+  blakesmith = {
+    name = "Blake Smith";
+    email = "blakesmith0@gmail.com";
+    github = "blakesmith";
+    githubId = 44368;
+  };
   blankparticle = {
     name = "BlankParticle";
     email = "blankparticle@gmail.com";
@@ -7736,6 +7742,13 @@
     email = "ilyakooo0@gmail.com";
     github = "ilyakooo0";
     githubId = 6209627;
+  };
+  imadnyc = {
+    email = "me@imad.nyc";
+    github = "imadnyc";
+    githubId = 113966166;
+    name = "Abdullah Imad";
+    matrix = "@dre:imad.nyc";
   };
   imalison = {
     email = "IvanMalison@gmail.com";
