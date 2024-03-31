@@ -193,6 +193,7 @@
   ./programs/gnome-disks.nix
   ./programs/gnome-terminal.nix
   ./programs/gnupg.nix
+  ./programs/goldwarden.nix
   ./programs/gpaste.nix
   ./programs/gphoto2.nix
   ./programs/haguichi.nix
@@ -727,6 +728,7 @@
   ./services/misc/mbpfan.nix
   ./services/misc/mediatomb.nix
   ./services/misc/metabase.nix
+  ./services/misc/mollysocket.nix
   ./services/misc/moonraker.nix
   ./services/misc/mqtt2influxdb.nix
   ./services/misc/n8n.nix
@@ -1020,6 +1022,7 @@
   ./services/networking/lxd-image-server.nix
   ./services/networking/magic-wormhole-mailbox-server.nix
   ./services/networking/matterbridge.nix
+  ./services/networking/microsocks.nix
   ./services/networking/mihomo.nix
   ./services/networking/minidlna.nix
   ./services/networking/miniupnpd.nix
@@ -1106,6 +1109,11 @@
   ./services/networking/rpcbind.nix
   ./services/networking/rxe.nix
   ./services/networking/sabnzbd.nix
+  ./services/networking/scion/scion.nix
+  ./services/networking/scion/scion-control.nix
+  ./services/networking/scion/scion-daemon.nix
+  ./services/networking/scion/scion-dispatcher.nix
+  ./services/networking/scion/scion-router.nix
   ./services/networking/seafile.nix
   ./services/networking/searx.nix
   ./services/networking/shadowsocks.nix
