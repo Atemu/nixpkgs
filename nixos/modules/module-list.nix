@@ -98,6 +98,7 @@
   ./hardware/tuxedo-keyboard.nix
   ./hardware/ubertooth.nix
   ./hardware/uinput.nix
+  ./hardware/uni-sync.nix
   ./hardware/usb-modeswitch.nix
   ./hardware/usb-storage.nix
   ./hardware/video/amdgpu-pro.nix
@@ -331,6 +332,7 @@
   ./security/systemd-confinement.nix
   ./security/tpm2.nix
   ./security/wrappers/default.nix
+  ./services/admin/docuum.nix
   ./services/admin/meshcentral.nix
   ./services/admin/oxidized.nix
   ./services/admin/pgadmin.nix
@@ -340,7 +342,6 @@
   ./services/amqp/rabbitmq.nix
   ./services/audio/alsa.nix
   ./services/audio/botamusique.nix
-  ./services/audio/castopod.nix
   ./services/audio/gmediarender.nix
   ./services/audio/gonic.nix
   ./services/audio/goxlr-utility.nix
@@ -362,9 +363,6 @@
   ./services/audio/spotifyd.nix
   ./services/audio/squeezelite.nix
   ./services/audio/tts.nix
-  ./services/audio/wyoming/faster-whisper.nix
-  ./services/audio/wyoming/openwakeword.nix
-  ./services/audio/wyoming/piper.nix
   ./services/audio/ympd.nix
   ./services/backup/automysqlbackup.nix
   ./services/backup/bacula.nix
@@ -587,8 +585,11 @@
   ./services/home-automation/evcc.nix
   ./services/home-automation/govee2mqtt.nix
   ./services/home-automation/home-assistant.nix
-  ./services/home-automation/homeassistant-satellite.nix
   ./services/home-automation/matter-server.nix
+  ./services/home-automation/wyoming/faster-whisper.nix
+  ./services/home-automation/wyoming/openwakeword.nix
+  ./services/home-automation/wyoming/piper.nix
+  ./services/home-automation/wyoming/satellite.nix
   ./services/home-automation/zigbee2mqtt.nix
   ./services/home-automation/zwave-js.nix
   ./services/logging/SystemdJournal2Gelf.nix
@@ -712,6 +713,7 @@
   ./services/misc/homepage-dashboard.nix
   ./services/misc/ihaskell.nix
   ./services/misc/input-remapper.nix
+  ./services/misc/invidious-router.nix
   ./services/misc/irkerd.nix
   ./services/misc/jackett.nix
   ./services/misc/jellyfin.nix
@@ -796,7 +798,9 @@
   ./services/misc/transfer-sh.nix
   ./services/misc/tzupdate.nix
   ./services/misc/uhub.nix
+  ./services/misc/wastebin.nix
   ./services/misc/weechat.nix
+  ./services/misc/workout-tracker.nix
   ./services/misc/xmr-stak.nix
   ./services/misc/xmrig.nix
   ./services/misc/zoneminder.nix
@@ -1298,12 +1302,14 @@
   ./services/web-apps/bookstack.nix
   ./services/web-apps/c2fmzq-server.nix
   ./services/web-apps/calibre-web.nix
+  ./services/web-apps/castopod.nix
   ./services/web-apps/coder.nix
   ./services/web-apps/changedetection-io.nix
   ./services/web-apps/chatgpt-retrieval-plugin.nix
   ./services/web-apps/cloudlog.nix
   ./services/web-apps/code-server.nix
   ./services/web-apps/convos.nix
+  ./services/web-apps/davis.nix
   ./services/web-apps/dex.nix
   ./services/web-apps/discourse.nix
   ./services/web-apps/documize.nix
@@ -1356,6 +1362,7 @@
   ./services/web-apps/nexus.nix
   ./services/web-apps/nifi.nix
   ./services/web-apps/node-red.nix
+  ./services/web-apps/ocis.nix
   ./services/web-apps/onlyoffice.nix
   ./services/web-apps/openvscode-server.nix
   ./services/web-apps/mobilizon.nix

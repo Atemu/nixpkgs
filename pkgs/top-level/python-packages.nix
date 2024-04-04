@@ -585,11 +585,15 @@ self: super: with self; {
 
   ansible = callPackage ../development/python-modules/ansible { };
 
+  ansible-builder = callPackage ../development/python-modules/ansible-builder { };
+
   ansible-compat = callPackage ../development/python-modules/ansible-compat { };
 
   ansible-core = callPackage ../development/python-modules/ansible/core.nix { };
 
   ansible-kernel = callPackage ../development/python-modules/ansible-kernel { };
+
+  ansible-navigator = callPackage ../development/python-modules/ansible-navigator { };
 
   ansible-pylibssh = callPackage ../development/python-modules/ansible-pylibssh { };
 
@@ -1506,6 +1510,8 @@ self: super: with self; {
   binaryornot = callPackage ../development/python-modules/binaryornot { };
 
   bincopy = callPackage ../development/python-modules/bincopy { };
+
+  bindep = callPackage ../development/python-modules/bindep { };
 
   binho-host-adapter = callPackage ../development/python-modules/binho-host-adapter { };
 
@@ -2462,6 +2468,18 @@ self: super: with self; {
   cpufeature = callPackage ../development/python-modules/cpufeature { };
 
   cpyparsing = callPackage ../development/python-modules/cpyparsing { };
+
+  craft-application-1 = callPackage ../development/python-modules/craft-application-1 { };
+
+  craft-archives = callPackage ../development/python-modules/craft-archives { };
+
+  craft-cli = callPackage ../development/python-modules/craft-cli { };
+
+  craft-grammar = callPackage ../development/python-modules/craft-grammar { };
+
+  craft-parts = callPackage ../development/python-modules/craft-parts { };
+
+  craft-providers = callPackage ../development/python-modules/craft-providers { };
 
   cram = callPackage ../development/python-modules/cram { };
 
@@ -5138,12 +5156,7 @@ self: super: with self; {
 
   guppy3 = callPackage ../development/python-modules/guppy3 { };
 
-  gurobipy = if stdenv.hostPlatform.isDarwin then
-    callPackage ../development/python-modules/gurobipy/darwin.nix { }
-  else if stdenv.hostPlatform.system == "x86_64-linux" then
-    callPackage ../development/python-modules/gurobipy/linux.nix { }
-  else
-    throw "gurobipy not yet supported on ${stdenv.hostPlatform.system}";
+  gurobipy = callPackage ../development/python-modules/gurobipy { };
 
   guzzle-sphinx-theme = callPackage ../development/python-modules/guzzle-sphinx-theme { };
 
@@ -8928,6 +8941,8 @@ self: super: with self; {
 
   onetimepass = callPackage ../development/python-modules/onetimepass { };
 
+  onigurumacffi = callPackage ../development/python-modules/onigurumacffi { };
+
   onkyo-eiscp = callPackage ../development/python-modules/onkyo-eiscp { };
 
   online-judge-api-client = callPackage ../development/python-modules/online-judge-api-client { };
@@ -9856,6 +9871,8 @@ self: super: with self; {
 
   pysiaalarm = callPackage ../development/python-modules/pysiaalarm { };
 
+  pysilero-vad = callPackage ../development/python-modules/pysilero-vad { };
+
   pysimplesoap = callPackage ../development/python-modules/pysimplesoap { };
 
   pyskyqhub = callPackage ../development/python-modules/pyskyqhub { };
@@ -10297,6 +10314,8 @@ self: super: with self; {
 
   pulsectl-asyncio = callPackage ../development/python-modules/pulsectl-asyncio { };
 
+  pulsar = callPackage ../development/python-modules/pulsar { };
+
   pulsectl = callPackage ../development/python-modules/pulsectl { };
 
   pure-cdb = callPackage ../development/python-modules/pure-cdb { };
@@ -10630,6 +10649,8 @@ self: super: with self; {
   pydantic-scim = callPackage ../development/python-modules/pydantic-scim { };
 
   pydantic-settings = callPackage ../development/python-modules/pydantic-settings { };
+
+  pydantic-yaml-0 = callPackage ../development/python-modules/pydantic-yaml-0 { };
 
   pydash = callPackage ../development/python-modules/pydash { };
 
@@ -11511,6 +11532,8 @@ self: super: with self; {
   pyregion = callPackage ../development/python-modules/pyregion { };
 
   pyric = callPackage ../development/python-modules/pyric { };
+
+  pyring-buffer = callPackage ../development/python-modules/pyring-buffer { };
 
   pyrisco = callPackage ../development/python-modules/pyrisco { };
 
@@ -13150,6 +13173,8 @@ self: super: with self; {
 
   roman = callPackage ../development/python-modules/roman { };
 
+  romy = callPackage ../development/python-modules/romy { };
+
   roombapy = callPackage ../development/python-modules/roombapy { };
 
   roonapi = callPackage ../development/python-modules/roonapi { };
@@ -13332,6 +13357,8 @@ self: super: with self; {
 
   sasmodels = callPackage ../development/python-modules/sasmodels { };
 
+  scalene = callPackage ../development/python-modules/scalene { };
+
   scales = callPackage ../development/python-modules/scales { };
 
   scancode-toolkit = callPackage ../development/python-modules/scancode-toolkit { };
@@ -13459,6 +13486,8 @@ self: super: with self; {
   securesystemslib = callPackage ../development/python-modules/securesystemslib { };
 
   securetar = callPackage ../development/python-modules/securetar { };
+
+  securityreporter = callPackage ../development/python-modules/securityreporter { };
 
   sectools = callPackage ../development/python-modules/sectools { };
 
@@ -13838,11 +13867,15 @@ self: super: with self; {
 
   snakemake-interface-executor-plugins = callPackage ../development/python-modules/snakemake-interface-executor-plugins { };
 
+  snakemake-interface-report-plugins = callPackage ../development/python-modules/snakemake-interface-report-plugins { };
+
   snakemake-interface-storage-plugins = callPackage ../development/python-modules/snakemake-interface-storage-plugins { };
 
   snakebite = callPackage ../development/python-modules/snakebite { };
 
   snakeviz = callPackage ../development/python-modules/snakeviz { };
+
+  snap-helpers = callPackage ../development/python-modules/snap-helpers { };
 
   snapcast = callPackage ../development/python-modules/snapcast { };
 
@@ -13967,6 +14000,10 @@ self: super: with self; {
   sparse = callPackage ../development/python-modules/sparse { };
 
   spatial-image = callPackage ../development/python-modules/spatial-image { };
+
+  spdx = callPackage ../development/python-modules/spdx { };
+
+  spdx-lookup = callPackage ../development/python-modules/spdx-lookup { };
 
   spdx-tools = callPackage ../development/python-modules/spdx-tools { };
 
@@ -14127,6 +14164,8 @@ self: super: with self; {
   sphinx-material = callPackage ../development/python-modules/sphinx-material { };
 
   sphinx-mdinclude = callPackage ../development/python-modules/sphinx-mdinclude { };
+
+  sphinx-rtd-dark-mode = callPackage ../development/python-modules/sphinx-rtd-dark-mode { };
 
   sphinx-rtd-theme = callPackage ../development/python-modules/sphinx-rtd-theme { };
 
