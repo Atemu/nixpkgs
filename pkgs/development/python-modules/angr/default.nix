@@ -1,42 +1,43 @@
-{ lib
-, stdenv
-, ailment
-, archinfo
-, buildPythonPackage
-, cachetools
-, capstone
-, cffi
-, claripy
-, cle
-, cppheaderparser
-, dpkt
-, fetchFromGitHub
-, gitpython
-, itanium-demangler
-, mulpyplexer
-, nampa
-, networkx
-, progressbar2
-, protobuf
-, psutil
-, pycparser
-, pyformlang
-, pythonOlder
-, pythonRelaxDepsHook
-, pyvex
-, rich
-, rpyc
-, setuptools
-, sortedcontainers
-, sqlalchemy
-, sympy
-, unicorn
-, unique-log-filter
+{
+  lib,
+  stdenv,
+  ailment,
+  archinfo,
+  buildPythonPackage,
+  cachetools,
+  capstone,
+  cffi,
+  claripy,
+  cle,
+  cppheaderparser,
+  dpkt,
+  fetchFromGitHub,
+  gitpython,
+  itanium-demangler,
+  mulpyplexer,
+  nampa,
+  networkx,
+  progressbar2,
+  protobuf,
+  psutil,
+  pycparser,
+  pyformlang,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  pyvex,
+  rich,
+  rpyc,
+  setuptools,
+  sortedcontainers,
+  sqlalchemy,
+  sympy,
+  unicorn,
+  unique-log-filter,
 }:
 
 buildPythonPackage rec {
   pname = "angr";
-  version = "9.2.96";
+  version = "9.2.98";
   pyproject = true;
 
   disabled = pythonOlder "3.11";
@@ -45,12 +46,10 @@ buildPythonPackage rec {
     owner = "angr";
     repo = "angr";
     rev = "refs/tags/v${version}";
-    hash = "sha256-eyXjmU/K8zv5nxrt+oKkyxS00tHOYrkbTc2X9esTSSA=";
+    hash = "sha256-9NLQtwakM041yNY/mb9WbSGC1Q8AHHkiqqjf5bZUOlI=";
   };
 
-  pythonRelaxDeps = [
-    "capstone"
-  ];
+  pythonRelaxDeps = [ "capstone" ];
 
   build-system = [
     pythonRelaxDepsHook
@@ -86,6 +85,10 @@ buildPythonPackage rec {
     unicorn
     unique-log-filter
   ];
+
+  passthru.optional-dependencies = {
+    AngrDB = [ sqlalchemy ];
+  };
 
   setupPyBuildFlags = lib.optionals stdenv.isLinux [
     "--plat-name"

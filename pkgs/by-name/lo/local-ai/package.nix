@@ -1,5 +1,7 @@
-{ stdenv
+{ config
+, stdenv
 , lib
+, addDriverRunpath
 , fetchpatch
 , fetchFromGitHub
 , protobuf
@@ -21,7 +23,7 @@
   # CPU extensions
 , enable_avx ? true
 , enable_avx2 ? true
-, enable_avx512 ? false
+, enable_avx512 ? stdenv.hostPlatform.avx512Support
 , enable_f16c ? true
 , enable_fma ? true
 
@@ -31,7 +33,7 @@
 , with_openblas ? false
 , openblas
 
-, with_cublas ? false
+, with_cublas ? config.cudaSupport
 , cudaPackages
 
 , with_clblas ? false
@@ -47,6 +49,16 @@
 , sonic
 , spdlog
 , fmt
+, espeak-ng
+, piper-tts
+
+  # tests
+, fetchzip
+, fetchurl
+, writeText
+, symlinkJoin
+, linkFarmFromDrvs
+, jq
 }:
 let
   BUILD_TYPE =
@@ -56,9 +68,17 @@ let
     else if with_clblas then "clblas"
     else "";
 
+  inherit (cudaPackages) libcublas cuda_nvcc cuda_cccl cuda_cudart;
+
   typedBuiltInputs =
     lib.optionals with_cublas
-      [ cudaPackages.cudatoolkit cudaPackages.cuda_cudart ]
+      [
+        cuda_nvcc # should be part of nativeBuildInputs
+        cuda_cudart
+        cuda_cccl
+        (lib.getDev libcublas)
+        (lib.getLib libcublas)
+      ]
     ++ lib.optionals with_clblas
       [ clblast ocl-icd opencl-headers ]
     ++ lib.optionals with_openblas
@@ -148,6 +168,54 @@ let
     '';
   };
 
+  espeak-ng' = espeak-ng.overrideAttrs (self: {
+    name = "espeak-ng'";
+    inherit (go-piper) src;
+    sourceRoot = "source/espeak";
+    patches = [ ];
+    nativeBuildInputs = [ cmake ];
+    cmakeFlags = (self.cmakeFlags or [ ]) ++ [
+      (lib.cmakeBool "BUILD_SHARED_LIBS" true)
+      (lib.cmakeBool "USE_ASYNC" false)
+      (lib.cmakeBool "USE_MBROLA" false)
+      (lib.cmakeBool "USE_LIBPCAUDIO" false)
+      (lib.cmakeBool "USE_KLATT" false)
+      (lib.cmakeBool "USE_SPEECHPLAYER" false)
+      (lib.cmakeBool "USE_LIBSONIC" false)
+      (lib.cmakeBool "CMAKE_POSITION_INDEPENDENT_CODE" true)
+    ];
+    preConfigure = null;
+    postInstall = null;
+  });
+
+  piper-phonemize = stdenv.mkDerivation {
+    name = "piper-phonemize";
+    inherit (go-piper) src;
+    sourceRoot = "source/piper-phonemize";
+    buildInputs = [ espeak-ng' onnxruntime ];
+    nativeBuildInputs = [ cmake pkg-config ];
+    cmakeFlags = [
+      (lib.cmakeFeature "ONNXRUNTIME_DIR" "${onnxruntime.dev}")
+      (lib.cmakeFeature "ESPEAK_NG_DIR" "${espeak-ng'}")
+    ];
+    passthru.espeak-ng = espeak-ng';
+  };
+
+  piper-tts' = (piper-tts.override { inherit piper-phonemize; }).overrideAttrs (self: {
+    name = "piper-tts'";
+    inherit (go-piper) src;
+    sourceRoot = "source/piper";
+    installPhase = null;
+    postInstall = ''
+      cp CMakeFiles/piper.dir/src/cpp/piper.cpp.o $out/piper.o
+      cd $out
+      mkdir bin lib
+      mv lib*so* lib/
+      mv piper piper_phonemize bin/
+      rm -rf cmake pkgconfig espeak-ng-data *.ort
+    '';
+  });
+
   go-piper = stdenv.mkDerivation {
     name = "go-piper";
     src = fetchFromGitHub {
@@ -157,25 +225,20 @@ let
       hash = "sha256-Yv9LQkWwGpYdOS0FvtP0vZ0tRyBAx27sdmziBR4U4n8=";
       fetchSubmodules = true;
     };
-    patchPhase = ''
+    postUnpack = ''
+      cp -r --no-preserve=mode ${piper-tts'}/* source
+    '';
+    postPatch = ''
       sed -i Makefile \
-        -e '/cd piper-phonemize/ s;cmake;cmake -DONNXRUNTIME_DIR=${onnxruntime.dev};' \
-        -e '/CXXFLAGS *= / s;$; -DSPDLOG_FMT_EXTERNAL=1;' \
-        -e '/cd piper\/build / s;cmake;cmake -DSPDLOG_DIR=${spdlog.src} -DFMT_DIR=${fmt};'
+        -e '/CXXFLAGS *= / s;$; -DSPDLOG_FMT_EXTERNAL=1;'
     '';
     buildFlags = [ "libpiper_binding.a" ];
-    dontUseCmakeConfigure = true;
-    nativeBuildInputs = [ cmake ];
-    buildInputs = [ sonic spdlog onnxruntime ];
+    buildInputs = [ piper-tts' espeak-ng' piper-phonemize sonic fmt spdlog onnxruntime ];
     installPhase = ''
       cp -r --no-preserve=mode $src $out
-      tar cf - *.a \
-        espeak/ei/lib \
-        piper/src/cpp \
-        piper-phonemize/pi/lib \
-        piper-phonemize/pi/include \
-        piper-phonemize/pi/share \
-        | tar xf - -C $out
+      mkdir -p $out/piper-phonemize/pi
+      cp -r --no-preserve=mode ${piper-phonemize}/share $out/piper-phonemize/pi
+      cp *.a $out
     '';
   };
 
@@ -376,7 +439,7 @@ let
       "VERSION=v${version}"
       "BUILD_TYPE=${BUILD_TYPE}"
     ]
-    ++ lib.optional with_cublas "CUDA_LIBPATH=${cudaPackages.cuda_cudart}/lib"
+    ++ lib.optional with_cublas "CUDA_LIBPATH=${cuda_cudart}/lib"
     ++ lib.optional with_tts "PIPER_CGO_CXXFLAGS=-DSPDLOG_FMT_EXTERNAL=1";
 
     buildPhase = ''
@@ -410,22 +473,25 @@ let
 
     # patching rpath with patchelf doens't work. The execuable
     # raises an segmentation fault
-    postFixup = ''
-      wrapProgram $out/bin/${pname} \
-    '' + lib.optionalString with_cublas ''
-      --prefix LD_LIBRARY_PATH : "${cudaPackages.libcublas}/lib:${cudaPackages.cuda_cudart}/lib:/run/opengl-driver/lib" \
-    '' + lib.optionalString with_clblas ''
-      --prefix LD_LIBRARY_PATH : "${clblast}/lib:${ocl-icd}/lib" \
-    '' + lib.optionalString with_openblas ''
-      --prefix LD_LIBRARY_PATH : "${openblas}/lib" \
-    '' + ''
-      --prefix PATH : "${ffmpeg}/bin"
-    '';
+    postFixup =
+      let
+        LD_LIBRARY_PATH = [ ]
+          ++ lib.optionals with_cublas [ (lib.getLib libcublas) cuda_cudart addDriverRunpath.driverLink ]
+          ++ lib.optionals with_clblas [ clblast ocl-icd ]
+          ++ lib.optionals with_openblas [ openblas ]
+          ++ lib.optionals with_tts [ piper-phonemize ];
+      in
+      ''
+        wrapProgram $out/bin/${pname} \
+        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath LD_LIBRARY_PATH}" \
+        --prefix PATH : "${ffmpeg}/bin"
+      '';
 
     passthru.local-packages = {
       inherit
         go-tiny-dream go-rwkv go-bert go-llama-ggml gpt4all go-piper
-        llama-cpp-grpc whisper-cpp go-tiny-dream-ncnn;
+        llama-cpp-grpc whisper-cpp go-tiny-dream-ncnn espeak-ng' piper-phonemize
+        piper-tts';
     };
 
     passthru.features = {
@@ -448,13 +514,68 @@ let
           nodes.machine = {
             systemd.services.local-ai = {
               wantedBy = [ "multi-user.target" ];
-              serviceConfig.ExecStart = "${self}/bin/local-ai --localai-config-dir . --address :${port}";
+              serviceConfig.ExecStart = "${self}/bin/local-ai --debug --localai-config-dir . --address :${port}";
             };
           };
           testScript = ''
             machine.wait_for_open_port(${port})
             machine.succeed("curl -f http://localhost:${port}/readyz")
           '';
+        };
+    }
+    // lib.optionalAttrs with_tts {
+      # https://localai.io/features/text-to-audio/#piper
+      tts =
+        let
+          port = "8080";
+          voice-en-us = fetchzip {
+            url = "https://github.com/rhasspy/piper/releases/download/v0.0.2/voice-en-us-danny-low.tar.gz";
+            hash = "sha256-5wf+6H5HeQY0qgdqnAG1vSqtjIFM9lXH53OgouuPm0M=";
+            stripRoot = false;
+          };
+          ggml-tiny-en = fetchurl {
+            url = "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-tiny.en-q5_1.bin";
+            hash = "sha256-x3xXZvHO8JtrfUfyG1Rsvd1BV4hrO11tT3CekeZsfCs=";
+          };
+          whisper-en = {
+            name = "whisper-en";
+            backend = "whisper";
+            parameters.model = ggml-tiny-en.name;
+          };
+          models = symlinkJoin {
+            name = "models";
+            paths = [
+              voice-en-us
+              (linkFarmFromDrvs "whisper-en" [
+                (writeText "whisper-en.yaml" (builtins.toJSON whisper-en))
+                ggml-tiny-en
+              ])
+            ];
+          };
+        in
+        testers.runNixOSTest {
+          name = pname + "-tts";
+          nodes.machine = {
+            systemd.services.local-ai = {
+              wantedBy = [ "multi-user.target" ];
+              serviceConfig.ExecStart = "${self}/bin/local-ai --debug --models-path ${models} --localai-config-dir . --address :${port}";
+            };
+          };
+          testScript =
+            let
+              request = {
+                model = "en-us-danny-low.onnx";
+                backend = "piper";
+                input = "Hello, how are you?";
+              };
+            in
+            ''
+              machine.wait_for_open_port(${port})
+              machine.succeed("curl -f http://localhost:${port}/readyz")
+              machine.succeed("curl -f http://localhost:${port}/tts --json @${writeText "request.json" (builtins.toJSON request)} --output out.wav")
+              machine.succeed("curl -f http://localhost:${port}/v1/audio/transcriptions --header 'Content-Type: multipart/form-data' --form file=@out.wav --form model=${whisper-en.name} --output transcription.json")
+              machine.succeed("${jq}/bin/jq --exit-status 'debug | .segments | first.text == \"${request.input}\"' transcription.json")
+            '';
         };
     };
 

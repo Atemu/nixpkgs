@@ -96,7 +96,7 @@ in
         pkgs.pantheon.pantheon-agent-geoclue2
       ] config.environment.pantheon.excludePackages;
 
-      services.xserver.displayManager.sessionPackages = [ pkgs.pantheon.elementary-session-settings ];
+      services.displayManager.sessionPackages = [ pkgs.pantheon.elementary-session-settings ];
 
       # Ensure lightdm is used when Pantheon is enabled
       # Without it screen locking will be nonfunctional because of the use of lightlocker
@@ -109,7 +109,7 @@ in
 
       # Without this, elementary LightDM greeter will pre-select non-existent `default` session
       # https://github.com/elementary/greeter/issues/368
-      services.xserver.displayManager.defaultSession = mkDefault "pantheon";
+      services.displayManager.defaultSession = mkDefault "pantheon";
 
       services.xserver.displayManager.sessionCommands = ''
         if test "$XDG_CURRENT_DESKTOP" = "Pantheon"; then
@@ -189,22 +189,6 @@ in
       systemd.user.targets."gnome-session-x11-services-ready".wants = [
         "org.gnome.SettingsDaemon.XSettings.service"
       ];
-
-      # https://github.com/elementary/gala/issues/1826#issuecomment-1890461298
-      systemd.user.services."io.elementary.gala.daemon@" = {
-        unitConfig = {
-          Description = "Gala Daemon";
-          BindsTo = "io.elementary.gala@.service";
-          After = "io.elementary.gala@.service";
-        };
-
-        serviceConfig = {
-          Type = "dbus";
-          BusName = "org.pantheon.gala.daemon";
-          ExecStart = "${pkgs.pantheon.gala}/bin/gala-daemon";
-          Slice = "session.slice";
-        };
-      };
 
       # Global environment
       environment.systemPackages = (with pkgs.pantheon; [

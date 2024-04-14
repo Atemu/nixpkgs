@@ -10,13 +10,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "typstyle";
-  version = "0.11.8";
+  version = "0.11.12";
 
   src = fetchFromGitHub {
     owner = "Enter-tainer";
     repo = "typstyle";
     rev = "v${version}";
-    hash = "sha256-N3dGoLGq9UxTgupowPDE6t2xK6csAPEIcI8zZ1y3gvs=";
+    hash = "sha256-fAby71wgySMeZ1rDQdaKMn53nxMc9RszmzCWKBdHkZg=";
   };
 
   cargoLock = {

@@ -257,7 +257,6 @@ with lib.maintainers; {
 
   docs = {
     members = [
-      asymmetric
       ryantm
     ];
     scope = "Maintain nixpkgs/NixOS documentation and tools for building it.";
@@ -352,6 +351,7 @@ with lib.maintainers; {
   geospatial = {
     members = [
       imincik
+      l0b0
       nh2
       nialov
       sikmir
