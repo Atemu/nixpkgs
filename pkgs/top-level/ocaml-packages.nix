@@ -186,8 +186,6 @@ let
 
     chacha = callPackage ../development/ocaml-modules/chacha { };
 
-    charInfo_width = callPackage ../development/ocaml-modules/charInfo_width { };
-
     checkseum = callPackage ../development/ocaml-modules/checkseum { };
 
     chrome-trace = callPackage ../development/ocaml-modules/chrome-trace { };
@@ -931,6 +929,10 @@ let
     lame = callPackage ../development/ocaml-modules/lame {
       inherit (pkgs) lame;
     };
+
+    landmarks = callPackage ../development/ocaml-modules/landmarks { };
+
+    landmarks-ppx = callPackage ../development/ocaml-modules/landmarks-ppx { };
 
     lastfm = callPackage ../development/ocaml-modules/lastfm { };
 
