@@ -2973,8 +2973,6 @@ self: super: with self; {
 
   diffusers = callPackage ../development/python-modules/diffusers { };
 
-  digital-ocean = callPackage ../development/python-modules/digitalocean { };
-
   digi-xbee = callPackage ../development/python-modules/digi-xbee { };
 
   dill = callPackage ../development/python-modules/dill { };
@@ -5725,6 +5723,8 @@ self: super: with self; {
   influxdb = callPackage ../development/python-modules/influxdb { };
 
   influxdb-client = callPackage ../development/python-modules/influxdb-client { };
+
+  influxdb3-python = callPackage ../development/python-modules/influxdb3-python { };
 
   inform = callPackage ../development/python-modules/inform { };
 
@@ -9844,6 +9844,8 @@ self: super: with self; {
 
   pyhumps = callPackage ../development/python-modules/pyhumps { };
 
+  pyindego = callPackage ../development/python-modules/pyindego { };
+
   pyinstaller-versionfile = callPackage ../development/python-modules/pyinstaller-versionfile { };
 
   pyisemail = callPackage ../development/python-modules/pyisemail { };
@@ -11315,6 +11317,8 @@ self: super: with self; {
 
   pynmea2 = callPackage ../development/python-modules/pynmea2 { };
 
+  pynmeagps = callPackage ../development/python-modules/pynmeagps { };
+
   pynput = callPackage ../development/python-modules/pynput { };
 
   pynrrd = callPackage ../development/python-modules/pynrrd { };
@@ -12194,6 +12198,8 @@ self: super: with self; {
   pythondialog = callPackage ../development/python-modules/pythondialog { };
 
   python-didl-lite = callPackage ../development/python-modules/python-didl-lite { };
+
+  python-digitalocean = callPackage ../development/python-modules/python-digitalocean { };
 
   python-docx = callPackage ../development/python-modules/python-docx { };
 
@@ -13647,6 +13653,8 @@ self: super: with self; {
   setuptools-trial = callPackage ../development/python-modules/setuptools-trial { };
 
   seventeentrack = callPackage ../development/python-modules/seventeentrack { };
+
+  sev-snp-measure = callPackage ../development/python-modules/sev-snp-measure { };
 
   sexpdata = callPackage ../development/python-modules/sexpdata { };
 

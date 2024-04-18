@@ -1084,6 +1084,8 @@ let
 
     minttea = callPackage ../development/ocaml-modules/minttea { };
 
+    miou = callPackage ../development/ocaml-modules/miou { };
+
     mirage = callPackage ../development/ocaml-modules/mirage { };
 
     mirage-block = callPackage ../development/ocaml-modules/mirage-block { };
@@ -1700,8 +1702,6 @@ let
     soundtouch = callPackage ../development/ocaml-modules/soundtouch {
       inherit (pkgs) soundtouch;
     };
-
-    spacetime_lib = callPackage ../development/ocaml-modules/spacetime_lib { };
 
     speex = callPackage ../development/ocaml-modules/speex {
       inherit (pkgs) speex;
