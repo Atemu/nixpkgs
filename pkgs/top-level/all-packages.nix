@@ -2949,6 +2949,8 @@ with pkgs;
 
   felix-fm = callPackage ../applications/file-managers/felix-fm { };
 
+  joshuto = callPackage ../applications/file-managers/joshuto { };
+
   krusader = libsForQt5.callPackage ../applications/file-managers/krusader { };
 
   lesscpy = callPackage ../development/compilers/lesscpy { };
@@ -5241,7 +5243,7 @@ with pkgs;
 
   element-desktop = callPackage ../applications/networking/instant-messengers/element/element-desktop.nix {
     inherit (darwin.apple_sdk.frameworks) Security AppKit CoreServices;
-    electron = electron_28;
+    electron = electron_29;
   };
   element-desktop-wayland = writeScriptBin "element-desktop" ''
     #!/bin/sh
@@ -12012,8 +12014,6 @@ with pkgs;
 
   pdf-quench = callPackage ../applications/misc/pdf-quench { };
 
-  pdf-sign = callPackage ../tools/graphics/pdf-sign { };
-
   pdfarranger = callPackage ../applications/misc/pdfarranger { };
 
   briss = callPackage ../tools/graphics/briss { };
@@ -16998,7 +16998,7 @@ with pkgs;
   cargo-all-features = callPackage ../development/tools/rust/cargo-all-features { };
   cargo-apk = callPackage ../development/tools/rust/cargo-apk { };
   cargo-audit = callPackage ../development/tools/rust/cargo-audit {
-    inherit (darwin.apple_sdk.frameworks) Security;
+    inherit (darwin.apple_sdk.frameworks) Security SystemConfiguration;
   };
   cargo-benchcmp = callPackage ../development/tools/rust/cargo-benchcmp { };
   cargo-binstall = callPackage ../development/tools/rust/cargo-binstall { };
@@ -18503,7 +18503,9 @@ with pkgs;
     electron_24-bin
     electron_25-bin
     electron_26-bin
-    electron_27-bin;
+    electron_27-bin
+    electron_28-bin
+    electron_29-bin;
 
   electron_10 = electron_10-bin;
   electron_11 = electron_11-bin;
@@ -18521,9 +18523,10 @@ with pkgs;
   electron_23 = electron_23-bin;
   electron_24 = electron_24-bin;
   electron_25 = electron_25-bin;
-  electron_26 = if lib.meta.availableOn stdenv.hostPlatform electron-source.electron_26 then electron-source.electron_26 else electron_26-bin;
+  electron_26 = electron_26-bin;
   electron_27 = if lib.meta.availableOn stdenv.hostPlatform electron-source.electron_27 then electron-source.electron_27 else electron_27-bin;
-  electron_28 = electron-source.electron_28;
+  electron_28 = if lib.meta.availableOn stdenv.hostPlatform electron-source.electron_28 then electron-source.electron_28 else electron_28-bin;
+  electron_29 = if lib.meta.availableOn stdenv.hostPlatform electron-source.electron_29 then electron-source.electron_29 else electron_29-bin;
   electron = electron_27;
 
   autobuild = callPackage ../development/tools/misc/autobuild { };
@@ -27420,7 +27423,7 @@ with pkgs;
 
   smcroute = callPackage ../servers/smcroute { };
 
-  snipe-it = callPackage ../servers/web-apps/snipe-it {
+  snipe-it = callPackage ../by-name/sn/snipe-it/package.nix {
     php = php81;
   };
 
@@ -28223,8 +28226,6 @@ with pkgs;
   linux_6_5_hardened = linuxKernel.kernels.linux_6_5_hardened;
   linuxPackages_6_6_hardened = linuxKernel.packages.linux_6_6_hardened;
   linux_6_6_hardened = linuxKernel.kernels.linux_6_6_hardened;
-  linuxPackages_6_7_hardened = linuxKernel.packages.linux_6_7_hardened;
-  linux_6_7_hardened = linuxKernel.kernels.linux_6_7_hardened;
 
   # GNU Linux-libre kernels
   linuxPackages-libre = linuxKernel.packages.linux_libre;
@@ -32301,10 +32302,8 @@ with pkgs;
         pythonPackages = python3Packages;
   };
 
-  graphicsmagick = callPackage ../applications/graphics/graphicsmagick { };
   graphicsmagick_q16 = graphicsmagick.override { quantumdepth = 16; };
-
-  graphicsmagick-imagemagick-compat = callPackage ../applications/graphics/graphicsmagick/compat.nix { };
+  graphicsmagick-imagemagick-compat = graphicsmagick.imagemagick-compat;
 
   grisbi = callPackage ../applications/office/grisbi { gtk = gtk3; };
 
@@ -33152,7 +33151,7 @@ with pkgs;
 
   klayout = libsForQt5.callPackage ../applications/misc/klayout { };
 
-  klee = callPackage ../applications/science/logic/klee (with llvmPackages_12; {
+  klee = callPackage ../applications/science/logic/klee (with llvmPackages_13; {
     clang = clang;
     llvm = llvm;
     stdenv = stdenv;
@@ -41010,7 +41009,7 @@ with pkgs;
   pwntools = with python3Packages; toPythonApplication pwntools;
 
   putty = callPackage ../applications/networking/remote/putty {
-    gtk2 = gtk2-x11;
+    gtk3 = if stdenv.isDarwin then gtk3-x11 else gtk3;
   };
 
   qMasterPassword = libsForQt5.callPackage ../applications/misc/qMasterPassword { };

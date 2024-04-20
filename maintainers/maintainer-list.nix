@@ -1640,6 +1640,16 @@
     githubId = 11037075;
     name = "Ashley Hooper";
   };
+  ashuramaruzxc = {
+    email = "ashuramaru@tenjin-dk.com";
+    matrix = "@tenjin:mozilla.org";
+    github = "ashuramaruzxc";
+    githubId = 72100551;
+    name = "Mariia Holovata";
+    keys = [{
+      fingerprint = "409D 201E 9450 8732 A49E  D0FC 6BDA F874 0068 08DF";
+    }];
+  };
   ashvith-shetty = {
     github = "Ashvith10";
     githubId = 113123021;
@@ -17824,6 +17834,12 @@
     github = "tckmn";
     githubId = 2389333;
     name = "Andy Tockman";
+  };
+  tcmal = {
+    email = "me@aria.rip";
+    github = "tcmal";
+    githubId = 4183876;
+    name = "Aria Shrimpton";
   };
   teatwig = {
     email = "nix@teatwig.net";
