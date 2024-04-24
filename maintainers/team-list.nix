@@ -518,6 +518,7 @@ with lib.maintainers; {
       cpages
       dschrempf
       edwtjo
+      kazenyuk
       minijackson
       peterhoeg
       sephalon
@@ -573,6 +574,9 @@ with lib.maintainers; {
       RossComputerGuy
       rrbutani
       sternenseemann
+    ];
+    githubTeams = [
+      "llvm"
     ];
     scope = "Maintain LLVM package sets and related packages";
     shortName = "LLVM";

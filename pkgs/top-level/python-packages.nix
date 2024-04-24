@@ -815,7 +815,7 @@ self: super: with self; {
 
   aspy-refactor-imports = callPackage ../development/python-modules/aspy-refactor-imports { };
 
-  aspy-yaml = callPackage ../development/python-modules/aspy.yaml { };
+  aspy-yaml = callPackage ../development/python-modules/aspy-yaml { };
 
   assay = callPackage ../development/python-modules/assay { };
 
@@ -1782,6 +1782,8 @@ self: super: with self; {
 
   btsocket = callPackage ../development/python-modules/btsocket { };
 
+  bubop = callPackage ../development/python-modules/bubop { };
+
   bucketstore = callPackage ../development/python-modules/bucketstore { };
 
   bugsnag = callPackage ../development/python-modules/bugsnag { };
@@ -1803,6 +1805,12 @@ self: super: with self; {
   bunch = callPackage ../development/python-modules/bunch { };
 
   bundlewrap = callPackage ../development/python-modules/bundlewrap { };
+
+  bundlewrap-keepass = callPackage ../development/python-modules/bundlewrap-keepass { };
+
+  bundlewrap-pass = callPackage ../development/python-modules/bundlewrap-pass { };
+
+  bundlewrap-teamvault = callPackage ../development/python-modules/bundlewrap-teamvault { };
 
   busypie = callPackage ../development/python-modules/busypie { };
 
@@ -1925,6 +1933,8 @@ self: super: with self; {
       python3Packages = self;
     };
   };
+
+  catkin-pkg = callPackage ../development/python-modules/catkin-pkg { };
 
   catppuccin = callPackage ../development/python-modules/catppuccin { };
 
@@ -2478,6 +2488,8 @@ self: super: with self; {
 
   craft-application-1 = callPackage ../development/python-modules/craft-application-1 { };
 
+  craft-application = callPackage ../development/python-modules/craft-application { };
+
   craft-archives = callPackage ../development/python-modules/craft-archives { };
 
   craft-cli = callPackage ../development/python-modules/craft-cli { };
@@ -2487,6 +2499,8 @@ self: super: with self; {
   craft-parts = callPackage ../development/python-modules/craft-parts { };
 
   craft-providers = callPackage ../development/python-modules/craft-providers { };
+
+  craft-store = callPackage ../development/python-modules/craft-store { };
 
   cram = callPackage ../development/python-modules/cram { };
 
@@ -2642,14 +2656,7 @@ self: super: with self; {
 
   cython = callPackage ../development/python-modules/cython { };
 
-  cython_3 = self.cython.overridePythonAttrs (old: rec {
-    version = "3.0.9";
-    src = old.src.override {
-      inherit version;
-      hash = "sha256-otNU8FnR8FXTTPqmLFtovHisLOq2QHFI1H+1CM87pPM=";
-    };
-    patches = [ ];
-  });
+  cython_0 = callPackage ../development/python-modules/cython/0.nix { };
 
   cython-test-exception-raiser = callPackage ../development/python-modules/cython-test-exception-raiser { };
 
@@ -5900,6 +5907,8 @@ self: super: with self; {
 
   itanium-demangler = callPackage ../development/python-modules/itanium-demangler { };
 
+  item-synchronizer = callPackage ../development/python-modules/item-synchronizer { };
+
   itemadapter = callPackage ../development/python-modules/itemadapter { };
 
   itemdb = callPackage ../development/python-modules/itemdb { };
@@ -6079,6 +6088,8 @@ self: super: with self; {
 
   jsondiff = callPackage ../development/python-modules/jsondiff { };
 
+  jsonfeed = callPackage ../development/python-modules/jsonfeed { };
+
   jsonfield = callPackage ../development/python-modules/jsonfield { };
 
   jsonlines = callPackage ../development/python-modules/jsonlines { };
@@ -6136,6 +6147,8 @@ self: super: with self; {
   jsonschema-spec = callPackage ../development/python-modules/jsonschema-spec { };
 
   jsonschema-specifications = callPackage ../development/python-modules/jsonschema-specifications { };
+
+  jsonslicer = callPackage ../development/python-modules/jsonslicer { };
 
   jsonstreams = callPackage ../development/python-modules/jsonstreams { };
 
@@ -6991,6 +7004,8 @@ self: super: with self; {
     inherit (pkgs) libxml2 libxslt zlib;
   };
 
+  lxml-html-clean = callPackage ../development/python-modules/lxml-html-clean { };
+
   lxml-stubs = callPackage ../development/python-modules/lxml-stubs { };
 
   lyricwikia = callPackage ../development/python-modules/lyricwikia { };
@@ -7052,6 +7067,8 @@ self: super: with self; {
   rtmixer = callPackage ../development/python-modules/rtmixer { };
 
   regress = callPackage ../development/python-modules/regress { };
+
+  macaroonbakery = callPackage ../development/python-modules/macaroonbakery { };
 
   mail-parser = callPackage ../development/python-modules/mail-parser { };
 
@@ -7430,29 +7447,48 @@ self: super: with self; {
   mizani = callPackage ../development/python-modules/mizani { };
 
   mkdocs = callPackage ../development/python-modules/mkdocs { };
+
   mkdocs-autolinks-plugin = callPackage ../development/python-modules/mkdocs-autolinks-plugin { };
+
   mkdocs-autorefs = callPackage ../development/python-modules/mkdocs-autorefs { };
+
   mkdocs-drawio-exporter = callPackage ../development/python-modules/mkdocs-drawio-exporter { };
+
   mkdocs-exclude = callPackage ../development/python-modules/mkdocs-exclude { };
-  mkdocs-jupyter = callPackage ../development/python-modules/mkdocs-jupyter { };
-  mkdocs-gitlab = callPackage ../development/python-modules/mkdocs-gitlab-plugin { };
+
   mkdocs-git-authors-plugin = callPackage ../development/python-modules/mkdocs-git-authors-plugin { };
+
   mkdocs-git-revision-date-localized-plugin = callPackage ../development/python-modules/mkdocs-git-revision-date-localized-plugin { };
+
+  mkdocs-gitlab = callPackage ../development/python-modules/mkdocs-gitlab-plugin { };
+
+  mkdocs-jupyter = callPackage ../development/python-modules/mkdocs-jupyter { };
+
   mkdocs-linkcheck = callPackage ../development/python-modules/mkdocs-linkcheck { };
+
   mkdocs-macros = callPackage ../development/python-modules/mkdocs-macros { };
+
   mkdocs-material = callPackage ../development/python-modules/mkdocs-material { };
+
   mkdocs-material-extensions = callPackage ../development/python-modules/mkdocs-material/mkdocs-material-extensions.nix { };
+
+  mkdocs-mermaid2-plugin = callPackage ../development/python-modules/mkdocs-mermaid2-plugin { };
+
   mkdocs-minify-plugin = callPackage ../development/python-modules/mkdocs-minify-plugin { };
+
   mkdocs-redirects = callPackage ../development/python-modules/mkdocs-redirects { };
+
   mkdocs-redoc-tag = callPackage ../development/python-modules/mkdocs-redoc-tag { };
+
+  mkdocs-rss-plugin = callPackage ../development/python-modules/mkdocs-rss-plugin { };
+
   mkdocs-simple-hooks = callPackage ../development/python-modules/mkdocs-simple-hooks { };
+
   mkdocs-swagger-ui-tag = callPackage ../development/python-modules/mkdocs-swagger-ui-tag { };
 
   mkdocstrings = callPackage ../development/python-modules/mkdocstrings { };
 
   mkdocstrings-python = callPackage ../development/python-modules/mkdocstrings-python { };
-
-  mkdocs-mermaid2-plugin = callPackage ../development/python-modules/mkdocs-mermaid2-plugin { };
 
   mkl-service = callPackage ../development/python-modules/mkl-service { };
 
@@ -9640,6 +9676,8 @@ self: super: with self; {
   pymeta3 = callPackage ../development/python-modules/pymeta3 { };
 
   pypemicro = callPackage ../development/python-modules/pypemicro { };
+
+  pymeshlab = toPythonModule (pkgs.libsForQt5.callPackage ../applications/graphics/pymeshlab { });
 
   pyprecice = callPackage ../development/python-modules/pyprecice { };
 
@@ -11886,6 +11924,8 @@ self: super: with self; {
 
   pytest_7 = callPackage ../development/python-modules/pytest/7.nix { };
 
+  pytest7CheckHook = pytestCheckHook.override { pytest = pytest_7; };
+
   pytest-aio = callPackage ../development/python-modules/pytest-aio { };
 
   pytest-aiohttp = callPackage ../development/python-modules/pytest-aiohttp { };
@@ -12150,6 +12190,8 @@ self: super: with self; {
   python3-gnutls = callPackage ../development/python-modules/python3-gnutls { };
 
   python3-openid = callPackage ../development/python-modules/python3-openid { };
+
+  python-apt = callPackage ../development/python-modules/python-apt { };
 
   python-arango = callPackage ../development/python-modules/python-arango { };
 
@@ -13914,7 +13956,7 @@ self: super: with self; {
 
   smpplib = callPackage ../development/python-modules/smpplib { };
 
-  smpp-pdu = callPackage ../development/python-modules/smpp.pdu { };
+  smpp-pdu = callPackage ../development/python-modules/smpp-pdu { };
 
   smtpdfix = callPackage ../development/python-modules/smtpdfix { };
 
@@ -14638,6 +14680,8 @@ self: super: with self; {
   tasklib = callPackage ../development/python-modules/tasklib { };
 
   taskw = callPackage ../development/python-modules/taskw { };
+
+  taskw-ng = callPackage ../development/python-modules/taskw-ng { };
 
   tatsu = callPackage ../development/python-modules/tatsu { };
 
@@ -16400,8 +16444,6 @@ self: super: with self; {
 
   utils = callPackage ../development/python-modules/utils { };
 
-  uuid = callPackage ../development/python-modules/uuid { };
-
   uvcclient = callPackage ../development/python-modules/uvcclient { };
 
   uvicorn = callPackage ../development/python-modules/uvicorn { };
@@ -16417,6 +16459,8 @@ self: super: with self; {
   vacuum-map-parser-roborock = callPackage ../development/python-modules/vacuum-map-parser-roborock { };
 
   validate-email = callPackage ../development/python-modules/validate-email { };
+
+  validator-collection = callPackage ../development/python-modules/validator-collection { };
 
   validators = callPackage ../development/python-modules/validators { };
 
