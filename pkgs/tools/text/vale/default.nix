@@ -36,6 +36,9 @@ buildGoModule rec {
       wrapProgram "$out/bin/vale" \
         --set VALE_STYLES_PATH "$out/share/vale/styles/"
     '';
+    meta = {
+      inherit (vale.meta) mainProgram;
+    };
   };
 
   meta = with lib; {
@@ -50,6 +53,6 @@ buildGoModule rec {
     changelog = "https://github.com/errata-ai/vale/releases/tag/v${version}";
     mainProgram = "vale";
     license = licenses.mit;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [ ];
   };
 }
