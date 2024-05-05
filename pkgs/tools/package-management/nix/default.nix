@@ -20,15 +20,6 @@ let
     patches = (drv.patches or [ ]) ++ [
       # Part of the GC solution in https://github.com/NixOS/nix/pull/4944
       ./patches/boehmgc-coroutine-sp-fallback.patch
-
-      # Required since 2.20, and has always been a valid change
-      # Awaiting 8.2 patch release of https://github.com/ivmai/bdwgc/commit/d1d4194c010bff2dc9237223319792cae834501c
-      # or master release of https://github.com/ivmai/bdwgc/commit/86b3bf0c95b66f718c3cb3d35fd7387736c2a4d7
-      (fetchpatch {
-        name = "boehmgc-traceable_allocator-public.diff";
-        url = "https://github.com/NixOS/nix/raw/2.20.0/dep-patches/boehmgc-traceable_allocator-public.diff";
-        hash = "sha256-FLsHY/JS46neiSyyQkVpbHZEFvWSCzWrFQu1CC71sh4=";
-      })
     ];
   });
 
@@ -142,11 +133,10 @@ let
 
 in lib.makeExtensible (self: ({
   nix_2_3 = ((common {
-    version = "2.3.17";
-    hash = "sha256-EK0pgHDekJFqr0oMj+8ANIjq96WPjICe2s0m4xkUdH4=";
+    version = "2.3.18";
+    hash = "sha256-jBz2Ub65eFYG+aWgSI3AJYvLSghio77fWQiIW1svA9U=";
     patches = [
       patch-monitorfdhup
-      ./patches/2_3/CVE-2024-27297.patch
     ];
     maintainers = with lib.maintainers; [ flokli raitobezarius ];
   }).override { boehmgc = boehmgc-nix_2_3; }).overrideAttrs {
@@ -166,8 +156,8 @@ in lib.makeExtensible (self: ({
   };
 
   nix_2_20 = common {
-    version = "2.20.5";
-    hash = "sha256-bfFe38BkoQws7om4gBtBWoNTLkt9piMXdLLoHYl+vBQ=";
+    version = "2.20.6";
+    hash = "sha256-BSl8Jijq1A4n1ToQy0t0jDJCXhJK+w1prL8QMHS5t54=";
   };
 
   nix_2_21 = common {
@@ -179,6 +169,19 @@ in lib.makeExtensible (self: ({
     version = "2.22.0";
     hash = "sha256-Ugcc+lSq8nJP+mddMlGFnoG4Ix1lRFHWOal3299bqR8=";
   };
+
+  git = common rec {
+    version = "2.23.0";
+    suffix = "pre20240426_${lib.substring 0 8 src.rev}";
+    src = fetchFromGitHub {
+      owner = "NixOS";
+      repo = "nix";
+      rev = "2f678331d59451dd6f1d9512cb6d92e4ecb9750f";
+      hash = "sha256-4AwaLB/gTRgvZG4FmFY6OY52yeLAnj0a6rtJCz7TRXA=";
+    };
+  };
+
+  latest = self.nix_2_22;
 
   # The minimum Nix version supported by Nixpkgs
   # Note that some functionality *might* have been backported into this Nix version,
@@ -198,8 +201,6 @@ in lib.makeExtensible (self: ({
       nix;
 
   stable = addFallbackPathsCheck self.nix_2_18;
-
-  unstable = self.nix_2_22;
 } // lib.optionalAttrs config.allowAliases (
   lib.listToAttrs (map (
     minor:
@@ -208,4 +209,7 @@ in lib.makeExtensible (self: ({
     in
     lib.nameValuePair attr (throw "${attr} has been removed")
   ) (lib.range 4 17))
+  // {
+    unstable = throw "nixVersions.unstable has been removed. For bleeding edge (Nix master, roughly weekly updated) use nixVersions.git, otherwise use nixVersions.latest.";
+  }
 )))

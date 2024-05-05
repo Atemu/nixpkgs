@@ -2,7 +2,7 @@
 
 buildLua {
   pname = "mpv-thumbfast";
-  version = "unstable-2023-12-08";
+  version = "0-unstable-2023-12-08";
 
   src = fetchFromGitHub {
     owner = "po5";
@@ -13,7 +13,7 @@ buildLua {
   passthru.updateScript = unstableGitUpdater {};
 
   passthru.extraWrapperArgs = [
-    "--prefix" "PATH" ":" "${lib.getBin mpv-unwrapped}/bin"
+    "--prefix" "PATH" ":" (lib.makeBinPath [ mpv-unwrapped ])
   ];
 
   meta = {

@@ -308,6 +308,7 @@ let
     FactoMineR = [ self.car ];
     pander = [ self.codetools ];
     rmsb = [ self.rstantools ];
+    gastempt = [ self.rstantools ];
     interactiveDisplay = [ self.BiocManager ];
   };
 
@@ -412,6 +413,7 @@ let
     RcppZiggurat = [ pkgs.gsl ];
     reprex = [ pkgs.which ];
     rgdal = with pkgs; [ proj.dev gdal ];
+    Rhisat2 = [ pkgs.which pkgs.hostname ];
     gdalcubes = [ pkgs.pkg-config ];
     rgeos = [ pkgs.geos ];
     Rglpk = [ pkgs.glpk ];
@@ -532,6 +534,7 @@ let
     Rbwa = [ pkgs.zlib.dev ];
     trackViewer = [ pkgs.zlib.dev ];
     themetagenomics = [ pkgs.zlib.dev ];
+    Rsymphony = [ pkgs.pkg-config ];
     NanoMethViz = [ pkgs.zlib.dev ];
     RcppMeCab = [ pkgs.pkg-config ];
     HilbertVisGUI = with pkgs; [ pkg-config which ];
@@ -561,11 +564,13 @@ let
     deepSNV = with pkgs; [ xz.dev bzip2.dev zlib.dev ];
     epialleleR = with pkgs; [ xz.dev bzip2.dev zlib.dev ];
     gdalraster = with pkgs; [ gdal proj.dev sqlite.dev ];
+    mitoClone2 = with pkgs; [ xz.dev bzip2.dev zlib.dev ];
     gpg = [ pkgs.gpgme ];
     webp = [ pkgs.libwebp ];
     RMark = [ pkgs.which ];
     RPushbullet = [ pkgs.which ];
     stpphawkes = [ pkgs.gsl ];
+    registr = with pkgs; [ icu.dev zlib.dev bzip2.dev xz.dev ];
     RCurl = [ pkgs.curl.dev ];
     R2SWF = [ pkgs.pkg-config ];
     rDEA = [ pkgs.glpk ];
@@ -584,6 +589,7 @@ let
     archive = [ pkgs.libarchive];
     gdalcubes = with pkgs; [ proj.dev gdal sqlite.dev netcdf ];
     SuperGauss = [ pkgs.pkg-config pkgs.fftw.dev];
+    specklestar = [ pkgs.fftw.dev ];
     cartogramR = [ pkgs.fftw.dev ];
     jqr = [ pkgs.jq.lib ];
     kza = [ pkgs.pkg-config ];
@@ -615,12 +621,13 @@ let
     mashr = [ pkgs.gsl ];
     hadron = [ pkgs.gsl ];
     AMOUNTAIN = [ pkgs.gsl ];
-    Rsymphony = with pkgs; [ pkg-config doxygen graphviz subversion ];
+    Rsymphony = with pkgs; [ symphony doxygen graphviz subversion cgl clp];
     tcltk2 = with pkgs; [ tcl tk ];
     rswipl = with pkgs; [ ncurses.dev libxcrypt zlib.dev ];
     tikzDevice = with pkgs; [ which texliveMedium ];
     gridGraphics = [ pkgs.which ];
     adimpro = with pkgs; [ which xorg.xdpyinfo ];
+    tfevents = [ pkgs.protobuf ];
     rsvg = [ pkgs.librsvg.dev ];
     ssh = with pkgs; [ libssh ];
     s2 = [ pkgs.openssl.dev ];
@@ -704,9 +711,11 @@ let
     RcppCWB = with pkgs; [ pcre.dev glib.dev ];
     redux = [ pkgs.hiredis ];
     RmecabKo = [ pkgs.mecab ];
+    markets = [ pkgs.gsl ];
     PoissonBinomial = [ pkgs.fftw.dev ];
     poisbinom = [ pkgs.fftw.dev ];
     PoissonMultinomial = [ pkgs.fftw.dev ];
+    psbcGroup = [ pkgs.gsl.dev ];
     rrd = [ pkgs.rrdtool ];
     flowWorkspace = [ pkgs.zlib.dev ];
     RITCH = [ pkgs.zlib.dev ];
@@ -715,6 +724,7 @@ let
     RcppAlgos = [ pkgs.gmp.dev ];
     RcppBigIntAlgos = [ pkgs.gmp.dev ];
     spaMM = [ pkgs.gsl ];
+    shrinkTVP = [ pkgs.gsl ];
     unigd = with pkgs; [ cairo.dev libpng.dev ];
     HilbertVisGUI = [ pkgs.gtkmm2.dev ];
     textshaping = with pkgs; [ harfbuzz.dev freetype.dev fribidi libpng ];
@@ -723,6 +733,7 @@ let
     ijtiff = [ pkgs.libtiff ];
     ragg = with pkgs; [ freetype.dev libpng.dev libtiff.dev zlib.dev libjpeg.dev bzip2.dev ] ++ lib.optional stdenv.isDarwin lerc.dev;
     qqconf = [ pkgs.fftw.dev ];
+    spFW = [ pkgs.fftw.dev ];
     qspray = with pkgs; [ gmp.dev mpfr.dev ];
     vapour = with pkgs; [ proj.dev gdal ];
     MedianaDesigner = [ pkgs.zlib.dev ];
@@ -929,6 +940,7 @@ let
     "aroma_affymetrix"
     "aroma_cn"
     "aroma_core"
+    "ceramic"
     "connections"
     "csodata"
     "DiceView"
@@ -938,6 +950,7 @@ let
     "OmnipathR"
     "precommit"
     "protGear"
+    "PCRA"
     "PSCBS"
     "iemisc"
     "repmis"
@@ -961,6 +974,9 @@ let
     "Quartet"
     "ShinyQuickStarter"
     "TIN"
+    "cfdnakit"
+    "CaDrA"
+    "GNOSIS"
     "TotalCopheneticIndex"
     "TreeDist"
     "biocthis"
@@ -990,6 +1006,8 @@ let
     "PhIPData" # tries to download something from a DB
     "RBioFormats" # tries to download jar during load test
     "pbdMPI"   # tries to run MPI processes
+    "CTdata" # tries to connect to ExperimentHub
+    "rfaRm" # tries to connect to Ebi
     "data_table" # fails to rename shared library before check
     "coMethDMR" # tries to connect to ExperimentHub
     "multiMiR" # tries to connect to DB
@@ -1150,6 +1168,10 @@ let
       postPatch = "patchShebangs configure";
     });
 
+   ocf = old.ocf.overrideAttrs (attrs: {
+      postPatch = "patchShebangs configure";
+    });
+
     data_table = old.data_table.overrideAttrs (attrs: {
       env = (attrs.env or { }) // {
         NIX_CFLAGS_COMPILE = attrs.env.NIX_CFLAGS_COMPILE + " -fopenmp";
@@ -1250,6 +1272,17 @@ let
         substituteInPlace "R/quarto.R" \
           --replace "path_env <- Sys.getenv(\"QUARTO_PATH\", unset = NA)" "path_env <- Sys.getenv(\"QUARTO_PATH\", unset = '${lib.getBin pkgs.quarto}/bin/quarto')"
       '';
+    });
+
+    # backported patch from 1.9
+    Rhisat2= old.Rhisat2.overrideAttrs (attrs: {
+      patches = [ (pkgs.fetchpatch {
+        url = "https://github.com/fmicompbio/Rhisat2/commit/a0f27b018831b39f080f99e6db8a4b876fd56fc3.patch";
+        sha256 = "sha256-FbYkP/WFmbfQmxArkHgushgVgY0XSypbK8Z5ivQK8k4=";
+      }) ];
+      env = (attrs.env or { }) // {
+        NIX_CFLAGS_COMPILE = attrs.env.NIX_CFLAGS_COMPILE + " -w";
+      };
     });
 
     s2 = old.s2.overrideAttrs (attrs: {

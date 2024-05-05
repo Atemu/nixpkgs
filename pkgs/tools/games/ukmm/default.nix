@@ -3,20 +3,20 @@
 , fetchFromGitHub
 , cmake
 , pkg-config
-, wrapGAppsHook
+, wrapGAppsHook3
 , libglvnd
 , nix-update-script
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "ukmm";
-  version = "0.11.0";
+  version = "0.11.1";
 
   src = fetchFromGitHub {
     owner = "NiceneNerd";
     repo = pname;
     rev = "refs/tags/v${version}";
-    hash = "sha256-/w1oJVn/JGBKPYhFqbvvY+HlA3owOei64ZqrPUXHu/E=";
+    hash = "sha256-yxF08kTA/IhM3LKFH523kVY3QfqwUElz3ICkjKPAo7E=";
   };
 
   cargoLock = {
@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [
     cmake
     pkg-config
-    wrapGAppsHook
+    wrapGAppsHook3
   ];
 
   preFixup = ''

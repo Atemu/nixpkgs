@@ -88,6 +88,9 @@ in buildPythonPackage rec {
     # remove needless reference to full Python path stored in built wheel
     substituteInPlace numpy/meson.build \
       --replace 'py.full_path()' "'python'"
+
+    substituteInPlace pyproject.toml \
+      --replace-fail "meson-python>=0.15.0,<0.16.0" "meson-python"
   '';
 
   nativeBuildInputs = [
@@ -186,6 +189,5 @@ in buildPythonPackage rec {
     mainProgram = "f2py";
     homepage = "https://numpy.org/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ fridh ];
   };
 }

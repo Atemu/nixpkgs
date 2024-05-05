@@ -388,6 +388,13 @@ let
           rev = "refs/tags/${version}";
           hash = "sha256-vi5f4V0nPb9K3nwdmwMDoNE85Or6haOWjMY4d/2Fj2s=";
         };
+        dependencies = with self; [
+          aiohttp
+          async-timeout
+          gql
+          python-dateutil
+          websockets
+        ];
       });
 
       pykaleidescape = super.pykaleidescape.overridePythonAttrs (oldAttrs: rec {
@@ -439,17 +446,9 @@ let
         };
       });
 
-      versioningit = super.versioningit.overridePythonAttrs (oldAttrs: rec {
-        version = "2.2.0";
-        src = fetchPypi {
-          inherit (oldAttrs) pname;
-          inherit version;
-          hash = "sha256-6xjnunJoqIC/HM/pLlNOlqs04Dl/KNy8s/wNpPaltr0=";
-        };
-        pytestFlagsArray = [
-          "-W" "ignore::DeprecationWarning"
-        ];
-      });
+      versioningit = super.versioningit.overridePythonAttrs {
+        doCheck = false;
+      };
 
       voluptuous = super.voluptuous.overridePythonAttrs (oldAttrs: rec {
         version = "0.13.1";

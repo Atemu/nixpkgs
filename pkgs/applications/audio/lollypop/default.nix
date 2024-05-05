@@ -18,7 +18,7 @@
 , gdk-pixbuf
 , glib
 , pango
-, wrapGAppsHook
+, wrapGAppsHook3
 , lastFMSupport ? true
 , youtubeSupport ? true
 }:
@@ -45,7 +45,7 @@ python3.pkgs.buildPythonApplication rec  {
     meson
     ninja
     pkg-config
-    wrapGAppsHook
+    wrapGAppsHook3
   ];
 
   buildInputs = with gst_all_1; [
@@ -102,7 +102,7 @@ python3.pkgs.buildPythonApplication rec  {
   meta = with lib; {
     changelog = "https://gitlab.gnome.org/World/lollypop/tags/${version}";
     description = "A modern music player for GNOME";
-    homepage = "https://wiki.gnome.org/Apps/Lollypop";
+    homepage = "https://gitlab.gnome.org/World/lollypop";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ lovesegfault ];
     platforms = platforms.linux;

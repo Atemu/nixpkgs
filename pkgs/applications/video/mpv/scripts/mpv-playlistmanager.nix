@@ -2,7 +2,7 @@
 
 buildLua rec {
   pname = "mpv-playlistmanager";
-  version = "unstable-2024-02-26";
+  version = "0-unstable-2024-02-26";
 
   src = fetchFromGitHub {
     owner = "jonniek";
@@ -14,8 +14,8 @@ buildLua rec {
 
   postPatch = ''
     substituteInPlace playlistmanager.lua \
-      --replace 'youtube_dl_executable = "youtube-dl",' \
-      'youtube_dl_executable = "${lib.getBin yt-dlp}/bin/yt-dlp"',
+      --replace-fail 'youtube_dl_executable = "yt-dlp",' \
+      'youtube_dl_executable = "${lib.getExe yt-dlp}"',
   '';
 
   meta = with lib; {

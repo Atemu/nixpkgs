@@ -13,6 +13,9 @@
 , moreutils
 , cacert
 , nodePackages
+, pipewire
+, libpulseaudio
+, autoPatchelfHook
 , withTTS ? true
   # Enables the use of vencord from nixpkgs instead of
   # letting vesktop manage it's own version
@@ -20,13 +23,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "vesktop";
-  version = "1.5.1";
+  version = "1.5.2";
 
   src = fetchFromGitHub {
     owner = "Vencord";
     repo = "Vesktop";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-OyAGzlwwdEKBbJJ7h3glwx/THy2VvUn/kA/Df3arWQU=";
+    hash = "sha256-cZOyydwpIW9Xq716KVi1RGtSlgVnOP3w8vXDwouS70E=";
   };
 
   # NOTE: This requires pnpm 8.10.0 or newer
@@ -73,7 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
       dontBuild = true;
       dontFixup = true;
       outputHashMode = "recursive";
-      outputHash = "sha256-JLjJZYFMH4YoIFuyXbGUp6lIy+VlYZtmwk2+oUwtTxQ=";
+      outputHash = "sha256-6ezEBeYmK5va3gCh00YnJzZ77V/Ql7A3l/+csohkz68=";
     };
 
   nativeBuildInputs = [
@@ -81,6 +84,13 @@ stdenv.mkDerivation (finalAttrs: {
     nodePackages.pnpm
     nodePackages.nodejs
     makeWrapper
+    autoPatchelfHook
+  ];
+
+  buildInputs = [
+    pipewire
+    libpulseaudio
+    stdenv.cc.cc.lib
   ];
 
   patches = [
@@ -106,6 +116,7 @@ stdenv.mkDerivation (finalAttrs: {
     # using `pnpm exec` here apparently makes it ignore ELECTRON_SKIP_BINARY_DOWNLOAD
     ./node_modules/.bin/electron-builder \
       --dir \
+      -c.asarUnpack="**/*.node" \
       -c.electronDist=${electron}/libexec/electron \
       -c.electronVersion=${electron.version}
   '';
@@ -115,8 +126,8 @@ stdenv.mkDerivation (finalAttrs: {
     ''
       runHook preInstall
 
-      mkdir -p $out/opt/Vesktop/resources
-      cp dist/linux-*unpacked/resources/app.asar $out/opt/Vesktop/resources
+      mkdir -p $out/opt/Vesktop
+      cp -r dist/linux-*unpacked/resources $out/opt/Vesktop/
 
       pushd build
       ${libicns}/bin/icns2png -x icon.icns

@@ -10,7 +10,7 @@
 
 buildLua {
   pname = "mpv-convert-script";
-  version = "unstable-2015-07-02";
+  version = "0-unstable-2015-07-02";
   src = fetchgit {
     url = "https://gist.github.com/Zehkul/25ea7ae77b30af959be0";
     rev = "f95cee43e390e843a47e8ec9d1711a12a8cd343d";
@@ -22,14 +22,14 @@ buildLua {
 
   postPatch = ''
     substituteInPlace convert_script.lua \
-      --replace 'mkvpropedit_exe = "mkvpropedit"' \
-                'mkvpropedit_exe = "${mkvtoolnix-cli}/bin/mkvpropedit"' \
-      --replace 'mkvmerge_exe = "mkvmerge"' \
-                'mkvmerge_exe = "${mkvtoolnix-cli}/bin/mkvmerge"' \
-      --replace 'yad_exe = "yad"' \
-                'yad_exe = "${yad}/bin/yad"' \
-      --replace 'notify_send_exe = "notify-send"' \
-                'notify_send_exe = "${libnotify}/bin/notify-send"' \
+      --replace-fail 'mkvpropedit_exe = "mkvpropedit"' \
+                'mkvpropedit_exe = "${lib.getExe' mkvtoolnix-cli "mkvpropedit"}"' \
+      --replace-fail 'mkvmerge_exe = "mkvmerge"' \
+                'mkvmerge_exe = "${lib.getExe' mkvtoolnix-cli "mkvmerge"}"' \
+      --replace-fail 'yad_exe = "yad"' \
+                'yad_exe = "${lib.getExe yad}"' \
+      --replace-fail 'notify_send_exe = "notify-send"' \
+                'notify_send_exe = "${lib.getExe libnotify}"' \
   '';
 
   scriptPath = "convert_script.lua";

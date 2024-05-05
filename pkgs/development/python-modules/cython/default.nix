@@ -24,13 +24,13 @@ let
 
 in buildPythonPackage rec {
   pname = "cython";
-  version = "3.0.9";
+  version = "3.0.10";
   pyproject = true;
 
   src = fetchPypi {
     pname = "Cython";
     inherit version;
-    hash = "sha256-otNU8FnR8FXTTPqmLFtovHisLOq2QHFI1H+1CM87pPM=";
+    hash = "sha256-3MlnOTMfuFTc9QP5RgdXbP6EiAZsYcpQ39VYNvEy3pk=";
   };
 
   build-system = [
@@ -66,6 +66,5 @@ in buildPythonPackage rec {
     description = "An optimising static compiler for both the Python programming language and the extended Cython programming language";
     homepage = "https://cython.org";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fridh ];
   };
 }
