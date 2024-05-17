@@ -12,214 +12,10 @@
 
 , ffmpegVariant ? "small" # Decides which dependencies are enabled by default
 
-  # Build with headless deps; excludes dependencies that are only necessary for
-  # GUI applications. To be used for purposes that don't generally need such
-  # components and i.e. only depend on libav
-, withHeadlessDeps ? ffmpegVariant == "headless" || withSmallDeps
-
-  # Dependencies a user might customarily expect from a regular ffmpeg build.
-  # /All/ packages that depend on ffmpeg and some of its feaures should depend
-  # on the small variant. Small means the minimal set of features that satisfies
-  # all dependants in Nixpkgs
-, withSmallDeps ? ffmpegVariant == "small" || withFullDeps
-
-  # Everything enabled; only guarded behind platform exclusivity or brokeness.
-  # If you need to depend on ffmpeg-full because ffmpeg is missing some feature
-  # your package needs, you should enable that feature in regular ffmpeg
-  # instead.
-, withFullDeps ? ffmpegVariant == "full"
-
 , fetchgit
 , fetchpatch2
 
-  # Feature flags
-, withAlsa ? withHeadlessDeps && stdenv.isLinux # Alsa in/output supporT
-, withAmf ? lib.meta.availableOn stdenv.hostPlatform amf # AMD Media Framework video encoding
-, withAom ? withHeadlessDeps # AV1 reference encoder
-, withAppKit ? withHeadlessDeps && stdenv.isDarwin # Apple AppKit framework
-, withAribcaption ? withFullDeps && lib.versionAtLeast version "6.1" # ARIB STD-B24 Caption Decoder/Renderer
-, withAss ? withHeadlessDeps && stdenv.hostPlatform == stdenv.buildPlatform # (Advanced) SubStation Alpha subtitle rendering
-, withAudioToolbox ? withHeadlessDeps && stdenv.isDarwin # Apple AudioToolbox
-, withAvFoundation ? withHeadlessDeps && stdenv.isDarwin # Apple AVFoundation framework
-, withAvisynth ? withFullDeps # AviSynth script files reading
-, withBluray ? withFullDeps # BluRay reading
-, withBs2b ? withFullDeps # bs2b DSP library
-, withBzlib ? withHeadlessDeps
-, withCaca ? withFullDeps # Textual display (ASCII art)
-, withCelt ? withHeadlessDeps # CELT decoder
-, withChromaprint ? withFullDeps # Audio fingerprinting
-, withCodec2 ? withFullDeps # codec2 en/decoding
-, withCoreImage ? withHeadlessDeps && stdenv.isDarwin # Apple CoreImage framework
-, withCuda ? withFullDeps && withNvcodec
-, withCudaLLVM ? withFullDeps
-, withCuvid ? withHeadlessDeps && withNvcodec
-, withDav1d ? withHeadlessDeps # AV1 decoder (focused on speed and correctness)
-, withDc1394 ? withFullDeps && !stdenv.isDarwin # IIDC-1394 grabbing (ieee 1394)
-, withDrm ? withHeadlessDeps && (with stdenv; isLinux || isFreeBSD) # libdrm support
-, withDvdnav ? withFullDeps && withGPL && lib.versionAtLeast version "7" # needed for DVD demuxing
-, withDvdread ? withFullDeps && withGPL && lib.versionAtLeast version "7" # needed for DVD demuxing
-, withFdkAac ? withFullDeps && (!withGPL || withUnfree) # Fraunhofer FDK AAC de/encoder
-, withNvcodec ? withHeadlessDeps && (with stdenv; !isDarwin && !isAarch32 && !hostPlatform.isRiscV && hostPlatform == buildPlatform) # dynamically linked Nvidia code
-, withFlite ? withFullDeps # Voice Synthesis
-, withFontconfig ? withHeadlessDeps # Needed for drawtext filter
-, withFreetype ? withHeadlessDeps # Needed for drawtext filter
-, withFrei0r ? withFullDeps && withGPL # frei0r video filtering
-, withFribidi ? withFullDeps # Needed for drawtext filter
-, withGme ? withFullDeps # Game Music Emulator
-, withGnutls ? withHeadlessDeps
-, withGsm ? withFullDeps # GSM de/encoder
-, withHarfbuzz ? withHeadlessDeps && lib.versionAtLeast version "6.1" # Needed for drawtext filter
-, withIconv ? withHeadlessDeps
-, withIlbc ? withFullDeps # iLBC de/encoding
-, withJack ? withFullDeps && !stdenv.isDarwin # Jack audio
-, withJxl ? withFullDeps && lib.versionAtLeast version "5" # JPEG XL de/encoding
-, withLadspa ? withFullDeps # LADSPA audio filtering
-, withLcms2 ? withFullDeps # ICC profile support via lcms2
-, withLzma ? withHeadlessDeps # xz-utils
-, withMetal ? false # Unfree and requires manual downloading of files
-, withMfx ? withFullDeps && (with stdenv.hostPlatform; isLinux && !isAarch) # Hardware acceleration via intel-media-sdk/libmfx
-, withModplug ? withFullDeps && !stdenv.isDarwin # ModPlug support
-, withMp3lame ? withHeadlessDeps # LAME MP3 encoder
-, withMysofa ? withFullDeps # HRTF support via SOFAlizer
-, withNvdec ? withHeadlessDeps && withNvcodec
-, withNvenc ? withHeadlessDeps && withNvcodec
-, withOpenal ? withFullDeps # OpenAL 1.1 capture support
-, withOpencl ? withFullDeps
-, withOpencoreAmrnb ? withFullDeps && withVersion3 # AMR-NB de/encoder
-, withOpencoreAmrwb ? withFullDeps && withVersion3 # AMR-WB decoder
-, withOpengl ? withFullDeps && !stdenv.isDarwin # OpenGL rendering
-, withOpenh264 ? withFullDeps # H.264/AVC encoder
-, withOpenjpeg ? withHeadlessDeps # JPEG 2000 de/encoder
-, withOpenmpt ? withFullDeps # Tracked music files decoder
-, withOpus ? withHeadlessDeps # Opus de/encoder
-, withPlacebo ? withFullDeps && !stdenv.isDarwin # libplacebo video processing library
-, withPulse ? withSmallDeps && stdenv.isLinux # Pulseaudio input support
-, withQrencode ? withFullDeps && lib.versionAtLeast version "7" # QR encode generation
-, withQuirc ? withFullDeps && lib.versionAtLeast version "7" # QR decoding
-, withRav1e ? withFullDeps # AV1 encoder (focused on speed and safety)
-, withRtmp ? withFullDeps # RTMP[E] support
-, withRubberband ? withFullDeps && withGPL # Rubberband filter
-, withSamba ? withFullDeps && !stdenv.isDarwin && withGPLv3 # Samba protocol
-, withSdl2 ? withSmallDeps
-, withShaderc ? withFullDeps && !stdenv.isDarwin && lib.versionAtLeast version "5.0"
-, withShine ? withFullDeps # Fixed-point MP3 encoding
-, withSnappy ? withFullDeps # Snappy compression, needed for hap encoding
-, withSoxr ? withHeadlessDeps # Resampling via soxr
-, withSpeex ? withHeadlessDeps # Speex de/encoder
-, withSrt ? withHeadlessDeps # Secure Reliable Transport (SRT) protocol
-, withSsh ? withHeadlessDeps # SFTP protocol
-, withSvg ? withFullDeps # SVG protocol
-, withSvtav1 ? withHeadlessDeps && !stdenv.isAarch64 && !stdenv.hostPlatform.isMinGW # AV1 encoder/decoder (focused on speed and correctness)
-, withTensorflow ? false # Tensorflow dnn backend support (Increases closure size by ~390 MiB)
-, withTheora ? withHeadlessDeps # Theora encoder
-, withTwolame ? withFullDeps # MP2 encoding
-, withV4l2 ? withHeadlessDeps && stdenv.isLinux  # Video 4 Linux support
-, withV4l2M2m ? withV4l2
-, withVaapi ? withHeadlessDeps && (with stdenv; isLinux || isFreeBSD) # Vaapi hardware acceleration
-, withVdpau ? withSmallDeps && !stdenv.hostPlatform.isMinGW # Vdpau hardware acceleration
-, withVideoToolbox ? withHeadlessDeps && stdenv.isDarwin # Apple VideoToolbox
-, withVidStab ? withFullDeps && withGPL # Video stabilization
-, withVmaf ? withFullDeps && !stdenv.isAarch64 && lib.versionAtLeast version "5" # Netflix's VMAF (Video Multi-Method Assessment Fusion)
-, withVoAmrwbenc ? withFullDeps && withVersion3 # AMR-WB encoder
-, withVorbis ? withHeadlessDeps # Vorbis de/encoding, native encoder exists
-, withVpl ? false # Hardware acceleration via intel libvpl
-, withVpx ? withHeadlessDeps && stdenv.buildPlatform == stdenv.hostPlatform # VP8 & VP9 de/encoding
-, withVulkan ? withSmallDeps && !stdenv.isDarwin
-, withWebp ? withHeadlessDeps # WebP encoder
-, withX264 ? withHeadlessDeps && withGPL # H.264/AVC encoder
-, withX265 ? withHeadlessDeps && withGPL # H.265/HEVC encoder
-, withXavs ? withFullDeps && withGPL # AVS encoder
-, withXcb ? withXcbShm || withXcbxfixes || withXcbShape # X11 grabbing using XCB
-, withXcbShape ? withFullDeps # X11 grabbing shape rendering
-, withXcbShm ? withFullDeps # X11 grabbing shm communication
-, withXcbxfixes ? withFullDeps # X11 grabbing mouse rendering
-, withXevd ? withFullDeps && lib.versionAtLeast version "7" && !xevd.meta.broken # MPEG-5 EVC decoding
-, withXeve ? withFullDeps && lib.versionAtLeast version "7" && !xeve.meta.broken # MPEG-5 EVC encoding
-, withXlib ? withFullDeps # Xlib support
-, withXml2 ? withFullDeps # libxml2 support, for IMF and DASH demuxers
-, withXvid ? withHeadlessDeps && withGPL # Xvid encoder, native encoder exists
-, withZimg ? withHeadlessDeps
-, withZlib ? withHeadlessDeps
-, withZmq ? withFullDeps # Message passing
-
-/*
- *  Licensing options (yes some are listed twice, filters and such are not listed)
- */
-, withGPL ? true
-, withVersion3 ? true # When withGPL is set this implies GPLv3 otherwise it is LGPLv3
-, withGPLv3 ? withGPL && withVersion3
-, withUnfree ? false
-
-/*
- *  Build options
- */
-, withSmallBuild ? false # Optimize for size instead of speed
-, withRuntimeCPUDetection ? true # Detect CPU capabilities at runtime (disable to compile natively)
-, withGrayscale ? withFullDeps # Full grayscale support
-, withSwscaleAlpha ? buildSwscale # Alpha channel support in swscale. You probably want this when buildSwscale.
-, withHardcodedTables ? withHeadlessDeps # Hardcode decode tables instead of runtime generation
-, withSafeBitstreamReader ? withHeadlessDeps # Buffer boundary checking in bitreaders
-, withMultithread ? true # Multithreading via pthreads/win32 threads
-, withNetwork ? withHeadlessDeps # Network support
-, withPixelutils ? withHeadlessDeps # Pixel utils in libavutil
-, withStatic ? stdenv.hostPlatform.isStatic
-, withShared ? !stdenv.hostPlatform.isStatic
-, withPic ? true
-, withThumb ? false # On some ARM platforms
-
-/*
- *  Program options
- */
-, buildFfmpeg ? withHeadlessDeps # Build ffmpeg executable
-, buildFfplay ? withSmallDeps # Build ffplay executable
-, buildFfprobe ? withHeadlessDeps # Build ffprobe executable
-, buildQtFaststart ? withFullDeps # Build qt-faststart executable
-, withBin ? buildFfmpeg || buildFfplay || buildFfprobe || buildQtFaststart
-/*
- *  Library options
- */
-, buildAvcodec ? withHeadlessDeps # Build avcodec library
-, buildAvdevice ? withHeadlessDeps # Build avdevice library
-, buildAvfilter ? withHeadlessDeps # Build avfilter library
-, buildAvformat ? withHeadlessDeps # Build avformat library
-# Deprecated but depended upon by some packages.
-# https://github.com/NixOS/nixpkgs/pull/211834#issuecomment-1417435991)
-, buildAvresample ? withHeadlessDeps && lib.versionOlder version "5" # Build avresample library
-, buildAvutil ? withHeadlessDeps # Build avutil library
-, buildPostproc ? withHeadlessDeps # Build postproc library
-, buildSwresample ? withHeadlessDeps # Build swresample library
-, buildSwscale ? withHeadlessDeps # Build swscale library
-, withLib ? buildAvcodec
-  || buildAvdevice
-  || buildAvfilter
-  || buildAvformat
-  || buildAvutil
-  || buildPostproc
-  || buildSwresample
-  || buildSwscale
-/*
- *  Documentation options
- */
-, withDocumentation ? withHtmlDoc || withManPages || withPodDoc || withTxtDoc
-, withHtmlDoc ? withHeadlessDeps # HTML documentation pages
-, withManPages ? withHeadlessDeps # Man documentation pages
-, withPodDoc ? withHeadlessDeps # POD documentation pages
-, withTxtDoc ? withHeadlessDeps # Text documentation pages
-# Whether a "doc" output will be produced. Note that withManPages does not produce
-# a "doc" output because its files go to "man".
-, withDoc ? withDocumentation && (withHtmlDoc || withPodDoc || withTxtDoc)
-
-/*
- *  Developer options
- */
-, withDebug ? false
-, withOptimisations ? true
-, withExtraWarnings ? false
-, withStripping ? false
-
-/*
- *  External libraries options
- */
+  #  Feature inputs
 , alsa-lib
 , amf
 , amf-headers
@@ -337,6 +133,8 @@
  *  Testing
  */
 , testers
+
+, configuration ? { }
 }:
 
 /* Maintainer notes:
@@ -353,49 +151,862 @@
  */
 
 let
-  inherit (lib) optional optionals optionalString enableFeature versionOlder versionAtLeast;
+  inherit (lib) optional optionals optionalString versionOlder versionAtLeast;
+  variants = lib.genAttrs [ "headless" "small" "full" ] lib.id;
+  inherit (variants) headless small full;
+
+  module =
+    {
+      config,
+      ...
+    }:
+
+    let
+      # Checks whether the given variant of the flag is contained in the currently
+      # active variant. full ⊃ small ⊃ headless
+      isInVariant = flagVariant:
+        let
+          checks = {
+            full = ffmpegVariant == variants.full;
+            small = ffmpegVariant == variants.small || checks.full;
+            headless = ffmpegVariant == variants.headless || checks.small;
+          };
+        in checks.${flagVariant} or false;
+
+      # Represents a feature flag for ffmpeg. Each feature flag controls which
+      # packages should be added to buildInputs and which configureFlags should
+      # be set to enable the feature. It also offers easy controls to
+      # enable/disable features by default depending on the variant, version and
+      # custom logic.
+      ffmpegFlag = lib.types.submodule ({ config, name, ... }: {
+        options = {
+          enable = lib.mkEnableOption "Whether to enable ${name} support in ffmpeg." // lib.mkOption {
+            default = isInVariant config.variant && config.gate;
+          };
+          packages = lib.mkOption {
+            type = with lib.types; attrsOf package;
+            default = { };
+            description = "The dependencies required to enable ${name} support.";
+          };
+          version = lib.mkOption {
+            type = lib.types.str;
+            default = "0"; # Unknown/Enable in any version
+            description = "Minimum version that understands this flag. Flag will not be passed when lower.";
+          };
+          versionMax = lib.mkOption {
+            type = lib.types.str;
+            default = "99999999"; # Unknown/Enable in any version
+            description = "Maximum version that understands this flag. Flag will not be passed when higher.";
+          };
+          variant = lib.mkOption {
+            type = lib.types.enum [ "headless" "small" "full" ];
+            default = "headless";
+            description = ''
+              Which variant this feature should be enabled in.
+
+              Headless: Build with dependency set that is necessary for headless
+              operation; excludes dependencies that are only necessary for GUI
+              applications. Intended for purposes that don't generally need such
+              components and i.e. only depend on libav and for bootstrapping.
+
+              Small: Dependencies a user might customarily expect from a regular
+              ffmpeg build. /All/ packages that depend on ffmpeg and some of its
+              feaures should depend on the small variant. Small means the minimal
+              set of features that satisfies all dependants in Nixpkgs
+
+              Full: All dependencies enabled; only guarded behind platform
+              exclusivity, brokeness or extreme closure sizes that make more sense
+              in a specific ffmpeg variant. If you need to depend on ffmpeg-full
+              because ffmpeg is missing some feature your package needs, you should
+              enable that feature in regular ffmpeg instead.
+            '';
+          };
+
+          gate = lib.mkOption {
+            default = true;
+            description = ''
+              Gates the default value for {option}`enable` behind a boolean. Use
+              this to disable certain features on certain platforms by default.
+            '';
+          };
+
+          flags = lib.mkOption {
+            type = with lib.types; listOf str;
+            default = lib.optionals (!config.internal) [ (config.flagPrefix + name) ];
+            description = ''
+              Flags to be passed to the configure script for this feature.
+            '';
+          };
+
+          flagPrefix = lib.mkOption {
+            default = "";
+            example = "lib";
+            description = ''
+              Which prefix the configure enable flag has. Frequently `lib`.
+            '';
+          };
+
+          description = lib.mkOption {
+            type = with lib.types; nullOr str;
+            default = null;
+            readOnly = true;
+          };
+
+          internal = lib.mkEnableOption "" // lib.mkOption {
+            description = ''
+              Whether this flag is an internal ffmpeg derivation implementation
+              detail and does not have a corresponding upstream configureFlag.
+            '';
+          };
+        };
+      });
+
+      mkFfmpegOption = name: default: lib.mkOption {
+        type = ffmpegFlag;
+        inherit default; # Detailed defaults are implemented in the ffmpegFlag type
+        description =
+          let
+            hasDescription = default.description or null != null;
+            additionalDescription = lib.optionalString hasDescription ": ${default.description}";
+          in
+            "Control ${name} support in ffmpeg${additionalDescription}.";
+      };
+
+      # This is the source of truth for the default set of features activated in ffmpeg
+      featureOptions = config:
+        let
+          enable = lib.mapAttrs (n: v: v.enable) config;
+        in
+        {
+          #  Licensing flags
+          gpl = { };
+          version3 = {
+            description = "When {option}`gpl` is set this implies {option}`gplv3`. Otherwise the license is LGPLv3";
+          };
+          gplv3 = {
+            gate = enable.gpl && enable.version3;
+            internal = true;
+          };
+          unfree = {
+            gate = false;
+            flags = [ "nonfree" ];
+          };
+          #  Build flags
+          static = { gate = stdenv.hostPlatform.isStatic; };
+          shared = { gate = !stdenv.hostPlatform.isStatic; };
+          pic = { };
+          thumb = { gate = false; };
+          small = { gate = false; };
+          runtime-cpudetect = { };
+          gray = { variant = full; };
+          swscale-alpha = { }; # TODO same as swscale?
+          hardcoded-tables = { };
+          safe-bitstream-reader = { };
+
+          small = { };
+          runtime-cpudetect = { };
+          gray = { };
+          swscale-alpha = { };
+          hardcoded-tables = { };
+          safe-bitstream-reader = { };
+
+          multithread = { internal = true; };
+          pthreads = {
+            gate = enable.multithread && stdenv.hostPlatform.isUnix;
+          };
+          w32threads = {
+            gate = enable.multithread && stdenv.hostPlatform.isWindows;
+          };
+          os2threads = {
+            # We don't support OS/2
+            gate = false;
+          };
+
+          network = { };
+          pixelutils = {
+            description = "Pixel utils in libavutil";
+          };
+
+          # Program flags
+          ffmpeg = {
+            description = "Build ffmpeg executable";
+          };
+          ffplay = {
+            variant = small;
+            description = "Build ffplay executable";
+          };
+          ffprobe = {
+            description = "Build ffprobe executable";
+          };
+          qt-faststart = {
+            variant = full;
+            description = "Build qt-faststart executable";
+            internal = true; # Does not have a flag, needs its dir to be passed to make manually
+          };
+          bin-output = {
+            gate = with enable; ffmpeg || ffplay || ffprobe || qt-faststart;
+            internal = true;
+          };
+
+          # Library flags
+          avcodec = { };
+          avdevice = { };
+          avfilter = { };
+          avformat = { };
+          # Deprecated but depended upon by some packages.
+          # https://github.com/NixOS/nixpkgs/pull/211834#issuecomment-1417435991
+          avresample = {
+            # Ffmpeg > 4 doesn't know about the flag anymore
+            versionMax = "5";
+          };
+          lib-output = {
+            gate =
+              with enable;
+              avcodec || avdevice || avfilter || avformat || avutil || postproc || swresample || swscale;
+            internal = true;
+          };
+
+          avutil = { };
+          postproc = { gate = enable.gpl; };
+          swresample = { };
+          swscale = { };
+
+          # Documentation flags
+          doc = {
+            gate = with enable; htmlpages || manpages || podpages || txtpages;
+          };
+          htmlpages = { };
+          manpages = { };
+          podpages = { };
+          txtpages = { };
+          doc-output = {
+            gate = with enable; doc && (htmlpages || podpages || txtpages);
+            description = ''
+              Whether a "doc" output will be produced. Note that
+              {option}`manpages` does not produce a "doc" output because its
+              files go to "man".
+            '';
+            internal = true;
+          };
+
+          # Developer flags
+          debug = { gate = false; };
+          optimizations = { };
+          extra-warnings = { gate = false; };
+          stripping = { gate = false; };
+
+          # Feature flags
+          alsa = { packages = { inherit alsa-lib; }; };
+          amf = {
+            # TODO automate this
+            gate = lib.meta.availableOn stdenv.hostPlatform amf;
+            packages = { inherit amf-headers; };
+          };
+          aom = {
+            packages = { inherit libaom; };
+            flagPrefix = "lib";
+            description = "AV1 reference encoder";
+          };
+          appkit = {
+            gate = stdenv.isDarwin;
+            packages = { inherit AppKit; };
+          };
+          aribcaption = {
+            variant = full;
+            packages = { inherit libaribcaption; };
+            flagPrefix = "lib";
+            description = "ARIB STD-B24 Caption Decoder/Renderer";
+          };
+          ass = {
+            gate = stdenv.hostPlatform == stdenv.buildPlatform;
+            packages = { inherit libass; };
+            flagPrefix = "lib";
+            description = "(Advanced) SubStation Alpha subtitle rendering";
+          };
+          audiotoolbox = {
+            gate = stdenv.isDarwin;
+            packages = { inherit AudioToolbox; };
+          };
+          avfoundation = {
+            gate = stdenv.isDarwin;
+            packages = { inherit AVFoundation; };
+          };
+          avisynth = {
+            variant = full;
+            packages = { inherit avisynthplus; };
+            description = "AviSynth script processing";
+          };
+          bluray = {
+            variant = full;
+            packages = { inherit libbluray; };
+            flagPrefix = "lib";
+          };
+          bs2b = {
+            variant = full;
+            packages = { inherit libbs2b; };
+            flagPrefix = "lib";
+          };
+          bzlib = { packages = { inherit bzip2; }; };
+          caca = {
+            variant = full;
+            packages = { inherit libcaca; };
+            flagPrefix = "lib";
+            description = "Textual display (ASCII art)";
+          };
+          celt = {
+            packages = { inherit celt; };
+            flagPrefix = "lib";
+          };
+          chromaprint = {
+            variant = full;
+            packages = { inherit chromaprint; };
+            description = "Audio fingerprinting";
+          };
+          codec2 = {
+            variant = full;
+            packages = { inherit codec2; };
+            flagPrefix = "lib";
+          };
+          coreimage = {
+            gate = stdenv.isDarwin;
+            packages = { inherit CoreImage; };
+          };
+          cuda = {
+            inherit (config.nvcodec) gate;
+            variant = full;
+          };
+          cuda-llvm = {
+            variant = full;
+          };
+          cuvid = {
+            inherit (config.nvcodec) gate;
+          };
+          dav1d = {
+            packages = { inherit dav1d; };
+            flagPrefix = "lib";
+            description = "AV1 decoder (focused on speed and correctness)";
+          };
+          dc1394 = {
+            gate = !stdenv.isDarwin;
+            variant = full;
+            packages = { inherit libdc1394 libraw1394; };
+            flagPrefix = "lib";
+            description = "IIDC-1394 grabbing (ieee 1394/Firewire)";
+          };
+          drm = {
+            gate = with stdenv; isLinux || isFreeBSD;
+            packages = { inherit libdrm; };
+            flagPrefix = "lib";
+          };
+          dvdnav = {
+            gate = enable.gpl;
+            variant = full;
+            version = "7";
+            packages = { inherit libdvdnav; };
+            flagPrefix = "lib";
+            description = "DVD demuxing";
+          };
+          dvdread = {
+            gate = enable.gpl;
+            variant = full;
+            version = "7";
+            packages = { inherit libdvdread; };
+            flagPrefix = "lib";
+            description = "DVD demuxing";
+          };
+          fdk-aac = {
+            gate = with enable; !gpl || unfree;
+            variant = full;
+            packages = { inherit fdk_aac; };
+            flagPrefix = "lib";
+            description = "Fraunhofer FDK AAC de/encoder";
+          };
+          nvcodec = {
+            gate = with stdenv; !isDarwin && !isAarch32 && !hostPlatform.isRiscV && hostPlatform == buildPlatform;
+            packages = {
+              nv-codec-headers =
+                if lib.versionAtLeast version "6"
+                then nv-codec-headers-12
+                else nv-codec-headers;
+            };
+            flagPrefix = "ff";
+            description = "Dynamically linked Nvidia code";
+          };
+          flite = {
+            variant = full;
+            packages = { inherit flite; };
+            flagPrefix = "lib";
+            description = "Voice synthesis";
+          };
+          fontconfig = {
+            packages = { inherit fontconfig; };
+            flags = [ "fontconfig" "libfontconfig" ];
+            description = "Font support for i.e. the drawtext filter";
+          };
+          freetype = {
+            packages = { inherit freetype; };
+            flagPrefix = "lib";
+            description = "Font support for i.e. the drawtext filter";
+          };
+          frei0r = {
+            gate = enable.gpl;
+            variant = full;
+            packages = { inherit frei0r; };
+            description = "Frei0r video filtering";
+          };
+          fribidi = {
+            variant = full;
+            packages = { inherit fribidi; };
+            flagPrefix = "lib";
+            description = "Font support for i.e. the drawtext filter";
+          };
+          gme = {
+            variant = full;
+            packages = { inherit game-music-emu; };
+            flagPrefix = "lib";
+            description = "Game Music Emulator";
+          };
+          gnutls = { packages = { inherit gnutls; }; };
+          gsm = {
+            variant = full;
+            packages = { inherit gsm; };
+            flagPrefix = "lib";
+          };
+          harfbuzz = {
+            version = "6.1";
+            packages = { inherit harfbuzz; };
+            flagPrefix = "lib";
+            description = "Font support for i.e. the drawtext filter";
+          };
+          iconv = { packages = { inherit libiconv; }; }; # On Linux this should be in libc, do we really need it?
+          ilbc = {
+            variant = full;
+            packages = { inherit libilbc; };
+            flagPrefix = "lib";
+          };
+          jack = {
+            gate = !stdenv.isDarwin;
+            variant = full;
+            packages = { inherit libjack2; };
+            flagPrefix = "lib";
+          };
+          jxl = {
+            variant = full;
+            version = "5";
+            packages = { inherit libjxl; };
+            flagPrefix = "lib";
+          };
+          ladspa = {
+            variant = full;
+            packages = { inherit ladspaH; };
+            description = "LADSPA audio filtering";
+          };
+          lcms2 = {
+            packages = { inherit lcms2; };
+            variant = full;
+            version = "5.1";
+            description = "ICC profile support";
+          };
+          lzma = { packages = { inherit xz; }; };
+          metal = {
+            gate = false; # Unfree and requires manual downloading of files
+            packages = { inherit xcode; };
+            version = "5";
+          };
+          mfx = {
+            gate = with stdenv.hostPlatform; isLinux && !isAarch;
+            variant = full;
+            packages = { inherit intel-media-sdk; };
+            flagPrefix = "lib";
+            description = "Hardware acceleration via intel-media-sdk/libmfx (incompatible with {option}`vpl`)";
+          };
+          modplug = {
+            gate = !stdenv.isDarwin;
+            variant = full;
+            packages = { inherit libmodplug; };
+            flagPrefix = "lib";
+          };
+          mp3lame = {
+            packages = { inherit lame; };
+            flagPrefix = "lib";
+          };
+          mysofa = {
+            variant = full;
+            packages = { inherit libmysofa; };
+            flagPrefix = "lib";
+            description = "HRTF support via SOFAlizer";
+          };
+          nvdec = {
+            inherit (config.nvcodec) gate;
+          };
+          nvenc = {
+            inherit (config.nvcodec) gate;
+          };
+          openal = {
+            variant = full;
+            packages = { inherit openal; };
+            description = "OpenAL 1.1 capture support";
+          };
+          opencl = {
+            variant = full;
+            packages = { inherit ocl-icd opencl-headers; };
+          };
+          opencore-amr = {
+            gate = enable.gplv3;
+            variant = full;
+            packages = { inherit opencore-amr; };
+            flags = [ "libopencore-amrnb" "libopencore-amrwb" ];
+          };
+          opengl = {
+            gate = !stdenv.isDarwin;
+            variant = full;
+            packages = { inherit libGL libGLU; };
+            description = "OpenGL rendering";
+          };
+          openh264 = {
+            variant = full;
+            packages = { inherit openh264; };
+            flagPrefix = "lib";
+          };
+          openjpeg = {
+            packages = { inherit openjpeg; };
+            flagPrefix = "lib";
+          };
+          openmpt = {
+            variant = full;
+            packages = { inherit libopenmpt; };
+            flagPrefix = "lib";
+            description = "Tracked music files decoder";
+          };
+          opus = {
+            packages = { inherit libopus; };
+            flagPrefix = "lib";
+          };
+          placebo = {
+            gate = !stdenv.isDarwin;
+            variant = full;
+            packages = {
+              inherit vulkan-headers;
+              libplacebo =
+                if lib.versionAtLeast version "6.1"
+                then libplacebo
+                else libplacebo_5;
+            };
+            flagPrefix = "lib";
+            description = "libplacebo video processing library";
+          };
+          pulse = {
+            gate = stdenv.isLinux;
+            variant = small;
+            packages = { inherit libpulseaudio; };
+            flagPrefix = "lib";
+            description = "Pulseaudio input support";
+          };
+          qrencode = {
+            variant = full;
+            version = "7";
+            packages = { inherit qrencode; };
+            flagPrefix = "lib";
+            description = "QR encode generation";
+          };
+          quirc = {
+            variant = full;
+            version = "7";
+            packages = { inherit quirc; };
+            flagPrefix = "lib";
+            description = "QR decoding";
+          };
+          rav1e = {
+            variant = full;
+            packages = { inherit rav1e; };
+            flagPrefix = "lib";
+            description = "AV1 encoder (focused on speed and safety)";
+          };
+          rtmp = {
+            variant = full;
+            packages = { inherit rtmpdump; };
+            flagPrefix = "lib";
+          };
+          rubberband = {
+            gate = enable.gpl;
+            variant = full;
+            packages =
+              { inherit rubberband; }
+              // lib.optionalAttrs stdenv.hostPlatform.isDarwin { inherit Accelerate; };
+            flagPrefix = "lib";
+          };
+          samba = {
+            variant = full;
+            packages = { inherit samba; };
+            flags = [ "libsmbclient" ];
+          };
+          sdl2 = {
+            variant = small;
+            packages = { inherit SDL2; };
+          };
+          shaderc = {
+            gate = !stdenv.isDarwin;
+            variant = full;
+            version = "5";
+            packages = { inherit shaderc; };
+            flagPrefix = "lib";
+          };
+          shine = {
+            variant = full;
+            packages = { inherit shine; };
+            flagPrefix = "lib";
+            description = "Fixed-point MP3 encoding";
+          };
+          snappy = {
+            variant = full;
+            packages = { inherit snappy; };
+            flagPrefix = "lib";
+            description = "Snappy compression, needed for hap encoding";
+          };
+          soxr = {
+            packages = { inherit soxr; };
+            flagPrefix = "lib";
+            description = "Resampling via soxr";
+          };
+          speex = {
+            packages = { inherit speex; };
+            flagPrefix = "lib";
+          };
+          srt = {
+            packages = { inherit srt; };
+            flagPrefix = "lib";
+            description = "Secure Reliable Transport (SRT) protocol";
+          };
+          ssh = {
+            packages = { inherit libssh; };
+            flagPrefix = "lib";
+            description = "SFTP protocol";
+          };
+          svg = {
+            variant = full;
+            packages = { inherit librsvg; };
+            flags = [ "librsvg" ];
+          };
+          svtav1 = {
+            gate = !stdenv.isAarch64 && !stdenv.hostPlatform.isMinGW;
+            packages = { inherit svt-av1; };
+            flagPrefix = "lib";
+            description = "AV1 encoder/decoder (focused on speed and correctness)";
+          };
+          tensorflow = {
+            gate = false; # Increases closure size by ~390 MiB and is rather specialised purpose
+            packages = { inherit libtensorflow; };
+            flagPrefix = "lib";
+            description = "Tensorflow dnn backend support";
+          };
+          theora = {
+            packages = { inherit libtheora; };
+            flagPrefix = "lib";
+          };
+          twolame = {
+            packages = { inherit twolame; };
+            variant = full;
+            flagPrefix = "lib";
+            description = "MP2 encoding";
+          };
+          v4l2 = {
+            gate = stdenv.isLinux;
+            packages = { inherit libv4l; };
+            flags = [ "libv4l2" "v4l2-m2m" ];
+            description = "Video 4 Linux";
+          };
+          vaapi = {
+            gate = with stdenv; isLinux || isFreeBSD;
+            packages = {
+              libva = if ffmpegVariant == headless then libva-minimal else libva;
+            };
+            description = "Vaapi hardware acceleration";
+          };
+          vdpau = {
+            gate = !stdenv.hostPlatform.isMinGW;
+            variant = small;
+            packages = { inherit libvdpau; };
+            description = "Vdpau hardware acceleration";
+          };
+          videotoolbox = {
+            gate = stdenv.isDarwin;
+            packages = { inherit VideoToolbox; };
+          };
+          vidstab = {
+            gate = enable.gpl;
+            variant = full;
+            packages = { inherit vid-stab; };
+            flagPrefix = "lib";
+            description = "Video stabilization";
+          };
+          vmaf = {
+            gate = !stdenv.isAarch64;
+            variant = full;
+            version = "5";
+            packages = { inherit libvmaf; };
+            flagPrefix = "lib";
+            description = "Netflix's VMAF (Video Multi-Method Assessment Fusion)";
+          };
+          vo-amrwbenc = {
+            gate = enable.gplv3;
+            variant = full;
+            packages = { inherit vo-amrwbenc; };
+            flagPrefix = "lib";
+          };
+          vorbis = {
+            packages = { inherit libvorbis; };
+            flagPrefix = "lib";
+            description = "Vorbis de/encoding, native encoder exists"; # TODO shouldn't we be using it then?
+          };
+          vpl = {
+            # It is currently unclear whether this breaks support for old GPUs. See
+            # https://github.com/NixOS/nixpkgs/issues/303074
+            gate = false;
+            packages = { inherit libvpl; };
+            flagPrefix = "lib";
+            description = "Hardware acceleration via intel libvpl (incompatible with {option}`mfx`)";
+          };
+          vpx = {
+            gate = stdenv.buildPlatform == stdenv.hostPlatform;
+            packages = { inherit libvpx; };
+            flagPrefix = "lib";
+            description = "VP8 & VP9 de/encoding";
+          };
+          vulkan = {
+            gate = !stdenv.isDarwin;
+            variant = small;
+            packages = { inherit vulkan-headers vulkan-loader; }; };
+          webp = {
+            packages = { inherit libwebp; };
+            flagPrefix = "lib";
+          };
+          x264 = {
+            gate = enable.gpl;
+            packages = { inherit x264; };
+            flagPrefix = "lib";
+          };
+          x265 = {
+            gate = enable.gpl;
+            packages = { inherit x265; };
+            flagPrefix = "lib";
+          };
+          xavs = {
+            gate = enable.gpl;
+            variant = full;
+            packages = { inherit xavs; };
+            flagPrefix = "lib";
+          };
+          xcb = {
+            gate = with enable; xcb-shape || xcb-shm || xcb-xfixes;
+            packages = { inherit libxcb; };
+            flagPrefix = "lib";
+            description = "X11 grabbing using XCB";
+          };
+          xcb-shape = {
+            variant = full;
+            flagPrefix = "lib";
+            description = "X11 grabbing shape rendering";
+          };
+          xcb-shm = {
+            variant = full;
+            flagPrefix = "lib";
+            description = "X11 grabbing shm communication";
+          };
+          xcb-xfixes = {
+            variant = full;
+            flagPrefix = "lib";
+            description = "X11 grabbing mouse rendering";
+          };
+          xevd = {
+            # TODO automate this?
+            gate = !xevd.meta.broken;
+            variant = full;
+            version = "7";
+            packages = { inherit xevd; };
+            flagPrefix = "lib";
+            description = "MPEG-5 EVC decoding";
+          };
+          xeve = {
+            gate = !xeve.meta.broken;
+            variant = full;
+            version = "7";
+            packages = { inherit xeve; };
+            flagPrefix = "lib";
+            description = "MPEG-5 EVC encoding";
+          };
+          xlib = {
+            variant = full;
+            packages = { inherit libX11 libXv libXext; };
+          };
+          xml2 = {
+            variant = full;
+            packages = { inherit libxml2; };
+            flagPrefix = "lib";
+            description = "libxml2 support, for IMF and DASH demuxers";
+          };
+          xvid = {
+            gate = enable.gpl;
+            packages = { inherit xvidcore; };
+            flagPrefix = "lib";
+            description = "Xvid encoder, native encoder exists"; # TODO shouldn't we be using it then?
+          };
+          zimg = {
+            packages = { inherit zimg; };
+            flagPrefix = "lib";
+          };
+          zlib = { packages = { inherit zlib; }; };
+          zmq = {
+            variant = full;
+            packages = { inherit zeromq4; };
+            flagPrefix = "lib";
+            description = "Message passing";
+          };
+        };
+    in
+    {
+      options = {
+        features = lib.mapAttrs mkFfmpegOption (featureOptions (config.features));
+      };
+    };
+
+  eval = lib.evalModules {
+    modules = [
+      module
+      configuration
+      {
+        _module.args = { variant = ffmpegVariant; };
+      }
+    ];
+  };
+  inherit (eval) config;
+  inherit (config) features;
+  enable = lib.mapAttrs (n: v: v.enable) features;
 in
 
+# Assertions to help the user reach a sane config
 
-assert lib.elem ffmpegVariant [ "headless" "small" "full" ];
+# General
+assert builtins.hasAttr ffmpegVariant variants; # We must know the ffmpeg variant
 
-/*
- *  Licensing dependencies
- */
-assert withGPLv3 -> withGPL && withVersion3;
+# Licensing dependencies
+assert with enable; gplv3 -> gpl && version3;
 
-/*
- *  Build dependencies
- */
-assert withPixelutils -> buildAvutil;
-assert !(withMfx && withVpl); # incompatible features
-/*
- *  Program dependencies
- */
-assert buildFfmpeg -> buildAvcodec
-                     && buildAvfilter
-                     && buildAvformat
-                     && (buildSwresample || buildAvresample);
-assert buildFfplay -> buildAvcodec
-                     && buildAvformat
-                     && buildSwscale
-                     && (buildSwresample || buildAvresample);
-assert buildFfprobe -> buildAvcodec && buildAvformat;
-/*
- *  Library dependencies
- */
-assert buildAvcodec -> buildAvutil; # configure flag since 0.6
-assert buildAvdevice -> buildAvformat
-                       && buildAvcodec
-                       && buildAvutil; # configure flag since 0.6
-assert buildAvformat -> buildAvcodec && buildAvutil; # configure flag since 0.6
-assert buildPostproc -> buildAvutil;
-assert buildSwscale -> buildAvutil;
+# Build dependencies
+assert with enable; pixelutils -> avutil;
+assert with enable; !(mfx && vpl); # incompatible features
+# Program dependencies
+assert with enable; ffmpeg -> avcodec && avfilter && avformat && (swresample || avresample);
+assert with enable; ffplay -> avcodec && avformat && swscale && (swresample || avresample);
+assert with enable; ffprobe -> avcodec && avformat;
+# Library dependencies
+assert with enable; avcodec -> avutil; # configure flag since 0.6
+assert with enable; avdevice -> avformat && avcodec && avutil; # configure flag since 0.6
+assert with enable; avformat -> avcodec && avutil; # configure flag since 0.6
+assert with enable; postproc -> avutil;
+assert with enable; swscale -> avutil;
 
-/*
- *  External Library dependencies
- */
-assert (withCuda || withCuvid || withNvdec  || withNvenc) -> withNvcodec;
+# External Library dependencies
+assert with enable; (cuda || cuvid || nvdec || nvenc) -> nvcodec;
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ffmpeg" + (optionalString (ffmpegVariant != "small") "-${ffmpegVariant}");
@@ -404,7 +1015,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     patchShebangs .
-  '' + lib.optionalString withFrei0r ''
+  '' + lib.optionalString enable.frei0r ''
     substituteInPlace libavfilter/vf_frei0r.c \
       --replace /usr/local/lib/frei0r-1 ${frei0r}/lib/frei0r-1
     substituteInPlace doc/filters.texi \
@@ -474,219 +1085,17 @@ stdenv.mkDerivation (finalAttrs: {
     "--target_os=${if stdenv.hostPlatform.isMinGW then "mingw64" else stdenv.hostPlatform.parsed.kernel.name}"
     "--arch=${stdenv.hostPlatform.parsed.cpu.name}"
     "--pkg-config=${buildPackages.pkg-config.targetPrefix}pkg-config"
-    /*
-     *  Licensing flags
-     */
-    (enableFeature withGPL "gpl")
-    (enableFeature withVersion3 "version3")
-    (enableFeature withUnfree "nonfree")
-    /*
-     *  Build flags
-     */
-    (enableFeature withStatic "static")
-    (enableFeature withShared "shared")
-    (enableFeature withPic "pic")
-    (enableFeature withThumb "thumb")
-
-    (enableFeature withSmallBuild "small")
-    (enableFeature withRuntimeCPUDetection "runtime-cpudetect")
-    (enableFeature withGrayscale "gray")
-    (enableFeature withSwscaleAlpha "swscale-alpha")
-    (enableFeature withHardcodedTables "hardcoded-tables")
-    (enableFeature withSafeBitstreamReader "safe-bitstream-reader")
-
-    (enableFeature (withMultithread && stdenv.hostPlatform.isUnix) "pthreads")
-    (enableFeature (withMultithread && stdenv.hostPlatform.isWindows) "w32threads")
-    "--disable-os2threads" # We don't support OS/2
-
-    (enableFeature withNetwork "network")
-    (enableFeature withPixelutils "pixelutils")
 
     "--datadir=${placeholder "data"}/share/ffmpeg"
-
-    /*
-     *  Program flags
-     */
-    (enableFeature buildFfmpeg "ffmpeg")
-    (enableFeature buildFfplay "ffplay")
-    (enableFeature buildFfprobe "ffprobe")
-  ] ++ optionals withBin [
+  ] ++ optionals enable.bin-output [
     "--bindir=${placeholder "bin"}/bin"
-  ] ++ [
-    /*
-     *  Library flags
-     */
-    (enableFeature buildAvcodec "avcodec")
-    (enableFeature buildAvdevice "avdevice")
-    (enableFeature buildAvfilter "avfilter")
-    (enableFeature buildAvformat "avformat")
-  ] ++ optionals (lib.versionOlder version "5") [
-    # Ffmpeg > 4 doesn't know about the flag anymore
-    (enableFeature buildAvresample "avresample")
-  ] ++ [
-    (enableFeature buildAvutil "avutil")
-    (enableFeature (buildPostproc && withGPL) "postproc")
-    (enableFeature buildSwresample "swresample")
-    (enableFeature buildSwscale "swscale")
-  ] ++ optionals withLib [
+  ] ++ optionals enable.lib-output [
     "--libdir=${placeholder "lib"}/lib"
     "--incdir=${placeholder "dev"}/include"
-  ] ++ [
-    /*
-     *  Documentation flags
-     */
-    (enableFeature withDocumentation "doc")
-    (enableFeature withHtmlDoc "htmlpages")
-    (enableFeature withManPages "manpages")
-  ] ++ optionals withManPages [
+  ] ++ optionals enable.manpages [
     "--mandir=${placeholder "man"}/share/man"
-  ] ++ [
-    (enableFeature withPodDoc "podpages")
-    (enableFeature withTxtDoc "txtpages")
-  ] ++ optionals withDoc [
+  ] ++ optionals enable.doc-output [
     "--docdir=${placeholder "doc"}/share/doc/ffmpeg"
-  ] ++ [
-    /*
-     *  External libraries
-     */
-    (enableFeature withAlsa "alsa")
-    (enableFeature withAmf "amf")
-    (enableFeature withAom "libaom")
-    (enableFeature withAppKit "appkit")
-  ] ++ optionals (versionAtLeast version "6.1") [
-    (enableFeature withAribcaption "libaribcaption")
-  ] ++ [
-    (enableFeature withAss "libass")
-    (enableFeature withAudioToolbox "audiotoolbox")
-    (enableFeature withAvFoundation "avfoundation")
-    (enableFeature withAvisynth "avisynth")
-    (enableFeature withBluray "libbluray")
-    (enableFeature withBs2b "libbs2b")
-    (enableFeature withBzlib "bzlib")
-    (enableFeature withCaca "libcaca")
-    (enableFeature withCelt "libcelt")
-    (enableFeature withChromaprint "chromaprint")
-    (enableFeature withCodec2 "libcodec2")
-    (enableFeature withCoreImage "coreimage")
-    (enableFeature withCuda "cuda")
-    (enableFeature withCudaLLVM "cuda-llvm")
-    (enableFeature withCuvid "cuvid")
-    (enableFeature withDav1d "libdav1d")
-    (enableFeature withDc1394 "libdc1394")
-    (enableFeature withDrm "libdrm")
-  ] ++ optionals (versionAtLeast version "7") [
-    (enableFeature withDvdnav "libdvdnav")
-    (enableFeature withDvdread "libdvdread")
-  ] ++ [
-    (enableFeature withFdkAac "libfdk-aac")
-    (enableFeature withNvcodec "ffnvcodec")
-    (enableFeature withFlite "libflite")
-    (enableFeature withFontconfig "fontconfig")
-    (enableFeature withFontconfig "libfontconfig")
-    (enableFeature withFreetype "libfreetype")
-    (enableFeature withFrei0r "frei0r")
-    (enableFeature withFribidi "libfribidi")
-    (enableFeature withGme "libgme")
-    (enableFeature withGnutls "gnutls")
-    (enableFeature withGsm "libgsm")
-  ] ++ optionals (versionAtLeast version "6.1") [
-    (enableFeature withHarfbuzz "libharfbuzz")
-  ] ++ [
-    (enableFeature withIconv "iconv")
-    (enableFeature withIlbc "libilbc")
-    (enableFeature withJack "libjack")
-  ] ++ optionals (versionAtLeast finalAttrs.version "5.0") [
-    (enableFeature withJxl "libjxl")
-  ] ++ [
-    (enableFeature withLadspa "ladspa")
-  ] ++ optionals (versionAtLeast version "5.1") [
-    (enableFeature withLcms2 "lcms2")
-  ] ++ [
-    (enableFeature withLzma "lzma")
-  ] ++ optionals (versionAtLeast version "5.0") [
-    (enableFeature withMetal "metal")
-  ] ++ [
-    (enableFeature withMfx "libmfx")
-    (enableFeature withModplug "libmodplug")
-    (enableFeature withMp3lame "libmp3lame")
-    (enableFeature withMysofa "libmysofa")
-    (enableFeature withNvdec "nvdec")
-    (enableFeature withNvenc "nvenc")
-    (enableFeature withOpenal "openal")
-    (enableFeature withOpencl "opencl")
-    (enableFeature withOpencoreAmrnb "libopencore-amrnb")
-    (enableFeature withOpencoreAmrwb "libopencore-amrwb")
-    (enableFeature withOpengl "opengl")
-    (enableFeature withOpenh264 "libopenh264")
-    (enableFeature withOpenjpeg "libopenjpeg")
-    (enableFeature withOpenmpt "libopenmpt")
-    (enableFeature withOpus "libopus")
-  ] ++ optionals (versionAtLeast version "5.0") [
-    (enableFeature withPlacebo "libplacebo")
-  ] ++ [
-    (enableFeature withPulse "libpulse")
-  ] ++ optionals (versionAtLeast version "7") [
-    (enableFeature withQrencode "libqrencode")
-    (enableFeature withQuirc "libquirc")
-  ] ++ [
-    (enableFeature withRav1e "librav1e")
-    (enableFeature withRtmp "librtmp")
-    (enableFeature withRubberband "librubberband")
-    (enableFeature withSamba "libsmbclient")
-    (enableFeature withSdl2 "sdl2")
-  ] ++ optionals (versionAtLeast version "5.0") [
-    (enableFeature withShaderc "libshaderc")
-  ] ++ [
-    (enableFeature withShine "libshine")
-    (enableFeature withSnappy "libsnappy")
-    (enableFeature withSoxr "libsoxr")
-    (enableFeature withSpeex "libspeex")
-    (enableFeature withSrt "libsrt")
-    (enableFeature withSsh "libssh")
-    (enableFeature withSvg "librsvg")
-    (enableFeature withSvtav1 "libsvtav1")
-    (enableFeature withTensorflow "libtensorflow")
-    (enableFeature withTheora "libtheora")
-    (enableFeature withTwolame "libtwolame")
-    (enableFeature withV4l2 "libv4l2")
-    (enableFeature withV4l2M2m "v4l2-m2m")
-    (enableFeature withVaapi "vaapi")
-    (enableFeature withVdpau "vdpau")
-  ] ++ optionals (versionAtLeast version "6.0")  [
-    (enableFeature withVpl "libvpl")
-  ] ++ [
-    (enableFeature withVideoToolbox "videotoolbox")
-    (enableFeature withVidStab "libvidstab") # Actual min. version 2.0
-    (enableFeature withVmaf "libvmaf")
-    (enableFeature withVoAmrwbenc "libvo-amrwbenc")
-    (enableFeature withVorbis "libvorbis")
-    (enableFeature withVpx "libvpx")
-    (enableFeature withVulkan "vulkan")
-    (enableFeature withWebp "libwebp")
-    (enableFeature withX264 "libx264")
-    (enableFeature withX265 "libx265")
-    (enableFeature withXavs "libxavs")
-    (enableFeature withXcb "libxcb")
-    (enableFeature withXcbShape "libxcb-shape")
-    (enableFeature withXcbShm "libxcb-shm")
-    (enableFeature withXcbxfixes "libxcb-xfixes")
-  ] ++ optionals (versionAtLeast version "7")  [
-    (enableFeature withXevd "libxevd")
-    (enableFeature withXeve "libxeve")
-  ] ++ [
-    (enableFeature withXlib "xlib")
-    (enableFeature withXml2 "libxml2")
-    (enableFeature withXvid "libxvid")
-    (enableFeature withZimg "libzimg")
-    (enableFeature withZlib "zlib")
-    (enableFeature withZmq "libzmq")
-    /*
-     * Developer flags
-     */
-    (enableFeature withDebug "debug")
-    (enableFeature withOptimisations "optimizations")
-    (enableFeature withExtraWarnings "extra-warnings")
-    (enableFeature withStripping "stripping")
   ] ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     "--cross-prefix=${stdenv.cc.targetPrefix}"
     "--enable-cross-compile"
@@ -694,9 +1103,13 @@ stdenv.mkDerivation (finalAttrs: {
   ] ++ optionals stdenv.cc.isClang [
     "--cc=clang"
     "--cxx=clang++"
-  ] ++ optionals withMetal [
+  ] ++ optionals enable.metal [
     "--metalcc=${xcode}/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/metal"
     "--metallib=${xcode}/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/metallib"
+  ] ++ lib.pipe eval.config.features [
+    (lib.filterAttrs (n: v: lib.versionAtLeast version v.version && lib.versionOlder version v.versionMax))
+    (lib.mapAttrsToList (n: feature: (map (lib.enableFeature feature.enable) feature.flags)))
+    lib.flatten
   ];
 
   # ffmpeg embeds the configureFlags verbatim in its binaries and because we
@@ -706,7 +1119,7 @@ stdenv.mkDerivation (finalAttrs: {
   postConfigure = let
     toStrip = map placeholder (lib.remove "data" finalAttrs.outputs) # We want to keep references to the data dir.
       ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) buildPackages.stdenv.cc
-      ++ lib.optional withMetal xcode;
+      ++ lib.optional enable.metal xcode;
   in
     "remove-references-to ${lib.concatStringsSep " " (map (o: "-t ${o}") toStrip)} config.h";
 
@@ -715,110 +1128,16 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [ removeReferencesTo addDriverRunpath perl pkg-config yasm ]
   # Texinfo version 7.1 introduced breaking changes, which older versions of ffmpeg do not handle.
   ++ (if versionOlder version "5" then [ texinfo6 ] else [ texinfo ])
-  ++ optionals withCudaLLVM [ clang ];
+  ++ optionals enable.cuda-llvm [ clang ];
 
-  buildInputs = []
-  ++ optionals withAlsa [ alsa-lib ]
-  ++ optionals withAmf [ amf-headers ]
-  ++ optionals withAom [ libaom ]
-  ++ optionals withAppKit [ AppKit ]
-  ++ optionals withAribcaption [ libaribcaption ]
-  ++ optionals withAss [ libass ]
-  ++ optionals withAudioToolbox [ AudioToolbox ]
-  ++ optionals withAvFoundation [ AVFoundation ]
-  ++ optionals withAvisynth [ avisynthplus ]
-  ++ optionals withBluray [ libbluray ]
-  ++ optionals withBs2b [ libbs2b ]
-  ++ optionals withBzlib [ bzip2 ]
-  ++ optionals withCaca [ libcaca ]
-  ++ optionals withCelt [ celt ]
-  ++ optionals withChromaprint [ chromaprint ]
-  ++ optionals withCodec2 [ codec2 ]
-  ++ optionals withCoreImage [ CoreImage ]
-  ++ optionals withDav1d [ dav1d ]
-  ++ optionals withDc1394 [ libdc1394 libraw1394 ]
-  ++ optionals withDrm [ libdrm ]
-  ++ optionals withDvdnav [ libdvdnav ]
-  ++ optionals withDvdread [ libdvdread ]
-  ++ optionals withFdkAac [ fdk_aac ]
-  ++ optionals withNvcodec [ (if (lib.versionAtLeast version "6") then nv-codec-headers-12 else nv-codec-headers) ]
-  ++ optionals withFlite [ flite ]
-  ++ optionals withFontconfig [ fontconfig ]
-  ++ optionals withFreetype [ freetype ]
-  ++ optionals withFrei0r [ frei0r ]
-  ++ optionals withFribidi [ fribidi ]
-  ++ optionals withGme [ game-music-emu ]
-  ++ optionals withGnutls [ gnutls ]
-  ++ optionals withGsm [ gsm ]
-  ++ optionals withHarfbuzz [ harfbuzz ]
-  ++ optionals withIconv [ libiconv ] # On Linux this should be in libc, do we really need it?
-  ++ optionals withIlbc [ libilbc ]
-  ++ optionals withJack [ libjack2 ]
-  ++ optionals withJxl [ libjxl ]
-  ++ optionals withLadspa [ ladspaH ]
-  ++ optionals withLcms2 [ lcms2 ]
-  ++ optionals withLzma [ xz ]
-  ++ optionals withMfx [ intel-media-sdk ]
-  ++ optionals withModplug [ libmodplug ]
-  ++ optionals withMp3lame [ lame ]
-  ++ optionals withMysofa [ libmysofa ]
-  ++ optionals withOpenal [ openal ]
-  ++ optionals withOpencl [ ocl-icd opencl-headers ]
-  ++ optionals (withOpencoreAmrnb || withOpencoreAmrwb) [ opencore-amr ]
-  ++ optionals withOpengl [ libGL libGLU ]
-  ++ optionals withOpenh264 [ openh264 ]
-  ++ optionals withOpenjpeg [ openjpeg ]
-  ++ optionals withOpenmpt [ libopenmpt ]
-  ++ optionals withOpus [ libopus ]
-  ++ optionals withPlacebo [ (if (lib.versionAtLeast version "6.1") then libplacebo else libplacebo_5) vulkan-headers ]
-  ++ optionals withPulse [ libpulseaudio ]
-  ++ optionals withQrencode [ qrencode ]
-  ++ optionals withQuirc [ quirc ]
-  ++ optionals withRav1e [ rav1e ]
-  ++ optionals withRtmp [ rtmpdump ]
-  ++ optionals withRubberband ([ rubberband ] ++ lib.optional stdenv.hostPlatform.isDarwin Accelerate)
-  ++ optionals withSamba [ samba ]
-  ++ optionals withSdl2 [ SDL2 ]
-  ++ optionals withShaderc [ shaderc ]
-  ++ optionals withShine [ shine ]
-  ++ optionals withSnappy [ snappy ]
-  ++ optionals withSoxr [ soxr ]
-  ++ optionals withSpeex [ speex ]
-  ++ optionals withSrt [ srt ]
-  ++ optionals withSsh [ libssh ]
-  ++ optionals withSvg [ librsvg ]
-  ++ optionals withSvtav1 [ svt-av1 ]
-  ++ optionals withTensorflow [ libtensorflow ]
-  ++ optionals withTheora [ libtheora ]
-  ++ optionals withTwolame [ twolame ]
-  ++ optionals withV4l2 [ libv4l ]
-  ++ optionals withVaapi [ (if withSmallDeps then libva else libva-minimal) ]
-  ++ optionals withVdpau [ libvdpau ]
-  ++ optionals withVideoToolbox [ VideoToolbox ]
-  ++ optionals withVidStab [ vid-stab ]
-  ++ optionals withVmaf [ libvmaf ]
-  ++ optionals withVoAmrwbenc [ vo-amrwbenc ]
-  ++ optionals withVorbis [ libvorbis ]
-  ++ optionals withVpl [ libvpl ]
-  ++ optionals withVpx [ libvpx ]
-  ++ optionals withVulkan [ vulkan-headers vulkan-loader ]
-  ++ optionals withWebp [ libwebp ]
-  ++ optionals withX264 [ x264 ]
-  ++ optionals withX265 [ x265 ]
-  ++ optionals withXavs [ xavs ]
-  ++ optionals withXcb [ libxcb ]
-  ++ optionals withXevd [ xevd ]
-  ++ optionals withXeve [ xeve ]
-  ++ optionals withXlib [ libX11 libXv libXext ]
-  ++ optionals withXml2 [ libxml2 ]
-  ++ optionals withXvid [ xvidcore ]
-  ++ optionals withZimg [ zimg ]
-  ++ optionals withZlib [ zlib ]
-  ++ optionals withZmq [ zeromq4 ]
-  ;
+  buildInputs = lib.pipe eval.config.features [
+    (lib.filterAttrs (n: v: v.enable && lib.versionAtLeast version v.version && lib.versionOlder version v.versionMax))
+    (lib.mapAttrsToList (n: v: lib.attrValues v.packages))
+    lib.flatten
+  ];
 
   buildFlags = [ "all" ]
-    ++ optional buildQtFaststart "tools/qt-faststart"; # Build qt-faststart executable
+    ++ optional enable.qt-faststart "tools/qt-faststart"; # Build qt-faststart executable
 
   env = lib.optionalAttrs stdenv.cc.isGNU {
     NIX_CFLAGS_COMPILE = toString [
@@ -833,47 +1152,48 @@ stdenv.mkDerivation (finalAttrs: {
   checkPhase = let
     ldLibraryPathEnv = if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
     libsToLink = [ ]
-      ++ optional buildAvcodec "libavcodec"
-      ++ optional buildAvdevice "libavdevice"
-      ++ optional buildAvfilter "libavfilter"
-      ++ optional buildAvformat "libavformat"
-      ++ optional buildAvresample "libavresample"
-      ++ optional buildAvutil "libavutil"
-      ++ optional buildPostproc "libpostproc"
-      ++ optional buildSwresample "libswresample"
-      ++ optional buildSwscale "libswscale"
+      ++ optional enable.avcodec "libavcodec"
+      ++ optional enable.avdevice "libavdevice"
+      ++ optional enable.avfilter "libavfilter"
+      ++ optional enable.avformat "libavformat"
+      ++ optional enable.avresample "libavresample"
+      ++ optional enable.avutil "libavutil"
+      ++ optional enable.postproc "libpostproc"
+      ++ optional enable.swresample "libswresample"
+      ++ optional enable.swscale "libswscale"
     ;
   in ''
     ${ldLibraryPathEnv}="${lib.concatStringsSep ":" libsToLink}" make check -j$NIX_BUILD_CORES
   '';
 
-  outputs = optionals withBin [ "bin" ] # The first output is the one that gets symlinked by default!
-    ++ optionals withLib [ "lib" "dev" ]
-    ++ optionals withDoc [ "doc" ]
-    ++ optionals withManPages [ "man" ]
+  outputs = optionals enable.bin-output [ "bin" ] # The first output is the one that gets symlinked by default!
+    ++ optionals enable.lib-output [ "lib" "dev" ]
+    ++ optionals enable.doc-output [ "doc" ]
+    ++ optionals enable.manpages [ "man" ]
     ++ [ "data" "out" ] # We need an "out" output because we get an error otherwise. It's just an empty dir.
   ;
 
-  postInstall = optionalString buildQtFaststart ''
+  postInstall = optionalString enable.qt-faststart ''
     install -D tools/qt-faststart -t $bin/bin
   '';
 
   # Set RUNPATH so that libnvcuvid and libcuda in /run/opengl-driver(-32)/lib can be found.
   # See the explanation in addDriverRunpath.
-  postFixup = optionalString (stdenv.isLinux && withLib) ''
+  postFixup = optionalString (stdenv.isLinux && enable.lib-output) ''
     addDriverRunpath ${placeholder "lib"}/lib/libavcodec.so
     addDriverRunpath ${placeholder "lib"}/lib/libavutil.so
   ''
   # https://trac.ffmpeg.org/ticket/10809
-  + optionalString (versionAtLeast version "5.0" && withVulkan && !stdenv.hostPlatform.isMinGW) ''
+  + optionalString (versionAtLeast version "5.0" && enable.vulkan && !stdenv.hostPlatform.isMinGW) ''
     patchelf $lib/lib/libavcodec.so --add-needed libvulkan.so --add-rpath ${lib.makeLibraryPath [ vulkan-loader ]}
   '';
 
   enableParallelBuilding = true;
 
   passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
+  passthru.eval = eval;
 
-  meta = with lib; {
+  meta = {
     description = "Complete, cross-platform solution to record, convert and stream audio and video";
     homepage = "https://www.ffmpeg.org/";
     changelog = "https://github.com/FFmpeg/FFmpeg/blob/n${version}/Changelog";
@@ -884,29 +1204,33 @@ stdenv.mkDerivation (finalAttrs: {
       No matter if they were designed by some standards committee, the community or
       a corporation.
     '';
-    license = with licenses; [ lgpl21Plus ]
-      ++ optional withGPL gpl2Plus
-      ++ optional withVersion3 lgpl3Plus
-      ++ optional withGPLv3 gpl3Plus
-      ++ optional withUnfree unfreeRedistributable
-      ++ optional (withGPL && withUnfree) unfree;
+    license =
+      let
+        l = lib.licenses;
+      in
+      [ l.lgpl21Plus ]
+      ++ optional enable.gpl l.gpl2Plus
+      ++ optional enable.version3 l.lgpl3Plus
+      ++ optional enable.gplv3 l.gpl3Plus
+      ++ optional enable.unfree l.unfreeRedistributable
+      ++ optional (enable.gpl && enable.unfree) l.unfree;
     pkgConfigModules = [ ]
-      ++ optional buildAvcodec "libavcodec"
-      ++ optional buildAvdevice "libavdevice"
-      ++ optional buildAvfilter "libavfilter"
-      ++ optional buildAvformat "libavformat"
-      ++ optional buildAvresample "libavresample"
-      ++ optional buildAvutil "libavutil"
-      ++ optional buildPostproc "libpostproc"
-      ++ optional buildSwresample "libswresample"
-      ++ optional buildSwscale "libswscale";
-    platforms = platforms.all;
+      ++ optional enable.avcodec "libavcodec"
+      ++ optional enable.avdevice "libavdevice"
+      ++ optional enable.avfilter "libavfilter"
+      ++ optional enable.avformat "libavformat"
+      ++ optional enable.avresample "libavresample"
+      ++ optional enable.avutil "libavutil"
+      ++ optional enable.postproc "libpostproc"
+      ++ optional enable.swresample "libswresample"
+      ++ optional enable.swscale "libswscale";
+    platforms = lib.platforms.all;
     # See https://github.com/NixOS/nixpkgs/pull/295344#issuecomment-1992263658
     broken = stdenv.hostPlatform.isMinGW && stdenv.hostPlatform.is64bit;
-    maintainers = with maintainers; [ atemu jopejoe1 emily ];
+    maintainers = with lib.maintainers; [ atemu jopejoe1 emily ];
     mainProgram = "ffmpeg";
   };
-} // lib.optionalAttrs withCudaLLVM {
+} // lib.optionalAttrs enable.cuda-llvm {
   # remove once https://github.com/NixOS/nixpkgs/issues/318674 is addressed properly
   hardeningDisable = [ "zerocallusedregs" ];
 })
