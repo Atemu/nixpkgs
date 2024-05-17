@@ -308,6 +308,7 @@
   ./programs/xwayland.nix
   ./programs/yabar.nix
   ./programs/yazi.nix
+  ./programs/ydotool.nix
   ./programs/yubikey-touch-detector.nix
   ./programs/zmap.nix
   ./programs/zsh/oh-my-zsh.nix
@@ -699,6 +700,7 @@
   ./services/misc/cpuminer-cryptonight.nix
   ./services/misc/db-rest.nix
   ./services/misc/devmon.nix
+  ./services/misc/devpi-server.nix
   ./services/misc/dictd.nix
   ./services/misc/disnix.nix
   ./services/misc/docker-registry.nix
@@ -1429,6 +1431,7 @@
   ./services/web-apps/windmill.nix
   ./services/web-apps/wordpress.nix
   ./services/web-apps/writefreely.nix
+  ./services/web-apps/your_spotify.nix
   ./services/web-apps/youtrack.nix
   ./services/web-apps/zabbix.nix
   ./services/web-apps/zitadel.nix

@@ -7777,6 +7777,12 @@
     githubId = 10654650;
     name = "Guillaume Koenig";
   };
+  guillaumematheron = {
+    email = "guillaume_nix@matheron.eu";
+    github = "guillaumematheron";
+    githubId = 1949438;
+    name = "Guillaume Matheron";
+  };
   guitargeek = {
     email = "jonas.rembser@cern.ch";
     github = "guitargeek";
@@ -11300,6 +11306,14 @@
     githubId = 887072;
     name = "Alexander Lebedev";
   };
+  lebensterben = {
+    name = "Lucius Hu";
+    github = "lebensterben";
+    githubId = 1222865;
+    keys = [{
+      fingerprint = "80C6 77F2 ED0B E732 3835 A8D3 7E47 4E82 E29B 5A7A";
+    }];
+  };
   lecoqjacob = {
     name = "Jacob LeCoq";
     email = "lecoqjacob@gmail.com";
@@ -13146,7 +13160,7 @@
     }];
   };
   michaelpj = {
-    email = "michaelpj@gmail.com";
+    email = "me@michaelpj.com";
     github = "michaelpj";
     githubId = 1699466;
     name = "Michael Peyton Jones";
@@ -15473,6 +15487,15 @@
     github = "patka-123";
     githubId = 69802930;
     name = "patka";
+  };
+  patrickdag = {
+    email = "patrick-nixos@failmail.dev";
+    github = "PatrickDaG";
+    githubId = 58092422;
+    name = "Patrick";
+    keys = [{
+      fingerprint = "5E4C 3D74 80C2 35FE 2F0B  D23F 7DD6 A72E C899 617D";
+    }];
   };
   patricksjackson = {
     email = "patrick@jackson.dev";
@@ -17809,6 +17832,14 @@
     name = "Maxwell Beck";
     keys = [{
       fingerprint = "D260 79E3 C2BC 2E43 905B  D057 BB3E FA30 3760 A0DB";
+    }];
+  };
+  ryze = {
+    name = "Ryze";
+    github = "ryze312";
+    githubId = 50497128;
+    keys = [{
+      fingerprint = "73D5 BFF5 0AD7 F3C1 AF1A  AC24 9B29 6C5C EAEA AAC1";
     }];
   };
   rzetterberg = {
@@ -22578,6 +22609,12 @@
     keys = [{
       fingerprint = "065A 0A98 FE61 E1C1 41B0  AFE7 64FA BC62 F457 2875";
     }];
+  };
+  zelkourban = {
+    name = "zelkourban";
+    email = "zelo.urban@gmail.com";
+    github = "zelkourban";
+    githubId = 33812622;
   };
   zendo = {
     name = "zendo";

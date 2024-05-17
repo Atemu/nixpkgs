@@ -243,6 +243,7 @@ in {
   deepin = handleTest ./deepin.nix {};
   deluge = handleTest ./deluge.nix {};
   dendrite = handleTest ./matrix/dendrite.nix {};
+  devpi-server = handleTest ./devpi-server.nix {};
   dex-oidc = handleTest ./dex-oidc.nix {};
   dhparams = handleTest ./dhparams.nix {};
   disable-installer-tools = handleTest ./disable-installer-tools.nix {};
@@ -872,7 +873,8 @@ in {
   swap-random-encryption = handleTest ./swap-random-encryption.nix {};
   sway = handleTest ./sway.nix {};
   swayfx = handleTest ./swayfx.nix {};
-  switchTest = handleTest ./switch-test.nix {};
+  switchTest = handleTest ./switch-test.nix { ng = false; };
+  switchTestNg = handleTest ./switch-test.nix { ng = true; };
   sympa = handleTest ./sympa.nix {};
   syncthing = handleTest ./syncthing.nix {};
   syncthing-no-settings = handleTest ./syncthing-no-settings.nix {};
@@ -885,7 +887,7 @@ in {
   systemd-binfmt = handleTestOn ["x86_64-linux"] ./systemd-binfmt.nix {};
   systemd-boot = handleTest ./systemd-boot.nix {};
   systemd-bpf = handleTest ./systemd-bpf.nix {};
-  systemd-confinement = handleTest ./systemd-confinement.nix {};
+  systemd-confinement = handleTest ./systemd-confinement {};
   systemd-coredump = handleTest ./systemd-coredump.nix {};
   systemd-cryptenroll = handleTest ./systemd-cryptenroll.nix {};
   systemd-credentials-tpm2 = handleTest ./systemd-credentials-tpm2.nix {};
@@ -1038,7 +1040,9 @@ in {
   xterm = handleTest ./xterm.nix {};
   xxh = handleTest ./xxh.nix {};
   yabar = handleTest ./yabar.nix {};
+  ydotool = handleTest ./ydotool.nix {};
   yggdrasil = handleTest ./yggdrasil.nix {};
+  your_spotify = handleTest ./your_spotify.nix {};
   zammad = handleTest ./zammad.nix {};
   zeronet-conservancy = handleTest ./zeronet-conservancy.nix {};
   zfs = handleTest ./zfs.nix {};
