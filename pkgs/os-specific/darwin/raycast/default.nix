@@ -10,12 +10,12 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "raycast";
-  version = "1.72.0";
+  version = "1.74.0";
 
   src = fetchurl {
     name = "Raycast.dmg";
     url = "https://releases.raycast.com/releases/${finalAttrs.version}/download?build=universal";
-    hash = "sha256-L6CXWRmBfit+uWODEWt7u71shFAadPOqtNifMnSp0BU=";
+    hash = "sha256-aPpxPjEhy1uLekHMLyI18mlSozffMA+HB1OdqpULVnw=";
   };
 
   dontPatch = true;
