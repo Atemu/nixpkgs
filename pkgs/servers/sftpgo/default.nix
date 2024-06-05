@@ -58,8 +58,8 @@ buildGoModule rec {
       local filesystem, encrypted local filesystem, S3 (compatible) Object Storage,
       Google Cloud Storage, Azure Blob Storage, SFTP.
     '';
-    license = licenses.agpl3Only;
-    maintainers = with maintainers; [ thenonameguy yayayayaka ];
+    license = with licenses; [ agpl3Only unfreeRedistributable ]; # Software is AGPLv3, web UI is unfree
+    maintainers = with maintainers; [ thenonameguy ];
     mainProgram = "sftpgo";
   };
 }

@@ -62,6 +62,13 @@ rustPlatform.buildRustPackage {
     ROCKSDB_LIB_DIR = "${rocksdb}/lib";
   };
 
+  postInstall = ''
+    mkdir -p $out/lib/systemd/system
+
+    substitute resources/systemd/stalwart-mail.service $out/lib/systemd/system/stalwart-mail.service \
+      --replace "__PATH__" "$out"
+  '';
+
   # Tests require reading to /etc/resolv.conf
   doCheck = false;
 
@@ -75,6 +82,6 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/stalwartlabs/mail-server";
     changelog = "https://github.com/stalwartlabs/mail-server/blob/${version}/CHANGELOG";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [ happysalada onny ];
   };
 }

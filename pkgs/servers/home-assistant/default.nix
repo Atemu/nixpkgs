@@ -267,6 +267,16 @@ let
         patches = [];
       });
 
+      pymelcloud = super.pymelcloud.overridePythonAttrs (oldAttrs: {
+        version = "2.5.9";
+        src = fetchFromGitHub {
+          owner = "vilppuvuorinen";
+          repo = "pymelcloud";
+          rev = "33a827b6cd0b34f276790faa49bfd0994bb7c2e4"; # 2.5.x branch
+          sha256 = "sha256-Q3FIo9YJwtWPHfukEBjBANUQ1N1vr/DMnl1dgiN7vYg=";
+        };
+      });
+
       notifications-android-tv = super.notifications-android-tv.overridePythonAttrs (oldAttrs: rec {
         version = "0.1.5";
         format = "setuptools";
@@ -550,7 +560,7 @@ let
   extraBuildInputs = extraPackages python.pkgs;
 
   # Don't forget to run update-component-packages.py after updating
-  hassVersion = "2024.5.4";
+  hassVersion = "2024.5.5";
 
 in python.pkgs.buildPythonApplication rec {
   pname = "homeassistant";
@@ -568,13 +578,13 @@ in python.pkgs.buildPythonApplication rec {
     owner = "home-assistant";
     repo = "core";
     rev = "refs/tags/${version}";
-    hash = "sha256-YJluhc1MCRxeDtn8R9tF2QYA6qCiYpjOpRJaQeay3lk=";
+    hash = "sha256-WAwLir9+O82kNBAwy0hUdfVxgDb3C4sIRDcyzVxfcuM=";
   };
 
   # Secondary source is pypi sdist for translations
   sdist = fetchPypi {
     inherit pname version;
-    hash = "sha256-e2evRFP/l2HHcDgMUWQEM7xvvAfLRwdFtz+u2mwXepI=";
+    hash = "sha256-kcZM+IK96/q2GXeDSJzJTbzbz5mYcHevTDLpKspII6o=";
   };
 
   build-system = with python.pkgs; [
