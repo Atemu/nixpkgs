@@ -11256,6 +11256,18 @@ final: prev:
     meta.homepage = "https://github.com/tesaguri/trust.vim/";
   };
 
+  ts-comments-nvim = buildVimPlugin {
+    pname = "ts-comments.nvim";
+    version = "2024-05-26";
+    src = fetchFromGitHub {
+      owner = "folke";
+      repo = "ts-comments.nvim";
+      rev = "f7ded340b4c6b317593b867838bf7ace354a67d4";
+      sha256 = "1pajs8xsx65d5wzr6j98b0am52np2qijk8k7nc6dg6ibjfvwssyr";
+    };
+    meta.homepage = "https://github.com/folke/ts-comments.nvim/";
+  };
+
   tslime-vim = buildVimPlugin {
     pname = "tslime.vim";
     version = "2020-09-09";
@@ -17380,6 +17392,18 @@ final: prev:
       sha256 = "sha256-oruxdxoMq46F9lf1JxkbrqdzR0JwDE1y/cVCaTD4SBg=";
     };
     meta.homepage = "https://github.com/pteroctopus/faster.nvim";
+  };
+
+  cinnamon-nvim = buildVimPlugin {
+    pname = "cinnamon-nvim";
+    version = "2024-04-25";
+    src = fetchFromGitHub {
+      owner = "declancm";
+      repo = "cinnamon.nvim";
+      rev = "a011e84b624cd7b609ea928237505d31b987748a";
+      sha256 = "sha256-cMP9WRZzevxaWgpILyDh1JwNukm3Jl3JKJYPT2HnFns=";
+    };
+    meta.homepage = "https://github.com/declancm/cinnamon.nvim";
   };
 
 
