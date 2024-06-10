@@ -5072,7 +5072,7 @@ with pkgs;
 
   element-desktop = callPackage ../applications/networking/instant-messengers/element/element-desktop.nix {
     inherit (darwin.apple_sdk.frameworks) Security AppKit CoreServices;
-    electron = electron_29;
+    electron = electron_30;
   };
   element-desktop-wayland = writeScriptBin "element-desktop" ''
     #!/bin/sh
@@ -8239,8 +8239,6 @@ with pkgs;
 
   gdmap = callPackage ../tools/system/gdmap { };
 
-  gdtoolkit = callPackage ../development/tools/gdtoolkit { };
-
   gef = callPackage ../development/tools/misc/gef { };
 
   gelasio = callPackage ../data/fonts/gelasio { };
@@ -8262,8 +8260,6 @@ with pkgs;
   gerrit = callPackage ../applications/version-management/gerrit { };
 
   geteltorito = callPackage ../tools/misc/geteltorito { };
-
-  getmail6 = callPackage ../tools/networking/getmail6 { };
 
   getopt = callPackage ../tools/misc/getopt { };
 
@@ -9631,8 +9627,6 @@ with pkgs;
 
   last-resort = callPackage ../data/fonts/last-resort { };
 
-  ldc = callPackage ../development/compilers/ldc { };
-
   ligo =
     let ocaml_p = ocaml-ng.ocamlPackages_4_14_janeStreet_0_15; in
     callPackage ../development/compilers/ligo {
@@ -10488,8 +10482,6 @@ with pkgs;
   man-db = callPackage ../tools/misc/man-db { };
 
   mandoc = callPackage ../tools/misc/mandoc { };
-
-  mangareader = libsForQt5.callPackage ../applications/graphics/mangareader { };
 
   mangohud = callPackage ../tools/graphics/mangohud {
     libXNVCtrl = linuxPackages.nvidia_x11.settings.libXNVCtrl;
@@ -15933,7 +15925,10 @@ with pkgs;
 
   cabal-install = haskell.lib.compose.justStaticExecutables haskellPackages.cabal-install;
 
-  stack = haskell.lib.compose.justStaticExecutables haskellPackages.stack;
+  stack =
+    # TODO: Erroneous references to GHC on aarch64-darwin: https://github.com/NixOS/nixpkgs/issues/318013
+    (if stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64 then lib.id else haskell.lib.compose.justStaticExecutables)
+      haskellPackages.stack;
 
   hlint = haskell.lib.compose.justStaticExecutables haskellPackages.hlint;
 
@@ -18842,7 +18837,10 @@ with pkgs;
     guile = guile_2_2;
   };
 
-  hadolint = haskell.lib.compose.justStaticExecutables haskellPackages.hadolint;
+  hadolint =
+    # TODO: Erroneous references to GHC on aarch64-darwin: https://github.com/NixOS/nixpkgs/issues/318013
+    (if stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64 then lib.id else haskell.lib.compose.justStaticExecutables)
+    haskellPackages.hadolint;
 
   halfempty = callPackage ../development/tools/halfempty { };
 
@@ -19143,7 +19141,10 @@ with pkgs;
 
   msitools = callPackage ../development/tools/misc/msitools { };
 
-  haskell-ci = haskell.lib.compose.justStaticExecutables haskellPackages.haskell-ci;
+  haskell-ci =
+    # TODO: Erroneous references to GHC on aarch64-darwin: https://github.com/NixOS/nixpkgs/issues/318013
+    (if stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64 then lib.id else haskell.lib.compose.justStaticExecutables)
+      haskellPackages.haskell-ci;
 
   nailgun = callPackage ../development/tools/nailgun { };
 
@@ -19499,7 +19500,10 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) Security;
   };
 
-  shake = haskell.lib.compose.justStaticExecutables haskellPackages.shake;
+  shake =
+    # TODO: Erroneous references to GHC on aarch64-darwin: https://github.com/NixOS/nixpkgs/issues/318013
+    (if stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64 then lib.id else haskell.lib.compose.justStaticExecutables)
+    haskellPackages.shake;
 
   shallot = callPackage ../tools/misc/shallot { };
 
@@ -20592,7 +20596,8 @@ with pkgs;
 
   elfio = callPackage ../development/libraries/elfio { };
 
-  emanote = haskell.lib.compose.justStaticExecutables haskellPackages.emanote;
+  # TODO: Fix references and add justStaticExecutables https://github.com/NixOS/nixpkgs/issues/318013
+  emanote = haskellPackages.emanote;
 
   enchant2 = callPackage ../development/libraries/enchant/2.x.nix { };
   enchant = enchant2;
@@ -20906,6 +20911,7 @@ with pkgs;
   };
 
   gdcm = callPackage ../development/libraries/gdcm {
+    inherit (darwin) DarwinTools;
     inherit (darwin.apple_sdk.frameworks) ApplicationServices Cocoa;
   };
 
@@ -23226,7 +23232,10 @@ with pkgs;
 
   matio = callPackage ../development/libraries/matio { };
 
-  matterhorn = haskell.lib.compose.justStaticExecutables haskellPackages.matterhorn;
+  matterhorn =
+    # TODO: Erroneous references to GHC on aarch64-darwin: https://github.com/NixOS/nixpkgs/issues/318013
+    (if stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64 then lib.id else haskell.lib.compose.justStaticExecutables)
+      haskellPackages.matterhorn;
 
   maxflow = callPackage ../development/libraries/maxflow { };
 
@@ -31385,8 +31394,6 @@ with pkgs;
 
   gpsd = callPackage ../servers/gpsd { };
 
-  gpsprune = callPackage ../applications/misc/gpsprune { };
-
   gpu-screen-recorder = callPackage ../applications/video/gpu-screen-recorder { };
 
   gpu-screen-recorder-gtk = callPackage ../applications/video/gpu-screen-recorder/gpu-screen-recorder-gtk.nix { };
@@ -31486,7 +31493,10 @@ with pkgs;
   hledger-iadd = haskell.lib.compose.justStaticExecutables haskellPackages.hledger-iadd;
   hledger-interest = haskell.lib.compose.justStaticExecutables haskellPackages.hledger-interest;
   hledger-ui = haskell.lib.compose.justStaticExecutables haskellPackages.hledger-ui;
-  hledger-web = haskell.lib.compose.justStaticExecutables haskellPackages.hledger-web;
+  hledger-web =
+    # TODO: Erroneous references to GHC on aarch64-darwin: https://github.com/NixOS/nixpkgs/issues/318013
+    (if stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64 then lib.id else haskell.lib.compose.justStaticExecutables)
+    haskellPackages.hledger-web;
   hledger-utils = with python3.pkgs; toPythonApplication hledger-utils;
 
   hmm = callPackage ../applications/misc/hmm { };
@@ -32019,8 +32029,6 @@ with pkgs;
 
   johnny = callPackage ../applications/misc/johnny { };
 
-  josm = callPackage ../applications/misc/josm { };
-
   js8call = qt5.callPackage ../applications/radio/js8call { };
 
   jwm = callPackage ../applications/window-managers/jwm { };
@@ -32030,7 +32038,7 @@ with pkgs;
   inherit (callPackage ../applications/networking/cluster/k3s {
     buildGoModule = buildGo121Module;
     go = go_1_21;
-  }) k3s_1_27 k3s_1_28 k3s_1_29;
+  }) k3s_1_28 k3s_1_29;
   inherit (callPackage ../applications/networking/cluster/k3s {
     buildGoModule = buildGo122Module;
     go = go_1_22;
@@ -32957,15 +32965,14 @@ with pkgs;
     inherit lua;
   };
 
+  # Wrap avoiding rebuild
+  mpv = mpv-unwrapped.wrapper { mpv = mpv-unwrapped; };
+
+  mpvScripts = mpv-unwrapped.scripts;
+
   shaka-packager = callPackage ../applications/video/shaka-packager { };
 
-  # Wraps without triggering a rebuild
-  wrapMpv = callPackage ../applications/video/mpv/wrapper.nix { };
-  mpv = wrapMpv mpv-unwrapped { };
-
   mpvpaper = callPackage ../tools/wayland/mpvpaper { };
-
-  mpvScripts = callPackage ../applications/video/mpv/scripts { };
 
   open-in-mpv = callPackage ../applications/video/open-in-mpv { };
 
@@ -36161,7 +36168,10 @@ with pkgs;
 
   bean-add = callPackage ../applications/office/beancount/bean-add.nix { };
 
-  bench = haskell.lib.compose.justStaticExecutables haskellPackages.bench;
+  bench =
+    # TODO: Erroneous references to GHC on aarch64-darwin: https://github.com/NixOS/nixpkgs/issues/318013
+    (if stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64 then lib.id else haskell.lib.compose.justStaticExecutables)
+      haskellPackages.bench;
 
   cri-o = callPackage ../applications/virtualization/cri-o/wrapper.nix { };
   cri-o-unwrapped = callPackage ../applications/virtualization/cri-o { };
@@ -38182,6 +38192,7 @@ with pkgs;
   osi = callPackage ../development/libraries/science/math/osi { };
 
   or-tools = callPackage ../development/libraries/science/math/or-tools {
+    inherit (darwin) DarwinTools;
     stdenv = if stdenv.isDarwin then overrideSDK stdenv "11.0" else stdenv;
     python = python3;
     protobuf = protobuf_21;

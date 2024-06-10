@@ -1945,6 +1945,8 @@ self: super: with self; {
 
   cashaddress = callPackage ../development/python-modules/cashaddress { };
 
+  cashews = callPackage ../development/python-modules/cashews {  };
+
   cassandra-driver = callPackage ../development/python-modules/cassandra-driver { };
 
   castepxbin = callPackage ../development/python-modules/castepxbin { };
@@ -2653,6 +2655,8 @@ self: super: with self; {
   curtsies = callPackage ../development/python-modules/curtsies { };
 
   curve25519-donna = callPackage ../development/python-modules/curve25519-donna { };
+
+  curvefitgui = callPackage ../development/python-modules/curvefitgui { };
 
   cvelib = callPackage ../development/python-modules/cvelib { };
 
@@ -5298,6 +5302,8 @@ self: super: with self; {
 
   hahomematic = callPackage ../development/python-modules/hahomematic { };
 
+  hakuin = callPackage ../development/python-modules/hakuin { };
+
   halo = callPackage ../development/python-modules/halo { };
 
   halohome = callPackage ../development/python-modules/halohome { };
@@ -5782,6 +5788,8 @@ self: super: with self; {
   indexed-gzip = callPackage ../development/python-modules/indexed-gzip { inherit (pkgs) zlib; };
 
   indexed-zstd = callPackage ../development/python-modules/indexed-zstd { inherit (pkgs) zstd; };
+
+  inequality = callPackage ../development/python-modules/inequality { };
 
   infinity = callPackage ../development/python-modules/infinity { };
 
@@ -7273,6 +7281,8 @@ self: super: with self; {
 
   matplotlib-sixel = callPackage ../development/python-modules/matplotlib-sixel { };
 
+  matplotlib-venn = callPackage ../development/python-modules/matplotlib-venn { };
+
   matplotx = callPackage ../development/python-modules/matplotx { };
 
   matrix-api-async = callPackage ../development/python-modules/matrix-api-async { };
@@ -7670,6 +7680,8 @@ self: super: with self; {
   molecule = callPackage ../development/python-modules/molecule { };
 
   molecule-plugins = callPackage ../development/python-modules/molecule/plugins.nix { };
+
+  momepy = callPackage ../development/python-modules/momepy { };
 
   monai = callPackage ../development/python-modules/monai { };
 
@@ -8645,6 +8657,8 @@ self: super: with self; {
   natasha = callPackage ../development/python-modules/natasha { };
 
   nomadnet = callPackage ../development/python-modules/nomadnet { };
+
+  noneprompt = callPackage ../development/python-modules/noneprompt {  };
 
   nox = callPackage ../development/python-modules/nox { };
 
@@ -13197,6 +13211,8 @@ self: super: with self; {
   repath = callPackage ../development/python-modules/repath { };
 
   repeated-test = callPackage ../development/python-modules/repeated-test { };
+
+  repl-python-wakatime = callPackage ../development/python-modules/repl-python-wakatime { };
 
   repocheck = callPackage ../development/python-modules/repocheck { };
 
