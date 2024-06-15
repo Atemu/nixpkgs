@@ -98,6 +98,7 @@ mapAliases ({
   authy = throw "'authy' has been removed since it reached end of life"; # Added 2024-04-19
   avldrums-lv2 = x42-avldrums; # Added 2020-03-29
   awesome-4-0 = awesome; # Added 2022-05-05
+  aws-env = throw "aws-env has been removed as the upstream project was unmaintained"; # Added 2024-06-11
 
   ### B ###
 
@@ -200,6 +201,7 @@ mapAliases ({
   compton = throw "'compton' has been renamed to/replaced by 'picom'"; # Converted to throw 2023-09-10
   concurrencykit = libck; # Added 2021-03
   connmanPackages = throw "'connmanPackages' was removed and their subpackages/attributes were promoted to top level."; # Added 2023-10-08
+  containerpilot = throw "'containerpilot' has been removed from nixpkgs, as it was broken and unmaintained"; # Added 2024-06-09
   convoy = throw "'convoy' has been removed from nixpkgs, as it was archived upstream"; # Added 2023-12-27
   crda = throw "'crda' has been removed from nixpkgs, as it is needed only for kernels before 4.16"; # Added 2024-02-06
   cups-kyodialog3 = cups-kyodialog; # Added 2022-11-12
@@ -526,6 +528,7 @@ mapAliases ({
   grub = throw "grub1 was removed after not being maintained upstream for a decade. Please switch to another bootloader"; # Added 2023-04-11
   gtkcord4 = dissent; # Added 2024-03-10
   gtkpod = throw "'gtkpod' was removed due to one of its dependencies, 'anjuta' being unmaintained"; # Added 2024-01-16
+  guardian-agent = throw "'guardian-agent' has been removed, as it hasn't been maintained upstream in years and accumulated many vulnerabilities"; # Added 2024-06-09
   guile-disarchive = disarchive; # Added 2023-10-27
   guile-lint = throw "'guile-lint' has been removed, please use 'guild lint' instead"; # Added 2023-10-16
 
@@ -660,6 +663,7 @@ mapAliases ({
   libmongo-client = throw "'libmongo-client' has been removed, upstream gone"; # Added 2023-06-22
   libpulseaudio-vanilla = libpulseaudio; # Added 2022-04-20
   libquotient = libsForQt5.libquotient; # Added 2023-11-11
+  librarian-puppet-go = throw "'librarian-puppet-go' has been removed, as it's upstream is unmaintained"; # Added 2024-06-10
   libraw_unstable = throw "'libraw_unstable' has been removed, please use libraw"; # Added 2023-01-30
   librdf = lrdf; # Added 2020-03-22
   libressl_3_5 = throw "'libressl_3_5' has reached end-of-life "; # Added 2023-05-07
@@ -1063,6 +1067,7 @@ mapAliases ({
   probe-rs-cli = throw "probe-rs-cli is now part of the probe-rs package"; # Added 2023-07-03
   processing3 = throw "'processing3' has been renamed to/replaced by 'processing'"; # Converted to throw 2023-09-10
   prometheus-dmarc-exporter = dmarc-metrics-exporter; # added 2022-05-31
+  prometheus-dovecot-exporter = dovecot_exporter; # Added 2024-06-10
   prometheus-openvpn-exporter = throw "'prometheus-openvpn-exporter' has been removed from nixpkgs, as it was broken and unmaintained"; # Added 2023-12-23
   prometheus-speedtest-exporter = throw "prometheus-speedtest-exporter was removed as unmaintained"; # Added 2023-07-31
   protobuf3_17 = throw "protobuf3_17 does not receive updates anymore and has been removed"; # Added 2023-05-21
@@ -1396,7 +1401,7 @@ mapAliases ({
   xineLib = xine-lib; # Added 2021-04-27
   xineUI = xine-ui; # Added 2021-04-27
   xmlada = gnatPackages.xmlada; # Added 2024-02-25
-  xonsh-unwrapped = throw "'xonsh-unwrapped' was incorporated into xonsh code; call xonsh directly instead."; # Added 2024-01-20
+  xonsh-unwrapped = xonsh.passthru.unwrapped;
   xtrt = throw "xtrt has been removed due to being abandoned"; # Added 2023-05-25
   xulrunner = firefox-unwrapped; # Added 2023-11-03
   xvfb_run = xvfb-run; # Added 2021-05-07

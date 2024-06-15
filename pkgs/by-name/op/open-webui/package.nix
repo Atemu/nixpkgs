@@ -7,19 +7,19 @@
 }:
 let
   pname = "open-webui";
-  version = "0.2.5";
+  version = "0.3.4";
 
   src = fetchFromGitHub {
     owner = "open-webui";
     repo = "open-webui";
     rev = "v${version}";
-    hash = "sha256-BqclBrkFmTUJZuUySyNsQFlfdyENaIhqjn50797zJHY=";
+    hash = "sha256-HO7kvJB4GDdAtb0jq8XPU94sP8QbyYlxAmhpLAshMng=";
   };
 
   frontend = buildNpmPackage {
     inherit pname version src;
 
-    npmDepsHash = "sha256-drMUcCUeyPEnaa1fSsfHJfInenyfH7NNJgBFeRsfOuE=";
+    npmDepsHash = "sha256-EZvFslntBjpxsjXYyfPGNa2SmYth56cjy8zg+fmiCGo=";
 
     # Disabling `pyodide:fetch` as it downloads packages during `buildPhase`
     # Until this is solved, running python packages from the browser will not work.
@@ -44,88 +44,84 @@ python3.pkgs.buildPythonApplication rec {
   inherit pname version src;
   pyproject = true;
 
-  # The custom hook tries to run `npm install` in `buildPhase`.
-  # We don't have to worry, as node dependencies are managed by `frontend` drv.
+  # Not force-including the frontend build directory as frontend is managed by the `frontend` derivation above.
   postPatch = ''
     substituteInPlace pyproject.toml \
-      --replace-fail '[tool.hatch.build.hooks.custom]' "" \
       --replace-fail ', build = "open_webui/frontend"' ""
   '';
+
+  env.HATCH_BUILD_NO_HOOKS = true;
 
   pythonRelaxDeps = true;
 
   pythonRemoveDeps = [
-    # using `psycopg2` instead
-    "psycopg2-binary"
     # using `opencv4`
     "opencv-python-headless"
+    # using `psycopg2` instead
+    "psycopg2-binary"
     # package request: https://github.com/NixOS/nixpkgs/issues/317065
     "rapidocr-onnxruntime"
-    # package request: https://github.com/NixOS/nixpkgs/issues/317066
-    "langfuse"
-    # package request: https://github.com/NixOS/nixpkgs/issues/317068
-    "langchain-chroma"
   ];
 
   dependencies = with python3.pkgs; [
+    aiohttp
+    apscheduler
+    argon2-cffi
+    bcrypt
     beautifulsoup4
+    black
+    boto3
+    chromadb
+    docx2txt
+    duckduckgo-search
+    extract-msg
+    fake-useragent
     fastapi
-    uvicorn
-    python-multipart
+    faster-whisper
     flask
     flask-cors
-    python-socketio
-    python-jose
+    fpdf2
+    google-generativeai
+    langchain
+    langchain-chroma
+    langchain-community
+    langfuse
+    markdown
+    opencv4
+    openpyxl
+    pandas
     passlib
-    requests
-    aiohttp
     peewee
     peewee-migrate
     psycopg2
-    pymysql
-    bcrypt
-    litellm
-    boto3
-    argon2-cffi
-    apscheduler
-    google-generativeai
-    langchain
-    langchain-community
-    fake-useragent
-    chromadb
-    sentence-transformers
-    pypdf
-    docx2txt
-    python-pptx
-    unstructured
-    markdown
-    pypandoc
-    pandas
-    openpyxl
-    pyxlsb
-    xlrd
-    validators
-    opencv4
-    fpdf2
-    rank-bm25
-    faster-whisper
+    pydub
     pyjwt
-    black
-    youtube-transcript-api
+    pymysql
+    pypandoc
+    pypdf
+    python-jose
+    python-multipart
+    python-pptx
+    python-socketio
     pytube
+    pyxlsb
+    rank-bm25
+    requests
+    sentence-transformers
+    unstructured
+    uvicorn
+    validators
+    xlrd
+    youtube-transcript-api
   ];
 
-  build-system = with python3.pkgs; [
-    hatchling
-    pythonRelaxDepsHook
-  ];
+  build-system = with python3.pkgs; [ hatchling ];
+
+  nativeBuildInputs = [ python3.pkgs.pythonRelaxDepsHook ];
 
   pythonImportsCheck = [ "open_webui" ];
 
-  postInstall = ''
-    wrapProgram $out/bin/open-webui \
-      --set FRONTEND_BUILD_DIR "${frontend}/share/open-webui"
-  '';
+  makeWrapperArgs = [ "--set FRONTEND_BUILD_DIR ${frontend}/share/open-webui" ];
 
   passthru.tests = {
     inherit (nixosTests) open-webui;

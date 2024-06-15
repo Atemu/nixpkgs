@@ -16,6 +16,11 @@ python3.pkgs.toPythonModule (python3.pkgs.buildPythonApplication rec {
 
   postPatch = ''
     sed -i 's/==.*$//' requirements.txt
+
+    # can't be fetchpatched as it is essentially empty and it complains about that
+    # TODO: drop when updating to a version that includes https://github.com/searxng/searxng/pull/3563
+    touch searx/answerers/random/__init__.py
+    touch searx/answerers/statistics/__init__.py
   '';
 
   preBuild =
@@ -71,7 +76,7 @@ python3.pkgs.toPythonModule (python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/searxng/searxng";
-    description = "A fork of Searx, a privacy-respecting, hackable metasearch engine";
+    description = "Fork of Searx, a privacy-respecting, hackable metasearch engine";
     license = licenses.agpl3Plus;
     mainProgram = "searxng-run";
     maintainers = with maintainers; [ SuperSandro2000 _999eagle ];

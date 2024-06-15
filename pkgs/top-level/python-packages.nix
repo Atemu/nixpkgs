@@ -2206,6 +2206,8 @@ self: super: with self; {
 
   clf = callPackage ../development/python-modules/clf { };
 
+  cli-ui = callPackage ../development/python-modules/cli-ui { };
+
   clip = callPackage ../development/python-modules/clip { };
 
   clip-anytorch = callPackage ../development/python-modules/clip-anytorch { };
@@ -3482,8 +3484,6 @@ self: super: with self; {
 
   docker-pycreds = callPackage ../development/python-modules/docker-pycreds { };
 
-  docker-py = callPackage ../development/python-modules/docker-py { };
-
   dockerspawner = callPackage ../development/python-modules/dockerspawner { };
 
   docloud = callPackage ../development/python-modules/docloud { };
@@ -3591,6 +3591,8 @@ self: super: with self; {
   dropbox = callPackage ../development/python-modules/dropbox { };
 
   dropmqttapi = callPackage ../development/python-modules/dropmqttapi { };
+
+  dscribe  = callPackage ../development/python-modules/dscribe { };
 
   ds-store = callPackage ../development/python-modules/ds-store { };
 
@@ -7049,6 +7051,8 @@ self: super: with self; {
 
   loguru = callPackage ../development/python-modules/loguru { };
 
+  loguru-logging-intercept = callPackage ../development/python-modules/loguru-logging-intercept { };
+
   logutils = callPackage ../development/python-modules/logutils {
     redis-server = pkgs.redis;
   };
@@ -7676,6 +7680,8 @@ self: super: with self; {
   modestmaps = callPackage ../development/python-modules/modestmaps { };
 
   mohawk = callPackage ../development/python-modules/mohawk { };
+
+  molbar = callPackage ../development/python-modules/molbar { };
 
   molecule = callPackage ../development/python-modules/molecule { };
 
@@ -8655,6 +8661,8 @@ self: super: with self; {
   navec = callPackage ../development/python-modules/navec { };
 
   natasha = callPackage ../development/python-modules/natasha { };
+
+  natural = callPackage ../development/python-modules/natural { };
 
   nomadnet = callPackage ../development/python-modules/nomadnet { };
 
@@ -9986,6 +9994,8 @@ self: super: with self; {
   pycrdt = callPackage ../development/python-modules/pycrdt { };
 
   pycrdt-websocket = callPackage ../development/python-modules/pycrdt-websocket { };
+
+  pycycling = callPackage ../development/python-modules/pycycling { };
 
   pyfibaro = callPackage ../development/python-modules/pyfibaro { };
 
@@ -11555,6 +11565,8 @@ self: super: with self; {
   pyopenssl = callPackage ../development/python-modules/pyopenssl { };
 
   pyopenuv = callPackage ../development/python-modules/pyopenuv { };
+
+  pyopenweathermap = callPackage ../development/python-modules/pyopenweathermap { };
 
   pyopnsense = callPackage ../development/python-modules/pyopnsense { };
 
@@ -14112,6 +14124,8 @@ self: super: with self; {
 
   slugid = callPackage ../development/python-modules/slugid { };
 
+  py-slvs = callPackage ../development/python-modules/py-slvs { };
+
   sly = callPackage ../development/python-modules/sly { };
 
   smart-meter-texas = callPackage ../development/python-modules/smart-meter-texas { };
@@ -15053,6 +15067,8 @@ self: super: with self; {
 
   terminaltables = callPackage ../development/python-modules/terminaltables { };
 
+  terminaltexteffects = callPackage ../development/python-modules/terminaltexteffects { };
+
   termplotlib = callPackage ../development/python-modules/termplotlib { };
 
   termstyle = callPackage ../development/python-modules/termstyle { };
@@ -15220,6 +15236,8 @@ self: super: with self; {
   timing-asgi = callPackage ../development/python-modules/timing-asgi { };
 
   timm = callPackage ../development/python-modules/timm { };
+
+  timy = callPackage ../development/python-modules/timy { };
 
   tiny-cuda-nn = toPythonModule (pkgs.tiny-cuda-nn.override {
     cudaPackages = self.torch.cudaPackages;
@@ -16463,6 +16481,8 @@ self: super: with self; {
   };
 
   uhi = callPackage ../development/python-modules/uhi { };
+
+  uiprotect = callPackage ../development/python-modules/uiprotect { };
 
   ujson = callPackage ../development/python-modules/ujson { };
 

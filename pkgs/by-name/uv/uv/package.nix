@@ -16,14 +16,14 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "uv";
-  version = "0.2.9";
+  version = "0.2.10";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "astral-sh";
     repo = "uv";
     rev = "refs/tags/${version}";
-    hash = "sha256-fMzMHWP06/0fqSnt+pVaht4TIo13yB7Y+DCJzXbmaio=";
+    hash = "sha256-xVddhsCGJcESZhkZnu6tcwwifT9+MQz53qV00B9oHA0=";
   };
 
   cargoDeps = rustPlatform.importCargoLock {
@@ -77,7 +77,7 @@ python3Packages.buildPythonApplication rec {
   };
 
   meta = {
-    description = "An extremely fast Python package installer and resolver, written in Rust";
+    description = "Extremely fast Python package installer and resolver, written in Rust";
     homepage = "https://github.com/astral-sh/uv";
     changelog = "https://github.com/astral-sh/uv/blob/${src.rev}/CHANGELOG.md";
     license = with lib.licenses; [ asl20 mit ];

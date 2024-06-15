@@ -7,9 +7,7 @@
 , overrideCC
 , makeWrapper
 , stdenv
-, nixosTests
 
-, pkgs
 , cmake
 , gcc12
 , clblast
@@ -19,8 +17,11 @@
 , linuxPackages
 , darwin
 
+, nixosTests
 , testers
 , ollama
+, ollama-rocm
+, ollama-cuda
 
 , config
   # one of `[ null false "rocm" "cuda" ]`
@@ -30,13 +31,13 @@
 let
   pname = "ollama";
   # don't forget to invalidate all hashes each update
-  version = "0.1.42";
+  version = "0.1.43";
 
   src = fetchFromGitHub {
     owner = "ollama";
     repo = "ollama";
     rev = "v${version}";
-    hash = "sha256-lmnfFJBPgjaCdxkMALNQigrtD/V2T3Vs1GEKvRCgWaM=";
+    hash = "sha256-+WCyRZPm4EyLH68uXDUJEW76v6FXq2WS5fqt4momKDA=";
     fetchSubmodules = true;
   };
 
@@ -69,17 +70,16 @@ let
       "but they are mutually exclusive; falling back to cpu"
     ])
     (!(config.rocmSupport && config.cudaSupport));
-  validateLinux = api: (lib.warnIfNot stdenv.isLinux
-    "building ollama with `${api}` is only supported on linux; falling back to cpu"
-    stdenv.isLinux);
   shouldEnable = assert accelIsValid;
     mode: fallback:
-      ((acceleration == mode)
-      || (fallback && acceleration == null && validateFallback))
-      && (validateLinux mode);
+      (acceleration == mode)
+      || (fallback && acceleration == null && validateFallback);
 
-  enableRocm = shouldEnable "rocm" config.rocmSupport;
-  enableCuda = shouldEnable "cuda" config.cudaSupport;
+  rocmRequested = shouldEnable "rocm" config.rocmSupport;
+  cudaRequested = shouldEnable "cuda" config.cudaSupport;
+
+  enableRocm = rocmRequested && stdenv.isLinux;
+  enableCuda = cudaRequested && stdenv.isLinux;
 
 
   rocmLibs = [
@@ -197,22 +197,27 @@ goBuild ((lib.optionalAttrs enableRocm {
   ];
 
   passthru.tests = {
+    inherit ollama;
     service = nixosTests.ollama;
-    rocm = pkgs.ollama.override { acceleration = "rocm"; };
-    cuda = pkgs.ollama.override { acceleration = "cuda"; };
     version = testers.testVersion {
       inherit version;
       package = ollama;
     };
+  } // lib.optionalAttrs stdenv.isLinux {
+    inherit ollama-rocm ollama-cuda;
   };
 
   meta = {
-    description = "Get up and running with large language models locally";
+    description = "Get up and running with large language models locally"
+      + lib.optionalString rocmRequested ", using ROCm for AMD GPU acceleration"
+      + lib.optionalString cudaRequested ", using CUDA for NVIDIA GPU acceleration";
     homepage = "https://github.com/ollama/ollama";
     changelog = "https://github.com/ollama/ollama/releases/tag/v${version}";
     license = licenses.mit;
-    platforms = platforms.unix;
+    platforms =
+      if (rocmRequested || cudaRequested) then platforms.linux
+      else platforms.unix;
     mainProgram = "ollama";
-    maintainers = with maintainers; [ abysssol dit7ya elohmeier ];
+    maintainers = with maintainers; [ abysssol dit7ya elohmeier roydubnium ];
   };
 })

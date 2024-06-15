@@ -50,6 +50,7 @@
   meson,
   mujs,
   ninja,
+  nixosTests,
   nv-codec-headers-11,
   openalSoft,
   pipewire,
@@ -60,6 +61,7 @@
   speex,
   stdenv,
   swift,
+  testers,
   vapoursynth,
   vulkan-headers,
   vulkan-loader,
@@ -119,17 +121,14 @@ let
 
   overrideSDK =
     platform: version:
-    platform
-    // lib.optionalAttrs (platform ? darwinMinVersion) {
-      darwinMinVersion = version;
-    };
+    platform // lib.optionalAttrs (platform ? darwinMinVersion) { darwinMinVersion = version; };
 
   stdenv' =
     if swiftSupport && stdenv.isDarwin && stdenv.isx86_64 then
       stdenv.override (old: {
-        buildPlatform = overrideSDK old.buildPlatform "10.15";
-        hostPlatform = overrideSDK old.hostPlatform "10.15";
-        targetPlatform = overrideSDK old.targetPlatform "10.15";
+        buildPlatform = overrideSDK old.buildPlatform "11.0";
+        hostPlatform = overrideSDK old.hostPlatform "11.0";
+        targetPlatform = overrideSDK old.targetPlatform "11.0";
       })
     else
       stdenv;
@@ -351,6 +350,16 @@ stdenv'.mkDerivation (finalAttrs: {
 
     wrapper = callPackage ./wrapper.nix { };
     scripts = callPackage ./scripts { };
+
+    tests = {
+      inherit (nixosTests) mpv;
+
+      version = testers.testVersion { package = finalAttrs.finalPackage; };
+      pkg-config = testers.hasPkgConfigModules {
+        package = finalAttrs.finalPackage;
+        moduleNames = [ "mpv" ];
+      };
+    };
   };
 
   meta = {

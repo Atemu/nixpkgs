@@ -6,6 +6,7 @@
 , eigen
 , example-robot-data
 , collisionSupport ? !stdenv.isDarwin
+, console-bridge
 , jrl-cmakemodules
 , hpp-fcl
 , urdfdom
@@ -44,6 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   propagatedBuildInputs = [
+    console-bridge
     jrl-cmakemodules
     urdfdom
   ] ++ lib.optionals (!pythonSupport) [
@@ -74,7 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   meta = {
-    description = "A fast and flexible implementation of Rigid Body Dynamics algorithms and their analytical derivatives";
+    description = "Fast and flexible implementation of Rigid Body Dynamics algorithms and their analytical derivatives";
     homepage = "https://github.com/stack-of-tasks/pinocchio";
     license = lib.licenses.bsd2;
     maintainers = with lib.maintainers; [ nim65s wegank ];

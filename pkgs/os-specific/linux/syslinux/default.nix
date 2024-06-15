@@ -69,6 +69,8 @@ stdenv.mkDerivation {
       "sha256-dVzXBi/oSV9vYgU85mRFHBKuZdup+1x1BipJX74ED7E=")
     # Fixes build with "modern" gnu-efi
     ./import-efisetjmp.patch
+    # Upstream patch: https://www.syslinux.org/archives/2024-February/026903.html
+    ./define-wchar_t.patch
   ];
 
   postPatch = ''
@@ -144,7 +146,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://www.syslinux.org/";
-    description = "A lightweight bootloader";
+    description = "Lightweight bootloader";
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.samueldr ];
     platforms = [ "i686-linux" "x86_64-linux" ];
