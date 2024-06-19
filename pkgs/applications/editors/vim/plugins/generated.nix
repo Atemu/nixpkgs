@@ -5327,6 +5327,18 @@ final: prev:
     meta.homepage = "https://github.com/folke/lazy.nvim/";
   };
 
+  lazydev-nvim = buildVimPlugin {
+    pname = "lazydev-nvim";
+    version = "2024-06-09";
+    src = fetchFromGitHub {
+      owner = "folke";
+      repo = "lazydev.nvim";
+      rev = "7cbb524c85f87017df9c1ea2377a1d840ad8ed51";
+      sha256 = "034abfj3rskgqqcynw6mz61bhjmq8x8qn6f4lq6wvyhzhkfplaqb";
+    };
+    meta.homepage = "https://github.com/folke/lazydev.nvim/";
+  };
+
   lazygit-nvim = buildVimPlugin {
     pname = "lazygit.nvim";
     version = "2024-05-13";
@@ -17466,6 +17478,19 @@ final: prev:
       sha256 = "sha256-R3YHrcpRJ8bbVctKTWQbouyCYcbKpQ2Sz6NWDOkqLYI=";
     };
     meta.homepage = "https://github.com/chrisgrieser/nvim-genghis";
+  };
+
+
+  git-prompt-string-lualine-nvim = buildVimPlugin {
+    pname = "git-prompt-string-lualine-nvim";
+    version = "2024-04-22";
+    src = fetchFromGitHub {
+      owner = "mikesmithgh";
+      repo = "git-prompt-string-lualine.nvim";
+      rev = "5426ce15462abe4faf5cd76db7476b2686120fe9";
+      sha256 = "sha256-BM1AEpIcOd5nr4N/ZoxK9NodiUbUuY9hw7n/wRTXzzk=";
+    };
+    meta.homepage = "https://github.com/mikesmithgh/git-prompt-string-lualine.nvim";
   };
 
 

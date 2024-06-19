@@ -2,7 +2,7 @@
 # Do not edit!
 
 {
-  version = "2024.6.2";
+  version = "2024.6.3";
   components = {
     "3_day_blinds" = ps: with ps; [
     ];
@@ -3138,8 +3138,9 @@
       hassil
       home-assistant-intents
       mutagen
+      ollama
       webrtc-noise-gain
-    ]; # missing inputs: ollama-hass
+    ];
     "ombi" = ps: with ps; [
       pyombi
     ];
@@ -5708,6 +5709,7 @@
     "nx584"
     "obihai"
     "octoprint"
+    "ollama"
     "omnilogic"
     "onboarding"
     "oncue"
