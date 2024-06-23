@@ -82,6 +82,7 @@ mapAliases ({
   apacheAnt_1_9 = throw "Ant 1.9 has been removed since it's not used in nixpkgs anymore"; # Added 2023-11-12
   antimicroX = antimicrox; # Added 2021-10-31
   appthreat-depscan = dep-scan; # Added 2024-04-10
+  arcanist = throw "arcanist was removed as phabricator is not supported and does not accept fixes"; # Added 2024-06-07
   arcanPackages = throw "arcanPackages was removed and its sub-attributes were promoted to top-level"; # Added 2023-11-26
   archiveopteryx = throw "archiveopteryx depended on an unsupported version of OpenSSL and was unmaintained"; # Added 2024-01-03
   ardour_6 = throw "ardour_6 has been removed in favor of newer versions"; # Added 2023-10-13
@@ -263,6 +264,7 @@ mapAliases ({
   dhcp = throw "dhcp (ISC DHCP) has been removed from nixpkgs, because it reached its end of life"; # Added 2023-04-04
   dibbler = throw "dibbler was removed because it is not maintained anymore"; # Added 2024-05-14
   dnnl = oneDNN; # Added 2020-04-22
+  docker-distribution = distribution; # Added 2023-12-26
   docker-machine = throw "'docker-machine' has been removed, because the upstream project was archived"; # Added 2023-12-27
   docker-machine-kvm = throw "'docker-machine-kvm' has been removed, because 'docker-machine' was archived upstream and removed"; # Added 2023-12-27
   docker-machine-xhyve = throw "'docker-machine-xhyve' has been removed, because 'docker-machine' was archived upstream and removed"; # Added 2023-12-27
@@ -373,6 +375,7 @@ mapAliases ({
   faustStk = faustPhysicalModeling; # Added 2023-05-16
   fastnlo = fastnlo-toolkit; # Added 2021-04-24
   fastnlo_toolkit = fastnlo-toolkit; # Added 2024-01-03
+  fcitx5-catppuccin = catppuccin-fcitx5; # Added 2024-06-19
   inherit (luaPackages) fennel; # Added 2022-09-24
   fetchFromGithub = throw "You meant fetchFromGitHub, with a capital H"; # preserve
   FIL-plugins = fil-plugins; # Added 2024-06-12
@@ -520,6 +523,7 @@ mapAliases ({
   grab-site = throw "grab-site has been removed because it's unmaintained and broken"; # Added 2023-11-12
   gradle_4 = throw "gradle_4 has been removed because it's no longer being updated"; # Added 2023-01-17
   gradle_5 = throw "gradle_5 has been removed because it's no longer being updated"; # Added 2023-01-17
+  grafana_reporter = grafana-reporter; # Added 2024-06-09
   gr-ais = throw "'gr-ais' has been renamed to/replaced by 'gnuradio3_7.pkgs.ais'"; # Converted to throw 2023-09-10
   graylog = throw "graylog is now available in versions 3.3 up to 5.0. Please mind the upgrade path and choose the appropriate version. Direct upgrading from 3.3 to 4.3 or above is not supported"; # Added 2023-04-24
   graylog-3_3 = throw "graylog 3.x is EOL. Please consider downgrading nixpkgs if you need an upgrade from 3.x to latest series."; # Added 2023-10-09
@@ -544,6 +548,7 @@ mapAliases ({
 
   haxe_3_2 = throw "'haxe_3_2' has been removed because it is old and no longer used by any packages in nixpkgs"; # Added 2023-03-15
   haxe_3_4 = throw "'haxe_3_4' has been removed because it is old and no longer used by any packages in nixpkgs"; # Added 2023-03-15
+  HentaiAtHome = hentai-at-home; # Added 2024-06-12
   hepmc = throw "'hepmc' has been renamed to/replaced by 'hepmc2'"; # Converted to throw 2023-09-10
   hikari = throw "hikari has been removed from nixpkgs, it was unmaintained and required wlroots_0_15 at the time of removal"; # Added 2024-03-28
   hip = throw "'hip' has been removed in favor of 'rocmPackages.clr'"; # Added 2023-10-08
@@ -559,6 +564,7 @@ mapAliases ({
   hip-amd = throw "'hip-amd' has been removed in favor of 'rocmPackages.clr'"; # Added 2023-10-08
   hip-common = throw "'hip-common' has been replaced with 'rocmPackages.hip-common'"; # Added 2023-10-08
   hip-nvidia = throw "'hip-nvidia' has been removed in favor of 'rocmPackages.clr'"; # Added 2023-10-08
+  hll2390dw-cups = throw "The hll2390dw-cups package was dropped since it was unmaintained."; # Added 2024-06-21
   ht-rust = xh; # Added 2021-02-13
   hydra-unstable = hydra_unstable; # added 2022-05-10
   hyper-haskell = throw "'hyper-haskell' has been removed. reason: has been broken for a long time and depends on an insecure electron version"; # Added 2024-03-14
@@ -577,6 +583,7 @@ mapAliases ({
   imlib = throw "imlib has been dropped due to the lack of maintenance from upstream since 2004"; # Added 2023-01-04
   indiepass-desktop = throw "indiepass-desktop has been dropped because it does not work with recent Electron versions"; # Added 2024-03-14
   indigenous-desktop = throw "'indigenous-desktop' has been renamed to/replaced by 'indiepass-desktop'"; # Added 2023-11-08
+  input-utils = throw "The input-utils package was dropped since it was unmaintained."; # Added 2024-06-21
   instead-launcher = throw "instead-launcher has been removed, because it depended on qt4"; # Added 2023-07-26
   insync-v3 = throw "insync-v3 has been merged into the insync package; use insync instead"; #Added 2023-05-13
   index-fm = libsForQt5.mauiPackages.index; # added 2022-05-17
@@ -646,6 +653,8 @@ mapAliases ({
   ### L ###
 
   larynx = piper-tts; # Added 2023-05-09
+  LASzip = laszip; # Added 2024-06-12
+  LASzip2 = laszip_2; # Added 2024-06-12
   latinmodern-math = lmmath;
   ldgallery = throw "'ldgallery' has been removed from nixpkgs. Use the Flake provided by ldgallery instead"; # Added 2023-07-26
   ledger_agent = ledger-agent; # Added 2024-01-07
@@ -809,6 +818,7 @@ mapAliases ({
 
   lobster-two = google-fonts; # Added 2021-07-22
   luxcorerender = throw "'luxcorerender' has been removed as it's unmaintained and broken in nixpkgs since a while ago"; # Added 2023-06-07
+  lv_img_conv = throw "'lv_img_conv' has been removed from nixpkgs as it is broken"; # Added 2024-06-18
   lxd = lib.warn "lxd has been renamed to lxd-lts" lxd-lts; # Added 2024-04-01
   lxd-unwrapped = lib.warn "lxd-unwrapped has been renamed to lxd-unwrapped-lts" lxd-unwrapped-lts; # Added 2024-04-01
   lzma = xz; # moved from top-level 2021-03-14
@@ -816,6 +826,7 @@ mapAliases ({
   ### M ###
 
   MACS2 = macs2; # Added 2023-06-12
+  mailman-rss = throw "The mailman-rss package was dropped since it was unmaintained."; # Added 2024-06-21
   mariadb_104 = throw "mariadb_104 has been removed from nixpkgs, please switch to another version like mariadb_106"; # Added 2023-09-11
   mariadb_1010 = throw "mariadb_1010 has been removed from nixpkgs, please switch to another version like mariadb_1011"; # Added 2023-11-14
   mariadb-client = hiPrio mariadb.client; #added 2019.07.28
@@ -910,13 +921,12 @@ mapAliases ({
   );
   nix-review = throw "'nix-review' has been renamed to/replaced by 'nixpkgs-review'"; # Converted to throw 2023-09-10
   nix-template-rpm = throw "'nix-template-rpm' has been removed as it is broken and unmaintained"; # Added 2023-11-20
+  nix-top = throw "The nix-top package was dropped since it was unmaintained."; # Added 2024-06-21
+  nix-universal-prefetch = throw "The nix-universal-prefetch package was dropped since it was unmaintained."; # Added 2024-06-21
   nixFlakes = nixVersions.stable; # Added 2021-05-21
   nixStable = nixVersions.stable; # Added 2022-01-24
-  nixUnstable = nixVersions.unstable; # Added 2022-01-26
+  nixUnstable = throw "nixUnstable has been removed. For bleeding edge (Nix master, roughly weekly updated) use nixVersions.git, otherwise use nixVersions.latest."; # Converted to throw 2024-04-22
   nix_2_3 = nixVersions.nix_2_3;
-  nix_2_4 = nixVersions.nix_2_4;
-  nix_2_5 = nixVersions.nix_2_5;
-  nix_2_6 = nixVersions.nix_2_6;
   nixfmt = lib.warn "nixfmt was renamed to nixfmt-classic. The nixfmt attribute may be used for the new RFC 166-style formatter in the future, which is currently available as nixfmt-rfc-style" nixfmt-classic; # Added 2024-03-31
   nixops = throw "'nixops' has been removed. Please use 'nixops_unstable_minimal' for the time being. E.g. nixops_unstable_minimal.withPlugins (ps: [ ps.nixops-gce ])"; # Added 2023-10-26
   nixopsUnstable = nixops_unstable; # Added 2022-03-03
@@ -1199,6 +1209,7 @@ mapAliases ({
   ### S ###
 
   s2n = s2n-tls; # Added 2021-03-03
+  sandboxfs = throw "'sandboxfs' has been removed due to being unmaintained, consider using linux namespaces for sandboxing instead"; # Added 2024-06-06
   sane-backends-git = sane-backends; # Added 2021-02-19
   scantailor = scantailor-advanced; # Added 2022-05-26
   schildichat-web = throw ''
@@ -1328,6 +1339,7 @@ mapAliases ({
   uberwriter = apostrophe; # Added 2020-04-23
   ubootBeagleboneBlack = ubootAmx335xEVM; # Added 2020-01-21
   ue4 = throw "ue4 has been removed, because the package was broken for years"; # Added 2023-11-22
+  uefi-firmware-parser = throw "The uefi-firmware-parser package was dropped since it was unmaintained."; # Added 2024-06-21
   uhd3_5 = throw "uhd3_5 has been removed, because it was no longer needed"; # Added 2023-10-07
   uhhyou.lv2 = throw "'uhhyou.lv2' has been removed, upstream gone"; # Added 2023-06-21
   unicorn-emu = unicorn; # Added 2020-10-29
@@ -1418,7 +1430,7 @@ mapAliases ({
   xineLib = xine-lib; # Added 2021-04-27
   xineUI = xine-ui; # Added 2021-04-27
   xmlada = gnatPackages.xmlada; # Added 2024-02-25
-  xonsh-unwrapped = xonsh.passthru.unwrapped;
+  xonsh-unwrapped = python3Packages.xonsh; # Added 2024-06-18
   xtrt = throw "xtrt has been removed due to being abandoned"; # Added 2023-05-25
   xulrunner = firefox-unwrapped; # Added 2023-11-03
   xvfb_run = xvfb-run; # Added 2021-05-07
@@ -1462,6 +1474,10 @@ mapAliases ({
 
   inherit (stdenv.hostPlatform) system; # Added 2021-10-22
   inherit (stdenv) buildPlatform hostPlatform targetPlatform; # Added 2023-01-09
+
+  freebsdCross = freebsd; # Added 2024-06-18
+  netbsdCross = netbsd; # Added 2024-06-18
+  openbsdCross = openbsd; # Added 2024-06-18
 
   # LLVM packages for (integration) testing that should not be used inside Nixpkgs:
   llvmPackages_latest = llvmPackages_18;

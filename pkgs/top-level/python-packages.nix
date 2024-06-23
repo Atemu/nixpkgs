@@ -787,9 +787,15 @@ self: super: with self; {
 
   asdf = callPackage ../development/python-modules/asdf { };
 
+  asdf-astropy = callPackage ../development/python-modules/asdf-astropy { };
+
+  asdf-coordinates-schemas = callPackage ../development/python-modules/asdf-coordinates-schemas { };
+
   asdf-standard = callPackage ../development/python-modules/asdf-standard { };
 
   asdf-transform-schemas = callPackage ../development/python-modules/asdf-transform-schemas { };
+
+  asdf-wcs-schemas = callPackage ../development/python-modules/asdf-wcs-schemas { };
 
   ase = callPackage ../development/python-modules/ase { };
 
@@ -1514,6 +1520,8 @@ self: super: with self; {
 
   bentoml = callPackage ../development/python-modules/bentoml { };
 
+  berkeleydb = callPackage ../development/python-modules/berkeleydb { };
+
   bespon = callPackage ../development/python-modules/bespon { };
 
   betacode = callPackage ../development/python-modules/betacode { };
@@ -2098,6 +2106,8 @@ self: super: with self; {
   chalice = callPackage ../development/python-modules/chalice { };
 
   chameleon = callPackage ../development/python-modules/chameleon { };
+
+  changefinder = callPackage ../development/python-modules/changefinder { };
 
   channels = callPackage ../development/python-modules/channels { };
 
@@ -2957,6 +2967,8 @@ self: super: with self; {
 
   deltachat = callPackage ../development/python-modules/deltachat { };
 
+  deltachat2 = callPackage ../development/python-modules/deltachat2 { };
+
   deluge-client = callPackage ../development/python-modules/deluge-client { };
 
   demes = callPackage ../development/python-modules/demes { };
@@ -3394,6 +3406,8 @@ self: super: with self; {
   django-simple-history = callPackage ../development/python-modules/django-simple-history { };
 
   django-sites = callPackage ../development/python-modules/django-sites { };
+
+  django-soft-delete = callPackage ../development/python-modules/django-soft-delete { };
 
   django-statici18n = callPackage ../development/python-modules/django-statici18n { };
 
@@ -4034,6 +4048,8 @@ self: super: with self; {
   exrex = callPackage ../development/python-modules/exrex { };
 
   exitcode = callPackage ../development/python-modules/exitcode { };
+
+  extension-helpers = callPackage ../development/python-modules/extension-helpers { };
 
   extract-msg = callPackage ../development/python-modules/extract-msg { };
 
@@ -5271,6 +5287,8 @@ self: super: with self; {
 
   gviz-api = callPackage ../development/python-modules/gviz-api { };
 
+  gwcs = callPackage ../development/python-modules/gwcs { };
+
   gym = callPackage ../development/python-modules/gym { };
 
   gym-notices = callPackage ../development/python-modules/gym-notices { };
@@ -5340,6 +5358,8 @@ self: super: with self; {
   hatch-fancy-pypi-readme = callPackage ../development/python-modules/hatch-fancy-pypi-readme { };
 
   hatch-jupyter-builder = callPackage ../development/python-modules/hatch-jupyter-builder { };
+
+  hatch-odoo = callPackage ../development/python-modules/hatch-odoo { };
 
   hatch-vcs = callPackage ../development/python-modules/hatch-vcs { };
 
@@ -5521,8 +5541,6 @@ self: super: with self; {
   html5-parser = callPackage ../development/python-modules/html5-parser { };
 
   htmldate = callPackage ../development/python-modules/htmldate { };
-
-  htmllaundry = callPackage ../development/python-modules/htmllaundry { };
 
   htmllistparse = callPackage ../development/python-modules/htmllistparse { };
 
@@ -6548,6 +6566,7 @@ self: super: with self; {
 
   laszip = callPackage ../development/python-modules/laszip {
     inherit (pkgs) cmake ninja;
+    inherit (pkgs.__splicedPackages) laszip;
   };
 
   latex2mathml = callPackage ../development/python-modules/latex2mathml { };
@@ -7026,8 +7045,6 @@ self: super: with self; {
 
   lnkparse3 = callPackage ../development/python-modules/lnkparse3 { };
 
-  loadcredential = callPackage ../development/python-modules/loadcredential { };
-
   loca = callPackage ../development/python-modules/loca { };
 
   localimport = callPackage ../development/python-modules/localimport { };
@@ -7291,6 +7308,8 @@ self: super: with self; {
   matchpy = callPackage ../development/python-modules/matchpy { };
 
   mathlibtools = callPackage ../development/python-modules/mathlibtools { };
+
+  mathutils = callPackage ../development/python-modules/mathutils { };
 
   matlink-gpapi = callPackage ../development/python-modules/matlink-gpapi { };
 
@@ -7760,6 +7779,8 @@ self: super: with self; {
   motmetrics = callPackage ../development/python-modules/motmetrics { };
 
   motionblinds = callPackage ../development/python-modules/motionblinds { };
+
+  motionblindsble = callPackage ../development/python-modules/motionblindsble { };
 
   motioneye-client = callPackage ../development/python-modules/motioneye-client { };
 
@@ -8801,6 +8822,8 @@ self: super: with self; {
 
   netdata = callPackage ../development/python-modules/netdata { };
 
+  netdata-pandas = callPackage ../development/python-modules/netdata-pandas { };
+
   netdisco = callPackage ../development/python-modules/netdisco { };
 
   nethsm = callPackage ../development/python-modules/nethsm { };
@@ -9772,6 +9795,8 @@ self: super: with self; {
   phone-modem = callPackage ../development/python-modules/phone-modem { };
 
   phonenumbers = callPackage ../development/python-modules/phonenumbers { };
+
+  photutils = callPackage ../development/python-modules/photutils { };
 
   pkgutil-resolve-name = callPackage ../development/python-modules/pkgutil-resolve-name { };
 
@@ -13579,6 +13604,8 @@ self: super: with self; {
 
   rubymarshal = callPackage ../development/python-modules/rubymarshal { };
 
+  ruff-api = callPackage ../development/python-modules/ruff-api { };
+
   ruffus = callPackage ../development/python-modules/ruffus { };
 
   rules = callPackage ../development/python-modules/rules { };
@@ -14834,6 +14861,11 @@ self: super: with self; {
   syncedlyrics = callPackage ../development/python-modules/syncedlyrics { };
 
   syncer = callPackage ../development/python-modules/syncer { };
+
+  syndication-domination = toPythonModule (pkgs.syndication-domination.override {
+    enablePython = true;
+    python3Packages = self;
+  });
 
   synergy = callPackage ../development/python-modules/synergy { };
 
@@ -17245,6 +17277,10 @@ self: super: with self; {
   xnatpy = callPackage ../development/python-modules/xnatpy { };
 
   xnd = callPackage ../development/python-modules/xnd { };
+
+  xonsh = toPythonModule (pkgs.xonsh.override {
+    python3Packages = self;
+  });
 
   xpath-expressions = callPackage ../development/python-modules/xpath-expressions { };
 
