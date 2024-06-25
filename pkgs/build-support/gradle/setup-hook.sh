@@ -21,7 +21,7 @@ gradle() {
 gradleBuildPhase() {
     runHook preBuild
 
-    gradle ${enableParallelBuilding:+--parallel} "${gradleBuildTask:-assemble}"
+    gradle ${enableParallelBuilding:+--parallel} ${gradleBuildTask:-assemble}
 
     runHook postBuild
 }
