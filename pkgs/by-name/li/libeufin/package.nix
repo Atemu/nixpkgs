@@ -9,12 +9,12 @@
 
 stdenv.mkDerivation rec {
   pname = "libeufin";
-  version = "0.11.2";
+  version = "0.11.3";
 
   src = fetchgit {
     url = "https://git.taler.net/libeufin.git/";
     rev = "v${version}";
-    hash = "sha256-7w5G8F/XWsWJwkpQQ8GqDA9u6HLV+X9N2RJHn+yXihs=";
+    hash = "sha256-6bMYcpxwL1UJXt0AX6R97C0Orwqb7E+TZO2Sz1qode8=";
     fetchSubmodules = true;
     leaveDotGit = true; # Required for correct submodule fetching
     # Delete .git folder for reproducibility (otherwise, the hash changes unexpectedly after fetching submodules)
