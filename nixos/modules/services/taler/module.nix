@@ -11,9 +11,7 @@ let
 in
 
 {
-  imports = [
-    ./exchange.nix
-  ];
+  imports = [ ./exchange.nix ];
 
   options.services.taler = {
     enable = lib.mkEnableOption "the GNU Taler system";
@@ -21,9 +19,13 @@ in
       type = lib.types.submodule { freeformType = settingsFormat.type; };
       default = { };
     };
+    configFile = lib.mkOption {
+      internal = true;
+      default = settingsFormat.generate "taler.conf" this.settings;
+    };
   };
 
   config = {
-    environment.etc."taler/taler.conf".source = settingsFormat.generate "foo-config.json" this.settings;
+    environment.etc."taler/taler.conf".source = this.configFile;
   };
 }
