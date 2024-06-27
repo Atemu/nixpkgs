@@ -11,11 +11,12 @@ let
 in
 
 {
+  imports = [
+    ./exchange.nix
+  ];
+
   options.services.taler = {
     enable = lib.mkEnableOption "the GNU Taler system";
-    exchange = lib.mkOption {
-      type = lib.types.submodule ./exchange.nix;
-    };
     settings = lib.mkOption {
       type = lib.types.submodule { freeformType = settingsFormat.type; };
       default = { };

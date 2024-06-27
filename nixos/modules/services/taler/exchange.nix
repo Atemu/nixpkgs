@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 
 {
-  options = {
+  options.services.taler.exchange = {
     enable = lib.mkEnableOption "the GNU Taler exchange";
   };
 }
