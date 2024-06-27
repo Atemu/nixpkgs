@@ -16,7 +16,17 @@ in
   options.services.taler = {
     enable = lib.mkEnableOption "the GNU Taler system";
     settings = lib.mkOption {
-      type = lib.types.submodule { freeformType = settingsFormat.type; };
+      type = lib.types.submodule {
+        freeformType = settingsFormat.type;
+        options = {
+          taler = {
+            # TODO upcase?
+            currency = lib.mkOption {
+              default = "KUDOS";
+            };
+          };
+        };
+      };
       default = { };
     };
     configFile = lib.mkOption {
