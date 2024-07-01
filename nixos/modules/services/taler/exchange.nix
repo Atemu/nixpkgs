@@ -22,6 +22,9 @@ let
   ];
   services = servicesDB ++ servicesNoDB;
   dbName = "taler-exchange-httpd";
+  # taler-exchange needs a runtime dir shared between the taler services. Crypto
+  # helpers put their sockets here for instance and the httpd connects to them.
+  runtimeDir = "/run/taler-system-runtime/";
   inherit (config.services.taler) configFile;
 in
 
@@ -49,7 +52,7 @@ in
           RuntimeDirectory = name;
           StateDirectory = name;
           CacheDirectory = name;
-          ReadWritePaths = [ "/run/taler-system-runtime/" ];
+          ReadWritePaths = [ runtimeDir ];
           # TODO more hardening
           # PrivateTmp = "yes";
           # PrivateDevices = "yes";
@@ -118,7 +121,7 @@ in
         TALER_DATA_HOME = "\${STATE_DIRECTORY}/";
         TALER_CACHE_HOME = "\${CACHE_DIRECTORY}/";
         # TALER_RUNTIME_DIR = "\${RUNTIME_DIRECTORY}/";
-        TALER_RUNTIME_DIR = "/run/taler-system-runtime/"; # TODO refactor into constant
+        TALER_RUNTIME_DIR = runtimeDir; # TODO refactor into constant
       };
     };
 
@@ -126,9 +129,7 @@ in
 
     systemd.tmpfiles.settings = {
       "10-taler-exchange" = {
-        # taler-exchange needs a global runtime dir where the secmod helpers
-        # create sockets and the httpd connects to them.
-        "/run/taler-system-runtime/" = {
+        "${runtimeDir}" = {
           d = {
             group = "taler-exchange";
             user = "nobody";
