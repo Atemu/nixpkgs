@@ -7,7 +7,12 @@
 
 let
   this = config.services.taler.exchange;
-  services = [ "httpd" ];
+  services = [
+    "httpd"
+    "secmod-cs"
+    "secmod-eddsa"
+    "secmod-rsa"
+  ];
   inherit (config.services.taler) configFile;
 in
 
@@ -28,9 +33,13 @@ in
       serviceConfig = {
         DynamicUser = true;
         User = name;
+        Group = "taler-exchange"; # TODO refactor into constant
         ExecStart =
           "${this.package}/bin/${name} -c ${configFile}" + lib.optionalString this.debug " -L debug"; # TODO as a list?
         RuntimeDirectory = name;
+        StateDirectory = name;
+        CacheDirectory = name;
+        ReadWritePaths = [ "/run/taler-system-runtime/" ];
         # TODO more hardening
         # PrivateTmp = "yes";
         # PrivateDevices = "yes";
@@ -60,6 +69,28 @@ in
       };
       exchangedb-postgres = {
         CONFIG = "postgres:///taler-exchange-httpd";
+      };
+      PATHS = {
+        TALER_DATA_HOME = "\${STATE_DIRECTORY}/";
+        TALER_CACHE_HOME = "\${CACHE_DIRECTORY}/";
+        # TALER_RUNTIME_DIR = "\${RUNTIME_DIRECTORY}/";
+        TALER_RUNTIME_DIR = "/run/taler-system-runtime/"; # TODO refactor into constant
+      };
+    };
+
+    users.groups.taler-exchange = { };
+
+    systemd.tmpfiles.settings = {
+      "10-taler-exchange" = {
+        # taler-exchange needs a global runtime dir where the secmod helpers
+        # create sockets and the httpd connects to them.
+        "/run/taler-system-runtime/" = {
+          d = {
+            group = "taler-exchange";
+            user = "nobody";
+            mode = "070";
+          };
+        };
       };
     };
     services.postgresql.enable = true;
