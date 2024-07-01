@@ -20,8 +20,8 @@ in
         freeformType = settingsFormat.type;
         options = {
           taler = {
-            # TODO upcase?
             currency = lib.mkOption {
+              # TODO upcase?
               default = "KUDOS";
             };
           };
@@ -29,9 +29,30 @@ in
       };
       default = { };
     };
+    includes = lib.mkOption {
+      type = with lib.types; listOf str;
+      default = [ ];
+      description = ''
+        Files to include into the config file using Taler's `@inline@` directive.
+
+        This allows including arbitrary INI files, including imperatively managed ones.
+      '';
+    };
     configFile = lib.mkOption {
       internal = true;
-      default = settingsFormat.generate "taler.conf" this.settings;
+      default =
+        let
+          includes = pkgs.writers.writeText "includes.conf" (
+            lib.concatStringsSep "\n" (map (include: "@inline@ ${include}") this.includes)
+          );
+          generatedConfig = settingsFormat.generate "generated-taler.conf" this.settings;
+        in
+        pkgs.runCommand "taler.conf" { } ''
+          cat ${includes} > $out
+          echo >> $out
+          echo >> $out
+          cat ${generatedConfig} >> $out
+        '';
     };
   };
 
