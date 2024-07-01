@@ -48,7 +48,7 @@ in
         MASTER_PUBLIC_KEY = "Q6KCV81R9T3SC41T5FCACC2D084ACVH5A25FH44S6M5WXWZAA8P0";
         # WIRE_RESPONSE = ${TALER_DATA_HOME}/exchange/account-1.json;
 
-        PORT = 8081;
+        PORT = 8081; # TODO option
         BASE_URL = "https://exchange.hephaistos.foo.bar/"; # TODO ensure / is present!
         SIGNKEY_DURATION = "2 weeks";
         SIGNKEY_LEGAL_DURATION = "2 years";
@@ -58,6 +58,17 @@ in
         TERMS_ETAG = 0;
         PRIVACY_ETAG = 0;
       };
+      exchangedb-postgres = {
+        CONFIG = "postgres:///taler-exchange-httpd";
+      };
     };
+    services.postgresql.enable = true;
+    services.postgresql.ensureDatabases = [ "taler-exchange-httpd" ];
+    services.postgresql.ensureUsers = [
+      {
+        name = "taler-exchange-httpd";
+        ensureDBOwnership = true;
+      }
+    ];
   };
 }
