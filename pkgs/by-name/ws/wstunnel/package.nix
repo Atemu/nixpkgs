@@ -7,7 +7,7 @@
 }:
 
 let
-  version = "9.7.0";
+  version = "9.7.2";
 in
 
 rustPlatform.buildRustPackage {
@@ -18,10 +18,10 @@ rustPlatform.buildRustPackage {
     owner = "erebe";
     repo = "wstunnel";
     rev = "v${version}";
-    hash = "sha256-8bLccR6ZmldmrvjlZKFHEa4PoLzyUcLkyQbwSrJjoyY=";
+    hash = "sha256-5hpkY8MoSo59KmhXsPuLCmWq4KaUzuHBpesQMtgn7hw=";
   };
 
-  cargoHash = "sha256-IAq7Fyr6Ne1Bq18WfqBoppel9FOWSs8PkiXKMwcJ26c=";
+  cargoHash = "sha256-kv+DX98SjI3m2CdM4RHoMMISZyrFmlhlSaBor0dFUSE=";
 
   checkFlags = [
     # Tries to launch a test container

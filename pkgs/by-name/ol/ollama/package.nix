@@ -31,13 +31,13 @@
 let
   pname = "ollama";
   # don't forget to invalidate all hashes each update
-  version = "0.1.45";
+  version = "0.1.47";
 
   src = fetchFromGitHub {
     owner = "ollama";
     repo = "ollama";
     rev = "v${version}";
-    hash = "sha256-AKAuySyReG6kkwwgWodAso44+kri2Gz5VSLco8GBoIw=";
+    hash = "sha256-gxai2ORHABchnmdzjr9oYzk9p21qQjSIxrKt5k356i4=";
     fetchSubmodules = true;
   };
 
@@ -53,6 +53,7 @@ let
     (preparePatch "04-metal.diff" "sha256-Ne8J9R8NndUosSK0qoMvFfKNwqV5xhhce1nSoYrZo7Y=")
     (preparePatch "05-default-pretokenizer.diff" "sha256-JnCmFzAkmuI1AqATG3jbX7nGIam4hdDKqqbG5oh7h70=")
     (preparePatch "06-qwen2.diff" "sha256-nMtoAQUsjYuJv45uTlz8r/K1oF5NUsc75SnhgfSkE30=")
+    (preparePatch "07-gemma.diff" "sha256-dKJrRvg/XC6xtwxLHZ7lFkLNMwT8Ugmd5xRPuKQDXvU=")
   ];
 
   preparePatch = patch: hash: fetchpatch {
@@ -109,12 +110,6 @@ let
     ];
   };
 
-  runtimeLibs = lib.optionals enableRocm [
-    rocmPath
-  ] ++ lib.optionals enableCuda [
-    linuxPackages.nvidia_x11
-  ];
-
   appleFrameworks = darwin.apple_sdk_11_0.frameworks;
   metalFrameworks = [
     appleFrameworks.Accelerate
@@ -122,6 +117,17 @@ let
     appleFrameworks.MetalKit
     appleFrameworks.MetalPerformanceShaders
   ];
+
+  runtimeLibs = lib.optionals enableRocm [
+    rocmPath
+  ] ++ lib.optionals enableCuda [
+    linuxPackages.nvidia_x11
+  ];
+  wrapperOptions = builtins.concatStringsSep " " ([
+    "--suffix LD_LIBRARY_PATH : '/run/opengl-driver/lib:${lib.makeLibraryPath runtimeLibs}'"
+  ] ++ lib.optionals enableRocm [
+    "--set-default HIP_PATH '${rocmPath}'"
+  ]);
 
 
   goBuild =
@@ -183,10 +189,7 @@ goBuild ((lib.optionalAttrs enableRocm {
   '' + lib.optionalString (enableRocm || enableCuda) ''
     # expose runtime libraries necessary to use the gpu
     mv "$out/bin/ollama" "$out/bin/.ollama-unwrapped"
-    makeWrapper "$out/bin/.ollama-unwrapped" "$out/bin/ollama" ${
-      lib.optionalString enableRocm
-        ''--set-default HIP_PATH '${rocmPath}' ''} \
-      --suffix LD_LIBRARY_PATH : '/run/opengl-driver/lib:${lib.makeLibraryPath runtimeLibs}'
+    makeWrapper "$out/bin/.ollama-unwrapped" "$out/bin/ollama" ${wrapperOptions}
   '';
 
   ldflags = [
