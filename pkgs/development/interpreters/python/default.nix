@@ -79,10 +79,10 @@ in {
     sourceVersion = {
       major = "3";
       minor = "12";
-      patch = "3";
+      patch = "4";
       suffix = "";
     };
-    hash = "sha256-Vr/vH9/BIhzmcg5DpmHj60F4XdkUzplpjYx4lq9L2qE=";
+    hash = "sha256-9tQZpth0OrJnAIAbSQjSbZfouYbhT5XeMbMt4rDnlVQ=";
     inherit (darwin) configd;
     inherit passthruFun;
   };
@@ -93,9 +93,9 @@ in {
       major = "3";
       minor = "13";
       patch = "0";
-      suffix = "b2";
+      suffix = "b3";
     };
-    hash = "sha256-vxG+AbQqB6Nlnk4jNZHgPaYxtxEqph7h4DDuuMXf2Gk=";
+    hash = "sha256-O+CUrQixHcKgZUY1JCOceNyfKzQrAdzU4eYG27xceKU=";
     inherit (darwin) configd;
     inherit passthruFun;
   };

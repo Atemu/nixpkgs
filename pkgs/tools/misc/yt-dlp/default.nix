@@ -10,6 +10,7 @@
 , pycryptodomex
 , websockets
 , mutagen
+, pythonRelaxDepsHook
 , requests
 , secretstorage
 , urllib3
@@ -25,17 +26,18 @@ buildPythonPackage rec {
   # The websites yt-dlp deals with are a very moving target. That means that
   # downloads break constantly. Because of that, updates should always be backported
   # to the latest stable release.
-  version = "2024.5.27";
+  version = "2024.7.2";
   pyproject = true;
 
   src = fetchPypi {
     inherit version;
     pname = "yt_dlp";
-    hash = "sha256-NWbA3iQNDNPRwihc5lX3LKON/GGNY01GgYsA2J1SiL4=";
+    hash = "sha256-KwyGtXnUoETq88SwDj17JNgubiaGn6EcKI6kOVs4f0E=";
   };
 
   build-system = [
     hatchling
+    pythonRelaxDepsHook
   ];
 
   dependencies = [
@@ -48,6 +50,8 @@ buildPythonPackage rec {
     urllib3
     websockets
   ];
+
+  pythonRelaxDeps = [ "requests" ];
 
   # Ensure these utilities are available in $PATH:
   # - ffmpeg: post-processing & transcoding support

@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "flyctl";
-  version = "0.2.65";
+  version = "0.2.79";
 
   src = fetchFromGitHub {
     owner = "superfly";
     repo = "flyctl";
     rev = "v${version}";
-    hash = "sha256-TB0Y3QgoGM5RlKWBKg2XKuFQJz0mw6sqWuDn1z93+6g=";
+    hash = "sha256-mnLBSTzeDcxmKNile4Kfe0AABoLgK3EL9HU8r8OPsuc=";
   };
 
-  vendorHash = "sha256-dQDkW1fSXn6c2bImnAyvb3WpdARe3EZdPkPkLZHMKzY=";
+  vendorHash = "sha256-RSLwEOtZsYfTgBdkZIxccxehz8lbozWJV5UdKiMeoLU=";
 
   subPackages = [ "." ];
 
@@ -27,7 +27,7 @@ buildGoModule rec {
   patches = [ ./disable-auto-update.patch ];
 
   preBuild = ''
-    go generate ./...
+    GOOS= GOARCH= CGO_ENABLED=0 go generate ./...
   '';
 
   preCheck = ''
