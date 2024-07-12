@@ -6,6 +6,7 @@
   cdrtools,
   curl,
   gawk,
+  glxinfo,
   gnugrep,
   gnused,
   jq,
@@ -13,7 +14,7 @@
   pciutils,
   procps,
   python3,
-  qemu,
+  qemu_full,
   socat,
   spice-gtk,
   swtpm,
@@ -28,7 +29,6 @@
   quickemu,
   testers,
   installShellFiles,
-  fetchpatch2,
 }:
 let
   runtimePaths = [
@@ -42,27 +42,29 @@ let
     pciutils
     procps
     python3
-    qemu
+    qemu_full
     socat
     swtpm
-    usbutils
     util-linux
     unzip
-    xdg-user-dirs
     xrandr
     zsync
+  ] ++ lib.optionals stdenv.isLinux [
+    glxinfo
+    usbutils
+    xdg-user-dirs
   ];
 in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "quickemu";
-  version = "4.9.4-unstable-2024-05-28";
+  version = "4.9.5";
 
   src = fetchFromGitHub {
     owner = "quickemu-project";
     repo = "quickemu";
-    rev = "d78255b097b599e8ab3713cb61c4085cc45f5a95"; # TODO: return to version on next release
-    hash = "sha256-fF306CdGqKM+779OLm0NNyqPBtm7TuU7UN/NanT12y8=";
+    rev = finalAttrs.version;
+    hash = "sha256-UlpNujF2E8H1zcWTen8D29od60pY8FaGueviT0iwupQ=";
   };
 
   postPatch = ''
@@ -71,6 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
       -e '/OVMF_CODE_4M.fd/s|ovmfs=(|ovmfs=("${OVMF.firmware}","${OVMF.variables}" |' \
       -e '/cp "''${VARS_IN}" "''${VARS_OUT}"/a chmod +w "''${VARS_OUT}"' \
       -e 's/Icon=.*qemu.svg/Icon=qemu/' \
+      -e 's,\[ -x "\$(command -v smbd)" \],true,' \
       quickemu
   '';
 
@@ -97,13 +100,13 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru.tests = testers.testVersion {
-    version = "4.9.5"; # required for passing tests, TODO: remove when release bump
     package = quickemu;
   };
 
   meta = {
     description = "Quickly create and run optimised Windows, macOS and Linux virtual machines";
     homepage = "https://github.com/quickemu-project/quickemu";
+    changelog = "https://github.com/quickemu-project/quickemu/releases/tag/${finalAttrs.version}";
     mainProgram = "quickemu";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [
