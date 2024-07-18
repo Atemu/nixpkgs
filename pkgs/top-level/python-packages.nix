@@ -6128,6 +6128,8 @@ self: super: with self; {
 
   json5 = callPackage ../development/python-modules/json5 { };
 
+  jsonxs = callPackage ../development/python-modules/jsonxs { };
+
   jsonargparse = callPackage ../development/python-modules/jsonargparse { };
 
   jsonconversion = callPackage ../development/python-modules/jsonconversion { };
@@ -7702,6 +7704,8 @@ self: super: with self; {
   moviepy = callPackage ../development/python-modules/moviepy { };
 
   mox3 = callPackage ../development/python-modules/mox3 { };
+
+  mozilla-django-oidc = callPackage ../development/python-modules/mozilla-django-oidc { };
 
   mpd2 = callPackage ../development/python-modules/mpd2 { };
 

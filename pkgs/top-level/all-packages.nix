@@ -13654,8 +13654,6 @@ with pkgs;
 
   tor = callPackage ../tools/security/tor { };
 
-  tor-browser = callPackage ../applications/networking/browsers/tor-browser { };
-
   touchegg = callPackage ../tools/inputmethods/touchegg { };
 
   torrent7z = callPackage ../tools/archivers/torrent7z { };
@@ -17467,6 +17465,12 @@ with pkgs;
     pythonAttr = "python313Full";
     bluezSupport = lib.meta.availableOn stdenv.hostPlatform bluez;
     x11Support = true;
+  };
+
+  # https://py-free-threading.github.io
+  python313FreeThreading = python313.override {
+    pythonAttr = "python313FreeThreading";
+    enableGIL = false;
   };
 
   pythonInterpreters = callPackage ./../development/interpreters/python { };
@@ -25927,8 +25931,6 @@ with pkgs;
 
   mullvad-vpn = callPackage ../applications/networking/mullvad-vpn { };
 
-  mullvad-browser = callPackage ../applications/networking/browsers/mullvad-browser { };
-
   mullvad-closest = with python3Packages; toPythonApplication mullvad-closest;
 
   mycorrhiza = callPackage ../servers/mycorrhiza { };
@@ -29117,8 +29119,6 @@ with pkgs;
 
   skeu = callPackage ../data/themes/skeu { };
 
-  sweet = callPackage ../data/themes/sweet { };
-
   sweet-nova = callPackage ../data/themes/sweet-nova { };
 
   shared-mime-info = callPackage ../data/misc/shared-mime-info { };
@@ -31027,6 +31027,7 @@ with pkgs;
   firefox-beta-unwrapped = firefoxPackages.firefox-beta;
   firefox-devedition-unwrapped = firefoxPackages.firefox-devedition;
   firefox-esr-115-unwrapped = firefoxPackages.firefox-esr-115;
+  firefox-esr-128-unwrapped = firefoxPackages.firefox-esr-128;
   firefox-esr-unwrapped = firefoxPackages.firefox-esr-115;
 
   firefox = wrapFirefox firefox-unwrapped { };
@@ -31045,13 +31046,19 @@ with pkgs;
 
   firefox-mobile = callPackage ../applications/networking/browsers/firefox/mobile-config.nix { };
 
-  firefox-esr = firefox-esr-115;
+  firefox-esr-128 = wrapFirefox firefox-esr-128-unwrapped {
+    nameSuffix = "-esr";
+    desktopName = "Firefox ESR";
+    wmClass = "firefox-esr";
+    icon = "firefox-esr";
+  };
   firefox-esr-115 = wrapFirefox firefox-esr-115-unwrapped {
     nameSuffix = "-esr";
     desktopName = "Firefox ESR";
     wmClass = "firefox-esr";
     icon = "firefox-esr";
   };
+  firefox-esr = firefox-esr-115;
 
   firefox-bin-unwrapped = callPackage ../applications/networking/browsers/firefox-bin {
     inherit (gnome) adwaita-icon-theme;
@@ -34799,6 +34806,8 @@ with pkgs;
 
   thunderbird-unwrapped = thunderbirdPackages.thunderbird;
   thunderbird = wrapThunderbird thunderbird-unwrapped { };
+
+  thunderbird-128 = wrapThunderbird thunderbirdPackages.thunderbird-128 { };
 
   thunderbird-bin = wrapThunderbird thunderbird-bin-unwrapped {
     applicationName = "thunderbird";
@@ -40182,8 +40191,6 @@ with pkgs;
   vcluster = callPackage ../applications/networking/cluster/vcluster {
     buildGoModule = buildGo122Module;
   };
-
-  vnote = libsForQt5.callPackage ../applications/office/vnote { };
 
   sshportal = callPackage ../servers/sshportal { };
 

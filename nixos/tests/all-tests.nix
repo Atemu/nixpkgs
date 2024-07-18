@@ -320,6 +320,7 @@ in {
   firefox-devedition = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-devedition; };
   firefox-esr    = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-esr; }; # used in `tested` job
   firefox-esr-115 = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-esr-115; };
+  firefox-esr-128 = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-esr-128; };
   firefoxpwa = handleTest ./firefoxpwa.nix {};
   firejail = handleTest ./firejail.nix {};
   firewall = handleTest ./firewall.nix { nftables = false; };
@@ -516,6 +517,8 @@ in {
   lxd-image-server = handleTest ./lxd-image-server.nix {};
   #logstash = handleTest ./logstash.nix {};
   lomiri = handleTest ./lomiri.nix {};
+  lomiri-calculator-app = runTest ./lomiri-calculator-app.nix;
+  lomiri-clock-app = runTest ./lomiri-clock-app.nix;
   lomiri-filemanager-app = runTest ./lomiri-filemanager-app.nix;
   lomiri-system-settings = handleTest ./lomiri-system-settings.nix {};
   lorri = handleTest ./lorri/default.nix {};
@@ -951,6 +954,7 @@ in {
   teeworlds = handleTest ./teeworlds.nix {};
   telegraf = handleTest ./telegraf.nix {};
   teleport = handleTest ./teleport.nix {};
+  teleports = runTest ./teleports.nix;
   thelounge = handleTest ./thelounge.nix {};
   terminal-emulators = handleTest ./terminal-emulators.nix {};
   tiddlywiki = handleTest ./tiddlywiki.nix {};
