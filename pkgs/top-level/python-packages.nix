@@ -1302,6 +1302,8 @@ self: super: with self; {
 
   azure-monitor-ingestion = callPackage ../development/python-modules/azure-monitor-ingestion { };
 
+  azure-monitor-query = callPackage ../development/python-modules/azure-monitor-query { };
+
   azure-multiapi-storage = callPackage ../development/python-modules/azure-multiapi-storage { };
 
   azure-nspkg = callPackage ../development/python-modules/azure-nspkg { };
@@ -1770,6 +1772,10 @@ self: super: with self; {
   braceexpand = callPackage ../development/python-modules/braceexpand { };
 
   bracex = callPackage ../development/python-modules/bracex { };
+
+  brainflow = callPackage ../development/python-modules/brainflow {
+    inherit (pkgs) brainflow;
+  };
 
   braintree = callPackage ../development/python-modules/braintree { };
 
@@ -3978,8 +3984,6 @@ self: super: with self; {
     inherit (pkgs.darwin.apple_sdk.frameworks) Security;
   };
 
-  etebase-server = callPackage ../servers/etebase { };
-
   eternalegypt = callPackage ../development/python-modules/eternalegypt { };
 
   etesync = callPackage ../development/python-modules/etesync { };
@@ -4538,10 +4542,12 @@ self: super: with self; {
 
   fontfeatures = callPackage ../development/python-modules/fontfeatures { };
 
-  fontforge = toPythonModule (pkgs.fontforge.override {
-    withPython = true;
-    inherit python;
-  });
+  fontforge = disabledIf
+    (pythonOlder "3.10")
+    (toPythonModule (pkgs.fontforge.override {
+      withPython = true;
+      inherit python;
+    }));
 
   fontmath = callPackage ../development/python-modules/fontmath { };
 
@@ -6539,7 +6545,7 @@ self: super: with self; {
   khanaa = callPackage ../development/python-modules/khanaa {};
 
   kicad = toPythonModule (pkgs.kicad.override {
-    python3 = python;
+    python311 = python;
   }).src;
 
   kinparse = callPackage ../development/python-modules/kinparse { };
@@ -7518,6 +7524,8 @@ self: super: with self; {
 
   memory-profiler = callPackage ../development/python-modules/memory-profiler { };
 
+  memory-tempfile = callPackage ../development/python-modules/memory-tempfile { };
+
   meraki = callPackage ../development/python-modules/meraki { };
 
   mercadopago = callPackage ../development/python-modules/mercadopago { };
@@ -8024,7 +8032,7 @@ self: super: with self; {
   mygpoclient = callPackage ../development/python-modules/mygpoclient { };
 
   myhdl = callPackage ../development/python-modules/myhdl {
-    inherit (pkgs) ghdl verilog;
+    inherit (pkgs) ghdl iverilog;
   };
 
   myhome = callPackage ../development/python-modules/myhome { };
@@ -9189,6 +9197,8 @@ self: super: with self; {
 
   py-expression-eval = callPackage ../development/python-modules/py-expression-eval { };
 
+  py-opensonic = callPackage ../development/python-modules/py-opensonic { };
+
   py-radix-sr = callPackage ../development/python-modules/py-radix-sr { };
 
   nwdiag = callPackage ../development/python-modules/nwdiag { };
@@ -10106,6 +10116,8 @@ self: super: with self; {
 
   prodict = callPackage ../development/python-modules/prodict { };
 
+  prometheus-async = callPackage ../development/python-modules/prometheus-async { };
+
   prometheus-pandas = callPackage ../development/python-modules/prometheus-pandas { };
 
   prophet = callPackage ../development/python-modules/prophet { };
@@ -10307,6 +10319,8 @@ self: super: with self; {
   python-djvulibre = callPackage ../development/python-modules/python-djvulibre { };
 
   python-ecobee-api = callPackage ../development/python-modules/python-ecobee-api { };
+
+  python-ffmpeg = callPackage ../development/python-modules/python-ffmpeg { };
 
   python-flirt = callPackage ../development/python-modules/python-flirt { };
 
@@ -12273,12 +12287,12 @@ self: super: with self; {
   pytest-asyncio = callPackage ../development/python-modules/pytest-asyncio { };
 
   pytest-asyncio_0_21 = pytest-asyncio.overridePythonAttrs (old: rec {
-    version = "0.21.1";
+    version = "0.21.2";
     src = pkgs.fetchFromGitHub {
       owner = "pytest-dev";
       repo = "pytest-asyncio";
       rev = "refs/tags/v${version}";
-      hash = "sha256-Wpo8MpCPGiXrckT2x5/yBYtGlzso/L2urG7yGc7SPkA=";
+      hash = "sha256-AVVvdo/CDF9IU6l779sLc7wKz5h3kzMttdDNTPLYxtQ=";
     };
   });
 
@@ -14778,6 +14792,8 @@ self: super: with self; {
   ssort = callPackage ../development/python-modules/ssort { };
 
   stack-data = callPackage ../development/python-modules/stack-data { };
+
+  stamina = callPackage ../development/python-modules/stamina { };
 
   stanio = callPackage ../development/python-modules/stanio { };
 
