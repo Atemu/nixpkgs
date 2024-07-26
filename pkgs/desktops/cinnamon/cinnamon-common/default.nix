@@ -58,7 +58,7 @@ let
     setproctitle
     pygobject3
     pycairo
-    pp.xapp # don't omit `pp.`, see #213561
+    python-xapp
     pillow
     pyinotify # for looking-glass
     pytz
@@ -71,13 +71,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "cinnamon-common";
-  version = "6.2.4";
+  version = "6.2.7";
 
   src = fetchFromGitHub {
     owner = "linuxmint";
     repo = "cinnamon";
     rev = version;
-    hash = "sha256-zWSz49ESzuftrE4caTxa+9Zvyz2rdmGgRz2hZO2OWtc=";
+    hash = "sha256-j9Jk/mG/EYQUyVCBMJ7B4ZFiSSb3fl+TgQ+wvSSpcwo=";
   };
 
   patches = [
@@ -179,7 +179,7 @@ stdenv.mkDerivation rec {
       --prefix XDG_DATA_DIRS : "${gnome.caribou}/share"
     )
 
-    buildPythonPath "$out ${python3.pkgs.xapp}"
+    buildPythonPath "$out ${python3.pkgs.python-xapp}"
 
     # https://github.com/NixOS/nixpkgs/issues/200397
     patchPythonScript $out/bin/cinnamon-spice-updater

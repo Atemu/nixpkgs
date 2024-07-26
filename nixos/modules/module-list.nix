@@ -217,6 +217,7 @@
   ./programs/java.nix
   ./programs/joycond-cemuhook.nix
   ./programs/k3b.nix
+  ./programs/kde-pim.nix
   ./programs/k40-whisperer.nix
   ./programs/kbdlight.nix
   ./programs/kclock.nix
@@ -732,6 +733,7 @@
   ./services/misc/etesync-dav.nix
   ./services/misc/evdevremapkeys.nix
   ./services/misc/felix.nix
+  ./services/misc/flaresolverr.nix
   ./services/misc/forgejo.nix
   ./services/misc/freeswitch.nix
   ./services/misc/fstrim.nix
@@ -761,7 +763,6 @@
   ./services/misc/klipper.nix
   ./services/misc/languagetool.nix
   ./services/misc/leaps.nix
-  ./services/misc/libreddit.nix
   ./services/misc/lidarr.nix
   ./services/misc/lifecycled.nix
   ./services/misc/llama-cpp.nix
@@ -807,6 +808,7 @@
   ./services/misc/radarr.nix
   ./services/misc/radicle.nix
   ./services/misc/readarr.nix
+  ./services/misc/redlib.nix
   ./services/misc/redmine.nix
   ./services/misc/renovate.nix
   ./services/misc/ripple-data-api.nix
@@ -1403,6 +1405,7 @@
   ./services/web-apps/honk.nix
   ./services/web-apps/icingaweb2/icingaweb2.nix
   ./services/web-apps/icingaweb2/module-monitoring.nix
+  ./services/web-apps/ifm.nix
   ./services/web-apps/invidious.nix
   ./services/web-apps/invoiceplane.nix
   ./services/web-apps/isso.nix
