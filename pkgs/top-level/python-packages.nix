@@ -1740,6 +1740,10 @@ self: super: with self; {
 
   bracex = callPackage ../development/python-modules/bracex { };
 
+  brainflow = callPackage ../development/python-modules/brainflow {
+    inherit (pkgs) brainflow;
+  };
+
   braintree = callPackage ../development/python-modules/braintree { };
 
   branca = callPackage ../development/python-modules/branca { };
@@ -3365,6 +3369,8 @@ self: super: with self; {
   django-simple-history = callPackage ../development/python-modules/django-simple-history { };
 
   django-sites = callPackage ../development/python-modules/django-sites { };
+
+  django-soft-delete = callPackage ../development/python-modules/django-soft-delete { };
 
   django-sr = callPackage ../development/python-modules/django-sr { };
 
@@ -15170,6 +15176,8 @@ self: super: with self; {
   timing-asgi = callPackage ../development/python-modules/timing-asgi { };
 
   timm = callPackage ../development/python-modules/timm { };
+
+  timy = callPackage ../development/python-modules/timy { };
 
   tiny-cuda-nn = toPythonModule (pkgs.tiny-cuda-nn.override {
     cudaPackages = self.torch.cudaPackages;
