@@ -235,6 +235,7 @@ in {
   couchdb = handleTest ./couchdb.nix {};
   crabfit = handleTest ./crabfit.nix {};
   cri-o = handleTestOn ["aarch64-linux" "x86_64-linux"] ./cri-o.nix {};
+  cryptpad = runTest ./cryptpad.nix;
   cups-pdf = handleTest ./cups-pdf.nix {};
   curl-impersonate = handleTest ./curl-impersonate.nix {};
   custom-ca = handleTest ./custom-ca.nix {};
@@ -375,6 +376,7 @@ in {
   gnome-xorg = handleTest ./gnome-xorg.nix {};
   gns3-server = handleTest ./gns3-server.nix {};
   gnupg = handleTest ./gnupg.nix {};
+  goatcounter = handleTest ./goatcounter.nix {};
   go-neb = handleTest ./go-neb.nix {};
   gobgpd = handleTest ./gobgpd.nix {};
   gocd-agent = handleTest ./gocd-agent.nix {};

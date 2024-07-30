@@ -44,7 +44,13 @@ let
       (builtins.attrNames sharedLibDeps);
 
   extraConfigFlags = lib.optionals (!enableNpm) [ "--without-npm" ];
-  self = stdenv.mkDerivation {
+
+  package = stdenv.mkDerivation (finalAttrs:
+  let
+    /** the final package fixed point, after potential overrides */
+    self = finalAttrs.finalPackage;
+  in
+  {
     inherit pname version;
 
     src = fetchurl {
@@ -220,7 +226,7 @@ let
       homepage = "https://nodejs.org";
       changelog = "https://github.com/nodejs/node/releases/tag/v${version}";
       license = licenses.mit;
-      maintainers = with maintainers; [ goibhniu aduh95 ];
+      maintainers = with maintainers; [ aduh95 ];
       platforms = platforms.linux ++ platforms.darwin;
       mainProgram = "node";
       knownVulnerabilities = optional (versionOlder version "18") "This NodeJS release has reached its end of life. See https://nodejs.org/en/about/releases/.";
@@ -235,5 +241,5 @@ let
     };
 
     passthru.python = python; # to ensure nodeEnv uses the same version
-  };
-in self
+  });
+in package
