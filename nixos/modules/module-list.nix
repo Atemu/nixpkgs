@@ -356,6 +356,7 @@
   ./security/systemd-confinement.nix
   ./security/tpm2.nix
   ./security/wrappers/default.nix
+  ./services/accessibility/speechd.nix
   ./services/admin/docuum.nix
   ./services/admin/meshcentral.nix
   ./services/admin/oxidized.nix
@@ -414,6 +415,7 @@
   ./services/blockchain/ethereum/geth.nix
   ./services/blockchain/ethereum/lighthouse.nix
   ./services/cluster/corosync/default.nix
+  ./services/cluster/druid/default.nix
   ./services/cluster/hadoop/default.nix
   ./services/cluster/k3s/default.nix
   ./services/cluster/kubernetes/addon-manager.nix
@@ -1242,6 +1244,7 @@
   ./services/networking/websockify.nix
   ./services/networking/wg-access-server.nix
   ./services/networking/wg-netmanager.nix
+  ./services/networking/wvdial.nix
   ./services/networking/webhook.nix
   ./services/networking/wg-quick.nix
   ./services/networking/wgautomesh.nix
