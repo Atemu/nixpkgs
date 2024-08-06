@@ -1090,7 +1090,7 @@ self: super: with self; {
 
   awswrangler = callPackage ../development/python-modules/awswrangler { };
 
-  ax = callPackage ../development/python-modules/ax { };
+  ax-platform = callPackage ../development/python-modules/ax-platform { };
 
   axis = callPackage ../development/python-modules/axis { };
 
@@ -2835,6 +2835,12 @@ self: super: with self; {
     inherit (pkgs.darwin.apple_sdk.frameworks) Security SystemConfiguration;
   };
 
+  datalad = callPackage ../development/python-modules/datalad { };
+
+  datalad-gooey = callPackage ../development/python-modules/datalad-gooey { };
+
+  datalad-next = callPackage ../development/python-modules/datalad-next { };
+
   datamodeldict = callPackage ../development/python-modules/datamodeldict { };
 
   datapoint = callPackage ../development/python-modules/datapoint { };
@@ -2842,6 +2848,8 @@ self: super: with self; {
   dataprep-ml = callPackage ../development/python-modules/dataprep-ml { };
 
   dataproperty = callPackage ../development/python-modules/dataproperty { };
+
+  datasalad = callPackage ../development/python-modules/datasalad { };
 
   dataset = callPackage ../development/python-modules/dataset { };
 
@@ -3617,6 +3625,8 @@ self: super: with self; {
 
   dploot = callPackage ../development/python-modules/dploot { };
 
+  drafthorse = callPackage ../development/python-modules/drafthorse { };
+
   draftjs-exporter = callPackage ../development/python-modules/draftjs-exporter { };
 
   dragonfly = callPackage ../development/python-modules/dragonfly { };
@@ -4340,6 +4350,8 @@ self: super: with self; {
 
   first = callPackage ../development/python-modules/first { };
 
+  fissix = callPackage ../development/python-modules/fissix { };
+
   fitbit = callPackage ../development/python-modules/fitbit { };
 
   fivem-api = callPackage ../development/python-modules/fivem-api { };
@@ -4972,9 +4984,7 @@ self: super: with self; {
 
   glean-parser = callPackage ../development/python-modules/glean-parser { };
 
-  glean-sdk = callPackage ../development/python-modules/glean-sdk {
-    inherit (pkgs) lmdb;
-  };
+  glean-sdk = callPackage ../development/python-modules/glean-sdk { };
 
   glfw = callPackage ../development/python-modules/glfw { };
 
@@ -9132,7 +9142,7 @@ self: super: with self; {
 
   nose2 = callPackage ../development/python-modules/nose2 { };
 
-  nose3 = callPackage ../development/python-modules/nose3 { };
+  nose2pytest = callPackage ../development/python-modules/nose2pytest { };
 
   notebook = callPackage ../development/python-modules/notebook { };
 
@@ -9482,6 +9492,8 @@ self: super: with self; {
 
   opentelemetry-instrumentation-asgi = callPackage ../development/python-modules/opentelemetry-instrumentation-asgi { };
 
+  opentelemetry-instrumentation-dbapi = callPackage ../development/python-modules/opentelemetry-instrumentation-dbapi { };
+
   opentelemetry-instrumentation-django = callPackage ../development/python-modules/opentelemetry-instrumentation-django { };
 
   opentelemetry-instrumentation-fastapi = callPackage ../development/python-modules/opentelemetry-instrumentation-fastapi { };
@@ -9489,6 +9501,8 @@ self: super: with self; {
   opentelemetry-instrumentation-flask = callPackage ../development/python-modules/opentelemetry-instrumentation-flask { };
 
   opentelemetry-instrumentation-grpc = callPackage ../development/python-modules/opentelemetry-instrumentation-grpc { };
+
+  opentelemetry-instrumentation-psycopg2 = callPackage ../development/python-modules/opentelemetry-instrumentation-psycopg2 { };
 
   opentelemetry-instrumentation-wsgi = callPackage ../development/python-modules/opentelemetry-instrumentation-wsgi { };
 
@@ -9628,6 +9642,8 @@ self: super: with self; {
   ots-python = callPackage ../development/python-modules/ots-python { };
 
   outcome = callPackage ../development/python-modules/outcome { };
+
+  outdated = callPackage ../development/python-modules/outdated { };
 
   outspin = callPackage ../development/python-modules/outspin { };
 
@@ -10451,8 +10467,6 @@ self: super: with self; {
   pyzbar = callPackage ../development/python-modules/pyzbar { };
 
   pyzipper = callPackage ../development/python-modules/pyzipper { };
-
-  pkutils = callPackage ../development/python-modules/pkutils { };
 
   plac = callPackage ../development/python-modules/plac { };
 
@@ -12406,6 +12420,8 @@ self: super: with self; {
 
   pytest-cov = callPackage ../development/python-modules/pytest-cov { };
 
+  pytest-cov-stub = callPackage ../development/python-modules/pytest-cov-stub { };
+
   pytest-cram = callPackage ../development/python-modules/pytest-cram { };
 
   pytest-datadir = callPackage ../development/python-modules/pytest-datadir { };
@@ -13876,8 +13892,6 @@ self: super: with self; {
 
   sacremoses = callPackage ../development/python-modules/sacremoses { };
 
-  safe = callPackage ../development/python-modules/safe { };
-
   safe-pysha3 = callPackage ../development/python-modules/safe-pysha3 { };
 
   safeio = callPackage ../development/python-modules/safeio { };
@@ -14215,6 +14229,8 @@ self: super: with self; {
   });
 
   shimmy = callPackage ../development/python-modules/shimmy { };
+
+  shiny = callPackage ../development/python-modules/shiny { };
 
   shippai = callPackage ../development/python-modules/shippai { };
 

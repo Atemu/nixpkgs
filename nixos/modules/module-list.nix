@@ -213,6 +213,7 @@
   ./programs/iay.nix
   ./programs/iftop.nix
   ./programs/i3lock.nix
+  ./programs/immersed-vr.nix
   ./programs/iotop.nix
   ./programs/java.nix
   ./programs/joycond-cemuhook.nix
@@ -304,6 +305,7 @@
   ./programs/wayland/hyprlock.nix
   ./programs/wayland/hyprland.nix
   ./programs/wayland/labwc.nix
+  ./programs/wayland/miracle-wm.nix
   ./programs/wayland/river.nix
   ./programs/wayland/sway.nix
   ./programs/wayland/waybar.nix
