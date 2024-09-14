@@ -155,6 +155,9 @@ let
   variants = lib.genAttrs [ "headless" "small" "full" ] lib.id;
   inherit (variants) headless small full;
 
+  # Checks whether the current version is within a given ffmpegFlag's version constraints
+  isLegalVersion = flag: lib.versionAtLeast version flag.version && lib.versionOlder version flag.versionMax;
+
   module =
     {
       config,
@@ -181,7 +184,7 @@ let
       ffmpegFlag = lib.types.submodule ({ config, name, ... }: {
         options = {
           enable = lib.mkEnableOption "Whether to enable ${name} support in ffmpeg." // lib.mkOption {
-            default = isInVariant config.variant && config.gate;
+            default = isInVariant config.variant && config.gate && isLegalVersion config;
           };
           packages = lib.mkOption {
             type = with lib.types; attrsOf package;
@@ -1107,7 +1110,7 @@ stdenv.mkDerivation (finalAttrs: {
     "--metalcc=${xcode}/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/metal"
     "--metallib=${xcode}/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/metallib"
   ] ++ lib.pipe eval.config.features [
-    (lib.filterAttrs (n: v: lib.versionAtLeast version v.version && lib.versionOlder version v.versionMax))
+    (lib.filterAttrs (n: isLegalVersion))
     (lib.mapAttrsToList (n: feature: (map (lib.enableFeature feature.enable) feature.flags)))
     lib.flatten
   ];
@@ -1131,7 +1134,7 @@ stdenv.mkDerivation (finalAttrs: {
   ++ optionals enable.cuda-llvm [ clang ];
 
   buildInputs = lib.pipe eval.config.features [
-    (lib.filterAttrs (n: v: v.enable && lib.versionAtLeast version v.version && lib.versionOlder version v.versionMax))
+    (lib.filterAttrs (n: v: v.enable && isLegalVersion v))
     (lib.mapAttrsToList (n: v: lib.attrValues v.packages))
     lib.flatten
   ];
