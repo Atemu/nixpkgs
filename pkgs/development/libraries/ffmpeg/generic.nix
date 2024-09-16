@@ -184,7 +184,14 @@ let
       ffmpegFlag = lib.types.submodule ({ config, name, ... }: {
         options = {
           enable = lib.mkEnableOption "Whether to enable ${name} support in ffmpeg." // lib.mkOption {
-            default = isInVariant config.variant && config.gate && isLegalVersion config;
+            default =
+              lib.all lib.id ([
+                config.gate
+                (isInVariant config.variant)
+                (isLegalVersion config)
+              ]
+              # Check whether a package can be eval'd on this system and isn't broken or unsupported
+              ++ lib.mapAttrsToList (n: v: (builtins.tryEval (toString v)).success) config.packages);
           };
           packages = lib.mkOption {
             type = with lib.types; attrsOf package;
@@ -400,11 +407,9 @@ let
 
           # Feature flags
           alsa = {
-            gate = stdenv.isLinux;
             packages = { inherit alsa-lib; };
           };
           amf = {
-            # TODO automate this
             gate = lib.meta.availableOn stdenv.hostPlatform amf;
             packages = { inherit amf-headers; };
           };
@@ -414,7 +419,6 @@ let
             description = "AV1 reference encoder";
           };
           appkit = {
-            gate = stdenv.isDarwin;
             packages = { inherit AppKit; };
           };
           aribcaption = {
@@ -430,11 +434,9 @@ let
             description = "(Advanced) SubStation Alpha subtitle rendering";
           };
           audiotoolbox = {
-            gate = stdenv.isDarwin;
             packages = { inherit AudioToolbox; };
           };
           avfoundation = {
-            gate = stdenv.isDarwin;
             packages = { inherit AVFoundation; };
           };
           avisynth = {
@@ -474,7 +476,6 @@ let
             flagPrefix = "lib";
           };
           coreimage = {
-            gate = stdenv.isDarwin;
             packages = { inherit CoreImage; };
           };
           cuda = {
@@ -493,14 +494,12 @@ let
             description = "AV1 decoder (focused on speed and correctness)";
           };
           dc1394 = {
-            gate = !stdenv.isDarwin;
             variant = full;
             packages = { inherit libdc1394 libraw1394; };
             flagPrefix = "lib";
             description = "IIDC-1394 grabbing (ieee 1394/Firewire)";
           };
           drm = {
-            gate = with stdenv; isLinux || isFreeBSD;
             packages = { inherit libdrm; };
             flagPrefix = "lib";
           };
@@ -620,7 +619,6 @@ let
             version = "5";
           };
           mfx = {
-            gate = with stdenv.hostPlatform; isLinux && !isAarch;
             variant = full;
             packages = { inherit intel-media-sdk; };
             flagPrefix = "lib";
@@ -742,6 +740,7 @@ let
             flagPrefix = "lib";
           };
           samba = {
+            gate = !stdenv.isDarwin;
             variant = full;
             packages = { inherit samba; };
             flags = [ "libsmbclient" ];
@@ -794,7 +793,6 @@ let
             flags = [ "librsvg" ];
           };
           svtav1 = {
-            gate = !stdenv.isAarch64 && !stdenv.hostPlatform.isMinGW;
             packages = { inherit svt-av1; };
             flagPrefix = "lib";
             description = "AV1 encoder/decoder (focused on speed and correctness)";
@@ -816,26 +814,22 @@ let
             description = "MP2 encoding";
           };
           v4l2 = {
-            gate = stdenv.isLinux;
             packages = { inherit libv4l; };
             flags = [ "libv4l2" "v4l2-m2m" ];
             description = "Video 4 Linux";
           };
           vaapi = {
-            gate = with stdenv; isLinux || isFreeBSD;
             packages = {
               libva = if ffmpegVariant == headless then libva-minimal else libva;
             };
             description = "Vaapi hardware acceleration";
           };
           vdpau = {
-            gate = !stdenv.hostPlatform.isMinGW;
             variant = small;
             packages = { inherit libvdpau; };
             description = "Vdpau hardware acceleration";
           };
           videotoolbox = {
-            gate = stdenv.isDarwin;
             packages = { inherit VideoToolbox; };
           };
           vidstab = {
@@ -846,7 +840,6 @@ let
             description = "Video stabilization";
           };
           vmaf = {
-            gate = !stdenv.isAarch64;
             variant = full;
             version = "5";
             packages = { inherit libvmaf; };
@@ -924,8 +917,6 @@ let
             description = "X11 grabbing mouse rendering";
           };
           xevd = {
-            # TODO automate this?
-            gate = !xevd.meta.broken;
             variant = full;
             version = "7";
             packages = { inherit xevd; };
@@ -933,7 +924,6 @@ let
             description = "MPEG-5 EVC decoding";
           };
           xeve = {
-            gate = !xeve.meta.broken;
             variant = full;
             version = "7";
             packages = { inherit xeve; };
