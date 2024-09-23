@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "yggdrasil";
-  version = "0.5.5";
+  version = "0.5.7";
 
   src = fetchFromGitHub {
     owner = "yggdrasil-network";
     repo = "yggdrasil-go";
     rev = "v${version}";
-    sha256 = "sha256-ZInSgHjur2C+G6h/VcYtlCt0YLWwMIrz84UkDBbR73s=";
+    sha256 = "sha256-hKgZejK7q0rySVBz3amC1wPhZsxCDexVECJWBMRQTDc=";
   };
 
-  vendorHash = "sha256-Ar0mWVFgLP1eYeKalaazZLKaLMXoe2bOGYkruzaKW88=";
+  vendorHash = "sha256-HBl30BnSERivIHb3dbfhDwwBvs3MUkltDf+R790vSGE=";
 
   subPackages = [ "cmd/genkeys" "cmd/yggdrasil" "cmd/yggdrasilctl" ];
 
@@ -30,6 +30,6 @@ buildGoModule rec {
       "An experiment in scalable routing as an encrypted IPv6 overlay network";
     homepage = "https://yggdrasil-network.github.io/";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ ehmry gazally lassulus ];
+    maintainers = with maintainers; [ ehmry gazally lassulus peigongdsd ];
   };
 }

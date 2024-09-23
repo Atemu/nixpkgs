@@ -459,6 +459,9 @@ let
       # Enable AMD secure display when available
       DRM_AMD_SECURE_DISPLAY = whenAtLeast "5.13" yes;
 
+      # Enable AMD image signal processor
+      DRM_AMD_ISP = whenAtLeast "6.11" yes;
+
       # Enable new firmware (and by extension NVK) for compatible hardware on Nouveau
       DRM_NOUVEAU_GSP_DEFAULT = whenAtLeast "6.8" yes;
 
@@ -507,6 +510,7 @@ let
       # Support configuring jack functions via fw mechanism at boot
       SND_HDA_PATCH_LOADER = yes;
       SND_HDA_CODEC_CA0132_DSP = whenOlder "5.7" yes; # Enable DSP firmware loading on Creative Soundblaster Z/Zx/ZxR/Recon
+      SND_HDA_CODEC_CS8409 = whenAtLeast "6.6" module; # Cirrus Logic HDA Bridge CS8409
       SND_OSSEMUL         = yes;
       SND_USB_CAIAQ_INPUT = yes;
       SND_USB_AUDIO_MIDI_V2 = whenAtLeast "6.5" yes;
@@ -719,6 +723,10 @@ let
       # Enable stack smashing protections in schedule()
       # See: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?h=v4.8&id=0d9e26329b0c9263d4d9e0422d80a0e73268c52f
       SCHED_STACK_END_CHECK            = yes;
+
+      # Enable separate slab buckets for user controlled allocations
+      # See: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=67f2df3b82d091ed095d0e47e1f3a9d3e18e4e41
+      SLAB_BUCKETS = whenAtLeast "6.11" yes;
     } // optionalAttrs stdenv.hostPlatform.isx86_64 {
       # Enable Intel SGX
       X86_SGX     = whenAtLeast "5.11" yes;

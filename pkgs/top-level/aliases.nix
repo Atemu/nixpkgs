@@ -135,6 +135,7 @@ mapAliases ({
   bpftool = bpftools; # Added 2021-05-03
   bpytop = throw "bpytop has been deprecated by btop"; # Added 2023-02-16
   bro = throw "'bro' has been renamed to/replaced by 'zeek'"; # Converted to throw 2023-09-10
+  bs-platform = throw "'bs-platform' was removed as it was broken, development ended and 'melange' has superseded it"; # Added 2024-07-29
   inherit (libsForQt5.mauiPackages) buho; # added 2022-05-17
   bukut = throw "bukut has been removed since it has been archived by upstream"; # Added 2023-05-24
   # Shorter names; keep the longer name for back-compat. Added 2023-04-11
@@ -597,6 +598,7 @@ mapAliases ({
   k3s_1_24 = throw "'k3s_1_24' has been removed from nixpkgs as it has reached end of life"; # Added 2024-03-14
   k3s_1_25 = throw "'k3s_1_25' has been removed from nixpkgs as it has reached end of life"; # Added 2024-03-14
   k3s_1_26 = throw "'k3s_1_26' has been removed from nixpkgs as it has reached end of life"; # Added 2024-05-20
+  k3s_1_27 = throw "'k3s_1_27' has been removed from nixpkgs as it has reached end of life on 2024-06-28"; # Added 2024-09-06
   # k3d was a 3d editing software k-3d - "k3d has been removed because it was broken and has seen no release since 2016" Added 2022-01-04
   # now kube3d/k3d will take it's place
   kube3d = k3d; # Added 2022-0705
@@ -673,6 +675,7 @@ mapAliases ({
   libxkbcommon_7 = throw "libxkbcommon_7 has been removed because it is impacted by security issues and not used in nixpkgs, move to 'libxkbcommon'"; # Added 2023-01-03
   lightdm_gtk_greeter = lightdm-gtk-greeter; # Added 2022-08-01
   lightstep-tracer-cpp = throw "lightstep-tracer-cpp is deprecated since 2022-08-29; the upstream recommends migration to opentelemetry projects.";
+  linux_wallpaperengine = throw "linux_wallpaperengine was removed due to freeimage dependency"; # Added 2024-07-19
   lispPackages_new = throw "Lisp packages have been redesigned. See 'lisp-modules' in the nixpkgs manual."; # Added 2024-05-07
   lispPackages = throw "Lisp packages have been redesigned. See 'lisp-modules' in the nixpkgs manual."; # Added 2024-05-07
   lispPackagesFor = throw "Lisp packages have been redesigned. See 'lisp-modules' in the nixpkgs manual."; # Added 2024-05-07
@@ -702,6 +705,7 @@ mapAliases ({
   linuxPackages_6_8 = linuxKernel.packages.linux_6_8;
   linuxPackages_6_9 = linuxKernel.packages.linux_6_9;
   linuxPackages_6_10 = linuxKernel.packages.linux_6_10;
+  linuxPackages_6_11 = linuxKernel.packages.linux_6_11;
   linuxPackages_rpi0 = linuxKernel.packages.linux_rpi1;
   linuxPackages_rpi02w = linuxKernel.packages.linux_rpi3;
   linuxPackages_rpi1 = linuxKernel.packages.linux_rpi1;
@@ -731,6 +735,7 @@ mapAliases ({
   linux_6_8 = linuxKernel.kernels.linux_6_8;
   linux_6_9 = linuxKernel.kernels.linux_6_9;
   linux_6_10 = linuxKernel.kernels.linux_6_10;
+  linux_6_11 = linuxKernel.kernels.linux_6_11;
   linux_rpi0 = linuxKernel.kernels.linux_rpi1;
   linux_rpi02w = linuxKernel.kernels.linux_rpi3;
   linux_rpi1 = linuxKernel.kernels.linux_rpi1;
@@ -1108,6 +1113,7 @@ mapAliases ({
   radicle-upstream = throw "'radicle-upstream' was sunset, see <https://community.radworks.org/t/2962>"; # Added 2024-05-04
   railway-travel = diebahn; # Added 2024-04-01
   rambox-pro = rambox; # Added 2022-12-12
+  rapidjson-unstable = lib.warn "'rapidjson-unstable' has been renamed to 'rapidjson'" rapidjson; # Added 2024-07-28
   rarian = throw "rarian has been removed as unused"; # Added 2023-07-05
   rccl = throw "'rccl' has been replaced with 'rocmPackages.rccl'"; # Added 2023-10-08
   rdc = throw "'rdc' has been replaced with 'rocmPackages.rdc'"; # Added 2023-10-08
@@ -1407,6 +1413,7 @@ mapAliases ({
   ### Z ###
 
   zabbix40 = throw "'zabbix40' has been removed as it has reached end of life"; # Added 2024-01-07
+  zed-editor = throw "'zed-editor' has been removed from nixos-24.05 since it was outdated (and newer versions cannot be backported as they require rust>=1.80 which is not present on this channel). Please install it from a more recent nixpkgs channel like nixos-unstable.";
   zfsStable = zfs; # Added 2024-02-26
   zfsUnstable = zfs_unstable; # Added 2024-02-26
   zinc = zincsearch; # Added 2023-05-28

@@ -2761,6 +2761,14 @@ self: super: {
         lib.pipe
           (super.purescript.overrideScope purescriptOverlay)
           ([
+            # https://github.com/purescript/purescript/pull/4547
+            (appendPatches [
+              (pkgs.fetchpatch {
+                name = "purescript-import-fix";
+                url = "https://github.com/purescript/purescript/commit/c610ec18391139a67dc9dcf19233f57d2c5413f7.patch";
+                hash = "sha256-7s/ygzAFJ1ocZIj3OSd3TbsmGki46WViPIZOU1dfQFg=";
+              })
+            ])
             # PureScript uses nodejs to run tests, so the tests have been disabled
             # for now.  If someone is interested in figuring out how to get this
             # working, it seems like it might be possible.
@@ -2773,7 +2781,24 @@ self: super: {
             (self.generateOptparseApplicativeCompletions [ "purs" ])
           ]);
 
-      purenix = super.purenix.overrideScope purescriptOverlay;
+      purenix =
+        lib.pipe
+          (super.purenix.overrideScope purescriptOverlay)
+          [
+            (appendPatches [
+              # https://github.com/purenix-org/purenix/pull/63
+              (pkgs.fetchpatch {
+                name = "purenix-purescript-0_15_12";
+                url = "https://github.com/purenix-org/purenix/commit/2dae563f887c7c8daf3dd3e292ee3580cb70d528.patch";
+                hash = "sha256-EZXf95BJINyqnRb2t/Ao/9C8ttNp3A27rpKiEKJjO6Y=";
+              })
+              (pkgs.fetchpatch {
+                name = "purenix-import-fix";
+                url = "https://github.com/purenix-org/purenix/commit/f1890690264e7e5ce7f5b0a32d73d910ce2cbd73.patch";
+                hash = "sha256-MRITcNOiaWmzlTd9l7sIz/LhlnpW8T02CXdcc1qQt3c=";
+              })
+            ])
+          ];
     })
     purescript
     purenix
@@ -3124,5 +3149,11 @@ self: super: {
     url = "https://github.com/awakesecurity/proto3-wire/commit/c1cadeb5fca2e82c5b28e2811c01f5b37eb21ed8.patch";
     hash = "sha256-tFOWpjGmZANC7H82QapZ36raaNWuZ6F3BgjxnfTXpMs=";
   }) super.proto3-wire;
+
+  # https://github.com/haskell-works/avro/pull/195
+  avro = appendPatch (pkgs.fetchpatch {
+    url = "https://github.com/haskell-works/avro/commit/5f6eb1ec8c8bac325d84b44757d4e2f8608d6939.patch";
+    sha256 = "sha256-1QEaoO8BTdvfFzMrybrf0v7cK0NbYrWOj4Mqexr+ylc=";
+  }) super.avro;
 
 } // import ./configuration-tensorflow.nix {inherit pkgs haskellLib;} self super

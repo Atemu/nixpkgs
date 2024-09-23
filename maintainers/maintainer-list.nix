@@ -5402,7 +5402,7 @@
     matrix = "@e1mo:chaos.jetzt";
     github = "e1mo";
     githubId = 61651268;
-    name = "Moritz Fromm";
+    name = "Nina Fromm";
     keys = [ { fingerprint = "67BE E563 43B6 420D 550E  DF2A 6D61 7FD0 A85B AADA"; } ];
   };
   eadwu = {
@@ -7908,6 +7908,12 @@
     githubId = 115728866;
     name = "Nova Witterick";
     keys = [ { fingerprint = "4304 6B43 8D83 078E 3DF7  10D6 DEB0 E15C 6D2A 5A7C"; } ];
+  };
+  heywoodlh = {
+    email = "nixpkgs@heywoodlh.io";
+    github = "heywoodlh";
+    githubId = 18178614;
+    name = "Spencer Heywood";
   };
   hh = {
     email = "hh@m-labs.hk";
@@ -11492,13 +11498,6 @@
     github = "LouisDK1";
     githubId = 4969294;
     name = "Louis Tim Larsen";
-  };
-  loveisgrief = {
-    name = "LoveIsGrief";
-    email = "loveisgrief@tuta.io";
-    github = "LoveIsGrief";
-    githubId = 2829538;
-    keys = [ { fingerprint = "9847 4F48 18C6 4E0A F0C5  3529 E96D 1EDF A053 45EB"; } ];
   };
   lovek323 = {
     email = "jason@oconal.id.au";
@@ -15240,6 +15239,12 @@
     githubId = 920910;
     name = "peelz";
   };
+  peigongdsd = {
+    email = "peigong2013@outlook.com";
+    github = "peigongdsd";
+    githubId = 51317171;
+    name = "Peilin Lee";
+  };
   pelme = {
     email = "andreas@pelme.se";
     github = "pelme";
@@ -15942,6 +15947,13 @@
     github = "proglottis";
     githubId = 74465;
     name = "James Fargher";
+  };
+  progrm_jarvis = {
+    email = "mrjarviscraft+nix@gmail.com";
+    github = "JarvisCraft";
+    githubId = 7693005;
+    name = "Petr Portnov";
+    keys = [ { fingerprint = "884B 08D2 8DFF 6209 1857  C1C7 7E8F C8F7 D1BB 84A3"; } ];
   };
   progval = {
     email = "progval+nix@progval.net";
@@ -19039,13 +19051,6 @@
     githubId = 2666479;
     name = "Y Nguyen";
   };
-  superherointj = {
-    email = "sergiomarcelo@yandex.com";
-    github = "superherointj";
-    githubId = 5861043;
-    matrix = "@superherointj:matrix.org";
-    name = "Sérgio Marcelo";
-  };
   SuperSandro2000 = {
     email = "sandro.jaeckel@gmail.com";
     matrix = "@sandro:supersandro.de";
@@ -20921,6 +20926,14 @@
     github = "vq";
     githubId = 230381;
     name = "Daniel Nilsson";
+  };
+  vrifox = {
+    email = "vrifox@vrifox.cc";
+    github = "vrifox";
+    githubId = 109021367;
+    keys = [ { fingerprint = "413C 73F0 C5BD 6318 826A  42D9 D400 98E5 B60B 2197"; } ];
+    matrix = "@vri:cozy.town";
+    name = "Vri";
   };
   vrinek = {
     email = "vrinek@hey.com";

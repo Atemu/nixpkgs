@@ -185,6 +185,7 @@ in {
   ceph-multi-node = handleTestOn [ "aarch64-linux" "x86_64-linux" ] ./ceph-multi-node.nix {};
   ceph-single-node = handleTestOn [ "aarch64-linux" "x86_64-linux" ] ./ceph-single-node.nix {};
   ceph-single-node-bluestore = handleTestOn [ "aarch64-linux" "x86_64-linux" ] ./ceph-single-node-bluestore.nix {};
+  ceph-single-node-bluestore-dmcrypt = handleTestOn [ "aarch64-linux" "x86_64-linux" ] ./ceph-single-node-bluestore-dmcrypt.nix {};
   certmgr = handleTest ./certmgr.nix {};
   cfssl = handleTestOn ["aarch64-linux" "x86_64-linux"] ./cfssl.nix {};
   cgit = handleTest ./cgit.nix {};
@@ -294,6 +295,7 @@ in {
   esphome = handleTest ./esphome.nix {};
   etc = pkgs.callPackage ../modules/system/etc/test.nix { inherit evalMinimalConfig; };
   activation = pkgs.callPackage ../modules/system/activation/test.nix { };
+  activation-lib = pkgs.callPackage ../modules/system/activation/lib/test.nix { };
   activation-var = runTest ./activation/var.nix;
   activation-nix-channel = runTest ./activation/nix-channel.nix;
   activation-etc-overlay-mutable = runTest ./activation/etc-overlay-mutable.nix;
@@ -518,8 +520,10 @@ in {
   #logstash = handleTest ./logstash.nix {};
   lomiri = handleTest ./lomiri.nix {};
   lomiri-calculator-app = runTest ./lomiri-calculator-app.nix;
+  lomiri-camera-app = runTest ./lomiri-camera-app.nix;
   lomiri-clock-app = runTest ./lomiri-clock-app.nix;
   lomiri-filemanager-app = runTest ./lomiri-filemanager-app.nix;
+  lomiri-gallery-app = runTest ./lomiri-gallery-app.nix;
   lomiri-system-settings = handleTest ./lomiri-system-settings.nix {};
   lorri = handleTest ./lorri/default.nix {};
   maddy = discoverTests (import ./maddy { inherit handleTest; });
@@ -606,6 +610,7 @@ in {
   nbd = handleTest ./nbd.nix {};
   ncdns = handleTest ./ncdns.nix {};
   ndppd = handleTest ./ndppd.nix {};
+  nix-channel = pkgs.callPackage ../modules/config/nix-channel/test.nix { };
   nebula = handleTest ./nebula.nix {};
   netbird = handleTest ./netbird.nix {};
   nimdow = handleTest ./nimdow.nix {};
@@ -646,7 +651,7 @@ in {
   nitter = handleTest ./nitter.nix {};
   nix-config = handleTest ./nix-config.nix {};
   nix-ld = handleTest ./nix-ld.nix {};
-  nix-serve = handleTest ./nix-serve.nix {};
+  nix-serve = runTest ./nix-serve.nix;
   nix-serve-ssh = handleTest ./nix-serve-ssh.nix {};
   nixops = handleTest ./nixops/default.nix {};
   nixos-generate-config = handleTest ./nixos-generate-config.nix {};
@@ -694,6 +699,7 @@ in {
   outline = handleTest ./outline.nix {};
   image-contents = handleTest ./image-contents.nix {};
   openvscode-server = handleTest ./openvscode-server.nix {};
+  open-webui = runTest ./open-webui.nix;
   orangefs = handleTest ./orangefs.nix {};
   os-prober = handleTestOn ["x86_64-linux"] ./os-prober.nix {};
   osquery = handleTestOn ["x86_64-linux"] ./osquery.nix {};

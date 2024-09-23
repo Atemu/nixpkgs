@@ -3,7 +3,6 @@
 , bazel-gazelle
 , buildBazelPackage
 , fetchFromGitHub
-, fetchpatch
 , stdenv
 , cmake
 , gn
@@ -25,15 +24,15 @@ let
     # However, the version string is more useful for end-users.
     # These are contained in a attrset of their own to make it obvious that
     # people should update both.
-    version = "1.30.4";
-    rev = "32113313a357829ba3a5dce0795b6780bf8cbf4d";
-    hash = "sha256-u9lTVe40pwXTt0YRwJXRuZonS5KJL2JQUQ3L9ymuA74=";
+    version = "1.30.6";
+    rev = "810bfcb8cae456e3a5e6541a0ee853185e2586f7";
+    hash = "sha256-71UCctIfhMIevj6Wjy+E07IOe9qHSUgKwqzvFtBAf2k=";
   };
 
   # these need to be updated for any changes to fetchAttrs
   depsHash = {
-    x86_64-linux = "sha256-m7dMr/dCmjpKLPT+8FXBHGkTlNoN9x1oQ7D6uO0sHtQ=";
-    aarch64-linux = "sha256-9GqVpWkMHP9nb5EZHjGKixkWazi//oLlIUum45xTvoM=";
+    x86_64-linux = "sha256-SJ8ZPOYIptLOWo3tp/fdyYy2Iyyy1BYSz0Kc3p5OWbQ=";
+    aarch64-linux = "sha256-TBCJfw31aC6wUmp6Osg8BbXy5AbcPN0DyJuUCHqmoMo=";
   }.${stdenv.system} or (throw "unsupported system ${stdenv.system}");
 in
 buildBazelPackage {
