@@ -112,7 +112,7 @@ stdenv.mkDerivation (finalAttrs: {
       python3
       python3Packages.pip
     ]
-    ++ lib.optionals stdenv.isDarwin [
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
       xcbuild
       desktopToDarwinBundle
     ];
@@ -130,7 +130,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   preBuild = ''
     export JAVA_TOOL_OPTIONS="-Duser.home=$NIX_BUILD_TOP/home"
-    gradle -I gradle/support/fetchDependencies.gradle init
+    gradle -I gradle/support/fetchDependencies.gradle
   '';
 
   gradleBuildTask = "buildGhidra";
@@ -160,6 +160,7 @@ stdenv.mkDerivation (finalAttrs: {
   postFixup = ''
     mkdir -p "$out/bin"
     ln -s "${pkg_path}/ghidraRun" "$out/bin/ghidra"
+    ln -s "${pkg_path}/support/analyzeHeadless" "$out/bin/ghidra-analyzeHeadless"
     wrapProgram "${pkg_path}/support/launch.sh" \
       --set-default NIX_GHIDRAHOME "${pkg_path}/Ghidra" \
       --prefix PATH : ${lib.makeBinPath [ openjdk21 ]}
@@ -195,6 +196,6 @@ stdenv.mkDerivation (finalAttrs: {
       roblabla
       vringar
     ];
-    broken = stdenv.isDarwin && stdenv.isx86_64;
+    broken = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64;
   };
 })

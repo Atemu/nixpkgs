@@ -58,7 +58,7 @@
 
 stdenv.mkDerivation(finalAttrs: {
   pname = "pipewire";
-  version = "1.2.2";
+  version = "1.2.3";
 
   outputs = [
     "out"
@@ -74,7 +74,7 @@ stdenv.mkDerivation(finalAttrs: {
     owner = "pipewire";
     repo = "pipewire";
     rev = finalAttrs.version;
-    sha256 = "sha256-neLQ41p2f2QyOS3r2VxanaHbiVj6nnnkT7kx/On0azM=";
+    sha256 = "sha256-sdbv1PqLMGlRXe42pgNW5tNtQ3tEYWCwndZQQQEM6ig=";
   };
 
   patches = [
@@ -160,7 +160,7 @@ stdenv.mkDerivation(finalAttrs: {
     # source code is not easily obtainable
     (lib.mesonEnable "bluez5-codec-lc3plus" false)
     (lib.mesonEnable "bluez5-codec-lc3" true)
-    (lib.mesonEnable "bluez5-codec-ldac" true)
+    (lib.mesonEnable "bluez5-codec-ldac" (lib.meta.availableOn stdenv.hostPlatform ldacbt))
     (lib.mesonEnable "opus" true)
     (lib.mesonOption "sysconfdir" "/etc")
     (lib.mesonEnable "raop" raopSupport)

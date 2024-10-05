@@ -2,30 +2,49 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
+  pythonOlder,
 
   # build-system
-  setuptools,
+  poetry-core,
+
+  # dependencies
+  mashumaro,
+  orjson,
+
+  # tests
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
   pname = "aiorussound";
-  version = "2.2.2";
+  version = "3.1.5";
   pyproject = true;
+
+  # requires newer f-strings introduced in 3.12
+  disabled = pythonOlder "3.12";
 
   src = fetchFromGitHub {
     owner = "noahhusby";
     repo = "aiorussound";
-    rev = version;
-    hash = "sha256-X7KdIjfPNZSsSXYN1gVqTpcgM00V1YG3ihxutmYnb6Y=";
+    rev = "refs/tags/${version}";
+    hash = "sha256-c9elemUdvX8Q8/Sr4DSXEx9SdRoLKibQFbY+WSDg/yM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [ poetry-core ];
 
-  doCheck = false; # no tests
+  dependencies = [
+    mashumaro
+    orjson
+  ];
+
+  nativeCheckInputs = [
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "aiorussound" ];
 
   meta = with lib; {
+    changelog = "https://github.com/noahhusby/aiorussound/releases/tag/${version}";
     description = "Async python package for interfacing with Russound RIO hardware";
     homepage = "https://github.com/noahhusby/aiorussound";
     license = licenses.mit;
