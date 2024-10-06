@@ -46,6 +46,13 @@ stdenv.mkDerivation(finalAttrs: {
     fetchSubmodules = true;
   };
 
+  # Old vendored vulkan headers reference the old driver name
+  # FIXME probably need to un-vendor this.
+  postPatch = ''
+    substituteInPlace externals/Vulkan-Utility-Libraries/include/vulkan/vk_enum_string_helper.h \
+      --replace VK_DRIVER_ID_MESA_AGXV VK_DRIVER_ID_MESA_HONEYKRISP
+  '';
+
   nativeBuildInputs = [
     cmake
     glslang
