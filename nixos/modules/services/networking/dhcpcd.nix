@@ -207,14 +207,14 @@ in
   config = lib.mkIf enableDHCP {
 
     assertions = [ {
-      # dhcpcd doesn't start properly with malloc ∉ [ libc scudo ]
+      # dhcpcd doesn't start properly with malloc ∉ [ jemalloc libc mimalloc scudo ]
       # see https://github.com/NixOS/nixpkgs/issues/151696
       assertion =
         dhcpcd.enablePrivSep
-          -> lib.elem config.environment.memoryAllocator.provider [ "libc" "scudo" ];
+          -> lib.elem config.environment.memoryAllocator.provider [ "jemalloc" "libc" "mimalloc" "scudo" ];
       message = ''
         dhcpcd with privilege separation is incompatible with chosen system malloc.
-          Currently only the `libc` and `scudo` allocators are known to work.
+          Currently `graphene-hardened` allocator is known to be broken.
           To disable dhcpcd's privilege separation, overlay Nixpkgs and override dhcpcd
           to set `enablePrivSep = false`.
       '';
@@ -251,6 +251,39 @@ in
             ExecStart = "@${dhcpcd}/sbin/dhcpcd dhcpcd --quiet ${lib.optionalString cfg.persistent "--persistent"} --config ${dhcpcdConf}";
             ExecReload = "${dhcpcd}/sbin/dhcpcd --rebind";
             Restart = "always";
+          } // lib.optionalAttrs (cfg.runHook == "") {
+            # Proc filesystem
+            ProcSubset = "all";
+            ProtectProc = "invisible";
+            # Access write directories
+            UMask = "0027";
+            # Capabilities
+            CapabilityBoundingSet = [ "CAP_NET_ADMIN" "CAP_NET_BIND_SERVICE" "CAP_NET_RAW" "CAP_SETGID" "CAP_SETUID" "CAP_SYS_CHROOT" ];
+            # Security
+            NoNewPrivileges = true;
+            # Sandboxing
+            ProtectSystem = true;
+            ProtectHome = true;
+            PrivateTmp = true;
+            PrivateDevices = true;
+            PrivateUsers = false;
+            ProtectHostname = true;
+            ProtectClock = true;
+            ProtectKernelTunables = false;
+            ProtectKernelModules = true;
+            ProtectKernelLogs = true;
+            ProtectControlGroups = true;
+            RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" "AF_PACKET" ];
+            RestrictNamespaces = true;
+            LockPersonality = true;
+            MemoryDenyWriteExecute = true;
+            RestrictRealtime = true;
+            RestrictSUIDSGID = true;
+            RemoveIPC = true;
+            PrivateMounts = true;
+            # System Call Filtering
+            SystemCallArchitectures = "native";
+            SystemCallFilter = [ "~@cpu-emulation @debug @keyring @mount @obsolete @privileged @resources" "chroot" "gettid" "setgroups" "setuid" ];
           };
       };
 

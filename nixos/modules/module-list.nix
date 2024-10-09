@@ -1231,6 +1231,7 @@
   ./services/networking/syncthing.nix
   ./services/networking/tailscale.nix
   ./services/networking/tailscale-auth.nix
+  ./services/networking/tailscale-derper.nix
   ./services/networking/tayga.nix
   ./services/networking/tcpcrypt.nix
   ./services/networking/teamspeak3.nix
@@ -1375,7 +1376,6 @@
   ./services/video/mirakurun.nix
   ./services/video/photonvision.nix
   ./services/video/mediamtx.nix
-  ./services/video/unifi-video.nix
   ./services/video/v4l2-relayd.nix
   ./services/wayland/cage.nix
   ./services/wayland/hypridle.nix
