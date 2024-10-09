@@ -6,32 +6,19 @@
 }:
 python3Packages.buildPythonApplication {
   pname = "exo";
-  version = "0-unstable-2024-10-02";
+  version = "0-unstable-2024-10-06";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "exo-explore";
     repo = "exo";
-    rev = "2654f290c3179aa143960e336e8985a8b6f6b72b";
-    hash = "sha256-jaIeK3sn6Swi20DNnvDtSAIt3DXIN0OQDiozNUHqtjs=";
+    rev = "7b2a523fd1e5f1281d89bc1f664a29dc2003b787";
+    hash = "sha256-o4tNbU9oa7WsAQ6eiTHqQVhliXbG/Y8d7PeH2TTWgGk=";
   };
 
   build-system = with python3Packages; [ setuptools ];
 
-  pythonRelaxDeps = [
-    "aiohttp"
-    "aiofiles"
-    "blobfile"
-    "grpcio-tools"
-    "huggingface-hub"
-    "numpy"
-    "protobuf"
-    "pynvml"
-    "safetensors"
-    "tenacity"
-    "tokenizers"
-    "transformers"
-  ];
+  pythonRelaxDeps = true;
 
   pythonRemoveDeps = [ "uuid" ];
 
@@ -47,11 +34,11 @@ python3Packages.buildPythonApplication {
     jinja2
     netifaces
     numpy
+    nvidia-ml-py
     pillow
     prometheus-client
     protobuf
     psutil
-    pynvml
     requests
     rich
     safetensors

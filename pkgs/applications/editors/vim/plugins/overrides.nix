@@ -159,6 +159,7 @@ in
     dependencies = with self; [
       dressing-nvim
       nui-nvim
+      nvim-treesitter
       plenary-nvim
     ];
   };
@@ -559,6 +560,12 @@ in
 
   CopilotChat-nvim = super.CopilotChat-nvim.overrideAttrs {
     dependencies = with self; [ copilot-lua plenary-nvim ];
+  };
+
+  copilot-lualine = super.copilot-lualine.overrideAttrs {
+    dependencies = with self; [ copilot-lua lualine-nvim ];
+    doInstallCheck = true;
+    nvimRequireCheck = "copilot-lualine";
   };
 
   copilot-vim = super.copilot-vim.overrideAttrs (old: {
