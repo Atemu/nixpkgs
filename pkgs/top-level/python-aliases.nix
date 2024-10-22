@@ -85,6 +85,7 @@ mapAliases ({
   boto = throw "boto was removed as it is deprecated upstream, had not been updated since 2018, and failed to build; please use boto3 and botocore"; # Added 2024-09-22
   bsblan = python-bsblan; # added 2022-11-04
   btchip = btchip-python; # added 2023-03-03
+  bugzilla = python-bugzilla; # added 2024-10-17
   buildbot = throw "use pkgs.buildbot instead"; # added 2022-04-07
   buildbot-ui = throw "use pkgs.buildbot-ui instead"; # added 2022-04-07
   buildbot-full = throw "use pkgs.buildbot-full instead"; # added 2022-04-07
@@ -358,6 +359,7 @@ mapAliases ({
   net2grid = gridnet; # add 2022-04-22
   nghttp2 = throw "in 1.52.0 removed deprecated python bindings."; # added 2023-06-08
   ninja-python = ninja; # add 2022-08-03
+  nose = throw "nose has been removed since it has been deprecated and unmaintained for almost a decade and does not work on Python 3.12; please switch to pytest or another test runner/framework"; # added 2024-07-28
   nose3 = throw "nose3 has been removed since it is unmaintained and does not work with Python 3.12"; # added 2024-07-28
   nosejs = throw "nosejs has been removed since it has not been maintained for 15 years and there are no dependent packages"; # added 2024-05-21
   nose-cov = throw "nose-cov has been removed, it was archived and unmaintained since 2012"; # added 2024-05-21
@@ -407,6 +409,7 @@ mapAliases ({
   postorius = throw "Please use pkgs.mailmanPackages.postorius"; # added 2022-04-29
   powerlineMemSegment = powerline-mem-segment; # added 2021-10-08
   prayer-times-calculator = prayer-times-calculator-offline; # added 2024-08-11
+  premailer = throw "premailer was removed, as it is not compatible with lxml>4.9.4.";
   privacyidea-ldap-proxy = throw "privacyidea-ldap-proxy has been removed from nixpkgs"; # added 2023-10-31
   proboscis = throw "proboscis has been removed since it has not been maintained for 11 years"; # added 2024-05-20
   prometheus_client = prometheus-client; # added 2021-06-10

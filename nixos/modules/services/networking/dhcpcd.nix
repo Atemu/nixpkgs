@@ -210,7 +210,8 @@ in
       { description = "DHCP Client";
 
         wantedBy = [ "multi-user.target" ] ++ lib.optional (!hasDefaultGatewaySet) "network-online.target";
-        wants = [ "network.target" ];
+        wants = [ "network.target"  "resolvconf.service" ];
+        after = [ "resolvconf.service" ];
         before = [ "network-online.target" ];
 
         restartTriggers = [ cfg.runHook ];
@@ -249,7 +250,7 @@ in
             Restart = "always";
             AmbientCapabilities = [ "CAP_NET_ADMIN" "CAP_NET_RAW" "CAP_NET_BIND_SERVICE" ];
             ReadWritePaths = [ "/proc/sys/net/ipv6" ]
-              ++ lib.optionals useResolvConf [ "/etc/resolv.conf" "/run/resolvconf" ];
+              ++ lib.optionals useResolvConf ([ "/run/resolvconf" ] ++ config.networking.resolvconf.subscriberFiles);
             DeviceAllow = "";
             LockPersonality = true;
             MemoryDenyWriteExecute = true;
