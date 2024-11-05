@@ -1,82 +1,106 @@
-{ branch ? "stable", callPackage, fetchurl, lib, stdenv }:
+{
+  branch ? "stable",
+  callPackage,
+  fetchurl,
+  lib,
+  stdenv,
+}:
 let
   versions =
-    if stdenv.hostPlatform.isLinux then {
-      stable = "0.0.71";
-      ptb = "0.0.110";
-      canary = "0.0.502";
-      development = "0.0.30";
-    } else {
-      stable = "0.0.322";
-      ptb = "0.0.140";
-      canary = "0.0.611";
-      development = "0.0.53";
-    };
+    if stdenv.hostPlatform.isLinux then
+      {
+        stable = "0.0.72";
+        ptb = "0.0.113";
+        canary = "0.0.509";
+        development = "0.0.33";
+      }
+    else
+      {
+        stable = "0.0.323";
+        ptb = "0.0.143";
+        canary = "0.0.618";
+        development = "0.0.55";
+      };
   version = versions.${branch};
   srcs = rec {
     x86_64-linux = {
       stable = fetchurl {
         url = "https://stable.dl2.discordapp.net/apps/linux/${version}/discord-${version}.tar.gz";
-        hash = "sha256-PMcavgUhL8c1YFaWsooZObDa7APMqCD1IaysED5fWac=";
+        hash = "sha256-IAvlxs6oEdO//qVWwH0cBJEbDxyPLG6HHwmOgqMzRRU=";
       };
       ptb = fetchurl {
         url = "https://ptb.dl2.discordapp.net/apps/linux/${version}/discord-ptb-${version}.tar.gz";
-        hash = "sha256-NV/0YKn1rG54Zkc9qAmpeb+4YbKjxhjTCdPOd84Lcc8=";
+        hash = "sha256-1Rhn6pH6KvuhGNTymBK01tA78it7JXekG48XvRZQOiA=";
       };
       canary = fetchurl {
         url = "https://canary.dl2.discordapp.net/apps/linux/${version}/discord-canary-${version}.tar.gz";
-        hash = "sha256-2DE7p3eT/mVGC+ejnTcTEhF7sEWyhfUfzj0gYTh+6Dw=";
+        hash = "sha256-jLAeix6IQ6rqOM8NKNryEeswB5VSzc1lIEI7X7Nrc68=";
       };
       development = fetchurl {
         url = "https://development.dl2.discordapp.net/apps/linux/${version}/discord-development-${version}.tar.gz";
-        hash = "sha256-HxMJQd5fM1VNfrBey4SbnnBkFQYZgbxg4YTy6FIC9Ps=";
+        hash = "sha256-A87sVmaYRjRi0Q9IrXuQBr+yC+FtGgZA2L/9V4WuYbU=";
       };
     };
     x86_64-darwin = {
       stable = fetchurl {
         url = "https://stable.dl2.discordapp.net/apps/osx/${version}/Discord.dmg";
-        hash = "sha256-RLAdcCcRrUtDSdaj/RdVLJGvufpIjZoMAKxp0Jyu17A=";
+        hash = "sha256-9ySE75TjVDLdPSWAawsVpOgCtL/Di+J3fKUEDH5/Oog=";
       };
       ptb = fetchurl {
         url = "https://ptb.dl2.discordapp.net/apps/osx/${version}/DiscordPTB.dmg";
-        hash = "sha256-VGhvykujfzI7jwXE+lHTzqT0t08GaON6gCuf13po7wY=";
+        hash = "sha256-ZbHz0OR7p873U7YpwsHxa3Uuf3uPsmVOQF9exARQzdI=";
       };
       canary = fetchurl {
         url = "https://canary.dl2.discordapp.net/apps/osx/${version}/DiscordCanary.dmg";
-        hash = "sha256-QC8RANqoyMAGKjTF0NNhz7wMt65D5LI1xYtd++dHXC4=";
+        hash = "sha256-UsJRw7gforZ1OAA6GNtXuTe/y95mIr7R6MRa+qe44tk=";
       };
       development = fetchurl {
         url = "https://development.dl2.discordapp.net/apps/osx/${version}/DiscordDevelopment.dmg";
-        hash = "sha256-DhY8s7Mhzos0ygB/WuoE07WK6hoIh/FcETeIsffw+e0=";
+        hash = "sha256-tZbFrb6OFEa3/IrjzHCcQultFgrMIvaNTmzNj3RHUgQ=";
       };
     };
     aarch64-darwin = x86_64-darwin;
   };
-  src = srcs.${stdenv.hostPlatform.system}.${branch} or (throw "${stdenv.hostPlatform.system} not supported on ${branch}");
+  src =
+    srcs.${stdenv.hostPlatform.system}.${branch}
+      or (throw "${stdenv.hostPlatform.system} not supported on ${branch}");
 
-  meta = with lib; {
+  meta = {
     description = "All-in-one cross-platform voice and text chat for gamers";
-    homepage = "https://discordapp.com/";
     downloadPage = "https://discordapp.com/download";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.unfree;
-    maintainers = with maintainers; [ Scrumplex artturin infinidoge jopejoe1 ];
-    platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ];
+    homepage = "https://discordapp.com/";
+    license = lib.licenses.unfree;
     mainProgram = "discord";
+    maintainers = with lib.maintainers; [
+      artturin
+      donteatoreo
+      infinidoge
+      jopejoe1
+      Scrumplex
+    ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
   };
-  package =
-    if stdenv.isLinux
-    then ./linux.nix
-    else ./darwin.nix;
+  package = if stdenv.hostPlatform.isLinux then ./linux.nix else ./darwin.nix;
 
   packages = (
     builtins.mapAttrs
-      (_: value:
-        callPackage package (value
+      (
+        _: value:
+        callPackage package (
+          value
           // {
-          inherit src version branch;
-          meta = meta // { mainProgram = value.binaryName; };
-        }))
+            inherit src version branch;
+            meta = meta // {
+              mainProgram = value.binaryName;
+            };
+          }
+        )
+      )
       {
         stable = {
           pname = "discord";
