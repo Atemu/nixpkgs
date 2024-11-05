@@ -54,7 +54,7 @@ let
           broken = kernel.meta.broken;
         };
       };
-      kernelPatches = lib.filter ({ name ? null, ... }: name != "netfilter-typo-fix") kernel.kernelPatches ++ [
+      kernelPatches = kernel.kernelPatches ++ [
         kernelPatches.hardened.${kernel.meta.branch}
       ];
       isHardened = true;
@@ -138,7 +138,6 @@ in {
       kernelPatches = [
         kernelPatches.bridge_stp_helper
         kernelPatches.request_key_helper
-        kernelPatches.netfilter-typo-fix
       ];
     };
 
@@ -147,7 +146,6 @@ in {
         kernelPatches.bridge_stp_helper
         kernelPatches.request_key_helper
         kernelPatches.export-rt-sched-migrate
-        kernelPatches.netfilter-typo-fix
       ];
     };
 
@@ -156,7 +154,6 @@ in {
       kernelPatches = [
         kernelPatches.bridge_stp_helper
         kernelPatches.request_key_helper
-        kernelPatches.netfilter-typo-fix
       ];
     };
 
@@ -165,7 +162,6 @@ in {
         kernelPatches.bridge_stp_helper
         kernelPatches.request_key_helper
         kernelPatches.export-rt-sched-migrate
-        kernelPatches.netfilter-typo-fix
       ];
     };
 
@@ -174,7 +170,6 @@ in {
       kernelPatches = [
         kernelPatches.bridge_stp_helper
         kernelPatches.request_key_helper
-        kernelPatches.netfilter-typo-fix
       ];
     };
 
@@ -183,7 +178,6 @@ in {
         kernelPatches.bridge_stp_helper
         kernelPatches.request_key_helper
         kernelPatches.export-rt-sched-migrate
-        kernelPatches.netfilter-typo-fix
       ];
     };
 
@@ -192,7 +186,6 @@ in {
       kernelPatches = [
         kernelPatches.bridge_stp_helper
         kernelPatches.request_key_helper
-        kernelPatches.netfilter-typo-fix
       ];
     };
 
@@ -204,7 +197,6 @@ in {
         kernelPatches = [
           kernelPatches.bridge_stp_helper
           kernelPatches.request_key_helper
-          kernelPatches.netfilter-typo-fix
         ];
       };
       latest = packageAliases.linux_latest.kernel;
@@ -291,7 +283,7 @@ in {
     linux_6_7_hardened = throw "linux 6.7 was removed because it has reached its end of life upstream";
     linux_6_8_hardened = throw "linux 6.8 was removed because it has reached its end of life upstream";
     linux_6_9_hardened = throw "linux 6.9 was removed because it has reached its end of life upstream";
-    linux_6_10_hardened = throw "linux 6.9 was removed because it has reached its end of life upstream";
+    linux_6_10_hardened = throw "linux 6.10 was removed because it has reached its end of life upstream";
   }));
   /*  Linux kernel modules are inherently tied to a specific kernel.  So
     rather than provide specific instances of those packages for a
@@ -527,6 +519,8 @@ in {
     tp_smapi = callPackage ../os-specific/linux/tp_smapi { };
 
     turbostat = callPackage ../os-specific/linux/turbostat { };
+
+    corefreq = callPackage ../os-specific/linux/corefreq { };
 
     trelay = callPackage ../os-specific/linux/trelay { };
 

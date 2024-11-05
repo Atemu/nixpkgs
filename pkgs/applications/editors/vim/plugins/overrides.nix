@@ -19,6 +19,7 @@
   arrow-cpp,
   Cocoa,
   coc-clangd,
+  coc-css,
   coc-diagnostic,
   coc-pyright,
   code-minimap,
@@ -451,6 +452,11 @@ in
   coc-clangd = buildVimPlugin {
     inherit (coc-clangd) pname version meta;
     src = "${coc-clangd}/lib/node_modules/coc-clangd";
+  };
+
+  coc-css = buildVimPlugin {
+    inherit (coc-css) pname version meta;
+    src = "${coc-css}/lib/node_modules/coc-css";
   };
 
   coc-diagnostic = buildVimPlugin {
@@ -1305,15 +1311,7 @@ in
     nvimRequireCheck = "lzn-auto-require.loader";
   };
 
-  magma-nvim-goose = buildVimPlugin {
-    pname = "magma-nvim-goose";
-    version = "2023-03-13";
-    src = fetchFromGitHub {
-      owner = "WhiteBlackGoose";
-      repo = "magma-nvim-goose";
-      rev = "5d916c39c1852e09fcd39eab174b8e5bbdb25f8f";
-      sha256 = "10d6dh0czdpgfpzqs5vzxfffkm0460qjzi2mfkacgghqf3iwkbja";
-    };
+  magma-nvim = super.magma-nvim.overrideAttrs {
     passthru.python3Dependencies =
       ps: with ps; [
         pynvim
@@ -1326,7 +1324,6 @@ in
         pyperclip
         pnglatex
       ];
-    meta.homepage = "https://github.com/WhiteBlackGoose/magma-nvim-goose/";
   };
 
   markdown-preview-nvim =
@@ -1653,7 +1650,7 @@ in
         inherit (old) version src;
         sourceRoot = "${old.src.name}/spectre_oxi";
 
-        cargoHash = "sha256-D7KUJ8q521WWgUqBBOgepGJ3NQ4DdKr+Bg/4k3Lf+mw=";
+        cargoHash = "sha256-yYUbfqkICsGDKexYjfhXfpIoT1+QrZQJPpKzk+gwm+s=";
 
         preCheck = ''
           mkdir tests/tmp/
@@ -1673,6 +1670,10 @@ in
       nvimRequireCheck = "spectre";
     }
   );
+
+  nvim-scissors = super.nvim-scissors.overrideAttrs {
+    nvimRequireCheck = "scissors";
+  };
 
   nvim-teal-maker = super.nvim-teal-maker.overrideAttrs {
     postPatch = ''
@@ -2008,20 +2009,23 @@ in
     meta.homepage = "https://github.com/ackyshake/Spacegray.vim/";
   };
 
-  sqlite-lua = super.sqlite-lua.overrideAttrs (oa: {
-    postPatch =
-      let
-        libsqlite = "${sqlite.out}/lib/libsqlite3${stdenv.hostPlatform.extensions.sharedLibrary}";
-      in
-      ''
+  sqlite-lua = super.sqlite-lua.overrideAttrs (
+    oa:
+    let
+      libsqlite = "${sqlite.out}/lib/libsqlite3${stdenv.hostPlatform.extensions.sharedLibrary}";
+    in
+    {
+      postPatch = ''
         substituteInPlace lua/sqlite/defs.lua \
-          --replace "path = vim.g.sqlite_clib_path" "path = vim.g.sqlite_clib_path or ${lib.escapeShellArg libsqlite}"
+          --replace-fail "path = vim.g.sqlite_clib_path" "path = vim.g.sqlite_clib_path or '${lib.escapeShellArg libsqlite}'"
       '';
 
-    passthru = oa.passthru // {
-      initLua = ''vim.g.sqlite_clib_path = "${sqlite.out}/lib/libsqlite3${stdenv.hostPlatform.extensions.sharedLibrary}"'';
-    };
-  });
+      passthru = oa.passthru // {
+        initLua = ''vim.g.sqlite_clib_path = "${libsqlite}"'';
+      };
+      nvimRequireCheck = "sqlite";
+    }
+  );
 
   ssr = super.ssr-nvim.overrideAttrs {
     dependencies = with self; [ nvim-treesitter ];
@@ -2564,11 +2568,7 @@ in
   };
 
   vim-tabby = super.vim-tabby.overrideAttrs {
-    postPatch = ''
-      substituteInPlace autoload/tabby/globals.vim --replace-fail \
-        "let g:tabby_node_binary = get(g:, 'tabby_node_binary', 'node')" \
-        "let g:tabby_node_binary = get(g:, 'tabby_node_binary', '${nodejs}/bin/node')"
-    '';
+    nvimRequirecheck = "tabby";
   };
 
   vim-textobj-entire = super.vim-textobj-entire.overrideAttrs {
@@ -2734,7 +2734,6 @@ in
   let
     nodePackageNames = [
       "coc-cmake"
-      "coc-css"
       "coc-docker"
       "coc-emmet"
       "coc-eslint"
