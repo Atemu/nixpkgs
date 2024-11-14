@@ -166,14 +166,66 @@ in
     nvimRequireCheck = "autosave";
   };
 
-  avante-nvim = (callPackage ./avante-nvim { }).overrideAttrs {
-    dependencies = with self; [
-      dressing-nvim
-      nui-nvim
-      nvim-treesitter
-      plenary-nvim
-    ];
-  };
+  avante-nvim = super.avante-nvim.overrideAttrs (
+    oldAttrs:
+    let
+      avante-nvim-lib = rustPlatform.buildRustPackage {
+        pname = "avante-nvim-lib";
+        inherit (oldAttrs) version src;
+
+        cargoHash = "sha256-X8JqUoPjm9emJjmwCh7+0bfdtPXLwOg6IRfQHaYlH90=";
+
+        nativeBuildInputs = [
+          pkg-config
+        ];
+
+        buildInputs = [
+          openssl
+        ];
+
+        buildFeatures = [ "luajit" ];
+
+        checkFlags = [
+          # Disabled because they access the network.
+          "--skip=test_hf"
+          "--skip=test_public_url"
+          "--skip=test_roundtrip"
+        ];
+      };
+    in
+    {
+      dependencies = with self; [
+        dressing-nvim
+        nui-nvim
+        nvim-treesitter
+        plenary-nvim
+      ];
+
+      postInstall =
+        let
+          ext = stdenv.hostPlatform.extensions.sharedLibrary;
+        in
+        ''
+          mkdir -p $out/build
+          ln -s ${avante-nvim-lib}/lib/libavante_repo_map${ext} $out/build/avante_repo_map${ext}
+          ln -s ${avante-nvim-lib}/lib/libavante_templates${ext} $out/build/avante_templates${ext}
+          ln -s ${avante-nvim-lib}/lib/libavante_tokenizers${ext} $out/build/avante_tokenizers${ext}
+        '';
+
+      doInstallCheck = true;
+      nvimRequireCheck = "avante";
+
+      meta = {
+        description = "Neovim plugin designed to emulate the behaviour of the Cursor AI IDE";
+        homepage = "https://github.com/yetone/avante.nvim";
+        license = lib.licenses.asl20;
+        maintainers = with lib.maintainers; [
+          ttrei
+          aarnphm
+        ];
+      };
+    }
+  );
 
   barbecue-nvim = super.barbecue-nvim.overrideAttrs {
     dependencies = with self; [
@@ -241,7 +293,7 @@ in
           --replace "let g:clang_library_path = ''
       + "''"
       + ''
-        " "let g:clang_library_path='${llvmPackages.libclang.lib}/lib/libclang.so'"
+        " "let g:clang_library_path='${lib.getLib llvmPackages.libclang}/lib/libclang.so'"
 
               substituteInPlace "$out"/plugin/libclang.py \
                 --replace "/usr/lib/clang" "${llvmPackages.clang.cc}/lib/clang"
@@ -250,7 +302,7 @@ in
 
   clighter8 = super.clighter8.overrideAttrs {
     preFixup = ''
-      sed "/^let g:clighter8_libclang_path/s|')$|${llvmPackages.clang.cc.lib}/lib/libclang.so')|" \
+      sed "/^let g:clighter8_libclang_path/s|')$|${lib.getLib llvmPackages.clang.cc}/lib/libclang.so')|" \
         -i "$out"/plugin/clighter8.vim
     '';
   };
@@ -1480,6 +1532,13 @@ in
     dependencies = with self; [ ultisnips ];
   };
 
+  neoconf-nvim = super.neoconf-nvim.overrideAttrs {
+    dependencies = with self; [ nvim-lspconfig ];
+
+    doInstallCheck = true;
+    nvimRequireCheck = "neoconf";
+  };
+
   neogit = super.neogit.overrideAttrs {
     dependencies = with self; [ plenary-nvim ];
     nvimRequireCheck = "neogit";
@@ -2207,6 +2266,16 @@ in
 
   telescope-z-nvim = super.telescope-z-nvim.overrideAttrs {
     dependencies = with self; [ telescope-nvim ];
+  };
+
+  quarto-nvim = super.quarto-nvim.overrideAttrs {
+    dependencies = with self; [
+      nvim-lspconfig
+      otter-nvim
+    ];
+
+    nvimRequireCheck = "quarto";
+    doInstallCheck = true;
   };
 
   telescope-zoxide = super.telescope-zoxide.overrideAttrs {

@@ -34,6 +34,8 @@
   git,
   apple-sdk_15,
   darwinMinVersionHook,
+  makeWrapper,
+  nodePackages_latest,
 
   withGLES ? false,
 }:
@@ -88,13 +90,13 @@ let
 in
 rustPlatform.buildRustPackage rec {
   pname = "zed-editor";
-  version = "0.159.7";
+  version = "0.160.7";
 
   src = fetchFromGitHub {
     owner = "zed-industries";
     repo = "zed";
     rev = "refs/tags/v${version}";
-    hash = "sha256-gqovQkg3Zypi5YV/wIzTFfJQt5Zwb8IF+drQKvRCgEM=";
+    hash = "sha256-mbBETOZVXTcfS+yGWPqEh+NEjo6UMTvk3XMghd8+s/s=";
   };
 
   patches =
@@ -138,17 +140,20 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [
-    clang
-    cmake
-    copyDesktopItems
-    curl
-    perl
-    pkg-config
-    protobuf
-    rustPlatform.bindgenHook
-    cargo-about
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ cargo-bundle ];
+  nativeBuildInputs =
+    [
+      clang
+      cmake
+      copyDesktopItems
+      curl
+      perl
+      pkg-config
+      protobuf
+      rustPlatform.bindgenHook
+      cargo-about
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [ makeWrapper ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ cargo-bundle ];
 
   dontUseCmakeConfigure = true;
 
@@ -215,6 +220,9 @@ rustPlatform.buildRustPackage rec {
   postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     patchelf --add-rpath ${gpu-lib}/lib $out/libexec/*
     patchelf --add-rpath ${wayland}/lib $out/libexec/*
+    wrapProgram $out/libexec/zed-editor --suffix PATH : ${
+      lib.makeBinPath [ nodePackages_latest.nodejs ]
+    }
   '';
 
   preCheck = ''

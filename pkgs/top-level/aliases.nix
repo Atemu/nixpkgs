@@ -220,7 +220,7 @@ mapAliases {
   clwrapperFunction = throw "Lisp packages have been redesigned. See 'lisp-modules' in the nixpkgs manual."; # Added 2024-05-07
   CoinMP = coinmp; # Added 2024-06-12
   collada-dom = opencollada; # added 2024-02-21
-  colorpicker = throw "'colorpicker' has been removed due to lack of maintenance upstream. Consider using 'gcolor3' or 'eyedropper' instead"; # Added 2024-10-19
+  colorpicker = throw "'colorpicker' has been removed due to lack of maintenance upstream. Consider using 'xcolor', 'gcolor3', 'eyedropper' or 'gpick' instead"; # Added 2024-10-19
   coriander = throw "'coriander' has been removed because it depends on GNOME 2 libraries"; # Added 2024-06-27
   corretto19 = throw "Corretto 19 was removed as it has reached its end of life"; # Added 2024-08-01
   cosmic-tasks = tasks; # Added 2024-07-04
@@ -725,6 +725,8 @@ mapAliases {
   linuxPackages_testing_bcachefs = throw "'linuxPackages_testing_bcachefs' has been removed, please use 'linuxPackages_latest', any kernel version at least 6.7, or any other linux kernel with bcachefs support";
   linux_testing_bcachefs = throw "'linux_testing_bcachefs' has been removed, please use 'linux_latest', any kernel version at least 6.7, or any other linux kernel with bcachefs support";
 
+  linuxstopmotion = stopmotion; # Added 2024-11-01
+
   llvmPackages_git = (callPackages ../development/compilers/llvm { }).git;
 
   lld_9 = throw "lld_9 has been removed from nixpkgs"; # Added 2024-04-08
@@ -827,7 +829,6 @@ mapAliases {
   neochat = libsForQt5.kdeGear.neochat; # added 2022-05-10
   newlibCross = newlib; # Added 2024-09-06
   newlib-nanoCross = newlib-nano; # Added 2024-09-06
-  nitrokey-udev-rules = libnitrokey; # Added 2023-03-25
   nix-direnv-flakes = nix-direnv;
   nix-ld-rs = nix-ld; # Added 2024-08-17
   nix-repl = throw (
@@ -1187,6 +1188,7 @@ mapAliases {
   tclx = tclPackages.tclx; # Added 2024-10-02
   tdesktop = telegram-desktop; # Added 2023-04-07
   tdom = tclPackages.tdom; # Added 2024-10-02
+  teamspeak_client = teamspeak3; # Added 2024-11-07
   teck-programmer = throw "teck-programmer was removed because it was broken and unmaintained"; # added 2024-08-23
   teleport_13 = throw "teleport 13 has been removed as it is EOL. Please upgrade to Teleport 14 or later"; # Added 2024-05-26
   teleport_14 = throw "teleport 14 has been removed as it is EOL. Please upgrade to Teleport 15 or later"; # Added 2024-10-18

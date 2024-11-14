@@ -1,15 +1,12 @@
 {
   stdenv,
   lib,
-  openexr,
-  jemalloc,
-  c-blosc,
   binutils,
   fetchFromGitHub,
   cmake,
   pkg-config,
   wrapGAppsHook3,
-  boost179,
+  boost180,
   cereal,
   cgal_5,
   curl,
@@ -55,17 +52,6 @@ let
           "--enable-debug=no"
         ];
       });
-
-  openvdb' = openvdb.overrideAttrs (old: {
-    buildInputs = [
-      openexr
-      boost179
-      tbb_2021_11
-      jemalloc
-      c-blosc
-      ilmbase
-    ];
-  });
 in
 stdenv.mkDerivation rec {
   pname = "bambu-studio";
@@ -86,7 +72,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     binutils
-    boost179
+    boost180
     cereal
     cgal_5
     curl
@@ -111,7 +97,7 @@ stdenv.mkDerivation rec {
     mpfr
     nlopt
     opencascade-occt_7_6
-    openvdb'
+    openvdb
     pcre
     tbb_2021_11
     webkitgtk_4_0
