@@ -24,20 +24,46 @@
 #   (NOT isMusl)
 # ]
 
-{
+let
+  inherit (lib.meta) platformMatch;
+  inherit (lib) head;
+
+  operations = {
+    OR = lib.any lib.id;
+    AND = lib.all lib.id;
+    NOT = x: !(head x);
+    NONE = _: false;
+    ANY = _: true;
+  };
+
+in
+
+rec {
   constraints =
     {
-      OR = value: {
+      OR = constraints: {
         __operation = "OR";
-        inherit value;
+        value = constraints;
       };
-      AND = value: {
+
+      AND = constraints: {
         __operation = "AND";
-        inherit value;
+        value = constraints;
       };
-      NOT = value: {
+
+      NOT = constraint: {
         __operation = "NOT";
-        value = [ value ]; # Also make this a list for simplicity
+        value = [ constraint ]; # Also make this a list for simplicity
+      };
+
+      NONE = {
+        __operation = "NONE";
+        value = [ ];
+      };
+
+      ANY = {
+        __operation = "ANY";
+        value = [ ];
       };
     }
     # Put patterns in this set for convenient use
@@ -51,20 +77,9 @@
   # Because this uses lib.meta.platformMatch internally it supports the same set
   # of platform constraints.
   evalConstraints =
-    platform: initialValue:
-    let
-      operations = {
-        OR = lib.any lib.id;
-        AND = lib.all lib.id;
-        NOT = x: !(lib.head x); # We have a list with one value
-      };
-      platformMatch' = lib.meta.platformMatch platform;
-      recurse =
-        expression:
-        if expression ? __operation then
-          operations.${expression.__operation} (map recurse expression.value)
-        else
-          platformMatch' expression;
-    in
-    recurse initialValue;
+    platform: constraint:
+    if constraint ? __operation then
+      operations.${constraint.__operation} (map (evalConstraints platform) constraint.value)
+    else
+      platformMatch platform constraint;
 }
