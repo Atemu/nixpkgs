@@ -8,6 +8,7 @@
 let
   inherit (lib) matchAttrs any all isDerivation getBin assertMsg;
   inherit (lib.attrsets) mapAttrs' filterAttrs;
+  inherit (lib.meta.platform) evalConstraints;
   inherit (builtins) isString match typeOf;
 
 in
@@ -289,8 +290,8 @@ rec {
     :::
   */
   availableOn = platform: pkg:
-    ((!pkg?meta.platforms) || any (lib.meta.platform.evalConstraints platform) pkg.meta.platforms) &&
-    all (elem: !lib.meta.platform.evalConstraints platform elem) (pkg.meta.badPlatforms or []);
+    ((!pkg?meta.platforms) || any (evalConstraints platform) pkg.meta.platforms) &&
+    all (elem: !evalConstraints platform elem) (pkg.meta.badPlatforms or []);
 
   /**
     Mapping of SPDX ID to the attributes in lib.licenses.
