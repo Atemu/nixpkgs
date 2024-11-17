@@ -5478,10 +5478,6 @@ with pkgs;
     pythonPackages = python3Packages;
   };
 
-  termscp = callPackage ../tools/networking/termscp {
-    inherit (darwin.apple_sdk.frameworks) AppKit Cocoa Foundation Security;
-  };
-
   texmacs = libsForQt5.callPackage ../applications/editors/texmacs {
     stdenv = if stdenv.hostPlatform.isDarwin then darwin.apple_sdk_11_0.stdenv else stdenv;
     extraFonts = true;
@@ -5660,6 +5656,8 @@ with pkgs;
   openconnectPackages = callPackage ../tools/networking/openconnect { };
 
   inherit (openconnectPackages) openconnect openconnect_openssl;
+
+  globalprotect-openconnect = libsForQt5.callPackage ../tools/networking/globalprotect-openconnect { };
 
   sssd = callPackage ../os-specific/linux/sssd {
     inherit (perlPackages) Po4a;
@@ -12317,6 +12315,10 @@ with pkgs;
 
   shairplay = callPackage ../servers/shairplay { avahi = avahi-compat; };
 
+  shairport-sync-airplay2 = shairport-sync.override {
+    enableAirplay2 = true;
+  };
+
   showoff = callPackage ../servers/http/showoff { };
 
   ruby-zoom = callPackage ../tools/text/ruby-zoom { };
@@ -16016,8 +16018,6 @@ with pkgs;
   termdown = python3Packages.callPackage ../applications/misc/termdown { };
 
   terminaltexteffects = with python3Packages; toPythonApplication terminaltexteffects ;
-
-  texturepacker = qt6.callPackage ../applications/graphics/texturepacker { };
 
   inherit (callPackage ../applications/graphics/tesseract {
     inherit (darwin.apple_sdk.frameworks) Accelerate CoreGraphics CoreVideo;
