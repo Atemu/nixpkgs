@@ -29,10 +29,6 @@ let
       # PL/Python
       , pythonSupport ? false
       , python3
-
-      # detection of crypt fails when using llvm stdenv, so we add it manually
-      # for <13 (where it got removed: https://github.com/postgres/postgres/commit/c45643d618e35ec2fe91438df15abd4f3c0d85ca)
-      , libxcrypt
     } @args:
   let
     atLeast = lib.versionAtLeast version;
@@ -100,7 +96,6 @@ let
       icu
       libuuid
     ]
-      ++ lib.optionals (olderThan "13") [ libxcrypt ]
       ++ lib.optionals jitSupport [ llvmPackages.llvm ]
       ++ lib.optionals lz4Enabled [ lz4 ]
       ++ lib.optionals zstdEnabled [ zstd ]
@@ -129,10 +124,7 @@ let
     # those paths. This avoids a lot of circular dependency problems with different outputs,
     # and allows splitting them cleanly.
     env.CFLAGS = "-fdata-sections -ffunction-sections"
-      + (if stdenv'.cc.isClang then " -flto" else " -fmerge-constants -Wl,--gc-sections")
-      # Makes cross-compiling work when xml2-config can't be executed on the host.
-      # Fixed upstream in https://github.com/postgres/postgres/commit/0bc8cebdb889368abdf224aeac8bc197fe4c9ae6
-      + lib.optionalString (olderThan "13") " -I${libxml2.dev}/include/libxml2";
+      + (if stdenv'.cc.isClang then " -flto" else " -fmerge-constants -Wl,--gc-sections");
 
     configureFlags = [
       "--with-openssl"
@@ -165,42 +157,20 @@ let
         src = ./patches/locale-binary-path.patch;
         locale = "${if stdenv.hostPlatform.isDarwin then darwin.adv_cmds else lib.getBin stdenv.cc.libc}/bin/locale";
       })
-    ] ++ lib.optionals (stdenv'.hostPlatform.isDarwin && atLeast "17") [
+    ] ++ lib.optionals (olderThan "17" && atLeast "16") [
       # TODO: Remove this with the next set of minor releases
       (fetchpatch ({
-        url = "https://github.com/postgres/postgres/commit/0a883a067bd78f0ff0607afb18c4f783ac764504.patch";
-        hash = "sha256-F3zCaar6w6bwQDno7Tkg7ZbPJ+rhgi8/2NSvFakzQek=";
-      }))
-    ] ++ lib.optionals (olderThan "17") [
-      # TODO: Remove this with the next set of minor releases
-      (fetchpatch (
-        if atLeast "14" then {
           url = "https://github.com/postgres/postgres/commit/b27622c90869aab63cfe22159a459c57768b0fa4.patch";
           hash = "sha256-7G+BkJULhyx6nlMEjClcr2PJg6awgymZHr2JgGhXanA=";
           excludes = [ "doc/*" ];
-        } else if atLeast "13" then {
-          url = "https://github.com/postgres/postgres/commit/b28b9b19bbe3410da4a805ef775e0383a66af314.patch";
-          hash = "sha256-meFFskNWlcc/rv4BWo6fNR/tTFgQRgXGqTkJkoX7lHU=";
-          excludes = [ "doc/*" ];
-        } else {
-          url = "https://github.com/postgres/postgres/commit/205813da4c264d80db3c3215db199cc119e18369.patch";
-          hash = "sha256-L8/ns/fxTh2ayfDQXtBIKaArFhMd+v86UxVFWQdmzUw=";
-          excludes = [ "doc/*" ];
-        })
-        )
+        }))
     ] ++ lib.optionals stdenv'.hostPlatform.isMusl (
       # Using fetchurl instead of fetchpatch on purpose: https://github.com/NixOS/nixpkgs/issues/240141
       map fetchurl (lib.attrValues muslPatches)
-    ) ++ lib.optionals stdenv'.hostPlatform.isLinux  [
-      (if atLeast "13" then ./patches/socketdir-in-run-13+.patch else ./patches/socketdir-in-run.patch)
+    ) ++ lib.optionals stdenv'.hostPlatform.isLinux [
+    ./patches/socketdir-in-run-13+.patch
     ] ++ lib.optionals (stdenv'.hostPlatform.isDarwin && olderThan "16") [
       ./patches/export-dynamic-darwin-15-.patch
-    ] ++ lib.optionals (atLeast "17") [
-      # Fix flaky test, https://www.postgresql.org/message-id/ba8e1bc0-8a99-45b7-8397-3f2e94415e03@suse.de
-      (fetchpatch {
-        url = "https://github.com/postgres/postgres/commit/a358019159de68d4f045cbb5d89c8c8c2e96e483.patch";
-        hash = "sha256-9joQZo93oUTp6CrcGnhj7o+Mrbj/KCWwwGUc9KAst+s=";
-      })
     ];
 
     installTargets = [ "install-world" ];
@@ -301,6 +271,7 @@ let
               '';
               installPhase = "touch $out";
             } // extraArgs);
+          buildPostgresqlExtension = newSuper.callPackage ./buildPostgresqlExtension.nix {};
         };
         newSelf = self // scope;
         newSuper = { callPackage = newScope (scope // this.pkgs); };

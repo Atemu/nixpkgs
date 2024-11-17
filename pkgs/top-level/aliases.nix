@@ -976,6 +976,11 @@ mapAliases {
   timescaledb = postgresqlPackages.timescaledb;
   tsearch_extras = postgresqlPackages.tsearch_extras;
 
+  postgresql_12 = throw "postgresql_12 has been removed since it reached its EOL upstream"; # Added 2024-11-14
+  postgresql_12_jit = throw "postgresql_12 has been removed since it reached its EOL upstream"; # Added 2024-11-14
+  postgresql12Packages = throw "postgresql_12 has been removed since it reached its EOL upstream"; # Added 2024-11-14
+  postgresql12JitPackages = throw "postgresql_12 has been removed since it reached its EOL upstream"; # Added 2024-11-14
+
   # pinentry was using multiple outputs, this emulates the old interface for i.e. home-manager
   # soon: throw "'pinentry' has been removed. Pick an appropriate variant like 'pinentry-curses' or 'pinentry-gnome3'";
   pinentry = pinentry-all // {
@@ -1243,7 +1248,6 @@ mapAliases {
   ubuntu_font_family = ubuntu-classic; # Added 2024-02-19
   uclibc = uclibc-ng; # Added 2022-06-16
   uclibcCross = uclibc-ng; # Added 2022-06-16
-  uefi-firmware-parser = throw "The uefi-firmware-parser package was dropped since it was unmaintained."; # Added 2024-06-21
   unicorn-emu = throw "'unicorn-emu' has been renamed to/replaced by 'unicorn'"; # Converted to throw 2024-10-17
   uniffi-bindgen = throw "uniffi-bindgen has been removed since upstream no longer provides a standalone package for the CLI";
   unifi-poller = unpoller; # Added 2022-11-24
@@ -1308,6 +1312,7 @@ mapAliases {
   wordpress6_3 = throw "'wordpress6_3' has been removed in favor of the latest version"; # Added 2024-08-03
   wordpress6_4 = throw "'wordpress6_4' has been removed in favor of the latest version"; # Added 2024-08-03
   wordpress6_5 = wordpress_6_5; # Added 2024-08-03
+  wordpress_6_5 = throw "'wordpress_6_5' has been removed in favor of the latest version"; # Added 2024-11-11
   wormhole-rs = magic-wormhole-rs; # Added 2022-05-30. preserve, reason: Arch package name, main binary name
   wpa_supplicant_ro_ssids = lib.trivial.warn "Deprecated package: Please use wpa_supplicant instead. Read-only SSID patches are now upstream!" wpa_supplicant;
   wrapLisp_old = throw "Lisp packages have been redesigned. See 'lisp-modules' in the nixpkgs manual."; # Added 2024-05-07
@@ -1344,7 +1349,6 @@ mapAliases {
 
   yacc = throw "'yacc' has been renamed to/replaced by 'bison'"; # Converted to throw 2024-10-17
   yafaray-core = libyafaray; # Added 2022-09-23
-  yi = throw "'yi' has been removed, as it was broken and unmaintained"; # added 2024-05-09
   youtrack_2022_3 = throw "'youtrack_2022_3' has been removed as it was deprecated. Please update to the 'youtrack' package."; # Added 2024-10-17
   yrd = throw "'yrd' has been removed, as it was broken and unmaintained"; # added 2024-05-27
   yuzu-ea = yuzuPackages.early-access; # Added 2022-08-18

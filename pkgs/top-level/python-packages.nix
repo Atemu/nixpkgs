@@ -1603,6 +1603,8 @@ self: super: with self; {
 
   bids-validator = callPackage ../development/python-modules/bids-validator { };
 
+  bidsschematools = callPackage ../development/python-modules/bidsschematools { };
+
   biliass = callPackage ../development/python-modules/biliass { };
 
   bilibili-api-python = callPackage ../development/python-modules/bilibili-api-python { };
@@ -3319,6 +3321,10 @@ self: super: with self; {
   # Pre-release
   django_5 = callPackage ../development/python-modules/django/5.nix { };
 
+  djangocms-admin-style = callPackage ../development/python-modules/djangocms-admin-style { };
+
+  djangocms-text-ckeditor = callPackage ../development/python-modules/djangocms-text-ckeditor { };
+
   django-admin-datta = callPackage ../development/python-modules/django-admin-datta { };
 
   django-admin-sortable2 = callPackage ../development/python-modules/django-admin-sortable2 { };
@@ -3332,6 +3338,8 @@ self: super: with self; {
   django-annoying = callPackage ../development/python-modules/django-annoying { };
 
   django-appconf = callPackage ../development/python-modules/django-appconf { };
+
+  django-app-helper = callPackage ../development/python-modules/django-app-helper { };
 
   django-auditlog = callPackage ../development/python-modules/django-auditlog { };
 
@@ -3366,6 +3374,8 @@ self: super: with self; {
   django-classy-tags = callPackage ../development/python-modules/django-classy-tags { };
 
   django-cleanup = callPackage ../development/python-modules/django-cleanup { };
+
+  django-cms = callPackage ../development/python-modules/django-cms { };
 
   django-colorful = callPackage ../development/python-modules/django-colorful { };
 
@@ -3412,6 +3422,8 @@ self: super: with self; {
   django-environ = callPackage ../development/python-modules/django-environ { };
 
   django-extensions = callPackage ../development/python-modules/django-extensions { };
+
+  django-filer = callPackage ../development/python-modules/django-filer { };
 
   django-filter = callPackage ../development/python-modules/django-filter { };
 
@@ -5486,6 +5498,8 @@ self: super: with self; {
 
   greatfet = callPackage ../development/python-modules/greatfet { };
 
+  great-expectations = callPackage ../development/python-modules/great-expectations { };
+
   great-tables = callPackage ../development/python-modules/great-tables { };
 
   greeclimate = callPackage ../development/python-modules/greeclimate { };
@@ -5823,7 +5837,7 @@ self: super: with self; {
 
   home-assistant-bluetooth = callPackage ../development/python-modules/home-assistant-bluetooth { };
 
-  home-assistant-chip-wheels = callPackage ../development/python-modules/home-assistant-chip-wheels { };
+  home-assistant-chip-wheels = toPythonModule (callPackage ../development/python-modules/home-assistant-chip-wheels { });
 
   home-assistant-chip-clusters = callPackage ../development/python-modules/home-assistant-chip-clusters { };
 
@@ -9111,6 +9125,8 @@ self: super: with self; {
 
   nlpcloud = callPackage ../development/python-modules/nlpcloud { };
 
+  nlpo3 =  callPackage ../development/python-modules/nlpo3 { };
+
   nltk = callPackage ../development/python-modules/nltk { };
 
   nnpdf = toPythonModule (pkgs.nnpdf.override {
@@ -10160,6 +10176,8 @@ self: super: with self; {
 
   picobox = callPackage ../development/python-modules/picobox { };
 
+  picologging = callPackage ../development/python-modules/picologging { };
+
   picos = callPackage ../development/python-modules/picos { };
 
   picosvg = callPackage ../development/python-modules/picosvg { };
@@ -10185,18 +10203,23 @@ self: super: with self; {
   pillowfight = callPackage ../development/python-modules/pillowfight { };
 
   pillow = callPackage ../development/python-modules/pillow {
-    inherit (pkgs) freetype libjpeg zlib libtiff libwebp tcl lcms2 tk;
-    inherit (pkgs.xorg) libX11 libxcb;
+    inherit (pkgs)
+      freetype
+      lcms2
+      libimagequant
+      libjpeg
+      libraqm
+      libtiff
+      libwebp
+      openjpeg
+      zlib
+    ;
+    inherit (pkgs.xorg) libxcb;
   };
 
   pillow-heif = callPackage ../development/python-modules/pillow-heif { };
 
   pillow-jpls = callPackage ../development/python-modules/pillow-jpls { };
-
-  pillow-simd = callPackage ../development/python-modules/pillow-simd {
-      inherit (pkgs) freetype libjpeg zlib libtiff libwebp tcl lcms2 tk;
-      inherit (pkgs.xorg) libX11;
-  };
 
   pims = callPackage ../development/python-modules/pims { };
 
@@ -10725,6 +10748,8 @@ self: super: with self; {
 
   polyline = callPackage ../development/python-modules/polyline { };
 
+  polyfactory = callPackage ../development/python-modules/polyfactory { };
+
   polygon3 = callPackage ../development/python-modules/polygon3 { };
 
   polyswarm-api = callPackage ../development/python-modules/polyswarm-api { };
@@ -11142,6 +11167,8 @@ self: super: with self; {
 
   pybind11 = callPackage ../development/python-modules/pybind11 { };
 
+  pybind11-stubgen = callPackage ../development/python-modules/pybind11-stubgen { };
+
   pybindgen = callPackage ../development/python-modules/pybindgen { };
 
   pyblackbird = callPackage ../development/python-modules/pyblackbird { };
@@ -11176,7 +11203,9 @@ self: super: with self; {
 
   py = callPackage ../development/python-modules/py { };
 
-  pycangjie = callPackage ../development/python-modules/pycangjie { };
+  pycangjie = callPackage ../development/python-modules/pycangjie {
+    inherit (pkgs.buildPackages) meson;
+  };
 
   pycapnp = callPackage ../development/python-modules/pycapnp { };
 
@@ -14903,6 +14932,8 @@ self: super: with self; {
 
   sphinx-book-theme = callPackage ../development/python-modules/sphinx-book-theme { };
 
+  sphinx-click = callPackage ../development/python-modules/sphinx-click { };
+
   sphinx-codeautolink = callPackage ../development/python-modules/sphinx-codeautolink { };
 
   sphinx-comments = callPackage ../development/python-modules/sphinx-comments { };
@@ -14922,6 +14953,8 @@ self: super: with self; {
   sphinx-lv2-theme = callPackage ../development/python-modules/sphinx-lv2-theme { };
 
   sphinx-multitoc-numbering = callPackage ../development/python-modules/sphinx-multitoc-numbering { };
+
+  sphinx-multiversion = callPackage ../development/python-modules/sphinx-multiversion { };
 
   sphinx-notfound-page = callPackage ../development/python-modules/sphinx-notfound-page { };
 
@@ -14980,6 +15013,8 @@ self: super: with self; {
   };
 
   sphinxcontrib-log-cabinet = callPackage ../development/python-modules/sphinxcontrib-log-cabinet { };
+
+  sphinxcontrib-moderncmakedomain = callPackage ../development/python-modules/sphinxcontrib-moderncmakedomain { };
 
   sphinxcontrib-nwdiag = callPackage ../development/python-modules/sphinxcontrib-nwdiag { };
 
@@ -15601,7 +15636,6 @@ self: super: with self; {
       };
       grpcioTF = self.grpcio.override {
         protobuf = protobufTF;
-        grpc = grpcTF;
       };
       tensorboard-plugin-profileTF = self.tensorboard-plugin-profile.override {
         protobuf = protobuf-pythonTF;
@@ -15669,6 +15703,8 @@ self: super: with self; {
   terminado = callPackage ../development/python-modules/terminado { };
 
   terminaltables = callPackage ../development/python-modules/terminaltables { };
+
+  terminaltables3 = callPackage ../development/python-modules/terminaltables3 { };
 
   terminaltexteffects = callPackage ../development/python-modules/terminaltexteffects { };
 
