@@ -698,6 +698,8 @@ self: super: with self; {
 
   aplpy = callPackage ../development/python-modules/aplpy { };
 
+  apollo-fpga = callPackage ../development/python-modules/apollo-fpga { };
+
   app-model = callPackage ../development/python-modules/app-model { };
 
   appdirs = callPackage ../development/python-modules/appdirs { };
@@ -1279,6 +1281,8 @@ self: super: with self; {
 
   azure-mgmt-msi = callPackage ../development/python-modules/azure-mgmt-msi { };
 
+  azure-mgmt-mysqlflexibleservers = callPackage ../development/python-modules/azure-mgmt-mysqlflexibleservers { };
+
   azure-mgmt-netapp = callPackage ../development/python-modules/azure-mgmt-netapp { };
 
   azure-mgmt-network = callPackage ../development/python-modules/azure-mgmt-network { };
@@ -1288,6 +1292,8 @@ self: super: with self; {
   azure-mgmt-nspkg = callPackage ../development/python-modules/azure-mgmt-nspkg { };
 
   azure-mgmt-policyinsights = callPackage ../development/python-modules/azure-mgmt-policyinsights { };
+
+  azure-mgmt-postgresqlflexibleservers = callPackage ../development/python-modules/azure-mgmt-postgresqlflexibleservers { };
 
   azure-mgmt-powerbiembedded = callPackage ../development/python-modules/azure-mgmt-powerbiembedded { };
 
@@ -1432,25 +1438,19 @@ self: super: with self; {
 
   backoff = callPackage ../development/python-modules/backoff { };
 
-  backports-cached-property = callPackage ../development/python-modules/backports-cached-property { };
-
   backports-datetime-fromisoformat = callPackage ../development/python-modules/backports-datetime-fromisoformat { };
 
   backports-entry-points-selectable = callPackage ../development/python-modules/backports-entry-points-selectable { };
-
-  backports-shutil-get-terminal-size = callPackage ../development/python-modules/backports-shutil-get-terminal-size { };
-
-  backports-shutil-which = callPackage ../development/python-modules/backports-shutil-which { };
 
   backports-strenum = callPackage ../development/python-modules/backports-strenum { };
 
   backports-tarfile = callPackage ../development/python-modules/backports-tarfile { };
 
-  backports-zoneinfo = callPackage ../development/python-modules/backports-zoneinfo { };
-
   bacpypes = callPackage ../development/python-modules/bacpypes { };
 
   bagit = callPackage ../development/python-modules/bagit { };
+
+  baize = callPackage ../development/python-modules/baize { };
 
   banal = callPackage ../development/python-modules/banal { };
 
@@ -1574,6 +1574,10 @@ self: super: with self; {
   bencode-py = callPackage ../development/python-modules/bencode-py { };
 
   bencoder = callPackage ../development/python-modules/bencoder { };
+
+  bencodetools = callPackage ../development/python-modules/bencodetools {
+    bencodetools = pkgs.bencodetools;
+  };
 
   beniget = callPackage ../development/python-modules/beniget { };
 
@@ -2825,6 +2829,8 @@ self: super: with self; {
   cymem = callPackage ../development/python-modules/cymem { };
 
   cymruwhois = callPackage ../development/python-modules/cymruwhois { };
+
+  cynthion = callPackage ../development/python-modules/cynthion { };
 
   cypari2 = callPackage ../development/python-modules/cypari2 { };
 
@@ -6802,6 +6808,8 @@ self: super: with self; {
 
   kaleido = callPackage ../development/python-modules/kaleido { };
 
+  kalshi-python = callPackage ../development/python-modules/kalshi-python {};
+
   kanidm = callPackage ../development/python-modules/kanidm { };
 
   kaptan = callPackage ../development/python-modules/kaptan { };
@@ -7617,6 +7625,10 @@ self: super: with self; {
   luhn = callPackage ../development/python-modules/luhn { };
 
   lunarcalendar = callPackage ../development/python-modules/lunarcalendar { };
+
+  luna-soc = callPackage ../development/python-modules/luna-soc { };
+
+  luna-usb = callPackage ../development/python-modules/luna-usb { };
 
   luqum = callPackage ../development/python-modules/luqum { };
 
@@ -17342,6 +17354,8 @@ self: super: with self; {
 
   usb-monitor = callPackage ../development/python-modules/usb-monitor { };
 
+  usb-protocol = callPackage ../development/python-modules/usb-protocol { };
+
   usbrelay-py = callPackage ../os-specific/linux/usbrelay/python.nix { };
 
   usbtmc = callPackage ../development/python-modules/usbtmc { };
@@ -17852,6 +17866,8 @@ self: super: with self; {
   };
 
   wyoming = callPackage ../development/python-modules/wyoming { };
+
+  x-transformers = callPackage ../development/python-modules/x-transformers { };
 
   x-wr-timezone = callPackage ../development/python-modules/x-wr-timezone { };
 

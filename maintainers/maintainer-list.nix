@@ -4507,7 +4507,7 @@
     name = "Chris Ostrouchov";
   };
   cottand = {
-    email = "nico@dcotta.eu";
+    email = "nico@dcotta.com";
     github = "cottand";
     githubId = 45274424;
     name = "Nico D'Cotta";
@@ -5797,6 +5797,12 @@
     github = "dotlambda";
     githubId = 6806011;
     name = "Robert Schütz";
+  };
+  dotmobo = {
+    email = "morgan.bohn@gmail.com";
+    github = "dotmobo";
+    githubId = 1997638;
+    name = ".mobo";
   };
   dottedmag = {
     email = "dottedmag@dottedmag.net";
@@ -7141,6 +7147,12 @@
     githubId = 628359;
     name = "Felix Singer";
   };
+  felixzieger = {
+    name = "Felix Zieger";
+    github = "felixzieger";
+    githubId = 67903933;
+    email = "nixpkgs@felixzieger.de";
+  };
   felschr = {
     email = "dev@felschr.com";
     matrix = "@felschr:matrix.org";
@@ -8334,6 +8346,14 @@
     github = "greydot";
     githubId = 7385287;
     name = "Lana Black";
+  };
+  grgi = {
+    name = "Gregor Giesen";
+    email = "gregor@giesen.net";
+    matrix = "@gregor:giesen.net";
+    github = "grgi";
+    githubId = 6435815;
+    keys = [ { fingerprint = "0F92 602B 1860 4476 77F4  8A67 C303 16AA C10F 3EA7"; } ];
   };
   gridaphobe = {
     email = "eric@seidel.io";
@@ -15186,6 +15206,13 @@
     githubId = 1234956;
     "keys" = [ { "fingerprint" = "F21A 6194 C9DB 9899 CD09 E24E 434B 2C14 B8C3 3422"; } ];
   };
+  nadiaholmquist = {
+    name = "Nadia Holmquist Pedersen";
+    email = "nadia@nhp.sh";
+    matrix = "@nhp:matrix.org";
+    github = "nadiaholmquist";
+    githubId = 893884;
+  };
   nadir-ishiguro = {
     github = "nadir-ishiguro";
     githubId = 23151917;
@@ -16874,6 +16901,12 @@
     github = "pcboy";
     githubId = 943430;
     name = "David Hagege";
+  };
+  peat-psuwit = {
+    name = "Ratchanan Srirattanamet";
+    email = "peat@peat-network.xyz";
+    github = "peat-psuwit";
+    githubId = 6771175;
   };
   pedohorse = {
     github = "pedohorse";
@@ -18803,6 +18836,12 @@
     github = "robberer";
     githubId = 6204883;
     name = "Longrin Wischnewski";
+  };
+  robbiebuxton = {
+    email = "robbiesbuxton@gmail.com";
+    github = "robbiebuxton";
+    githubId = 67549526;
+    name = "Robbie Buxton";
   };
   robbinch = {
     email = "robbinch33@gmail.com";

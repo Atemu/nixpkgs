@@ -148,6 +148,7 @@
   ./programs/alvr.nix
   ./programs/appgate-sdp.nix
   ./programs/appimage.nix
+  ./programs/arp-scan.nix
   ./programs/atop.nix
   ./programs/ausweisapp.nix
   ./programs/autojump.nix
@@ -295,6 +296,7 @@
   ./programs/sysdig.nix
   ./programs/system-config-printer.nix
   ./programs/systemtap.nix
+  ./programs/tcpdump.nix
   ./programs/thefuck.nix
   ./programs/thunar.nix
   ./programs/thunderbird.nix
@@ -1393,6 +1395,7 @@
   ./services/wayland/cage.nix
   ./services/wayland/hypridle.nix
   ./services/web-apps/akkoma.nix
+  ./services/web-apps/agorakit.nix
   ./services/web-apps/alps.nix
   ./services/web-apps/anuko-time-tracker.nix
   ./services/web-apps/artalk.nix
@@ -1458,6 +1461,7 @@
   ./services/web-apps/kasmweb/default.nix
   ./services/web-apps/kavita.nix
   ./services/web-apps/keycloak.nix
+  ./services/web-apps/kimai.nix
   ./services/web-apps/komga.nix
   ./services/web-apps/lanraragi.nix
   ./services/web-apps/lemmy.nix
@@ -1632,7 +1636,6 @@
   ./system/boot/loader/external/external.nix
   ./system/boot/loader/init-script/init-script.nix
   ./system/boot/loader/loader.nix
-  ./system/boot/loader/raspberrypi/raspberrypi.nix
   ./system/boot/loader/systemd-boot/systemd-boot.nix
   ./system/boot/luksroot.nix
   ./system/boot/stratisroot.nix

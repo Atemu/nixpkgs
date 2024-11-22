@@ -104,6 +104,7 @@ mapAliases {
   alsaUtils = throw "'alsaUtils' has been renamed to/replaced by 'alsa-utils'"; # Converted to throw 2024-10-17
   angelfish = throw "'angelfish' has been renamed to/replaced by 'libsForQt5.kdeGear.angelfish'"; # Converted to throw 2024-10-17
   ansible_2_14 = throw "Ansible 2.14 goes end of life in 2024/05 and can't be supported throughout the 24.05 release cycle"; # Added 2024-04-11
+  ansible_2_15 = throw "Ansible 2.15 goes end of life in 2024/11 and can't be supported throughout the 24.11 release cycle"; # Added 2024-11-08
   antennas = throw "antennas has been removed as it only works with tvheadend, which nobody was willing to maintain and was stuck on an unmaintained version that required FFmpeg 4; please see https://github.com/NixOS/nixpkgs/pull/332259 if you are interested in maintaining a newer version"; # Added 2024-08-21
   androidndkPkgs_23b = lib.warn "The package set `androidndkPkgs_23b` has been renamed to `androidndkPkgs_23`." androidndkPkgs_23; # Added 2024-07-21
   ankisyncd = throw "ankisyncd is dead, use anki-sync-server instead"; # Added 2024-08-10
@@ -670,6 +671,7 @@ mapAliases {
   linuxPackages_6_9 = linuxKernel.packages.linux_6_9;
   linuxPackages_6_10 = linuxKernel.packages.linux_6_10;
   linuxPackages_6_11 = linuxKernel.packages.linux_6_11;
+  linuxPackages_6_12 = linuxKernel.packages.linux_6_12;
   linuxPackages_rpi0 = linuxKernel.packages.linux_rpi1;
   linuxPackages_rpi02w = linuxKernel.packages.linux_rpi3;
   linuxPackages_rpi1 = linuxKernel.packages.linux_rpi1;
@@ -694,6 +696,7 @@ mapAliases {
   linux_6_9 = linuxKernel.kernels.linux_6_9;
   linux_6_10 = linuxKernel.kernels.linux_6_10;
   linux_6_11 = linuxKernel.kernels.linux_6_11;
+  linux_6_12 = linuxKernel.kernels.linux_6_12;
   linux_rpi0 = linuxKernel.kernels.linux_rpi1;
   linux_rpi02w = linuxKernel.kernels.linux_rpi3;
   linux_rpi1 = linuxKernel.kernels.linux_rpi1;
@@ -1255,6 +1258,7 @@ mapAliases {
   unifi5 = throw "'unifi5' has been removed since its required MongoDB version is EOL."; # Added 2024-04-11
   unifi6 = throw "'unifi6' has been removed since its required MongoDB version is EOL."; # Added 2024-04-11
   unifi7 = throw "'unifi7' has been removed since it is vulnerable to CVE-2024-42025 and its required MongoDB version is EOL."; # Added 2024-10-01
+  unifi8 = unifi; # Added 2024-11-15
   unifiLTS = throw "'unifiLTS' has been removed since UniFi no longer has LTS and stable releases. Use `pkgs.unifi` instead."; # Added 2024-04-11
   unifiStable = throw "'unifiStable' has been removed since UniFi no longer has LTS and stable releases. Use `pkgs.unifi` instead."; # Converted to throw 2024-04-11
   untrunc = throw "'untrunc' has been renamed to/replaced by 'untrunc-anthwlock'"; # Converted to throw 2024-10-17

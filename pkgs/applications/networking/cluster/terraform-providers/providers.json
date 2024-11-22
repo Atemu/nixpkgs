@@ -90,11 +90,11 @@
     "vendorHash": "sha256-detefSJ3hVIk2xXsAB16XiQkaOAiBkGTnaIku7veFQU="
   },
   "auth0": {
-    "hash": "sha256-5drMyf+jymrKb6cxB2eCnvVE9hPo9aDGaloZVlOeRlI=",
+    "hash": "sha256-1Dvqvv/hWZtavEJgBQrvaAgAF3yxruPo26jPVNk2BBE=",
     "homepage": "https://registry.terraform.io/providers/auth0/auth0",
     "owner": "auth0",
     "repo": "terraform-provider-auth0",
-    "rev": "v1.7.1",
+    "rev": "v1.7.3",
     "spdx": "MPL-2.0",
     "vendorHash": "sha256-Qjaw43kMlTL2eceQwlZpgaA42YDuxq59F/m2qLqvl8s="
   },
@@ -723,11 +723,11 @@
     "vendorHash": "sha256-MfXuVZC7aroO83CJTNCh5YfbmMlUG1CiPeGgxhUFjN0="
   },
   "launchdarkly": {
-    "hash": "sha256-ke7o4I6d1JSsk+/6hk0EXUatnyCnXzb8xdgPX/cr4eM=",
+    "hash": "sha256-ca8eXj+eOTNoR00c4nBLoghoPsO2PJ3dYOMOv5cXzO4=",
     "homepage": "https://registry.terraform.io/providers/launchdarkly/launchdarkly",
     "owner": "launchdarkly",
     "repo": "terraform-provider-launchdarkly",
-    "rev": "v2.20.2",
+    "rev": "v2.21.0",
     "spdx": "MPL-2.0",
     "vendorHash": "sha256-v9N7lj7bEgR5HZm1SO0+DSCmQFVnsRvHPMycYMfpYwo="
   },
@@ -967,11 +967,11 @@
     "vendorHash": null
   },
   "ovh": {
-    "hash": "sha256-SdolwqXtS4SwR8LaSkZKPnuXgaRoCJKJXvaCFdsmvEw=",
+    "hash": "sha256-GabcX9KyUzwXke7h8hDYeDkA69D8S2IxwIK7LQynBlU=",
     "homepage": "https://registry.terraform.io/providers/ovh/ovh",
     "owner": "ovh",
     "repo": "terraform-provider-ovh",
-    "rev": "v0.51.0",
+    "rev": "v1.0.0",
     "spdx": "MPL-2.0",
     "vendorHash": null
   },
