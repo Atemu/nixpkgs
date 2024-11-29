@@ -6,7 +6,6 @@
 , libgit2
 , callPackage
 , fetchFromGitHub
-, fetchpatch
 , fetchpatch2
 , runCommand
 , buildPackages
@@ -177,36 +176,6 @@ in lib.makeExtensible (self: ({
     version = "2.18.9";
     hash = "sha256-RrOFlDGmRXcVRV2p2HqHGqvzGNyWoD0Dado/BNlJ1SI=";
     self_attribute_name = "nix_2_18";
-  };
-
-  nix_2_19 = common {
-    version = "2.19.7";
-    hash = "sha256-CkT1SNwRYYQdN2X4cTt1WX3YZfKZFWf7O1YTEo1APfc=";
-    self_attribute_name = "nix_2_19";
-  };
-
-  nix_2_20 = common {
-    version = "2.20.9";
-    hash = "sha256-b7smrbPLP/wcoBFCJ8j1UDNj0p4jiKT/6mNlDdlrOXA=";
-    self_attribute_name = "nix_2_20";
-  };
-
-  nix_2_21 = common {
-    version = "2.21.5";
-    hash = "sha256-/+TLpd6hvYMJFoeJvVZ+bZzjwY/jP6CxJRGmwKcXbI0=";
-    self_attribute_name = "nix_2_21";
-  };
-
-  nix_2_22 = common {
-    version = "2.22.4";
-    hash = "sha256-JWjJzMA+CeyImMgP2dhSBHQW4CS8wg7fc2zQ4WdKuBo=";
-    self_attribute_name = "nix_2_22";
-  };
-
-  nix_2_23 = common {
-    version = "2.23.4";
-    hash = "sha256-rugH4TUicHEdVfy3UuAobFIutqbuVco8Yg/z81g7clE=";
-    self_attribute_name = "nix_2_23";
   };
 
   nix_2_24 = common {

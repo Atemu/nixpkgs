@@ -151,6 +151,8 @@ self: super: with self; {
 
   aio-pika = callPackage ../development/python-modules/aio-pika { };
 
+  aioacaia = callPackage ../development/python-modules/aioacaia { };
+
   aioairzone = callPackage ../development/python-modules/aioairzone { };
 
   aioairzone-cloud = callPackage ../development/python-modules/aioairzone-cloud { };
@@ -810,6 +812,8 @@ self: super: with self; {
 
   arviz = callPackage ../development/python-modules/arviz { };
 
+  arxiv = callPackage ../development/python-modules/arxiv { };
+
   arxiv2bib = callPackage ../development/python-modules/arxiv2bib { };
 
   asana = callPackage ../development/python-modules/asana { };
@@ -1170,6 +1174,10 @@ self: super: with self; {
   azure-keyvault-nspkg = callPackage ../development/python-modules/azure-keyvault-nspkg { };
 
   azure-keyvault-secrets = callPackage ../development/python-modules/azure-keyvault-secrets { };
+
+  azure-kusto-data = callPackage ../development/python-modules/azure-kusto-data { };
+
+  azure-kusto-ingest = callPackage ../development/python-modules/azure-kusto-ingest { };
 
   azure-loganalytics = callPackage ../development/python-modules/azure-loganalytics { };
 
@@ -1633,10 +1641,6 @@ self: super: with self; {
 
   binho-host-adapter = callPackage ../development/python-modules/binho-host-adapter { };
 
-  binwalk = callPackage ../development/python-modules/binwalk { };
-
-  binwalk-full = self.binwalk.override { visualizationSupport = true; };
-
   biom-format = callPackage ../development/python-modules/biom-format { };
 
   biopandas = callPackage ../development/python-modules/biopandas { };
@@ -1657,7 +1661,7 @@ self: super: with self; {
 
   bitbox02 = callPackage ../development/python-modules/bitbox02 { };
 
-  bitcoinlib = callPackage ../development/python-modules/bitcoinlib { };
+  python-bitcoinlib = callPackage ../development/python-modules/python-bitcoinlib { };
 
   bitcoin-utils-fork-minimal = callPackage ../development/python-modules/bitcoin-utils-fork-minimal { };
 
@@ -3348,6 +3352,8 @@ self: super: with self; {
 
   django-app-helper = callPackage ../development/python-modules/django-app-helper { };
 
+  django-apscheduler = callPackage ../development/python-modules/django-apscheduler { };
+
   django-auditlog = callPackage ../development/python-modules/django-auditlog { };
 
   django-auth-ldap = callPackage ../development/python-modules/django-auth-ldap { };
@@ -4715,6 +4721,8 @@ self: super: with self; {
 
   flatten-dict = callPackage ../development/python-modules/flatten-dict { };
 
+  flatten-json = callPackage ../development/python-modules/flatten-json { };
+
   flax = callPackage ../development/python-modules/flax { };
 
   flaxlib = callPackage ../development/python-modules/flaxlib { };
@@ -5059,6 +5067,14 @@ self: super: with self; {
   genzshcomp = callPackage ../development/python-modules/genzshcomp { };
 
   geoalchemy2 = callPackage ../development/python-modules/geoalchemy2 { };
+
+  geoarrow-c = callPackage ../development/python-modules/geoarrow-c { };
+
+  geoarrow-types = callPackage ../development/python-modules/geoarrow-types { };
+
+  geoarrow-pandas = callPackage ../development/python-modules/geoarrow-pandas { };
+
+  geoarrow-pyarrow = callPackage ../development/python-modules/geoarrow-pyarrow { };
 
   geocachingapi = callPackage ../development/python-modules/geocachingapi { };
 
@@ -7585,7 +7601,9 @@ self: super: with self; {
 
   logical-unification = callPackage ../development/python-modules/logical-unification { };
 
-  logilab-common = callPackage ../development/python-modules/logilab/common.nix { };
+  logilab-common = callPackage ../development/python-modules/logilab/common.nix {
+    pytestCheckHook = pytest7CheckHook;
+  };
 
   logilab-constraint = callPackage ../development/python-modules/logilab/constraint.nix { };
 
@@ -11548,6 +11566,8 @@ self: super: with self; {
 
   pyflume = callPackage ../development/python-modules/pyflume { };
 
+  pyflipper = callPackage ../development/python-modules/pyflipper { };
+
   pyfma = callPackage ../development/python-modules/pyfma { };
 
   pyfribidi = callPackage ../development/python-modules/pyfribidi { };
@@ -12094,6 +12114,8 @@ self: super: with self; {
     inherit python;
   });
 
+  pypalazzetti = callPackage ../development/python-modules/pypalazzetti { };
+
   pypandoc = callPackage ../development/python-modules/pypandoc { };
 
   pyparser = callPackage ../development/python-modules/pyparser { };
@@ -12638,6 +12660,8 @@ self: super: with self; {
   pytest-cid = callPackage ../development/python-modules/pytest-cid { };
 
   pytest-click = callPackage ../development/python-modules/pytest-click { };
+
+  pytest-codspeed = callPackage ../development/python-modules/pytest-codspeed { };
 
   pytest-console-scripts = callPackage ../development/python-modules/pytest-console-scripts { };
 
@@ -13214,6 +13238,8 @@ self: super: with self; {
   pyeverlights = callPackage ../development/python-modules/pyeverlights { };
 
   pyinfra = callPackage ../development/python-modules/pyinfra { };
+
+  pymodes = callPackage ../development/python-modules/pymodes { };
 
   pytibber = callPackage ../development/python-modules/pytibber { };
 
@@ -15239,6 +15265,8 @@ self: super: with self; {
 
   ssort = callPackage ../development/python-modules/ssort { };
 
+  stable-baselines3 = callPackage ../development/python-modules/stable-baselines3 { };
+
   stack-data = callPackage ../development/python-modules/stack-data { };
 
   stamina = callPackage ../development/python-modules/stamina { };
@@ -16278,6 +16306,8 @@ self: super: with self; {
   tubeup = callPackage ../development/python-modules/tubeup { };
 
   turnt = callPackage ../development/python-modules/turnt { };
+
+  turrishw = callPackage ../development/python-modules/turrishw { };
 
   tuya-device-sharing-sdk = callPackage ../development/python-modules/tuya-device-sharing-sdk { };
 

@@ -6,7 +6,6 @@
 , storeDir ? builtins.storeDir
 , rootModules ?
     [ "virtio_pci" "virtio_mmio" "virtio_blk" "virtio_balloon" "virtio_rng" "ext4" "unix" "9p" "9pnet_virtio" "crc32c_generic" ]
-      ++ pkgs.lib.optional pkgs.stdenv.hostPlatform.isx86 "rtc_cmos"
 }:
 
 let
@@ -175,10 +174,6 @@ rec {
       source "$NIX_ATTRS_SH_FILE"
     fi
     source $stdenv/setup
-
-    # Set the system time from the hardware clock.  Works around an
-    # apparent KVM > 1.5.2 bug.
-    ${util-linux}/bin/hwclock -s
 
     export NIX_STORE=${storeDir}
     export NIX_BUILD_TOP=/tmp
