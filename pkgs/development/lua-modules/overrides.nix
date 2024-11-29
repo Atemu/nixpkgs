@@ -302,6 +302,12 @@ in
     ];
   });
 
+  luacheck = prev.luacheck.overrideAttrs (oa: {
+    meta = oa.meta // {
+      mainProgram = "luacheck";
+    };
+  });
+
   lua-curl = prev.lua-curl.overrideAttrs (oa: {
     buildInputs = oa.buildInputs ++ [
       curl.dev
@@ -859,6 +865,12 @@ in
     in oa.propagatedBuildInputs ++ [
       lua.pkgs.luarocks-build-treesitter-parser-cpp
     ];
+  });
+
+  tl = prev.tl.overrideAttrs ({
+    preConfigure = ''
+      rm luarocks.lock
+    '';
   });
 
   vstruct = prev.vstruct.overrideAttrs (_: {

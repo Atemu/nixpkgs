@@ -18,31 +18,26 @@
 , libiconv
 }:
 
-let
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-    outputHashes = {
-      "email-0.0.20" = "sha256-rV4Uzqt2Qdrfi5Ti1r+Si1c2iW1kKyWLwOgLkQ5JGGw=";
-      "encoded-words-0.2.0" = "sha256-KK9st0hLFh4dsrnLd6D8lC6pRFFs8W+WpZSGMGJcosk=";
-      "lettre-0.9.2" = "sha256-+hU1cFacyyeC9UGVBpS14BWlJjHy90i/3ynMkKAzclk=";
-    };
-  };
-in stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "libdeltachat";
-  version = "1.148.7";
+  version = "1.150.0";
 
   src = fetchFromGitHub {
     owner = "deltachat";
     repo = "deltachat-core-rust";
     rev = "v${version}";
-    hash = "sha256-mTNWSR4ea972tIOvg6RClEc44mKXoHDEWoLZXio8O4k=";
+    hash = "sha256-lVMXW2fnpoa/iiypLhHl7WXLqouHfrRapEbXL37X7B8=";
   };
 
   patches = [
     ./no-static-lib.patch
   ];
 
-  cargoDeps = rustPlatform.importCargoLock cargoLock;
+  cargoDeps = rustPlatform.fetchCargoVendor {
+    pname = "deltachat-core-rust";
+    inherit version src;
+    hash = "sha256-nzAQEaTHkKjDmKDmwZEznpvVh1KfxTM83/82hjV/Cpw=";
+  };
 
   nativeBuildInputs = [
     cmake
@@ -78,7 +73,6 @@ in stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    inherit cargoLock;
     tests = {
       inherit deltachat-desktop deltachat-repl deltachat-rpc-server;
       python = python3.pkgs.deltachat;
