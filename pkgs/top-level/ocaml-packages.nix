@@ -1070,6 +1070,8 @@ let
 
     mec = callPackage ../development/ocaml-modules/mec { };
 
+    melange = callPackage ../development/tools/ocaml/melange { };
+
     memprof-limits = callPackage ../development/ocaml-modules/memprof-limits { };
 
     memtrace = callPackage ../development/ocaml-modules/memtrace { };
@@ -1337,6 +1339,7 @@ let
     ocamlformat_0_26_0 = ocamlformat.override { version = "0.26.0"; };
     ocamlformat_0_26_1 = ocamlformat.override { version = "0.26.1"; };
     ocamlformat_0_26_2 = ocamlformat.override { version = "0.26.2"; };
+    ocamlformat_0_27_0 = ocamlformat.override { version = "0.27.0"; };
 
     ocamlformat = callPackage ../development/ocaml-modules/ocamlformat/ocamlformat.nix {};
 
