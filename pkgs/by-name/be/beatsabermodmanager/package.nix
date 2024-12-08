@@ -8,28 +8,36 @@
   xdg-utils,
 }:
 
-buildDotnetModule {
+buildDotnetModule rec {
   pname = "beatsabermodmanager";
-  version = "0.0.7";
+  version = "0.0.5";
 
   src = fetchFromGitHub {
     owner = "affederaffe";
     repo = "BeatSaberModManager";
-    # v0.0.7 was published without a release tag
-    rev = "8bf3611a8b33c95e7a0340504894cf7b46822107";
-    hash = "sha256-mRC/dGkpmKBQ2euyCOOvOkN+LUOHW1p1L/VQ4bWSUpY";
+    rev = "v${version}";
+    hash = "sha256-HHWC+MAwJ+AMCuBzSuR7FbW3k+wLri0B9J1DftyfNEU=";
     fetchSubmodules = true; # It vendors BSIPA-Linux
   };
 
-  dotnet-sdk = dotnetCorePackages.sdk_8_0;
+  dotnet-sdk = with dotnetCorePackages; combinePackages [
+    sdk_7_0
+    sdk_6_0
+  ];
 
-  dotnet-runtime = dotnetCorePackages.runtime_8_0;
+  dotnet-runtime = dotnetCorePackages.runtime_7_0;
 
   projectFile = [ "BeatSaberModManager/BeatSaberModManager.csproj" ];
 
   executables = [ "BeatSaberModManager" ];
 
   nugetDeps = ./deps.nix;
+
+  preConfigureNuGet = ''
+    # This should really be in the upstream nuget.config
+    dotnet nuget add source https://api.nuget.org/v3/index.json \
+      -n nuget.org --configfile nuget.config
+  '';
 
   # Required for OneClick
   makeWrapperArgs = [
