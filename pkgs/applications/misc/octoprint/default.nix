@@ -23,6 +23,7 @@ let
             werkzeug = super.werkzeug.overridePythonAttrs (oldAttrs: rec {
               version = "2.2.3";
               format = "setuptools";
+              pyproject = null;
               src = fetchPypi {
                 pname = "Werkzeug";
                 inherit version;
@@ -116,13 +117,13 @@ let
           self: super: {
             octoprint = self.buildPythonPackage rec {
               pname = "OctoPrint";
-              version = "1.10.1";
+              version = "1.10.3";
 
               src = fetchFromGitHub {
                 owner = "OctoPrint";
                 repo = "OctoPrint";
                 rev = version;
-                hash = "sha256-kJTYIsbNr6cLzti8yg+IlXjbKwXuwumE3Wydy+oTeK4=";
+                hash = "sha256-BToW1/AcQ01OK7RWZrkstX2M4+uKuL/wFB6HGkVUflk=";
               };
 
               propagatedBuildInputs = with self; [

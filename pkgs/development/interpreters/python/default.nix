@@ -20,10 +20,10 @@
       sourceVersion = {
         major = "3";
         minor = "11";
-        patch = "9";
+        patch = "10";
         suffix = "";
       };
-      hash = "sha256-mx6JZSP8UQaREmyGRAbZNgo9Hphqy9pZzaV7Wr2kW4c=";
+      hash = "sha256-B6Q1bpEpAOYaFcsJSaBsSgUBLiE+zWtOhND2equ+43I=";
     };
   };
 
@@ -79,10 +79,10 @@ in {
     sourceVersion = {
       major = "3";
       minor = "12";
-      patch = "5";
+      patch = "6";
       suffix = "";
     };
-    hash = "sha256-+oouEsXmILCfU+ZbzYdVDS5aHi4Ev4upkdzFUROHY5c=";
+    hash = "sha256-GZllgpjPL7g33/7Y/zwDPvDJjvIM9zxdX2a+1auJaXw=";
     inherit (darwin) configd;
     inherit passthruFun;
   };
@@ -92,13 +92,14 @@ in {
     sourceVersion = {
       major = "3";
       minor = "13";
-      patch = "0";
+      patch = "1";
       suffix = "";
     };
-    hash = "sha256-CG3liC48sxDU3KSEV1IuLkgBjs1D2pzfgn9qB1nvsH0=";
+    hash = "sha256-nPlCe+6eIkLjh33Q9rZBwYU8pGHznWUDziYKWcgL8Nk=";
     inherit (darwin) configd;
     inherit passthruFun;
   };
+
   # Minimal versions of Python (built without optional dependencies)
   python3Minimal = (callPackage ./cpython ({
     self = __splicedPackages.python3Minimal;
