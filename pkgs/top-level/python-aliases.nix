@@ -136,6 +136,7 @@ mapAliases ({
   d2to1 = throw "d2to1 is archived and no longer works with setuptools v68"; # added 2023-07-30
   dask-xgboost = throw "dask-xgboost was removed because its features are available in xgboost"; # added 2022-05-24
   dateutil = python-dateutil; # added 2021-07-03
+  debian = python-debian; # added 2024-12-10
   deep_merge = throw "deep_merge has been removed, since it is no longer maintained and may be broken."; # added 2023-10-09
   demjson = throw "demjson has been removed, it was using setuptools 2to3 translation feature, which has been removed in setuptools 58"; # added 2022-01-18
   descartes = throw "descartes has been removed, since it is abandoned and broken"; # added 2023-06-21
@@ -325,6 +326,7 @@ mapAliases ({
   linear_operator = linear-operator; # added 2024-01-07
   livestreamer = throw "'livestreamer' has been removed, as it unmaintained. A currently maintained fork is 'streamlink'."; # added 2023-11-14
   livestreamer-curses = throw "'livestreamer-curses' has been removed as it, and livestreamer itself are unmaintained."; # added 2023-11-14
+  lmcloud = pylamarzocco; # added 2024-11-26
   logilab_astng = throw "logilab-astng has not been released since 2013 and is unmaintained"; # added 2022-11-29
   logilab_common = logilab-common; # added 2022-11-21
   loo-py = loopy; # added 2022-05-03

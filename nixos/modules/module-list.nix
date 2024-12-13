@@ -160,6 +160,8 @@
   ./programs/bash/blesh.nix
   ./programs/bash/ls-colors.nix
   ./programs/bash/undistract-me.nix
+  ./programs/bazecor.nix
+  ./programs/bat.nix
   ./programs/bcc.nix
   ./programs/benchexec.nix
   ./programs/browserpass.nix
@@ -205,6 +207,7 @@
   ./programs/gdk-pixbuf.nix
   ./programs/geary.nix
   ./programs/git.nix
+  ./programs/git-worktree-switcher.nix
   ./programs/gnome-disks.nix
   ./programs/gnome-terminal.nix
   ./programs/gnupg.nix
@@ -588,6 +591,7 @@
   ./services/hardware/bluetooth.nix
   ./services/hardware/bolt.nix
   ./services/hardware/brltty.nix
+  ./services/hardware/buffyboard.nix
   ./services/hardware/ddccontrol.nix
   ./services/hardware/display.nix
   ./services/hardware/fancontrol.nix
@@ -1025,6 +1029,7 @@
   ./services/networking/coredns.nix
   ./services/networking/corerad.nix
   ./services/networking/coturn.nix
+  ./services/networking/crab-hole.nix
   ./services/networking/create_ap.nix
   ./services/networking/croc.nix
   ./services/networking/dae.nix
@@ -1285,6 +1290,7 @@
   ./services/networking/wg-quick.nix
   ./services/networking/wgautomesh.nix
   ./services/networking/wireguard.nix
+  ./services/networking/wireguard-networkd.nix
   ./services/networking/wpa_supplicant.nix
   ./services/networking/wstunnel.nix
   ./services/networking/x2goserver.nix
@@ -1468,6 +1474,7 @@
   ./services/web-apps/jirafeau.nix
   ./services/web-apps/jitsi-meet.nix
   ./services/web-apps/kasmweb/default.nix
+  ./services/web-apps/kanboard.nix
   ./services/web-apps/kavita.nix
   ./services/web-apps/keycloak.nix
   ./services/web-apps/kimai.nix

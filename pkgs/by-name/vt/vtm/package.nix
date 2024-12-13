@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "vtm";
-  version = "0.9.99.35";
+  version = "0.9.99.55";
 
   src = fetchFromGitHub {
     owner = "netxs-group";
     repo = "vtm";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-XPBInofzFNBMuJ0oP7ZooDuRukuXBWkEzdEq09MHykA=";
+    hash = "sha256-eF5z+w64uIY7k/g4Z2Ynuz8PGyxpy6cOFIyUtV2VkxU=";
   };
 
   nativeBuildInputs = [

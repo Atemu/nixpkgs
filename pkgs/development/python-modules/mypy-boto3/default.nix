@@ -134,8 +134,8 @@ rec {
       "sha256-HK2Eh7uNihu+st+A51z+3uYlPacOkpp7Ic3+xIWHhJ0=";
 
   mypy-boto3-appsync =
-    buildMypyBoto3Package "appsync" "1.35.67"
-      "sha256-kOChUtLeRR8uNb27GRv1FA2rfNasJttpmTowJsvW1yA=";
+    buildMypyBoto3Package "appsync" "1.35.77"
+      "sha256-DmwHwbpBnxzyJnxAVqptfH9ZBD1HweVZJaDhNefTaGg=";
 
   mypy-boto3-arc-zonal-shift =
     buildMypyBoto3Package "arc-zonal-shift" "1.35.0"
@@ -314,8 +314,8 @@ rec {
       "sha256-UVEJn/VNbYEIRPHV9CuDI0Hos5POiMQThiN4OlncQIE=";
 
   mypy-boto3-cognito-idp =
-    buildMypyBoto3Package "cognito-idp" "1.35.68"
-      "sha256-/wKxHF/k+K1TB1VjvuxRpv7QY8HTPaomtVxUGMnAV4s=";
+    buildMypyBoto3Package "cognito-idp" "1.35.77"
+      "sha256-H2CQ/CeVjmnteZPmTN6LUq1Uldks1k7tbnwYAHv1gGo=";
 
   mypy-boto3-cognito-sync =
     buildMypyBoto3Package "cognito-sync" "1.35.0"
@@ -446,8 +446,8 @@ rec {
       "sha256-wBJ7PnAlsi88AZIRPoNgbzOhPwUAJBegtwk+tw1lOwU=";
 
   mypy-boto3-ec2 =
-    buildMypyBoto3Package "ec2" "1.35.72"
-      "sha256-0v9DrRxCZVy8uwbRHf90s4J1A9gKmaeAmKtSug+7cjU=";
+    buildMypyBoto3Package "ec2" "1.35.77"
+      "sha256-s2wgtoeKrQRd9f3x3oVYUNvf/3h4r4OBu0r2B9KGQo8=";
 
   mypy-boto3-ec2-instance-connect =
     buildMypyBoto3Package "ec2-instance-connect" "1.35.0"
@@ -462,8 +462,8 @@ rec {
       "sha256-KXtN44KAIDXjMgv3ICG8rXYfEjcZ85pQ+qdvN2Yiq3g=";
 
   mypy-boto3-ecs =
-    buildMypyBoto3Package "ecs" "1.35.72"
-      "sha256-jplX7a1Rql7+97/chlK4bd1PECDUD5OqELNt5ErhDFg=";
+    buildMypyBoto3Package "ecs" "1.35.77"
+      "sha256-g2EhM/9/oqHDJUTXosXsOLQhowPEIl0XmNGktljUCL8=";
 
   mypy-boto3-efs =
     buildMypyBoto3Package "efs" "1.35.65"
@@ -718,16 +718,16 @@ rec {
       "sha256-xHARaL3zzxY6jy5VyQIrZLXqwvfprktif4pcSk+7xzY=";
 
   mypy-boto3-kendra =
-    buildMypyBoto3Package "kendra" "1.35.0"
-      "sha256-fnpRggcnA4mhk1vU7I0x+nn6wvx9PQ5Gi/WckSgfZ7c=";
+    buildMypyBoto3Package "kendra" "1.35.75"
+      "sha256-yLSTXvjrML3i/z2aJUj7feOaZlR+Yy5po0iBQ1pqc7M=";
 
   mypy-boto3-kendra-ranking =
     buildMypyBoto3Package "kendra-ranking" "1.35.0"
       "sha256-lBZ9MJQsuM0vRyrDcelDXTIhP9sex6CjnRjYY3qjIdE=";
 
   mypy-boto3-keyspaces =
-    buildMypyBoto3Package "keyspaces" "1.35.65"
-      "sha256-hn0qygyjRs7+PR4526zoyh4ZO8bLVsG0MD/v1iKhqwU=";
+    buildMypyBoto3Package "keyspaces" "1.35.77"
+      "sha256-0FKWOd+CV683H3uGX5naMwrm8ImJgcwcI5gk6Vz5pzs=";
 
   mypy-boto3-kinesis =
     buildMypyBoto3Package "kinesis" "1.35.26"
@@ -866,8 +866,8 @@ rec {
       "sha256-NJRSgwKHlb0ORdkg2ovACyfegmm5Tpzmxm/izLqpt/k=";
 
   mypy-boto3-medialive =
-    buildMypyBoto3Package "medialive" "1.35.23"
-      "sha256-emjiDJ1sZylGgclL3E90nYBwqJgJq20fQx2Ug4e9UbQ=";
+    buildMypyBoto3Package "medialive" "1.35.77"
+      "sha256-MJzQKna5vl99uxJEm9dBCgGsXB2VkHQit9LuhRNSJuM=";
 
   mypy-boto3-mediapackage =
     buildMypyBoto3Package "mediapackage" "1.35.0"
@@ -1162,8 +1162,8 @@ rec {
       "sha256-RwPNNFntNChLqbr86wd1bwp6OqWvs3oj3V+4X71J3Hw=";
 
   mypy-boto3-s3 =
-    buildMypyBoto3Package "s3" "1.35.74"
-      "sha256-HmYmu4JNqjFaFLVif0aEbV5T9Wq8SYDNtm49S0lQyCo=";
+    buildMypyBoto3Package "s3" "1.35.76"
+      "sha256-bPHwNJhf5hB1TD5u8odJBimHDVCK2hO31h57mq60YQg=";
 
   mypy-boto3-s3control =
     buildMypyBoto3Package "s3control" "1.35.73"
@@ -1174,8 +1174,8 @@ rec {
       "sha256-P2Yg3qvcdAcjY+uwPg2DpTgT6ZXb1XYCOeu4bVfgFKI=";
 
   mypy-boto3-sagemaker =
-    buildMypyBoto3Package "sagemaker" "1.35.68"
-      "sha256-SjKW9Gc6TOStmB6AexAOI3VuBqBiN0me3/+nbp92cv0=";
+    buildMypyBoto3Package "sagemaker" "1.35.75"
+      "sha256-FFTK2PvJJaM8eceQZ3ndYWungIAb4CoWp8ue32+nQPs=";
 
   mypy-boto3-sagemaker-a2i-runtime =
     buildMypyBoto3Package "sagemaker-a2i-runtime" "1.35.0"
@@ -1426,8 +1426,8 @@ rec {
       "sha256-Om/TFPBZh3xr0inpGzCpvTNij9DTPq8dV1ikX8g4YtE=";
 
   mypy-boto3-workspaces =
-    buildMypyBoto3Package "workspaces" "1.35.68"
-      "sha256-tWM2zB4mYY7HkCxgWnwI4ggUVStNxz+3nJUw5hHwTkg=";
+    buildMypyBoto3Package "workspaces" "1.35.77"
+      "sha256-mR7oxRVxDy1IbXEt7cEEn0POlVyyH5Vxzlzobl4wvlQ=";
 
   mypy-boto3-workspaces-web =
     buildMypyBoto3Package "workspaces-web" "1.35.66"

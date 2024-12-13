@@ -85,6 +85,7 @@ mapAliases {
   inherit (pkgs) configurable-http-proxy; # added 2023-08-19
   inherit (pkgs) cordova; # added 2023-08-18
   inherit (pkgs) create-react-app; # added 2023-09-25
+  create-react-native-app = throw "create-react-native-app was removed because it was deprecated. Upstream suggests using a framework for React Native."; # added 2024-12-08
   dat = throw "dat was removed because it was broken"; # added 2023-08-21
   inherit (pkgs) degit; # added 2023-08-18
   inherit (pkgs) diagnostic-languageserver; # added 2024-06-25
@@ -94,6 +95,7 @@ mapAliases {
   inherit (pkgs.elmPackages) elm-test;
   inherit (pkgs) eslint; # Added 2024-08-28
   inherit (pkgs) eslint_d; # Added 2023-05-26
+  expo-cli = throw "expo-cli was removed because it was deprecated upstream. Use `npx expo` or eas-cli instead."; # added 2024-12-02
   inherit (pkgs) firebase-tools; # added 2023-08-18
   inherit (pkgs) fixjson; # added 2024-06-26
   flood = pkgs.flood; # Added 2023-07-25
@@ -163,6 +165,7 @@ mapAliases {
   react-tools = throw "react-tools was removed because it was deprecated"; # added 2023-09-25
   readability-cli = pkgs.readability-cli; # Added 2023-06-12
   inherit (pkgs) redoc-cli; # added 2023-09-12
+  remod-cli = pkgs.remod; # added 2024-12-04
   reveal-md = pkgs.reveal-md; # added 2023-07-31
   inherit (pkgs) rtlcss; # added 2023-08-29
   s3http = throw "s3http was removed because it was abandoned upstream"; # added 2023-08-18
@@ -205,6 +208,7 @@ mapAliases {
   inherit (pkgs) undollar; # added 2024-06-29
   inherit (pkgs) ungit; # added 2023-08-20
   inherit (pkgs) vim-language-server; # added 2024-06-25
+  vls = throw "vls has been deprecated by upstream as vetur is also deprecated. Upstream suggests migrating to Volar for Vue LSP tooling instead."; # added 2024-12-09
   inherit (pkgs) vsc-leetcode-cli; # Added 2023-08-30
   vscode-css-languageserver-bin = throw "vscode-css-languageserver-bin has been removed since the upstream repository is archived; consider using vscode-langservers-extracted instead."; # added 2024-06-26
   vscode-html-languageserver-bin = throw "vscode-html-languageserver-bin has been removed since the upstream repository is archived; consider using vscode-langservers-extracted instead."; # added 2024-06-26
@@ -214,6 +218,7 @@ mapAliases {
   vue-cli = throw "vue-cli has been removed since upstream no longer recommends using it; consider using create-vue and the new Vite-based tooling instead."; # added 2024-07-12
   inherit (pkgs) web-ext; # added 2023-08-20
   inherit (pkgs) webpack-cli; # added 2024-12-03
+  webpack-dev-server = throw "webpack-dev-server has been removed. You should install it in your JS project instead."; # added 2024-12-05
   inherit (pkgs) wrangler; # added 2024-07-01
   inherit (pkgs) write-good; # added 2023-08-20
   inherit (pkgs) yalc; # added 2024-06-29
