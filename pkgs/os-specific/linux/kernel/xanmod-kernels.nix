@@ -18,8 +18,8 @@ let
       hash = "sha256-P4B6r3p+Buu1Hf+RQsw5h2oUANVvQvQ4e/2gQcZ0vKw=";
     };
     main = {
-      version = "6.11.11";
-      hash = "sha256-ZBDm6qbzXQhIBVK4EWNI/3WdD7HArwGf5uKCDVBV59c=";
+      version = "6.12.4";
+      hash = "sha256-qxcIcXrHzRXYnTvj+hKgwm5GBTZH/KIQdrnSUon/qoU=";
     };
   };
 
