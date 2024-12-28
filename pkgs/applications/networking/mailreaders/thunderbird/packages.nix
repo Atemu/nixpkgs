@@ -62,8 +62,8 @@ in rec {
   };
 
   thunderbird-128 = common {
-    version = "128.4.0esr";
-    sha512 = "ad031b3a9b738598358cead23cf8438435016222cd9a474c31892dc1b3db43d2d5d3a10c9639df770dc76eb3c0bc9db8be8beab84828d54ee50fc1e03f0da0a5";
+    version = "128.4.3esr";
+    sha512 = "18691722f6376f3dc0658c01164fcdbf6008fc31eff8c1bd403d34f188db0e7850883315a96fc07289d207c9977d732628d3945736aa191fefd0a01735e3037d";
 
     updateScript = callPackage ./update.nix {
       attrPath = "thunderbirdPackages.thunderbird-128";
