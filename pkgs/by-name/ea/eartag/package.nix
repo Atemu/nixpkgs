@@ -17,11 +17,12 @@
   librsvg,
   python3Packages,
   blueprint-compiler,
+  nix-update-script,
 }:
 
 python3Packages.buildPythonApplication rec {
   pname = "eartag";
-  version = "0.6.1";
+  version = "0.6.3";
   format = "other";
 
   src = fetchFromGitLab {
@@ -29,7 +30,7 @@ python3Packages.buildPythonApplication rec {
     owner = "World";
     repo = pname;
     rev = version;
-    hash = "sha256-CAJz9p1PJxq3VDxzZEHD860xINCQF722bPaf7psNztY=";
+    hash = "sha256-eo6Vboo2Kn39M0r1OeqRFG3ug6frxzMKler5qT9KysY=";
   };
 
   postPatch = ''
@@ -73,6 +74,10 @@ python3Packages.buildPythonApplication rec {
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
+  passthru = {
+    updateScript = nix-update-script { };
+  };
+
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/World/eartag";
     description = "Simple music tag editor";
@@ -81,6 +86,6 @@ python3Packages.buildPythonApplication rec {
     # being incorrectly identified as unfree software.
     license = licenses.mit;
     mainProgram = "eartag";
-    maintainers = with maintainers; [ foo-dogsquared ];
+    maintainers = with maintainers; [ foo-dogsquared ] ++ lib.teams.gnome-circle.members;
   };
 }

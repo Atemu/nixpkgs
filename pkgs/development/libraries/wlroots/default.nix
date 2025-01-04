@@ -13,7 +13,7 @@
   libxkbcommon,
   pixman,
   libcap,
-  mesa,
+  libgbm,
   xorg,
   libpng,
   ffmpeg,
@@ -81,7 +81,7 @@ let
           libinput
           libpng
           libxkbcommon
-          mesa
+          libgbm
           pixman
           seatd
           vulkan-loader
@@ -160,8 +160,8 @@ rec {
   };
 
   wlroots_0_18 = generic {
-    version = "0.18.1";
-    hash = "sha256-BlI3EUoGEHdO6IBh99o/Aadct2dd7Xjc4PG0Sv+flqI=";
+    version = "0.18.2";
+    hash = "sha256-vKvMWRPPJ4PRKWVjmKKCdNSiqsQm+uQBoBnBUFElLNA=";
     extraNativeBuildInputs = [
       hwdata
     ];

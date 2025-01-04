@@ -19,6 +19,7 @@
   libsecret,
   libsoup_3,
   libpeas2,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation rec {
@@ -56,13 +57,17 @@ stdenv.mkDerivation rec {
     libpeas2
   ];
 
+  passthru = {
+    updateScript = nix-update-script { };
+  };
+
   meta = with lib; {
     description = "Control Elgato Stream Deck devices";
     homepage = "https://gitlab.gnome.org/World/boatswain";
     mainProgram = "boatswain";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ _0xMRTT ];
+    maintainers = with maintainers; [ _0xMRTT ] ++ lib.teams.gnome-circle.members;
     broken = stdenv.hostPlatform.isDarwin;
   };
 }

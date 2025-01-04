@@ -14,6 +14,7 @@
   gtk4,
   libadwaita,
   libportal-gtk4,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation rec {
@@ -63,12 +64,16 @@ stdenv.mkDerivation rec {
     sed -i "1s|.*|#!/usr/bin/gjs -m|" $out/bin/re.sonny.Junction
   '';
 
+  passthru = {
+    updateScript = nix-update-script { };
+  };
+
   meta = with lib; {
     mainProgram = "re.sonny.Junction";
     description = "Choose the application to open files and links";
     homepage = "https://apps.gnome.org/Junction/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ hqurve ];
+    maintainers = with maintainers; [ hqurve ] ++ lib.teams.gnome-circle.members;
     platforms = platforms.linux;
   };
 }

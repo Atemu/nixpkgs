@@ -19,6 +19,7 @@
   libadwaita,
   openssl,
   pango,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -61,12 +62,16 @@ stdenv.mkDerivation (finalAttrs: {
     pango
   ];
 
+  passthru = {
+    updateScript = nix-update-script { };
+  };
+
   meta = {
     description = "Straight-forward and modern application to create bootable drives";
     homepage = "https://gitlab.com/adhami3310/Impression";
     license = lib.licenses.gpl3Only;
     mainProgram = "impression";
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [ dotlambda ] ++ lib.teams.gnome-circle.members;
     platforms = lib.platforms.linux;
   };
 })

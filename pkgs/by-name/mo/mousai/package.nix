@@ -15,6 +15,7 @@
   libsoup_3,
   meson,
   ninja,
+  nix-update-script,
   pkg-config,
   rustPlatform,
   rustc,
@@ -63,12 +64,16 @@ stdenv.mkDerivation rec {
     libsoup_3
   ];
 
+  passthru = {
+    updateScript = nix-update-script { };
+  };
+
   meta = with lib; {
     description = "Identify any songs in seconds";
     mainProgram = "mousai";
     homepage = "https://github.com/SeaDve/Mousai";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [ dotlambda ] ++ lib.teams.gnome-circle.members;
     platforms = platforms.linux;
   };
 }

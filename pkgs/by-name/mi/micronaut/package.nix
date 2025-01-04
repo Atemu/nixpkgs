@@ -9,11 +9,11 @@
 
 stdenv.mkDerivation rec {
   pname = "micronaut";
-  version = "4.7.1";
+  version = "4.7.3";
 
   src = fetchzip {
     url = "https://github.com/micronaut-projects/micronaut-starter/releases/download/v${version}/micronaut-cli-${version}.zip";
-    sha256 = "sha256-h0C3mRV74tpoVoMDdl9TVAWk8/P7ngjPFM2c3qybTCE=";
+    sha256 = "sha256-rCGJnZ+WD0chYVa6XqkhHJqJUQKw2K+AebzYSftAsOk=";
   };
 
   nativeBuildInputs = [

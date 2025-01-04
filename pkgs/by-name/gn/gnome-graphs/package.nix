@@ -14,6 +14,7 @@
   shared-mime-info,
   libadwaita,
   libgee,
+  nix-update-script,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -65,12 +66,16 @@ python3Packages.buildPythonApplication rec {
     )
   '';
 
+  passthru = {
+    updateScript = nix-update-script { };
+  };
+
   meta = with lib; {
     description = "Simple, yet powerful tool that allows you to plot and manipulate your data with ease";
     homepage = "https://apps.gnome.org/Graphs";
     license = licenses.gpl3Plus;
     mainProgram = "graphs";
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = lib.teams.gnome-circle.members;
     platforms = platforms.linux; # locale.bindtextdomain only available on linux
   };
 }

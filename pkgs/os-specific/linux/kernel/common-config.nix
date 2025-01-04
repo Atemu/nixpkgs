@@ -461,6 +461,9 @@ let
 
         DRM_LEGACY = whenOlder "6.8" no;
 
+        # Must be the same as CONFIG_DRM
+        BACKLIGHT_CLASS_DEVICE = yes;
+
         NOUVEAU_LEGACY_CTX_SUPPORT = whenOlder "6.3" no;
 
         # Enable simpledrm and use it for generic framebuffer
@@ -531,6 +534,7 @@ let
       };
 
     # Enable Rust and features that depend on it
+    # Use a lower priority to allow these options to be overridden in hardened/config.nix
     rust = lib.optionalAttrs withRust {
       RUST = yes;
 
@@ -1327,6 +1331,17 @@ let
 
             # Enable LEDS to display link-state status of PHY devices (i.e. eth lan/wan interfaces)
             LED_TRIGGER_PHY = yes;
+
+            # Required for various hardware features on Chrome OS devices
+            CHROME_PLATFORMS = yes;
+            CHROMEOS_TBMC = module;
+            CROS_EC = module;
+            CROS_EC_I2C = module;
+            CROS_EC_SPI = module;
+            CROS_EC_LPC = module;
+            CROS_EC_ISHTP = module;
+            CROS_KBD_LED_BACKLIGHT = module;
+            TCG_TIS_SPI_CR50 = whenAtLeast "5.5" yes;
           }
       //
         lib.optionalAttrs
@@ -1379,25 +1394,6 @@ let
             # this instruction is required to build a native armv7 nodejs on an
             # aarch64-linux builder, for example
             CP15_BARRIER_EMULATION = lib.mkIf (stdenv.hostPlatform.system == "aarch64-linux") yes;
-          }
-      //
-        lib.optionalAttrs
-          (stdenv.hostPlatform.system == "x86_64-linux" || stdenv.hostPlatform.system == "aarch64-linux")
-          {
-            # Required for various hardware features on Chrome OS devices
-            CHROME_PLATFORMS = yes;
-            CHROMEOS_TBMC = module;
-
-            CROS_EC = module;
-
-            CROS_EC_I2C = module;
-            CROS_EC_SPI = module;
-            CROS_EC_LPC = module;
-            CROS_EC_ISHTP = module;
-
-            CROS_KBD_LED_BACKLIGHT = module;
-
-            TCG_TIS_SPI_CR50 = whenAtLeast "5.5" yes;
           }
       // lib.optionalAttrs (stdenv.hostPlatform.system == "x86_64-linux") {
         CHROMEOS_LAPTOP = module;

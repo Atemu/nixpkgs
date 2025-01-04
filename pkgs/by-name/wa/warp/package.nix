@@ -19,6 +19,7 @@
   libadwaita,
   zbar,
   gst_all_1,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation rec {
@@ -70,15 +71,21 @@ stdenv.mkDerivation rec {
       gst-plugins-bad
     ]);
 
+  passthru = {
+    updateScript = nix-update-script { };
+  };
+
   meta = {
     description = "Fast and secure file transfer";
     homepage = "https://apps.gnome.org/Warp/";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [
-      dotlambda
-      foo-dogsquared
-      aleksana
-    ];
+    maintainers =
+      with lib.maintainers;
+      [
+        dotlambda
+        foo-dogsquared
+      ]
+      ++ lib.teams.gnome-circle.members;
     platforms = lib.platforms.all;
     mainProgram = "warp";
     broken = stdenv.hostPlatform.isDarwin;

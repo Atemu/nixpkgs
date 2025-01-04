@@ -20,6 +20,7 @@
   sqlite,
   gst_all_1,
   wrapGAppsHook4,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation rec {
@@ -69,12 +70,16 @@ stdenv.mkDerivation rec {
   # tests require network
   doCheck = false;
 
+  passthru = {
+    updateScript = nix-update-script { };
+  };
+
   meta = {
     description = "Listen to your favorite podcasts";
     mainProgram = "gnome-podcasts";
     homepage = "https://apps.gnome.org/Podcasts/";
     license = lib.licenses.gpl3Plus;
-    maintainers = lib.teams.gnome.members;
+    maintainers = lib.teams.gnome.members ++ lib.teams.gnome-circle.members;
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/gnome-podcasts.x86_64-darwin
   };

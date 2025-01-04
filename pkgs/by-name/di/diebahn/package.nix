@@ -19,6 +19,7 @@
   gettext,
   darwin,
   blueprint-compiler,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation rec {
@@ -76,15 +77,22 @@ stdenv.mkDerivation rec {
     GETTEXT_LIB_DIR = "${lib.getLib gettext}/lib";
   };
 
+  passthru = {
+    updateScript = nix-update-script { };
+  };
+
   meta = {
     changelog = "https://gitlab.com/schmiddi-on-mobile/railway/-/blob/${src.rev}/CHANGELOG.md";
     description = "Travel with all your train information in one place. Also known as Railway";
     homepage = "https://gitlab.com/schmiddi-on-mobile/railway";
     license = lib.licenses.gpl3Plus;
     mainProgram = "diebahn";
-    maintainers = with lib.maintainers; [
-      dotlambda
-      lilacious
-    ];
+    maintainers =
+      with lib.maintainers;
+      [
+        dotlambda
+        lilacious
+      ]
+      ++ lib.teams.gnome-circle.members;
   };
 }

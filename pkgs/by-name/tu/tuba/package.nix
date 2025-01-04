@@ -36,13 +36,13 @@
 
 stdenv.mkDerivation rec {
   pname = "tuba";
-  version = "0.8.4";
+  version = "0.9.1";
 
   src = fetchFromGitHub {
     owner = "GeopJr";
     repo = "Tuba";
     rev = "v${version}";
-    hash = "sha256-PRzLTlq8XfI5dYZhJ8YBtYi4H3883S2olp9jrn1Q5CQ=";
+    hash = "sha256-ouS/aGfjTLd88nWc5lJwYJ20ukzuXE+b7uZ4eMEsdSk=";
   };
 
   nativeBuildInputs = [
@@ -112,10 +112,12 @@ stdenv.mkDerivation rec {
     mainProgram = "dev.geopjr.Tuba";
     license = lib.licenses.gpl3Only;
     changelog = "https://github.com/GeopJr/Tuba/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [
-      chuangzhu
-      aleksana
-      donovanglover
-    ];
+    maintainers =
+      with lib.maintainers;
+      [
+        chuangzhu
+        donovanglover
+      ]
+      ++ lib.teams.gnome-circle.members;
   };
 }

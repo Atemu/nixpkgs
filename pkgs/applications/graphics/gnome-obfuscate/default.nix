@@ -18,6 +18,7 @@
   gdk-pixbuf,
   libadwaita,
   Foundation,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -70,12 +71,16 @@ stdenv.mkDerivation (finalAttrs: {
       Foundation
     ];
 
+  passthru = {
+    updateScript = nix-update-script { };
+  };
+
   meta = with lib; {
     description = "Censor private information";
     homepage = "https://gitlab.gnome.org/World/obfuscate";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
     mainProgram = "obfuscate";
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [ fgaz ] ++ lib.teams.gnome-circle.members;
   };
 })

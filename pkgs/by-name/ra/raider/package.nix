@@ -9,6 +9,7 @@
   meson,
   mesonEmulatorHook,
   ninja,
+  nix-update-script,
   pkg-config,
   stdenv,
   wrapGAppsHook4,
@@ -16,13 +17,13 @@
 
 stdenv.mkDerivation rec {
   pname = "raider";
-  version = "3.0.1";
+  version = "3.0.2";
 
   src = fetchFromGitHub {
     owner = "ADBeveridge";
     repo = "raider";
     rev = "v${version}";
-    hash = "sha256-LkGSEUoruWfEq/ttM3LkA/UjHc3ZrlvGF44HsJLntAo=";
+    hash = "sha256-fOv4Y5kBbZazFNkPrLS3D7LMLLvT/kIYmsCezsl/fxQ=";
   };
 
   nativeBuildInputs =
@@ -44,6 +45,10 @@ stdenv.mkDerivation rec {
     libadwaita
   ];
 
+  passthru = {
+    updateScript = nix-update-script { };
+  };
+
   meta = with lib; {
     description = "Permanently delete your files (also named File Shredder)";
     longDescription = ''
@@ -60,10 +65,12 @@ stdenv.mkDerivation rec {
     homepage = "https://apps.gnome.org/Raider";
     license = licenses.gpl3Plus;
     mainProgram = "raider";
-    maintainers = with maintainers; [
-      benediktbroich
-      aleksana
-    ];
+    maintainers =
+      with maintainers;
+      [
+        benediktbroich
+      ]
+      ++ lib.teams.gnome-circle.members;
     platforms = platforms.unix;
   };
 }

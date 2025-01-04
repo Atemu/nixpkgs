@@ -3,7 +3,7 @@
   stdenv,
   fetchFromGitHub,
   makeBinaryWrapper,
-  substituteAll,
+  replaceVars,
   age,
   getopt,
   coreutils,
@@ -31,10 +31,10 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   patches = [
-    (substituteAll {
-      src = ./darwin-getopt-path.patch;
+    (replaceVars ./darwin-getopt-path.patch {
       inherit getopt;
     })
+    ./set-correct-program-name-for-sleep.patch
   ];
 
   nativeBuildInputs = [ makeBinaryWrapper ];

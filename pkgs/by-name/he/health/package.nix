@@ -14,6 +14,7 @@
   libsecret,
   tinysparql,
   darwin,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation rec {
@@ -62,12 +63,16 @@ stdenv.mkDerivation rec {
     ]
   );
 
+  passthru = {
+    updateScript = nix-update-script { };
+  };
+
   meta = with lib; {
     description = "Health tracking app for the GNOME desktop";
     homepage = "https://apps.gnome.org/app/dev.Cogitri.Health";
     license = licenses.gpl3Plus;
     mainProgram = "dev.Cogitri.Health";
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = lib.teams.gnome-circle.members;
     platforms = platforms.unix;
   };
 }

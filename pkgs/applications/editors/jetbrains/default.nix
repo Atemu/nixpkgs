@@ -53,7 +53,7 @@ let
       + lib.optionalString meta.isOpenSource (
         if fromSource then " (built from source)" else " (patched binaries from jetbrains)"
       );
-    maintainers = map (x: lib.maintainers."${x}") meta.maintainers;
+    maintainers = lib.teams.jetbrains.members ++ map (x: lib.maintainers."${x}") meta.maintainers;
     license = if meta.isOpenSource then lib.licenses.asl20 else lib.licenses.unfree;
     sourceProvenance =
       if fromSource then
@@ -91,8 +91,9 @@ let
             url = products."${pname}".url;
             sha256 = products."${pname}".sha256;
           };
-      inherit (products."${pname}") version;
-      buildNumber = products."${pname}".build_number;
+      version = if fromSource then communitySources."${pname}".version else products."${pname}".version;
+      buildNumber =
+        if fromSource then communitySources."${pname}".buildNumber else products."${pname}".build_number;
       inherit (ideInfo."${pname}") wmClass product;
       productShort = ideInfo."${pname}".productShort or ideInfo."${pname}".product;
       meta = mkMeta ideInfo."${pname}".meta fromSource;

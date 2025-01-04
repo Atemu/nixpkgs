@@ -25,6 +25,7 @@
   librsvg,
   makeDesktopItem,
   python,
+  nix-update-script,
 }:
 
 buildPythonApplication rec {
@@ -93,9 +94,13 @@ buildPythonApplication rec {
     )
   '';
 
+  passthru = {
+    updateScript = nix-update-script { };
+  };
+
   meta = with lib; {
     description = "Simple modeling tool written in Python";
-    maintainers = [ ];
+    maintainers = [ ] ++ lib.teams.gnome-circle.members;
     homepage = "https://github.com/gaphor/gaphor";
     license = licenses.asl20;
     platforms = lib.platforms.linux;

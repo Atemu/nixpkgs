@@ -14,6 +14,7 @@
   libadwaita,
   libxml2,
   darwin,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation rec {
@@ -62,16 +63,22 @@ stdenv.mkDerivation rec {
     ]
   );
 
+  passthru = {
+    updateScript = nix-update-script { };
+  };
+
   meta = {
     description = "Generate project icons and avatars from a symbolic icon";
     mainProgram = "emblem";
     homepage = "https://gitlab.gnome.org/World/design/emblem";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [
-      figsoda
-      foo-dogsquared
-      aleksana
-    ];
+    maintainers =
+      with lib.maintainers;
+      [
+        figsoda
+        foo-dogsquared
+      ]
+      ++ lib.teams.gnome-circle.members;
   };
 }

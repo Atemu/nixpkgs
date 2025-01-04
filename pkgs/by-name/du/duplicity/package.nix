@@ -88,7 +88,8 @@ let
         paramiko
         pyasn1
         pycrypto
-        pydrive2
+        # Currently marked as broken.
+        # pydrive2
         future
       ]
       ++ paramiko.optional-dependencies.invoke;
@@ -156,7 +157,7 @@ let
       updateScript = nix-update-script {
         extraArgs = [
           "--version-regex"
-          "rel\.(.*)"
+          "rel\\.(.*)"
         ];
       };
 
