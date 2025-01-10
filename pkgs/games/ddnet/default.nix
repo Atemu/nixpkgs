@@ -8,7 +8,6 @@
   pkg-config,
   rustPlatform,
   rustc,
-  apple-sdk_11,
   curl,
   freetype,
   libGLU,
@@ -33,19 +32,19 @@
 
 stdenv.mkDerivation rec {
   pname = "ddnet";
-  version = "18.7";
+  version = "18.8.2";
 
   src = fetchFromGitHub {
     owner = "ddnet";
     repo = pname;
     rev = version;
-    hash = "sha256-mOXD7lEggFus+TBZ5042QALu4PhHRBntnChQFnHu6Dw=";
+    hash = "sha256-+X56o8s9kbNxufDeQVLAaVG8jxcSTFVssn1HnxIHhZQ=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     name = "${pname}-${version}";
     inherit src;
-    hash = "sha256-zug7MzxqGhlmm6ZeRo+3ldwmFEn5cVCb+nvRzomFrnc=";
+    hash = "sha256-b1JOj8p5+Q2SvmbBvLxGFPCLALcOc4mAdegPCsMnNqc=";
   };
 
   nativeBuildInputs = [
@@ -86,9 +85,6 @@ stdenv.mkDerivation rec {
       ]
       ++ lib.optionals stdenv.hostPlatform.isLinux [
         libX11
-      ]
-      ++ lib.optionals stdenv.hostPlatform.isDarwin [
-        apple-sdk_11
       ]
     );
 

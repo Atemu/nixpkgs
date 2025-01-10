@@ -2542,14 +2542,14 @@ buildLuarocksPackage {
 lz-n = callPackage({ buildLuarocksPackage, fetchurl, fetchzip, luaOlder }:
 buildLuarocksPackage {
   pname = "lz.n";
-  version = "2.9.2-1";
+  version = "2.10.0-1";
   knownRockspec = (fetchurl {
-    url    = "mirror://luarocks/lz.n-2.9.2-1.rockspec";
-    sha256 = "08xn5r8ghimnbn92ngsvg4d1924xy1vlj9vyghzbgfidg7802h8j";
+    url    = "mirror://luarocks/lz.n-2.10.0-1.rockspec";
+    sha256 = "00f45x1c55zrvpa8ddn6nma90m949z5vh8yc165fqzqgnr7hdrg7";
   }).outPath;
   src = fetchzip {
-    url    = "https://github.com/nvim-neorocks/lz.n/archive/v2.9.2.zip";
-    sha256 = "0h4s192mvmyd7isjkjjpy7xv9srry830gm0jg3iw61iwxv6qplpr";
+    url    = "https://github.com/nvim-neorocks/lz.n/archive/v2.10.0.zip";
+    sha256 = "10b6ldmxndprwpc7xawm0cvq68cp301ayp7zxpjkrsmrihzzs2jf";
   };
 
   disabled = luaOlder "5.1";
@@ -2927,6 +2927,29 @@ buildLuarocksPackage {
     homepage = "https://pysan3.github.io/pathlib.nvim/";
     description = "OS Independent, ultimate solution to path handling in neovim.";
     license.fullName = "MPL-2.0";
+  };
+}) {};
+
+papis-nvim = callPackage({ buildLuarocksPackage, fetchurl, fetchzip, luaOlder, nui-nvim, pathlib-nvim, sqlite }:
+buildLuarocksPackage {
+  pname = "papis.nvim";
+  version = "0.7.0-1";
+  knownRockspec = (fetchurl {
+    url    = "mirror://luarocks/papis.nvim-0.7.0-1.rockspec";
+    sha256 = "1bza3blszq1kz224zx7k0mn636lnj5rcx5s7q6l3ng8rzddw4isa";
+  }).outPath;
+  src = fetchzip {
+    url    = "https://github.com/jghauser/papis.nvim/archive/16983a7aac24ea787d9b9ac5dce3c35d0077b990.zip";
+    sha256 = "0virafyw0d46iwscbs1f1y7ks9jafhq214m17wqdz25srb7hmrxd";
+  };
+
+  disabled = luaOlder "5.1";
+  propagatedBuildInputs = [ nui-nvim pathlib-nvim sqlite ];
+
+  meta = {
+    homepage = "https://github.com/jghauser/papis.nvim";
+    description = "Manage your bibliography from within your favourite editor";
+    license.fullName = "GPL-3.0";
   };
 }) {};
 
