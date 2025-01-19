@@ -18,3 +18,6 @@ $SHELL $fetcher --builder --url "$url" --out "$out" --rev "$rev" \
   ${branchName:+--branch-name "$branchName"}
 
 runHook postFetch
+
+# It actually hashes $NIX_BUILD_TOP/tmp rather than $out
+cp -a $out tmp

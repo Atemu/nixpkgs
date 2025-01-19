@@ -17,7 +17,7 @@ lib.makeOverridable (lib.fetchers.withNormalizedHash { } (
 , tag ? null
 , rev ? null
 , leaveDotGit ? deepClone
-, outputHash ? lib.fakeHash, outputHashAlgo ? null
+, outputHash ? lib.fakeHash, outputHashAlgo ? "sha1"
 , fetchSubmodules ? true, deepClone ? false
 , branchName ? null
 , sparseCheckout ? []
@@ -92,8 +92,9 @@ stdenvNoCC.mkDerivation {
   nativeBuildInputs = [ git cacert ]
     ++ lib.optionals fetchLFS [ git-lfs ];
 
-  inherit outputHash outputHashAlgo;
-  outputHashMode = "recursive";
+  inherit outputHash;
+  outputHashAlgo = "sha1";
+  outputHashMode = "git";
 
   # git-sparse-checkout(1) says:
   # > When the --stdin option is provided, the directories or patterns are read
