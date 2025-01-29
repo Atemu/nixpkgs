@@ -187,17 +187,7 @@ let
       else
         throw "nvidia-x11 does not support platform ${stdenv.hostPlatform.system}";
 
-    patches =
-      if libsOnly then
-        null
-      else
-        (
-          patches
-          ++ (builtins.map (rewritePatch {
-            from = "kernel-open";
-            to = "kernel";
-          }) patchesOpen)
-        );
+    patches = if libsOnly then null else patches;
     inherit prePatch postPatch patchFlags;
     inherit preInstall postInstall;
     inherit version useGLVND useProfiles;
@@ -215,7 +205,7 @@ let
     kernelVersion = if libsOnly then null else kernel.modDirVersion;
 
     makeFlags = lib.optionals (!libsOnly) (
-      kernel.makeFlags
+      kernel.moduleMakeFlags
       ++ [
         "IGNORE_PREEMPT_RT_PRESENCE=1"
         "NV_BUILD_SUPPORTS_HMM=1"
