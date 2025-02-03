@@ -283,6 +283,8 @@ self: super: with self; {
 
   aiohttp-socks = callPackage ../development/python-modules/aiohttp-socks { };
 
+  aiohttp-sse = callPackage ../development/python-modules/aiohttp-sse { };
+
   aiohttp-sse-client2 = callPackage ../development/python-modules/aiohttp-sse-client2 { };
 
   aiohttp-swagger = callPackage ../development/python-modules/aiohttp-swagger { };
@@ -1723,6 +1725,8 @@ self: super: with self; {
 
   bjoern = callPackage ../development/python-modules/bjoern { };
 
+  bk7231tools = callPackage ../development/python-modules/bk7231tools { };
+
   bkcharts = callPackage ../development/python-modules/bkcharts { };
 
   black = callPackage ../development/python-modules/black { };
@@ -2572,6 +2576,8 @@ self: super: with self; {
 
   commonregex = callPackage ../development/python-modules/commonregex { };
 
+  compliance-trestle = callPackage ../development/python-modules/compliance-trestle { };
+
   complycube = callPackage ../development/python-modules/complycube { };
 
   compreffor = callPackage ../development/python-modules/compreffor { };
@@ -3133,6 +3139,10 @@ self: super: with self; {
 
   deepmerge = callPackage ../development/python-modules/deepmerge { };
 
+  deepsearch-glm = callPackage ../development/python-modules/deepsearch-glm {
+    inherit (pkgs) loguru sentencepiece fasttext;
+  };
+
   deepsearch-toolkit = callPackage ../development/python-modules/deepsearch-toolkit { };
 
   deeptoolsintervals = callPackage ../development/python-modules/deeptoolsintervals { };
@@ -3296,6 +3306,8 @@ self: super: with self; {
   discum = callPackage ../development/python-modules/discum { };
 
   diskcache = callPackage ../development/python-modules/diskcache { };
+
+  disnake = callPackage ../development/python-modules/disnake { };
 
   dissect = callPackage ../development/python-modules/dissect { };
 
@@ -4440,7 +4452,7 @@ self: super: with self; {
   faiss = callPackage ../development/python-modules/faiss {
     faiss-build = pkgs.faiss.override {
       pythonSupport = true;
-      pythonPackages = self;
+      python3Packages = self;
     };
   };
 
@@ -5787,7 +5799,7 @@ self: super: with self; {
 
   hakuin = callPackage ../development/python-modules/hakuin { };
 
-  halide = toPythonModule (pkgs.halide.override { pythonSupport = true; python3Packages = self; });
+  halide = toPythonModule (pkgs.halide.override { pythonSupport = true; python3Packages = self; }).lib;
 
   halo = callPackage ../development/python-modules/halo { };
 
@@ -7242,6 +7254,8 @@ self: super: with self; {
 
   lektricowifi = callPackage ../development/python-modules/lektricowifi { };
 
+  letpot = callPackage ../development/python-modules/letpot { };
+
   leveldb = callPackage ../development/python-modules/leveldb { };
 
   levenshtein = callPackage ../development/python-modules/levenshtein { };
@@ -7253,6 +7267,8 @@ self: super: with self; {
   lhapdf = toPythonModule (pkgs.lhapdf.override {
     inherit python;
   });
+
+  lib4package = callPackage ../development/python-modules/lib4package { };
 
   libagent = callPackage ../development/python-modules/libagent { };
 
@@ -7647,6 +7663,8 @@ self: super: with self; {
     llvm = pkgs.llvm_14;
   };
 
+  lm-eval = callPackage ../development/python-modules/lm-eval { };
+
   lm-format-enforcer = callPackage ../development/python-modules/lm-format-enforcer { };
 
   lmdb = callPackage ../development/python-modules/lmdb {
@@ -7858,6 +7876,8 @@ self: super: with self; {
   mako = callPackage ../development/python-modules/mako { };
 
   malduck = callPackage ../development/python-modules/malduck { };
+
+  mallard-ducktype = callPackage ../development/python-modules/mallard-ducktype { };
 
   mammoth = callPackage ../development/python-modules/mammoth { };
 
@@ -9498,6 +9518,8 @@ self: super: with self; {
 
   py-ccm15 = callPackage ../development/python-modules/py-ccm15 { };
 
+  py-datastruct = callPackage ../development/python-modules/py-datastruct { };
+
   py-deprecate = callPackage ../development/python-modules/py-deprecate { };
 
   py-ecc = callPackage ../development/python-modules/py-ecc { };
@@ -9923,6 +9945,8 @@ self: super: with self; {
 
   osxphotos = callPackage ../development/python-modules/osxphotos { };
 
+  otpauth = callPackage ../development/python-modules/otpauth { };
+
   ots-python = callPackage ../development/python-modules/ots-python { };
 
   outcome = callPackage ../development/python-modules/outcome { };
@@ -10021,6 +10045,8 @@ self: super: with self; {
   para = callPackage ../development/python-modules/para { };
 
   paragraphs = callPackage ../development/python-modules/paragraphs { };
+
+  parallel-ssh = callPackage ../development/python-modules/parallel-ssh { };
 
   param = callPackage ../development/python-modules/param { };
 
@@ -10972,6 +10998,8 @@ self: super: with self; {
   podcastparser = callPackage ../development/python-modules/podcastparser { };
 
   podcats = callPackage ../development/python-modules/podcats { };
+
+  podgen = callPackage ../development/python-modules/podgen { };
 
   podman = callPackage ../development/python-modules/podman { };
 
@@ -12362,6 +12390,8 @@ self: super: with self; {
   pypdf2 = callPackage ../development/python-modules/pypdf2 { };
 
   pypdf3 = callPackage ../development/python-modules/pypdf3 { };
+
+  pypdfium2 = callPackage ../development/python-modules/pypdfium2 { };
 
   pypeg2 = callPackage ../development/python-modules/pypeg2 { };
 
@@ -14490,6 +14520,10 @@ self: super: with self; {
 
   sasmodels = callPackage ../development/python-modules/sasmodels { };
 
+  sbom2dot = callPackage ../development/python-modules/sbom2dot { };
+
+  sbom4files = callPackage ../development/python-modules/sbom4files { };
+
   scalene = callPackage ../development/python-modules/scalene { };
 
   scales = callPackage ../development/python-modules/scales { };
@@ -14516,7 +14550,15 @@ self: super: with self; {
 
   scienceplots = callPackage ../development/python-modules/scienceplots { };
 
+  scim2-client = callPackage ../development/python-modules/scim2-client { };
+
   scim2-filter-parser = callPackage ../development/python-modules/scim2-filter-parser { };
+
+  scim2-models = callPackage ../development/python-modules/scim2-models { };
+
+  scim2-server = callPackage ../development/python-modules/scim2-server { };
+
+  scim2-tester = callPackage ../development/python-modules/scim2-tester { };
 
   scikit-bio = callPackage ../development/python-modules/scikit-bio { };
 
@@ -15222,6 +15264,8 @@ self: super: with self; {
 
   speaklater3 = callPackage ../development/python-modules/speaklater3 { };
 
+  spectra = callPackage ../development/python-modules/spectra { };
+
   spectral-cube = callPackage ../development/python-modules/spectral-cube { };
 
   speechbrain = callPackage ../development/python-modules/speechbrain { };
@@ -15519,6 +15563,10 @@ self: super: with self; {
   sshpubkeys = callPackage ../development/python-modules/sshpubkeys { };
 
   sshtunnel = callPackage ../development/python-modules/sshtunnel { };
+
+  ssh-python = callPackage ../development/python-modules/ssh-python { };
+
+  ssh2-python = callPackage ../development/python-modules/ssh2-python { };
 
   sslib = callPackage ../development/python-modules/sslib { };
 
@@ -16264,6 +16312,8 @@ self: super: with self; {
 
   titlecase = callPackage ../development/python-modules/titlecase { };
 
+  tivars = callPackage ../development/python-modules/tivars { };
+
   tld = callPackage ../development/python-modules/tld { };
 
   tlds = callPackage ../development/python-modules/tlds { };
@@ -16418,6 +16468,8 @@ self: super: with self; {
   tpm2-pytss = callPackage ../development/python-modules/tpm2-pytss { };
 
   tqdm = callPackage ../development/python-modules/tqdm { };
+
+  tqdm-multiprocess = callPackage ../development/python-modules/tqdm-multiprocess { };
 
   traceback2 = callPackage ../development/python-modules/traceback2 { };
 
@@ -17927,6 +17979,8 @@ self: super: with self; {
 
   w3lib = callPackage ../development/python-modules/w3lib { };
 
+  wadler-lindig = callPackage ../development/python-modules/wadler-lindig { };
+
   wadllib = callPackage ../development/python-modules/wadllib { };
 
   wagtail = callPackage ../development/python-modules/wagtail { };
@@ -18169,6 +18223,8 @@ self: super: with self; {
   woob = callPackage ../development/python-modules/woob { };
 
   woodblock = callPackage ../development/python-modules/woodblock { };
+
+  word2number = callPackage ../development/python-modules/word2number { };
 
   wordcloud = callPackage ../development/python-modules/wordcloud { };
 
