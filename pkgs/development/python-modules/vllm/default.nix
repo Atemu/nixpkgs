@@ -195,7 +195,7 @@ in
 
 buildPythonPackage rec {
   pname = "vllm";
-  version = "0.7.1";
+  version = "0.7.2";
   pyproject = true;
 
   stdenv = if cudaSupport then cudaPackages.backendStdenv else args.stdenv;
@@ -204,7 +204,7 @@ buildPythonPackage rec {
     owner = "vllm-project";
     repo = pname;
     tag = "v${version}";
-    hash = "sha256-CImXKMEv+jHqngvcr8W6fQLiCo1mqmcZ0Ho0bfAgfbg=";
+    hash = "sha256-j59DpNuO5TgGD6UVGzueSTumd7mDMB4l1QytV3rFIJE=";
   };
 
   patches = [
@@ -367,9 +367,18 @@ buildPythonPackage rec {
       VLLM_TARGET_DEVICE = "cpu";
     };
 
+  preConfigure = ''
+    # See: https://github.com/vllm-project/vllm/blob/v0.7.1/setup.py#L75-L109
+    # There's also NVCC_THREADS but Nix/Nixpkgs doesn't really have this concept.
+    export MAX_JOBS="$NIX_BUILD_CORES"
+  '';
+
   pythonRelaxDeps = true;
 
   pythonImportsCheck = [ "vllm" ];
+
+  # updates the cutlass fetcher instead
+  passthru.skipBulkUpdate = true;
 
   meta = with lib; {
     description = "High-throughput and memory-efficient inference and serving engine for LLMs";
