@@ -163,6 +163,13 @@ with pkgs;
 
   __flattenIncludeHackHook = callPackage ../build-support/setup-hooks/flatten-include-hack { };
 
+  addBinToPathHook = callPackage (
+    { makeSetupHook }:
+    makeSetupHook {
+      name = "add-bin-to-path-hook";
+    } ../build-support/setup-hooks/add-bin-to-path.sh
+  ) { };
+
   autoreconfHook = callPackage (
     { makeSetupHook, autoconf, automake, gettext, libtool }:
     makeSetupHook {
@@ -861,6 +868,13 @@ with pkgs;
   setupDebugInfoDirs = makeSetupHook {
     name = "setup-debug-info-dirs-hook";
   } ../build-support/setup-hooks/setup-debug-info-dirs.sh;
+
+  writableTmpDirAsHomeHook = callPackage (
+    { makeSetupHook }:
+    makeSetupHook {
+      name = "writable-tmpdir-as-home-hook";
+    } ../build-support/setup-hooks/writable-tmpdir-as-home.sh
+  ) { };
 
   useOldCXXAbi = makeSetupHook {
     name = "use-old-cxx-abi-hook";
@@ -5611,10 +5625,8 @@ with pkgs;
   globalprotect-openconnect = libsForQt5.callPackage ../tools/networking/globalprotect-openconnect { };
 
   sssd = callPackage ../os-specific/linux/sssd {
+    # NOTE: freeipa and sssd need to be built with the same version of python
     inherit (perlPackages) Po4a;
-    # python312Packages.python-ldap is broken
-    # https://github.com/NixOS/nixpkgs/issues/326296
-    python3 = python311;
   };
 
   sentry-cli = callPackage ../development/tools/sentry-cli {
@@ -6996,9 +7008,8 @@ with pkgs;
   cargo-inspect = callPackage ../development/tools/rust/cargo-inspect {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
-  cargo-lambda = callPackage ../development/tools/rust/cargo-lambda {
+  cargo-lambda = callPackage ../by-name/ca/cargo-lambda/package.nix {
     zig = buildPackages.zig_0_12;
-    inherit (darwin.apple_sdk.frameworks) CoreServices Security;
   };
   cargo-msrv = callPackage ../development/tools/rust/cargo-msrv {
     inherit (darwin.apple_sdk.frameworks) Security;
@@ -7871,6 +7882,7 @@ with pkgs;
     electron_31-bin
     electron_32-bin
     electron_33-bin
+    electron_34-bin
     ;
 
   inherit (callPackages ../development/tools/electron/chromedriver { })
@@ -7879,6 +7891,7 @@ with pkgs;
     electron-chromedriver_31
     electron-chromedriver_32
     electron-chromedriver_33
+    electron-chromedriver_34
     ;
 
   electron_24 = electron_24-bin;
@@ -7889,6 +7902,7 @@ with pkgs;
   electron_31 = electron_31-bin;
   electron_32 = if lib.meta.availableOn stdenv.hostPlatform electron-source.electron_32 then electron-source.electron_32 else electron_32-bin;
   electron_33 = if lib.meta.availableOn stdenv.hostPlatform electron-source.electron_33 then electron-source.electron_33 else electron_33-bin;
+  electron_34 = electron_34-bin;
   electron = electron_33;
   electron-bin = electron_33-bin;
   electron-chromedriver = electron-chromedriver_33;
@@ -9182,6 +9196,7 @@ with pkgs;
   };
 
   freeipa = callPackage ../os-specific/linux/freeipa {
+    # NOTE: freeipa and sssd need to be built with the same version of python
     kerberos = krb5.override {
       withVerto = true;
     };
@@ -11770,6 +11785,7 @@ with pkgs;
 
   kanidm_1_3 = callPackage ../by-name/ka/kanidm/1_3.nix { };
   kanidm_1_4 = callPackage ../by-name/ka/kanidm/1_4.nix { };
+  kanidm_1_5 = callPackage ../by-name/ka/kanidm/1_5.nix { };
 
   kanidmWithSecretProvisioning = kanidmWithSecretProvisioning_1_4;
 
@@ -11778,6 +11794,10 @@ with pkgs;
   };
 
   kanidmWithSecretProvisioning_1_4 = callPackage ../by-name/ka/kanidm/1_4.nix {
+    enableSecretProvisioning = true;
+  };
+
+  kanidmWithSecretProvisioning_1_5 = callPackage ../by-name/ka/kanidm/1_5.nix {
     enableSecretProvisioning = true;
   };
 
@@ -14530,6 +14550,7 @@ with pkgs;
 
   imagemagick = lowPrio (callPackage ../applications/graphics/ImageMagick {
     inherit (darwin.apple_sdk.frameworks) ApplicationServices Foundation;
+    openexr = openexr_3;
   });
 
   imagemagickBig = lowPrio (imagemagick.override {
@@ -16253,10 +16274,6 @@ with pkgs;
 
   whispers = with python3Packages; toPythonApplication whispers;
 
-  warp = callPackage ../applications/networking/warp {
-    inherit (darwin.apple_sdk.frameworks) Security Foundation;
-  };
-
   warp-plus = callPackage ../by-name/wa/warp-plus/package.nix {
     buildGoModule = buildGo122Module;
   };
@@ -17921,10 +17938,10 @@ with pkgs;
 
 
   inherit (callPackages ../applications/science/logic/z3 { python = python3; })
+    z3_4_13
     z3_4_12
     z3_4_11
-    z3_4_8;
-  inherit (callPackages ../applications/science/logic/z3 { python = python311; })
+    z3_4_8
     z3_4_8_5;
   z3 = z3_4_8;
   z3-tptp = callPackage ../applications/science/logic/z3/tptp.nix { };
