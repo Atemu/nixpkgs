@@ -108,6 +108,7 @@ luv,,,,1.48.0-2,,
 lyaml,,,,,,lblasc
 lz.n,,,,,,mrcjkb
 lze,,,,,,birdee
+lzextras,,,,,,birdee
 lzn-auto-require,,,,,,mrcjkb
 magick,,,,,5.1,donovanglover
 markdown,,,,,,
@@ -123,6 +124,7 @@ nui.nvim,,,,,,mrcjkb
 nvim-cmp,https://raw.githubusercontent.com/hrsh7th/nvim-cmp/main/nvim-cmp-scm-1.rockspec,,,,,
 nvim-dbee,,,,,,perchun
 nvim-nio,,,,,,mrcjkb
+nvim-web-devicons,,,,,,
 orgmode,,,,,,
 papis-nvim,,,,,,GaetanLepage
 pathlib.nvim,,,,,,

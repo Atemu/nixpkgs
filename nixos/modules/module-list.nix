@@ -567,6 +567,7 @@
   ./services/development/lorri.nix
   ./services/development/nixseparatedebuginfod.nix
   ./services/development/rstudio-server/default.nix
+  ./services/development/vsmartcard-vpcd.nix
   ./services/development/zammad.nix
   ./services/display-managers/default.nix
   ./services/display-managers/greetd.nix
@@ -737,7 +738,6 @@
   ./services/matrix/hebbot.nix
   ./services/matrix/hookshot.nix
   ./services/matrix/maubot.nix
-  ./services/matrix/mautrix-facebook.nix
   ./services/matrix/mautrix-meta.nix
   ./services/matrix/mautrix-signal.nix
   ./services/matrix/mautrix-telegram.nix
