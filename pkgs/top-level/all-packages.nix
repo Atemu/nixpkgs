@@ -2675,7 +2675,7 @@ with pkgs;
   patool = with python3Packages; toPythonApplication patool;
 
   pocket-casts = callPackage ../by-name/po/pocket-casts/package.nix {
-    electron = electron_32;
+    electron = electron_33;
   };
 
   pueue = darwin.apple_sdk_11_0.callPackage ../applications/misc/pueue {
@@ -12254,6 +12254,8 @@ with pkgs;
   };
 
   showoff = callPackage ../servers/http/showoff { };
+
+  stalwart-mail-webadmin = stalwart-mail.webadmin;
 
   ruby-zoom = callPackage ../tools/text/ruby-zoom { };
 
