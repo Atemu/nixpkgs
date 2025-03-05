@@ -739,6 +739,14 @@ in
     dependencies = [ self.nvim-treesitter ];
   };
 
+  colorful-menu-nvim = super.colorful-menu-nvim.overrideAttrs {
+    # Local bug reproduction modules
+    nvimSkipModule = [
+      "repro_blink"
+      "repro_cmp"
+    ];
+  };
+
   command-t = super.command-t.overrideAttrs {
     nativeBuildInputs = [
       getconf
@@ -1089,6 +1097,17 @@ in
 
   executor-nvim = super.executor-nvim.overrideAttrs {
     dependencies = [ self.nui-nvim ];
+  };
+
+  faust-nvim = super.faust-nvim.overrideAttrs {
+    dependencies = with self; [
+      luasnip
+      nvim-fzf
+    ];
+    nvimSkipModule = [
+      # E5108: Error executing lua vim/_init_packages.lua:0: ...in-faust-nvim-2022-06-01/lua/faust-nvim/autosnippets.lua:3: '=' expected near 'wd'
+      "faust-nvim.autosnippets"
+    ];
   };
 
   fcitx-vim = super.fcitx-vim.overrideAttrs {
@@ -2248,6 +2267,8 @@ in
     dependencies = [ self.nvim-dap ];
   };
 
+  nvim-dbee = callPackage ./non-generated/nvim-dbee { };
+
   nvim-coverage = super.nvim-coverage.overrideAttrs {
     dependencies = with self; [
       neotest
@@ -2861,10 +2882,12 @@ in
   snacks-nvim = super.snacks-nvim.overrideAttrs {
     nvimSkipModule = [
       # Requires setup call first
+      # attempt to index global 'Snacks' (a nil value)
       "snacks.dashboard"
       "snacks.debug"
       "snacks.dim"
       "snacks.git"
+      "snacks.image.convert"
       "snacks.image.image"
       "snacks.image.init"
       "snacks.image.placement"
@@ -4016,7 +4039,6 @@ in
       "neotest"
       "nui-nvim"
       "nvim-cmp"
-      "nvim-dbee"
       "nvim-nio"
       "nvim-web-devicons"
       "oil-nvim"

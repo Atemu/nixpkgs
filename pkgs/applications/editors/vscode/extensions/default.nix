@@ -286,8 +286,8 @@ let
         mktplcRef = {
           publisher = "antfu";
           name = "slidev";
-          version = "0.4.1";
-          hash = "sha256-MNQMOT9LaEVZqelvikBTpUPTsSIA2z5qvLxw51aJw1w=";
+          version = "51.3.0";
+          hash = "sha256-rRF+vVFCEgIPtCdxVYClQVZVp52DcKXiLLNWzORETTg=";
         };
         meta = {
           license = lib.licenses.mit;
@@ -737,8 +737,8 @@ let
         mktplcRef = {
           name = "vscode-intelephense-client";
           publisher = "bmewburn";
-          version = "1.12.5";
-          hash = "sha256-2Tamwag4KovIOKTe/g4qePVDFxm0mgsLtPNdWcKzigI=";
+          version = "1.14.2";
+          hash = "sha256-T0uaJedhlH3s6QnCEZvNxU8ErYW4+L1VBz79hnhwSyU=";
         };
         meta = {
           description = "PHP code intelligence for Visual Studio Code";
@@ -1253,8 +1253,8 @@ let
         mktplcRef = {
           name = "databricks";
           publisher = "databricks";
-          version = "2.3.1";
-          hash = "sha256-Qa839ygG8Z3aD/ZSshe2hg0ee3ZFU8xRrJ5E0cUjfCU=";
+          version = "2.6.0";
+          hash = "sha256-nPDElLHZUeGNqE3QcO5GIj6AN1rNPk3RYQjFCUSuCdM=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/databricks.databricks/changelog";
@@ -1780,24 +1780,6 @@ let
         };
       };
 
-      equinusocio.vsc-material-theme = callPackage ./equinusocio.vsc-material-theme { };
-
-      equinusocio.vsc-material-theme-icons = buildVscodeMarketplaceExtension {
-        mktplcRef = {
-          name = "vsc-material-theme-icons";
-          publisher = "Equinusocio";
-          version = "3.8.8";
-          hash = "sha256-el2hQaq1gZBn2PZ+f+S1fHM/g3V0sX7Chyre04sds8k=";
-        };
-        meta = {
-          description = "Material Theme Icons, the most epic icons theme for Visual Studio Code and Material Theme";
-          downloadPage = "https://marketplace.visualstudio.com/items?itemName=Equinusocio.vsc-material-theme-icons";
-          homepage = "https://github.com/material-theme/vsc-material-theme-icons";
-          license = lib.licenses.asl20;
-          maintainers = [ lib.maintainers.themaxmur ];
-        };
-      };
-
       esbenp.prettier-vscode = buildVscodeMarketplaceExtension {
         mktplcRef = {
           name = "prettier-vscode";
@@ -2015,6 +1997,8 @@ let
         };
       };
 
+      fstarlang.fstar-vscode-assistant = callPackage ./fstarlang.fstar-vscode-assistant { };
+
       funkyremi.vscode-google-translate = buildVscodeMarketplaceExtension {
         mktplcRef = {
           publisher = "funkyremi";
@@ -2101,8 +2085,8 @@ let
         mktplcRef = {
           publisher = "github";
           name = "codespaces";
-          version = "1.16.9";
-          hash = "sha256-Zj1dHz8uBHnRpjnD9tUr8OJILRq9Ty91ePiNq6/Vi7c=";
+          version = "1.17.3";
+          hash = "sha256-idJFYHJ4yeqpFZBX55Y0v1yfzgqyhS0MrC4yIto7i7w=";
         };
 
         meta = {
@@ -2110,6 +2094,7 @@ let
           downloadPage = "https://marketplace.visualstudio.com/items?itemName=GitHub.codespaces";
           homepage = "https://github.com/features/codespaces";
           license = lib.licenses.unfree;
+          maintainers = [ lib.maintainers.therobot2105 ];
         };
       };
 
@@ -2118,8 +2103,8 @@ let
           publisher = "github";
           name = "copilot";
           # Verify which version is available with nix run nixpkgs#vsce -- show github.copilot --json
-          version = "1.266.1363"; # compatible with vscode ^1.96
-          hash = "sha256-paT/fZMIjSh7Bp4bBg4ZT/c1wVc0ecQLJxulSQZjRdg=";
+          version = "1.275.0"; # compatible with vscode ^1.97
+          hash = "sha256-pxH8hHRN36/ggqfMWOUYxANrblJ6S5GfslN15ZttumQ=";
         };
 
         meta = {
@@ -2136,8 +2121,8 @@ let
           publisher = "github";
           name = "copilot-chat";
           # Verify which version is available with nix run nixpkgs#vsce -- show github.copilot-chat --json
-          version = "0.24.2025020602"; # latest compatible with vscode ^1.97
-          hash = "sha256-smeBJ+yEIdbBs1eiKlPFCpYrb/nAkpnGlT9pTNnCnBI=";
+          version = "0.24.2025021302"; # latest compatible with vscode ^1.97
+          hash = "sha256-+lb+fo5PvEvWrQlyMi72SJ8bVwd8zTU2tDK+jJJSkPA=";
         };
         meta = {
           description = "GitHub Copilot Chat is a companion extension to GitHub Copilot that houses experimental chat features";
@@ -4097,8 +4082,8 @@ let
         mktplcRef = {
           name = "vscode-yaml";
           publisher = "redhat";
-          version = "1.14.0";
-          sha256 = "0pww9qndd2vsizsibjsvscz9fbfx8srrj67x4vhmwr581q674944";
+          version = "1.16.0";
+          hash = "sha256-3cuonI98gVFE/GwPA7QCA1LfSC8oXqgtV4i6iOngwhk=";
         };
         meta = {
           license = lib.licenses.mit;
@@ -5704,6 +5689,8 @@ let
     _2gua = throw "_2gua is deprecated in favor of 2gua"; # Added 2024-05-29
     _4ops = throw "_4ops is deprecated in favor of 4ops"; # Added 2024-05-29
     Arjun.swagger-viewer = throw "Arjun.swagger-viewer is deprecated in favor of arjun.swagger-viewer"; # Added 2024-05-29
+    equinusocio.vsc-material-theme = throw "'equinusocio.vsc-material-theme' has been removed due to security concerns. The extension contained potentially malicious code and was taken down."; # Added 2025-02-28
+    equinusocio.vsc-material-theme-icons = throw "'equinusocio.vsc-material-theme-icons' has been removed due to security concerns. The extension contained potentially malicious code and was taken down."; # Added 2025-02-28
     jakebecker.elixir-ls = throw "jakebecker.elixir-ls is deprecated in favor of elixir-lsp.vscode-elixir-ls"; # Added 2024-05-29
     jpoissonnier.vscode-styled-components = throw "jpoissonnier.vscode-styled-components is deprecated in favor of styled-components.vscode-styled-components"; # Added 2024-05-29
     matklad.rust-analyzer = throw "matklad.rust-analyzer is deprecated in favor of rust-lang.rust-analyzer"; # Added 2024-05-29

@@ -7,19 +7,19 @@
 }:
 let
   pname = "open-webui";
-  version = "0.5.12";
+  version = "0.5.18";
 
   src = fetchFromGitHub {
     owner = "open-webui";
     repo = "open-webui";
     tag = "v${version}";
-    hash = "sha256-+Hg4tyfmgfh3k/pUKMjs7IRahPV2/LRUDj1kt2g45Dw=";
+    hash = "sha256-SFw5bCzMSBuzIzZmhA+ylXXkouZ+OSsMBfc7QG7OSLU=";
   };
 
   frontend = buildNpmPackage {
     inherit pname version src;
 
-    npmDepsHash = "sha256-pM8Ie3kkjVq9OJHKpGLQ1E/omd84B0N8lXAHKxUa8/4=";
+    npmDepsHash = "sha256-rEV68SizR7NyYsRzlndg/ulvr8BeiDq3MpiBmaCUn2M=";
 
     # Disabling `pyodide:fetch` as it downloads packages during `buildPhase`
     # Until this is solved, running python packages from the browser will not work.
@@ -74,8 +74,12 @@ python312.pkgs.buildPythonApplication rec {
       anthropic
       apscheduler
       argon2-cffi
+      asgiref
       async-timeout
       authlib
+      azure-ai-documentintelligence
+      azure-identity
+      azure-storage-blob
       bcrypt
       beautifulsoup4
       black
@@ -89,6 +93,7 @@ python312.pkgs.buildPythonApplication rec {
       fake-useragent
       fastapi
       faster-whisper
+      firecrawl-py
       fpdf2
       ftfy
       gcp-storage-emulator
@@ -104,6 +109,7 @@ python312.pkgs.buildPythonApplication rec {
       langdetect
       langfuse
       ldap3
+      loguru
       markdown
       moto
       nltk
@@ -116,6 +122,7 @@ python312.pkgs.buildPythonApplication rec {
       peewee
       peewee-migrate
       pgvector
+      playwright
       psutil
       psycopg2-binary
       pydub
