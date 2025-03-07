@@ -4993,6 +4993,12 @@
     githubId = 7589338;
     name = "Daniel Șerbănescu";
   };
+  daspk04 = {
+    email = "dpratyush.k@gmail.com";
+    github = "daspk04";
+    githubId = 28738918;
+    name = "Pratyush Das";
+  };
   datafoo = {
     github = "datafoo";
     githubId = 34766150;
@@ -11129,6 +11135,14 @@
     githubId = 79042825;
     name = "Jan Kremer";
   };
+  juli0604 = {
+    name = "Julian Kuhn";
+    email = "juliankuhn06@gmail.com";
+    matrix = "@julian:matrix.epiccraft-mc.de";
+    github = "juli0604";
+    githubId = 62934740;
+    keys = [ { fingerprint = "E9C6 44C7 F6AA A865 4CB9  2723 22C8 B0CE B9AC 4AFF"; } ];
+  };
   JulianFP = {
     name = "Julian Partanen";
     github = "JulianFP";
@@ -14856,6 +14870,11 @@
     github = "moni-dz";
     githubId = 20619776;
     name = "moni";
+  };
+  monkieeboi = {
+    name = "MonkieeBoi";
+    github = "MonkieeBoi";
+    githubId = 53400613;
   };
   monsieurp = {
     email = "monsieurp@gentoo.org";

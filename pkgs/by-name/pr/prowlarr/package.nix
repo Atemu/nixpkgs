@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, mono, libmediainfo, sqlite, curl, makeWrapper, icu, dotnet-runtime, openssl, nixosTests, zlib }:
-
+{
+  lib,
+  stdenv,
+  fetchurl,
+  mono,
+  libmediainfo,
+  sqlite,
+  curl,
+  makeWrapper,
+  icu,
+  dotnet-runtime,
+  openssl,
+  nixosTests,
+  zlib,
+}:
 let
   pname = "prowlarr";
 
@@ -13,23 +26,27 @@ let
     else
       unsupported;
 
-  arch = {
-    aarch64-darwin = "arm64";
-    aarch64-linux = "arm64";
-    x86_64-darwin = "x64";
-    x86_64-linux = "x64";
-  }.${stdenv.hostPlatform.system} or unsupported;
+  arch =
+    {
+      aarch64-darwin = "arm64";
+      aarch64-linux = "arm64";
+      x86_64-darwin = "x64";
+      x86_64-linux = "x64";
+    }
+    .${stdenv.hostPlatform.system} or unsupported;
 
-  hash = {
-    aarch64-darwin = "sha256-cGHmreI6M9CI2CsL2iC9O0dOcyvdlYQDpJ8NRG1Yt2U=";
-    aarch64-linux = "sha256-vXFQL6Sifjin3NoEhvjH9pTbcBy7aqwA9LI6T7sJQyI=";
-    x86_64-darwin = "sha256-+OB+OBj9W2c9b655gUMcDg12iWePKC4gDa5pubsNImA=";
-    x86_64-linux = "sha256-h1mwt8iAv9z9Qg+zUgEkB698lsoTtcOocAJz5kKmKQI=";
-  }.${stdenv.hostPlatform.system} or unsupported;
-
-in stdenv.mkDerivation rec {
+  hash =
+    {
+      aarch64-darwin = "sha256-N5BDsx9iunG5qUau6gJvdSFscPkNe5/35zMMfsvM+eE=";
+      aarch64-linux = "sha256-cqSakzwokb4ym8852MYsoyAV3vS9eSyU4/xhHPtsD4o=";
+      x86_64-darwin = "sha256-2x4k5c1HdNFzDmoEsrrQ3+s41+3wukSMJPHZJJKd/eE=";
+      x86_64-linux = "sha256-OqZo+kFMTSklwPlj2hr7sAOXCh0HvqbeXWzfmScWXKU=";
+    }
+    .${stdenv.hostPlatform.system} or unsupported;
+in
+stdenv.mkDerivation rec {
   inherit pname;
-  version = "1.28.2.4885";
+  version = "1.29.2.4915";
 
   src = fetchurl {
     url = "https://github.com/Prowlarr/Prowlarr/releases/download/v${version}/Prowlarr.master.${version}.${os}-core-${arch}.tar.gz";
@@ -46,8 +63,17 @@ in stdenv.mkDerivation rec {
 
     makeWrapper "${dotnet-runtime}/bin/dotnet" $out/bin/Prowlarr \
       --add-flags "$out/share/${pname}-${version}/Prowlarr.dll" \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [
-        curl sqlite libmediainfo mono openssl icu zlib ]}
+      --prefix LD_LIBRARY_PATH : ${
+        lib.makeLibraryPath [
+          curl
+          sqlite
+          libmediainfo
+          mono
+          openssl
+          icu
+          zlib
+        ]
+      }
 
     runHook postInstall
   '';
