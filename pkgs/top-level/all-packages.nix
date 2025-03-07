@@ -413,16 +413,19 @@ with pkgs;
   dotnet-sdk_7 = dotnetCorePackages.sdk_7_0-bin;
   dotnet-sdk_8 = dotnetCorePackages.sdk_8_0;
   dotnet-sdk_9 = dotnetCorePackages.sdk_9_0;
+  dotnet-sdk_10 = dotnetCorePackages.sdk_10_0;
 
   dotnet-runtime_6 = dotnetCorePackages.runtime_6_0-bin;
   dotnet-runtime_7 = dotnetCorePackages.runtime_7_0-bin;
   dotnet-runtime_8 = dotnetCorePackages.runtime_8_0;
   dotnet-runtime_9 = dotnetCorePackages.runtime_9_0;
+  dotnet-runtime_10 = dotnetCorePackages.runtime_10_0;
 
   dotnet-aspnetcore_6 = dotnetCorePackages.aspnetcore_6_0-bin;
   dotnet-aspnetcore_7 = dotnetCorePackages.aspnetcore_7_0-bin;
   dotnet-aspnetcore_8 = dotnetCorePackages.aspnetcore_8_0;
   dotnet-aspnetcore_9 = dotnetCorePackages.aspnetcore_9_0;
+  dotnet-aspnetcore_10 = dotnetCorePackages.aspnetcore_10_0;
 
   dotnet-sdk = dotnetCorePackages.sdk_8_0;
   dotnet-runtime = dotnetCorePackages.runtime_8_0;
@@ -1124,7 +1127,7 @@ with pkgs;
   archi = callPackage ../tools/misc/archi { };
 
   breitbandmessung = callPackage ../applications/networking/breitbandmessung {
-    electron = electron_29;
+    electron = electron_34;
   };
 
   ### APPLICATIONS/VERSION-MANAGEMENT
@@ -1243,7 +1246,7 @@ with pkgs;
     util-linux = if stdenv.hostPlatform.isLinux then util-linuxMinimal else util-linux;
   };
 
-  git-remote-codecommit = python3Packages.callPackage ../applications/version-management/git-remote-codecommit { };
+  git-remote-codecommit = callPackage ../applications/version-management/git-remote-codecommit { };
 
   gitRepo = git-repo;
   git-repo-updater = python3Packages.callPackage ../applications/version-management/git-repo-updater { };
@@ -2472,10 +2475,6 @@ with pkgs;
     jdk11 = jdk11_headless;
   };
 
-  micropad = callPackage ../applications/office/micropad {
-    electron = electron_27;
-  };
-
   mkspiffs = callPackage ../tools/filesystems/mkspiffs { };
 
   mkspiffs-presets = recurseIntoAttrs (callPackages ../tools/filesystems/mkspiffs/presets.nix { });
@@ -3359,7 +3358,7 @@ with pkgs;
     garage
       garage_0_8 garage_0_9
       garage_0_8_7 garage_0_9_4
-      garage_1_0_1 garage_1_x;
+      garage_1_1_0 garage_1_x;
 
   gauge-unwrapped = callPackage ../development/tools/gauge { };
   gauge = callPackage ../development/tools/gauge/wrapper.nix { };
@@ -5555,8 +5554,6 @@ with pkgs;
     buildGoModule = buildGo123Module;
   };
 
-  fish = callPackage ../shells/fish { };
-
   wrapFish = callPackage ../shells/fish/wrapper.nix { };
 
   fishPlugins = recurseIntoAttrs (callPackage ../shells/fish/plugins { });
@@ -7493,32 +7490,17 @@ with pkgs;
   electron-source = callPackage ../development/tools/electron { };
 
   inherit (callPackages ../development/tools/electron/binary { })
-    electron_24-bin
-    electron_27-bin
-    electron_28-bin
-    electron_29-bin
-    electron_30-bin
-    electron_31-bin
     electron_32-bin
     electron_33-bin
     electron_34-bin
     ;
 
   inherit (callPackages ../development/tools/electron/chromedriver { })
-    electron-chromedriver_29
-    electron-chromedriver_30
-    electron-chromedriver_31
     electron-chromedriver_32
     electron-chromedriver_33
     electron-chromedriver_34
     ;
 
-  electron_24 = electron_24-bin;
-  electron_27 = electron_27-bin;
-  electron_28 = electron_28-bin;
-  electron_29 = electron_29-bin;
-  electron_30 = electron_30-bin;
-  electron_31 = electron_31-bin;
   electron_32 = if lib.meta.availableOn stdenv.hostPlatform electron-source.electron_32 then electron-source.electron_32 else electron_32-bin;
   electron_33 = if lib.meta.availableOn stdenv.hostPlatform electron-source.electron_33 then electron-source.electron_33 else electron_33-bin;
   electron_34 = electron_34-bin;
@@ -9934,6 +9916,7 @@ with pkgs;
   mesa_i686 = pkgsi686Linux.mesa; # make it build on Hydra
 
   libgbm = callPackage ../development/libraries/mesa/gbm.nix {};
+  mesa-gl-headers = callPackage ../development/libraries/mesa/headers.nix {};
 
   ## End libGL/libGLU/Mesa stuff
 
@@ -11983,6 +11966,7 @@ with pkgs;
   };
 
   btop = darwin.apple_sdk_11_0.callPackage ../tools/system/btop { };
+  btop-cuda = btop.override { cudaSupport = true; };
   btop-rocm = btop.override { rocmSupport = true; };
 
   i7z = qt5.callPackage ../os-specific/linux/i7z { };
@@ -16744,9 +16728,7 @@ with pkgs;
 
   pdb2pqr = with python3Packages; toPythonApplication pdb2pqr;
 
-  pymol = callPackage ../applications/science/chemistry/pymol {
-    python3Packages = python311Packages;
-  };
+  pymol = callPackage ../applications/science/chemistry/pymol { };
 
   quantum-espresso = callPackage ../applications/science/chemistry/quantum-espresso {
     hdf5 = hdf5-fortran;
