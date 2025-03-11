@@ -1175,6 +1175,8 @@ self: super: with self; {
 
   azure-ai-documentintelligence = callPackage ../development/python-modules/azure-ai-documentintelligence { };
 
+  azure-ai-vision-imageanalysis = callPackage ../development/python-modules/azure-ai-vision-imageanalysis { };
+
   azure-appconfiguration = callPackage ../development/python-modules/azure-appconfiguration { };
 
   azure-applicationinsights = callPackage ../development/python-modules/azure-applicationinsights { };
@@ -2360,7 +2362,7 @@ self: super: with self; {
 
   cirq-web = callPackage ../development/python-modules/cirq-web { };
 
-  ciscoconfparse = callPackage ../development/python-modules/ciscoconfparse { };
+  ciscoconfparse2 = callPackage ../development/python-modules/ciscoconfparse2 { };
 
   ciscomobilityexpress = callPackage ../development/python-modules/ciscomobilityexpress { };
 
@@ -3248,8 +3250,6 @@ self: super: with self; {
 
   deploykit = callPackage ../development/python-modules/deploykit { };
 
-  deprecat = callPackage ../development/python-modules/deprecat { };
-
   deprecated = callPackage ../development/python-modules/deprecated { };
 
   deprecation = callPackage ../development/python-modules/deprecation { };
@@ -3371,6 +3371,8 @@ self: super: with self; {
   dissect-fat = callPackage ../development/python-modules/dissect-fat { };
 
   dissect-ffs = callPackage ../development/python-modules/dissect-ffs { };
+
+  dissect-fve = callPackage ../development/python-modules/dissect-fve { };
 
   dissect-esedb = callPackage ../development/python-modules/dissect-esedb { };
 
@@ -4409,6 +4411,8 @@ self: super: with self; {
 
   ewmh = callPackage ../development/python-modules/ewmh { };
 
+  ewmhlib = callPackage ../development/python-modules/ewmhlib { };
+
   example-robot-data = toPythonModule (pkgs.example-robot-data.override {
     pythonSupport = true;
     python3Packages = self;
@@ -4929,6 +4933,8 @@ self: super: with self; {
   flow-record = callPackage ../development/python-modules/flow-record { };
 
   flower = callPackage ../development/python-modules/flower { };
+
+  flowjax = callPackage ../development/python-modules/flowjax { };
 
   flowlogs-reader = callPackage ../development/python-modules/flowlogs-reader { };
 
@@ -6027,6 +6033,8 @@ self: super: with self; {
   };
 
   hid-parser = callPackage ../development/python-modules/hid-parser { };
+
+  hier-config = callPackage ../development/python-modules/hier-config { };
 
   hieroglyph = callPackage ../development/python-modules/hieroglyph { };
 
@@ -7285,6 +7293,8 @@ self: super: with self; {
 
   laspy = callPackage ../development/python-modules/laspy { };
 
+  lastversion = callPackage ../development/python-modules/lastversion { };
+
   laszip = callPackage ../development/python-modules/laszip {
     inherit (pkgs) cmake ninja;
     inherit (pkgs.__splicedPackages) laszip;
@@ -7609,6 +7619,8 @@ self: super: with self; {
 
   license-expression = callPackage ../development/python-modules/license-expression { };
 
+  lida = callPackage ../development/python-modules/lida { };
+
   lief = (toPythonModule (pkgs.lief.override {
     inherit python;
   })).py;
@@ -7823,8 +7835,6 @@ self: super: with self; {
   loca = callPackage ../development/python-modules/loca { };
 
   localimport = callPackage ../development/python-modules/localimport { };
-
-  localstack = callPackage ../development/python-modules/localstack { };
 
   localstack-client = callPackage ../development/python-modules/localstack-client { };
 
@@ -9377,6 +9387,8 @@ self: super: with self; {
 
   netbox-reorder-rack = callPackage ../development/python-modules/netbox-reorder-rack { };
 
+  netbox-routing = callPackage ../development/python-modules/netbox-routing { };
+
   netbox-topology-views = callPackage ../development/python-modules/netbox-topology-views { };
 
   netcdf4 = callPackage ../development/python-modules/netcdf4 { };
@@ -9386,6 +9398,8 @@ self: super: with self; {
   netdata-pandas = callPackage ../development/python-modules/netdata-pandas { };
 
   netdisco = callPackage ../development/python-modules/netdisco { };
+
+  netgen-mesher = toPythonModule (pkgs.netgen.override { python3Packages = self; });
 
   nethsm = callPackage ../development/python-modules/nethsm { };
 
@@ -10236,6 +10250,8 @@ self: super: with self; {
   parallel-ssh = callPackage ../development/python-modules/parallel-ssh { };
 
   param = callPackage ../development/python-modules/param { };
+
+  paramax = callPackage ../development/python-modules/paramax { };
 
   parameter-expansion-patched = callPackage ../development/python-modules/parameter-expansion-patched { };
 
@@ -12439,6 +12455,8 @@ self: super: with self; {
 
   pymodbus = callPackage ../development/python-modules/pymodbus { };
 
+  pymonctl = callPackage ../development/python-modules/pymonctl { };
+
   pymongo = callPackage ../development/python-modules/pymongo { };
 
   pymongo-inmemory = callPackage ../development/python-modules/pymongo-inmemory { };
@@ -12638,6 +12656,8 @@ self: super: with self; {
   pypeg2 = callPackage ../development/python-modules/pypeg2 { };
 
   pyperclip = callPackage ../development/python-modules/pyperclip { };
+
+  pyperclipfix = callPackage ../development/python-modules/pyperclipfix { };
 
   pyperscan = callPackage ../development/python-modules/pyperscan { };
 
@@ -13870,6 +13890,8 @@ self: super: with self; {
 
   pyvoro = callPackage ../development/python-modules/pyvoro { };
 
+  pyvows = callPackage ../development/python-modules/pyvows { };
+
   pywal = callPackage ../development/python-modules/pywal { };
 
   pywatchman = callPackage ../development/python-modules/pywatchman { };
@@ -13905,6 +13927,10 @@ self: super: with self; {
   pywikibot = callPackage ../development/python-modules/pywikibot { };
 
   pywilight = callPackage ../development/python-modules/pywilight { };
+
+  pywinbox = callPackage ../development/python-modules/pywinbox { };
+
+  pywinctl = callPackage ../development/python-modules/pywinctl { };
 
   pywinrm = callPackage ../development/python-modules/pywinrm { };
 
@@ -14875,6 +14901,8 @@ self: super: with self; {
   screenlogicpy = callPackage ../development/python-modules/screenlogicpy { };
 
   scripttest = callPackage ../development/python-modules/scripttest { };
+
+  scrypt = callPackage ../development/python-modules/scrypt { };
 
   scikit-survival = callPackage ../development/python-modules/scikit-survival { };
 
@@ -15927,6 +15955,8 @@ self: super: with self; {
   standard-pipes = if pythonAtLeast "3.13" then callPackage ../development/python-modules/standard-pipes { } else null;
 
   standard-telnetlib = if pythonAtLeast "3.13" then callPackage ../development/python-modules/standard-telnetlib { } else null;
+
+  standardwebhooks = callPackage ../development/python-modules/standardwebhooks { };
 
   stone = callPackage ../development/python-modules/stone { };
 

@@ -7412,6 +7412,12 @@
     githubId = 32963606;
     email = "cptevris@gmail.com";
   };
+  evythedemon = {
+    name = "Evy Garden";
+    github = "EvysGarden";
+    githubId = 92547295;
+    email = "evysgarden@protonmail.com";
+  };
   ewok = {
     email = "ewok@ewok.ru";
     github = "ewok-old";
@@ -11475,6 +11481,14 @@
     ];
     name = "Ioannis Koutras";
   };
+  jolars = {
+    email = "jolars@posteo.com";
+    matrix = "@jola:mozilla.org";
+    github = "jolars";
+    githubId = 13087841;
+    name = "Johan Larsson";
+    keys = [ { fingerprint = "F0D6 BDE7 C7D1 6B3F 7883  73E7 2A41 C0FE DD6F F540"; } ];
+  };
   jonaenz = {
     name = "Jona Enzinger";
     email = "5xt3zyy5l@mozmail.com";
@@ -14362,6 +14376,12 @@
     github = "maolonglong";
     githubId = 50797868;
     name = "Shaolong Chen";
+  };
+  mapperfr = {
+    email = "jeremy@mapper.fr";
+    github = "mapperfr";
+    githubId = 3398608;
+    name = "Jérémy Garniaux";
   };
   maralorn = {
     email = "mail@maralorn.de";
@@ -17288,6 +17308,12 @@
     githubId = 56591727;
     keys = [ { fingerprint = "25FF 8464 F062 7EC0 0129 6A43 14AA 30A8 65EA 1209"; } ];
   };
+  nyukuru = {
+    name = "nyukuru";
+    github = "nyukuru";
+    email = "nyu@nyuku.ru";
+    githubId = 97425873;
+  };
   nzbr = {
     email = "nixos@nzbr.de";
     github = "nzbr";
@@ -17450,6 +17476,12 @@
     github = "ok-nick";
     githubId = 25470747;
     name = "Nick";
+  };
+  okwilkins = {
+    email = "okwilkins@gmail.com";
+    github = "okwilkins";
+    githubId = 5969778;
+    name = "Oliver Wilkins";
   };
   olcai = {
     email = "dev@timan.info";
@@ -25124,6 +25156,12 @@
     github = "wegank";
     githubId = 9713184;
   };
+  weirdrock = {
+    name = "weirdrock";
+    email = "weirdrock@riseup.net";
+    github = "weirdrock";
+    githubId = 142561048;
+  };
   weitzj = {
     name = "Jan Weitz";
     email = "nixpkgs@janweitz.de";
@@ -26016,6 +26054,11 @@
     github = "yunfachi";
     githubId = 73419713;
     name = "Yunfachi";
+  };
+  yunz = {
+    github = "yunz-dev";
+    githubId = 112053367;
+    name = "Yunus";
   };
   yureien = {
     email = "contact@sohamsen.me";
