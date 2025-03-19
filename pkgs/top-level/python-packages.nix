@@ -2196,6 +2196,8 @@ self: super: with self; {
     inherit (pkgs) secp256k1;
   };
 
+  comicapi = callPackage ../development/python-modules/comicapi { };
+
   comicon = callPackage ../development/python-modules/comicon { };
 
   command-runner = callPackage ../development/python-modules/command-runner { };
@@ -4800,6 +4802,8 @@ self: super: with self; {
 
   flask-cors = callPackage ../development/python-modules/flask-cors { };
 
+  flask-dance = callPackage ../development/python-modules/flask-dance { };
+
   flask-dramatiq = callPackage ../development/python-modules/flask-dramatiq { };
 
   flask-elastic = callPackage ../development/python-modules/flask-elastic { };
@@ -5108,6 +5112,8 @@ self: super: with self; {
   funcparserlib = callPackage ../development/python-modules/funcparserlib { };
 
   funcsigs = callPackage ../development/python-modules/funcsigs { };
+
+  functions-framework = callPackage ../development/python-modules/functions-framework { };
 
   functiontrace = callPackage ../development/python-modules/functiontrace { };
 
@@ -7812,6 +7818,8 @@ self: super: with self; {
 
   llm-cmd = callPackage ../development/python-modules/llm-cmd { };
 
+  llm-gemini = callPackage ../development/python-modules/llm-gemini { };
+
   llm-gguf = callPackage ../development/python-modules/llm-gguf { };
 
   llm-jq = callPackage ../development/python-modules/llm-jq { };
@@ -9423,6 +9431,8 @@ self: super: with self; {
   netifaces = callPackage ../development/python-modules/netifaces { };
 
   netifaces2 = callPackage ../development/python-modules/netifaces2 { };
+
+  netifaces-plus = callPackage ../development/python-modules/netifaces-plus { };
 
   netmiko = callPackage ../development/python-modules/netmiko { };
 
@@ -12637,6 +12647,8 @@ self: super: with self; {
 
   pyowm = callPackage ../development/python-modules/pyowm { };
 
+  pyoxigraph = callPackage ../development/python-modules/pyoxigraph { };
+
   pypager = callPackage ../development/python-modules/pypager { };
 
   pypamtest = toPythonModule (pkgs.libpam-wrapper.override {
@@ -14846,6 +14858,8 @@ self: super: with self; {
 
   schiene = callPackage ../development/python-modules/schiene { };
 
+  scholarly = callPackage ../development/python-modules/scholarly { };
+
   schwifty = callPackage ../development/python-modules/schwifty { };
 
   scienceplots = callPackage ../development/python-modules/scienceplots { };
@@ -15390,6 +15404,8 @@ self: super: with self; {
   smmap = callPackage ../development/python-modules/smmap { };
 
   smoke-zephyr = callPackage ../development/python-modules/smoke-zephyr { };
+
+  smolagents = callPackage ../development/python-modules/smolagents { };
 
   smpplib = callPackage ../development/python-modules/smpplib { };
 
@@ -16475,6 +16491,8 @@ self: super: with self; {
   testfixtures = callPackage ../development/python-modules/testfixtures { };
 
   texsoup = callPackage ../development/python-modules/texsoup { };
+
+  text2digits = callPackage ../development/python-modules/text2digits { };
 
   textblob = callPackage ../development/python-modules/textblob { };
 
@@ -18118,6 +18136,8 @@ self: super: with self; {
 
   urlmatch = callPackage ../development/python-modules/urlmatch { };
 
+  urlobject = callPackage ../development/python-modules/urlobject { };
+
   urlpy = callPackage ../development/python-modules/urlpy { };
 
   urwid = callPackage ../development/python-modules/urwid { };
@@ -18613,6 +18633,8 @@ self: super: with self; {
   wordcloud = callPackage ../development/python-modules/wordcloud { };
 
   wordfreq = callPackage ../development/python-modules/wordfreq { };
+
+  wordninja = callPackage ../development/python-modules/wordninja { };
 
   world-bank-data = callPackage ../development/python-modules/world-bank-data { };
 
