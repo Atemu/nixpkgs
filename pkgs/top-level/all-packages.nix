@@ -314,6 +314,10 @@ with pkgs;
 
   coolercontrol = recurseIntoAttrs (callPackage ../applications/system/coolercontrol { });
 
+  curv = callPackage ../by-name/cu/curv/package.nix {
+    openexr = openexr_3;
+  };
+
   databricks-sql-cli = python3Packages.callPackage ../applications/misc/databricks-sql-cli { };
 
   deck = callPackage ../by-name/de/deck/package.nix {
@@ -1087,6 +1091,8 @@ with pkgs;
   osquery = callPackage ../tools/system/osquery { };
 
   pricehist = python3Packages.callPackage ../tools/misc/pricehist { };
+
+  py7zr = with python3Packages; toPythonApplication py7zr;
 
   q = callPackage ../tools/networking/q { };
 
@@ -7819,9 +7825,7 @@ with pkgs;
 
   fortran-language-server = python3.pkgs.callPackage ../development/tools/language-servers/fortran-language-server { };
 
-  inherit (callPackages ../development/tools/language-servers/nixd {
-    llvmPackages = llvmPackages_16;
-  }) nixf nixt nixd;
+  inherit (callPackages ../development/tools/language-servers/nixd { }) nixf nixt nixd;
 
   ansible-later = callPackage ../tools/admin/ansible/later.nix { };
 

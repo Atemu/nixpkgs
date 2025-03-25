@@ -3316,6 +3316,12 @@
     githubId = 32319131;
     name = "Brett L";
   };
+  bubblepipe = {
+    email = "bubblepipe42@gmail.com";
+    github = "bubblepipe";
+    githubId = 30717258;
+    name = "bubblepipe";
+  };
   buckley310 = {
     email = "sean.bck@gmail.com";
     matrix = "@buckley310:matrix.org";
@@ -6341,6 +6347,12 @@
     githubId = 701128;
     name = "Eike Kettner";
   };
+  eilvelia = {
+    email = "hi@eilvelia.cat";
+    github = "eilvelia";
+    githubId = 10106819;
+    name = "eilvelia";
+  };
   eken = {
     email = "edvin.kallstrom@protonmail.com";
     github = "Eken-beep";
@@ -6518,6 +6530,11 @@
     github = "Emantor";
     githubId = 934284;
     name = "Rouven Czerwinski";
+  };
+  EmanuelM153 = {
+    name = "Emanuel";
+    github = "EmanuelM153";
+    githubId = 134736553;
   };
   emattiza = {
     email = "nix@mattiza.dev";
@@ -16858,6 +16875,12 @@
     github = "parth";
     githubId = 821972;
     name = "Parth Mehrotra";
+  };
+  paschoal = {
+    email = "paschoal@gmail.com";
+    github = "paschoal";
+    githubId = 64602;
+    name = "Matheus Paschoal";
   };
   pashashocky = {
     email = "pashashocky@gmail.com";

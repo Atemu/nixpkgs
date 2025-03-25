@@ -112,8 +112,14 @@ in {
   agate = runTest ./web-servers/agate.nix;
   agda = handleTest ./agda.nix {};
   airsonic = handleTest ./airsonic.nix {};
-  akkoma = handleTestOn [ "x86_64-linux" "aarch64-linux" ] ./akkoma.nix {};
-  akkoma-confined = handleTestOn [ "x86_64-linux" "aarch64-linux" ] ./akkoma.nix { confined = true; };
+  akkoma = runTestOn [ "x86_64-linux" "aarch64-linux" ] {
+    imports = [ ./akkoma.nix ];
+    _module.args.confined = false;
+  };
+  akkoma-confined = runTestOn [ "x86_64-linux" "aarch64-linux" ] {
+    imports = [ ./akkoma.nix ];
+    _module.args.confined = true;
+  };
   alice-lg = handleTest ./alice-lg.nix {};
   alloy = handleTest ./alloy.nix {};
   allTerminfo = handleTest ./all-terminfo.nix {};
@@ -769,6 +775,7 @@ in {
   pam-u2f = handleTest ./pam/pam-u2f.nix {};
   pam-ussh = handleTest ./pam/pam-ussh.nix {};
   pam-zfs-key = handleTest ./pam/zfs-key.nix {};
+  paretosecurity = runTest ./paretosecurity.nix;
   pass-secret-service = handleTest ./pass-secret-service.nix {};
   patroni = handleTestOn ["x86_64-linux"] ./patroni.nix {};
   pantalaimon = handleTest ./matrix/pantalaimon.nix {};
