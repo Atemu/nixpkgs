@@ -1053,6 +1053,8 @@ self: super: with self; {
 
   attrs = callPackage ../development/python-modules/attrs { };
 
+  attrs-strict = callPackage ../development/python-modules/attrs-strict { };
+
   aubio = callPackage ../development/python-modules/aubio { };
 
   audible = callPackage ../development/python-modules/audible { };
@@ -1788,6 +1790,8 @@ self: super: with self; {
   bindep = callPackage ../development/python-modules/bindep { };
 
   binho-host-adapter = callPackage ../development/python-modules/binho-host-adapter { };
+
+  binsync = callPackage ../development/python-modules/binsync { };
 
   biom-format = callPackage ../development/python-modules/biom-format { };
 
@@ -3945,7 +3949,7 @@ self: super: with self; {
   dm-sonnet = callPackage ../development/python-modules/dm-sonnet { };
 
   dm-tree = callPackage ../development/python-modules/dm-tree {
-    abseil-cpp = pkgs.abseil-cpp.override { cxxStandard = "14"; };
+    inherit (pkgs) abseil-cpp;
   };
 
   dmenu-python = callPackage ../development/python-modules/dmenu { };
@@ -10663,6 +10667,8 @@ self: super: with self; {
 
   numpy = numpy_2;
 
+  numpy-financial = callPackage ../development/python-modules/numpy-financial { };
+
   numpy-groupies = callPackage ../development/python-modules/numpy-groupies { };
 
   numpy-stl = callPackage ../development/python-modules/numpy-stl { };
@@ -11427,6 +11433,8 @@ self: super: with self; {
   pcbnewtransition = callPackage ../development/python-modules/pcbnewtransition { };
 
   pcffont = callPackage ../development/python-modules/pcffont { };
+
+  pcodec = callPackage ../development/python-modules/pcodec { };
 
   pcodedmp = callPackage ../development/python-modules/pcodedmp { };
 
@@ -15629,6 +15637,8 @@ self: super: with self; {
 
   ring-doorbell = callPackage ../development/python-modules/ring-doorbell { };
 
+  rio-stac = callPackage ../development/python-modules/rio-stac { };
+
   rio-tiler = callPackage ../development/python-modules/rio-tiler { };
 
   rioxarray = callPackage ../development/python-modules/rioxarray { };
@@ -17340,6 +17350,16 @@ self: super: with self; {
   swagger-spec-validator = callPackage ../development/python-modules/swagger-spec-validator { };
 
   swagger-ui-bundle = callPackage ../development/python-modules/swagger-ui-bundle { };
+
+  swh-auth = callPackage ../development/python-modules/swh-auth { };
+
+  swh-core = callPackage ../development/python-modules/swh-core { };
+
+  swh-model = callPackage ../development/python-modules/swh-model { };
+
+  swh-scanner = callPackage ../development/python-modules/swh-scanner { };
+
+  swh-web-client = callPackage ../development/python-modules/swh-web-client { };
 
   swift = callPackage ../development/python-modules/swift { };
 
