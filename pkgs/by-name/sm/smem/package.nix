@@ -3,6 +3,7 @@
   stdenv,
   fetchurl,
   python3,
+  python3Packages,
 }:
 
 stdenv.mkDerivation rec {
@@ -14,7 +15,9 @@ stdenv.mkDerivation rec {
     sha256 = "19ibv1byxf2b68186ysrgrhy5shkc5mc69abark1h18yigp3j34m";
   };
 
-  buildInputs = [ python3 ];
+  buildInputs = [
+    (python3.withPackages (pp: [ pp.matplotlib ]))
+  ];
 
   makeFlags = [ "smemcap" ];
 
