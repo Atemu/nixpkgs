@@ -332,6 +332,7 @@ with lib.maintainers;
       AndersonTorres
       adisbladis
       linj
+      panchoh
     ];
     scope = "Maintain the Emacs editor and packages.";
     shortName = "Emacs";
@@ -596,6 +597,7 @@ with lib.maintainers;
   jitsi = {
     members = [
       cleeyv
+      novmar
       ryantm
       lassulus
       yayayayaka
@@ -785,7 +787,6 @@ with lib.maintainers;
       ma27
       fadenb
       mguentner
-      ralith
       dandellion
       nickcao
       teutat3s
@@ -861,6 +862,19 @@ with lib.maintainers;
     githubTeams = [ "neovim" ];
     scope = "Maintain the vim and neovim text editors and related packages.";
     shortName = "Vim/Neovim";
+  };
+
+  nextcloud = {
+    members = [
+      bachp
+      britter
+      dotlambda
+      ma27
+      provokateurin
+    ];
+    scope = "Maintain Nextcloud, its tests and the integration of applications.";
+    shortName = "Nextcloud";
+    enableFeatureFreezePing = true;
   };
 
   ngi = {

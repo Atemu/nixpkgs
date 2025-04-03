@@ -23,7 +23,7 @@
   openpyxl,
   pandas,
   pillow,
-  pyarrow,
+  pluggy,
   pydantic,
   pydantic-settings,
   pylatexenc,
@@ -50,14 +50,14 @@
 
 buildPythonPackage rec {
   pname = "docling";
-  version = "2.28.1";
+  version = "2.28.2";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "docling-project";
     repo = "docling";
     tag = "v${version}";
-    hash = "sha256-PVUBwxKa9yKVtXpnyzfZvcfwEndE614N8ElXxqjabZw=";
+    hash = "sha256-YCZhLrukuQ0Y/4h7v6CfD0oMAfcbioqfs5mU9ImtnNM=";
   };
 
   build-system = [
@@ -80,7 +80,7 @@ buildPythonPackage rec {
     openpyxl
     pandas
     pillow
-    pyarrow
+    pluggy
     pydantic
     pydantic-settings
     pylatexenc
@@ -177,6 +177,7 @@ buildPythonPackage rec {
     "tests/test_document_picture_classifier.py"
     "tests/test_e2e_conversion.py"
     "tests/test_e2e_ocr_conversion.py"
+    "tests/test_input_doc.py"
     "tests/test_interfaces.py"
     "tests/test_invalid_input.py"
     "tests/test_legacy_format_transform.py"
