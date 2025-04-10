@@ -48,26 +48,26 @@
 }:
 let
   pname = "cursor";
-  version = "0.48.6";
+  version = "0.48.7";
 
   inherit (stdenvNoCC) hostPlatform;
 
   sources = {
     x86_64-linux = fetchurl {
-      url = "https://downloads.cursor.com/production/1649e229afdef8fd1d18ea173f063563f1e722ef/linux/x64/Cursor-0.48.6-x86_64.AppImage";
-      hash = "sha256-ZiQpVRZRaFOJ8UbANRd1F+4uhv7W/t15d9wmGKshu80=";
+      url = "https://downloads.cursor.com/production/1d623c4cc1d3bb6e0fe4f1d5434b47b958b05876/linux/x64/Cursor-0.48.7-x86_64.AppImage";
+      hash = "sha256-LxAUhmEM02qCaeUUsHgjv0upAF7eerX+/QiGeKzRY4M=";
     };
     aarch64-linux = fetchurl {
-      url = "https://downloads.cursor.com/production/1649e229afdef8fd1d18ea173f063563f1e722ef/linux/arm64/Cursor-0.48.6-aarch64.AppImage";
-      hash = "sha256-PUnrQz/H4hfbyX4mumG5v4DcKG6N6yh6taMpnnG35hQ=";
+      url = "https://downloads.cursor.com/production/1d623c4cc1d3bb6e0fe4f1d5434b47b958b05876/linux/arm64/Cursor-0.48.7-aarch64.AppImage";
+      hash = "sha256-l1T0jLX7oWjq4KzxO4QniUAjzVbBu4SWA1r5aXGpDS4=";
     };
     x86_64-darwin = fetchurl {
-      url = "https://downloads.cursor.com/production/1649e229afdef8fd1d18ea173f063563f1e722ef/darwin/x64/Cursor-darwin-x64.dmg";
-      hash = "sha256-S2l2Kz3rG6z4iKLyGFeKVeyrWq7eb09v1+knBln+Mgk=";
+      url = "https://downloads.cursor.com/production/1d623c4cc1d3bb6e0fe4f1d5434b47b958b05876/darwin/x64/Cursor-darwin-x64.dmg";
+      hash = "sha256-h9zcmZRpOcfBRK5Xw/AdY/rwlINEHYiUgpCoGXg6hSY=";
     };
     aarch64-darwin = fetchurl {
-      url = "https://downloads.cursor.com/production/1649e229afdef8fd1d18ea173f063563f1e722ef/darwin/arm64/Cursor-darwin-arm64.dmg";
-      hash = "sha256-6QEH/A6qxKLyrJQQkFj4FFXF/BoVupov92ve7fO0ads=";
+      url = "https://downloads.cursor.com/production/1d623c4cc1d3bb6e0fe4f1d5434b47b958b05876/darwin/arm64/Cursor-darwin-arm64.dmg";
+      hash = "sha256-FsXabTXN1Bkn1g4ZkQVqa+sOx4JkSG9c09tp8lAcPKM=";
     };
   };
 
@@ -159,7 +159,7 @@ stdenvNoCC.mkDerivation {
       rsync -a -q ${appimageContents}/usr/share $out/ --exclude "*.so"
 
       # Fix the desktop file to point to the correct location
-      substituteInPlace $out/share/applications/cursor.desktop --replace-fail "/usr/share/cursor/cursor" "$out/share/cursor/cursor"
+      substituteInPlace $out/share/applications/cursor.desktop --replace-fail "/usr/share/cursor/cursor" "$out/bin/cursor"
 
       wrapProgram $out/bin/cursor \
         --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}} --no-update"
@@ -196,13 +196,7 @@ stdenvNoCC.mkDerivation {
       sarahec
       aspauldingcode
     ];
-    platforms = [
-      "x86_64-linux"
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ];
-    # Temporary: Cursor doesn't supply a 0.47.8 build for aarch64-linux
-    badPlatforms = [ "aarch64-linux" ];
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
     mainProgram = "cursor";
   };
 }

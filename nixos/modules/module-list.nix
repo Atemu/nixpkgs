@@ -361,6 +361,7 @@
   ./programs/zsh/zsh.nix
   ./rename.nix
   ./security/acme
+  ./security/agnos.nix
   ./security/apparmor.nix
   ./security/audit.nix
   ./security/auditd.nix
@@ -949,7 +950,6 @@
   ./services/monitoring/glances.nix
   ./services/monitoring/glpi-agent.nix
   ./services/monitoring/goss.nix
-  ./services/monitoring/grafana-agent.nix
   ./services/monitoring/grafana-image-renderer.nix
   ./services/monitoring/grafana-reporter.nix
   ./services/monitoring/grafana-to-ntfy.nix
@@ -1420,6 +1420,7 @@
   ./services/security/paretosecurity.nix
   ./services/security/pass-secret-service.nix
   ./services/security/physlock.nix
+  ./services/security/pocket-id.nix
   ./services/security/shibboleth-sp.nix
   ./services/security/sks.nix
   ./services/security/sshguard.nix
@@ -1537,6 +1538,7 @@
   ./services/web-apps/guacamole-client.nix
   ./services/web-apps/guacamole-server.nix
   ./services/web-apps/hatsu.nix
+  ./services/web-apps/haven.nix
   ./services/web-apps/healthchecks.nix
   ./services/web-apps/hedgedoc.nix
   ./services/web-apps/hledger-web.nix
