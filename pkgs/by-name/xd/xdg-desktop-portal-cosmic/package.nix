@@ -12,6 +12,7 @@
   gst_all_1,
   coreutils,
   nix-update-script,
+  nixosTests,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -71,23 +72,30 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "CARGO_TARGET_DIR=target/${stdenv.hostPlatform.rust.cargoShortTarget}"
   ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "unstable"
-      "--version-regex"
-      "epoch-(.*)"
-    ];
+  passthru = {
+    tests = {
+      inherit (nixosTests)
+        cosmic
+        cosmic-autologin
+        cosmic-noxwayland
+        cosmic-autologin-noxwayland
+        ;
+    };
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--version"
+        "unstable"
+        "--version-regex"
+        "epoch-(.*)"
+      ];
+    };
   };
 
   meta = {
     homepage = "https://github.com/pop-os/xdg-desktop-portal-cosmic";
     description = "XDG Desktop Portal for the COSMIC Desktop Environment";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [
-      nyabinary
-      HeitorAugustoLN
-    ];
+    maintainers = lib.teams.cosmic.members;
     mainProgram = "xdg-desktop-portal-cosmic";
     platforms = lib.platforms.linux;
   };

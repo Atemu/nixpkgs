@@ -536,6 +536,7 @@ mapAliases {
   ec2_api_tools = throw "'ec2_api_tools' has been renamed to/replaced by 'ec2-api-tools'"; # Converted to throw 2024-10-17
   ec2-utils = amazon-ec2-utils; # Added 2022-02-01
 
+  ecryptfs-helper = throw "'ecryptfs-helper' has been removed, for filesystem-level encryption, use fscrypt"; # Added 2025-04-08
   edUnstable = throw "edUnstable was removed; use ed instead"; # Added 2024-07-01
   edgedb = throw "edgedb replaced to gel because of change of upstream"; # Added 2025-02-24
   elasticsearch7Plugins = elasticsearchPlugins;
@@ -549,6 +550,7 @@ mapAliases {
   emacs28 = throw "Emacs 28 is removed due to CVEs which are fixed in Emacs 30"; # Added 2025-03-03
   emacs28-gtk2 = throw "emacs28-gtk2 was removed because GTK2 is EOL; migrate to emacs28{,-gtk3,-nox} or to more recent versions of Emacs."; # Added 2024-09-20
   emacs28-gtk3 = throw "Emacs 28 is removed due to CVEs which are fixed in Emacs 30"; # Added 2025-03-03
+  emacs28-macport = throw "Emacs 28 Macport is removed due to CVEs which are fixed in Emacs 30 and backported to Emacs 29 Macport"; # Added 2025-04-06
   emacs28-nox = throw "Emacs 28 is removed due to CVEs which are fixed in Emacs 30"; # Added 2025-03-03
   emacs28NativeComp = emacs28; # Added 2022-06-08
   emacs28Packages = throw "'emacs28Packages' has been renamed to/replaced by 'emacs28.pkgs'"; # Converted to throw 2024-10-17
@@ -565,6 +567,7 @@ mapAliases {
   EmptyEpsilon = empty-epsilon; # Added 2024-07-14
   enyo-doom = enyo-launcher; # Added 2022-09-09
   epdfview = throw "'epdfview' has been removed due to lack of maintenance upstream. Consider using 'qpdfview' instead"; # Added 2024-10-19
+  ephemeral = throw "'ephemeral' has been archived upstream since 2022-04-02"; # added 2025-04-12
   epoxy = throw "'epoxy' has been renamed to/replaced by 'libepoxy'"; # Converted to throw 2024-10-17
 
   erlang_24 = throw "erlang_24 has been removed as it is unmaintained upstream";
@@ -1052,6 +1055,7 @@ mapAliases {
   loco-cli = loco; # Added 2025-02-24
   loop = throw "'loop' has been removed due to lack of upstream maintenance"; # Added 2025-01-25
   luna-icons = throw "luna-icons has been removed as it was removed upstream"; # Added 2024-10-29
+  lucene = throw "lucene has been removed since it was both wildly out of date and was not even built properly for 4 years"; # Added 2025-04-10
   lv_img_conv = throw "'lv_img_conv' has been removed from nixpkgs as it is broken"; # Added 2024-06-18
   lxd = lib.warnOnInstantiate "lxd has been renamed to lxd-lts" lxd-lts; # Added 2024-04-01
   lxd-unwrapped = lib.warnOnInstantiate "lxd-unwrapped has been renamed to lxd-unwrapped-lts" lxd-unwrapped-lts; # Added 2024-04-01
@@ -1272,6 +1276,7 @@ mapAliases {
   opendylan_bin = throw "opendylan_bin has been removed from nixpkgs as it was broken"; # Added 2024-07-15
   openelec-dvb-firmware = throw "'openelec-dvb-firmware' has been renamed to/replaced by 'libreelec-dvb-firmware'"; # Converted to throw 2024-10-17
   openethereum = throw "openethereum development has ceased by upstream. Use alternate clients such as go-ethereum, erigon, or nethermind"; # Added 2024-05-13
+  openexr_3 = openexr; # Added 2025-03-12
   openimageio2 = openimageio; # Added 2023-01-05
   openisns = throw "'openisns' has been renamed to/replaced by 'open-isns'"; # Converted to throw 2024-10-17
   openjdk19 = throw "OpenJDK 19 was removed as it has reached its end of life"; # Added 2024-08-01
@@ -1564,6 +1569,7 @@ mapAliases {
   shipyard = jumppad; # Added 2023-06-06
   siduck76-st = st-snazzy; # Added 2024-12-24
   signal-desktop-beta = throw "signal-desktop-beta has been removed to make the signal-desktop package easier to maintain";
+  signal-desktop = lib.warnOnInstantiate "'signal-desktop' has been renamed to 'signal-desktop-bin'; in the future, 'signal-desktop' will point to 'signal-desktop-source'" signal-desktop-bin; # Added 2025-04-01
   sheesy-cli = throw "'sheesy-cli' has been removed due to lack of upstream maintenance"; # Added 2025-01-26
   shout = nodePackages.shout; # Added unknown; moved 2024-10-19
   sky = throw "'sky' has been removed because its upstream website disappeared"; # Added 2024-07-21

@@ -198,6 +198,7 @@ in
   amd-sev = runTest ./amd-sev.nix;
   angie-api = runTest ./angie-api.nix;
   anki-sync-server = runTest ./anki-sync-server.nix;
+  anubis = runTest ./anubis.nix;
   anuko-time-tracker = runTest ./anuko-time-tracker.nix;
   apcupsd = runTest ./apcupsd.nix;
   apfs = runTest ./apfs.nix;
@@ -316,7 +317,6 @@ in
   coder = handleTest ./coder.nix { };
   collectd = handleTest ./collectd.nix { };
   commafeed = handleTest ./commafeed.nix { };
-  conduwuit = runTest ./matrix/conduwuit.nix;
   connman = handleTest ./connman.nix { };
   consul = handleTest ./consul.nix { };
   consul-template = handleTest ./consul-template.nix { };
@@ -713,6 +713,7 @@ in
   languagetool = handleTest ./languagetool.nix { };
   lanraragi = handleTest ./lanraragi.nix { };
   latestKernel.login = handleTest ./login.nix { latestKernel = true; };
+  lavalink = runTest ./lavalink.nix;
   leaps = handleTest ./leaps.nix { };
   lemmy = handleTest ./lemmy.nix { };
   libinput = handleTest ./libinput.nix { };
@@ -1079,6 +1080,7 @@ in
     handleTest ./postfix-raise-smtpd-tls-security-level.nix
       { };
   postfixadmin = handleTest ./postfixadmin.nix { };
+  postgres-websockets = runTest ./postgres-websockets.nix;
   postgresql = handleTest ./postgresql { };
   postgrest = runTest ./postgrest.nix;
   powerdns = handleTest ./powerdns.nix { };
@@ -1148,6 +1150,7 @@ in
   redmine = handleTestOn [ "x86_64-linux" "aarch64-linux" ] ./redmine.nix { };
   renovate = handleTest ./renovate.nix { };
   replace-dependencies = handleTest ./replace-dependencies { };
+  reposilite = runTest ./reposilite.nix;
   restartByActivationScript = handleTest ./restart-by-activation-script.nix { };
   restic-rest-server = handleTest ./restic-rest-server.nix { };
   restic = handleTest ./restic.nix { };
@@ -1442,6 +1445,7 @@ in
   webhook = runTest ./webhook.nix;
   weblate = handleTest ./web-apps/weblate.nix { };
   whisparr = handleTest ./whisparr.nix { };
+  whoami = runTest ./whoami.nix;
   whoogle-search = handleTest ./whoogle-search.nix { };
   wiki-js = runTest ./wiki-js.nix;
   wine = handleTest ./wine.nix { };

@@ -8068,15 +8068,16 @@ with self;
     };
   };
 
-  DataEntropy = buildPerlModule {
+  DataEntropy = buildPerlPackage {
     pname = "Data-Entropy";
-    version = "0.007";
+    version = "0.008";
     src = fetchurl {
-      url = "mirror://cpan/authors/id/Z/ZE/ZEFRAM/Data-Entropy-0.007.tar.gz";
-      hash = "sha256-JhHEoaMDhZTXnqTtFNnhWpr493EF9RZneV/k+KU0J+Q=";
+      url = "mirror://cpan/authors/id/R/RR/RRWO/Data-Entropy-0.008.tar.gz";
+      hash = "sha256-GKUrE4boLGuM2zhKOYYdYCIKRCp5DgdwEL5y3YU7Z7M=";
     };
     propagatedBuildInputs = [
       CryptRijndael
+      CryptURandom
       DataFloat
       HTTPLite
       ParamsClassify
@@ -14917,6 +14918,7 @@ with self;
       pkgs.gtk2
       Gtk2
     ];
+    env.NIX_CFLAGS_COMPILE = "-Wno-error=int-conversion -Wno-error=implicit-function-declaration";
     meta = {
       description = "Perl interface to the GooCanvas";
       license = with lib.licenses; [
@@ -25377,6 +25379,12 @@ with self;
       url = "mirror://cpan/authors/id/D/DS/DSHULTZ/Net-FreeDB-0.10.tar.gz";
       hash = "sha256-90PhIjjrFslIBK+0sxCwJUj3C8rxeRZOrlZ/i0mIroU=";
     };
+    patches = [
+      (fetchpatch {
+        url = "https://salsa.debian.org/perl-team/modules/packages/libnet-freedb-perl/-/raw/6be43c69333796c6ec14fea72f2a8035df42fd15/debian/patches/implicit-function-declaration.patch";
+        hash = "sha256-oIfJuLzTm0JLzAUvP1mcGCm6oWGpcLWDPqHN/4pKC9Q=";
+      })
+    ];
     buildInputs = [
       TestDeep
       TestDifferences

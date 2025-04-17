@@ -19,19 +19,19 @@
 
 buildPythonPackage rec {
   pname = "granian";
-  version = "2.2.0";
+  version = "2.2.3";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "emmett-framework";
     repo = "granian";
     tag = "v${version}";
-    hash = "sha256-YQ9+PcKXtSc+wdvhgDfSAfcv/y53oqcrPCEI9dDKFa0=";
+    hash = "sha256-E0ooMXqR6PR6JVHEjiqsVaxsMs5ZIoR5YAmExF73ljI=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit pname version src;
-    hash = "sha256-XJ61+u5aGQis6YkfASD+WJHEKDBL+2ImqCAuQmm3A/g=";
+    hash = "sha256-XXgg2HW4SNINeoG1zU/bqpplP6UdQOE2z68rvB4vA/0=";
   };
 
   nativeBuildInputs = with rustPlatform; [
