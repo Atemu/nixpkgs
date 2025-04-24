@@ -183,8 +183,8 @@ lib.makeExtensible (
       };
 
       nix_2_28 = commonMeson {
-        version = "2.28.1";
-        hash = "sha256-R+HAPvD+AjiyRHZP/elkvka33G499EKT8ntyF/EPPRI=";
+        version = "2.28.2";
+        hash = "sha256-yl+hlZ/VFHIZwPIDEs4ysOYgprW4VEORfSyvScF7Cwg=";
         self_attribute_name = "nix_2_28";
       };
 
@@ -235,7 +235,7 @@ lib.makeExtensible (
         ) (lib.range 4 23)
       )
       // {
-        nixComponents_2_27 = throw "nixComponents_2_27 has been removed. use nixComponents_2_28.";
+        nixComponents_2_27 = throw "nixComponents_2_27 has been removed. use nixComponents_git.";
         nix_2_27 = throw "nix_2_27 has been removed. use nix_2_28.";
         nix_2_25 = throw "nix_2_25 has been removed. use nix_2_28.";
 

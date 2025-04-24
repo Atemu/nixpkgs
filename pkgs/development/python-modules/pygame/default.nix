@@ -12,7 +12,7 @@
   setuptools,
 
   # nativeBuildInputs
-  SDL2,
+  SDL2_classic,
   pkg-config,
 
   # buildInputs
@@ -76,7 +76,7 @@ buildPythonPackage rec {
   ];
 
   nativeBuildInputs = [
-    SDL2
+    SDL2_classic
     pkg-config
   ];
 
@@ -86,8 +86,8 @@ buildPythonPackage rec {
     libpng
     libX11
     portmidi
-    SDL2
-    SDL2_image
+    SDL2_classic
+    (SDL2_image.override { enableSTB = false; })
     SDL2_mixer
     SDL2_ttf
   ];
@@ -122,5 +122,10 @@ buildPythonPackage rec {
     license = lib.licenses.lgpl21Plus;
     maintainers = with lib.maintainers; [ emilytrau ];
     platforms = lib.platforms.unix;
+    badPlatforms = [
+      # Several tests segfault
+      # https://github.com/pygame/pygame/issues/4486
+      lib.systems.inspect.patterns.isDarwin
+    ];
   };
 }
