@@ -206,7 +206,7 @@ lib.makeScope pkgs.newScope (
           meta = {
             description = "PHP upstream extension: ${name}";
             inherit (php.meta)
-              maintainers
+              teams
               homepage
               license
               platforms
@@ -314,6 +314,8 @@ lib.makeScope pkgs.newScope (
 
         ioncube-loader = callPackage ../development/php-packages/ioncube-loader { };
 
+        luasandbox = callPackage ../development/php-packages/luasandbox { };
+
         mailparse = callPackage ../development/php-packages/mailparse { };
 
         maxminddb = callPackage ../development/php-packages/maxminddb { };
@@ -362,7 +364,7 @@ lib.makeScope pkgs.newScope (
                 sed -i -e 's|OCISDKMANINC=`.*$|OCISDKMANINC="${pkgs.oracle-instantclient.dev}/include"|' config.m4
               '';
 
-              meta.maintainers = lib.teams.php.members;
+              meta.teams = [ lib.teams.php ];
             };
 
         pdo_sqlsrv = callPackage ../development/php-packages/pdo_sqlsrv { };

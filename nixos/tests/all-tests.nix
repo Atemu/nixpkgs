@@ -948,7 +948,7 @@ in
   nomad = runTest ./nomad.nix;
   non-default-filesystems = handleTest ./non-default-filesystems.nix { };
   non-switchable-system = runTest ./non-switchable-system.nix;
-  noto-fonts = handleTest ./noto-fonts.nix { };
+  noto-fonts = runTest ./noto-fonts.nix;
   noto-fonts-cjk-qt-default-weight = handleTest ./noto-fonts-cjk-qt-default-weight.nix { };
   novacomd = handleTestOn [ "x86_64-linux" ] ./novacomd.nix { };
   npmrc = handleTest ./npmrc.nix { };
@@ -966,11 +966,13 @@ in
   oddjobd = handleTestOn [ "x86_64-linux" "aarch64-linux" ] ./oddjobd.nix { };
   obs-studio = runTest ./obs-studio.nix;
   oh-my-zsh = handleTest ./oh-my-zsh.nix { };
+  olivetin = runTest ./olivetin.nix;
   ollama = runTest ./ollama.nix;
   ollama-cuda = runTestOn [ "x86_64-linux" "aarch64-linux" ] ./ollama-cuda.nix;
   ollama-rocm = runTestOn [ "x86_64-linux" "aarch64-linux" ] ./ollama-rocm.nix;
   ombi = handleTest ./ombi.nix { };
   openarena = handleTest ./openarena.nix { };
+  openbao = runTest ./openbao.nix;
   openldap = handleTest ./openldap.nix { };
   opensearch = discoverTests (import ./opensearch.nix);
   openresty-lua = handleTest ./openresty-lua.nix { };
@@ -1387,12 +1389,13 @@ in
   tuxguitar = runTest ./tuxguitar.nix;
   twingate = runTest ./twingate.nix;
   typesense = handleTest ./typesense.nix { };
+  tzupdate = runTest ./tzupdate.nix;
   ucarp = handleTest ./ucarp.nix { };
   udisks2 = handleTest ./udisks2.nix { };
   ulogd = handleTest ./ulogd/ulogd.nix { };
   umurmur = handleTest ./umurmur.nix { };
   unbound = handleTest ./unbound.nix { };
-  unifi = handleTest ./unifi.nix { };
+  unifi = runTest ./unifi.nix;
   unit-php = runTest ./web-servers/unit-php.nix;
   unit-perl = handleTest ./web-servers/unit-perl.nix { };
   upnp.iptables = handleTest ./upnp.nix { useNftables = false; };
@@ -1478,6 +1481,7 @@ in
   xterm = runTest ./xterm.nix;
   xxh = runTest ./xxh.nix;
   yabar = runTest ./yabar.nix;
+  yarr = runTest ./yarr.nix;
   ydotool = handleTest ./ydotool.nix { };
   yggdrasil = runTest ./yggdrasil.nix;
   your_spotify = runTest ./your_spotify.nix;

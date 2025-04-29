@@ -2744,6 +2744,10 @@ in
     ];
   };
 
+  peek-nvim = super.peek-nvim.overrideAttrs {
+    runtimeDeps = [ deno ];
+  };
+
   persisted-nvim = super.persisted-nvim.overrideAttrs {
     nvimSkipModules = [
       # /lua/persisted/init.lua:44: attempt to index upvalue 'config' (a nil value)
@@ -3865,6 +3869,15 @@ in
 
   wtf-nvim = super.wtf-nvim.overrideAttrs {
     dependencies = [ self.nui-nvim ];
+  };
+
+  xmake-nvim = super.xmake-nvim.overrideAttrs {
+    nvimSkipModule = [
+      # attempt to index upvalue 'options' (a nil value)
+      "xmake.action"
+      "xmake.command"
+      "xmake.runner_wrapper"
+    ];
   };
 
   yanky-nvim = super.yanky-nvim.overrideAttrs {

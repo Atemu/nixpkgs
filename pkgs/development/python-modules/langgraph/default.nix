@@ -32,17 +32,20 @@
   syrupy,
   postgresql,
   postgresqlTestHook,
+
+  # passthru
+  nix-update-script,
 }:
 buildPythonPackage rec {
   pname = "langgraph";
-  version = "0.3.24";
+  version = "0.3.34";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "langchain-ai";
     repo = "langgraph";
     tag = "${version}";
-    hash = "sha256-NlTpBXBeADlIHQDlt0muJEuoKOgXiAtAo8GoU5CsvZo=";
+    hash = "sha256-xGznstX6RHo4vO03xnR2by9yW1jc7+E2oSVNWD/9L7c=";
   };
 
   postgresqlTestSetupPost = ''
@@ -125,9 +128,11 @@ buildPythonPackage rec {
     "tests/test_pregel_async.py"
   ];
 
-  passthru = {
-    inherit (langgraph-sdk) updateScript;
-    skipBulkUpdate = true; # Broken, see https://github.com/NixOS/nixpkgs/issues/379898
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version-regex"
+      "^(\\d+\\.\\d+\\.\\d+)"
+    ];
   };
 
   meta = {

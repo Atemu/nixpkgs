@@ -2,10 +2,7 @@
   lib,
   SDL2,
   autoreconfHook,
-  darwin,
   fetchurl,
-  giflib,
-  libXpm,
   libjpeg,
   libpng,
   libtiff,
@@ -19,9 +16,6 @@
   enableSdltest ? (!stdenv.hostPlatform.isDarwin),
 }:
 
-let
-  inherit (darwin.apple_sdk.frameworks) Foundation;
-in
 stdenv.mkDerivation (finalAttrs: {
   pname = "SDL2_image";
   version = "2.8.5";
@@ -74,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "SDL image library";
     homepage = "https://github.com/libsdl-org/SDL_image";
     license = lib.licenses.zlib;
-    maintainers = lib.teams.sdl.members ++ (with lib.maintainers; [ ]);
+    teams = [ lib.teams.sdl ];
     platforms = lib.platforms.unix;
   };
 })

@@ -163,6 +163,7 @@ lib.makeExtensible (
           ];
           self_attribute_name = "nix_2_3";
           maintainers = with lib.maintainers; [ flokli ];
+          teams = [ ];
         }).overrideAttrs
           {
             # https://github.com/NixOS/nix/issues/10222
@@ -186,11 +187,15 @@ lib.makeExtensible (
         version = "2.28.2";
         hash = "sha256-yl+hlZ/VFHIZwPIDEs4ysOYgprW4VEORfSyvScF7Cwg=";
         self_attribute_name = "nix_2_28";
+        patches = [
+          # fixes user/system registries regression: https://github.com/NixOS/nix/issues/13050
+          ./patches/0001-Revert-Actually-ignore-system-user-registries-during.patch
+        ];
       };
 
       nixComponents_git = nixDependencies.callPackage ./modular/packages.nix rec {
         version = "2.29pre20250409_${lib.substring 0 8 src.rev}";
-        inherit (self.nix_2_24.meta) maintainers;
+        inherit (self.nix_2_24.meta) maintainers teams;
         otherSplices = generateSplicesForNixComponents "nixComponents_git";
         src = fetchFromGitHub {
           owner = "NixOS";
