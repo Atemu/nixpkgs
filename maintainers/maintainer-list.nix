@@ -6398,6 +6398,12 @@
     githubId = 8146662;
     name = "Eric Lesiuta";
   };
+  elfenermarcell = {
+    email = "elfenermarcell@gmail.com";
+    github = "elfenermarcell";
+    githubId = 183738665;
+    name = "Marcell Tóth";
+  };
   eliandoran = {
     email = "contact@eliandoran.me";
     name = "Elian Doran";
@@ -6975,6 +6981,12 @@
     github = "evils";
     githubId = 30512529;
     name = "Evils";
+  };
+  evythedemon = {
+    name = "Evy Garden";
+    github = "EvysGarden";
+    githubId = 92547295;
+    email = "evysgarden@protonmail.com";
   };
   ewok = {
     email = "ewok@ewok.ru";
