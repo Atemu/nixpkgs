@@ -752,6 +752,7 @@
   ./services/matrix/dendrite.nix
   ./services/matrix/hebbot.nix
   ./services/matrix/hookshot.nix
+  ./services/matrix/lk-jwt-service.nix
   ./services/matrix/matrix-alertmanager.nix
   ./services/matrix/maubot.nix
   ./services/matrix/mautrix-meta.nix
@@ -1181,6 +1182,7 @@
   ./services/networking/lambdabot.nix
   ./services/networking/legit.nix
   ./services/networking/libreswan.nix
+  ./services/networking/livekit.nix
   ./services/networking/lldpd.nix
   ./services/networking/logmein-hamachi.nix
   ./services/networking/lokinet.nix
@@ -1513,6 +1515,7 @@
   ./services/web-apps/collabora-online.nix
   ./services/web-apps/commafeed.nix
   ./services/web-apps/convos.nix
+  ./services/web-apps/cook-cli.nix
   ./services/web-apps/crabfit.nix
   ./services/web-apps/davis.nix
   ./services/web-apps/cryptpad.nix

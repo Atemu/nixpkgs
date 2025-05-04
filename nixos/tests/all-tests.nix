@@ -729,11 +729,13 @@ in
   lidarr = handleTest ./lidarr.nix { };
   lightdm = handleTest ./lightdm.nix { };
   lighttpd = runTest ./lighttpd.nix;
+  livekit = runTest ./networking/livekit.nix;
   limesurvey = handleTest ./limesurvey.nix { };
   limine = import ./limine { inherit runTest; };
   listmonk = handleTestOn [ "x86_64-linux" "aarch64-linux" ] ./listmonk.nix { };
   litellm = runTest ./litellm.nix;
   litestream = handleTest ./litestream.nix { };
+  lk-jwt-service = runTest ./matrix/lk-jwt-service.nix;
   lldap = handleTest ./lldap.nix { };
   localsend = handleTest ./localsend.nix { };
   locate = handleTest ./locate.nix { };
@@ -1190,6 +1192,7 @@ in
   schleuder = handleTest ./schleuder.nix { };
   scion-freestanding-deployment = handleTest ./scion/freestanding-deployment { };
   scrutiny = runTest ./scrutiny.nix;
+  scx = runTest ./scx/default.nix;
   sddm = handleTest ./sddm.nix { };
   sdl3 = handleTest ./sdl3.nix { };
   seafile = handleTest ./seafile.nix { };

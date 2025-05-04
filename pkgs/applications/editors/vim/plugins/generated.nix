@@ -1609,6 +1609,19 @@ final: prev: {
     meta.hydraPlatforms = [ ];
   };
 
+  bloat-nvim = buildVimPlugin {
+    pname = "bloat.nvim";
+    version = "2025-04-30";
+    src = fetchFromGitHub {
+      owner = "dundalek";
+      repo = "bloat.nvim";
+      rev = "f90bef655ac40fecbaae53e10db1cf7894d090b1";
+      sha256 = "0ah5c84172wkc75zx5ll2dp9y3r867lik29aw5mm7i3lj530p0ri";
+    };
+    meta.homepage = "https://github.com/dundalek/bloat.nvim/";
+    meta.hydraPlatforms = [ ];
+  };
+
   block-nvim = buildVimPlugin {
     pname = "block.nvim";
     version = "2023-10-10";
@@ -3206,6 +3219,19 @@ final: prev: {
       sha256 = "0qyakf6wvkdxpzx63gv3p9bwafmxk87vgvcp14pfrkiznvqlpd3s";
     };
     meta.homepage = "https://github.com/zbirenbaum/copilot-cmp/";
+    meta.hydraPlatforms = [ ];
+  };
+
+  copilot-lsp = buildVimPlugin {
+    pname = "copilot-lsp";
+    version = "2025-04-27";
+    src = fetchFromGitHub {
+      owner = "copilotlsp-nvim";
+      repo = "copilot-lsp";
+      rev = "194acc0a975f20d88e62a382e83bdec71715d3c0";
+      sha256 = "09f1z36h5jxkl8xyfla6l6hsc0fgkin4w1sj45mwsk8a8g26xdlj";
+    };
+    meta.homepage = "https://github.com/copilotlsp-nvim/copilot-lsp/";
     meta.hydraPlatforms = [ ];
   };
 
@@ -6519,6 +6545,19 @@ final: prev: {
       sha256 = "0mi15a4cxbrqzwb9xl47scar8ald5xm108r35jxcdrmahinw62rz";
     };
     meta.homepage = "https://github.com/rebelot/kanagawa.nvim/";
+    meta.hydraPlatforms = [ ];
+  };
+
+  kanagawa-paper-nvim = buildVimPlugin {
+    pname = "kanagawa-paper.nvim";
+    version = "2025-04-27";
+    src = fetchFromGitHub {
+      owner = "thesimonho";
+      repo = "kanagawa-paper.nvim";
+      rev = "4f41353f6a2bf9f25b2466a0f1eb6883d8fd09c1";
+      sha256 = "0gan0jqn4azkqln5xsnffpyjqmzqv1wwv02xv2d0yykmlqk9yqc8";
+    };
+    meta.homepage = "https://github.com/thesimonho/kanagawa-paper.nvim/";
     meta.hydraPlatforms = [ ];
   };
 
@@ -11427,6 +11466,19 @@ final: prev: {
     meta.hydraPlatforms = [ ];
   };
 
+  oil-git-status-nvim = buildVimPlugin {
+    pname = "oil-git-status.nvim";
+    version = "2025-04-03";
+    src = fetchFromGitHub {
+      owner = "refractalize";
+      repo = "oil-git-status.nvim";
+      rev = "4b5cf53842c17a09420919e655a6a559da3112d7";
+      sha256 = "1jzw6lkvi9xxzqy8xz056xlb45byr1arklh87zmyf0nj9plm2nsp";
+    };
+    meta.homepage = "https://github.com/refractalize/oil-git-status.nvim/";
+    meta.hydraPlatforms = [ ];
+  };
+
   ollama-nvim = buildVimPlugin {
     pname = "ollama.nvim";
     version = "2024-06-09";
@@ -14464,6 +14516,19 @@ final: prev: {
       sha256 = "1jvj19bxsq8axv27mww7128pjssskdb6msg4b7nz9bk2y5plasw2";
     };
     meta.homepage = "https://github.com/levouh/tint.nvim/";
+    meta.hydraPlatforms = [ ];
+  };
+
+  tinted-vim = buildVimPlugin {
+    pname = "tinted-vim";
+    version = "2025-04-27";
+    src = fetchFromGitHub {
+      owner = "tinted-theming";
+      repo = "tinted-vim";
+      rev = "e9b507ef9e88f364777d5982912ada3821e84200";
+      sha256 = "1glyhckl36m7a0z1il1r95gfglvyw65ig7vq53kfph6xxvr3hkmk";
+    };
+    meta.homepage = "https://github.com/tinted-theming/tinted-vim/";
     meta.hydraPlatforms = [ ];
   };
 
