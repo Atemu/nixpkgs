@@ -1,9 +1,10 @@
 {
+  callPackage,
   lib,
   runCommand,
   writeShellScript,
   writeText,
-  linkFarm,
+  symlinkJoin,
   time,
   procps,
   nixVersions,
@@ -72,7 +73,9 @@ let
       # The number of attributes per chunk, see ./README.md for more info.
       chunkSize,
       checkMeta ? true,
-      includeBroken ? true,
+
+      # Don't try to eval packages marked as broken.
+      includeBroken ? false,
       # Whether to just evaluate a single chunk for quick testing
       quickTest ? false,
     }:
@@ -95,7 +98,7 @@ let
           --option restrict-eval true \
           --option allow-import-from-derivation false \
           --query --available \
-          --no-name --attr-path --out-path \
+          --out-path --json \
           --show-trace \
           --arg chunkSize "$chunkSize" \
           --arg myChunk "$myChunk" \
@@ -147,7 +150,7 @@ let
         chunkCount=$(( (attrCount - 1) / chunkSize + 1 ))
         echo "Chunk count: $chunkCount"
 
-        mkdir $out
+        mkdir -p $out/${evalSystem}
 
         # Record and print stats on free memory and swap in the background
         (
@@ -156,11 +159,11 @@ let
             freeSwap=$(free -b | grep Swap | awk '{print $4}')
             echo "Available memory: $(( availMemory / 1024 / 1024 )) MiB, free swap: $(( freeSwap / 1024 / 1024 )) MiB"
 
-            if [[ ! -f "$out/min-avail-memory" ]] || (( availMemory < $(<$out/min-avail-memory) )); then
-              echo "$availMemory" > $out/min-avail-memory
+            if [[ ! -f "$out/${evalSystem}/min-avail-memory" ]] || (( availMemory < $(<$out/${evalSystem}/min-avail-memory) )); then
+              echo "$availMemory" > $out/${evalSystem}/min-avail-memory
             fi
-            if [[ ! -f $out/min-free-swap ]] || (( availMemory < $(<$out/min-free-swap) )); then
-              echo "$freeSwap" > $out/min-free-swap
+            if [[ ! -f $out/${evalSystem}/min-free-swap ]] || (( availMemory < $(<$out/${evalSystem}/min-free-swap) )); then
+              echo "$freeSwap" > $out/${evalSystem}/min-free-swap
             fi
             sleep 4
           done
@@ -176,25 +179,27 @@ let
         mkdir "$chunkOutputDir"/{result,stats,timestats,stderr}
 
         seq -w 0 "$seq_end" |
-          command time -f "%e" -o "$out/total-time" \
+          command time -f "%e" -o "$out/${evalSystem}/total-time" \
           xargs -I{} -P"$cores" \
           ${singleChunk} "$chunkSize" {} "$evalSystem" "$chunkOutputDir"
 
-        cp -r "$chunkOutputDir"/stats $out/stats-by-chunk
+        cp -r "$chunkOutputDir"/stats $out/${evalSystem}/stats-by-chunk
 
         if (( chunkSize * chunkCount != attrCount )); then
           # A final incomplete chunk would mess up the stats, don't include it
           rm "$chunkOutputDir"/stats/"$seq_end"
         fi
 
-        cat "$chunkOutputDir"/result/* > $out/paths
+        cat "$chunkOutputDir"/result/* | jq -s 'add | map_values(.outputs)' > $out/${evalSystem}/paths.json
       '';
+
+  diff = callPackage ./diff.nix { };
 
   combine =
     {
-      resultsDir,
+      diffDir,
     }:
-    runCommand "combined-result"
+    runCommand "combined-eval"
       {
         nativeBuildInputs = [
           jq
@@ -203,40 +208,27 @@ let
       ''
         mkdir -p $out
 
-        # Transform output paths to JSON
-        cat ${resultsDir}/*/paths |
-          jq --sort-keys --raw-input --slurp '
-            split("\n") |
-            map(select(. != "") | split(" ") | map(select(. != ""))) |
-            map(
-              {
-                key: .[0],
-                value: .[1] | split(";") | map(split("=") |
-                  if length == 1 then
-                    { key: "out", value: .[0] }
-                  else
-                    { key: .[0], value: .[1] }
-                  end) | from_entries}
-            ) | from_entries
-          ' > $out/outpaths.json
+        # Combine output paths from all systems
+        cat ${diffDir}/*/diff.json | jq -s '
+          reduce .[] as $item ({}; {
+            added: (.added + $item.added),
+            changed: (.changed + $item.changed),
+            removed: (.removed + $item.removed)
+          })
+        ' > $out/combined-diff.json
 
-        mkdir -p $out/stats
+        mkdir -p $out/before/stats
+        for d in ${diffDir}/before/*; do
+          cp -r "$d"/stats-by-chunk $out/before/stats/$(basename "$d")
+        done
 
-        for d in ${resultsDir}/*; do
-          cp -r "$d"/stats-by-chunk $out/stats/$(basename "$d")
+        mkdir -p $out/after/stats
+        for d in ${diffDir}/after/*; do
+          cp -r "$d"/stats-by-chunk $out/after/stats/$(basename "$d")
         done
       '';
 
-  compare = import ./compare {
-    inherit
-      lib
-      jq
-      runCommand
-      writeText
-      supportedSystems
-      python3
-      ;
-  };
+  compare = callPackage ./compare { };
 
   full =
     {
@@ -247,17 +239,26 @@ let
       quickTest ? false,
     }:
     let
-      results = linkFarm "results" (
-        map (evalSystem: {
-          name = evalSystem;
-          path = singleSystem {
-            inherit quickTest evalSystem chunkSize;
-          };
-        }) evalSystems
-      );
+      diffs = symlinkJoin {
+        name = "diffs";
+        paths = map (
+          evalSystem:
+          let
+            eval = singleSystem {
+              inherit quickTest evalSystem chunkSize;
+            };
+          in
+          diff {
+            inherit evalSystem;
+            # Local "full" evaluation doesn't do a real diff.
+            beforeDir = eval;
+            afterDir = eval;
+          }
+        ) evalSystems;
+      };
     in
     combine {
-      resultsDir = results;
+      diffDir = diffs;
     };
 
 in
@@ -265,6 +266,7 @@ in
   inherit
     attrpathsSuperset
     singleSystem
+    diff
     combine
     compare
     # The above three are used by separate VMs in a GitHub workflow,
