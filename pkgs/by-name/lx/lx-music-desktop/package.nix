@@ -18,13 +18,13 @@ let
 in
 buildNpmPackage rec {
   pname = "lx-music-desktop";
-  version = "2.10.0";
+  version = "2.11.0";
 
   src = fetchFromGitHub {
     owner = "lyswhut";
     repo = "lx-music-desktop";
     tag = "v${version}";
-    hash = "sha256-8IzQEGdaeoBbCsZSPhVowipeBr4YHGm/G28qGHtCY/s=";
+    hash = "sha256-NMj8rb5PAejT1HCE5nxi2+SS9lFUVdLEqN0id23QjVc=";
   };
 
   patches = [
@@ -39,7 +39,7 @@ buildNpmPackage rec {
     makeWrapper
   ];
 
-  npmDepsHash = "sha256-awD8gu1AnhUn5uT/dITXjMVWNAwABAmcEVZOKukbWrI=";
+  npmDepsHash = "sha256-cA9NdHe3lEg8twMLWoeomWgobidZ34TKwdC5rDezZ5g=";
 
   makeCacheWritable = true;
 
@@ -86,15 +86,15 @@ buildNpmPackage rec {
         --add-flags ${lib.escapeShellArg commandLineArgs}
   '';
 
-  meta = with lib; {
+  meta = {
     broken = stdenv.hostPlatform.isDarwin;
     description = "Music software based on Electron and Vue";
     homepage = "https://github.com/lyswhut/lx-music-desktop";
     changelog = "https://github.com/lyswhut/lx-music-desktop/releases/tag/v${version}";
-    license = licenses.asl20;
+    license = lib.licenses.asl20;
     platforms = electron.meta.platforms;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     mainProgram = "lx-music-desktop";
-    maintainers = with maintainers; [ oosquare ];
+    maintainers = with lib.maintainers; [ oosquare ];
   };
 }

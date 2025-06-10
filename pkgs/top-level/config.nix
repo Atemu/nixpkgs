@@ -137,6 +137,18 @@ let
       '';
     };
 
+    allowVariants = mkOption {
+      type = types.bool;
+      default = true;
+      description = ''
+        Whether to expose the nixpkgs variants.
+
+        Variants are instances of the current nixpkgs instance with different stdenvs or other applied options.
+        This allows for using different toolchains, libcs, or global build changes across nixpkgs.
+        Disabling can ensure nixpkgs is only building for the platform which you specified.
+      '';
+    };
+
     cudaSupport = mkMassRebuild {
       type = types.bool;
       default = false;
@@ -197,6 +209,27 @@ let
       default = false;
       description = ''
         Whether to check that the `meta` attribute of derivations are correct during evaluation time.
+      '';
+    };
+
+    rewriteURL = mkOption {
+      type = types.functionTo (types.nullOr types.str);
+      description = ''
+        A hook to rewrite/filter URLs before they are fetched.
+
+        The function is passed the URL as a string, and is expected to return a new URL, or null if the given URL should not be attempted.
+
+        This function is applied _prior_ to resolving mirror:// URLs.
+
+        The intended use is to allow URL rewriting to insert company-internal mirrors, or work around company firewalls and similar network restrictions.
+      '';
+      default = lib.id;
+      defaultText = literalExpression "(url: url)";
+      example = literalExpression ''
+        {
+          # Use Nix like it's 2024! ;-)
+          rewriteURL = url: "https://web.archive.org/web/2024/''${url}";
+        }
       '';
     };
   };

@@ -31,7 +31,6 @@
   libiconv,
   ninja,
   prometheus-cpp,
-  darwin,
   buildClient ? true,
   buildServer ? true,
   SDL2,
@@ -109,11 +108,6 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional (lib.meta.availableOn stdenv.hostPlatform luajit) luajit
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libiconv
-      darwin.apple_sdk.frameworks.OpenGL
-      darwin.apple_sdk.frameworks.OpenAL
-      darwin.apple_sdk.frameworks.Carbon
-      darwin.apple_sdk.frameworks.Cocoa
-      darwin.apple_sdk.frameworks.Kernel
     ]
     ++ lib.optionals buildClient [
       libpng
@@ -155,7 +149,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     homepage = "https://www.luanti.org/";
-    description = "An open source voxel game engine (formerly Minetest)";
+    description = "Open source voxel game engine (formerly Minetest)";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [

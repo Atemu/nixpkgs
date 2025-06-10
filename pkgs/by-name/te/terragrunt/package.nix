@@ -4,36 +4,38 @@
   fetchFromGitHub,
   versionCheckHook,
   go-mockery,
+  mockgen,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "terragrunt";
-  version = "0.77.22";
+  version = "0.80.2";
 
   src = fetchFromGitHub {
     owner = "gruntwork-io";
-    repo = pname;
-    tag = "v${version}";
-    hash = "sha256-Mj7lTyrEo3hOTzSUfKShK/Rzx/gOwdJYFofde+2uJHs=";
+    repo = "terragrunt";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-FgytHWKtXK0tNDFOVOEciEzyVEXLbk9T2Nk8Se35HnY=";
   };
 
   nativeBuildInputs = [
     versionCheckHook
     go-mockery
+    mockgen
   ];
 
   preBuild = ''
     make generate-mocks
   '';
 
-  vendorHash = "sha256-qAuC1qDUBrnf/Fq2fV4DfA5oKOMQ1AdC6XFUxXi3nuA=";
+  vendorHash = "sha256-Zgoon6eMUXn2zaxHfJovtWV9Q11rDdkBrYzNqa73DsM=";
 
   doCheck = false;
 
   ldflags = [
     "-s"
     "-w"
-    "-X github.com/gruntwork-io/go-commons/version.Version=v${version}"
+    "-X github.com/gruntwork-io/go-commons/version.Version=v${finalAttrs.version}"
     "-extldflags '-static'"
   ];
 
@@ -41,7 +43,7 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://terragrunt.gruntwork.io";
-    changelog = "https://github.com/gruntwork-io/terragrunt/releases/tag/v${version}";
+    changelog = "https://github.com/gruntwork-io/terragrunt/releases/tag/v${finalAttrs.version}";
     description = "Thin wrapper for Terraform that supports locking for Terraform state and enforces best practices";
     mainProgram = "terragrunt";
     license = licenses.mit;
@@ -51,4 +53,4 @@ buildGoModule rec {
       kashw2
     ];
   };
-}
+})

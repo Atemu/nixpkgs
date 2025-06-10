@@ -7,13 +7,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "polarity";
-  version = "latest-unstable-2025-04-16";
+  version = "latest-unstable-2025-05-19";
 
   src = fetchFromGitHub {
     owner = "polarity-lang";
     repo = "polarity";
-    rev = "ba1e8861a8d32e4fad987b6dcb49d2804dce3cbe";
-    hash = "sha256-viwSbYxNcmxNEaPNNThjKxmQx5KO8bEV23KibnCwMQg=";
+    rev = "b715e6529210242d79f304d34170eba8473174b2";
+    hash = "sha256-/yq6fqjkZoEw4MhsOWlRdQciA/Wqds9TgCczcVQV8Rw=";
   };
 
   useFetchCargoVendor = true;
@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {
-    description = "A Language with Dependent Data and Codata Types";
+    description = "Language with Dependent Data and Codata Types";
     homepage = "https://polarity-lang.github.io/";
     changelog = "https://github.com/polarity-lang/polarity/blob/${src.rev}/CHANGELOG.md";
     license = with lib.licenses; [

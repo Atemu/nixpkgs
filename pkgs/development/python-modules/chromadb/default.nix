@@ -6,7 +6,6 @@
   buildPythonPackage,
   cargo,
   chroma-hnswlib,
-  darwin,
   fastapi,
   fetchFromGitHub,
   grpcio,
@@ -65,8 +64,7 @@ buildPythonPackage rec {
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
-    inherit src;
-    name = "${pname}-${version}";
+    inherit pname version src;
     hash = "sha256-ZtCTg8qNCiqlH7RsZxaWUNAoazdgmXP2GtpjDpRdvbk=";
   };
 
@@ -91,7 +89,7 @@ buildPythonPackage rec {
   buildInputs = [
     openssl
     zstd
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  ];
 
   dependencies = [
     bcrypt
