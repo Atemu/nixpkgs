@@ -177,6 +177,23 @@ with pkgs;
 
   __flattenIncludeHackHook = callPackage ../build-support/setup-hooks/flatten-include-hack { };
 
+  arrayUtilities =
+    let
+      arrayUtilitiesPackages = makeScopeWithSplicing' {
+        otherSplices = generateSplicesForMkScope "arrayUtilities";
+        f =
+          finalArrayUtilities:
+          {
+            callPackages = lib.callPackagesWith (pkgs // finalArrayUtilities);
+          }
+          // lib.packagesFromDirectoryRecursive {
+            inherit (finalArrayUtilities) callPackage;
+            directory = ../build-support/setup-hooks/arrayUtilities;
+          };
+      };
+    in
+    recurseIntoAttrs arrayUtilitiesPackages;
+
   addBinToPathHook = callPackage (
     { makeSetupHook }:
     makeSetupHook {
@@ -575,6 +592,9 @@ with pkgs;
     protobuf = protobuf_24;
     stdenv = if stdenv.hostPlatform.isDarwin then llvmPackages_18.stdenv else stdenv;
   };
+
+  # this is used by most `fetch*` functions
+  repoRevToNameMaybe = lib.repoRevToName config.fetchedSourceNameDefault;
 
   fetchpatch =
     callPackage ../build-support/fetchpatch {
@@ -1057,8 +1077,6 @@ with pkgs;
 
   auditwheel = with python3Packages; toPythonApplication auditwheel;
 
-  bikeshed = python3Packages.callPackage ../applications/misc/bikeshed { };
-
   davinci-resolve-studio = callPackage ../by-name/da/davinci-resolve/package.nix {
     studioVariant = true;
   };
@@ -1306,8 +1324,6 @@ with pkgs;
   git-credential-manager = callPackage ../applications/version-management/git-credential-manager { };
 
   git-imerge = python3Packages.callPackage ../applications/version-management/git-imerge { };
-
-  git-machete = python3Packages.callPackage ../applications/version-management/git-machete { };
 
   git-publish = python3Packages.callPackage ../applications/version-management/git-publish { };
 
@@ -1870,6 +1886,8 @@ with pkgs;
   androidndkPkgs_24 = (callPackage ../development/androidndk-pkgs { })."24";
   androidndkPkgs_25 = (callPackage ../development/androidndk-pkgs { })."25";
   androidndkPkgs_26 = (callPackage ../development/androidndk-pkgs { })."26";
+  androidndkPkgs_27 = (callPackage ../development/androidndk-pkgs { })."27";
+  androidndkPkgs_28 = (callPackage ../development/androidndk-pkgs { })."28";
 
   androidsdk = androidenv.androidPkgs.androidsdk;
 
@@ -2071,7 +2089,7 @@ with pkgs;
   coreboot-configurator = libsForQt5.callPackage ../tools/misc/coreboot-configurator { };
 
   sway-unwrapped = callPackage ../by-name/sw/sway-unwrapped/package.nix {
-    wlroots = wlroots_0_18;
+    wlroots = wlroots_0_19;
   };
 
   cambrinary = python3Packages.callPackage ../applications/misc/cambrinary { };
@@ -2630,6 +2648,8 @@ with pkgs;
 
     cangjie = callPackage ../tools/inputmethods/ibus-engines/ibus-cangjie { };
 
+    chewing = callPackage ../tools/inputmethods/ibus-engines/ibus-chewing { };
+
     hangul = callPackage ../tools/inputmethods/ibus-engines/ibus-hangul { };
 
     kkc = callPackage ../tools/inputmethods/ibus-engines/ibus-kkc { };
@@ -3023,9 +3043,7 @@ with pkgs;
 
   fstl = callPackage ../applications/graphics/fstl { };
 
-  fwknop = callPackage ../tools/security/fwknop {
-    texinfo = texinfo6_7; # Uses @setcontentsaftertitlepage, removed in 6.8.
-  };
+  fwknop = callPackage ../tools/security/fwknop { };
 
   uniscribe = callPackage ../tools/text/uniscribe { };
 
@@ -3294,8 +3312,6 @@ with pkgs;
   hdf5-threadsafe = hdf5.override { threadsafe = true; };
 
   heaptrack = libsForQt5.callPackage ../development/tools/profiling/heaptrack { };
-
-  heimdall = libsForQt5.callPackage ../tools/misc/heimdall { };
 
   heimdall-gui = heimdall.override { enableGUI = true; };
 
@@ -4356,6 +4372,12 @@ with pkgs;
     pythonPackages = python3Packages;
   };
 
+  rucio = callPackage ../by-name/ru/rucio/package.nix {
+    # Pinned to python 3.12 while python313Packages.future does not evaluate and
+    # until https://github.com/CZ-NIC/pyoidc/issues/649 is resolved
+    python3Packages = python312Packages;
+  };
+
   rubocop = rubyPackages.rubocop;
 
   ruby-lsp = rubyPackages.ruby-lsp;
@@ -4769,13 +4791,6 @@ with pkgs;
 
   wyrd = callPackage ../tools/misc/wyrd {
     ocamlPackages = ocaml-ng.ocamlPackages_4_14;
-  };
-
-  xbursttools = callPackage ../tools/misc/xburst-tools {
-    # It needs a cross compiler for mipsel to build the firmware it will
-    # load into the Ben Nanonote
-    gccCross = pkgsCross.ben-nanonote.buildPackages.gccWithoutTargetLibc;
-    autoconf = buildPackages.autoconf269;
   };
 
   clipbuzz = callPackage ../tools/misc/clipbuzz {
@@ -5754,10 +5769,7 @@ with pkgs;
   openjdk_headless = jdk_headless;
 
   graalvmPackages = recurseIntoAttrs (callPackage ../development/compilers/graalvm { });
-  buildGraalvmNativeImage =
-    (callPackage ../build-support/build-graalvm-native-image {
-      graalvmDrv = graalvmPackages.graalvm-ce;
-    }).override;
+  buildGraalvmNativeImage = callPackage ../build-support/build-graalvm-native-image { };
 
   openshot-qt = libsForQt5.callPackage ../applications/video/openshot-qt { };
 
@@ -6356,6 +6368,7 @@ with pkgs;
     erlang_27
     erlang_26
     elixir
+    elixir_1_19
     elixir_1_18
     elixir_1_17
     elixir_1_16
@@ -6382,13 +6395,11 @@ with pkgs;
 
   beam26Packages = recurseIntoAttrs beam.packages.erlang_26.beamPackages;
   beam27Packages = recurseIntoAttrs beam.packages.erlang_27.beamPackages;
-  # 28 is pre-release
-  beam28Packages = dontRecurseIntoAttrs beam.packages.erlang_28.beamPackages;
+  beam28Packages = recurseIntoAttrs beam.packages.erlang_28.beamPackages;
 
   beamMinimal26Packages = recurseIntoAttrs beam_minimal.packages.erlang_26.beamPackages;
   beamMinimal27Packages = recurseIntoAttrs beam_minimal.packages.erlang_27.beamPackages;
-  # 28 is pre-release
-  beamMinimal28Packages = dontRecurseIntoAttrs beam_minimal.packages.erlang_28.beamPackages;
+  beamMinimal28Packages = recurseIntoAttrs beam_minimal.packages.erlang_28.beamPackages;
 
   gnudatalanguage = callPackage ../development/interpreters/gnudatalanguage {
     inherit (llvmPackages) openmp;
@@ -7414,8 +7425,6 @@ with pkgs;
 
   jenkins-job-builder = with python3Packages; toPythonApplication jenkins-job-builder;
 
-  kcc = callPackage ../applications/graphics/kcc { };
-
   kustomize = callPackage ../development/tools/kustomize { };
 
   kustomize_3 = callPackage ../development/tools/kustomize/3.nix { };
@@ -7694,13 +7703,9 @@ with pkgs;
 
   texinfoPackages = callPackages ../development/tools/misc/texinfo/packages.nix { };
   inherit (texinfoPackages)
-    texinfo413
-    texinfo6_5 # needed for allegro
-    texinfo6_7 # needed for gpm, iksemel and fwknop
     texinfo6
     texinfo7
     ;
-  texinfo4 = texinfo413; # needed for eukleides and singular
   texinfo = texinfo7;
   texinfoInteractive = texinfo.override { interactive = true; };
 
@@ -8483,7 +8488,7 @@ with pkgs;
 
   hunspellWithDicts = dicts: callPackage ../by-name/hu/hunspell/wrapper.nix { inherit dicts; };
 
-  hydra = callPackage ../by-name/hy/hydra/package.nix { nix = nixVersions.nix_2_28; };
+  hydra = callPackage ../by-name/hy/hydra/package.nix { nix = nixVersions.nix_2_29; };
 
   icu-versions = callPackages ../development/libraries/icu { };
   inherit (icu-versions)
@@ -9010,12 +9015,6 @@ with pkgs;
 
   luksmeta = callPackage ../development/libraries/luksmeta {
     asciidoc = asciidoc-full;
-  };
-
-  mapnik = callPackage ../development/libraries/mapnik {
-    harfbuzz = harfbuzz.override {
-      withIcu = true;
-    };
   };
 
   matterhorn =
@@ -9831,10 +9830,6 @@ with pkgs;
 
   xgboostWithCuda = xgboost.override { cudaSupport = true; };
 
-  yubikey-manager-qt = libsForQt5.callPackage ../tools/misc/yubikey-manager-qt { };
-
-  yubikey-personalization-gui = libsForQt5.callPackage ../tools/misc/yubikey-personalization-gui { };
-
   zlib = callPackage ../development/libraries/zlib {
     stdenv =
       # zlib is a dependency of xcbuild. Avoid an infinite recursion by using a bootstrap stdenv
@@ -10158,7 +10153,6 @@ with pkgs;
       spatial
       survival
     ];
-    radian = python3Packages.radian;
     # Override this attribute to register additional libraries.
     packages = [ ];
     # Override this attribute if you want to expose R with the same set of
@@ -10344,7 +10338,6 @@ with pkgs;
   inherit (callPackages ../servers/firebird { })
     firebird_4
     firebird_3
-    firebird_2_5
     firebird
     ;
 
@@ -11098,10 +11091,6 @@ with pkgs;
 
   gpm = callPackage ../servers/gpm {
     withNcurses = false; # Keep curses disabled for lack of value
-
-    # latest 6.8 mysteriously fails to parse '@headings single':
-    #   https://lists.gnu.org/archive/html/bug-texinfo/2021-09/msg00011.html
-    texinfo = buildPackages.texinfo6_7;
   };
 
   gpm-ncurses = gpm.override { withNcurses = true; };
@@ -11136,8 +11125,7 @@ with pkgs;
 
   projecteur = libsForQt5.callPackage ../os-specific/linux/projecteur { };
 
-  lkl = callPackage ../applications/virtualization/lkl { };
-  lklWithFirewall = callPackage ../applications/virtualization/lkl { firewallSupport = true; };
+  lklWithFirewall = lkl.override { firewallSupport = true; };
 
   inherit (callPackages ../os-specific/linux/kernel-headers { inherit (pkgsBuildBuild) elf-header; })
     linuxHeaders
@@ -11281,6 +11269,7 @@ with pkgs;
       inherit lib config;
       fetchurl = import ../build-support/fetchurl/boot.nix {
         inherit (stdenv.buildPlatform) system;
+        inherit (config) rewriteURL;
       };
       checkMeta = callPackage ../stdenv/generic/check-meta.nix { inherit (stdenv) hostPlatform; };
     }
@@ -11527,6 +11516,7 @@ with pkgs;
     ubootSopine
     ubootTuringRK1
     ubootUtilite
+    ubootVisionFive2
     ubootWandboard
     ;
 
@@ -11730,6 +11720,14 @@ with pkgs;
   mplus-outline-fonts = recurseIntoAttrs (callPackage ../data/fonts/mplus-outline-fonts { });
 
   nordic = libsForQt5.callPackage ../data/themes/nordic { };
+
+  noto-fonts-cjk-serif-static = callPackage ../by-name/no/noto-fonts-cjk-serif/package.nix {
+    static = true;
+  };
+
+  noto-fonts-cjk-sans-static = callPackage ../by-name/no/noto-fonts-cjk-sans/package.nix {
+    static = true;
+  };
 
   noto-fonts-lgc-plus = callPackage ../by-name/no/noto-fonts/package.nix {
     suffix = "-lgc-plus";
@@ -12139,7 +12137,6 @@ with pkgs;
 
   djv = callPackage ../by-name/dj/djv/package.nix { openexr = openexr_2; };
 
-  djview = callPackage ../applications/graphics/djview { };
   djview4 = djview;
 
   dmenu = callPackage ../applications/misc/dmenu { };
@@ -12314,6 +12311,10 @@ with pkgs;
 
   geany = callPackage ../applications/editors/geany { };
   geany-with-vte = callPackage ../applications/editors/geany/with-vte.nix { };
+
+  gImageReader-qt = qt6Packages.callPackage ../by-name/gi/gImageReader/package.nix {
+    withQt6 = true;
+  };
 
   gnuradio = callPackage ../applications/radio/gnuradio/wrapper.nix {
     unwrapped = callPackage ../applications/radio/gnuradio {
@@ -12839,9 +12840,7 @@ with pkgs;
     subversionSupport = true;
   };
 
-  iksemel = callPackage ../development/libraries/iksemel {
-    texinfo = buildPackages.texinfo6_7; # Uses @setcontentsaftertitlepage, removed in 6.8.
-  };
+  iksemel = callPackage ../development/libraries/iksemel { };
 
   avalonia-ilspy = callPackage ../applications/misc/avalonia-ilspy {
     inherit (darwin) autoSignDarwinBinariesHook;
@@ -12982,8 +12981,6 @@ with pkgs;
   k4dirstat = libsForQt5.callPackage ../applications/misc/k4dirstat { };
 
   kbibtex = libsForQt5.callPackage ../applications/office/kbibtex { };
-
-  kaidan = kdePackages.callPackage ../applications/networking/instant-messengers/kaidan { };
 
   kexi = libsForQt5.callPackage ../applications/office/kexi { };
 
@@ -13859,7 +13856,6 @@ with pkgs;
       callPackage ../applications/networking/instant-messengers/ripcord/darwin.nix { };
 
   inherit (callPackage ../applications/networking/cluster/rke2 { })
-    rke2_1_29
     rke2_1_30
     rke2_1_31
     rke2_1_32
@@ -14000,8 +13996,6 @@ with pkgs;
   sonic-lineup = libsForQt5.callPackage ../applications/audio/sonic-lineup { };
 
   sonic-visualiser = libsForQt5.callPackage ../applications/audio/sonic-visualiser { };
-
-  soulseekqt = libsForQt5.callPackage ../applications/networking/p2p/soulseekqt { };
 
   spek = callPackage ../applications/audio/spek {
     autoreconfHook = buildPackages.autoreconfHook269;
@@ -14603,10 +14597,6 @@ with pkgs;
 
   xygrib = libsForQt5.callPackage ../applications/misc/xygrib { };
 
-  yabar = callPackage ../applications/window-managers/yabar { };
-
-  yabar-unstable = callPackage ../applications/window-managers/yabar/unstable.nix { };
-
   ydiff = with python3.pkgs; toPythonApplication ydiff;
 
   yokadi = python3Packages.callPackage ../applications/misc/yokadi { };
@@ -14711,15 +14701,6 @@ with pkgs;
     withGui = false;
     inherit (darwin) autoSignDarwinBinariesHook;
   };
-  elementsd-simplicity = elementsd.overrideAttrs {
-    version = "unstable-2023-04-18";
-    src = fetchFromGitHub {
-      owner = "ElementsProject";
-      repo = "elements";
-      rev = "ea318a45094ab3d31dd017d7781a6f28f1ffaa33"; # simplicity branch latest
-      hash = "sha256-ooe+If3HWaJWpr2ux7DpiCTqB9Hv+aXjquEjplDjvhM=";
-    };
-  };
 
   fulcrum = libsForQt5.callPackage ../applications/blockchains/fulcrum { };
 
@@ -14793,10 +14774,6 @@ with pkgs;
 
   ### GAMES
 
-  _2048-cli = _2048-cli-terminal;
-  _2048-cli-curses = callPackage ../games/2048-cli { ui = "curses"; };
-  _2048-cli-terminal = callPackage ../games/2048-cli { ui = "terminal"; };
-
   _90secondportraits = callPackage ../games/90secondportraits { love = love_0_10; };
 
   inherit (callPackages ../games/fteqw { })
@@ -14851,6 +14828,8 @@ with pkgs;
   amoeba-data = callPackage ../games/amoeba/data.nix { };
 
   anki = callPackage ../games/anki { };
+  anki-utils = callPackage ../games/anki/addons/anki-utils.nix { };
+  ankiAddons = recurseIntoAttrs (callPackage ../games/anki/addons { });
   anki-bin = callPackage ../games/anki/bin.nix { };
   anki-sync-server = callPackage ../games/anki/sync-server.nix { };
 
@@ -16254,10 +16233,6 @@ with pkgs;
   lilypond-with-fonts = callPackage ../misc/lilypond/with-fonts.nix { };
 
   openlilylib-fonts = callPackage ../misc/lilypond/fonts.nix { };
-
-  mailcore2 = callPackage ../development/libraries/mailcore2 {
-    icu = icu71;
-  };
 
   meilisearch_1_11 = callPackage ../by-name/me/meilisearch/package.nix { version = "1.11.3"; };
 
