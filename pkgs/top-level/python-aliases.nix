@@ -166,7 +166,7 @@ mapAliases ({
   cryptacular = throw "cryptacular was removed, because it was disabled on all python version since 3.6 and last updated in 2021"; # Added 2024-05-13
   cryptography_vectors = "cryptography_vectors is no longer exposed in python*Packages because it is used for testing cryptography only."; # Added 2022-03-23
   cufflinks = throw "cufflinks has removed, since it is abandoned and broken"; # added 2025-02-16
-  curve25519-donna = throw "curve25519-donna was removed, since it is abandoned and unmaintained since 2015"; # added 2025-06-03
+  curve25519-donna = throw "curve25519-donna was removed, since it is abandoned and unmaintained since 2015"; # added 2025-05-21
   cx_Freeze = cx-freeze; # added 2023-08-02
   cx_oracle = cx-oracle; # added 2024-01-03
   d2to1 = throw "d2to1 is archived and no longer works with setuptools v68"; # added 2023-07-30
@@ -196,6 +196,9 @@ mapAliases ({
   django_compat = django-compat; # added 2023-07-25
   django-compat = throw "django-compat has been removed. It provided forward/backport compat for django 1.x, which is long end of life."; # added 2023-07-26
   django_contrib_comments = django-contrib-comments; # added 2023-07-25
+  django-crispy-bootstrap3 = crispy-bootstrap3; # added 2025-06-11
+  django-crispy-bootstrap4 = crispy-bootstrap4; # added 2025-06-11
+  django-crispy-bootstrap5 = crispy-bootstrap5; # added 2025-06-11
   django-crontab = throw "django-crontabe has been removed beacause it is unmaintained since 2018"; # added 2024-08-21
   django-discover-runner = throw "django-discover-runner was removed because it is no longer maintained."; # added 2022-11-21
   django_environ = django-environ; # added 2021-12-25

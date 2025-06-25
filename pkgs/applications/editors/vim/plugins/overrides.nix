@@ -124,6 +124,9 @@
   uv,
   # nvim-vstsl dependencies
   vtsls,
+  # search-and-replace.nvim dependencies
+  fd,
+  sad,
 }:
 self: super:
 let
@@ -3022,6 +3025,13 @@ in
     dependencies = [ self.nui-nvim ];
   };
 
+  search-and-replace-nvim = super.search-and-replace-nvim.overrideAttrs {
+    runtimeDeps = [
+      fd
+      sad
+    ];
+  };
+
   skim = buildVimPlugin {
     pname = "skim";
     inherit (skim) version;
@@ -3899,7 +3909,7 @@ in
 
   vim-textobj-entire = super.vim-textobj-entire.overrideAttrs {
     dependencies = [ self.vim-textobj-user ];
-    meta.maintainers = with lib.maintainers; [ farlion ];
+    meta.maintainers = with lib.maintainers; [ workflow ];
   };
 
   vim-tpipeline = super.vim-tpipeline.overrideAttrs {
