@@ -177,6 +177,23 @@ with pkgs;
 
   __flattenIncludeHackHook = callPackage ../build-support/setup-hooks/flatten-include-hack { };
 
+  arrayUtilities =
+    let
+      arrayUtilitiesPackages = makeScopeWithSplicing' {
+        otherSplices = generateSplicesForMkScope "arrayUtilities";
+        f =
+          finalArrayUtilities:
+          {
+            callPackages = lib.callPackagesWith (pkgs // finalArrayUtilities);
+          }
+          // lib.packagesFromDirectoryRecursive {
+            inherit (finalArrayUtilities) callPackage;
+            directory = ../build-support/setup-hooks/arrayUtilities;
+          };
+      };
+    in
+    recurseIntoAttrs arrayUtilitiesPackages;
+
   addBinToPathHook = callPackage (
     { makeSetupHook }:
     makeSetupHook {
@@ -2724,6 +2741,9 @@ with pkgs;
   create-cycle-app = nodePackages.create-cycle-app;
 
   cron = isc-cron;
+
+  # Top-level fix-point used in `cudaPackages`' internals
+  _cuda = import ../development/cuda-modules/_cuda;
 
   cudaPackages_11_0 = callPackage ./cuda-packages.nix { cudaMajorMinorVersion = "11.0"; };
   cudaPackages_11_1 = callPackage ./cuda-packages.nix { cudaMajorMinorVersion = "11.1"; };
@@ -7378,6 +7398,8 @@ with pkgs;
 
   m4 = gnum4;
 
+  gn_2233 = callPackage ../by-name/gn/gn/2233.nix { };
+
   gnumake = callPackage ../development/tools/build-managers/gnumake { };
   gradle-packages = import ../development/tools/build-managers/gradle {
     inherit
@@ -8902,7 +8924,6 @@ with pkgs;
       stdenv = gccStdenv; # Required for darwin
     })
     libprom
-    libpromhttp
     ;
 
   libpulsar = callPackage ../development/libraries/libpulsar {
@@ -10446,15 +10467,10 @@ with pkgs;
 
   jetty = jetty_12;
 
-  kanidm_1_4 = callPackage ../by-name/ka/kanidm/1_4.nix { kanidm = kanidm_1_4; };
   kanidm_1_5 = callPackage ../by-name/ka/kanidm/1_5.nix { kanidm = kanidm_1_5; };
   kanidm_1_6 = callPackage ../by-name/ka/kanidm/1_6.nix { kanidm = kanidm_1_6; };
 
   kanidmWithSecretProvisioning = kanidmWithSecretProvisioning_1_6;
-
-  kanidmWithSecretProvisioning_1_4 = callPackage ../by-name/ka/kanidm/1_4.nix {
-    enableSecretProvisioning = true;
-  };
 
   kanidmWithSecretProvisioning_1_5 = callPackage ../by-name/ka/kanidm/1_5.nix {
     enableSecretProvisioning = true;
@@ -12495,33 +12511,11 @@ with pkgs;
 
   firefox-bin-unwrapped = callPackage ../applications/networking/browsers/firefox-bin {
     inherit (firefox-unwrapped.passthru) applicationName;
-    channel = "release";
     generated = import ../applications/networking/browsers/firefox-bin/release_sources.nix;
   };
 
   firefox-bin = wrapFirefox firefox-bin-unwrapped {
     pname = "firefox-bin";
-  };
-
-  firefox-beta-bin-unwrapped = firefox-bin-unwrapped.override {
-    inherit (firefox-beta-unwrapped.passthru) applicationName;
-    channel = "beta";
-    generated = import ../applications/networking/browsers/firefox-bin/beta_sources.nix;
-  };
-
-  firefox-beta-bin = res.wrapFirefox firefox-beta-bin-unwrapped {
-    pname = "firefox-beta-bin";
-  };
-
-  firefox-devedition-bin-unwrapped = callPackage ../applications/networking/browsers/firefox-bin {
-    inherit (firefox-devedition-unwrapped.passthru) applicationName;
-    channel = "developer-edition";
-    generated = import ../applications/networking/browsers/firefox-bin/developer-edition_sources.nix;
-  };
-
-  firefox-devedition-bin = res.wrapFirefox firefox-devedition-bin-unwrapped {
-    pname = "firefox-devedition-bin";
-    wmClass = "firefox-aurora";
   };
 
   librewolf-unwrapped = import ../applications/networking/browsers/librewolf {
@@ -15641,12 +15635,6 @@ with pkgs;
   raxml-mpi = raxml.override { useMpi = true; };
 
   samtools = callPackage ../applications/science/biology/samtools { };
-
-  inherit (callPackages ../applications/science/biology/sumatools { })
-    sumalibs
-    sumaclust
-    sumatra
-    ;
 
   trimmomatic = callPackage ../applications/science/biology/trimmomatic {
     jdk = pkgs.jdk21_headless;

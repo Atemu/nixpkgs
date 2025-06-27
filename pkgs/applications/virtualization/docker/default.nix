@@ -315,6 +315,8 @@ rec {
 
         installPhase =
           ''
+            runHook preInstall
+
             install -Dm755 ./build/docker $out/libexec/docker/docker
 
             makeWrapper $out/libexec/docker/docker $out/bin/docker \
@@ -330,11 +332,16 @@ rec {
             ln -s ${moby}/etc/systemd/system/docker.service $out/etc/systemd/system/docker.service
             ln -s ${moby}/etc/systemd/system/docker.socket $out/etc/systemd/system/docker.socket
           ''
-          + ''
+          # Required to avoid breaking cross builds
+          + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
             # completion (cli)
-            installShellCompletion --bash ./contrib/completion/bash/docker
-            installShellCompletion --fish ./contrib/completion/fish/docker.fish
-            installShellCompletion --zsh  ./contrib/completion/zsh/_docker
+            installShellCompletion --cmd docker \
+              --bash <($out/bin/docker completion bash) \
+              --fish <($out/bin/docker completion fish) \
+              --zsh <($out/bin/docker completion zsh)
+          ''
+          + ''
+            runHook postInstall
           '';
 
         passthru = {
@@ -404,11 +411,11 @@ rec {
   };
 
   docker_28 = callPackage dockerGen rec {
-    version = "28.1.1";
+    version = "28.2.2";
     cliRev = "v${version}";
-    cliHash = "sha256-bRnJ+c2C4t+94NL82L0S3r84uoJaTDq16YQGvEmo7Sw=";
+    cliHash = "sha256-ZaKG4H8BqIzgs9OFktH9bjHSf9exAlh5kPCGP021BWI=";
     mobyRev = "v${version}";
-    mobyHash = "sha256-FB9btun41PAqqBjb9Ebn7SyjrIg/ILe3xJ+mqu2lqrs=";
+    mobyHash = "sha256-Y2yP2NBJLrI83iHe2EoA7/cXiQifrCkUKlwJhINKBXE=";
     runcRev = "v1.2.6";
     runcHash = "sha256-XMN+YKdQOQeOLLwvdrC6Si2iAIyyHD5RgZbrOHrQE/g=";
     containerdRev = "v1.7.27";

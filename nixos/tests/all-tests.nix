@@ -974,6 +974,7 @@ in
   ollama-cuda = runTestOn [ "x86_64-linux" "aarch64-linux" ] ./ollama-cuda.nix;
   ollama-rocm = runTestOn [ "x86_64-linux" "aarch64-linux" ] ./ollama-rocm.nix;
   ombi = handleTest ./ombi.nix { };
+  omnom = runTest ./omnom.nix;
   openarena = handleTest ./openarena.nix { };
   openbao = runTest ./openbao.nix;
   openldap = handleTest ./openldap.nix { };
@@ -1086,6 +1087,7 @@ in
     handleTest ./postfix-raise-smtpd-tls-security-level.nix
       { };
   postfixadmin = handleTest ./postfixadmin.nix { };
+  postfix-tlspol = runTest ./postfix-tlspol.nix;
   postgres-websockets = runTest ./postgres-websockets.nix;
   postgresql = handleTest ./postgresql { };
   postgrest = runTest ./postgrest.nix;
@@ -1375,6 +1377,7 @@ in
   tmate-ssh-server = handleTest ./tmate-ssh-server.nix { };
   tomcat = handleTest ./tomcat.nix { };
   tor = handleTest ./tor.nix { };
+  tlsrpt = runTest ./tlsrpt.nix;
   tpm-ek = handleTest ./tpm-ek { };
   traefik = runTestOn [ "aarch64-linux" "x86_64-linux" ] ./traefik.nix;
   trafficserver = handleTest ./trafficserver.nix { };
