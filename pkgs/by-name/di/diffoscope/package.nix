@@ -107,6 +107,7 @@ in
 python.pkgs.buildPythonApplication rec {
   pname = "diffoscope";
   version = "300";
+  format = "setuptools";
 
   src = fetchurl {
     url = "https://diffoscope.org/archive/diffoscope-${version}.tar.bz2";
@@ -259,7 +260,7 @@ python.pkgs.buildPythonApplication rec {
 
   nativeCheckInputs = with python.pkgs; [ pytestCheckHook ] ++ pythonPath;
 
-  pytestFlagsArray = [
+  pytestFlags = [
     # Always show more information when tests fail
     "-vv"
   ];

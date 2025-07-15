@@ -8,6 +8,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "virtnbdbackup";
   version = "2.29";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "abbbi";
@@ -36,6 +37,8 @@ python3Packages.buildPythonApplication rec {
   ];
 
   versionCheckProgramArg = "-V";
+
+  pythonImportsCheck = [ "libvirtnbdbackup" ];
 
   meta = {
     description = "Backup utility for Libvirt/qemu/kvm";
