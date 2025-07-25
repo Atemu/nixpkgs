@@ -2763,6 +2763,8 @@ self: super: with self; {
 
   color-operations = callPackage ../development/python-modules/color-operations { };
 
+  color-parser-py = callPackage ../development/python-modules/color-parser-py { };
+
   colorama = callPackage ../development/python-modules/colorama { };
 
   colorcet = callPackage ../development/python-modules/colorcet { };
@@ -3719,8 +3721,6 @@ self: super: with self; {
   dj-search-url = callPackage ../development/python-modules/dj-search-url { };
 
   dj-static = callPackage ../development/python-modules/dj-static { };
-
-  dj-stripe = callPackage ../development/python-modules/dj-stripe { };
 
   # LTS with mainsteam support
   django = self.django_4;
@@ -6699,6 +6699,8 @@ self: super: with self; {
 
   httpx = callPackage ../development/python-modules/httpx { };
 
+  httpx-aiohttp = callPackage ../development/python-modules/httpx-aiohttp { };
+
   httpx-auth = callPackage ../development/python-modules/httpx-auth { };
 
   httpx-ntlm = callPackage ../development/python-modules/httpx-ntlm { };
@@ -8518,6 +8520,8 @@ self: super: with self; {
   llm-gguf = callPackage ../development/python-modules/llm-gguf { };
 
   llm-git = callPackage ../development/python-modules/llm-git { };
+
+  llm-github-copilot = callPackage ../development/python-modules/llm-github-copilot { };
 
   llm-grok = callPackage ../development/python-modules/llm-grok { };
 
@@ -10370,6 +10374,8 @@ self: super: with self; {
 
   nnpdf = toPythonModule (pkgs.nnpdf.override { python3 = python; });
 
+  noaa-coops = callPackage ../development/python-modules/noaa-coops { };
+
   nocasedict = callPackage ../development/python-modules/nocasedict { };
 
   nocaselist = callPackage ../development/python-modules/nocaselist { };
@@ -12023,6 +12029,8 @@ self: super: with self; {
 
   psd-tools = callPackage ../development/python-modules/psd-tools { };
 
+  psnawp = callPackage ../development/python-modules/psnawp { };
+
   psrpcore = callPackage ../development/python-modules/psrpcore { };
 
   psutil = callPackage ../development/python-modules/psutil { };
@@ -12515,6 +12523,8 @@ self: super: with self; {
   pycryptodomex = callPackage ../development/python-modules/pycryptodomex { };
 
   pycsdr = callPackage ../development/python-modules/pycsdr { };
+
+  pycsspeechtts = callPackage ../development/python-modules/pycsspeechtts { };
 
   pyct = callPackage ../development/python-modules/pyct { };
 
@@ -13933,6 +13943,8 @@ self: super: with self; {
 
   pysol-cards = callPackage ../development/python-modules/pysol-cards { };
 
+  pysolarmanv5 = callPackage ../development/python-modules/pysolarmanv5 { };
+
   pysolcast = callPackage ../development/python-modules/pysolcast { };
 
   pysolr = callPackage ../development/python-modules/pysolr { };
@@ -14263,6 +14275,8 @@ self: super: with self; {
   pytest-remotedata = callPackage ../development/python-modules/pytest-remotedata { };
 
   pytest-repeat = callPackage ../development/python-modules/pytest-repeat { };
+
+  pytest-reraise = callPackage ../development/python-modules/pytest-reraise { };
 
   pytest-rerunfailures = callPackage ../development/python-modules/pytest-rerunfailures { };
 
@@ -15958,6 +15972,8 @@ self: super: with self; {
   sarif-tools = callPackage ../development/python-modules/sarif-tools { };
 
   sasmodels = callPackage ../development/python-modules/sasmodels { };
+
+  sat-tmp = callPackage ../development/python-modules/sat-tmp { };
 
   satel-integra = callPackage ../development/python-modules/satel-integra { };
 
@@ -17902,6 +17918,8 @@ self: super: with self; {
 
   tilt-ble = callPackage ../development/python-modules/tilt-ble { };
 
+  tilt-pi = callPackage ../development/python-modules/tilt-pi { };
+
   time-machine = callPackage ../development/python-modules/time-machine { };
 
   timeago = callPackage ../development/python-modules/timeago { };
@@ -18300,6 +18318,8 @@ self: super: with self; {
   );
 
   tskit = callPackage ../development/python-modules/tskit { };
+
+  tsplib95 = callPackage ../development/python-modules/tsplib95 { };
 
   ttach = callPackage ../development/python-modules/ttach { };
 
@@ -19192,6 +19212,8 @@ self: super: with self; {
   vega = callPackage ../development/python-modules/vega { };
 
   vega-datasets = callPackage ../development/python-modules/vega-datasets { };
+
+  vegehub = callPackage ../development/python-modules/vegehub { };
 
   vehicle = callPackage ../development/python-modules/vehicle { };
 

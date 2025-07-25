@@ -700,6 +700,7 @@ in
   hledger-web = runTest ./hledger-web.nix;
   hockeypuck = runTest ./hockeypuck.nix;
   home-assistant = runTest ./home-assistant.nix;
+  homebridge = runTest ./homebridge.nix;
   hostname = handleTest ./hostname.nix { };
   hound = runTest ./hound.nix;
   hub = runTest ./git/hub.nix;
@@ -865,6 +866,7 @@ in
   matrix-continuwuity = runTest ./matrix/continuwuity.nix;
   matrix-synapse = runTest ./matrix/synapse.nix;
   matrix-synapse-workers = runTest ./matrix/synapse-workers.nix;
+  matrix-tuwunel = runTest ./matrix/tuwunel.nix;
   mautrix-discord = runTest ./matrix/mautrix-discord.nix;
   mattermost = handleTest ./mattermost { };
   mautrix-meta-postgres = runTest ./matrix/mautrix-meta-postgres.nix;
@@ -888,6 +890,7 @@ in
   miriway = runTest ./miriway.nix;
   misc = runTest ./misc.nix;
   misskey = runTest ./misskey.nix;
+  mitmproxy = runTest ./mitmproxy.nix;
   mjolnir = runTest ./matrix/mjolnir.nix;
   mobilizon = runTest ./mobilizon.nix;
   mod_perl = runTest ./mod_perl.nix;
@@ -1220,6 +1223,7 @@ in
   public-inbox = runTest ./public-inbox.nix;
   pufferpanel = runTest ./pufferpanel.nix;
   pulseaudio = discoverTests (import ./pulseaudio.nix);
+  qbittorrent = runTest ./qbittorrent.nix;
   qboot = handleTestOn [ "x86_64-linux" "i686-linux" ] ./qboot.nix { };
   qemu-vm-restrictnetwork = handleTest ./qemu-vm-restrictnetwork.nix { };
   qemu-vm-volatile-root = runTest ./qemu-vm-volatile-root.nix;
@@ -1330,7 +1334,7 @@ in
   ssh-audit = runTest ./ssh-audit.nix;
   sssd = handleTestOn [ "x86_64-linux" "aarch64-linux" ] ./sssd.nix { };
   sssd-ldap = handleTestOn [ "x86_64-linux" "aarch64-linux" ] ./sssd-ldap.nix { };
-  stalwart-mail = runTest ./stalwart-mail.nix;
+  stalwart-mail = runTest ./stalwart/stalwart-mail.nix;
   stargazer = runTest ./web-servers/stargazer.nix;
   starship = runTest ./starship.nix;
   stash = handleTestOn [ "x86_64-linux" "aarch64-linux" ] ./stash.nix { };

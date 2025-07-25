@@ -2,7 +2,7 @@
 # Do not edit!
 
 {
-  version = "2025.7.1";
+  version = "2025.7.3";
   components = {
     "3_day_blinds" =
       ps: with ps; [
@@ -3567,7 +3567,8 @@
       ]; # missing inputs: microBeesPy
     "microsoft" =
       ps: with ps; [
-      ]; # missing inputs: pycsspeechtts
+        pycsspeechtts
+      ];
     "microsoft_face" =
       ps: with ps; [
         pyturbojpeg
@@ -3983,7 +3984,8 @@
       ];
     "noaa_tides" =
       ps: with ps; [
-      ]; # missing inputs: noaa-coops
+        noaa-coops
+      ];
     "nobo_hub" =
       ps: with ps; [
         pynobo
@@ -4457,8 +4459,9 @@
       ];
     "playstation_network" =
       ps: with ps; [
+        psnawp
         pyrate-limiter
-      ]; # missing inputs: PSNAWP
+      ];
     "plex" =
       ps: with ps; [
         plexapi
@@ -6003,7 +6006,8 @@
       ];
     "tilt_pi" =
       ps: with ps; [
-      ]; # missing inputs: tilt-pi
+        tilt-pi
+      ];
     "time" =
       ps: with ps; [
       ];
@@ -6294,7 +6298,8 @@
       ];
     "vegehub" =
       ps: with ps; [
-      ]; # missing inputs: vegehub
+        vegehub
+      ];
     "velbus" =
       ps: with ps; [
         aiousbwatcher
@@ -7293,6 +7298,7 @@
     "meteoclimatic"
     "metoffice"
     "mfi"
+    "microsoft"
     "microsoft_face"
     "microsoft_face_detect"
     "microsoft_face_identify"
@@ -7421,6 +7427,7 @@
     "ping"
     "plaato"
     "plant"
+    "playstation_network"
     "plex"
     "plugwise"
     "point"
@@ -7634,6 +7641,7 @@
     "tibber"
     "tile"
     "tilt_ble"
+    "tilt_pi"
     "time"
     "time_date"
     "timer"
@@ -7685,6 +7693,7 @@
     "vacuum"
     "vallox"
     "valve"
+    "vegehub"
     "velbus"
     "velux"
     "venstar"

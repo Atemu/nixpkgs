@@ -333,6 +333,7 @@
   ./programs/vim.nix
   ./programs/virt-manager.nix
   ./programs/vivid.nix
+  ./programs/vscode.nix
   ./programs/wavemon.nix
   ./programs/wayland/cardboard.nix
   ./programs/wayland/dwl.nix
@@ -695,6 +696,7 @@
   ./services/home-automation/evcc.nix
   ./services/home-automation/govee2mqtt.nix
   ./services/home-automation/home-assistant.nix
+  ./services/home-automation/homebridge.nix
   ./services/home-automation/matter-server.nix
   ./services/home-automation/wyoming/faster-whisper.nix
   ./services/home-automation/wyoming/openwakeword.nix
@@ -781,6 +783,7 @@
   ./services/matrix/pantalaimon.nix
   ./services/matrix/synapse-auto-compressor.nix
   ./services/matrix/synapse.nix
+  ./services/matrix/tuwunel.nix
   ./services/misc/airsonic.nix
   ./services/misc/amazon-ssm-agent.nix
   ./services/misc/ananicy.nix
@@ -1072,6 +1075,7 @@
   ./services/networking/anubis.nix
   ./services/networking/aria2.nix
   ./services/networking/asterisk.nix
+  ./services/networking/atalkd.nix
   ./services/networking/atftpd.nix
   ./services/networking/atticd.nix
   ./services/networking/autossh.nix
@@ -1498,6 +1502,7 @@
   ./services/torrent/magnetico.nix
   ./services/torrent/opentracker.nix
   ./services/torrent/peerflix.nix
+  ./services/torrent/qbittorrent.nix
   ./services/torrent/rtorrent.nix
   ./services/torrent/torrentstream.nix
   ./services/torrent/transmission.nix
