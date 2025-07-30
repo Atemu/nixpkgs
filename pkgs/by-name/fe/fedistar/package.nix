@@ -30,6 +30,7 @@ let
     inherit version src;
     pnpmDeps = pnpm.fetchDeps {
       inherit pname version src;
+      fetcherVersion = 1;
       hash = "sha256-xXVsjAXmrsOp+mXrYAxSKz4vX5JApLZ+Rh6hrYlnJDI=";
     };
     nativeBuildInputs = [
@@ -78,12 +79,13 @@ rustPlatform.buildRustPackage {
     wrapGAppsHook4
   ];
 
-  buildInputs =
-    [ openssl ]
-    ++ lib.optionals stdenvNoCC.hostPlatform.isLinux [
-      glib-networking
-      webkitgtk_4_1
-    ];
+  buildInputs = [
+    openssl
+  ]
+  ++ lib.optionals stdenvNoCC.hostPlatform.isLinux [
+    glib-networking
+    webkitgtk_4_1
+  ];
 
   doCheck = false; # This version's tests do not pass
 
