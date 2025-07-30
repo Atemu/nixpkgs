@@ -933,7 +933,8 @@
       ];
     "coinbase" =
       ps: with ps; [
-      ]; # missing inputs: coinbase coinbase-advanced-py
+        coinbase-advanced-py
+      ]; # missing inputs: coinbase
     "color_extractor" =
       ps: with ps; [
         colorthief
@@ -4058,7 +4059,8 @@
       ];
     "nzbget" =
       ps: with ps; [
-      ]; # missing inputs: pynzbgetapi
+        pynzbgetapi
+      ];
     "oasa_telematics" =
       ps: with ps; [
         oasatelematics
@@ -5091,7 +5093,8 @@
       ];
     "schluter" =
       ps: with ps; [
-      ]; # missing inputs: py-schluter
+        py-schluter
+      ];
     "scl" =
       ps: with ps; [
       ];
@@ -5657,7 +5660,8 @@
       ];
     "supla" =
       ps: with ps; [
-      ]; # missing inputs: asyncpysupla
+        asyncpysupla
+      ];
     "surepetcare" =
       ps: with ps; [
         surepy
@@ -7374,6 +7378,7 @@
     "nws"
     "nx584"
     "nyt_games"
+    "nzbget"
     "obihai"
     "octoprint"
     "ohme"

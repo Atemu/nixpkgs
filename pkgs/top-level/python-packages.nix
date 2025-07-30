@@ -1047,6 +1047,8 @@ self: super: with self; {
 
   asyncprawcore = callPackage ../development/python-modules/asyncprawcore { };
 
+  asyncpysupla = callPackage ../development/python-modules/asyncpysupla { };
+
   asyncserial = callPackage ../development/python-modules/asyncserial { };
 
   asyncsleepiq = callPackage ../development/python-modules/asyncsleepiq { };
@@ -1634,6 +1636,8 @@ self: super: with self; {
   backports-strenum = callPackage ../development/python-modules/backports-strenum { };
 
   backports-tarfile = callPackage ../development/python-modules/backports-tarfile { };
+
+  backrefs = callPackage ../development/python-modules/backrefs { };
 
   backtesting = callPackage ../development/python-modules/backtesting { };
 
@@ -2727,6 +2731,8 @@ self: super: with self; {
 
   coiled = callPackage ../development/python-modules/coiled { };
 
+  coinbase-advanced-py = callPackage ../development/python-modules/coinbase-advanced-py { };
+
   coincurve = callPackage ../development/python-modules/coincurve { inherit (pkgs) secp256k1; };
 
   coinmetrics-api-client = callPackage ../development/python-modules/coinmetrics-api-client { };
@@ -3619,6 +3625,8 @@ self: super: with self; {
 
   discogs-client = callPackage ../development/python-modules/discogs-client { };
 
+  discord-webhook = callPackage ../development/python-modules/discord-webhook { };
+
   discordpy = callPackage ../development/python-modules/discordpy { };
 
   discovery30303 = callPackage ../development/python-modules/discovery30303 { };
@@ -4151,6 +4159,8 @@ self: super: with self; {
   dmenu-python = callPackage ../development/python-modules/dmenu { };
 
   dmgbuild = callPackage ../development/python-modules/dmgbuild { };
+
+  dmsuite = callPackage ../development/python-modules/dmsuite { };
 
   dmt-core = callPackage ../development/python-modules/dmt-core { };
 
@@ -5757,6 +5767,8 @@ self: super: with self; {
 
   gevent = callPackage ../development/python-modules/gevent { };
 
+  gevent-eventemitter = callPackage ../development/python-modules/gevent-eventemitter { };
+
   gevent-socketio = callPackage ../development/python-modules/gevent-socketio { };
 
   gevent-websocket = callPackage ../development/python-modules/gevent-websocket { };
@@ -5885,7 +5897,7 @@ self: super: with self; {
 
   gmsh = toPythonModule (
     pkgs.gmsh.override {
-      inherit (self) python;
+      python3Packages = self;
       enablePython = true;
     }
   );
@@ -6293,6 +6305,8 @@ self: super: with self; {
   };
 
   gstools = callPackage ../development/python-modules/gstools { };
+
+  gstools-cython = callPackage ../development/python-modules/gstools-cython { };
 
   gtfs-realtime-bindings = callPackage ../development/python-modules/gtfs-realtime-bindings { };
 
@@ -7823,6 +7837,8 @@ self: super: with self; {
 
   langchain-deepseek = callPackage ../development/python-modules/langchain-deepseek { };
 
+  langchain-experimental = callPackage ../development/python-modules/langchain-experimental { };
+
   langchain-fireworks = callPackage ../development/python-modules/langchain-fireworks { };
 
   langchain-google-genai = callPackage ../development/python-modules/langchain-google-genai { };
@@ -8832,6 +8848,8 @@ self: super: with self; {
 
   markdown-include = callPackage ../development/python-modules/markdown-include { };
 
+  markdown-inline-graphviz = callPackage ../development/python-modules/markdown-inline-graphviz { };
+
   markdown-it-py = callPackage ../development/python-modules/markdown-it-py { };
 
   markdown-macros = callPackage ../development/python-modules/markdown-macros { };
@@ -9261,6 +9279,10 @@ self: super: with self; {
 
   mkdocs-awesome-nav = callPackage ../development/python-modules/mkdocs-awesome-nav { };
 
+  mkdocs-backlinks = callPackage ../development/python-modules/mkdocs-backlinks { };
+
+  mkdocs-build-plantuml = callPackage ../development/python-modules/mkdocs-build-plantuml { };
+
   mkdocs-drawio-exporter = callPackage ../development/python-modules/mkdocs-drawio-exporter { };
 
   mkdocs-drawio-file = callPackage ../development/python-modules/mkdocs-drawio-file { };
@@ -9283,6 +9305,8 @@ self: super: with self; {
 
   mkdocs-glightbox = callPackage ../development/python-modules/mkdocs-glightbox { };
 
+  mkdocs-graphviz = callPackage ../development/python-modules/mkdocs-graphviz { };
+
   mkdocs-jupyter = callPackage ../development/python-modules/mkdocs-jupyter { };
 
   mkdocs-linkcheck = callPackage ../development/python-modules/mkdocs-linkcheck { };
@@ -9300,6 +9324,8 @@ self: super: with self; {
   mkdocs-mermaid2-plugin = callPackage ../development/python-modules/mkdocs-mermaid2-plugin { };
 
   mkdocs-minify-plugin = callPackage ../development/python-modules/mkdocs-minify-plugin { };
+
+  mkdocs-puml = callPackage ../development/python-modules/mkdocs-puml { };
 
   mkdocs-redirects = callPackage ../development/python-modules/mkdocs-redirects { };
 
@@ -9335,6 +9361,8 @@ self: super: with self; {
   );
 
   mlx = callPackage ../development/python-modules/mlx { };
+
+  mlx-lm = callPackage ../development/python-modules/mlx-lm { };
 
   mlxtend = callPackage ../development/python-modules/mlxtend { };
 
@@ -10605,6 +10633,8 @@ self: super: with self; {
 
   oldest-supported-numpy = callPackage ../development/python-modules/oldest-supported-numpy { };
 
+  oldmemo = callPackage ../development/python-modules/oldmemo { };
+
   olefile = callPackage ../development/python-modules/olefile { };
 
   oletools = callPackage ../development/python-modules/oletools { };
@@ -10614,6 +10644,8 @@ self: super: with self; {
   ome-zarr = callPackage ../development/python-modules/ome-zarr { };
 
   omegaconf = callPackage ../development/python-modules/omegaconf { };
+
+  omemo = callPackage ../development/python-modules/omemo { };
 
   omemo-dr = callPackage ../development/python-modules/omemo-dr { };
 
@@ -10648,6 +10680,10 @@ self: super: with self; {
   online-judge-api-client = callPackage ../development/python-modules/online-judge-api-client { };
 
   online-judge-tools = callPackage ../development/python-modules/online-judge-tools { };
+
+  online-judge-verify-helper =
+    callPackage ../development/python-modules/online-judge-verify-helper
+      { };
 
   onlykey-solo-python = callPackage ../development/python-modules/onlykey-solo-python { };
 
@@ -12217,6 +12253,8 @@ self: super: with self; {
 
   py-rust-stemmers = callPackage ../development/python-modules/py-rust-stemmers { };
 
+  py-schluter = callPackage ../development/python-modules/py-schluter { };
+
   py-scrypt = callPackage ../development/python-modules/py-scrypt { };
 
   py-serializable = callPackage ../development/python-modules/py-serializable { };
@@ -13350,6 +13388,8 @@ self: super: with self; {
   pynx584 = callPackage ../development/python-modules/pynx584 { };
 
   pynzb = callPackage ../development/python-modules/pynzb { };
+
+  pynzbgetapi = callPackage ../development/python-modules/pynzbgetapi { };
 
   pyobihai = callPackage ../development/python-modules/pyobihai { };
 
@@ -14779,6 +14819,8 @@ self: super: with self; {
   python-troveclient = callPackage ../development/python-modules/python-troveclient { };
 
   python-trovo = callPackage ../development/python-modules/python-trovo { };
+
+  python-tsp = callPackage ../development/python-modules/python-tsp { };
 
   python-twitch-client = callPackage ../development/python-modules/python-twitch-client { };
 
@@ -17241,9 +17283,13 @@ self: super: with self; {
 
   stdlibs = callPackage ../development/python-modules/stdlibs { };
 
+  steam = callPackage ../development/python-modules/steam { };
+
   steamodd = callPackage ../development/python-modules/steamodd { };
 
   steamship = callPackage ../development/python-modules/steamship { };
+
+  steamworkspy = callPackage ../development/python-modules/steamworkspy { };
 
   stem = callPackage ../development/python-modules/stem { };
 
@@ -18384,6 +18430,8 @@ self: super: with self; {
   twitterapi = callPackage ../development/python-modules/twitterapi { };
 
   twofish = callPackage ../development/python-modules/twofish { };
+
+  twomemo = callPackage ../development/python-modules/twomemo { };
 
   twscrape = callPackage ../development/python-modules/twscrape { };
 

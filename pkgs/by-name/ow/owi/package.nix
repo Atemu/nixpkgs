@@ -7,6 +7,7 @@
   zig,
   makeWrapper,
   unstableGitUpdater,
+  nixosTests,
 }:
 
 let
@@ -14,14 +15,14 @@ let
 in
 ocamlPackages.buildDunePackage rec {
   pname = "owi";
-  version = "0.2-unstable-2025-07-11";
+  version = "0.2-unstable-2025-07-23";
 
   src = fetchFromGitHub {
     owner = "ocamlpro";
     repo = "owi";
-    rev = "be3d93320dcbf7d4e991f9b240ff490b5a1b0acc";
+    rev = "bcebeb15de0a4968d1cb59970ee4a0c635e78bf4";
     fetchSubmodules = true;
-    hash = "sha256-yc/f/N+smGk3NwtZnP/k4ISN3mvp1GL9VTcjgosbQJw=";
+    hash = "sha256-MOgh5Q5Ai1Nk8DllUswiOk+Qu+hMRp7Q6mYPNSUs/1A=";
   };
 
   nativeBuildInputs = with ocamlPackages; [
@@ -75,7 +76,10 @@ ocamlPackages.buildDunePackage rec {
 
   doCheck = false;
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru = {
+    updateScript = unstableGitUpdater { };
+    tests = { inherit (nixosTests) owi; };
+  };
 
   meta = {
     description = "Symbolic execution for Wasm, C, C++, Rust and Zig";

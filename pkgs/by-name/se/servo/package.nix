@@ -81,7 +81,6 @@ rustPlatform.buildRustPackage {
     '';
   };
 
-  useFetchCargoVendor = true;
   cargoHash = "sha256-kKuauc5yK6IOKDL9o+vmNLg4wyZ+24YNT5Yhn+z51jE=";
 
   # set `HOME` to a temp dir for write access
@@ -114,29 +113,28 @@ rustPlatform.buildRustPackage {
 
   env.UV_PYTHON = customPython.interpreter;
 
-  buildInputs =
-    [
-      fontconfig
-      freetype
-      gst_all_1.gstreamer
-      gst_all_1.gst-plugins-base
-      gst_all_1.gst-plugins-good
-      gst_all_1.gst-plugins-bad
-      gst_all_1.gst-plugins-ugly
-      harfbuzz
-      libunwind
-      libGL
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [
-      wayland
-      xorg.libX11
-      xorg.libxcb
-      udev
-      vulkan-loader
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      apple-sdk_14
-    ];
+  buildInputs = [
+    fontconfig
+    freetype
+    gst_all_1.gstreamer
+    gst_all_1.gst-plugins-base
+    gst_all_1.gst-plugins-good
+    gst_all_1.gst-plugins-bad
+    gst_all_1.gst-plugins-ugly
+    harfbuzz
+    libunwind
+    libGL
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    wayland
+    xorg.libX11
+    xorg.libxcb
+    udev
+    vulkan-loader
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    apple-sdk_14
+  ];
 
   # Builds with additional features for aarch64, see https://github.com/servo/servo/issues/36819
   buildFeatures = lib.optionals stdenv.hostPlatform.isAarch64 [

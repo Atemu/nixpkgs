@@ -89,6 +89,16 @@ let
     featureFlags.minimalModules = { };
   };
   evalMinimalConfig = module: nixosLib.evalModules { modules = [ module ]; };
+  evalSystem =
+    module:
+    import ../lib/eval-config.nix {
+      system = null;
+      modules = [
+        ../modules/misc/nixpkgs/read-only.nix
+        { nixpkgs.pkgs = pkgs; }
+        module
+      ];
+    };
 
   inherit
     (rec {
@@ -589,6 +599,7 @@ in
   gerrit = runTest ./gerrit.nix;
   geth = runTest ./geth.nix;
   ghostunnel = runTest ./ghostunnel.nix;
+  ghostunnel-modular = runTest ./ghostunnel-modular.nix;
   gitdaemon = runTest ./gitdaemon.nix;
   gitea = handleTest ./gitea.nix { giteaPackage = pkgs.gitea; };
   github-runner = runTest ./github-runner.nix;
@@ -688,6 +699,7 @@ in
     imports = [ ./odoo.nix ];
     _module.args.package = pkgs.odoo16;
   };
+  oku = runTest ./oku.nix;
   oncall = runTest ./web-apps/oncall.nix;
   # 9pnet_virtio used to mount /nix partition doesn't support
   # hibernation. This test happens to work on x86_64-linux but
@@ -894,6 +906,9 @@ in
   mjolnir = runTest ./matrix/mjolnir.nix;
   mobilizon = runTest ./mobilizon.nix;
   mod_perl = runTest ./mod_perl.nix;
+  modularService = pkgs.callPackage ../modules/system/service/systemd/test.nix {
+    inherit evalSystem;
+  };
   molly-brown = runTest ./molly-brown.nix;
   mollysocket = runTest ./mollysocket.nix;
   monado = runTest ./monado.nix;
@@ -1061,7 +1076,7 @@ in
   ollama-cuda = runTestOn [ "x86_64-linux" "aarch64-linux" ] ./ollama-cuda.nix;
   ollama-rocm = runTestOn [ "x86_64-linux" "aarch64-linux" ] ./ollama-rocm.nix;
   ombi = runTest ./ombi.nix;
-  omnom = runTest ./omnom.nix;
+  omnom = runTest ./omnom;
   openarena = runTest ./openarena.nix;
   openbao = runTest ./openbao.nix;
   opencloud = runTest ./opencloud.nix;
@@ -1082,6 +1097,7 @@ in
   open-web-calendar = runTest ./web-apps/open-web-calendar.nix;
   ocsinventory-agent = handleTestOn [ "x86_64-linux" "aarch64-linux" ] ./ocsinventory-agent.nix { };
   orthanc = runTest ./orthanc.nix;
+  owi = runTest ./owi.nix;
   owncast = runTest ./owncast.nix;
   outline = runTest ./outline.nix;
   i18n = runTest ./i18n.nix;
@@ -1553,7 +1569,10 @@ in
   whoogle-search = runTest ./whoogle-search.nix;
   wiki-js = runTest ./wiki-js.nix;
   wine = handleTest ./wine.nix { };
-  wireguard = handleTest ./wireguard { };
+  wireguard = import ./wireguard {
+    inherit pkgs runTest;
+    inherit (pkgs) lib;
+  };
   wg-access-server = runTest ./wg-access-server.nix;
   without-nix = runTest ./without-nix.nix;
   wmderland = runTest ./wmderland.nix;

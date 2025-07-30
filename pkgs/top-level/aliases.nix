@@ -208,7 +208,7 @@ let
   # Make sure that we are not shadowing something from all-packages.nix.
   checkInPkgs =
     n: alias:
-    if builtins.hasAttr n super then throw "Alias ${n} is still in all-packages.nix" else alias;
+    if builtins.hasAttr n super then abort "Alias ${n} is still in all-packages.nix" else alias;
 
   mapAliases =
     aliases: lib.mapAttrs (n: alias: removeRecurseForDerivations (checkInPkgs n alias)) aliases;
@@ -304,6 +304,7 @@ mapAliases {
   archipelago-minecraft = throw "archipelago-minecraft has been removed, as upstream no longer ships minecraft as a default APWorld."; # Added 2025-07-15
   argo = argo-workflows; # Added 2025-02-01
   aria = aria2; # Added 2024-03-26
+  artim-dark = aritim-dark; # Added 2025-07-27
   armcord = throw "ArmCord was renamed to legcord by the upstream developers. Action is required to migrate configurations between the two applications. Please see this PR for more details: https://github.com/NixOS/nixpkgs/pull/347971"; # Added 2024-10-11
   aseprite-unfree = aseprite; # Added 2023-08-26
   asitop = macpm; # 'macpm' is a better-maintained downstream; keep 'asitop' for backwards-compatibility
@@ -315,7 +316,11 @@ mapAliases {
   ats = throw "'ats' has been removed as it is unmaintained for 10 years and broken"; # Added 2025-05-17
   audaciousQt5 = throw "'audaciousQt5' has been removed, since audacious is built with Qt 6 now"; # Added 2024-07-06
   auditBlasHook = throw "'auditBlasHook' has been removed since it never worked"; # Added 2024-04-02
+  autoconf213 = throw "'autoconf213' has been removed in favor of 'autoconf'"; # Added 2025-07-21
+  autoconf264 = throw "'autoconf264' has been removed in favor of 'autoconf'"; # Added 2025-07-21
+  automake111x = throw "'automake111x' has been removed in favor of 'automake'"; # Added 2025-07-21
   autoReconfHook = throw "You meant 'autoreconfHook', with a lowercase 'r'."; # preserve
+  autoreconfHook264 = throw "'autoreconfHook264' has been removed in favor of 'autoreconfHook'"; # Added 2025-07-21
   aumix = throw "'aumix' has been removed due to lack of maintenance upstream. Consider using 'pamixer' for CLI or 'pavucontrol' for GUI"; # Added 2024-09-14
   authy = throw "'authy' has been removed since it reached end of life"; # Added 2024-04-19
   autoadb = throw "'autoadb' has been removed due to lack of maintenance upstream"; # Added 2025-01-25
@@ -762,7 +767,7 @@ mapAliases {
   gcj6 = throw "gcj6 has been removed from Nixpkgs, as it is unmaintained and obsolete"; # Added 2024-09-13
   gcolor2 = throw "'gcolor2' has been removed due to lack of maintenance upstream and depending on gtk2. Consider using 'gcolor3' or 'eyedropper' instead"; # Added 2024-09-15
   gdome2 = throw "'gdome2' has been removed from nixpkgs, as it is umaintained and obsolete"; # Added 2024-12-29
-  geocode-glib = "throw 'geocode-glib' has been removed, as it was unused and used outdated libraries"; # Added 2025-04-16
+  geocode-glib = throw "throw 'geocode-glib' has been removed, as it was unused and used outdated libraries"; # Added 2025-04-16
   geos_3_11 = throw "geos_3_11 has been removed from nixpgks. Please use a more recent 'geos' instead.";
   gfbgraph = throw "'gfbgraph' has been removed as it was archived upstream and unused in nixpkgs"; # Added 2025-04-20
   gfortran48 = throw "'gfortran48' has been removed from nixpkgs"; # Added 2024-09-10
@@ -889,7 +894,7 @@ mapAliases {
   gsignond = throw "'gsignond' and its plugins have been removed due to lack of maintenance upstream"; # added 2025-04-17
   gsignondPlugins = throw "'gsignondPlugins' have been removed alongside 'gsignond' due to lack of maintenance upstream and depending on libsoup_2"; # added 2025-04-17
   gtetrinet = throw "'gtetrinet' has been removed because it depends on GNOME 2 libraries"; # Added 2024-06-27
-  gtk-engine-bluecurve = "'gtk-engine-bluecurve' has been removed as it has been archived upstream."; # Added 2024-12-04
+  gtk-engine-bluecurve = throw "'gtk-engine-bluecurve' has been removed as it has been archived upstream."; # Added 2024-12-04
   gtk2fontsel = throw "'gtk2fontsel' has been removed due to lack of maintenance upstream. GTK now has a built-in font chooser so it's no longer needed for newer apps"; # Added 2024-10-19
   gtkcord4 = dissent; # Added 2024-03-10
   gtkextra = throw "'gtkextra' has been removed due to lack of maintenance upstream."; # Added 2025-06-10
@@ -1017,6 +1022,7 @@ mapAliases {
   larynx = piper-tts; # Added 2023-05-09
   LASzip = laszip; # Added 2024-06-12
   LASzip2 = laszip_2; # Added 2024-06-12
+  lanzaboote-tool = throw "lanzaboote-tool has been removed due to lack of integration maintenance with nixpkgs. Consider using the Nix expressions provided by https://github.com/nix-community/lanzaboote"; # Added 2025-07-23
   latencytop = throw "'latencytop' has been removed due to lack of maintenance upstream."; # Added 2024-12-04
   latinmodern-math = lmmath;
   lazarus-qt = lazarus-qt5; # Added 2024-12-25
@@ -1331,6 +1337,7 @@ mapAliases {
   mustache-tcl = tclPackages.mustache-tcl; # Added 2024-10-02
   mutt-with-sidebar = mutt; # Added 2022-09-17
   mutter43 = throw "'mutter43' has been removed since it is no longer used by Pantheon."; # Added 2024-09-22
+  mx-puppet-discord = throw "mx-puppet-discord was removed since the packaging was unmaintained and was the sole user of sha1 hashes in nixpkgs"; # Added 2025-07-24
   mysql-client = hiPrio mariadb.client;
   mysql = throw "'mysql' has been renamed to/replaced by 'mariadb'"; # Converted to throw 2024-10-17
   mesa_drivers = throw "'mesa_drivers' has been removed, use 'pkgs.mesa' instead."; # Converted to throw 2024-07-11
@@ -1569,7 +1576,7 @@ mapAliases {
   phlare = throw "'phlare' has been removed as the upstream project was archived."; # Added 2025-03-27
   picom-next = picom; # Added 2024-02-13
   pict-rs_0_3 = throw "pict-rs_0_3 has been removed, as it was an outdated version and no longer compiled"; # Added 2024-08-20
-
+  pilipalax = throw "'pilipalax' has been removed from nixpkgs due to it not being maintained"; # Added 2025-07-25
   pio = throw "pio has been removed due to lack of upstream maintenance"; # Added 2025-01-25
   pipewire_0_2 = throw "pipewire_0_2 has been removed as it is outdated and no longer used"; # Added 2024-07-28
   pipewire-media-session = throw "pipewire-media-session is no longer maintained and has been removed. Please use Wireplumber instead.";
@@ -1805,7 +1812,8 @@ mapAliases {
   schildichat-desktop = schildichat-web;
   schildichat-desktop-wayland = schildichat-web;
   scitoken-cpp = scitokens-cpp; # Added 2024-02-12
-  scry = "'scry' has been removed as it was archived upstream. Use 'crystalline' instead"; # Added 2025-02-12
+  scry = throw "'scry' has been removed as it was archived upstream. Use 'crystalline' instead"; # Added 2025-02-12
+  scudcloud = throw "'scudcloud' has been removed as it was archived by upstream"; # Added 2025-07-24
   semeru-bin-16 = throw "Semeru 16 has been removed as it has reached its end of life"; # Added 2024-08-01
   semeru-jre-bin-16 = throw "Semeru 16 has been removed as it has reached its end of life"; # Added 2024-08-01
   sensu = throw "sensu has been removed as the upstream project is deprecated. Consider using `sensu-go`"; # Added 2024-10-28
@@ -1991,9 +1999,9 @@ mapAliases {
   timelens = throw "'timelens' has been removed due to lack of upstream maintenance"; # Added 2025-01-25
   tix = tclPackages.tix; # Added 2024-10-02
   tkcvs = tkrev; # Added 2022-03-07
-  tkgate = "'tkgate' has been removed as it is unmaintained"; # Added 2025-05-17
+  tkgate = throw "'tkgate' has been removed as it is unmaintained"; # Added 2025-05-17
   tkimg = tclPackages.tkimg; # Added 2024-10-02
-  todiff = "'todiff' was removed due to lack of known users"; # Added 2025-01-25
+  todiff = throw "'todiff' was removed due to lack of known users"; # Added 2025-01-25
   toil = throw "toil was removed as it was broken and requires obsolete versions of libraries"; # Added 2024-09-22
   tokodon = plasma5Packages.tokodon;
   tokyo-night-gtk = tokyonight-gtk-theme; # Added 2024-01-28
@@ -2044,7 +2052,7 @@ mapAliases {
   ubootBeagleboneBlack = throw "'ubootBeagleboneBlack' has been renamed to/replaced by 'ubootAmx335xEVM'"; # Converted to throw 2024-10-17
   ubuntu_font_family = ubuntu-classic; # Added 2024-02-19
   uclibc = uclibc-ng; # Added 2022-06-16
-  unicap = "'unicap' has been removed because it is unmaintained"; # Added 2025-05-17
+  unicap = throw "'unicap' has been removed because it is unmaintained"; # Added 2025-05-17
   unicorn-emu = throw "'unicorn-emu' has been renamed to/replaced by 'unicorn'"; # Converted to throw 2024-10-17
   uniffi-bindgen = throw "uniffi-bindgen has been removed since upstream no longer provides a standalone package for the CLI";
   unifi-poller = unpoller; # Added 2022-11-24

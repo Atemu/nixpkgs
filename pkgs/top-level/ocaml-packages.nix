@@ -165,6 +165,8 @@ let
 
         callipyge = callPackage ../development/ocaml-modules/callipyge { };
 
+        camlgpc = callPackage ../development/ocaml-modules/camlgpc { };
+
         camlidl = callPackage ../development/tools/ocaml/camlidl { };
 
         camlimages = callPackage ../development/ocaml-modules/camlimages { };
@@ -323,10 +325,6 @@ let
         ctypes = callPackage ../development/ocaml-modules/ctypes { };
 
         ctypes-foreign = callPackage ../development/ocaml-modules/ctypes/foreign.nix { };
-
-        ctypes_stubs_js = callPackage ../development/ocaml-modules/ctypes_stubs_js {
-          inherit (pkgs) nodejs;
-        };
 
         cudf = callPackage ../development/ocaml-modules/cudf { };
 
