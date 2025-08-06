@@ -568,6 +568,7 @@ in
   gnupg = handleTest ./gnupg.nix { };
   goatcounter = handleTest ./goatcounter.nix { };
   go-camo = handleTest ./go-camo.nix { };
+  go-httpbin = runTest ./go-httpbin.nix;
   go-neb = runTest ./go-neb.nix;
   gobgpd = handleTest ./gobgpd.nix { };
   gocd-agent = handleTest ./gocd-agent.nix { };
@@ -1145,6 +1146,7 @@ in
   public-inbox = handleTest ./public-inbox.nix { };
   pufferpanel = handleTest ./pufferpanel.nix { };
   pulseaudio = discoverTests (import ./pulseaudio.nix);
+  qbittorrent = runTest ./qbittorrent.nix;
   qboot = handleTestOn [ "x86_64-linux" "i686-linux" ] ./qboot.nix { };
   qemu-vm-restrictnetwork = handleTest ./qemu-vm-restrictnetwork.nix { };
   qemu-vm-volatile-root = runTest ./qemu-vm-volatile-root.nix;
