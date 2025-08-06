@@ -2,7 +2,7 @@
 # Do not edit!
 
 {
-  version = "2025.7.3";
+  version = "2025.7.4";
   components = {
     "3_day_blinds" =
       ps: with ps; [
@@ -2852,7 +2852,8 @@
       ++ hdate.optional-dependencies.astral;
     "joaoapps_join" =
       ps: with ps; [
-      ]; # missing inputs: python-join-api
+        python-join-api
+      ];
     "juicenet" =
       ps: with ps; [
       ];
@@ -3693,7 +3694,8 @@
       ];
     "monoprice" =
       ps: with ps; [
-      ]; # missing inputs: pymonoprice
+        pymonoprice
+      ];
     "monzo" =
       ps: with ps; [
         monzopy
@@ -4012,7 +4014,8 @@
       ];
     "nsw_fuel_station" =
       ps: with ps; [
-      ]; # missing inputs: nsw-fuel-api-client
+        nsw-fuel-api-client
+      ];
     "nsw_rural_fire_service_feed" =
       ps: with ps; [
         aio-geojson-nsw-rfs-incidents
@@ -6508,7 +6511,8 @@
       ];
     "wirelesstag" =
       ps: with ps; [
-      ]; # missing inputs: wirelesstagpy
+        wirelesstagpy
+      ];
     "withings" =
       ps: with ps; [
         aiohasupervisor
@@ -7319,6 +7323,7 @@
     "modem_callerid"
     "modern_forms"
     "mold_indicator"
+    "monoprice"
     "monzo"
     "moon"
     "mopeka"
@@ -7369,6 +7374,7 @@
     "notify"
     "notify_events"
     "notion"
+    "nsw_fuel_station"
     "nsw_rural_fire_service_feed"
     "ntfy"
     "nuheat"

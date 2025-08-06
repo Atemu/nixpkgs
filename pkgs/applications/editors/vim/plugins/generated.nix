@@ -1596,6 +1596,19 @@ final: prev: {
     meta.hydraPlatforms = [ ];
   };
 
+  blink-cmp-words = buildVimPlugin {
+    pname = "blink-cmp-words";
+    version = "2025-06-26";
+    src = fetchFromGitHub {
+      owner = "archie-judd";
+      repo = "blink-cmp-words";
+      rev = "81224ec2eb72115c84bb19ae566ef25083dbfed2";
+      sha256 = "1561sxrz3h10qdxn4a1aqlvbnih4v5g5kvs5mwipjnfh8n4wcnnb";
+    };
+    meta.homepage = "https://github.com/archie-judd/blink-cmp-words/";
+    meta.hydraPlatforms = [ ];
+  };
+
   blink-compat = buildVimPlugin {
     pname = "blink.compat";
     version = "2025-05-28";
@@ -9370,6 +9383,19 @@ final: prev: {
     meta.hydraPlatforms = [ ];
   };
 
+  neotest-ctest = buildVimPlugin {
+    pname = "neotest-ctest";
+    version = "2025-07-02";
+    src = fetchFromGitHub {
+      owner = "orjangj";
+      repo = "neotest-ctest";
+      rev = "124e8834a07aa522c6e9fa96f03e8ab0b7f2fa05";
+      sha256 = "0rml2m0v14v7ikllya6d55gwm75lfkf2ip11cm8x4n7x2pw17d04";
+    };
+    meta.homepage = "https://github.com/orjangj/neotest-ctest/";
+    meta.hydraPlatforms = [ ];
+  };
+
   neotest-dart = buildVimPlugin {
     pname = "neotest-dart";
     version = "2025-06-03";
@@ -14369,6 +14395,19 @@ final: prev: {
       sha256 = "sha256-2eUr4rB8gpax0xJ8U4O2O93UXUxF+HZV6Co8LwPZ3JE=";
     };
     meta.homepage = "https://github.com/themaxmarchuk/tailwindcss-colors.nvim/";
+    meta.hydraPlatforms = [ ];
+  };
+
+  tardis-nvim = buildVimPlugin {
+    pname = "tardis.nvim";
+    version = "2025-07-28";
+    src = fetchFromGitHub {
+      owner = "fredehoey";
+      repo = "tardis.nvim";
+      rev = "951f0903dd52eab69a240a89e514c62d4ea0260f";
+      sha256 = "0bdb7bw4f0gidwibs7n6l5gz2a23pm868i9ksh7kkafhl7qf4vz3";
+    };
+    meta.homepage = "https://github.com/fredehoey/tardis.nvim/";
     meta.hydraPlatforms = [ ];
   };
 
