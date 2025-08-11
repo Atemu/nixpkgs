@@ -309,6 +309,7 @@ with lib.maintainers;
       raphaelr
       jamiemagee
       anpin
+      meenzen
     ];
     scope = "Maintainers of the .NET build tools and packages";
     shortName = "dotnet";
@@ -1144,7 +1145,6 @@ with lib.maintainers;
   sage = {
     members = [
       timokau
-      omasanori
       raskin
       collares
     ];

@@ -2400,6 +2400,8 @@ self: super: with self; {
 
   certbot-dns-route53 = callPackage ../development/python-modules/certbot-dns-route53 { };
 
+  certbot-nginx = callPackage ../development/python-modules/certbot-nginx { };
+
   certifi = callPackage ../development/python-modules/certifi { };
 
   certipy = callPackage ../development/python-modules/certipy { };
@@ -2756,6 +2758,8 @@ self: super: with self; {
   colcon-cargo = callPackage ../development/python-modules/colcon-cargo { };
 
   colcon-defaults = callPackage ../development/python-modules/colcon-defaults { };
+
+  colcon-library-path = callPackage ../development/python-modules/colcon-library-path { };
 
   colcon-mixin = callPackage ../development/python-modules/colcon-mixin { };
 
@@ -5051,8 +5055,6 @@ self: super: with self; {
 
   feedparser = callPackage ../development/python-modules/feedparser { };
 
-  fenics = callPackage ../development/python-modules/fenics { hdf5 = pkgs.hdf5_1_10; };
-
   fenics-basix = callPackage ../development/python-modules/fenics-basix { };
 
   fenics-dolfinx = callPackage ../development/python-modules/fenics-dolfinx { };
@@ -6582,6 +6584,8 @@ self: super: with self; {
 
   hkavr = callPackage ../development/python-modules/hkavr { };
 
+  hko = callPackage ../development/python-modules/hko { };
+
   hledger-utils = callPackage ../development/python-modules/hledger-utils { };
 
   hlk-sw16 = callPackage ../development/python-modules/hlk-sw16 { };
@@ -7629,6 +7633,8 @@ self: super: with self; {
 
   kaitaistruct = callPackage ../development/python-modules/kaitaistruct { };
 
+  kaiterra-async-client = callPackage ../development/python-modules/kaiterra-async-client { };
+
   kajiki = callPackage ../development/python-modules/kajiki { };
 
   kaldi-active-grammar = callPackage ../development/python-modules/kaldi-active-grammar { };
@@ -7887,6 +7893,8 @@ self: super: with self; {
   langgraph-cli = callPackage ../development/python-modules/langgraph-cli { };
 
   langgraph-prebuilt = callPackage ../development/python-modules/langgraph-prebuilt { };
+
+  langgraph-runtime-inmem = callPackage ../development/python-modules/langgraph-runtime-inmem { };
 
   langgraph-sdk = callPackage ../development/python-modules/langgraph-sdk { };
 
@@ -8245,6 +8253,8 @@ self: super: with self; {
   libsoundtouch = callPackage ../development/python-modules/libsoundtouch { };
 
   libsupermesh = callPackage ../development/python-modules/libsupermesh { };
+
+  libtfr = callPackage ../development/python-modules/libtfr { };
 
   libthumbor = callPackage ../development/python-modules/libthumbor { };
 
@@ -8659,6 +8669,8 @@ self: super: with self; {
 
   lomond = callPackage ../development/python-modules/lomond { };
 
+  london-tube-status = callPackage ../development/python-modules/london-tube-status { };
+
   loompy = callPackage ../development/python-modules/loompy { };
 
   loopy = callPackage ../development/python-modules/loopy { };
@@ -8900,8 +8912,6 @@ self: super: with self; {
   materialx = callPackage ../development/python-modules/materialx { };
 
   materialyoucolor = callPackage ../development/python-modules/materialyoucolor { };
-
-  mathlibtools = callPackage ../development/python-modules/mathlibtools { };
 
   mathutils = callPackage ../development/python-modules/mathutils { };
 
@@ -9445,6 +9455,8 @@ self: super: with self; {
 
   monai-deploy = callPackage ../development/python-modules/monai-deploy { };
 
+  monarchmoney = callPackage ../development/python-modules/monarchmoney { };
+
   monero = callPackage ../development/python-modules/monero { };
 
   mongodict = callPackage ../development/python-modules/mongodict { };
@@ -9599,6 +9611,8 @@ self: super: with self; {
   msrest = callPackage ../development/python-modules/msrest { };
 
   msrestazure = callPackage ../development/python-modules/msrestazure { };
+
+  msrplib = callPackage ../development/python-modules/msrplib { };
 
   mss = callPackage ../development/python-modules/mss { };
 
@@ -10563,6 +10577,8 @@ self: super: with self; {
 
   oath = callPackage ../development/python-modules/oath { };
 
+  oathtool = callPackage ../development/python-modules/oathtool { };
+
   oauth2-client = callPackage ../development/python-modules/oauth2-client { };
 
   oauth2client = callPackage ../development/python-modules/oauth2client { };
@@ -11091,6 +11107,8 @@ self: super: with self; {
   osxphotos = callPackage ../development/python-modules/osxphotos { };
 
   otpauth = callPackage ../development/python-modules/otpauth { };
+
+  otr = callPackage ../development/python-modules/otr { };
 
   ots-python = callPackage ../development/python-modules/ots-python { };
 
@@ -12261,8 +12279,6 @@ self: super: with self; {
   py-rust-stemmers = callPackage ../development/python-modules/py-rust-stemmers { };
 
   py-schluter = callPackage ../development/python-modules/py-schluter { };
-
-  py-scrypt = callPackage ../development/python-modules/py-scrypt { };
 
   py-serializable = callPackage ../development/python-modules/py-serializable { };
 
@@ -14477,6 +14493,8 @@ self: super: with self; {
 
   python-daemon = callPackage ../development/python-modules/python-daemon { };
 
+  python-dali = callPackage ../development/python-modules/python-dali { };
+
   python-datemath = callPackage ../development/python-modules/python-datemath { };
 
   python-dateutil = callPackage ../development/python-modules/python-dateutil { };
@@ -16260,6 +16278,8 @@ self: super: with self; {
 
   sentence-splitter = callPackage ../development/python-modules/sentence-splitter { };
 
+  sentence-stream = callPackage ../development/python-modules/sentence-stream { };
+
   sentence-transformers = callPackage ../development/python-modules/sentence-transformers { };
 
   sentencepiece = callPackage ../development/python-modules/sentencepiece {
@@ -16377,8 +16397,6 @@ self: super: with self; {
   shimmy = callPackage ../development/python-modules/shimmy { };
 
   shiny = callPackage ../development/python-modules/shiny { };
-
-  shippai = callPackage ../development/python-modules/shippai { };
 
   shippinglabel = callPackage ../development/python-modules/shippinglabel { };
 
@@ -16501,6 +16519,8 @@ self: super: with self; {
   siphash24 = callPackage ../development/python-modules/siphash24 { };
 
   siphashc = callPackage ../development/python-modules/siphashc { };
+
+  sipsimple = callPackage ../development/python-modules/sipsimple { };
 
   sipyco = callPackage ../development/python-modules/sipyco { };
 
@@ -16852,6 +16872,8 @@ self: super: with self; {
   spdx-lookup = callPackage ../development/python-modules/spdx-lookup { };
 
   spdx-tools = callPackage ../development/python-modules/spdx-tools { };
+
+  speak2mary = callPackage ../development/python-modules/speak2mary { };
 
   speaklater = callPackage ../development/python-modules/speaklater { };
 
@@ -18039,6 +18061,8 @@ self: super: with self; {
 
   tinyhtml5 = callPackage ../development/python-modules/tinyhtml5 { };
 
+  tinyio = callPackage ../development/python-modules/tinyio { };
+
   tinyobjloader-py = callPackage ../development/python-modules/tinyobjloader-py { };
 
   tinyrecord = callPackage ../development/python-modules/tinyrecord { };
@@ -18336,6 +18360,8 @@ self: super: with self; {
 
   trie = callPackage ../development/python-modules/trie { };
 
+  triggercmd = callPackage ../development/python-modules/triggercmd { };
+
   trimesh = callPackage ../development/python-modules/trimesh { };
 
   trino-python-client = callPackage ../development/python-modules/trino-python-client { };
@@ -18497,6 +18523,8 @@ self: super: with self; {
   };
 
   typed-settings = callPackage ../development/python-modules/typed-settings { };
+
+  typedmonarchmoney = callPackage ../development/python-modules/typedmonarchmoney { };
 
   typedunits = callPackage ../development/python-modules/typedunits { };
 
@@ -19238,6 +19266,8 @@ self: super: with self; {
 
   uvicorn = callPackage ../development/python-modules/uvicorn { };
 
+  uvicorn-worker = callPackage ../development/python-modules/uvicorn-worker { };
+
   uvloop = callPackage ../development/python-modules/uvloop { };
 
   uwsgi-chunked = callPackage ../development/python-modules/uwsgi-chunked { };
@@ -19801,6 +19831,8 @@ self: super: with self; {
   xbox-webapi = callPackage ../development/python-modules/xbox-webapi { };
 
   xboxapi = callPackage ../development/python-modules/xboxapi { };
+
+  xcaplib = callPackage ../development/python-modules/xcaplib { };
 
   xcffib = callPackage ../development/python-modules/xcffib { };
 

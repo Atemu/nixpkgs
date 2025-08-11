@@ -116,14 +116,13 @@ in
 goBuild (finalAttrs: {
   pname = "ollama";
   # don't forget to invalidate all hashes each update
-  version = "0.10.0";
+  version = "0.11.3";
 
   src = fetchFromGitHub {
     owner = "ollama";
     repo = "ollama";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-BoT4WUapxakETHAlHP64okcReMIhQ+PzKaSVpELvrcI=";
-    fetchSubmodules = true;
+    hash = "sha256-FghgCtVQIxc9qB5vZZlblugk6HLnxoT8xanZK+N8qEc=";
   };
 
   vendorHash = "sha256-SlaDsu001TUW+t9WRp7LqxUSQSGDF1Lqu9M1bgILoX4=";
@@ -252,6 +251,7 @@ goBuild (finalAttrs: {
     changelog = "https://github.com/ollama/ollama/releases/tag/v${finalAttrs.version}";
     license = licenses.mit;
     platforms = if (rocmRequested || cudaRequested) then platforms.linux else platforms.unix;
+    broken = stdenv.hostPlatform.isDarwin; # TODO: Remove after upstream issue is fixed, see issue #431464 and comments.
     mainProgram = "ollama";
     maintainers = with maintainers; [
       abysssol
