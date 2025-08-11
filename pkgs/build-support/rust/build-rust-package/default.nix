@@ -23,6 +23,7 @@ lib.extendMkDerivation {
     "depsExtraArgs"
     "cargoUpdateHook"
     "cargoLock"
+    "useFetchCargoVendor"
   ];
 
   extendDrvArgs =
@@ -72,7 +73,11 @@ lib.extendMkDerivation {
     }@args:
 
     assert lib.assertMsg useFetchCargoVendor
-      "buildRustPackage: `useFetchCargoVendor` is non‐optional and enabled by default as of 25.05";
+      "buildRustPackage: `useFetchCargoVendor` is non‐optional and enabled by default as of 25.05, remove it";
+
+    assert lib.warnIf (args ? useFetchCargoVendor)
+      "buildRustPackage: `useFetchCargoVendor` is non‐optional and enabled by default as of 25.05, remove it"
+      true;
 
     lib.optionalAttrs (stdenv.hostPlatform.isDarwin && buildType == "debug") {
       RUSTFLAGS = "-C split-debuginfo=packed " + (args.RUSTFLAGS or "");
