@@ -5,6 +5,7 @@ in
   system ? builtins.currentSystem,
 
   nixpkgs ? null,
+  nixPath ? "nixVersions.latest",
 }:
 let
   nixpkgs' =
@@ -16,13 +17,7 @@ let
     else
       nixpkgs;
 
-  pkgs = import nixpkgs' {
-    inherit system;
-    config = {
-      permittedInsecurePackages = [ "nix-2.3.18" ];
-    };
-    overlays = [ ];
-  };
+  pkgs = import nixpkgs' { inherit system; };
 
   fmt =
     let
@@ -115,20 +110,19 @@ rec {
   # (nixVersions.stable and Lix) here somehow at some point to ensure we don't
   # have eval divergence.
   eval = pkgs.callPackage ./eval {
-    nix = pkgs.nixVersions.latest;
+    nix = pkgs.lib.getAttrFromPath (pkgs.lib.splitString "." nixPath) pkgs;
   };
 
   # CI jobs
   lib-tests = import ../lib/tests/release.nix { inherit pkgs; };
   manual-nixos = (import ../nixos/release.nix { }).manual.${system} or null;
-  manual-nixpkgs = (import ../doc { });
-  manual-nixpkgs-tests = (import ../doc { }).tests;
+  manual-nixpkgs = (import ../doc { inherit pkgs; });
+  manual-nixpkgs-tests = (import ../doc { inherit pkgs; }).tests;
   nixpkgs-vet = pkgs.callPackage ./nixpkgs-vet.nix { };
   parse = pkgs.lib.recurseIntoAttrs {
     latest = pkgs.callPackage ./parse.nix { nix = pkgs.nixVersions.latest; };
     lix = pkgs.callPackage ./parse.nix { nix = pkgs.lix; };
-    # TODO: Raise nixVersions.minimum to 2.24 and flip back to it.
-    minimum = pkgs.callPackage ./parse.nix { nix = pkgs.nixVersions.nix_2_24; };
+    nix_2_24 = pkgs.callPackage ./parse.nix { nix = pkgs.nixVersions.nix_2_24; };
   };
   shell = import ../shell.nix { inherit nixpkgs system; };
   tarball = import ../pkgs/top-level/make-tarball.nix {
