@@ -122,7 +122,8 @@ let
 in
 runCommand "compare"
   {
-    nativeBuildInputs = [
+    # Don't depend on -dev outputs to reduce closure size for CI.
+    nativeBuildInputs = map lib.getBin [
       jq
       (python3.withPackages (
         ps: with ps; [
@@ -145,6 +146,12 @@ runCommand "compare"
 
     cp ${changed-paths} $out/changed-paths.json
 
+    {
+      echo
+      echo "# Packages"
+      echo
+      jq -r -f ${./generate-step-summary.jq} < ${changed-paths}
+    } >> $out/step-summary.md
 
     if jq -e '(.attrdiff.added | length == 0) and (.attrdiff.removed | length == 0)' "${changed-paths}" > /dev/null; then
       # Chunks have changed between revisions
@@ -173,13 +180,6 @@ runCommand "compare"
         echo "For further help please refer to: [ci/README.md](https://github.com/NixOS/nixpkgs/blob/master/ci/README.md)"
       } >> $out/step-summary.md
     fi
-
-    {
-      echo
-      echo "# Packages"
-      echo
-      jq -r -f ${./generate-step-summary.jq} < ${changed-paths}
-    } >> $out/step-summary.md
 
     cp "$maintainersPath" "$out/maintainers.json"
   ''

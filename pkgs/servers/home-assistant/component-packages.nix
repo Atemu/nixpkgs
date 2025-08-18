@@ -2,7 +2,7 @@
 # Do not edit!
 
 {
-  version = "2025.8.0";
+  version = "2025.8.1";
   components = {
     "3_day_blinds" =
       ps: with ps; [
@@ -114,7 +114,8 @@
       ];
     "airos" =
       ps: with ps; [
-      ]; # missing inputs: airos
+        airos
+      ];
     "airq" =
       ps: with ps; [
         aioairq
@@ -536,7 +537,8 @@
       ];
     "baidu" =
       ps: with ps; [
-      ]; # missing inputs: baidu-aip
+        baidu-aip
+      ];
     "balay" =
       ps: with ps; [
       ];
@@ -595,7 +597,8 @@
       ];
     "blockchain" =
       ps: with ps; [
-      ]; # missing inputs: python-blockchain-api
+        python-blockchain-api
+      ];
     "blue_current" =
       ps: with ps; [
         bluecurrent-api
@@ -1360,7 +1363,8 @@
       ]; # missing inputs: pyebox
     "ebusd" =
       ps: with ps; [
-      ]; # missing inputs: ebusdpy
+        ebusdpy
+      ];
     "ecoal_boiler" =
       ps: with ps; [
         ecoaliface
@@ -1422,7 +1426,8 @@
       ];
     "electric_kiwi" =
       ps: with ps; [
-      ]; # missing inputs: electrickiwi-api
+        electrickiwi-api
+      ];
     "elevenlabs" =
       ps: with ps; [
         elevenlabs
@@ -1603,7 +1608,8 @@
       ];
     "etherscan" =
       ps: with ps; [
-      ]; # missing inputs: python-etherscan-api
+        python-etherscan-api
+      ];
     "eufy" =
       ps: with ps; [
         lakeside
@@ -2835,7 +2841,8 @@
       ];
     "itach" =
       ps: with ps; [
-      ]; # missing inputs: pyitachip2ir
+        pyitachip2ir
+      ];
     "itunes" =
       ps: with ps; [
       ];
@@ -3509,7 +3516,8 @@
       ];
     "melissa" =
       ps: with ps; [
-      ]; # missing inputs: py-melissa-climate
+        py-melissa-climate
+      ];
     "melnor" =
       ps: with ps; [
         aioesphomeapi
@@ -3676,7 +3684,8 @@
       ];
     "mochad" =
       ps: with ps; [
-      ]; # missing inputs: pymochad
+        pymochad
+      ];
     "modbus" =
       ps: with ps; [
         pymodbus
@@ -3693,7 +3702,8 @@
       ];
     "moehlenhoff_alpha2" =
       ps: with ps; [
-      ]; # missing inputs: moehlenhoff-alpha2
+        moehlenhoff-alpha2
+      ];
     "mold_indicator" =
       ps: with ps; [
       ];
@@ -3924,7 +3934,8 @@
       ];
     "netio" =
       ps: with ps; [
-      ]; # missing inputs: pynetio
+        pynetio
+      ];
     "network" =
       ps: with ps; [
         ifaddr
@@ -4153,8 +4164,9 @@
       ];
     "onkyo" =
       ps: with ps; [
+        aioonkyo
         ifaddr
-      ]; # missing inputs: aioonkyo
+      ];
     "onvif" =
       ps: with ps; [
         ha-ffmpeg
@@ -4174,7 +4186,8 @@
         openai
         pymicro-vad
         pyspeex-noise
-      ]; # missing inputs: python-open-router
+        python-open-router
+      ];
     "openai_conversation" =
       ps: with ps; [
         ha-ffmpeg
@@ -4244,7 +4257,8 @@
       ];
     "opple" =
       ps: with ps; [
-      ]; # missing inputs: pyoppleio-legacy
+        pyoppleio-legacy
+      ];
     "oralb" =
       ps: with ps; [
         aioesphomeapi
@@ -4461,7 +4475,8 @@
       ];
     "pjlink" =
       ps: with ps; [
-      ]; # missing inputs: pypjlink2
+        pypjlink2
+      ];
     "plaato" =
       ps: with ps; [
         aiohasupervisor
@@ -4875,7 +4890,8 @@
       ];
     "recswitch" =
       ps: with ps; [
-      ]; # missing inputs: pyrecswitch
+        pyrecswitch
+      ];
     "reddit" =
       ps: with ps; [
         praw
@@ -4895,7 +4911,8 @@
     "remember_the_milk" =
       ps: with ps; [
         httplib2
-      ]; # missing inputs: RtmAPI
+        rtmapi
+      ];
     "remote" =
       ps: with ps; [
       ];
@@ -4925,7 +4942,8 @@
       ];
     "repetier" =
       ps: with ps; [
-      ]; # missing inputs: pyrepetierng
+        pyrepetierng
+      ];
     "rest" =
       ps: with ps; [
         jsonpath
@@ -5614,7 +5632,8 @@
       ];
     "starlingbank" =
       ps: with ps; [
-      ]; # missing inputs: starlingbank
+        starlingbank
+      ];
     "starlink" =
       ps: with ps; [
         starlink-grpc-core
@@ -5645,7 +5664,8 @@
       ];
     "stiebel_eltron" =
       ps: with ps; [
-      ]; # missing inputs: pystiebeleltron
+        pystiebeleltron
+      ];
     "stookwijzer" =
       ps: with ps; [
         stookwijzer
@@ -5752,7 +5772,8 @@
       ];
     "switchmate" =
       ps: with ps; [
-      ]; # missing inputs: PySwitchmate
+        pyswitchmate
+      ];
     "symfonisk" =
       ps: with ps; [
       ];
@@ -5774,7 +5795,8 @@
       ];
     "synology_srm" =
       ps: with ps; [
-      ]; # missing inputs: synology-srm
+        synology-srm
+      ];
     "syslog" =
       ps: with ps; [
       ];
@@ -5813,7 +5835,8 @@
       ];
     "tami4" =
       ps: with ps; [
-      ]; # missing inputs: Tami4EdgeAPI
+        tami4edgeapi
+      ];
     "tank_utility" =
       ps: with ps; [
         tank-utility
@@ -5975,7 +5998,8 @@
       ];
     "thingspeak" =
       ps: with ps; [
-      ]; # missing inputs: thingspeak
+        thingspeak
+      ];
     "thinkingcleaner" =
       ps: with ps; [
       ]; # missing inputs: pythinkingcleaner
@@ -6289,7 +6313,8 @@
       ];
     "uptime_kuma" =
       ps: with ps; [
-      ]; # missing inputs: pythonkuma
+        pythonkuma
+      ];
     "uptimerobot" =
       ps: with ps; [
         pyuptimerobot
@@ -6425,7 +6450,8 @@
       ];
     "volvo" =
       ps: with ps; [
-      ]; # missing inputs: volvocarsapi
+        volvocarsapi
+      ];
     "volvooncall" =
       ps: with ps; [
         volvooncall
@@ -6569,7 +6595,8 @@
       ];
     "wmspro" =
       ps: with ps; [
-      ]; # missing inputs: pywmspro
+        pywmspro
+      ];
     "wolflink" =
       ps: with ps; [
         wolf-comm
@@ -6668,7 +6695,8 @@
       ];
     "xs1" =
       ps: with ps; [
-      ]; # missing inputs: xs1-api-client
+        xs1-api-client
+      ];
     "yale" =
       ps: with ps; [
         aiohasupervisor
@@ -6862,6 +6890,7 @@
     "airgradient"
     "airly"
     "airnow"
+    "airos"
     "airq"
     "airthings"
     "airthings_ble"
@@ -7041,6 +7070,7 @@
     "eheimdigital"
     "eight_sleep"
     "electrasmart"
+    "electric_kiwi"
     "elevenlabs"
     "elgato"
     "elkm1"
@@ -7333,6 +7363,7 @@
     "media_player"
     "media_source"
     "melcloud"
+    "melissa"
     "melnor"
     "meraki"
     "met"
@@ -7354,9 +7385,11 @@
     "mjpeg"
     "moat"
     "mobile_app"
+    "mochad"
     "modbus"
     "modem_callerid"
     "modern_forms"
+    "moehlenhoff_alpha2"
     "mold_indicator"
     "monarch_money"
     "monoprice"
@@ -7431,8 +7464,10 @@
     "ondilo_ico"
     "onedrive"
     "onewire"
+    "onkyo"
     "onvif"
     "open_meteo"
+    "open_router"
     "openai_conversation"
     "openalpr_cloud"
     "openerz"
@@ -7471,6 +7506,7 @@
     "pi_hole"
     "picnic"
     "ping"
+    "pjlink"
     "plaato"
     "plant"
     "playstation_network"
@@ -7525,6 +7561,7 @@
     "reddit"
     "refoss"
     "rehlko"
+    "remember_the_milk"
     "remote"
     "remote_calendar"
     "renault"
@@ -7636,6 +7673,7 @@
     "statsd"
     "steam_online"
     "steamist"
+    "stiebel_eltron"
     "stookwijzer"
     "stream"
     "streamlabswater"
@@ -7663,6 +7701,7 @@
     "tag"
     "tailscale"
     "tailwind"
+    "tami4"
     "tankerkoenig"
     "tasmota"
     "tautulli"
@@ -7731,6 +7770,7 @@
     "update"
     "upnp"
     "uptime"
+    "uptime_kuma"
     "uptimerobot"
     "usb"
     "usgs_earthquakes_feed"
@@ -7756,6 +7796,7 @@
     "voicerss"
     "voip"
     "volumio"
+    "volvo"
     "volvooncall"
     "vulcan"
     "vultr"
@@ -7785,6 +7826,7 @@
     "withings"
     "wiz"
     "wled"
+    "wmspro"
     "wolflink"
     "workday"
     "worldclock"

@@ -3651,6 +3651,19 @@ final: prev: {
     meta.hydraPlatforms = [ ];
   };
 
+  cutlass-nvim = buildVimPlugin {
+    pname = "cutlass.nvim";
+    version = "2023-12-18";
+    src = fetchFromGitHub {
+      owner = "gbprod";
+      repo = "cutlass.nvim";
+      rev = "1ac7e4b53d79410be52a9e464d44c60556282b3e";
+      sha256 = "0p00xjn6da7hj10vwnighsf1y0zmndfx9d2nb95whnq6awkbyr6f";
+    };
+    meta.homepage = "https://github.com/gbprod/cutlass.nvim/";
+    meta.hydraPlatforms = [ ];
+  };
+
   cyberdream-nvim = buildVimPlugin {
     pname = "cyberdream.nvim";
     version = "2025-07-25";
@@ -4952,6 +4965,19 @@ final: prev: {
       sha256 = "0l8xi023mplbxbsg2h9lrcm2pfxrrnkmp9dx0dmq2q6c39vcazin";
     };
     meta.homepage = "https://github.com/lewis6991/fileline.nvim/";
+    meta.hydraPlatforms = [ ];
+  };
+
+  fine-cmdline-nvim = buildVimPlugin {
+    pname = "fine-cmdline.nvim";
+    version = "2025-06-15";
+    src = fetchFromGitHub {
+      owner = "VonHeikemen";
+      repo = "fine-cmdline.nvim";
+      rev = "7db181d1cb294581b12a036eadffffde762a118f";
+      sha256 = "0991l33f37vpc5plw3c5rwm92sn08gfrlzqy8y1cn06f4p6ll78b";
+    };
+    meta.homepage = "https://github.com/VonHeikemen/fine-cmdline.nvim/";
     meta.hydraPlatforms = [ ];
   };
 
@@ -12652,14 +12678,14 @@ final: prev: {
 
   project-nvim = buildVimPlugin {
     pname = "project.nvim";
-    version = "2023-04-04";
+    version = "2025-08-09";
     src = fetchFromGitHub {
-      owner = "ahmedkhalf";
+      owner = "DrKJeff16";
       repo = "project.nvim";
-      rev = "8c6bad7d22eef1b71144b401c9f74ed01526a4fb";
-      sha256 = "1md639mcs3dgvhvx93wi0rxiwjnb195r9al9bfqvcvl3r307gxba";
+      rev = "91d52b8ac227918a26d85daf6774cd5f340202fa";
+      sha256 = "1a4cn58482ilcs5dw6szk98zkv090fb1whgjlfp2h8hy77773skr";
     };
-    meta.homepage = "https://github.com/ahmedkhalf/project.nvim/";
+    meta.homepage = "https://github.com/DrKJeff16/project.nvim/";
     meta.hydraPlatforms = [ ];
   };
 
@@ -14189,6 +14215,19 @@ final: prev: {
     meta.hydraPlatforms = [ ];
   };
 
+  symbol-usage-nvim = buildVimPlugin {
+    pname = "symbol-usage.nvim";
+    version = "2025-05-03";
+    src = fetchFromGitHub {
+      owner = "Wansmer";
+      repo = "symbol-usage.nvim";
+      rev = "e07c07dfe7504295a369281e95a24e1afa14b243";
+      sha256 = "0539ahy72wh8rdkn2pybsdk58ki0jdn9dk2ap7q65986crjglr6d";
+    };
+    meta.homepage = "https://github.com/Wansmer/symbol-usage.nvim/";
+    meta.hydraPlatforms = [ ];
+  };
+
   symbols-outline-nvim = buildVimPlugin {
     pname = "symbols-outline.nvim";
     version = "2024-01-03";
@@ -14999,6 +15038,19 @@ final: prev: {
     meta.hydraPlatforms = [ ];
   };
 
+  themery-nvim = buildVimPlugin {
+    pname = "themery.nvim";
+    version = "2025-01-01";
+    src = fetchFromGitHub {
+      owner = "zaldih";
+      repo = "themery.nvim";
+      rev = "bfa58f4b279d21cb515b28023e1b68ec908584b2";
+      sha256 = "0wrd3965wss9qzz4qfy5ryfj71napm5ckx98lwxrxszah6pmz3fl";
+    };
+    meta.homepage = "https://github.com/zaldih/themery.nvim/";
+    meta.hydraPlatforms = [ ];
+  };
+
   thesaurus_query-vim = buildVimPlugin {
     pname = "thesaurus_query.vim";
     version = "2022-12-11";
@@ -15766,6 +15818,19 @@ final: prev: {
       sha256 = "14j4a55hhi7jbk9aafzl67w2w0dn0jyspddal430cm7rhvvv7k5d";
     };
     meta.homepage = "https://github.com/junegunn/vader.vim/";
+    meta.hydraPlatforms = [ ];
+  };
+
+  vague-nvim = buildVimPlugin {
+    pname = "vague.nvim";
+    version = "2025-08-03";
+    src = fetchFromGitHub {
+      owner = "vague2k";
+      repo = "vague.nvim";
+      rev = "676e5b4d74f32ff91c1583eba9c326d2b749672f";
+      sha256 = "1rj02zb12v3rz8z9f80s4pc5jyblql1lyjnq16195z5skfjb95xc";
+    };
+    meta.homepage = "https://github.com/vague2k/vague.nvim/";
     meta.hydraPlatforms = [ ];
   };
 
@@ -21971,6 +22036,19 @@ final: prev: {
       sha256 = "044jxkcbycmmahi98qd0ynpc8baay72i45qymv4mxvl1d96fjbmd";
     };
     meta.homepage = "https://github.com/lukaszkorecki/workflowish/";
+    meta.hydraPlatforms = [ ];
+  };
+
+  workspaces-nvim = buildVimPlugin {
+    pname = "workspaces.nvim";
+    version = "2024-10-08";
+    src = fetchFromGitHub {
+      owner = "natecraddock";
+      repo = "workspaces.nvim";
+      rev = "55a1eb6f5b72e07ee8333898254e113e927180ca";
+      sha256 = "143xzg60yiw1aam7sc5rva9bzzmshfzpm2sacimwr8188qsz8xvb";
+    };
+    meta.homepage = "https://github.com/natecraddock/workspaces.nvim/";
     meta.hydraPlatforms = [ ];
   };
 

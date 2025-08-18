@@ -1771,9 +1771,9 @@ with pkgs;
 
   lukesmithxyz-bible-kjv = callPackage ../applications/misc/kjv/lukesmithxyz-kjv.nix { };
 
-  plausible = callPackage ../servers/web-apps/plausible {
-    elixir = elixir_1_17;
-    beamPackages = beamPackages.extend (self: super: { elixir = elixir_1_17; });
+  plausible = callPackage ../by-name/pl/plausible/package.nix {
+    elixir = elixir_1_18;
+    beamPackages = beamPackages.extend (self: super: { elixir = elixir_1_18; });
   };
 
   reattach-to-user-namespace = callPackage ../os-specific/darwin/reattach-to-user-namespace { };
@@ -1915,13 +1915,6 @@ with pkgs;
       '';
     });
 
-  calamares = libsForQt5.callPackage ../tools/misc/calamares {
-    boost = boost.override {
-      enablePython = true;
-      python = python3;
-    };
-  };
-  calamares-nixos = lowPrio (calamares.override { nixos-extensions = true; });
   candle = libsForQt5.callPackage ../applications/misc/candle { };
 
   capstone = callPackage ../development/libraries/capstone { };
@@ -3821,10 +3814,6 @@ with pkgs;
 
   nifskope = libsForQt5.callPackage ../tools/graphics/nifskope { };
 
-  notation = callPackage ../by-name/no/notation/package.nix {
-    buildGoModule = buildGo123Module;
-  };
-
   nsjail = callPackage ../tools/security/nsjail {
     protobuf = protobuf_21;
   };
@@ -4265,10 +4254,6 @@ with pkgs;
 
   sks = callPackage ../servers/sks {
     ocamlPackages = ocaml-ng.ocamlPackages_4_12;
-  };
-
-  slstatus = callPackage ../applications/misc/slstatus {
-    conf = config.slstatus.conf or null;
   };
 
   smpq = callPackage ../by-name/sm/smpq/package.nix {
@@ -4890,6 +4875,7 @@ with pkgs;
   );
   flutterPackages = flutterPackages-bin;
   flutter = flutterPackages.stable;
+  flutter335 = flutterPackages.v3_35;
   flutter332 = flutterPackages.v3_32;
   flutter329 = flutterPackages.v3_29;
   flutter327 = flutterPackages.v3_27;
@@ -9026,16 +9012,6 @@ with pkgs;
     openssl_3_5
     ;
 
-  openwebrx = callPackage ../applications/radio/openwebrx {
-    inherit (python3Packages)
-      buildPythonPackage
-      buildPythonApplication
-      setuptools
-      pycsdr
-      pydigiham
-      ;
-  };
-
   pcre = callPackage ../development/libraries/pcre { };
   # pcre32 seems unused
   pcre-cpp = res.pcre.override { variant = "cpp"; };
@@ -9669,8 +9645,8 @@ with pkgs;
   go = go_1_24;
   buildGoModule = buildGo124Module;
 
-  go_latest = go_1_24;
-  buildGoLatestModule = buildGo124Module;
+  go_latest = go_1_25;
+  buildGoLatestModule = buildGo125Module;
 
   go_1_23 = callPackage ../development/compilers/go/1.23.nix { };
   buildGo123Module = callPackage ../build-support/go/module.nix {
@@ -10054,8 +10030,10 @@ with pkgs;
   };
 
   etcd = etcd_3_5;
-  etcd_3_4 = callPackage ../servers/etcd/3.4.nix { };
-  etcd_3_5 = callPackage ../servers/etcd/3.5 { };
+  etcd_3_4 = callPackage ../servers/etcd/3_4 { };
+  etcd_3_5 = callPackage ../servers/etcd/3_5 {
+    buildGoModule = buildGo123Module;
+  };
 
   prosody = callPackage ../servers/xmpp/prosody {
     withExtraLibs = [ ];
@@ -10346,11 +10324,6 @@ with pkgs;
   mariadb-embedded = mariadb.override { withEmbedded = true; };
 
   mongodb = hiPrio mongodb-7_0;
-
-  mongodb-6_0 = callPackage ../servers/nosql/mongodb/6.0.nix {
-    sasl = cyrus_sasl;
-    boost = boost178.override { enableShared = false; };
-  };
 
   mongodb-7_0 = callPackage ../servers/nosql/mongodb/7.0.nix {
     sasl = cyrus_sasl;
@@ -11164,6 +11137,7 @@ with pkgs;
     ubootA20OlinuxinoLime
     ubootA20OlinuxinoLime2EMMC
     ubootBananaPi
+    ubootBananaPim2Zero
     ubootBananaPim3
     ubootBananaPim64
     ubootAmx335xEVM
@@ -11590,9 +11564,6 @@ with pkgs;
 
   airwave = libsForQt5.callPackage ../applications/audio/airwave { };
 
-  amarok = libsForQt5.callPackage ../applications/audio/amarok { };
-  amarok-kf5 = amarok; # for compatibility
-
   androidStudioPackages = recurseIntoAttrs (callPackage ../applications/editors/android-studio { });
   android-studio = androidStudioPackages.stable;
   android-studio-full = android-studio.full;
@@ -11972,8 +11943,6 @@ with pkgs;
   guitarix = callPackage ../applications/audio/guitarix {
     fftw = fftwSinglePrec;
   };
-
-  puddletag = libsForQt5.callPackage ../applications/audio/puddletag { };
 
   welle-io = qt6Packages.callPackage ../applications/radio/welle-io { };
 
@@ -15644,16 +15613,6 @@ with pkgs;
 
   nix = nixVersions.stable;
 
-  # Overlays for CppNix nightly, Lix, or Tvix want to change the default Nix
-  # implementation in Nixpkgs by overriding `pkgs.nix`. However, some packages
-  # link against the internal/unstable CppNix APIs directly, and these packages
-  # will break if built with different versions or implementations of Nix.
-  #
-  # If you want to swap out the Nix implementation in your package set, you
-  # don't want these packages to break. Therefore, some packages will refer to
-  # `nixForLinking` explicitly, at least until these dependencies can be sorted out.
-  nixForLinking = nixVersions.stable;
-
   nixStatic = pkgsStatic.nix;
 
   lixPackageSets = recurseIntoAttrs (
@@ -15780,7 +15739,7 @@ with pkgs;
     );
 
   nix-eval-jobs = callPackage ../tools/package-management/nix-eval-jobs {
-    nix = nixVersions.nix_2_30;
+    nixComponents = nixVersions.nixComponents_2_30;
   };
 
   nix-delegate = haskell.lib.compose.justStaticExecutables haskellPackages.nix-delegate;
@@ -15811,7 +15770,13 @@ with pkgs;
 
   nix-tree = haskell.lib.compose.justStaticExecutables (haskellPackages.nix-tree);
 
-  nix-serve-ng = haskell.lib.compose.justStaticExecutables haskellPackages.nix-serve-ng;
+  nix-serve-ng =
+    # FIXME: manually eliminate incorrect references on aarch64-darwin,
+    # see https://github.com/NixOS/nixpkgs/issues/318013
+    if stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64 then
+      haskellPackages.nix-serve-ng
+    else
+      haskell.lib.compose.justStaticExecutables haskellPackages.nix-serve-ng;
 
   nix-visualize = python3.pkgs.callPackage ../tools/package-management/nix-visualize { };
 
@@ -15907,10 +15872,6 @@ with pkgs;
   mkSaneConfig = callPackage ../applications/graphics/sane/config.nix { };
 
   sane-frontends = callPackage ../applications/graphics/sane/frontends.nix { };
-
-  slock = callPackage ../misc/screensavers/slock {
-    conf = config.slock.conf or null;
-  };
 
   snscrape = with python3Packages; toPythonApplication snscrape;
 
@@ -16212,12 +16173,6 @@ with pkgs;
   };
 
   sieveshell = with python3.pkgs; toPythonApplication managesieve;
-
-  jami = qt6Packages.callPackage ../applications/networking/instant-messengers/jami {
-    # TODO: remove once `udev` is `systemdMinimal` everywhere.
-    udev = systemdMinimal;
-    jack = libjack2;
-  };
 
   gpio-utils = callPackage ../os-specific/linux/kernel/gpio-utils.nix { };
 
