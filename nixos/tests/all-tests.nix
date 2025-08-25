@@ -333,7 +333,14 @@ in
   cinnamon-wayland = runTest ./cinnamon-wayland.nix;
   cjdns = runTest ./cjdns.nix;
   clatd = runTest ./clatd.nix;
-  clickhouse = import ./clickhouse { inherit runTest; };
+  clickhouse = import ./clickhouse {
+    inherit runTest;
+    package = pkgs.clickhouse;
+  };
+  clickhouse-lts = import ./clickhouse {
+    inherit runTest;
+    package = pkgs.clickhouse-lts;
+  };
   cloud-init = runTest ./cloud-init.nix;
   cloud-init-hostname = runTest ./cloud-init-hostname.nix;
   cloudlog = runTest ./cloudlog.nix;
@@ -1243,7 +1250,7 @@ in
   privoxy = runTest ./privoxy.nix;
   prometheus = import ./prometheus { inherit runTest; };
   prometheus-exporters = handleTest ./prometheus-exporters.nix { };
-  prosody = handleTest ./xmpp/prosody.nix { };
+  prosody = runTest ./xmpp/prosody.nix;
   prosody-mysql = handleTest ./xmpp/prosody-mysql.nix { };
   proxy = runTest ./proxy.nix;
   prowlarr = runTest ./prowlarr.nix;
@@ -1485,7 +1492,7 @@ in
   teleports = runTest ./teleports.nix;
   thelounge = handleTest ./thelounge.nix { };
   terminal-emulators = handleTest ./terminal-emulators.nix { };
-  thanos = handleTest ./thanos.nix { };
+  thanos = runTest ./thanos.nix;
   tiddlywiki = runTest ./tiddlywiki.nix;
   tigervnc = handleTest ./tigervnc.nix { };
   tika = runTest ./tika.nix;
@@ -1567,7 +1574,7 @@ in
   vector = import ./vector { inherit runTest; };
   velocity = runTest ./velocity.nix;
   vengi-tools = runTest ./vengi-tools.nix;
-  victorialogs = runTest ./victorialogs.nix;
+  victorialogs = import ./victorialogs { inherit runTest; };
   victoriametrics = import ./victoriametrics { inherit runTest; };
   vikunja = runTest ./vikunja.nix;
   virtualbox = handleTestOn [ "x86_64-linux" ] ./virtualbox.nix { };
