@@ -100,8 +100,19 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Art and dependencies with modifications to make it work on Linux";
     homepage = "https://gitlab.com/android_translation_layer/art_standalone";
-    # No license specified yet
-    license = lib.licenses.unfree;
+    # All licenses that were found in the constituent projects according to:
+    # https://gitlab.com/android_translation_layer/art_standalone/-/issues/2
+    license = with lib.licenses; [
+      asl20
+      gpl2Only
+      icu
+      cpl10
+      free # fdlibm looks custom but certainly free
+      bsd3
+      isc
+      mit
+      unicode-30
+    ];
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ onny ];
   };
