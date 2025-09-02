@@ -516,6 +516,16 @@ self: super:
               "CHANGELOG"
             ];
           })
+          # https://git-annex.branchable.com/bugs/flaky_test_failure_add_dup/
+          (pkgs.fetchpatch {
+            name = "git-annex-workaround-for-git-2.50_bis.patch";
+            url = "https://git.joeyh.name/index.cgi/git-annex.git/patch/?id=cf449837ea9ab7687d8a157f21cad31ddf5bbfb6";
+            sha256 = "sha256-HmNJ85dLht5Hy85AUkjACnET9YLPP2MshYHsApUax+I=";
+            excludes = [
+              "doc/**"
+              "CHANGELOG"
+            ];
+          })
         ];
 
         postPatch = ''
@@ -2789,12 +2799,12 @@ self: super:
         doJailbreak
         # 2022-12-02: Hackage release lags behind actual releases: https://github.com/PostgREST/postgrest/issues/2275
         (overrideSrc rec {
-          version = "13.0.0";
+          version = "13.0.6";
           src = pkgs.fetchFromGitHub {
             owner = "PostgREST";
             repo = "postgrest";
             rev = "v${version}";
-            hash = "sha256-j+WlY7D3hkPHIjiyCFenC5trF31L05gEPptCwOVil6U=";
+            hash = "sha256-BM7fLW7LYrl+++NVztr407QyAhj2k5zO70iDqSe22dc=";
           };
         })
       ];

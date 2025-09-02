@@ -70,6 +70,7 @@ let
         ],
       extraMeta ? { },
 
+      isLTS ? false,
       isZen ? false,
       isLibre ? false,
       isHardened ? false,
@@ -137,10 +138,23 @@ let
       structuredConfigFromPatches = map (
         {
           structuredExtraConfig ? { },
+          extraStructuredConfig ? { },
           ...
         }:
         {
-          settings = structuredExtraConfig;
+          settings =
+            if extraStructuredConfig != { } then
+              assert lib.assertMsg (structuredExtraConfig == { }) ''
+                Using both `extraStructuredConfig` & `structuredExtraConfig` for a single kernel
+                patch is not supported!
+              '';
+              lib.warn ''
+                Passing `extraStructuredConfig` to the Linux kernel build
+                (e.g. via `boot.kernelPatches` in NixOS) is deprecated and will fail at
+                evaluation in 25.11. Use `structuredExtraConfig` instead.
+              '' extraStructuredConfig
+            else
+              structuredExtraConfig;
         }
       ) kernelPatches;
 
@@ -300,6 +314,7 @@ let
               commonStructuredConfig
               structuredExtraConfig
               extraMakeFlags
+              isLTS
               isZen
               isHardened
               isLibre
