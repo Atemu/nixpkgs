@@ -2,18 +2,18 @@
   lib,
   buildNpmPackage,
   fetchFromGitHub,
-  gitUpdater,
+  nix-update-script,
 }:
 
 buildNpmPackage (finalAttrs: {
   pname = "gemini-cli";
-  version = "0.1.21";
+  version = "0.2.2";
 
   src = fetchFromGitHub {
     owner = "google-gemini";
     repo = "gemini-cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-eS83Uwp6LzyQuIx2jirXnJ6Xb2XEaAKLnS9PMKTIvyI=";
+    hash = "sha256-ykNgtHtH+PPCycRn9j1lc8UIEHqYj54l0MTeVz6OhsQ=";
   };
 
   patches = [
@@ -21,7 +21,7 @@ buildNpmPackage (finalAttrs: {
     ./restore-missing-dependencies-fields.patch
   ];
 
-  npmDepsHash = "sha256-5pFnxZFhVNxYLPJClYq+pe4wAX5623Y3hFj8lIq00+E=";
+  npmDepsHash = "sha256-gpNt581BHDA12s+3nm95UOYHjoa7Nfe46vgPwFr7ZOU=";
 
   preConfigure = ''
     mkdir -p packages/generated
@@ -49,14 +49,14 @@ buildNpmPackage (finalAttrs: {
     chmod +x "$out/bin/gemini"
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "AI agent that brings the power of Gemini directly into your terminal";
     homepage = "https://github.com/google-gemini/gemini-cli";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [
-      donteatoreo
+      FlameFlag
       taranarmo
     ];
     platforms = lib.platforms.all;
