@@ -165,17 +165,23 @@ let
             --wait \
             --collect \
             --service-type=exec \
+            --setenv OC_PASS \
+            --setenv NC_PASS \
             --quiet \
             ${command}
         elif [[ "$USER" != nextcloud ]]; then
           if [[ -x /run/wrappers/bin/sudo ]]; then
             exec /run/wrappers/bin/sudo \
               --preserve-env=CREDENTIALS_DIRECTORY \
+              --preserve-env=OC_PASS \
+              --preserve-env=NC_PASS \
               --user=nextcloud \
               ${command}
           else
             exec ${lib.getExe' pkgs.util-linux "runuser"} \
               --whitelist-environment=CREDENTIALS_DIRECTORY \
+              --whitelist-environment=OC_PASS \
+              --whitelist-environment=NC_PASS \
               --user=nextcloud \
               ${command}
           fi
@@ -1525,7 +1531,6 @@ in
           index index.php index.html /index.php$request_uri;
           ${optionalString (cfg.nginx.recommendedHttpHeaders) ''
             add_header X-Content-Type-Options nosniff;
-            add_header X-XSS-Protection "1; mode=block";
             add_header X-Robots-Tag "noindex, nofollow";
             add_header X-Permitted-Cross-Domain-Policies none;
             add_header X-Frame-Options sameorigin;

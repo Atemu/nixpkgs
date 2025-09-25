@@ -2949,6 +2949,8 @@ self: super: with self; {
 
   credstash = callPackage ../development/python-modules/credstash { };
 
+  crewai = callPackage ../development/python-modules/crewai { };
+
   crochet = callPackage ../development/python-modules/crochet { };
 
   crocoddyl = toPythonModule (
@@ -16673,6 +16675,8 @@ self: super: with self; {
   stable-baselines3 = callPackage ../development/python-modules/stable-baselines3 { };
 
   stack-data = callPackage ../development/python-modules/stack-data { };
+
+  stackprinter = callPackage ../development/python-modules/stackprinter { };
 
   stamina = callPackage ../development/python-modules/stamina { };
 

@@ -20,7 +20,7 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "rcu";
-  version = "4.0.24";
+  version = "4.0.29";
 
   format = "other";
 
@@ -28,7 +28,7 @@ python3Packages.buildPythonApplication rec {
     let
       src-tarball = requireFile {
         name = "rcu-${version}-source.tar.gz";
-        hash = "sha256-3rZiqg8Uuta3kI2m+2rBZ1XzN9bFds+emhivH5X7sJg=";
+        hash = "sha256-qbHjRKH9GOwBduyod8AOm2SYOjGUH1mYSpCTifOehVM=";
         url = "https://www.davisr.me/projects/rcu/";
       };
     in
@@ -39,7 +39,7 @@ python3Packages.buildPythonApplication rec {
     '';
 
   patches = [
-    ./Port-to-paramiko-3.x.patch
+    ./Port-to-paramiko-4.x.patch
   ];
 
   postPatch = ''
@@ -179,6 +179,9 @@ python3Packages.buildPythonApplication rec {
           lib.strings.substring versionSuffixPos 1 rcu.version
         })";
     };
+
+    # Python stuff automatically adds an updateScript that just fails
+    updateScript = null;
   };
 
   meta = {
