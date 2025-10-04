@@ -164,7 +164,8 @@ let
     # //third_party/libavif:libavif_enc(//build/toolchain/linux/unbundle:default)
     #   needs //third_party/libwebp:libwebp_sharpyuv(//build/toolchain/linux/unbundle:default)
     # "libwebp"
-    "libxslt"
+    "libxml"
+    "libxslt" # depends on libxml, always remove or re-add as a pair
     # "opus"
   ];
 
@@ -483,10 +484,15 @@ let
       # allowing us to use our rustc and our clang.
       ./patches/chromium-129-rust.patch
     ]
-    ++ lib.optionals (chromiumVersionAtLeast "140") [
+    ++ lib.optionals (versionRange "140" "141") [
       # Rebased variant of the patch above due to
       # https://chromium-review.googlesource.com/c/chromium/src/+/6665907
       ./patches/chromium-140-rust.patch
+    ]
+    ++ lib.optionals (chromiumVersionAtLeast "141") [
+      # Rebased variant of the patch above due to
+      # https://chromium-review.googlesource.com/c/chromium/src/+/6897026
+      ./patches/chromium-141-rust.patch
     ]
     ++ lib.optionals (!ungoogled && !chromiumVersionAtLeast "136") [
       # Note: We since use LLVM v19.1+ on unstable *and* release-24.11 for all version and as such
@@ -544,6 +550,17 @@ let
         decode = "base64 -d";
         revert = true;
         hash = "sha256-qDrqZKj8b3F0pAiPREDmcXYIEOaFoSIQOkT+lzKJglg=";
+      })
+    ]
+    ++ lib.optionals (chromiumVersionAtLeast "141") [
+      (fetchpatch {
+        # Fix "invalid application of 'sizeof' to an incomplete type 'blink::CSSStyleSheet'"
+        # by reverting https://chromium-review.googlesource.com/c/chromium/src/+/6892157
+        name = "chromium-141-Revert-Remove-unnecessary-include-in-tree_scope.h.patch";
+        url = "https://chromium.googlesource.com/chromium/src/+/0fc0e71aa1ca0419fae6d14255025543980d2cba^!?format=TEXT";
+        decode = "base64 -d";
+        revert = true;
+        hash = "sha256-pnEus2NHpNWZ6ZSXLgdTn+it7oy1MPZPbD8SOAKLWbw=";
       })
     ];
 
@@ -760,7 +777,12 @@ let
         # Disable PGO because the profile data requires a newer compiler version (LLVM 14 isn't sufficient):
         chrome_pgo_phase = 0;
         clang_base_path = "${llvmCcAndBintools}";
-
+      }
+      // lib.optionalAttrs (chromiumVersionAtLeast "141") {
+        # TODO: remove opt-out of https://chromium.googlesource.com/chromium/src/+/main/docs/modules.md
+        use_clang_modules = false;
+      }
+      // {
         use_qt5 = false;
         use_qt6 = false;
       }
@@ -800,15 +822,7 @@ let
       // (extraAttrs.gnFlags or { })
     );
 
-    # TODO: Migrate this to env.RUSTC_BOOTSTRAP next mass-rebuild.
-    # Chromium expects nightly/bleeding edge rustc features to be available.
-    # Our rustc in nixpkgs follows stable, but since bootstrapping rustc requires
-    # nightly features too, we can (ab-)use RUSTC_BOOTSTRAP here as well to
-    # enable those features in our stable builds.
-    preConfigure = ''
-      export RUSTC_BOOTSTRAP=1
-    ''
-    + lib.optionalString (!isElectron) ''
+    preConfigure = lib.optionalString (!isElectron) ''
       (
         cd third_party/node
         grep patch update_npm_deps | sh
@@ -829,6 +843,11 @@ let
       runHook postConfigure
     '';
 
+    # Chromium expects nightly/bleeding edge rustc features to be available.
+    # Our rustc in nixpkgs follows stable, but since bootstrapping rustc requires
+    # nightly features too, we can (ab-)use RUSTC_BOOTSTRAP here as well to
+    # enable those features in our stable builds.
+    env.RUSTC_BOOTSTRAP = 1;
     # Mute some warnings that are enabled by default. This is useful because
     # our Clang is always older than Chromium's and the build logs have a size
     # of approx. 25 MB without this option (and this saves e.g. 66 %).

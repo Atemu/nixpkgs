@@ -1076,6 +1076,7 @@ mapAliases {
   linuxPackages_6_14 = linuxKernel.packages.linux_6_14;
   linuxPackages_6_15 = linuxKernel.packages.linux_6_15;
   linuxPackages_6_16 = linuxKernel.packages.linux_6_16;
+  linuxPackages_6_17 = linuxKernel.packages.linux_6_17;
   linuxPackages_ham = linuxKernel.packages.linux_ham;
   linuxPackages_rpi0 = linuxKernel.packages.linux_rpi1;
   linuxPackages_rpi02w = linuxKernel.packages.linux_rpi3;
@@ -1101,6 +1102,7 @@ mapAliases {
   linux_6_14 = linuxKernel.kernels.linux_6_14;
   linux_6_15 = linuxKernel.kernels.linux_6_15;
   linux_6_16 = linuxKernel.kernels.linux_6_16;
+  linux_6_17 = linuxKernel.kernels.linux_6_17;
   linux_ham = linuxKernel.kernels.linux_ham;
   linux_rpi0 = linuxKernel.kernels.linux_rpi1;
   linux_rpi02w = linuxKernel.kernels.linux_rpi3;
@@ -1936,6 +1938,8 @@ mapAliases {
   trfl = throw "trfl has been removed, because it has not received an update for 3 years and was broken"; # Added 2024-07-25
   trezor_agent = trezor-agent; # Added 2024-01-07
   openai-triton-llvm = triton-llvm; # added 2024-07-18
+  trilium-next-desktop = trilium-desktop; # Added 2025-08-30
+  trilium-next-server = trilium-server; # Added 2025-08-30
   trust-dns = hickory-dns; # Added 2024-08-07
   tumpa = throw "tumpa has been removed, as it is broken"; # Added 2024-07-15
   turbogit = throw "turbogit has been removed as it is unmaintained upstream and depends on an insecure version of libgit2"; # Added 2024-08-25
