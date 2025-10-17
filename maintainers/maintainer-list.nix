@@ -2428,6 +2428,12 @@
     githubId = 574938;
     name = "Jonathan Glines";
   };
+  auscyber = {
+    email = "ivyp@outlook.com.au";
+    github = "auscyber";
+    name = "Ivy Pierlot";
+    githubId = 12080502;
+  };
   austin-artificial = {
     email = "austin.platt@artificial.io";
     github = "austin-artificial";
@@ -19839,12 +19845,6 @@
     email = "ppom@ecomail.fr";
     github = "ppom0";
     githubId = 38916722;
-  };
-  pradeepchhetri = {
-    email = "pradeep.chhetri89@gmail.com";
-    github = "pradeepchhetri";
-    githubId = 2232667;
-    name = "Pradeep Chhetri";
   };
   pradyuman = {
     email = "me@pradyuman.co";

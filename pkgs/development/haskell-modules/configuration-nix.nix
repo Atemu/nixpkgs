@@ -1703,7 +1703,12 @@ builtins.intersectAttrs super {
   kmonad = lib.pipe super.kmonad [
     enableSeparateBinOutput
     (overrideCabal (drv: {
-      passthru = lib.recursiveUpdate drv.passthru or { } { tests.nixos = pkgs.nixosTests.kmonad; };
+      passthru = lib.recursiveUpdate drv.passthru or { } {
+        darwinDriver = pkgs.karabiner-dk.override {
+          driver-version = "5.0.0";
+        };
+        tests.nixos = pkgs.nixosTests.kmonad;
+      };
     }))
   ];
 
@@ -1754,11 +1759,11 @@ builtins.intersectAttrs super {
         ])
       )
       (
-        super.libtorch-ffi.override ({
+        super.libtorch-ffi.override {
           c10 = pkgs.libtorch-bin;
           torch = pkgs.libtorch-bin;
           torch_cpu = pkgs.libtorch-bin;
-        })
+        }
       );
 
   # Upper bounds of text and bytestring too strict: https://github.com/zsedem/haskell-cpython/pull/24
