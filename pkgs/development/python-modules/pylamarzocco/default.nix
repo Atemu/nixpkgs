@@ -9,23 +9,20 @@
   mashumaro,
   pytest-asyncio,
   pytestCheckHook,
-  pythonOlder,
   setuptools,
   syrupy,
 }:
 
 buildPythonPackage rec {
   pname = "pylamarzocco";
-  version = "2.1.0";
+  version = "2.1.2";
   pyproject = true;
-
-  disabled = pythonOlder "3.12";
 
   src = fetchFromGitHub {
     owner = "zweckj";
     repo = "pylamarzocco";
     tag = "v${version}";
-    hash = "sha256-dUFjbht0QGrWtSl3JIx1dx4UQs5gFNqKw+UObgH25pk=";
+    hash = "sha256-gDIp7QcjXqJUlsr0xEIJEDQnmuOkD/BxATfv0fiGGpI=";
   };
 
   build-system = [ setuptools ];
