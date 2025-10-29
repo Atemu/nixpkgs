@@ -172,6 +172,11 @@ lib.mapAttrs mkLicense (
       fullName = "Baekmuk License";
     };
 
+    bitstreamCharter = {
+      spdxId = "Bitstream-Charter";
+      fullName = "Bitstream Charter Font License";
+    };
+
     bitstreamVera = {
       spdxId = "Bitstream-Vera";
       fullName = "Bitstream Vera Font License";
@@ -613,11 +618,6 @@ lib.mapAttrs mkLicense (
 
     free = {
       fullName = "Unspecified free software license";
-    };
-
-    freeimage = {
-      spdxId = "FreeImage";
-      fullName = "FreeImage Public License v1.0";
     };
 
     fsl11Mit = {
