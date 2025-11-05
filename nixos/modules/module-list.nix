@@ -240,7 +240,6 @@
   ./programs/iay.nix
   ./programs/iftop.nix
   ./programs/iio-hyprland.nix
-  ./programs/iio-niri.nix
   ./programs/immersed.nix
   ./programs/iotop.nix
   ./programs/java.nix
@@ -278,6 +277,7 @@
   ./programs/nix-index.nix
   ./programs/nix-ld.nix
   ./programs/nix-required-mounts.nix
+  ./programs/nixbit.nix
   ./programs/nm-applet.nix
   ./programs/nncp.nix
   ./programs/noisetorch.nix
@@ -362,6 +362,7 @@
   ./programs/xfconf.nix
   ./programs/xfs_quota.nix
   ./programs/xonsh.nix
+  ./programs/xppen.nix
   ./programs/xss-lock.nix
   ./programs/xwayland.nix
   ./programs/yazi.nix
@@ -857,6 +858,7 @@
   ./services/misc/heisenbridge.nix
   ./services/misc/homepage-dashboard.nix
   ./services/misc/ihaskell.nix
+  ./services/misc/iio-niri.nix
   ./services/misc/input-remapper.nix
   ./services/misc/invidious-router.nix
   ./services/misc/irkerd.nix
@@ -1458,6 +1460,7 @@
   ./services/security/certmgr.nix
   ./services/security/cfssl.nix
   ./services/security/clamav.nix
+  ./services/security/crowdsec-firewall-bouncer.nix
   ./services/security/crowdsec.nix
   ./services/security/e-imzo.nix
   ./services/security/endlessh-go.nix
@@ -1498,6 +1501,7 @@
   ./services/security/vault-agent.nix
   ./services/security/vault.nix
   ./services/security/vaultwarden/default.nix
+  ./services/security/warpgate.nix
   ./services/security/yubikey-agent.nix
   ./services/system/automatic-timezoned.nix
   ./services/system/bpftune.nix
