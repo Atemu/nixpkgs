@@ -19,9 +19,9 @@
     #
     # Ensure you also check ../mattermostLatest/package.nix.
     regex = "^v(10\\.5\\.[0-9]+)$";
-    version = "10.5.11";
-    srcHash = "sha256-2XX6SNWlu+2Kh0rJodp0Ipzu8/gdjygCxeD2BVYDcTc=";
-    vendorHash = "sha256-uryErnXPVd/gmiAk0F2DVaqz368H6j97nBn0eNW7DFk=";
+    version = "10.5.14";
+    srcHash = "sha256-Fy10WVFYEuofhZ5gqtnG8CK/wQDchxk8ZJjqnE/CCTQ=";
+    vendorHash = "sha256-vxUxSkj1EwgMtPpCGJSA9jCDBeLrWhecdwq4KBThhj4=";
     npmDepsHash = "sha256-tIeuDUZbqgqooDm5TRfViiTT5OIyN0BPwvJdI+wf7p0=";
     lockfileOverlay = ''
       unlock(.; "@floating-ui/react"; "channels/node_modules/@floating-ui/react")

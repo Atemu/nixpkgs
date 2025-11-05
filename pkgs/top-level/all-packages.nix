@@ -3877,10 +3877,12 @@ with pkgs;
   inherit (callPackages ../servers/nextcloud { })
     nextcloud30
     nextcloud31
+    nextcloud32
     ;
 
   nextcloud30Packages = callPackage ../servers/nextcloud/packages { ncVersion = "30"; };
   nextcloud31Packages = callPackage ../servers/nextcloud/packages { ncVersion = "31"; };
+  nextcloud32Packages = callPackage ../servers/nextcloud/packages { ncVersion = "32"; };
 
   nextcloud-notify_push = callPackage ../servers/nextcloud/notify_push.nix { };
 
@@ -5793,17 +5795,19 @@ with pkgs;
     julia_19-bin
     julia_110-bin
     julia_111-bin
+    julia_112-bin
     julia_19
     julia_110
     julia_111
+    julia_112
     ;
 
   julia-lts = julia_110-bin;
-  julia-stable = julia_111;
+  julia-stable = julia_112;
   julia = julia-stable;
 
   julia-lts-bin = julia_110-bin;
-  julia-stable-bin = julia_111-bin;
+  julia-stable-bin = julia_112-bin;
   julia-bin = julia-stable-bin;
 
   koka = haskell.lib.compose.justStaticExecutables (
@@ -15786,6 +15790,7 @@ with pkgs;
   gromacsDouble = lowPrio (
     gromacs.override {
       singlePrec = false;
+      enableCuda = false; # CUDA is only implemented for single precision
       fftw = fftw;
     }
   );
@@ -15793,6 +15798,7 @@ with pkgs;
   gromacsDoubleMpi = lowPrio (
     gromacs.override {
       singlePrec = false;
+      enableCuda = false; # CUDA is only implemented for single precision
       enableMpi = true;
       fftw = fftw;
     }
@@ -16184,8 +16190,6 @@ with pkgs;
       { };
 
   brgenml1lpr = pkgsi686Linux.callPackage ../misc/cups/drivers/brgenml1lpr { };
-
-  cups = callPackage ../misc/cups { };
 
   cups-filters = callPackage ../misc/cups/filters.nix { };
 
