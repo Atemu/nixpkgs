@@ -3,10 +3,11 @@
   fetchFromGitHub,
   makeBinaryWrapper,
   installShellFiles,
-  rustPlatform,
+  rustPackages_1_89,
   testers,
   cachix,
   nixVersions,
+  gitMinimal,
   openssl,
   dbus,
   pkg-config,
@@ -15,7 +16,7 @@
 }:
 
 let
-  version = "1.9";
+  version = "1.10";
   devenvNixVersion = "2.30.4";
 
   devenv_nix =
@@ -34,7 +35,7 @@ let
         __intentionallyOverridingVersion = true;
       });
 in
-rustPlatform.buildRustPackage {
+rustPackages_1_89.rustPlatform.buildRustPackage {
   pname = "devenv";
   inherit version;
 
@@ -42,10 +43,10 @@ rustPlatform.buildRustPackage {
     owner = "cachix";
     repo = "devenv";
     tag = "v${version}";
-    hash = "sha256-MG+c0mo4g9UHSuqibX3OVkiADWmMn/PWDfVhD4U29PM=";
+    hash = "sha256-rsb+6Wca43guzLL4Czoc89L394ZW9JZF2MShxaz2Sx4=";
   };
 
-  cargoHash = "sha256-7uB9oC0jHWBFeUtIyVpTjeximU6eSxSCiBzo/whoKxQ=";
+  cargoHash = "sha256-Wt47YdBEtFXQACk1ByDwQyXzHU4/nGVQKY7gaZeQrQ4=";
 
   buildAndTestSubdir = "devenv";
 
@@ -59,6 +60,16 @@ rustPlatform.buildRustPackage {
     openssl
     dbus
   ];
+
+  nativeCheckInputs = [
+    gitMinimal
+  ];
+
+  preCheck = ''
+    git init
+    git config user.email "test@example.com"
+    git config user.name "Test User"
+  '';
 
   postInstall =
     let
