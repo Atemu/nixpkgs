@@ -5,23 +5,27 @@
   lib,
   makeWrapper,
   stdenv,
+  writableTmpDirAsHomeHook,
   xdg-utils,
 }:
 buildGoModule rec {
   pname = "aws-vault";
-  version = "7.6.5";
+  version = "7.7.10";
 
   src = fetchFromGitHub {
     owner = "ByteNess";
     repo = "aws-vault";
     rev = "v${version}";
-    hash = "sha256-2Z3gh4F29v04pV5hz4XEn1GZFLjXMBnbBghGKczoCBk=";
+    hash = "sha256-PB1mKed1OD6VXzPRTtLIrgsSgGl+OTqfll6FvT1k7rI=";
   };
 
-  vendorHash = "sha256-nzeNwiNiDXBO9fwMVlc09Ulj/SPzxV+vrMb70PB5N+8=";
+  proxyVendor = true;
+  vendorHash = "sha256-Dp77XCq+D83sRN4l17X7aQRlNgAw4PXe45dj9dbozds=";
+
   nativeBuildInputs = [
     installShellFiles
     makeWrapper
+    writableTmpDirAsHomeHook
   ];
 
   postInstall = ''

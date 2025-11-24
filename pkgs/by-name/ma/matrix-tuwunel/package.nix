@@ -19,6 +19,7 @@
   liburing,
   nixosTests,
   writeTextFile,
+  rustc-unwrapped,
 }:
 let
   rust-jemalloc-sys' = rust-jemalloc-sys.override {
@@ -87,20 +88,26 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "matrix-tuwunel";
-  version = "1.4.5";
+  version = "1.4.6";
 
   src = fetchFromGitHub {
     owner = "matrix-construct";
     repo = "tuwunel";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-tZKq8ypDU1MkWORHFQhieDSUOqOzBcfqIQ40amyc1ls=";
+    hash = "sha256-EmIBhSxYD52BzwewcIL53e3/7GLY+5nccmAYGf1LPqI=";
   };
 
-  cargoHash = "sha256-x+LhpwDytwH/NzKWqAuRRbX77OZ2JGaYSaQxqinf81Q=";
+  cargoHash = "sha256-aVMJr216gkYpanCee6UhNGINAi/EZ0V5m0WaTYpQJcY=";
 
   nativeBuildInputs = [
     pkg-config
     rustPlatform.bindgenHook
+  ];
+
+  patches = [
+    # reduce closure size by not storing a reference to rustc-unwrapped
+    # alternative to https://github.com/NixOS/nixpkgs/pull/462394
+    ./dont-record-compilation-flags.patch
   ];
 
   buildInputs = [
@@ -171,6 +178,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
       inherit (nixosTests) matrix-tuwunel;
     };
   };
+
+  disallowedReferences = [ rustc-unwrapped ];
 
   meta = {
     description = "Matrix homeserver written in Rust, official successor to conduwuit";

@@ -2,7 +2,7 @@
 # Do not edit!
 
 {
-  version = "2025.11.1";
+  version = "2025.11.3";
   components = {
     "3_day_blinds" =
       ps: with ps; [
@@ -1457,7 +1457,8 @@
       ];
     "ekeybionyx" =
       ps: with ps; [
-      ]; # missing inputs: ekey-bionyxpy
+        ekey-bionyxpy
+      ];
     "electrasmart" =
       ps: with ps; [
         pyelectra
@@ -2729,8 +2730,9 @@
     "inels" =
       ps: with ps; [
         aiohasupervisor
+        elkoep-aio-mqtt
         paho-mqtt
-      ]; # missing inputs: elkoep-aio-mqtt
+      ];
     "influxdb" =
       ps: with ps; [
         influxdb
@@ -6245,7 +6247,8 @@
         dbus-fast
         habluetooth
         pyserial
-      ]; # missing inputs: togrill-bluetooth
+        togrill-bluetooth
+      ];
     "tolo" =
       ps: with ps; [
         tololib
@@ -7239,6 +7242,7 @@
     "efergy"
     "eheimdigital"
     "eight_sleep"
+    "ekeybionyx"
     "electrasmart"
     "electric_kiwi"
     "elevenlabs"
@@ -7424,6 +7428,7 @@
     "immich"
     "improv_ble"
     "incomfort"
+    "inels"
     "influxdb"
     "inkbird"
     "input_boolean"
@@ -7928,6 +7933,7 @@
     "tod"
     "todo"
     "todoist"
+    "togrill"
     "tolo"
     "tomato"
     "tomorrowio"
