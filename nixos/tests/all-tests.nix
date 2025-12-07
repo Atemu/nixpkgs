@@ -522,7 +522,7 @@ in
   };
   ergo = runTest ./ergo.nix;
   ergochat = runTest ./ergochat.nix;
-  ersatztv = handleTest ./ersatztv.nix { };
+  ersatztv = runTest ./ersatztv.nix;
   espanso = import ./espanso.nix {
     inherit (pkgs) lib;
     inherit runTest;
@@ -569,6 +569,7 @@ in
     imports = [ ./firefox.nix ];
     _module.args.firefoxPackage = pkgs.firefox-esr-140;
   };
+  firefox-syncserver = runTest ./firefox-syncserver.nix;
   firefoxpwa = runTest ./firefoxpwa.nix;
   firejail = runTest ./firejail.nix;
   firewall = runTest {
@@ -982,7 +983,6 @@ in
   mpd = runTest ./mpd.nix;
   mpv = runTest ./mpv.nix;
   mtp = runTest ./mtp.nix;
-  multipass = runTest ./multipass.nix;
   mumble = runTest ./mumble.nix;
   munge = runTest ./munge.nix;
   munin = runTest ./munin.nix;

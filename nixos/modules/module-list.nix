@@ -913,7 +913,6 @@
   ./services/misc/podgrab.nix
   ./services/misc/polaris.nix
   ./services/misc/portunus.nix
-  ./services/misc/preload.nix
   ./services/misc/pufferpanel.nix
   ./services/misc/pykms.nix
   ./services/misc/radicle.nix
@@ -1946,7 +1945,6 @@
   ./virtualisation/libvirtd.nix
   ./virtualisation/lxc.nix
   ./virtualisation/lxcfs.nix
-  ./virtualisation/multipass.nix
   ./virtualisation/nixos-containers.nix
   ./virtualisation/oci-containers.nix
   ./virtualisation/oci-options.nix

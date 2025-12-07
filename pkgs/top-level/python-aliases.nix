@@ -114,7 +114,8 @@ mapAliases {
   django-crispy-bootstrap3 = crispy-bootstrap3; # added 2025-06-11
   django-crispy-bootstrap4 = crispy-bootstrap4; # added 2025-06-11
   django-crispy-bootstrap5 = crispy-bootstrap5; # added 2025-06-11
-  django_3 = throw "Django 3 has reached it#s EOL in 2024-04 and has therefore been removed."; # added 2025-01-25
+  django_3 = throw "Django 3 has reached it's EOL in 2024-04 and has therefore been removed."; # added 2025-01-25
+  django_5_1 = throw "Django 5.1 has reached it's EOL in 2025-12 and has therefore been removed."; # added 2025-11-30"
   django_appconf = throw "'django_appconf' has been renamed to/replaced by 'django-appconf'"; # Converted to throw 2025-10-29
   django_classytags = throw "'django_classytags' has been renamed to/replaced by 'django-classy-tags'"; # Converted to throw 2025-10-29
   django_colorful = throw "'django_colorful' has been renamed to/replaced by 'django-colorful'"; # Converted to throw 2025-10-29
@@ -333,6 +334,7 @@ mapAliases {
   PyICU = throw "'PyICU' has been renamed to/replaced by 'pyicu'"; # Converted to throw 2025-10-29
   PyLD = throw "'PyLD' has been renamed to/replaced by 'pyld'"; # Converted to throw 2025-10-29
   pyliblo = throw "pyliblo is unmaintained upstream and was removed from nixpkgs. Please use pyliblo3 instead"; # added 2025-06-23
+  pylit = throw "'pylit' has been removed as it was broken and unmaintained upstream"; # Added 2025-11-29
   pymc3 = throw "'pymc3' has been renamed to/replaced by 'pymc'"; # Converted to throw 2025-10-29
   pymelcloud = throw "'pymelcloud' has been renamed to/replaced by 'python-melcloud'"; # Converted to throw 2025-10-29
   PyMVGLive = throw "'PyMVGLive' has been renamed to/replaced by 'pymvglive'"; # Converted to throw 2025-10-29
@@ -477,6 +479,8 @@ mapAliases {
   tweedledum = throw "'tweedledum' has been removed due to lack of upstream maintenance."; # Added 2025-11-22
   typed-ast = throw "typed-ast was removed because it went end of life in July 2023"; # added 2025-05-24
   types-typed-ast = throw "types-typed-ast was removed because so was typed-ast"; # added 2025-05-24
+  typesystem = throw "'typesystem' has been removed as it was broken, unmaintained, and archived upstream"; # Added 2025-11-27
+  typical = throw "'typical' has been removed as it was broken and archived upstream"; # Added 2025-11-27
   uamqp = throw "'uamqp' has been removed because it is broken and unmaintained."; # added 2025-06-11
   ufoLib2 = throw "'ufoLib2' has been renamed to/replaced by 'ufolib2'"; # Converted to throw 2025-10-29
   unicode-slugify = throw "'unicode-slugify' has been removed becaues it was broken and unmaintained. Consider using 'python-slugify' instead."; # added 2025-10-05

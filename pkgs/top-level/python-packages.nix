@@ -4105,6 +4105,8 @@ self: super: with self; {
 
   django-mfa3 = callPackage ../development/python-modules/django-mfa3 { };
 
+  django-minify-html = callPackage ../development/python-modules/django-minify-html { };
+
   django-model-utils = callPackage ../development/python-modules/django-model-utils { };
 
   django-modelcluster = callPackage ../development/python-modules/django-modelcluster { };
@@ -4275,8 +4277,6 @@ self: super: with self; {
   django_4 = callPackage ../development/python-modules/django/4.nix { };
 
   django_5 = self.django_5_2;
-
-  django_5_1 = callPackage ../development/python-modules/django/5_1.nix { };
 
   django_5_2 = callPackage ../development/python-modules/django/5_2.nix { };
 
@@ -4810,6 +4810,8 @@ self: super: with self; {
   emcee = callPackage ../development/python-modules/emcee { };
 
   emoji = callPackage ../development/python-modules/emoji { };
+
+  emoji-country-flag = callPackage ../development/python-modules/emoji-country-flag { };
 
   emojis = callPackage ../development/python-modules/emojis { };
 
@@ -13628,8 +13630,6 @@ self: super: with self; {
 
   pylion = callPackage ../development/python-modules/pylion { };
 
-  pylit = callPackage ../development/python-modules/pylit { };
-
   pylitejet = callPackage ../development/python-modules/pylitejet { };
 
   pylitterbot = callPackage ../development/python-modules/pylitterbot { };
@@ -19688,10 +19688,6 @@ self: super: with self; {
   typesentry = callPackage ../development/python-modules/typesentry { };
 
   typeshed-client = callPackage ../development/python-modules/typeshed-client { };
-
-  typesystem = callPackage ../development/python-modules/typesystem { };
-
-  typical = callPackage ../development/python-modules/typical { };
 
   typing = null;
 

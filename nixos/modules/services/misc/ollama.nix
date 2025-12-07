@@ -8,7 +8,7 @@ let
   inherit (lib) literalExpression types;
 
   cfg = config.services.ollama;
-  ollamaPackage = cfg.package.override { inherit (cfg) acceleration; };
+  ollama = lib.getExe cfg.package;
 
   staticUser = cfg.user != null && cfg.group != null;
 in
@@ -37,7 +37,33 @@ in
   options = {
     services.ollama = {
       enable = lib.mkEnableOption "ollama server for local large language models";
-      package = lib.mkPackageOption pkgs "ollama" { };
+      package = lib.mkPackageOption pkgs "ollama" {
+        example = "pkgs.ollama-rocm";
+        default = [
+          (
+            if !(config ? services) || cfg.acceleration == null then
+              "ollama"
+            else if cfg.acceleration == false then
+              "ollama-cpu"
+            else
+              "ollama-${cfg.acceleration}"
+          )
+        ];
+        extraDescription = ''
+          Different packages use different hardware acceleration.
+
+          - `ollama`: default behavior; usually equivalent to `ollama-cpu`
+            - if `nixpkgs.config.rocmSupport` is enabled, is equivalent to `ollama-rocm`
+            - if `nixpkgs.config.cudaSupport` is enabled, is equivalent to `ollama-cuda`
+            - otherwise defaults to `ollama-cpu`
+          - `ollama-cpu`: disable GPU; only use CPU
+          - `ollama-rocm`: supported by most modern AMD GPUs
+            - may require overriding gpu type with `services.ollama.rocmOverrideGfx`
+              if rocm doesn't detect your AMD gpu
+          - `ollama-cuda`: supported by most modern NVIDIA GPUs
+          - `ollama-vulkan`: supported by most GPUs
+        '';
+      };
 
       user = lib.mkOption {
         type = with types; nullOr str;
@@ -110,17 +136,18 @@ in
         example = "rocm";
         description = ''
           What interface to use for hardware acceleration.
+          It is now preferred to set `services.ollama.package` instead.
 
-          - `null`: default behavior
-            - if `nixpkgs.config.rocmSupport` is enabled, uses `"rocm"`
-            - if `nixpkgs.config.cudaSupport` is enabled, uses `"cuda"`
+          - `null`: default behavior; usually equivalent to `false`
+            - if `nixpkgs.config.rocmSupport` is enabled, is equivalent to `"rocm"`
+            - if `nixpkgs.config.cudaSupport` is enabled, is equivalent to `"cuda"`
             - otherwise defaults to `false`
-          - `false`: disable GPU, only use CPU
+          - `false`: disable GPU; only use CPU
           - `"rocm"`: supported by most modern AMD GPUs
             - may require overriding gpu type with `services.ollama.rocmOverrideGfx`
               if rocm doesn't detect your AMD gpu
           - `"cuda"`: supported by most modern NVIDIA GPUs
-          - `"vulkan"`: supported by most modern GPUs on Linux
+          - `"vulkan"`: supported by most GPUs
         '';
       };
       rocmOverrideGfx = lib.mkOption {
@@ -152,17 +179,36 @@ in
           Since `ollama run` is mostly a shell around the ollama server, this is usually sufficient.
         '';
       };
+
       loadModels = lib.mkOption {
         type = types.listOf types.str;
+        apply = builtins.filter (model: model != "");
         default = [ ];
+        example = [
+          "dolphin3"
+          "gemma3"
+          "gemma3:27b"
+          "deepseek-r1:latest"
+          "deepseek-r1:1.5b"
+        ];
         description = ''
           Download these models using `ollama pull` as soon as `ollama.service` has started.
 
           This creates a systemd unit `ollama-model-loader.service`.
+          Use `services.ollama.syncModels` to automatically remove any models not currently declared here.
 
           Search for models of your choice from: <https://ollama.com/library>
         '';
       };
+      syncModels = lib.mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          Synchronize all currently installed models with those declared in `services.ollama.loadModels`,
+          removing any models that are installed but not currently declared there.
+        '';
+      };
+
       openFirewall = lib.mkOption {
         type = types.bool;
         default = false;
@@ -207,7 +253,7 @@ in
         // {
           Type = "exec";
           DynamicUser = true;
-          ExecStart = "${lib.getExe ollamaPackage} serve";
+          ExecStart = "${ollama} serve";
           WorkingDirectory = cfg.home;
           StateDirectory = [ "ollama" ];
           ReadWritePaths = [
@@ -266,7 +312,7 @@ in
         };
     };
 
-    systemd.services.ollama-model-loader = lib.mkIf (cfg.loadModels != [ ]) {
+    systemd.services.ollama-model-loader = lib.mkIf (cfg.loadModels != [ ] || cfg.syncModels) {
       description = "Download ollama models in the background";
       wantedBy = [
         "multi-user.target"
@@ -289,35 +335,54 @@ in
         RestartSteps = "10";
       };
 
-      script = ''
-        total=${toString (builtins.length cfg.loadModels)}
-        failed=0
+      script =
+        let
+          binaryInputs = lib.mapAttrs (_: lib.getExe) {
+            parallel = pkgs.parallel;
+            awk = pkgs.gawk;
+            sed = pkgs.gnused;
+          };
+          inherit (binaryInputs)
+            parallel
+            awk
+            sed
+            ;
 
-        for model in ${lib.escapeShellArgs cfg.loadModels}; do
-          '${lib.getExe ollamaPackage}' pull "$model" &
-        done
+          declaredModelsRegex = lib.pipe cfg.loadModels [
+            (map lib.escapeRegex)
+            (lib.concatStringsSep "|")
+            (lib.escape [ "/" ])
+            lib.escapeShellArg
+          ];
+        in
+        ''
+          ${lib.optionalString cfg.syncModels ''
+            installed=$('${ollama}' list | '${awk}' 'NR > 1 {print $1}')
+            ${
+              # if `declaredModelsRegex` is empty, sed will err
+              if (cfg.loadModels != [ ]) then
+                ''
+                  echo declared models regex: ${declaredModelsRegex}
+                  undeclared=$(echo "$installed" | '${sed}' -E /${declaredModelsRegex}/d)
+                ''
+              else
+                ''
+                  undeclared="$installed"
+                ''
+            }
+            if [ -n "$undeclared" ]; then
+              echo removing: $undeclared
+              '${ollama}' rm $undeclared
+            fi
+          ''}
 
-        for job in $(jobs -p); do
-          set +e
-          wait $job
-          exit_code=$?
-          set -e
-
-          if [ $exit_code != 0 ]; then
-            failed=$((failed + 1))
-          fi
-        done
-
-        if [ $failed != 0 ]; then
-          echo "error: $failed out of $total attempted model downloads failed" >&2
-          exit 1
-        fi
-      '';
+          '${parallel}' --tag '${ollama}' pull ::: ${lib.escapeShellArgs cfg.loadModels}
+        '';
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
 
-    environment.systemPackages = [ ollamaPackage ];
+    environment.systemPackages = [ cfg.package ];
   };
 
   meta.maintainers = with lib.maintainers; [
