@@ -2465,10 +2465,6 @@ with pkgs;
     enableExtraPlugins = true;
   };
 
-  asciidoctor = callPackage ../tools/typesetting/asciidoctor { };
-
-  asciidoctor-with-extensions = callPackage ../tools/typesetting/asciidoctor-with-extensions { };
-
   b2sum = callPackage ../tools/security/b2sum {
     inherit (llvmPackages) openmp;
   };
@@ -2993,8 +2989,6 @@ with pkgs;
   firehol = callPackage ../applications/networking/firehol { };
 
   fluentd = callPackage ../tools/misc/fluentd { };
-
-  gemstash = callPackage ../development/tools/gemstash { };
 
   lpd8editor = libsForQt5.callPackage ../applications/audio/lpd8editor { };
 
@@ -6967,6 +6961,7 @@ with pkgs;
     electron_36-bin
     electron_37-bin
     electron_38-bin
+    electron_39-bin
     ;
 
   inherit (callPackages ../development/tools/electron/chromedriver { })
@@ -6976,16 +6971,13 @@ with pkgs;
     electron-chromedriver_36
     electron-chromedriver_37
     electron-chromedriver_38
+    electron-chromedriver_39
     ;
 
   electron_33 = electron_33-bin;
   electron_34 = electron_34-bin;
   electron_35 = electron_35-bin;
-  electron_36 =
-    if lib.meta.availableOn stdenv.hostPlatform electron-source.electron_36 then
-      electron-source.electron_36
-    else
-      electron_36-bin;
+  electron_36 = electron_36-bin;
   electron_37 =
     if lib.meta.availableOn stdenv.hostPlatform electron-source.electron_37 then
       electron-source.electron_37
@@ -6996,6 +6988,11 @@ with pkgs;
       electron-source.electron_38
     else
       electron_38-bin;
+  electron_39 =
+    if lib.meta.availableOn stdenv.hostPlatform electron-source.electron_39 then
+      electron-source.electron_39
+    else
+      electron_39-bin;
   electron = electron_37;
   electron-bin = electron_37-bin;
   electron-chromedriver = electron-chromedriver_37;
@@ -7778,8 +7775,6 @@ with pkgs;
   texinfoInteractive = texinfo.override { interactive = true; };
 
   tflint-plugins = recurseIntoAttrs (callPackage ../development/tools/analysis/tflint-plugins { });
-
-  travis = callPackage ../development/tools/misc/travis { };
 
   tree-sitter = makeOverridable (callPackage ../development/tools/parsing/tree-sitter) { };
 
@@ -12236,6 +12231,7 @@ with pkgs;
     docker_26
     docker_27
     docker_28
+    docker_29
     ;
 
   docker = docker_27;
@@ -12763,8 +12759,6 @@ with pkgs;
 
   hpmyroom = libsForQt5.callPackage ../applications/networking/hpmyroom { };
 
-  hue-cli = callPackage ../tools/networking/hue-cli { };
-
   hugin = callPackage ../applications/graphics/hugin {
     wxGTK = wxGTK32;
   };
@@ -13250,8 +13244,6 @@ with pkgs;
 
   libutp = callPackage ../applications/networking/p2p/libutp { };
   libutp_3_4 = callPackage ../applications/networking/p2p/libutp/3.4.nix { };
-
-  ledger-web = callPackage ../applications/office/ledger-web { };
 
   linphone = libsForQt5.callPackage ../applications/networking/instant-messengers/linphone { };
 

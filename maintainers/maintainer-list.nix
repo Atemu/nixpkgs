@@ -10686,6 +10686,13 @@
     githubId = 54999;
     name = "Ariel Nunez";
   };
+  insipx = {
+    email = "github@andrewplaza.dev";
+    github = "insipx";
+    githubId = 6452260;
+    name = "Andrew Plaza";
+    keys = [ { fingerprint = "843D 72A9 EB79 A869 2C58  5B3A E773 8A7A 0F5C DB89"; } ];
+  };
   interdependence = {
     email = "git@williamvandervalk.com";
     github = "interdependence";
@@ -12839,6 +12846,14 @@
     githubId = 5188977;
     matrix = "@kenran_:matrix.org";
     name = "Johannes Maier";
+  };
+  kenshineto = {
+    name = "Freya Murphy";
+    email = "contact@freyacat.org";
+    matrix = "@freya:freya.cat";
+    github = "kenshineto";
+    githubId = 28487599;
+    keys = [ { fingerprint = "D9AF 0A42 09B7 C2DE 11A8  84BF ACBC 5536 60D9 993D"; } ];
   };
   kentjames = {
     email = "jameschristopherkent@gmail.com";
@@ -17013,7 +17028,7 @@
   mynacol = {
     github = "Mynacol";
     githubId = 26695166;
-    name = "Paul Prechtel";
+    name = "Mynacol";
   };
   myrl = {
     email = "myrl.0xf@gmail.com";
@@ -25708,6 +25723,11 @@
     github = "uskudnik";
     githubId = 120451;
     name = "Urban Skudnik";
+  };
+  usovalx = {
+    name = "Oleksandr Usov";
+    github = "usovalx";
+    githubId = 1041626;
   };
   usrfriendly = {
     name = "Arin Lares";

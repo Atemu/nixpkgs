@@ -78,12 +78,12 @@ let
               ;
             dontBuilt = true;
             installPhase = ''
-              cp -R ext/glfm_markdown $out
+              cp -R ext/gitlab_glfm_markdown $out
               rm $out/Cargo.lock
               cp Cargo.lock $out
             '';
           };
-          hash = "sha256-f2a6/xPNGfiT4bbKAlHYYcqc0PkEkW+cpH7QbJMCY7c=";
+          hash = "sha256-x97e5fg11IU63VZd1n3CHduVC7GQagI8MFiFwR+p0wk=";
         };
 
         dontBuild = false;
@@ -104,7 +104,6 @@ let
         '';
 
         postInstall = ''
-          mv -v $GEM_HOME/gems/${attrs.gemName}-${attrs.version}/lib/{glfm_markdown/glfm_markdown.so,}
           find $out -type f -name .rustc_info.json -delete
         '';
       };
@@ -147,7 +146,7 @@ let
       sha256 = data.yarn_hash;
     };
     frontendIslandsYarnOfflineCache = fetchYarnDeps {
-      yarnLock = src + "/ee/frontend_islands/apps/duo_next/yarn.lock";
+      yarnLock = src + "/ee/frontend_islands/yarn.lock";
       sha256 = data.frontend_islands_yarn_hash;
     };
 
@@ -194,7 +193,7 @@ let
     + lib.optionalString gitlabEnterprise ''
       # Get node modules for frontend islands
       export HOME=$(mktemp -d)
-      pushd ee/frontend_islands/apps/duo_next
+      pushd ee/frontend_islands
       yarn config --offline set yarn-offline-mirror "$frontendIslandsYarnOfflineCache"
       fixup-yarn-lock yarn.lock
       yarn install \
