@@ -2806,8 +2806,8 @@ let
         mktplcRef = {
           name = "vscord";
           publisher = "leonardssh";
-          version = "5.3.5";
-          hash = "sha256-b5osn7UeSkr8gnLZ/PkrxS0WmgHUwfS0jnwTc1Uw0Sg=";
+          version = "5.3.8";
+          hash = "sha256-tqyhu6pa+UFwCYpS3xioeSw4oET0TFfQmJ8hsSz3q/k=";
         };
         meta = {
           description = "Highly customizable Discord Rich Presence extension for Visual Studio Code";
@@ -3606,8 +3606,8 @@ let
         mktplcRef = {
           name = "dark-molokai-theme";
           publisher = "nonylene";
-          version = "1.0.8";
-          hash = "sha256-GQNv3QWzb0xSnaR8GOnAOZF/wOg0LaWHN3goIYq7JmI=";
+          version = "1.0.10";
+          hash = "sha256-YBYlcf6TUPEQvmhL7mYfN59itKQvtWt9003/Bup15eg=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/nonylene.dark-molokai-theme/changelog";
@@ -4049,13 +4049,13 @@ let
           version = "0.20.0";
           sha256 = "c000cbdc090b7d3d8df62a3c87a5d881c78aca5b490b3e591d9841d788a9aa93";
         };
-        meta = with lib; {
+        meta = {
           description = "Syntax highlighting for jinja(2) including HTML, Markdown, YAML, Ruby and LaTeX templates";
           downloadPage = "https://marketplace.visualstudio.com/items?itemName=samuelcolvin.jinjahtml";
           homepage = "https://github.com/samuelcolvin/jinjahtml-vscode";
           changelog = "https://marketplace.visualstudio.com/items/samuelcolvin.jinjahtml/changelog";
-          license = licenses.mit;
-          maintainers = [ maintainers.DataHearth ];
+          license = lib.licenses.mit;
+          maintainers = [ lib.maintainers.DataHearth ];
         };
       };
 

@@ -14233,10 +14233,10 @@ with self;
 
   FinanceQuote = buildPerlPackage rec {
     pname = "Finance-Quote";
-    version = "1.67";
+    version = "1.68";
     src = fetchurl {
       url = "mirror://cpan/authors/id/B/BP/BPSCHUCK/Finance-Quote-${version}.tar.gz";
-      hash = "sha256-uqip/AS5o4+nh77gAWvNTMMwHMmi8KbDeBGaNdre6zA=";
+      hash = "sha256-MuyDh8qZZr/iTob1TiR/mgt9d5mrwADM+k8oI6+iREE=";
     };
     buildInputs = [
       DateManip
@@ -27270,9 +27270,9 @@ with self;
       url = "mirror://cpan/authors/id/J/JM/JMACFARLA/Parse-Win32Registry-1.1.tar.gz";
       hash = "sha256-wWOyAr5q17WPSEZJT/crjJqXloPKmU5DgOmsZWTcBbo=";
     };
-    meta = with lib; {
+    meta = {
       description = "Module for parsing Windows Registry files";
-      license = with licenses; [
+      license = with lib.licenses; [
         artistic1
         gpl1Only
       ];

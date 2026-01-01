@@ -59,11 +59,11 @@ in
 
 stdenv.mkDerivation rec {
   pname = "gnutls";
-  version = "3.8.10";
+  version = "3.8.11";
 
   src = fetchurl {
     url = "mirror://gnupg/gnutls/v${lib.versions.majorMinor version}/gnutls-${version}.tar.xz";
-    hash = "sha256-23+rfM55Hncn677yM0MByCHXmlUOxVye8Ja2ELA+trc=";
+    hash = "sha256-kb0jxKhuvGFS6BMD0gz2zq65e8j4QmbQ+uxuKfF7qiA=";
   };
 
   outputs = [
@@ -214,7 +214,7 @@ stdenv.mkDerivation rec {
     static = pkgsStatic.gnutls;
   };
 
-  meta = with lib; {
+  meta = {
     description = "GNU Transport Layer Security Library";
 
     longDescription = ''
@@ -232,8 +232,8 @@ stdenv.mkDerivation rec {
     '';
 
     homepage = "https://gnutls.org/";
-    license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ vcunat ];
-    platforms = platforms.all;
+    license = lib.licenses.lgpl21Plus;
+    maintainers = with lib.maintainers; [ vcunat ];
+    platforms = lib.platforms.all;
   };
 }

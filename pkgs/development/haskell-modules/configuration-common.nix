@@ -482,6 +482,15 @@ with haskellLib;
     })
   ] super.lukko;
 
+  # We need https://github.com/commercialhaskell/rio/pull/271 which
+  # e.g. breaks stack https://github.com/commercialhaskell/stack/issues/6824
+  rio = overrideCabal {
+    version = "0.1.24.0";
+    sha256 = "sha256-yeMJDszBnrTowTSgGXI3xjXGILOt8xYyIdy53bFn2b8=";
+    revision = null;
+    editedCabalFile = null;
+  } super.rio;
+
   # Relax version constraints (network < 3.2, text < 2.1)
   # https://github.com/essandess/adblock2privoxy/pull/43
   adblock2privoxy = doJailbreak super.adblock2privoxy;
@@ -594,42 +603,36 @@ with haskellLib;
   # but we want e.g. completions as well. See
   # https://web.archive.org/web/20160724083703/https://git-annex.branchable.com/bugs/bash_completion_file_is_missing_in_the_6.20160527_tarball_on_hackage/
   # or git-annex @ 3571b077a1244330cc736181ee04b4d258a78476 doc/bugs/bash_completion_file_is_missing*
-  git-annex = lib.pipe super.git-annex (
-    [
-      (overrideCabal (drv: {
-        src = pkgs.fetchgit {
-          name = "git-annex-${super.git-annex.version}-src";
-          url = "git://git-annex.branchable.com/";
-          rev = "refs/tags/" + super.git-annex.version;
-          sha256 = "sha256-HkUrc9T8qpGsONIuM7ciKbx4vuJTOLFNxneIPte0wv4=";
-          # delete android and Android directories which cause issues on
-          # darwin (case insensitive directory). Since we don't need them
-          # during the build process, we can delete it to prevent a hash
-          # mismatch on darwin.
-          postFetch = ''
-            rm -r $out/doc/?ndroid*
-          '';
-        };
-
-        patches = drv.patches or [ ] ++ [
-          # Prevent .desktop files from being installed to $out/usr/share.
-          # TODO(@sternenseemann): submit upstreamable patch resolving this
-          # (this should be possible by also taking PREFIX into account).
-          ./patches/git-annex-no-usr-prefix.patch
-        ];
-
-        postPatch = ''
-          substituteInPlace Makefile \
-            --replace-fail 'InstallDesktopFile $(PREFIX)/bin/git-annex' \
-                           'InstallDesktopFile git-annex'
+  git-annex = lib.pipe super.git-annex [
+    (overrideCabal (drv: {
+      src = pkgs.fetchgit {
+        name = "git-annex-${super.git-annex.version}-src";
+        url = "git://git-annex.branchable.com/";
+        rev = "refs/tags/" + super.git-annex.version;
+        sha256 = "sha256-+OLFMrqpf1Ooy7CQ9S+N/H5R5+aHQtbO1pYwDF4ln8A=";
+        # delete android and Android directories which cause issues on
+        # darwin (case insensitive directory). Since we don't need them
+        # during the build process, we can delete it to prevent a hash
+        # mismatch on darwin.
+        postFetch = ''
+          rm -r $out/doc/?ndroid*
         '';
-      }))
-    ]
-    ++ lib.optionals (lib.versionOlder self.ghc.version "9.10") [
-      (disableCabalFlag "OsPath")
-      (addBuildDepends [ self.filepath-bytestring ])
-    ]
-  );
+      };
+
+      patches = drv.patches or [ ] ++ [
+        # Prevent .desktop files from being installed to $out/usr/share.
+        # TODO(@sternenseemann): submit upstreamable patch resolving this
+        # (this should be possible by also taking PREFIX into account).
+        ./patches/git-annex-no-usr-prefix.patch
+      ];
+
+      postPatch = ''
+        substituteInPlace Makefile \
+          --replace-fail 'InstallDesktopFile $(PREFIX)/bin/git-annex' \
+                         'InstallDesktopFile git-annex'
+      '';
+    }))
+  ];
 
   # Too strict bounds on servant
   # Pending a hackage revision: https://github.com/berberman/arch-web/commit/5d08afee5b25e644f9e2e2b95380a5d4f4aa81ea#commitcomment-89230555
@@ -1212,34 +1215,17 @@ with haskellLib;
       let
         mkSeldaPackage =
           name:
-          overrideCabal (drv: {
-            version = "2024-05-05-unstable";
+          overrideSrc {
+            version = "0.5.2.1-unstable-2025-12-04";
             src =
               pkgs.fetchFromGitHub {
                 owner = "valderman";
                 repo = "selda";
-                rev = "50c3ba5c5da72bb758a4112363ba2fe1c0e968ea";
-                hash = "sha256-LEAJsSsDL0mmVHntnI16fH8m5DmePfcU0hFw9ErqTgQ=";
+                rev = "e5015300f40ca8b5b0b6552ab9d8c1af5984175d";
+                hash = "sha256-Y5xU2EzFe0bwPoKgFpMI2DrWAUTiqpvnTnosh/yn2Pw=";
               }
               + "/${name}";
-            # 2025-04-09: jailbreak to allow bytestring >= 0.12, text >= 2.1
-            # Note: jailbreak ignores constraints under an if(flag)
-            postPatch = ''
-              check_sed() {
-                if ! test -s "$1"; then
-                  echo "sed: pattern '$2' doesn't match anything" >&2
-                  exit 1
-                fi
-              }
-              sed -i ${name}.cabal \
-                -e 's/\(bytestring\) .*/\1/w c1' \
-                -e 's/\(text\) .*/\1/w c2' \
-                -e 's/\(aeson\) .*/\1/w c3'
-              check_sed c1 'bytestring .*'
-              check_sed c2 'text .*'
-              ${lib.optionalString (name == "selda-json") "check_sed c3 'aeson .*'"}
-            '';
-          }) super.${name};
+          } super.${name};
       in
       lib.genAttrs [ "selda" "selda-sqlite" "selda-json" ] mkSeldaPackage
     )
@@ -2806,12 +2792,12 @@ with haskellLib;
         doJailbreak
         # 2022-12-02: Hackage release lags behind actual releases: https://github.com/PostgREST/postgrest/issues/2275
         (overrideSrc rec {
-          version = "14.0";
+          version = "14.1";
           src = pkgs.fetchFromGitHub {
             owner = "PostgREST";
             repo = "postgrest";
             rev = "v${version}";
-            hash = "sha256-GokYeVDuVdIbowU6xE3l8iaGbH4jnpqQFy/E+sb/Unw=";
+            hash = "sha256-VGmo0Y8Q86euPlu3AhMmcmy3rintNy6s9efpUaliBWY=";
           };
         })
       ];
@@ -2958,24 +2944,14 @@ with haskellLib;
   # https://github.com/mchav/snappy-hs/commit/400490df38e0db7f353c0427f034a231bdf73098#r167007963
   snappy-hs = doJailbreak super.snappy-hs;
 
+  # Too strict upper bound on doctest
+  # https://github.com/awakesecurity/proto3-wire/pull/111
   proto3-wire = appendPatches [
     (fetchpatch {
-      # https://github.com/awakesecurity/proto3-wire/pull/108
       name = "add-reverse-encoders-for-packed-repeated-fields.patch";
-      url = "https://github.com/awakesecurity/proto3-wire/commit/d4376fb6f1c1ac03ee8ec5c5793700ca6508ea70.patch";
-      hash = "sha256-vtEYg/jLoTn1YRVhQJi6kyta+U4XiWeS7i1ZSN7BYf8=";
-      includes = [
-        "**.cabal"
-        "*.hs"
-      ];
-    })
-    (fetchpatch {
-      # https://github.com/awakesecurity/proto3-wire/pull/111
-      name = "support-LTS-24.patch";
-      url = "https://github.com/awakesecurity/proto3-wire/commit/35fd88c4daf6643135db6da9ab6ed6d6f33eb3de.patch";
+      url = "https://github.com/awakesecurity/proto3-wire/commit/fcc53d9935b64b6d8aaf65c8cef17f4bbed56867.patch";
       hash = "sha256-GzXlweRshVLA29xVHhJSRIU40y+KtAplIqfvp0I8cY0=";
     })
-
   ] super.proto3-wire;
 
   # 2024-07-27: building test component requires non-trivial custom build steps
@@ -3031,6 +3007,17 @@ with haskellLib;
       sha256 = "09205ziac59axld8v1cyxa9xl42srypaq8d1gf6y3qwpmrx3rgr9";
     })
   ] (doJailbreak super.http2-client);
+
+  # Needs tls >= 2.1.10
+  http2-tls =
+    lib.warnIf (lib.versionAtLeast self.tls.version "2.1.10")
+      "haskellPackages.http2-tls: tls override can be removed"
+      (super.http2-tls.override { tls = self.tls_2_1_13; });
+
+  # Relax http2 version bound (5.3.9 -> 5.3.10)
+  # https://github.com/well-typed/grapesy/issues/297
+  # Tests fail with duplicate IsLabel instance error
+  grapesy = dontCheck (doJailbreak super.grapesy);
 
   # doctests are failing https://github.com/alpmestan/taggy-lens/issues/8
   taggy-lens = dontCheck super.taggy-lens;
@@ -3109,7 +3096,7 @@ with haskellLib;
       ]
     ) super)
     what4
-    what4_1_7
+    what4_1_7_2
     ;
 
   copilot-theorem = lib.pipe super.copilot-theorem [
@@ -3171,29 +3158,15 @@ with haskellLib;
       # https://github.com/tweag/monad-bayes/issues/378
       (doJailbreak super.monad-bayes);
 
-  crucible =
-    lib.pipe
-      (super.crucible.override {
-        what4 = self.what4_1_7;
-      })
-      [
-        # 2025-04-13: jailbreak to allow th-abstraction >= 0.7
-        (warnAfterVersion "0.7.2")
-        doJailbreak
-
-        # Prevent clashes with now exported Prelude.foldl'
-        (appendPatch (
-          pkgs.fetchpatch {
-            name = "base-4.20-foldl'.patch";
-            url = "https://github.com/GaloisInc/crucible/commit/10f372e4b0389dd3966e04163dcd67d71e651709.patch";
-            relative = "crucible";
-            sha256 = "sha256-frxTs5SB1ENjH+X0lIlQ8k6pDIDOANylrqIOQpEtObU=";
-          }
-        ))
-      ];
+  # 2025-04-13: jailbreak to allow th-abstraction >= 0.7
+  crucible = doJailbreak (
+    super.crucible.override {
+      what4 = self.what4_1_7_2;
+    }
+  );
 
   crucible-llvm = super.crucible-llvm.override {
-    what4 = self.what4_1_7;
+    what4 = self.what4_1_7_2;
   };
 
   # Test suite invokes cabal-install in a way incompatible with our generic builder
@@ -3330,25 +3303,6 @@ with haskellLib;
   stripe-concepts = doJailbreak super.stripe-concepts;
   stripe-signature = doJailbreak super.stripe-signature;
   stripe-wreq = doJailbreak super.stripe-wreq;
-
-  # 2025-10-12: gi-gtk was renamed to gi-gtk3
-  # https://github.com/haskell-gi/haskell-gi/issues/478
-  gi-gtk-hs =
-    appendPatches
-      [
-        (pkgs.fetchpatch {
-          name = "gi-gtk-hs-use-gtk3.patch";
-          url = "https://github.com/haskell-gi/haskell-gi/commit/e2ed85835499f70e119f050a2f37f22481f93886.patch";
-          sha256 = "sha256-MzxXtBNBbJJaNwTOrq/CYqK4yGfS4Yk5fQ38ihFcclA=";
-          relative = "gi-gtk-hs";
-        })
-      ]
-      (
-        super.gi-gtk-hs.override {
-          gi-gdk = self.gi-gdk3;
-          gi-gtk = self.gi-gtk3;
-        }
-      );
 
   # 2025-08-04: Disable failing testcases. It would feel bad to disable all the
   # checks in a cryptography related package.

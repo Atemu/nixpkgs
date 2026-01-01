@@ -3,6 +3,8 @@
   lib,
   nodejs_22,
   pnpm_10,
+  fetchPnpmDeps,
+  pnpmConfigHook,
   electron_39,
   python3,
   makeWrapper,
@@ -52,13 +54,13 @@ let
     '';
   });
 
-  version = "7.81.0";
+  version = "7.83.0";
 
   src = fetchFromGitHub {
     owner = "signalapp";
     repo = "Signal-Desktop";
     tag = "v${version}";
-    hash = "sha256-Ulv4/VZxsMAFKsNshVDdWjqGg4FzazvWdXGohwlyKs4=";
+    hash = "sha256-hzeioXrO9kdFFTGhhY4klrCxRgS1eoGY7+7fTGsN4cY=";
   };
 
   sticker-creator = stdenv.mkDerivation (finalAttrs: {
@@ -66,8 +68,9 @@ let
     inherit version;
     src = src + "/sticker-creator";
 
-    pnpmDeps = pnpm.fetchDeps {
+    pnpmDeps = fetchPnpmDeps {
       inherit (finalAttrs) pname src version;
+      inherit pnpm;
       fetcherVersion = 1;
       hash = "sha256-m/JxsKnVhcya7dUz1MBMQKwEdqoV3xQiGOoT4egh3K4=";
     };
@@ -75,7 +78,8 @@ let
     strictDeps = true;
     nativeBuildInputs = [
       nodejs
-      pnpm.configHook
+      pnpmConfigHook
+      pnpm
     ];
 
     buildPhase = ''
@@ -98,7 +102,8 @@ stdenv.mkDerivation (finalAttrs: {
   strictDeps = true;
   nativeBuildInputs = [
     nodejs
-    pnpm.configHook
+    pnpmConfigHook
+    pnpm
     makeWrapper
     copyDesktopItems
     python3
@@ -124,25 +129,26 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "\''${process.versions.electron}" "`jq -r '.devDependencies.electron' < package.json`"
   '';
 
-  pnpmDeps = pnpm.fetchDeps {
+  pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs)
       pname
       version
       src
       patches
       ;
+    inherit pnpm;
     fetcherVersion = 1;
     hash =
       if withAppleEmojis then
-        "sha256-aNef+j0Kw8ERa1KKerGFi1+14U7YEclHThGIjkmQQow="
+        "sha256-taF3A2YcqMzqcS401fxRW9wEC/Ol7bVJ6belF4RTIRk="
       else
-        "sha256-n5wvPqYCqKGC8ApUJ7K7OSwOHJq1rEivXiowK+HzN8M=";
+        "sha256-sWxxANPW0W5/tmowoJ7ZPBEBSurKN6C+wZAcLa2QHz8=";
   };
 
   env = {
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
     SIGNAL_ENV = "production";
-    SOURCE_DATE_EPOCH = 1764799973;
+    SOURCE_DATE_EPOCH = 1766066770;
   };
 
   preBuild = ''

@@ -41,15 +41,17 @@ yarn2nix-moretea.mkYarnPackage {
     ln -s $out/libexec/meshcentral/deps/meshcentral/meshcentral.js $out/bin/meshcentral
   '';
 
+  doDist = false;
+
   publishBinsFor = [ ];
 
   passthru.updateScript = ./update.sh;
 
-  meta = with lib; {
+  meta = {
     description = "Computer management web app";
     homepage = "https://meshcentral.com/";
-    maintainers = with maintainers; [ ma27 ];
-    license = licenses.asl20;
+    maintainers = with lib.maintainers; [ ma27 ];
+    license = lib.licenses.asl20;
     mainProgram = "meshcentral";
   };
 }

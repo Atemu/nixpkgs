@@ -5,6 +5,8 @@
   makeWrapper,
   nodejs,
   pnpm_9,
+  fetchPnpmDeps,
+  pnpmConfigHook,
   autoPatchelfHook,
   cacert,
   llvmPackages,
@@ -17,24 +19,25 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "wrangler";
-  version = "4.50.0";
+  version = "4.51.0";
 
   src = fetchFromGitHub {
     owner = "cloudflare";
     repo = "workers-sdk";
     rev = "wrangler@${finalAttrs.version}";
-    hash = "sha256-/hAqcaZCzF6n1yS2dsqXDk9J6Zu6+MDTc+BzKJ81XYk=";
+    hash = "sha256-NYYw4/Yx4wVn7snXQsGxtppLNvqzAjg6fqQIFeKc9L4=";
   };
 
-  pnpmDeps = pnpm_9.fetchDeps {
+  pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs)
       pname
       version
       src
       postPatch
       ;
+    pnpm = pnpm_9;
     fetcherVersion = 2;
-    hash = "sha256-z38rGh9Wnj9iDR196hcVmS2AY1l07UJfcAhmD0Qx1Co=";
+    hash = "sha256-utRo6lI8YgVJItqa/433HWNTp2AAHgiA3xWdJn2IELg=";
   };
   # pnpm packageManager version in workers-sdk root package.json may not match nixpkgs
   postPatch = ''
@@ -59,7 +62,8 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     makeWrapper
     nodejs
-    pnpm_9.configHook
+    pnpmConfigHook
+    pnpm_9
     jq
     moreutils
   ]

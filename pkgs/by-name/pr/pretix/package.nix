@@ -42,13 +42,13 @@ let
   };
 
   pname = "pretix";
-  version = "2025.9.2";
+  version = "2025.9.3";
 
   src = fetchFromGitHub {
     owner = "pretix";
     repo = "pretix";
     rev = "refs/tags/v${version}";
-    hash = "sha256-/NczudpXJ9pT7XKwKw1TeRceYWBQJAPUS/96Cl3ID9E=";
+    hash = "sha256-C5O6r7TUta0Ql86eDtDzVVX0uX7UzbL2UMG0XCvENvw=";
   };
 
   npmDeps = buildNpmPackage {
@@ -300,10 +300,10 @@ python.pkgs.buildPythonApplication rec {
     };
   };
 
-  meta = with lib; {
+  meta = {
     description = "Ticketing software that cares about your event—all the way";
     homepage = "https://github.com/pretix/pretix";
-    license = with licenses; [
+    license = with lib.licenses; [
       agpl3Only
       # 3rd party components below src/pretix/static
       bsd2
@@ -314,8 +314,8 @@ python.pkgs.buildPythonApplication rec {
       # all other files below src/pretix/static and src/pretix/locale and aux scripts
       asl20
     ];
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [ hexa ];
     mainProgram = "pretix-manage";
-    platforms = platforms.linux;
+    platforms = lib.platforms.linux;
   };
 }

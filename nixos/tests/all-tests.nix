@@ -798,7 +798,11 @@ in
   jitsi-meet = runTest ./jitsi-meet.nix;
   jool = import ./jool.nix { inherit pkgs runTest; };
   jotta-cli = runTest ./jotta-cli.nix;
-  k3s = handleTest ./k3s { };
+  k3s = import ./rancher {
+    inherit pkgs runTest;
+    inherit (pkgs) lib;
+    rancherDistro = "k3s";
+  };
   kafka = handleTest ./kafka { };
   kanboard = runTest ./web-apps/kanboard.nix;
   kanidm = runTest ./kanidm.nix;
@@ -1343,7 +1347,15 @@ in
   restic-rest-server = runTest ./restic-rest-server.nix;
   retroarch = runTest ./retroarch.nix;
   ringboard = runTest ./ringboard.nix;
-  rke2 = handleTestOn [ "aarch64-linux" "x86_64-linux" ] ./rke2 { };
+  rke2 = import ./rancher {
+    inherit pkgs;
+    inherit (pkgs) lib;
+    runTest = runTestOn [
+      "aarch64-linux"
+      "x86_64-linux"
+    ];
+    rancherDistro = "rke2";
+  };
   rkvm = handleTest ./rkvm { };
   rmfakecloud = runTest ./rmfakecloud.nix;
   robustirc-bridge = runTest ./robustirc-bridge.nix;
@@ -1457,9 +1469,7 @@ in
   syncthing-guiPassword = runTest ./syncthing/guiPassword.nix;
   syncthing-guiPasswordFile = runTest ./syncthing/guiPasswordFile.nix;
   syncthing-init = runTest ./syncthing/init.nix;
-  # FIXME: Test has been failing since 2025-07-06:
-  # https://github.com/NixOS/nixpkgs/issues/447674
-  # syncthing-many-devices = runTest ./syncthing/many-devices.nix;
+  syncthing-many-devices = runTest ./syncthing/many-devices.nix;
   syncthing-no-settings = runTest ./syncthing/no-settings.nix;
   syncthing-relay = runTest ./syncthing/relay.nix;
   sysfs = runTest ./sysfs.nix;

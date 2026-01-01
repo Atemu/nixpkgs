@@ -2,7 +2,6 @@
   lib,
   stdenvNoCC,
   fetchurl,
-  imagemagick,
   nixosTests,
 }:
 
@@ -16,11 +15,8 @@ stdenvNoCC.mkDerivation rec {
   };
 
   postPatch = ''
-    sed -i 's|$vars = Installer::getExistingLocalSettings();|$vars = null;|' includes/installer/CliInstaller.php
-
-    # fix generating previews for SVGs
-    substituteInPlace includes/config-schema.php \
-      --replace-fail "\$path/convert" "${imagemagick}/bin/convert"
+    substituteInPlace includes/installer/CliInstaller.php \
+      --replace-fail '$vars = Installer::getExistingLocalSettings();' '$vars = null;'
   '';
 
   installPhase = ''
@@ -39,11 +35,11 @@ stdenvNoCC.mkDerivation rec {
     inherit (nixosTests.mediawiki) mysql postgresql;
   };
 
-  meta = with lib; {
+  meta = {
     description = "Collaborative editing software that runs Wikipedia";
-    license = licenses.gpl2Plus;
+    license = lib.licenses.gpl2Plus;
     homepage = "https://www.mediawiki.org/";
-    platforms = platforms.all;
-    teams = [ teams.c3d2 ];
+    platforms = lib.platforms.all;
+    teams = [ lib.teams.c3d2 ];
   };
 }

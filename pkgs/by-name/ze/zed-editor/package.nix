@@ -106,7 +106,7 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "zed-editor";
-  version = "0.214.7";
+  version = "0.217.3";
 
   outputs = [
     "out"
@@ -119,7 +119,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "zed-industries";
     repo = "zed";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-DHKwGE5/FL3gYm9DwM1sGRsdX8kbhojLmi4B00Grtqg=";
+    hash = "sha256-flUkt39vttnF1HjzxLQ4pizFqxHxlIkaV+mb/GtxphU=";
   };
 
   postPatch = ''
@@ -139,7 +139,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     rm -r $out/git/*/candle-book/
   '';
 
-  cargoHash = "sha256-rkiqQKLjoWbkkDs53zqlxFx7A5Yv7AygHBXO78dRNsk=";
+  cargoHash = "sha256-ZUHz93ImWj3S5kRaWsiLz4Xc0sdaWzy+4CxCW5cvEf0=";
 
   nativeBuildInputs = [
     cmake
@@ -318,7 +318,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     updateScript = nix-update-script {
       extraArgs = [
         "--version-regex"
-        "^v(?!.*(?:-pre|0\.999999\.0|0\.9999-temporary)$)(.+)$"
+        "^v(?!.*(?:-pre|0\\.999999\\.0|0\\.9999-temporary)$)(.+)$"
 
         # use github releases instead of git tags
         # zed sometimes moves git tags, making them unreliable
