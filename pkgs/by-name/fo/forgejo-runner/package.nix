@@ -22,6 +22,7 @@ let
     # Requires running Docker daemon
     "TestDocker"
     "TestJobExecutor"
+    "TestRunExec"
     "TestRunner"
     "Test_validateCmd"
 
@@ -48,17 +49,17 @@ let
 in
 buildGoModule rec {
   pname = "forgejo-runner";
-  version = "12.3.1";
+  version = "12.5.0";
 
   src = fetchFromGitea {
     domain = "code.forgejo.org";
     owner = "forgejo";
     repo = "runner";
     rev = "v${version}";
-    hash = "sha256-Rw6/G4gbWKikYjeKYw2cHxLMw8ULqnbhqHQFDzHCMrY=";
+    hash = "sha256-WagacsKhYN+KodDZqXg39RGeJtEGrtqppf1JJpTSBsQ=";
   };
 
-  vendorHash = "sha256-ReGxoPvW4G6DbFfR2OeeT3tupZkpLpX80zK824oeyVg=";
+  vendorHash = "sha256-oCSAehLC5NiL0Ttp+FeHQyTQYNh/59I1i0UfbwWPeRE=";
 
   nativeBuildInputs = [ makeWrapper ];
 
