@@ -118,7 +118,7 @@ let
       findTests =
         tree:
         if tree ? recurseForDerivations && tree.recurseForDerivations then
-          mapAttrs (k: findTests) (builtins.removeAttrs tree [ "recurseForDerivations" ])
+          mapAttrs (k: findTests) (removeAttrs tree [ "recurseForDerivations" ])
         else
           callTest tree;
 
@@ -446,6 +446,7 @@ in
   darling-dmg = runTest ./darling-dmg.nix;
   dashy = runTest ./web-apps/dashy.nix;
   davis = runTest ./davis.nix;
+  dawarich = runTest ./web-apps/dawarich.nix;
   db-rest = runTest ./db-rest.nix;
   dconf = runTest ./dconf.nix;
   ddns-updater = runTest ./ddns-updater.nix;
@@ -1551,6 +1552,7 @@ in
   szurubooru = handleTest ./szurubooru.nix { };
   taler = handleTest ./taler { };
   tandoor-recipes = runTest ./tandoor-recipes.nix;
+  tandoor-recipes-media = runTest ./tandoor-recipes-media.nix;
   tandoor-recipes-script-name = runTest ./tandoor-recipes-script-name.nix;
   tang = runTest ./tang.nix;
   taskchampion-sync-server = runTest ./taskchampion-sync-server.nix;
