@@ -3,17 +3,17 @@
   fetchurl,
   makeDesktopItem,
   lib,
-  xorg,
+  libxshmfence,
   wayland,
   wayland-protocols,
 }:
 let
   pname = "LycheeSlicer";
-  version = "7.5.0";
+  version = "7.5.5";
 
   src = fetchurl {
     url = "https://mango-lychee.nyc3.cdn.digitaloceanspaces.com/LycheeSlicer-${version}.AppImage";
-    hash = "sha256-jI/V8tczgBHl3/LOEui+DbjWB5kD67+mL2HMvPz80+8=";
+    hash = "sha256-coPzvcF+kQVkETiKc3AY9tuPvh4vm45LSXi5UCbL9GI=";
   };
 
   desktopItem = makeDesktopItem {
@@ -42,7 +42,7 @@ appimageTools.wrapType2 {
   '';
 
   extraPkgs = _: [
-    xorg.libxshmfence
+    libxshmfence
     wayland
     wayland-protocols
   ];

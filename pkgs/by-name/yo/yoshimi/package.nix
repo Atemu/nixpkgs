@@ -17,7 +17,7 @@
   pcre,
   pkg-config,
   readline,
-  xorg,
+  libpthread-stubs,
   zlib,
 }:
 
@@ -58,13 +58,13 @@ stdenv.mkDerivation rec {
     minixml
     pcre
     readline
-    xorg.libpthreadstubs
+    libpthread-stubs
     zlib
   ];
 
   cmakeFlags = [ "-DFLTK_MATH_LIBRARY=${stdenv.cc.libc}/lib/libm.so" ];
 
-  meta = with lib; {
+  meta = {
     description = "High quality software synthesizer based on ZynAddSubFX";
     longDescription = ''
       Yoshimi delivers the same synthesizer capabilities as
@@ -72,8 +72,8 @@ stdenv.mkDerivation rec {
       functionality on Linux
     '';
     homepage = "https://yoshimi.github.io/";
-    license = licenses.gpl2Plus;
-    platforms = platforms.linux;
+    license = lib.licenses.gpl2Plus;
+    platforms = lib.platforms.linux;
     maintainers = [ ];
     mainProgram = "yoshimi";
   };

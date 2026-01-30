@@ -7,7 +7,13 @@
   copyDesktopItems,
   pkg-config,
   desktopToDarwinBundle,
-  xorg,
+  libxxf86vm,
+  libxrandr,
+  libxi,
+  libxinerama,
+  libxext,
+  libxcursor,
+  libx11,
   wayland,
   wayland-protocols,
   libxkbcommon,
@@ -18,16 +24,16 @@
 
 buildGoModule rec {
   pname = "supersonic" + lib.optionalString waylandSupport "-wayland";
-  version = "0.19.0";
+  version = "0.20.0";
 
   src = fetchFromGitHub {
     owner = "dweymouth";
     repo = "supersonic";
     tag = "v${version}";
-    hash = "sha256-GMmIUDgbFFrOqDJ13C0o1fHg1tiWSjbCm36VPD7/IGw=";
+    hash = "sha256-/zHqD5e3ZmLoaY3/KJSBtQpF0fzAr2kG1FSauzSduvo=";
   };
 
-  vendorHash = "sha256-FQmaxDIVWCxyFdgz03aNRXFyi8UeMeCqiVHNZOqq/8Q=";
+  vendorHash = "sha256-hDE0ZKZLAUgztLqxMHtTj8AU0sIAX26bi7eCb2JFo3Q=";
 
   nativeBuildInputs = [
     copyDesktopItems
@@ -45,15 +51,15 @@ buildGoModule rec {
     mpv-unwrapped
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [
-    xorg.libXxf86vm
-    xorg.libX11
+    libxxf86vm
+    libx11
   ]
   ++ lib.optionals (stdenv.hostPlatform.isLinux && !waylandSupport) [
-    xorg.libXrandr
-    xorg.libXinerama
-    xorg.libXcursor
-    xorg.libXi
-    xorg.libXext
+    libxrandr
+    libxinerama
+    libxcursor
+    libxi
+    libxext
   ]
   ++ lib.optionals (stdenv.hostPlatform.isLinux && waylandSupport) [
     wayland

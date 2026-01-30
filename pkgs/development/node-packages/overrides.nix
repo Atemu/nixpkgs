@@ -33,24 +33,6 @@ final: prev: {
     '';
   };
 
-  fast-cli = prev.fast-cli.override {
-    nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
-    prePatch = ''
-      export PUPPETEER_SKIP_DOWNLOAD=1
-    '';
-    postInstall = ''
-      wrapProgram $out/bin/fast \
-        --set PUPPETEER_EXECUTABLE_PATH ${pkgs.chromium.outPath}/bin/chromium
-    '';
-  };
-
-  fauna-shell = prev.fauna-shell.override {
-    # printReleaseNotes just pulls them from GitHub which is not allowed in sandbox
-    preRebuild = ''
-      sed -i 's|"node ./tools/printReleaseNotes"|"true"|' node_modules/faunadb/package.json
-    '';
-  };
-
   node2nix = prev.node2nix.override {
     # Get latest commit for misc fixes
     src = fetchFromGitHub {
@@ -94,47 +76,7 @@ final: prev: {
       '';
   };
 
-  pulp = prev.pulp.override {
-    # tries to install purescript
-    npmFlags = toString [ "--ignore-scripts" ];
-
-    nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
-    postInstall = ''
-      wrapProgram "$out/bin/pulp" --suffix PATH : ${
-        lib.makeBinPath [
-          pkgs.purescript
-        ]
-      }
-    '';
-  };
-
   rush = prev."@microsoft/rush".override {
     name = "rush";
-  };
-
-  vega-cli = prev.vega-cli.override {
-    nativeBuildInputs = [ pkgs.pkg-config ];
-    buildInputs = with pkgs; [
-      node-pre-gyp
-      pixman
-      cairo
-      pango
-      libjpeg
-    ];
-  };
-
-  wavedrom-cli = prev.wavedrom-cli.override {
-    nativeBuildInputs = [
-      pkgs.pkg-config
-      pkgs.node-pre-gyp
-    ];
-    # These dependencies are required by
-    # https://github.com/Automattic/node-canvas.
-    buildInputs = with pkgs; [
-      giflib
-      pixman
-      cairo
-      pango
-    ];
   };
 }

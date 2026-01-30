@@ -26,7 +26,7 @@
   # Build options
   enableGTK3 ? false,
   gtkmm3,
-  xorg,
+  libpthread-stubs,
   wrapGAppsHook3,
   enableQt5 ? false,
   enableQt6 ? false,
@@ -167,7 +167,7 @@ stdenv.mkDerivation (finalAttrs: {
   )
   ++ optionals enableGTK3 [
     gtkmm3
-    xorg.libpthreadstubs
+    libpthread-stubs
   ]
   ++ optionals enableSystemd [ systemd ]
   ++ optionals stdenv.hostPlatform.isLinux [ inotify-tools ];
@@ -201,7 +201,7 @@ stdenv.mkDerivation (finalAttrs: {
     smoke-test = nixosTests.bittorrent;
   };
 
-  meta = with lib; {
+  meta = {
     description = "Fast, easy and free BitTorrent client";
     mainProgram =
       if (enableQt5 || enableQt6) then
@@ -222,10 +222,10 @@ stdenv.mkDerivation (finalAttrs: {
         * Full encryption, DHT, and PEX support
     '';
     homepage = "https://www.transmissionbt.com/";
-    license = with licenses; [
+    license = with lib.licenses; [
       gpl2Plus
       mit
     ];
-    platforms = platforms.unix;
+    platforms = lib.platforms.unix;
   };
 })

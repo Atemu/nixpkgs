@@ -10,15 +10,12 @@
   alembic,
   pytest-benchmark,
   pytestCheckHook,
-  pythonOlder,
 }:
 
 buildPythonPackage rec {
   pname = "geoalchemy2";
   version = "0.18.1";
   pyproject = true;
-
-  disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "geoalchemy";
@@ -68,11 +65,11 @@ buildPythonPackage rec {
     shapely = [ shapely ];
   };
 
-  meta = with lib; {
+  meta = {
     description = "Toolkit for working with spatial databases";
     homepage = "https://geoalchemy-2.readthedocs.io/";
     changelog = "https://github.com/geoalchemy/geoalchemy2/releases/tag/${src.tag}";
-    license = licenses.mit;
-    maintainers = with maintainers; [ nickcao ];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ nickcao ];
   };
 }

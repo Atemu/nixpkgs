@@ -3,7 +3,11 @@
   stdenv,
   fetchzip,
   zlib,
-  xorg,
+  libxtst,
+  libxrender,
+  libxi,
+  libxext,
+  libx11,
   freetype,
   jdk17,
   curl,
@@ -24,11 +28,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     zlib
-    xorg.libX11
-    xorg.libXext
-    xorg.libXi
-    xorg.libXtst
-    xorg.libXrender
+    libx11
+    libxext
+    libxi
+    libxtst
+    libxrender
     freetype
     jdk17
     (lib.getLib stdenv.cc.cc)
@@ -54,11 +58,11 @@ stdenv.mkDerivation rec {
     ln -s $out/codeql/codeql $out/bin/
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Semantic code analysis engine";
     homepage = "https://codeql.github.com";
-    maintainers = [ maintainers.dump_stack ];
+    maintainers = [ lib.maintainers.dump_stack ];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    license = licenses.unfree;
+    license = lib.licenses.unfree;
   };
 }

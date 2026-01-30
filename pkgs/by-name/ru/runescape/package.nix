@@ -14,13 +14,12 @@
   libpulseaudio,
   libSM,
   libXxf86vm,
-  libX11,
+  libx11,
   openssl_1_1,
   pango,
   SDL2,
   wrapGAppsHook3,
   xdg-utils,
-  xorg,
   xorg_sys_opengl,
   zlib,
 }:
@@ -51,7 +50,7 @@ let
       gtk2-x11
       libSM
       libXxf86vm
-      libX11
+      libx11
       openssl_1_1
       pango
       zlib
@@ -94,12 +93,12 @@ let
       rm -r $out/usr
     '';
 
-    meta = with lib; {
+    meta = {
       description = "Launcher for RuneScape 3, the current main RuneScape";
       homepage = "https://www.runescape.com/";
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-      license = licenses.unfree;
-      maintainers = with maintainers; [ grburst ];
+      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+      license = lib.licenses.unfree;
+      maintainers = [ ];
       platforms = [ "x86_64-linux" ];
     };
   };
@@ -126,12 +125,12 @@ buildFHSEnv {
     libpulseaudio
     libSM
     libXxf86vm
-    libX11
+    libx11
     openssl_1_1
     pango
     SDL2
     xdg-utils
-    xorg.libX11
+    libx11
     xorg_sys_opengl
     zlib
   ];
@@ -145,11 +144,11 @@ buildFHSEnv {
       --replace "/usr/bin/runescape-launcher" "RuneScape"
   '';
 
-  meta = with lib; {
+  meta = {
     description = "RuneScape Game Client (NXT) - Launcher for RuneScape 3";
     homepage = "https://www.runescape.com/";
-    license = licenses.unfree;
-    maintainers = with maintainers; [ grburst ];
+    license = lib.licenses.unfree;
+    maintainers = [ ];
     platforms = [ "x86_64-linux" ];
   };
 }

@@ -23,16 +23,17 @@
   pango,
   udev,
   xdg-utils,
-  xorg,
+  libx11,
+  libxcb,
 }:
 
 stdenv.mkDerivation rec {
   pname = "publii";
-  version = "0.47.1";
+  version = "0.47.3";
 
   src = fetchurl {
     url = "https://getpublii.com/download/Publii-${version}.deb";
-    hash = "sha256-X2rN/inGAxQWYg8OxTLtGzr4q4vUgCYCz3xuxCyCwkQ=";
+    hash = "sha256-1LzjnN0gmzE4JJdgTOUQ3n/BATg+B5Lfi0yR94TU+XE=";
   };
 
   dontConfigure = true;
@@ -62,8 +63,8 @@ stdenv.mkDerivation rec {
     musl
     nss
     pango
-    xorg.libX11
-    xorg.libxcb
+    libx11
+    libxcb
   ];
 
   unpackPhase = ''
@@ -103,7 +104,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/getpublii/publii/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [
-      urandom
       sebtm
     ];
     platforms = [ "x86_64-linux" ];

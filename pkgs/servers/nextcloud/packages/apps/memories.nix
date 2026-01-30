@@ -13,9 +13,9 @@
 let
   latestVersionForNc = {
     "31" = {
-      version = "7.7.0";
-      appHash = "sha256-ORv+6XkN+qTk5bXMFKv2Mv/jU+7F12IbWE9JjV2ot9o=";
-      srcHash = "sha256-hiYAQshi84oOw1qfNECWAssbln8UPwD+8Hfb2pKw8no=";
+      version = "7.8.1";
+      appHash = "sha256-lD50xKxHYc04G6r4caAKzRcTl0Q2VSWUXHRETUCF1dg=";
+      srcHash = "sha256-E/hdjfBh6MorJ5A2W15F6iqax+wV8XHxiQQiahCM4Os=";
     };
     "32" = latestVersionForNc."31";
   };
@@ -23,11 +23,11 @@ let
     latestVersionForNc.${ncVersion}
       or (throw "memories currently does not support nextcloud version ${ncVersion}");
 
-  commonMeta = with lib; {
+  commonMeta = {
     homepage = "https://apps.nextcloud.com/apps/memories";
     changelog = "https://github.com/pulsejet/memories/blob/v${currentVersionInfo.version}/CHANGELOG.md";
-    license = licenses.agpl3Only;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    license = lib.licenses.agpl3Only;
+    maintainers = with lib.maintainers; [ SuperSandro2000 ];
   };
 
   go-vod = buildGoModule rec {

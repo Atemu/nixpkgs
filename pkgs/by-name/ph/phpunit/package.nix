@@ -3,32 +3,28 @@
   fetchFromGitHub,
   nix-update-script,
   php,
-  phpunit,
-  testers,
   versionCheckHook,
 }:
 
 php.buildComposerProject2 (finalAttrs: {
   pname = "phpunit";
-  version = "12.4.3";
+  version = "12.5.6";
 
   src = fetchFromGitHub {
     owner = "sebastianbergmann";
     repo = "phpunit";
     tag = finalAttrs.version;
-    hash = "sha256-/a/u9BROv8evGpgbkVkUvSXjgRTxZI4CbepS8lkSy5s=";
+    hash = "sha256-F2/LMJwLzLz7YuJPq2J6ypgtY9ps5ExiHX6UGvtKh3E=";
   };
 
-  vendorHash = "sha256-KMtLfZeIsMkMrA8m8xW2ZMEb0NVs8tmDS5SjGSdCb5k=";
+  vendorHash = "sha256-YqDdlspt9hGMzSoC41pMZLucP/luv6Fo2VGQ7pPa5pk=";
 
   passthru = {
     updateScript = nix-update-script { };
-    tests.version = testers.testVersion { package = phpunit; };
   };
 
   doInstallCheck = true;
   nativeInstallCheckInputs = [ versionCheckHook ];
-  versionCheckProgramArg = "--version";
 
   meta = {
     changelog = "https://github.com/sebastianbergmann/phpunit/blob/${finalAttrs.version}/ChangeLog-${lib.versions.majorMinor finalAttrs.version}.md";

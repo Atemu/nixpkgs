@@ -14,7 +14,9 @@
   lark,
   numpy,
   pymongo,
+  pymongo-search-utils,
 
+  # test
   freezegun,
   httpx,
   langchain-community,
@@ -31,19 +33,19 @@
   gitUpdater,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "langchain-mongodb";
-  version = "0.8.0";
+  version = "0.10.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "langchain-ai";
     repo = "langchain-mongodb";
-    tag = "libs/langchain-mongodb/v${version}";
-    hash = "sha256-TpEiTQe4nZEhb7yWdm73oKaHGr58Ej3cNeD1sP5pAxA=";
+    tag = "libs/langchain-mongodb/v${finalAttrs.version}";
+    hash = "sha256-MRvj6RJ6N+u1wA+zkyWhe4tnGaC4FduPl+k7AhBIwLI=";
   };
 
-  sourceRoot = "${src.name}/libs/langchain-mongodb";
+  sourceRoot = "${finalAttrs.src.name}/libs/langchain-mongodb";
 
   build-system = [ hatchling ];
 
@@ -61,6 +63,7 @@ buildPythonPackage rec {
     langchain-text-splitters
     numpy
     pymongo
+    pymongo-search-utils
   ];
 
   nativeCheckInputs = [
@@ -85,6 +88,11 @@ buildPythonPackage rec {
     "tests/unit_tests/test_index.py"
   ];
 
+  pytestFlags = [
+    # DeprecationWarning: 'asyncio.get_event_loop_policy' is deprecated
+    "-Wignore::DeprecationWarning"
+  ];
+
   pythonImportsCheck = [ "langchain_mongodb" ];
 
   passthru = {
@@ -96,7 +104,7 @@ buildPythonPackage rec {
   };
 
   meta = {
-    changelog = "https://github.com/langchain-ai/langchain-mongodb/releases/tag/${src.tag}";
+    changelog = "https://github.com/langchain-ai/langchain-mongodb/releases/tag/${finalAttrs.src.tag}";
     description = "Integration package connecting MongoDB and LangChain";
     homepage = "https://github.com/langchain-ai/langchain-mongodb";
     license = lib.licenses.mit;
@@ -105,4 +113,4 @@ buildPythonPackage rec {
       sarahec
     ];
   };
-}
+})

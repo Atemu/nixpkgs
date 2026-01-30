@@ -8,7 +8,7 @@
   zstd,
   pkg-config,
   python3,
-  xorg,
+  libx11,
   nghttp2,
   libgit2,
   withDefaultFeatures ? true,
@@ -23,7 +23,7 @@ let
   # NOTE: when updating this to a new non-patch version, please also try to
   # update the plugins. Plugins only work if they are compiled for the same
   # major/minor version.
-  version = "0.108.0";
+  version = "0.109.1";
 in
 rustPlatform.buildRustPackage {
   pname = "nushell";
@@ -33,10 +33,10 @@ rustPlatform.buildRustPackage {
     owner = "nushell";
     repo = "nushell";
     tag = version;
-    hash = "sha256-8OMTscMObV+IOSgOoTSzJvZTz6q/l2AjrOb9y3p2tZY=";
+    hash = "sha256-XNDEfmvmUNS90PU4e/EWFyJeg428R8nFPJHpF3tgRWo=";
   };
 
-  cargoHash = "sha256-M2wkhhaS3bVhwaa3O0CUK5hL757qFObr7EDtBFXXwxg=";
+  cargoHash = "sha256-UX0WmvrzrWlrTnvMqaWAxoSie7RzQSC4thEb26LAz+A=";
 
   nativeBuildInputs = [
     pkg-config
@@ -48,7 +48,7 @@ rustPlatform.buildRustPackage {
     zstd
   ]
   ++ lib.optionals stdenv.hostPlatform.isDarwin [ zlib ]
-  ++ lib.optionals (withDefaultFeatures && stdenv.hostPlatform.isLinux) [ xorg.libX11 ]
+  ++ lib.optionals (withDefaultFeatures && stdenv.hostPlatform.isLinux) [ libx11 ]
   ++ lib.optionals (withDefaultFeatures && stdenv.hostPlatform.isDarwin) [
     nghttp2
     libgit2
@@ -95,12 +95,11 @@ rustPlatform.buildRustPackage {
     updateScript = nix-update-script { };
   };
 
-  meta = with lib; {
+  meta = {
     description = "Modern shell written in Rust";
     homepage = "https://www.nushell.sh/";
-    license = licenses.mit;
-    maintainers = with maintainers; [
-      Br1ght0ne
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [
       johntitor
       joaquintrinanes
       ryan4yin

@@ -2,39 +2,60 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchYarnDeps,
+  fetchNpmDeps,
   buildGoModule,
+  buildNpmPackage,
   systemd,
-  yarn,
-  fixup-yarn-lock,
-  nodejs,
   grafana-alloy,
   nixosTests,
   nix-update-script,
   installShellFiles,
   testers,
+  lld,
+  useLLD ? stdenv.hostPlatform.isArmv7,
 }:
 
-buildGoModule (finalAttrs: {
+buildGoModule (finalAttrs: rec {
   pname = "grafana-alloy";
-  version = "1.11.3";
-
+  version = "1.12.2";
   src = fetchFromGitHub {
     owner = "grafana";
     repo = "alloy";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-yO1r7GLXlD7f5Fpooit7SwkB7EB1hDO42o3BLvWY8Qo=";
+    hash = "sha256-C/yqsUjEwKnGRkxMOQkKfGdeERbvO/e7D7c3CyJ+cVY=";
+  };
+
+  npmDeps = fetchNpmDeps {
+    src = "${finalAttrs.src}/internal/web/ui";
+    hash = "sha256-3J1Slka5bi+72NUaHBmDTtG1faJWRkOlkClKnUyiUsk=";
+  };
+
+  frontend = buildNpmPackage {
+    pname = "alloy-frontend";
+    inherit version src;
+
+    inherit npmDeps;
+    sourceRoot = "${src.name}/internal/web/ui";
+
+    installPhase = ''
+      runHook preInstall
+
+      mkdir $out
+      cp -av dist $out/share
+
+      runHook postInstall
+    '';
   };
 
   proxyVendor = true;
-  vendorHash = "sha256-8n1r2Wun5ZSvjsU2Vl/fSRoQnTfKbrcQI6a7YDX/HZA=";
+  vendorHash = "sha256-Bq/6ld2LldSDhksNqGMHXZAeNHh74D07o2ETpQqMcP4=";
 
   nativeBuildInputs = [
-    fixup-yarn-lock
-    yarn
-    nodejs
     installShellFiles
-  ];
+  ]
+  ++ lib.optionals useLLD [ lld ];
+
+  env = lib.optionalAttrs useLLD { NIX_CFLAGS_LINK = "-fuse-ld=lld"; };
 
   ldflags =
     let
@@ -57,38 +78,14 @@ buildGoModule (finalAttrs: {
     "promtail_journal_enabled"
   ];
 
+  patchPhase = ''
+    # Copy frontend build in
+    cp -va "${frontend}/share" "internal/web/ui/dist"
+  '';
+
   subPackages = [
     "."
   ];
-
-  # Skip building the frontend in the goModules FOD
-  overrideModAttrs = (
-    _: {
-      preBuild = null;
-    }
-  );
-
-  yarnOfflineCache = fetchYarnDeps {
-    yarnLock = "${finalAttrs.src}/internal/web/ui/yarn.lock";
-    hash = "sha256-oCDP2XJczLXgzEjyvFEIFBanlnzjrj0So09izG5vufs=";
-  };
-
-  preBuild = ''
-    pushd internal/web/ui
-
-    # Yarn wants a real home directory to write cache, config, etc to
-    export HOME=$NIX_BUILD_TOP/fake_home
-
-    fixup-yarn-lock yarn.lock
-    yarn config --offline set yarn-offline-mirror ${finalAttrs.yarnOfflineCache}
-    yarn install --offline --frozen-lockfile --ignore-platform --ignore-scripts --no-progress --non-interactive
-
-    patchShebangs node_modules/
-
-    yarn --offline build
-
-    popd
-  '';
 
   # uses go-systemd, which uses libsystemd headers
   # https://github.com/coreos/go-systemd/issues/351
@@ -133,17 +130,17 @@ buildGoModule (finalAttrs: {
         "v(.+)"
       ];
     };
-    # alias for nix-update to be able to find and update this attribute
-    offlineCache = finalAttrs.yarnOfflineCache;
+    # for nix-update to be able to find and update the hash
+    inherit npmDeps;
   };
 
-  meta = with lib; {
+  meta = {
     description = "Open source OpenTelemetry Collector distribution with built-in Prometheus pipelines and support for metrics, logs, traces, and profiles";
     mainProgram = "alloy";
-    license = licenses.asl20;
+    license = lib.licenses.asl20;
     homepage = "https://grafana.com/oss/alloy";
     changelog = "https://github.com/grafana/alloy/blob/${finalAttrs.src.rev}/CHANGELOG.md";
-    maintainers = with maintainers; [
+    maintainers = with lib.maintainers; [
       azahi
       flokli
       hbjydev

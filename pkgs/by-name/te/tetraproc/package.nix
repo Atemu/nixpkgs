@@ -13,7 +13,11 @@
   libclxclient,
   libsndfile,
   libxcb,
-  xorg,
+  libxrender,
+  libxft,
+  libxdmcp,
+  libxau,
+  libx11,
 }:
 
 stdenv.mkDerivation rec {
@@ -37,11 +41,11 @@ stdenv.mkDerivation rec {
     libsndfile
     freetype
     libxcb
-    xorg.libX11
-    xorg.libXau
-    xorg.libXdmcp
-    xorg.libXft
-    xorg.libXrender
+    libx11
+    libxau
+    libxdmcp
+    libxft
+    libxrender
   ];
 
   makeFlags = [
@@ -58,11 +62,11 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/tetraproc --prefix PATH : "${jack2}/bin"
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Converts the A-format signals from a tetrahedral Ambisonic microphone into B-format signals ready for recording";
     homepage = "http://kokkinizita.linuxaudio.org/linuxaudio/";
-    license = licenses.gpl2;
-    maintainers = with maintainers; [ magnetophon ];
-    platforms = platforms.linux;
+    license = lib.licenses.gpl2;
+    maintainers = with lib.maintainers; [ magnetophon ];
+    platforms = lib.platforms.linux;
   };
 }

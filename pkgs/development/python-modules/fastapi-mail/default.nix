@@ -19,22 +19,23 @@
   starlette,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "fastapi-mail";
-  version = "1.5.8";
+  version = "1.6.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "sabuhish";
     repo = "fastapi-mail";
-    tag = version;
-    hash = "sha256-xxArFytTJKLTlBjR3T+c1OTpK3vSgIrpRJqQEcFs4J4=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-ruiUf+wGJRMLzmimb9oLi/tGV6UF9aa9G/iMgptSa9w=";
   };
 
   pythonRelaxDeps = [
     "aiosmtplib"
     "cryptography"
     "email-validator"
+    "regex"
     "pydantic"
   ];
 
@@ -72,11 +73,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "fastapi_mail" ];
 
-  meta = with lib; {
+  meta = {
     description = "Module for sending emails and attachments";
     homepage = "https://github.com/sabuhish/fastapi-mail";
-    changelog = "https://github.com/sabuhish/fastapi-mail/releases/tag/${src.tag}";
-    license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    changelog = "https://github.com/sabuhish/fastapi-mail/releases/tag/${finalAttrs.src.tag}";
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

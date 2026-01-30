@@ -99,7 +99,6 @@ postgresqlBuildExtension (finalAttrs: {
       isCross = stdenv.hostPlatform.config != stdenv.buildPlatform.config;
     in
     [
-      (lib.enableFeature false "extension-upgrades-install")
       (lib.withFeatureAs true "pgconfig" "${postgresql.pg_config}/bin/pg_config")
       (lib.withFeatureAs true "gdalconfig" "${gdal}/bin/gdal-config")
       (lib.withFeatureAs true "jsondir" (lib.getDev json_c))
@@ -169,7 +168,7 @@ postgresqlBuildExtension (finalAttrs: {
   meta = {
     description = "Geographic Objects for PostgreSQL";
     homepage = "https://postgis.net/";
-    changelog = "https://git.osgeo.org/gitea/postgis/postgis/raw/tag/${finalAttrs.version}/NEWS";
+    changelog = "https://git.osgeo.org/postgis/postgis/raw/tag/${finalAttrs.version}/NEWS";
     license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ marcweber ];
     teams = [ lib.teams.geospatial ];

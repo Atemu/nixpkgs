@@ -23,7 +23,8 @@
   fontconfig,
   dbus,
   libX11,
-  xorg,
+  libxshmfence,
+  libxcb,
   libXi,
   libXcursor,
   libXdamage,
@@ -187,8 +188,8 @@ stdenv.mkDerivation rec {
     nss
     pango
     systemdLibs
-    xorg.libxcb
-    xorg.libxshmfence
+    libxcb
+    libxshmfence
   ];
 
   runtimeDependencies = [
@@ -296,9 +297,9 @@ stdenv.mkDerivation rec {
       lib.licenses.mit # emoji-data
     ];
     maintainers = with lib.maintainers; [
+      eclairevoyant
       mic92
       equirosa
-      urandom
       bkchr
       emily
       Gliczy

@@ -179,47 +179,33 @@ in
 
     services.xserver.displayManager.lightdm.enable = false;
 
-    users.users.gdm = {
-      name = "gdm";
-      uid = config.ids.uids.gdm;
-      group = "gdm";
-      description = "GDM user";
-    };
+    users.users = lib.mkMerge [
+      {
+        gdm = {
+          name = "gdm";
+          uid = config.ids.uids.gdm;
+          group = "gdm";
+          description = "GDM user";
+        };
 
-    users.users.gdm-greeter = {
-      isSystemUser = true;
-      uid = 60578;
-      group = "gdm";
-      home = "/run/gdm";
-    };
+        gdm-greeter = {
+          isSystemUser = true;
+          uid = 60578;
+          group = "gdm";
+          home = "/run/gdm";
+        };
+      }
 
-    users.users.gdm-greeter-1 = {
-      isSystemUser = true;
-      uid = 60579;
-      group = "gdm";
-      home = "/run/gdm-1";
-    };
-
-    users.users.gdm-greeter-2 = {
-      isSystemUser = true;
-      uid = 60580;
-      group = "gdm";
-      home = "/run/gdm-2";
-    };
-
-    users.users.gdm-greeter-3 = {
-      isSystemUser = true;
-      uid = 60581;
-      group = "gdm";
-      home = "/run/gdm-3";
-    };
-
-    users.users.gdm-greeter-4 = {
-      isSystemUser = true;
-      uid = 60582;
-      group = "gdm";
-      home = "/run/gdm-4";
-    };
+      (lib.genAttrs' [ 1 2 3 4 ] (
+        i:
+        lib.nameValuePair "gdm-greeter-${toString i}" {
+          isSystemUser = true;
+          uid = 60578 + i;
+          group = "gdm";
+          home = "/run/gdm-${toString i}";
+        }
+      ))
+    ];
 
     users.groups.gdm.gid = config.ids.gids.gdm;
 
@@ -231,27 +217,30 @@ in
       # Enable desktop session data
       enable = true;
 
-      environment = {
-        GDM_X_SERVER_EXTRA_ARGS = toString (lib.filter (arg: arg != "-terminate") xdmcfg.xserverArgs);
-        XDG_DATA_DIRS = lib.makeSearchPath "share" [
-          gdm # for gnome-login.session
-          config.services.displayManager.sessionData.desktops
-          pkgs.gnome-control-center # for accessibility icon
-          pkgs.adwaita-icon-theme
-          pkgs.hicolor-icon-theme # empty icon theme as a base
-        ];
-      }
-      // lib.optionalAttrs (xSessionWrapper != null) {
-        # Make GDM use this wrapper before running the session, which runs the
-        # configured setupCommands. This relies on a patched GDM which supports
-        # this environment variable.
-        GDM_X_SESSION_WRAPPER = "${xSessionWrapper}";
+      generic = {
+        enable = true;
+        environment = {
+          GDM_X_SERVER_EXTRA_ARGS = toString (lib.filter (arg: arg != "-terminate") xdmcfg.xserverArgs);
+          XDG_DATA_DIRS = lib.makeSearchPath "share" [
+            gdm # for gnome-login.session
+            config.services.displayManager.sessionData.desktops
+            pkgs.gnome-control-center # for accessibility icon
+            pkgs.adwaita-icon-theme
+            pkgs.hicolor-icon-theme # empty icon theme as a base
+          ];
+        }
+        // lib.optionalAttrs (xSessionWrapper != null) {
+          # Make GDM use this wrapper before running the session, which runs the
+          # configured setupCommands. This relies on a patched GDM which supports
+          # this environment variable.
+          GDM_X_SESSION_WRAPPER = "${xSessionWrapper}";
+        };
+        execCmd = "exec ${gdm}/bin/gdm";
+        preStart = lib.optionalString (defaultSessionName != null) ''
+          # Set default session in session chooser to a specified values – basically ignore session history.
+          ${setSessionScript}/bin/set-session ${config.services.displayManager.sessionData.autologinSession}
+        '';
       };
-      execCmd = "exec ${gdm}/bin/gdm";
-      preStart = lib.optionalString (defaultSessionName != null) ''
-        # Set default session in session chooser to a specified values – basically ignore session history.
-        ${setSessionScript}/bin/set-session ${config.services.displayManager.sessionData.autologinSession}
-      '';
     };
 
     systemd.tmpfiles.rules = [

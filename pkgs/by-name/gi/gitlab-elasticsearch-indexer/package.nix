@@ -50,11 +50,14 @@ buildGoModule rec {
     inherit codeParserBindings;
   };
 
-  meta = with lib; {
+  meta = {
     description = "Indexes Git repositories into Elasticsearch for GitLab";
     mainProgram = "gitlab-elasticsearch-indexer";
-    license = licenses.mit;
-    maintainers = with maintainers; [ yayayayaka ];
-    teams = [ teams.cyberus ];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [
+      e1mo
+      xanderio
+      yayayayaka
+    ];
   };
 }

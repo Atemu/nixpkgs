@@ -14,13 +14,13 @@
 buildHomeAssistantComponent rec {
   owner = "marcolivierarsenault";
   domain = "moonraker";
-  version = "1.11.1";
+  version = "1.13.0";
 
   src = fetchFromGitHub {
     owner = "marcolivierarsenault";
     repo = "moonraker-home-assistant";
     tag = version;
-    hash = "sha256-3qxTigKBZ7maUylx0NCf70tURNUWFpo2TzgxnxqjUpA=";
+    hash = "sha256-3GY0aPCWjrnObaHVQmVjZUsQE4ZB+LtnUxO96IZxZAk=";
   };
 
   dependencies = [
@@ -37,11 +37,11 @@ buildHomeAssistantComponent rec {
   #skip phases with nothing to do
   dontConfigure = true;
 
-  meta = with lib; {
+  meta = {
     changelog = "https://github.com/marcolivierarsenault/moonraker-home-assistant/releases/tag/${version}";
     description = "Custom integration for Moonraker and Klipper in Home Assistant";
     homepage = "https://github.com/marcolivierarsenault/moonraker-home-assistant";
-    maintainers = with maintainers; [ _9R ];
-    license = licenses.mit;
+    maintainers = with lib.maintainers; [ _9R ];
+    license = lib.licenses.mit;
   };
 }

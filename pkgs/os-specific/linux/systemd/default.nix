@@ -156,7 +156,11 @@
   # adds python to closure which is too much by default
   withUkify ? false,
   withUserDb ? true,
-  withUtmp ? true,
+  # utmp does not exist on musl, so it would be implicitly disabled
+  # It is important to document the lack of utmp in nix,
+  # otherwise the condition for systemd-update-utmp.service will
+  # attempt to load a service which does not exist, resulting in errors.
+  withUtmp ? !stdenv.hostPlatform.isMusl,
   withVmspawn ? true,
   # kernel-install shouldn't usually be used on NixOS, but can be useful, e.g. for
   # building disk images for non-NixOS systems. To save users from trying to use it
@@ -203,13 +207,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   inherit pname;
-  version = "258.2";
+  version = "258.3";
 
   src = fetchFromGitHub {
     owner = "systemd";
     repo = "systemd";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-1iWeuNefDOIEUSTzxzvt+jfcs6sSMPhxQfdwp0mqUjQ=";
+    hash = "sha256-wpg/0z7xrB8ysPaa/zNp1mz+yYRCGyXz0ODZcKapovM=";
   };
 
   # On major changes, or when otherwise required, you *must* :
@@ -894,6 +898,7 @@ stdenv.mkDerivation (finalAttrs: {
       withLocaled
       withMachined
       withNetworkd
+      withNspawn
       withPortabled
       withSysupdate
       withTimedated
@@ -952,7 +957,6 @@ stdenv.mkDerivation (finalAttrs: {
             systemd-initrd-luks-empty-passphrase
             systemd-initrd-luks-password
             systemd-initrd-luks-tpm2
-            systemd-initrd-luks-unl0kr
             systemd-initrd-modprobe
             systemd-initrd-shutdown
             systemd-initrd-simple
@@ -1011,7 +1015,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    homepage = "https://www.freedesktop.org/wiki/Software/systemd/";
+    homepage = "https://systemd.io";
     description = "System and service manager for Linux";
     longDescription = ''
       systemd is a suite of basic building blocks for a Linux system. It

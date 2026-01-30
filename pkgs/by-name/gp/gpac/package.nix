@@ -29,7 +29,9 @@
   pulseaudio,
   SDL2,
   curl,
-  xorg,
+  libxv,
+  libx11,
+  xorgproto,
 
   withFullDeps ? false,
   withFfmpeg ? withFullDeps,
@@ -62,12 +64,12 @@ let
     };
   };
   unstable = {
-    version = "2.4-unstable-2025-10-26";
+    version = "2.4.0-unstable-2025-12-23";
     src = fetchFromGitHub {
       owner = "gpac";
       repo = "gpac";
-      rev = "e1a54e81b3befba2b0bffd1d4c1cf50da516c5f3";
-      hash = "sha256-jSMBPuWPmTDCebImdmAcCZl0hEQpJK4QMNGcEXgs3A4=";
+      rev = "035540740e7a9901cd5f5b08ff5df4f31ac28ec2";
+      hash = "sha256-CAP6NYSU+ctjl9BMD22rybNcWVm3eAVDAiZKfp8/xDc=";
     };
     updateScript = unstableGitUpdater {
       tagFormat = "v*";
@@ -108,9 +110,9 @@ stdenv.mkDerivation (finalAttrs: {
     nghttp2
     openjpeg
     libcaca
-    xorg.libX11
-    xorg.libXv
-    xorg.xorgproto
+    libx11
+    libxv
+    xorgproto
     mesa
     mesa_glu
     xvidcore

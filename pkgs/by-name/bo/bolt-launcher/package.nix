@@ -9,7 +9,12 @@
   libz,
   cef-binary,
   luajit,
-  xorg,
+  libxxf86vm,
+  libxi,
+  libxext,
+  libx11,
+  libsm,
+  libxcb,
   libgbm,
   glib,
   jdk17,
@@ -58,8 +63,8 @@ let
 
     buildInputs = [
       libgbm
-      xorg.libX11
-      xorg.libxcb
+      libx11
+      libxcb
       libarchive
       libz
       cef
@@ -98,6 +103,7 @@ let
         exec = "bolt-launcher";
         icon = "bolt-launcher";
         categories = [ "Game" ];
+        startupWMClass = "BoltLauncher";
       })
     ];
   });
@@ -109,11 +115,11 @@ buildFHSEnv {
     pkgs:
     [ bolt ]
     ++ (with pkgs; [
-      xorg.libSM
-      xorg.libXxf86vm
-      xorg.libX11
-      xorg.libXi
-      xorg.libXext
+      libsm
+      libxxf86vm
+      libx11
+      libxi
+      libxext
       glib
       pango
       cairo
@@ -155,6 +161,7 @@ buildFHSEnv {
     maintainers = with lib.maintainers; [
       nezia
       jaspersurmont
+      iedame
     ];
     platforms = lib.platforms.linux;
     mainProgram = "${bolt.name}";

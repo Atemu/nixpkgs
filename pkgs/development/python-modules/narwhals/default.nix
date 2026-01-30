@@ -22,14 +22,14 @@
 
 buildPythonPackage rec {
   pname = "narwhals";
-  version = "2.10.0";
+  version = "2.14.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "narwhals-dev";
     repo = "narwhals";
     tag = "v${version}";
-    hash = "sha256-a/X6LVzFxtjyaFcgZapJZ5i9h5LSB39XjGu/HdhPf8k=";
+    hash = "sha256-5yynyaY5NuxSGEro4pDzFFkf0PsYArzlB23lXYmzydY=";
   };
 
   build-system = [ hatchling ];
@@ -57,7 +57,7 @@ buildPythonPackage rec {
     pytest-env
     pytestCheckHook
   ]
-  ++ lib.flatten (builtins.attrValues optional-dependencies);
+  ++ lib.concatAttrValues optional-dependencies;
 
   pythonImportsCheck = [ "narwhals" ];
 

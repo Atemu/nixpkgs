@@ -43,7 +43,8 @@
   tinyxml,
   util-linux,
   wxGTK32,
-  xorg,
+  libxtst,
+  libxdmcp,
   xz,
 }:
 
@@ -119,8 +120,8 @@ stdenv.mkDerivation (finalAttrs: {
     libselinux
     libsepol
     util-linux
-    xorg.libXdmcp
-    xorg.libXtst
+    libxdmcp
+    libxtst
   ]
   ++ lib.optionals (lib.meta.availableOn stdenv.hostPlatform elfutils) [
     elfutils
@@ -151,14 +152,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  meta = with lib; {
+  meta = {
     description = "Concise ChartPlotter/Navigator";
-    maintainers = with maintainers; [
+    maintainers = with lib.maintainers; [
       kragniz
       lovesegfault
     ];
-    platforms = platforms.unix;
-    license = licenses.gpl2Plus;
+    platforms = lib.platforms.unix;
+    license = lib.licenses.gpl2Plus;
     homepage = "https://opencpn.org/";
   };
 })

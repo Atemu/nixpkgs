@@ -8,16 +8,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "typos";
-  version = "1.39.2";
+  version = "1.42.1";
 
   src = fetchFromGitHub {
     owner = "crate-ci";
     repo = "typos";
     tag = "v${version}";
-    hash = "sha256-N8lz/PEGtqBHH9smUGoPghGEIGukrS/9POv+FAb8L/M=";
+    hash = "sha256-4oUiQ1wohhPOIupPHiox1Id7onJyQ+/7yEECmH+MAPg=";
   };
 
-  cargoHash = "sha256-+8RKFg8XFYgqso3lvqaKHi8O8dFU3ayEMdLgZytNZlY=";
+  cargoHash = "sha256-gKkXtyvIXVTEm60aZIxH3suRCbNLgSc+XfYvFC/fbVU=";
 
   passthru.updateScript = nix-update-script { };
 
@@ -31,7 +31,6 @@ rustPlatform.buildRustPackage rec {
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
-  versionCheckProgramArg = "--version";
 
   meta = {
     description = "Source code spell checker";
@@ -44,6 +43,7 @@ rustPlatform.buildRustPackage rec {
     ];
     maintainers = with lib.maintainers; [
       mgttlinger
+      chrjabs
     ];
   };
 }

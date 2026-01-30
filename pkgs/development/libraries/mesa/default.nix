@@ -20,7 +20,6 @@
   libpng,
   libunwind,
   libva-minimal,
-  libvdpau,
   llvmPackages,
   lm_sensors,
   meson,
@@ -40,7 +39,14 @@
   wayland-protocols,
   wayland-scanner,
   xcbutilkeysyms,
-  xorg,
+  libxxf86vm,
+  libxrandr,
+  libxfixes,
+  libxext,
+  libx11,
+  xorgproto,
+  libxshmfence,
+  libxcb,
   zstd,
   enablePatentEncumberedCodecs ? true,
   withValgrind ? lib.meta.availableOn stdenv.hostPlatform valgrind-light,
@@ -51,6 +57,7 @@
     "asahi" # Apple AGX
     "crocus" # Intel legacy
     "d3d12" # WSL emulated GPU (aka Dozen)
+    "ethosu" # ARM Ethos NPU
     "etnaviv" # Vivante GPU designs (mostly NXP/Marvell SoCs)
     "freedreno" # Qualcomm Adreno (all Qualcomm SoCs)
     "i915" # Intel extra legacy
@@ -62,6 +69,7 @@
     "r300" # very old AMD
     "r600" # less old AMD
     "radeonsi" # new AMD (GCN+)
+    "rocket" # Rockchip NPU
     "softpipe" # older software renderer
     "svga" # VMWare virtualized GPU
     "tegra" # Nvidia Tegra SoCs
@@ -69,10 +77,6 @@
     "vc4" # Broadcom VC4 (Raspberry Pi 0-3)
     "virgl" # QEMU virtualized GPU (aka VirGL)
     "zink" # generic OpenGL over Vulkan, experimental
-  ]
-  ++ lib.optionals stdenv.hostPlatform.is64bit [
-    "ethosu" # ARM Ethos NPU, does not build on 32-bit
-    "rocket" # Rockchip NPU, probably horribly broken on 32-bit
   ],
   vulkanDrivers ? [
     "amd" # AMD (aka RADV)
@@ -150,7 +154,6 @@ stdenv.mkDerivation {
 
   patches = [
     ./opencl.patch
-    ./musl.patch
   ];
 
   postPatch = ''
@@ -217,6 +220,10 @@ stdenv.mkDerivation {
     # is ignored when freedreno is not being built.
     (lib.mesonOption "freedreno-kmds" "msm,kgsl,virtio,wsl")
 
+    # Enable virtio-gpu kernel mode driver (native context) support for amdgpu as well.
+    # This option is ignored when RadeonSI/RADV are not being built.
+    (lib.mesonBool "amdgpu-virtio" true)
+
     # Required for OpenCL
     (lib.mesonOption "clang-libdir" "${lib.getLib llvmPackages.clang-unwrapped}/lib")
 
@@ -254,46 +261,43 @@ stdenv.mkDerivation {
 
   strictDeps = true;
 
-  buildInputs =
-    with xorg;
-    [
-      directx-headers
-      elfutils
-      expat
-      spirv-tools
-      libdisplay-info
-      libdrm
-      libgbm
-      libglvnd
-      libpng
-      libunwind
-      libva-minimal
-      libvdpau
-      libX11
-      libxcb
-      libXext
-      libXfixes
-      libXrandr
-      libxshmfence
-      libXxf86vm
-      llvmPackages.clang
-      llvmPackages.clang-unwrapped
-      llvmPackages.libclc
-      llvmPackages.libllvm
-      lm_sensors
-      python3Packages.python # for shebang
-      spirv-llvm-translator
-      udev
-      vulkan-loader
-      wayland
-      wayland-protocols
-      xcbutilkeysyms
-      xorgproto
-      zstd
-    ]
-    ++ lib.optionals withValgrind [
-      valgrind-light
-    ];
+  buildInputs = [
+    directx-headers
+    elfutils
+    expat
+    spirv-tools
+    libdisplay-info
+    libdrm
+    libgbm
+    libglvnd
+    libpng
+    libunwind
+    libva-minimal
+    libx11
+    libxcb
+    libxext
+    libxfixes
+    libxrandr
+    libxshmfence
+    libxxf86vm
+    llvmPackages.clang
+    llvmPackages.clang-unwrapped
+    llvmPackages.libclc
+    llvmPackages.libllvm
+    lm_sensors
+    python3Packages.python # for shebang
+    spirv-llvm-translator
+    udev
+    vulkan-loader
+    wayland
+    wayland-protocols
+    xcbutilkeysyms
+    xorgproto
+    zstd
+  ]
+  ++ lib.optionals withValgrind [
+    valgrind-light
+  ];
 
   depsBuildBuild = [
     pkg-config

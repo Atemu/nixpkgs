@@ -10,7 +10,7 @@
   freetype,
   libxcb,
   xcbutil,
-  xorg,
+  libxcb-cursor,
   xcbutilkeysyms,
   libxkbcommon,
   libX11,
@@ -24,12 +24,12 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "uhhyou-plugins";
-  version = "0.67.0";
+  version = "0.69.0";
   src = fetchFromGitHub {
     owner = "ryukau";
     repo = "VSTPlugins";
     rev = "UhhyouPlugins${finalAttrs.version}";
-    hash = "sha256-8YGfcnWkOQwwq6m3510GPpZu6UbDmVi3K/dOGLrAnhM=";
+    hash = "sha256-s1HQD7ZWmqD1yux/IKG8oUt7UA0TrAuPEsVSOXFcIE4=";
     fetchSubmodules = true;
   };
 
@@ -45,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     freetype
     libxcb
     xcbutil
-    xorg.xcbutilcursor
+    libxcb-cursor
     xcbutilkeysyms
     libxkbcommon
     libX11

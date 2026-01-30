@@ -43,7 +43,9 @@ stdenv.mkDerivation rec {
 
   outputs = [
     "out"
+    "doc"
     "info"
+    "man"
   ];
 
   configureFlags = [
@@ -99,16 +101,15 @@ stdenv.mkDerivation rec {
     '';
   };
 
-  meta = with lib; {
+  meta = {
     homepage = "https://www.nano-editor.org/";
     description = "Small, user-friendly console text editor";
-    license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
+    license = lib.licenses.gpl3Plus;
+    maintainers = with lib.maintainers; [
       joachifm
-      nequissimus
       sigmasquadron
     ];
-    platforms = platforms.all;
+    platforms = lib.platforms.all;
     mainProgram = "nano";
   };
 }

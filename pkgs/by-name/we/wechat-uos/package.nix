@@ -6,7 +6,23 @@
   dpkg,
   nss,
   nspr,
-  xorg,
+  libxt,
+  libxtst,
+  libxscrnsaver,
+  libxrender,
+  libxrandr,
+  libxi,
+  libxft,
+  libxfixes,
+  libxext,
+  libxdamage,
+  libxcursor,
+  libxcomposite,
+  libx11,
+  libsm,
+  libice,
+  libxshmfence,
+  libxcb,
   pango,
   zlib,
   atkmm,
@@ -63,7 +79,7 @@ let
     preferLocalBuild = true;
   };
 
-  wechat-uos-runtime = with xorg; [
+  wechat-uos-runtime = [
     stdenv.cc.cc
     stdenv.cc.libc
     pango
@@ -72,23 +88,23 @@ let
     xcbutilimage
     xcbutilkeysyms
     xcbutilrenderutil
-    libX11
-    libXt
-    libXext
-    libSM
-    libICE
+    libx11
+    libxt
+    libxext
+    libsm
+    libice
     libxcb
     libxkbcommon
     libxshmfence
-    libXi
-    libXft
-    libXcursor
-    libXfixes
-    libXScrnSaver
-    libXcomposite
-    libXdamage
-    libXtst
-    libXrandr
+    libxi
+    libxft
+    libxcursor
+    libxfixes
+    libxscrnsaver
+    libxcomposite
+    libxdamage
+    libxtst
+    libxrandr
     libnotify
     atk
     atkmm
@@ -105,7 +121,7 @@ let
     libva
     freetype
     fontconfig
-    libXrender
+    libxrender
     libuuid
     expat
     glib
@@ -163,17 +179,17 @@ let
         runHook postInstall
       '';
 
-      meta = with lib; {
+      meta = {
         description = "Messaging app";
         homepage = "https://weixin.qq.com/";
-        license = licenses.unfree;
+        license = lib.licenses.unfree;
         platforms = [
           "x86_64-linux"
           "aarch64-linux"
           "loongarch64-linux"
         ];
-        sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-        maintainers = with maintainers; [
+        sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+        maintainers = with lib.maintainers; [
           pokon548
           xddxdd
         ];

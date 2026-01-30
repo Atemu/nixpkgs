@@ -8,17 +8,17 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "codebook";
-  version = "0.3.18";
+  version = "0.3.29";
 
   src = fetchFromGitHub {
     owner = "blopker";
     repo = "codebook";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-KRygy6YC7W7V0TFarKSnCS9Ww3M8q3xJvg925aolLmM=";
+    hash = "sha256-jGI0a2rb0ljDorqq+g9PbFO4UfCUrtgX47tVNq3AHhs=";
   };
 
   buildAndTestSubdir = "crates/codebook-lsp";
-  cargoHash = "sha256-HAJglGtOy+OMZoB50Uz5vrf8IXqBKMMO/Hr9Lcry2+Q=";
+  cargoHash = "sha256-2ZPB5sGFhewiJX70IMVygbyPUV1AYe6pcjmTIK0gvhc=";
 
   CARGO_PROFILE_RELEASE_LTO = "fat";
   CARGO_PROFILE_RELEASE_CODEGEN_UNITS = "1";
@@ -32,7 +32,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     versionCheckHook
   ];
   doInstallCheck = true;
-  versionCheckProgramArg = "--version";
 
   meta = {
     description = "Unholy spellchecker for code";

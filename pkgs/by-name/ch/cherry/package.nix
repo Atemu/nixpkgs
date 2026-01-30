@@ -2,7 +2,8 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  xorg,
+  mkfontscale,
+  fonttosfnt,
 }:
 
 stdenv.mkDerivation rec {
@@ -17,8 +18,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    xorg.fonttosfnt
-    xorg.mkfontdir
+    fonttosfnt
+    mkfontscale
   ];
 
   buildPhase = ''
@@ -34,11 +35,11 @@ stdenv.mkDerivation rec {
     mkfontdir $out/share/fonts/misc
   '';
 
-  meta = with lib; {
+  meta = {
     description = "cherry font";
     homepage = "https://github.com/turquoise-hexagon/cherry";
-    license = licenses.mit;
+    license = lib.licenses.mit;
     maintainers = [ ];
-    platforms = platforms.all;
+    platforms = lib.platforms.all;
   };
 }

@@ -117,12 +117,12 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "shipwright";
-  version = "9.1.1";
+  version = "9.1.2";
   src = fetchFromGitHub {
     owner = "harbourmasters";
     repo = "shipwright";
     tag = finalAttrs.version;
-    hash = "sha256-TEP2YNKUuAnvLg+aDOkMmYfPQIjUXWYOhprfqsr8EgQ=";
+    hash = "sha256-kFi5yo+CGH67NU7haDAbzWCURzsUYMlRzx66XGvh0a0=";
     fetchSubmodules = true;
     deepClone = true;
     postFetch = ''
@@ -288,10 +288,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "PC port of Ocarina of Time with modern controls, widescreen, high-resolution, and more";
     mainProgram = "soh";
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    maintainers = with lib.maintainers; [
-      j0lol
-      matteopacini
-    ];
+    maintainers = with lib.maintainers; [ matteopacini ];
     license = with lib.licenses; [
       # OTRExporter, OTRGui, ZAPDTR, libultraship
       mit

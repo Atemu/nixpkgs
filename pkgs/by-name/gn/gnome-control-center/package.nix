@@ -3,6 +3,7 @@
   lib,
   stdenv,
   replaceVars,
+  fetchpatch,
   accountsservice,
   adwaita-icon-theme,
   blueprint-compiler,
@@ -76,11 +77,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-control-center";
-  version = "49.1";
+  version = "49.3";
 
   src = fetchurl {
     url = "mirror://gnome/sources/gnome-control-center/${lib.versions.major finalAttrs.version}/gnome-control-center-${finalAttrs.version}.tar.xz";
-    hash = "sha256-VALv+PIxY6dV3sJJNmwbOmXoDw2mDwd0p0DR5YdG+Gk=";
+    hash = "sha256-z5PTcWT6LhC+bwjxXrkXsfHqf53Zusfen/3YEvqNnPw=";
   };
 
   patches = [
@@ -88,6 +89,15 @@ stdenv.mkDerivation (finalAttrs: {
       gcm = gnome-color-manager;
       inherit glibc tzdata shadow;
       inherit cups networkmanagerapplet;
+    })
+
+    # Fix crash when switching to hands-free mode on a bluetooth headset
+    (fetchpatch {
+      name = "fix-bluetooth-handsfree-crash.patch";
+      url = "https://gitlab.gnome.org/GNOME/libgnome-volume-control/-/merge_requests/31.patch";
+      hash = "sha256-jFbItlXT05nnp825R/HvsWDFxAMzL4z36CsxhQ2sEIY=";
+      stripLen = 1;
+      extraPrefix = "subprojects/gvc/";
     })
   ];
 
@@ -210,11 +220,11 @@ stdenv.mkDerivation (finalAttrs: {
     };
   };
 
-  meta = with lib; {
+  meta = {
     description = "Utilities to configure the GNOME desktop";
     mainProgram = "gnome-control-center";
-    license = licenses.gpl2Plus;
-    teams = [ teams.gnome ];
-    platforms = platforms.linux;
+    license = lib.licenses.gpl2Plus;
+    teams = [ lib.teams.gnome ];
+    platforms = lib.platforms.linux;
   };
 })
