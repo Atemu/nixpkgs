@@ -96,6 +96,9 @@
 
   # For QT support
   qt6,
+
+  # Create a symlink at $out/bin/google-chrome
+  withSymlink ? false,
 }:
 
 let
@@ -170,11 +173,11 @@ let
 
   linux = stdenvNoCC.mkDerivation (finalAttrs: {
     inherit pname meta passthru;
-    version = "144.0.7559.96";
+    version = "144.0.7559.109";
 
     src = fetchurl {
       url = "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${finalAttrs.version}-1_amd64.deb";
-      hash = "sha256-tPM+bbT3AreOPZdeHfO2ktBXvFGicH1+oz/a2R+MbEE=";
+      hash = "sha256-O3fFCcSghHor8UaqvUCn/GDqKD+8SCrXT6FEnWh9QUc=";
     };
 
     # With strictDeps on, some shebangs were not being patched correctly
@@ -268,6 +271,10 @@ let
 
       runHook postInstall
     '';
+
+    postInstall = lib.optionalString withSymlink ''
+      ln -s $out/bin/google-chrome-stable $out/bin/google-chrome
+    '';
   });
 
   darwin = stdenvNoCC.mkDerivation (finalAttrs: {
@@ -305,6 +312,10 @@ let
         --add-flags ${lib.escapeShellArg commandLineArgs}
       runHook postInstall
     '';
+
+    postInstall = lib.optionalString withSymlink ''
+      ln -s $out/bin/google-chrome-stable $out/bin/google-chrome
+    '';
   });
 
   passthru.updateScript = ./update.sh;
@@ -315,7 +326,7 @@ let
     homepage = "https://www.google.com/chrome/browser/";
     license = lib.licenses.unfree;
     maintainers = with lib.maintainers; [
-      johnrtitor
+      iedame
       mdaniels5757
     ];
     platforms = lib.platforms.darwin ++ [ "x86_64-linux" ];

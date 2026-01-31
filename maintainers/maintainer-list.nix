@@ -2760,14 +2760,6 @@
     githubId = 426541;
     name = "Tim Kleinschmidt";
   };
-  azey7f = {
-    email = "me@azey.net";
-    github = "azey7f";
-    githubId = 41077433;
-    name = "azey";
-    # assuming my nameservers are up: gpg --auto-key-locate clear,nodefault,cert,dane --locate-keys me@azey.net
-    keys = [ { fingerprint = "2CCB 3403 43FE 8A2B 91CE  7F75 F94F 4A71 C5C2 1E8F"; } ];
-  };
   azuwis = {
     email = "azuwis@gmail.com";
     github = "azuwis";
@@ -3895,12 +3887,6 @@
     github = "bricklou";
     githubId = 15181236;
     keys = [ { fingerprint = "AE1E 3B80 7727 C974 B972  AB3C C324 01C3 BF52 1179"; } ];
-  };
-  bridgesense = {
-    name = "Saad Nadeem";
-    email = "saad29nadeem@gmail.com";
-    github = "BridgeSenseDev";
-    githubId = 88615188;
   };
   britter = {
     name = "Benedikt Ritter";
@@ -15697,7 +15683,7 @@
     github = "M0streng0";
     githubId = 85799811;
   };
-  m0ustache3 = {
+  M0ustach3 = {
     name = "M0ustach3";
     github = "M0ustach3";
     githubId = 37956764;
@@ -15800,6 +15786,14 @@
     github = "maeve-oake";
     githubId = 38541651;
     name = "maeve";
+  };
+  maevii = {
+    email = "me@maevi.net";
+    github = "maevii";
+    githubId = 41077433;
+    name = "Maevi";
+    # assuming my nameservers are up: gpg --auto-key-locate clear,nodefault,cert,dane --locate-keys me@maevi.net
+    keys = [ { fingerprint = "A176 4D41 E826 A6E5 A5A1  8231 7670 F0F0 C946 12F4"; } ];
   };
   mafo = {
     email = "Marc.Fontaine@gmx.de";
@@ -23148,6 +23142,12 @@
     name = "Shmarya Rubenstein";
     github = "s1341";
     githubId = 5682183;
+  };
+  saadndm = {
+    name = "Saad Nadeem";
+    email = "saad29nadeem@gmail.com";
+    github = "saadndm";
+    githubId = 88615188;
   };
   sagikazarmark = {
     name = "Mark Sagi-Kazar";
