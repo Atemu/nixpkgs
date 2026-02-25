@@ -8,16 +8,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "nebula";
-  version = "1.10.0";
+  version = "1.10.3";
 
   src = fetchFromGitHub {
     owner = "slackhq";
     repo = "nebula";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-p/2A1ZTBUPvrA8eAgLxjR7NSAfiIEkDcjX0Db8dCmfQ=";
+    hash = "sha256-sF/NZpBxbJWHTjx6Nuv7WHgUqhYbBq2/g7nB3wxNDHg=";
   };
 
-  vendorHash = "sha256-rod6YDosI9nBf2v6Q/rw/fT9p9N8Zo/lu989UhyL8/s=";
+  vendorHash = "sha256-zzYywNbeccW4Ujig20oBUZsJBQFvCIkCNOuBMxGxaqE=";
 
   subPackages = [
     "cmd/nebula"
@@ -79,6 +79,7 @@ buildGoModule (finalAttrs: {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [
       Br1ght0ne
+      herbetom
       numinit
     ];
   };

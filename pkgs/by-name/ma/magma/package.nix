@@ -134,6 +134,16 @@ stdenv.mkDerivation (finalAttrs: {
       url = "https://github.com/icl-utk-edu/magma/commit/2fecaf3f0c811344363f713669c1fe30f6879acd.patch";
       hash = "sha256-Dfzq2gqoLSByCLWV5xvY/lXZeVa/yQ67lDSoIAa9jUU=";
     })
+  ]
+  ++ lib.optionals cudaSupport [
+    # Fixes:
+    # error: 'struct cudaDeviceProp' has no member named 'clockRate'
+    # Context: https://github.com/icl-utk-edu/magma/issues/61
+    (fetchpatch {
+      name = "fix-cuda13-compat.patch";
+      url = "https://github.com/icl-utk-edu/magma/commit/235aefb7b064954fce09d035c69907ba8a87cbcd.patch";
+      hash = "sha256-i9InbxD5HtfonB/GyF9nQhFmok3jZ73RxGcIciGBGvU=";
+    })
   ];
 
   postPatch = ''

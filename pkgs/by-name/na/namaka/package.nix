@@ -45,6 +45,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/nix-community/namaka";
     changelog = "https://github.com/nix-community/namaka/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mpl20;
-    maintainers = [ ];
+    maintainers = with lib.maintainers; [ figsoda ];
   };
 }

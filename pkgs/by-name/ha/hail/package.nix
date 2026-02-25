@@ -1,7 +1,7 @@
 {
   lib,
   rustPlatform,
-  fetchFromGitea,
+  fetchFromCodeberg,
   pkg-config,
   fontconfig,
   freetype,
@@ -17,8 +17,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   pname = "hail";
   version = "0.2.2";
 
-  src = fetchFromGitea {
-    domain = "codeberg.org";
+  src = fetchFromCodeberg {
     owner = "periwinkle";
     repo = "hail";
     tag = finalAttrs.version;

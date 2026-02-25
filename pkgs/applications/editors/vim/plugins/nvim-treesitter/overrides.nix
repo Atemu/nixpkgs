@@ -172,6 +172,6 @@ in
 
     (super.nvim-treesitter.meta or { }) // {
       license = lib.licenses.asl20;
-      maintainers = [ ];
+      maintainers = with lib.maintainers; [ figsoda ];
     };
 }

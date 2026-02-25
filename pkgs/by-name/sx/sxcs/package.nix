@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  fetchFromGitea,
+  fetchFromCodeberg,
   xorg,
   installShellFiles,
 }:
@@ -10,8 +10,7 @@ stdenv.mkDerivation (finalAttrs: {
   name = "sxcs";
   version = "1.1.0";
 
-  src = fetchFromGitea {
-    domain = "codeberg.org";
+  src = fetchFromCodeberg {
     owner = "NRK";
     repo = "sxcs";
     rev = "refs/tags/v${finalAttrs.version}";

@@ -40,6 +40,6 @@ stdenvNoCC.mkDerivation rec {
     license = lib.licenses.mit;
     homepage = "https://www.magicbug.co.uk/cloudlog";
     platforms = php.meta.platforms;
-    maintainers = with lib.maintainers; [ melling ];
+    maintainers = with lib.maintainers; [ haennetz ];
   };
 }

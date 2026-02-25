@@ -29,7 +29,6 @@ gitsigns.nvim,https://raw.githubusercontent.com/lewis6991/gitsigns.nvim/main/git
 grug-far.nvim,,,,,,teto
 haskell-tools.nvim,,,,,,mrcjkb
 http,,,,0.4-0,,vcunat
-image.nvim,,,,,,teto
 inspect,,,,,,
 jsregexp,,,,,,
 ldbus,,,http://luarocks.org/dev,,,

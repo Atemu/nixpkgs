@@ -1,7 +1,7 @@
 {
   lib,
   vimUtils,
-  fetchFromGitea,
+  fetchFromCodeberg,
   nix-update-script,
   vimPlugins,
 }:
@@ -9,8 +9,7 @@ vimUtils.buildVimPlugin {
   pname = "cmp-async-path";
   version = "0-unstable-2025-11-04";
 
-  src = fetchFromGitea {
-    domain = "codeberg.org";
+  src = fetchFromCodeberg {
     owner = "FelipeLema";
     repo = "cmp-async-path";
     rev = "b8aade3a0626f2bc1d3cd79affcd7da9f47f7ab1";

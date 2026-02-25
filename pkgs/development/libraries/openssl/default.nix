@@ -411,7 +411,10 @@ in
       ./1.1/nix-ssl-cert-file.patch
 
       (
-        if stdenv.hostPlatform.isDarwin then ./use-etc-ssl-certs-darwin.patch else ./use-etc-ssl-certs.patch
+        if stdenv.hostPlatform.isDarwin then
+          ./1.1/use-etc-ssl-certs-darwin.patch
+        else
+          ./1.1/use-etc-ssl-certs.patch
       )
     ];
     withDocs = true;
@@ -449,8 +452,8 @@ in
   };
 
   openssl_3_6 = common {
-    version = "3.6.0";
-    hash = "sha256-tqX0S362nj+jXb8VUkQFtEg3pIHUPYHa3d4/8h/LuOk=";
+    version = "3.6.1";
+    hash = "sha256-sb/tzVson/Iq7ofJ1gD1FXZ+v0X3cWjLbWTyMfUYqC4=";
 
     patches = [
       # Support for NIX_SSL_CERT_FILE, motivation:
@@ -464,13 +467,13 @@ in
       # Look up SSL certificates in /etc rather than the immutable installation directory
       (
         if stdenv.hostPlatform.isDarwin then
-          ./3.5/use-etc-ssl-certs-darwin.patch
+          ./3.6/use-etc-ssl-certs-darwin.patch
         else
-          ./3.5/use-etc-ssl-certs.patch
+          ./3.6/use-etc-ssl-certs.patch
       )
     ]
     ++ lib.optionals stdenv.hostPlatform.isMinGW [
-      ./3.5/fix-mingw-linking.patch
+      ./3.6/mingw-define-netreset.patch
     ];
 
     withDocs = true;

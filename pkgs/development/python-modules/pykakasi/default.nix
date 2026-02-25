@@ -2,7 +2,7 @@
   lib,
   buildPythonPackage,
   deprecated,
-  fetchFromGitea,
+  fetchFromCodeberg,
   importlib-resources,
   jaconv,
   py-cpuinfo,
@@ -19,8 +19,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.8";
 
-  src = fetchFromGitea {
-    domain = "codeberg.org";
+  src = fetchFromCodeberg {
     owner = "miurahr";
     repo = "pykakasi";
     rev = "refs/tags/v${version}";

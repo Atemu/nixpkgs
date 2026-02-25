@@ -18,16 +18,16 @@
 
 buildGoModule rec {
   pname = "supersonic" + lib.optionalString waylandSupport "-wayland";
-  version = "0.19.0";
+  version = "0.20.1";
 
   src = fetchFromGitHub {
     owner = "dweymouth";
     repo = "supersonic";
     tag = "v${version}";
-    hash = "sha256-GMmIUDgbFFrOqDJ13C0o1fHg1tiWSjbCm36VPD7/IGw=";
+    hash = "sha256-q9g59TVo8Y7cKdSnyrsTQEIpB+f/+pcaobBFynnAgwY=";
   };
 
-  vendorHash = "sha256-FQmaxDIVWCxyFdgz03aNRXFyi8UeMeCqiVHNZOqq/8Q=";
+  vendorHash = "sha256-x8eq1ZGitBoq+N1QOIYLZRLIta3gbfpn2xZsqkj4cGo=";
 
   nativeBuildInputs = [
     copyDesktopItems
@@ -98,6 +98,7 @@ buildGoModule rec {
     maintainers = with lib.maintainers; [
       zane
       sochotnicky
+      toasteruwu
     ];
   };
 }

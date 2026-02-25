@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  fetchFromGitea,
+  fetchFromCodeberg,
   fetchpatch,
   ffmpeg-headless,
   mediainfo,
@@ -21,8 +21,7 @@ python3Packages.buildPythonApplication rec {
   version = "2025.10.09";
   pyproject = true;
 
-  src = fetchFromGitea {
-    domain = "codeberg.org";
+  src = fetchFromCodeberg {
     owner = "plotski";
     repo = "upsies";
     tag = "v${version}";

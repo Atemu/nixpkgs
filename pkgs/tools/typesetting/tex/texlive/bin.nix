@@ -346,6 +346,9 @@ rec {
       + ''
         rm "$out"/bin/{eptex,ptex,uptex}
         rm "${placeholder "ptex"}"/bin/{pbibtex,pdvitype,ppltotf,ptftopl}
+      ''
+      + lib.optionalString (stdenv.system == "aarch64-darwin") ''
+        # TMP: just cause a rebuild
       '';
 
     passthru = { inherit version buildInputs; };

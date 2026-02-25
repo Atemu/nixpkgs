@@ -416,9 +416,17 @@ in
   pycharm-community-bin =
     lib.warnOnInstantiate
       "pycharm-community-bin: PyCharm Community has been discontinued by Jetbrains. This binary build is no longer updated. Switch to 'jetbrains.pycharm-oss' for open source builds (from source) or 'jetbrains.pycharm' for commercial builds (binary, unfree). See: https://blog.jetbrains.com/pycharm/2025/04/pycharm-2025"
-      (buildPycharm {
-        pname = "pycharm-community";
-      });
+      (
+        (buildPycharm {
+          pname = "pycharm-community";
+        }).overrideAttrs
+          (
+            finalAttrs: previousAttrs: {
+              # https://github.com/NixOS/nixpkgs/issues/488993
+              meta.knownVulnerabilities = [ "CVE-2026-25847" ];
+            }
+          )
+      );
 
   pycharm-community-src = lib.warnOnInstantiate "jetbrains.idea-community-src: PyCharm Community has been discontinued by Jetbrains. This is now an alias for 'jetbrains.pycharm-oss', the Open Source build of PyCharm. See: https://blog.jetbrains.com/pycharm/2025/04/pycharm-2025" _pycharm-oss;
 

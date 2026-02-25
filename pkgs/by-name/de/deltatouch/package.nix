@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  fetchFromGitea,
+  fetchFromCodeberg,
   fetchFromGitHub,
   fetchpatch,
   cmake,
@@ -33,8 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "deltatouch";
   version = "2.22.0";
 
-  src = fetchFromGitea {
-    domain = "codeberg.org";
+  src = fetchFromCodeberg {
     owner = "lk108";
     repo = "deltatouch";
     tag = "v${finalAttrs.version}";

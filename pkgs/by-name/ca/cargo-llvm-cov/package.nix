@@ -91,6 +91,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       wucke13
       matthiasbeyer
       CobaltCause
+      chrjabs
     ];
 
     # The profiler runtime is (currently) disabled on non-Linux platforms

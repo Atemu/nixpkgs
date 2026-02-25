@@ -11,13 +11,13 @@
 
 stdenv.mkDerivation rec {
   pname = "osslsigncode";
-  version = "2.10";
+  version = "2.12";
 
   src = fetchFromGitHub {
     owner = "mtrojnar";
     repo = "osslsigncode";
     rev = version;
-    sha256 = "sha256-UjjNXcHpPbyUz5CPsW+uVhZP0X9XGM3//IVv9VhmP7o=";
+    sha256 = "sha256-UVm0lpw5l8gw+qNGfE57SdvT0Wwo75dUlolwBjBVCwA=";
   };
 
   nativeBuildInputs = [

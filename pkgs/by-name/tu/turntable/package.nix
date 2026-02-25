@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  fetchFromGitea,
+  fetchFromCodeberg,
   meson,
   ninja,
   pkg-config,
@@ -23,8 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "turntable";
   version = "0.3.3";
 
-  src = fetchFromGitea {
-    domain = "codeberg.org";
+  src = fetchFromCodeberg {
     owner = "GeopJr";
     repo = "Turntable";
     tag = "v${finalAttrs.version}";

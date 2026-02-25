@@ -1,7 +1,7 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitea,
+  fetchFromCodeberg,
   pytest-mock,
   pytestCheckHook,
   setuptools,
@@ -12,8 +12,7 @@ buildPythonPackage rec {
   version = "0.4.7";
   pyproject = true;
 
-  src = fetchFromGitea {
-    domain = "codeberg.org";
+  src = fetchFromCodeberg {
     owner = "plotski";
     repo = "countryguess";
     tag = "v${version}";

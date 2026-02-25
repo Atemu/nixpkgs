@@ -1,7 +1,7 @@
 {
   stdenv,
   lib,
-  fetchFromGitea,
+  fetchFromCodeberg,
   qmake,
   qttools,
   qtbase,
@@ -16,8 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "ubpm";
   version = "1.10.0";
 
-  src = fetchFromGitea {
-    domain = "codeberg.org";
+  src = fetchFromCodeberg {
     owner = "LazyT";
     repo = "ubpm";
     rev = finalAttrs.version;

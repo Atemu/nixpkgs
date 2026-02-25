@@ -17,6 +17,7 @@
   writeShellApplication,
   xorg,
   zlib,
+  dbus,
   metaCommon ? { },
 }:
 
@@ -50,6 +51,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     xorg.xcbutilrenderutil
     xorg.xcbutilwm
     zlib
+    dbus
   ];
 
   installPhase = ''

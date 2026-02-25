@@ -29,6 +29,8 @@ buildPythonPackage rec {
     webencodings
   ];
 
+  pythonRelaxDeps = [ "tinycss2" ];
+
   optional-dependencies = {
     css = [ tinycss2 ];
   };

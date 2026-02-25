@@ -14,16 +14,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "tauri";
-  version = "2.9.4";
+  version = "2.9.6";
 
   src = fetchFromGitHub {
     owner = "tauri-apps";
     repo = "tauri";
     tag = "tauri-cli-v${finalAttrs.version}";
-    hash = "sha256-A4Y9oRSzUP0Xm4BMXRzG1670GQk4yxxHJRkgIj5ExRg=";
+    hash = "sha256-VtZxFkxOLMNwl3A/2qoNJ/HXr5FXFKQYw+ri5Yp8eOE=";
   };
 
-  cargoHash = "sha256-dOiqNmDYOzVadeoDefZauw0zSwuxnl3VO0KeKUJbx0E=";
+  cargoHash = "sha256-uAjEQBHDpVv73MbeoU86tObiXSUKKjImpMTLHXKMRNs=";
 
   nativeBuildInputs = lib.optionals (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isLinux) [
     pkg-config
@@ -39,7 +39,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
       zstd
     ];
 
-  cargoBuildFlags = [ "--package tauri-cli" ];
+  cargoBuildFlags = [
+    "--package"
+    "tauri-cli"
+  ];
   cargoTestFlags = finalAttrs.cargoBuildFlags;
 
   env = lib.optionalAttrs stdenv.hostPlatform.isLinux {
@@ -49,6 +52,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   passthru = {
     # See ./doc/hooks/tauri.section.md
     hook = callPackage ./hook.nix { cargo-tauri = finalAttrs.finalPackage; };
+    gst-plugin = callPackage ./gst-plugin.nix { };
 
     tests = {
       hook = callPackage ./test-app.nix { cargo-tauri = finalAttrs.finalPackage; };

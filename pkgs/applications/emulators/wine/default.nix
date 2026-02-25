@@ -48,62 +48,85 @@
 }:
 
 let
-  wine-build =
-    build: release:
-    lib.getAttr build (
-      callPackage ./packages.nix {
-        wineRelease = release;
-        supportFlags = {
-          inherit
-            alsaSupport
-            cairoSupport
-            cupsSupport
-            cursesSupport
-            dbusSupport
-            embedInstallers
-            fontconfigSupport
-            gettextSupport
-            gphoto2Support
-            gstreamerSupport
-            gtkSupport
-            krb5Support
-            mingwSupport
-            netapiSupport
-            odbcSupport
-            openclSupport
-            openglSupport
-            pcapSupport
-            pulseaudioSupport
-            saneSupport
-            sdlSupport
-            tlsSupport
-            udevSupport
-            usbSupport
-            v4lSupport
-            vaSupport
-            vulkanSupport
-            waylandSupport
-            x11Support
-            ffmpegSupport
-            xineramaSupport
-            ;
-        };
-        inherit moltenvk;
-      }
-    );
+  sources = callPackage ./sources.nix { };
 
-  baseRelease =
-    {
-      staging = "unstable";
-      yabridge = "yabridge";
-    }
-    .${wineRelease} or null;
-in
-if baseRelease != null then
-  callPackage ./staging.nix {
-    wineUnstable = (wine-build wineBuild baseRelease).override {
-      inherit wineRelease;
+  # Map user-facing release names to sources, pname suffix, and staging flag
+  releaseInfo = {
+    stable = {
+      src = sources.stable;
+      useStaging = false;
     };
-  }
-else
-  wine-build wineBuild wineRelease
+    stable_11 = {
+      src = sources.stable_11;
+      useStaging = false;
+    };
+    unstable = {
+      src = sources.unstable;
+      useStaging = false;
+    };
+    # Many versions have a "staging" variant, but when we say "staging",
+    # the version we want to use is "unstable".
+    staging = {
+      src = sources.unstable;
+      pnameSuffix = "-staging";
+      useStaging = true;
+    };
+    staging_11 = {
+      src = sources.unstable_11;
+      pnameSuffix = "-staging";
+      useStaging = true;
+    };
+    # "yabridge" enables staging too --- we are not interested in
+    # yabridge without the staging patches applied.
+    yabridge = {
+      src = sources.yabridge;
+      pnameSuffix = "-yabridge";
+      useStaging = true;
+    };
+  };
+
+in
+
+lib.getAttr wineBuild (
+  callPackage ./packages.nix (
+    releaseInfo.${wineRelease}
+    // {
+      supportFlags = {
+        inherit
+          alsaSupport
+          cairoSupport
+          cupsSupport
+          cursesSupport
+          dbusSupport
+          embedInstallers
+          fontconfigSupport
+          gettextSupport
+          gphoto2Support
+          gstreamerSupport
+          gtkSupport
+          krb5Support
+          mingwSupport
+          netapiSupport
+          odbcSupport
+          openclSupport
+          openglSupport
+          pcapSupport
+          pulseaudioSupport
+          saneSupport
+          sdlSupport
+          tlsSupport
+          udevSupport
+          usbSupport
+          v4lSupport
+          vaSupport
+          vulkanSupport
+          waylandSupport
+          x11Support
+          ffmpegSupport
+          xineramaSupport
+          ;
+      };
+      inherit moltenvk;
+    }
+  )
+)

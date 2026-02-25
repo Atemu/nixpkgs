@@ -1,15 +1,14 @@
 {
   lib,
   stdenv,
-  fetchFromGitea,
+  fetchFromCodeberg,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "dev86";
   version = "1.0.1";
 
-  src = fetchFromGitea {
-    domain = "codeberg.org";
+  src = fetchFromCodeberg {
     owner = "jbruchon";
     repo = "dev86";
     tag = "v${finalAttrs.version}";

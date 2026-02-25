@@ -71,4 +71,10 @@ rec {
       yabridge = base.override { wineRelease = "yabridge"; };
     in
     if wineBuild == "wineWow" then yabridge else lib.dontDistribute yabridge;
+
+  stable_11 = base.override { wineRelease = "stable_11"; };
+  stableFull_11 = full.override { wineRelease = "stable_11"; };
+
+  staging_11 = base.override { wineRelease = "staging_11"; };
+  stagingFull_11 = full.override { wineRelease = "staging_11"; };
 }
