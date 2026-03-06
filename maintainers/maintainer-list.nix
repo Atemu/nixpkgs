@@ -10587,12 +10587,6 @@
     githubId = 1903556;
     keys = [ { fingerprint = "F1C5 760E 45B9 9A44 72E9  6BFB D65C 9AFB 4C22 4DA3"; } ];
   };
-  hodapp = {
-    email = "hodapp87@gmail.com";
-    github = "Hodapp87";
-    githubId = 896431;
-    name = "Chris Hodapp";
-  };
   hogcycle = {
     email = "nate@gysli.ng";
     github = "hogcycle";
@@ -24901,12 +24895,6 @@
     github = "sputn1ck";
     githubId = 8904314;
     name = "Konstantin Nick";
-  };
-  squalus = {
-    email = "squalus@squalus.net";
-    github = "squalus";
-    githubId = 36899624;
-    name = "squalus";
   };
   squarepear = {
     email = "contact@jeffreyharmon.dev";
