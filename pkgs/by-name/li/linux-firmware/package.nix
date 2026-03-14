@@ -1,6 +1,7 @@
 {
   stdenvNoCC,
   fetchFromGitLab,
+  fetchpatch,
   lib,
   python3,
   rdfind,
@@ -22,13 +23,13 @@ let
 in
 stdenvNoCC.mkDerivation rec {
   pname = "linux-firmware";
-  version = "20260221";
+  version = "20260309";
 
   src = fetchFromGitLab {
     owner = "kernel-firmware";
     repo = "linux-firmware";
     tag = version;
-    hash = "sha256-QHoS9+WS9IjRVhTJEFF/X8+4ZKjKwpJAvf7EqsV+qEY=";
+    hash = "sha256-IG7RN7m+VwFkdGRNv2FZSLumlo0FT47PBE16o8Xahxg=";
   };
 
   postUnpack = ''

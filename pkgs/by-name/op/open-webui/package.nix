@@ -9,13 +9,13 @@
 }:
 let
   pname = "open-webui";
-  version = "0.8.7";
+  version = "0.8.10";
 
   src = fetchFromGitHub {
     owner = "open-webui";
     repo = "open-webui";
     tag = "v${version}";
-    hash = "sha256-uuezPd2Lo1LYxfgxK2VxWL03Si1q2MIVKXSzvUouor8=";
+    hash = "sha256-wXkU3j0Bzpd2H5aVkqmKyUHxukRamBYQh8HBXB8tLpM=";
   };
 
   frontend = buildNpmPackage rec {
@@ -32,7 +32,7 @@ let
       url = "https://github.com/pyodide/pyodide/releases/download/${pyodideVersion}/pyodide-${pyodideVersion}.tar.bz2";
     };
 
-    npmDepsHash = "sha256-4jtxbd4RCEh5ga+e1I/HSB6Osp1Y4sDWnvmhRP3mfzc=";
+    npmDepsHash = "sha256-ZiIEGeKee/qEhe44SGlPTDhwP+vL9K8RkFEOeUdzUI8=";
 
     # See https://github.com/open-webui/open-webui/issues/15880
     npmFlags = [
@@ -123,7 +123,6 @@ python3Packages.buildPythonApplication rec {
       google-auth-oauthlib
       google-cloud-storage
       google-genai
-      google-generativeai
       googleapis-common-protos
       httpx
       itsdangerous
@@ -131,29 +130,28 @@ python3Packages.buildPythonApplication rec {
       langchain-classic
       langchain-community
       langchain-text-splitters
-      langdetect
       ldap3
       loguru
       markdown
-      msoffcrypto-tool
       mcp
+      msoffcrypto-tool
       nltk
       onnxruntime
       openai
       opencv-python-headless
-      openpyxl
-      opensearch-py
       opentelemetry-api
-      opentelemetry-sdk
       opentelemetry-exporter-otlp
       opentelemetry-instrumentation
+      opentelemetry-instrumentation-aiohttp-client
       opentelemetry-instrumentation-fastapi
-      opentelemetry-instrumentation-sqlalchemy
+      opentelemetry-instrumentation-httpx
+      opentelemetry-instrumentation-logging
       opentelemetry-instrumentation-redis
       opentelemetry-instrumentation-requests
-      opentelemetry-instrumentation-logging
-      opentelemetry-instrumentation-httpx
-      opentelemetry-instrumentation-aiohttp-client
+      opentelemetry-instrumentation-sqlalchemy
+      opentelemetry-sdk
+      openpyxl
+      opensearch-py
       pandas
       peewee
       peewee-migrate
@@ -204,6 +202,10 @@ python3Packages.buildPythonApplication rec {
       psycopg2-binary
     ];
 
+    mariadb = [
+      python3Packages.mariadb
+    ];
+
     all = [
       azure-search-documents
       colbert-ai
@@ -219,8 +221,9 @@ python3Packages.buildPythonApplication rec {
       qdrant-client
       weaviate-client
     ]
-    ++ moto.optional-dependencies.s3
-    ++ postgres;
+    ++ mariadb
+    ++ postgres
+    ++ moto.optional-dependencies.s3;
   };
 
   pythonImportsCheck = [ "open_webui" ];

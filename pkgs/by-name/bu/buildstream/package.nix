@@ -2,7 +2,7 @@
   lib,
   python3Packages,
   fetchFromGitHub,
-  nix-update-script,
+  gitUpdater,
 
   # buildInputs
   buildbox,
@@ -24,14 +24,14 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "buildstream";
-  version = "2.6.0";
+  version = "2.7.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "apache";
     repo = "buildstream";
     tag = version;
-    hash = "sha256-2Z+s0dQB85MBO06llhIEO3jwWfL53n74S28ENHcbe/Q=";
+    hash = "sha256-eHZmimuwOo3ZHZw5QF94B6wkso1+QbZIcgpDgsw1hiM=";
   };
 
   build-system = with python3Packages; [
@@ -120,7 +120,9 @@ python3Packages.buildPythonApplication rec {
   versionCheckProgram = "${placeholder "out"}/bin/bst";
   versionCheckProgramArg = "--version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = gitUpdater {
+    ignoredVersions = "dev";
+  };
 
   meta = {
     description = "Powerful software integration tool";

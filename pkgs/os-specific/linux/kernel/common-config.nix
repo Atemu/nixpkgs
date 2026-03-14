@@ -564,9 +564,9 @@ let
         DRM_DP_CEC = whenOlder "6.10" yes;
         DRM_DISPLAY_DP_AUX_CEC = whenAtLeast "6.10" yes;
 
-        # Required for Nova
-        # FIXME: remove after https://gitlab.freedesktop.org/drm/rust/kernel/-/commit/3d3352e73a55a4ccf110f8b3419bbe2fbfd8a030 lands
-        RUST_FW_LOADER_ABSTRACTIONS = lib.mkIf withRust (whenAtLeast "6.12" yes);
+        # Do not enable Nova drivers, which are still WIP. This is the Kconfig default.
+        NOVA_CORE = whenAtLeast "6.15" no;
+        DRM_NOVA = whenAtLeast "6.16" no;
       }
       //
         lib.optionalAttrs
@@ -577,7 +577,7 @@ let
             # Enable Hyper-V Synthetic DRM Driver
             DRM_HYPERV = whenAtLeast "5.14" module;
             # And disable the legacy framebuffer driver when we have the new one
-            FB_HYPERV = whenAtLeast "5.14" no;
+            FB_HYPERV = whenBetween "5.14" "7.0" no;
           }
       // lib.optionalAttrs (stdenv.hostPlatform.system == "x86_64-linux") {
         # Intel GVT-g graphics virtualization supports 64-bit only
@@ -589,6 +589,8 @@ let
         DRM_VC4_HDMI_CEC = yes;
         # Enable HDMI out on platforms using the RK3588 lineup of SoCs.
         ROCKCHIP_DW_HDMI_QP = whenAtLeast "6.13" yes;
+        # Enable DSI out on platforms using the RK3588 lineup of SoCs.
+        ROCKCHIP_DW_MIPI_DSI2 = whenAtLeast "6.16" yes;
       };
 
     # Enable Rust and features that depend on it
@@ -733,7 +735,9 @@ let
       NFS_FSCACHE = yes;
       NFS_SWAP = yes;
       NFS_V3_ACL = yes;
-      NFS_V4_1 = yes; # NFSv4.1 client support
+      # NFSv4.1 is enabled unconditionally on 7.0 and up
+      # see: https://github.com/torvalds/linux/commit/7537db24806fdc3d3ec4fef53babdc22c9219e75
+      NFS_V4_1 = whenOlder "7.0" yes;
       NFS_V4_2 = yes;
       NFS_V4_SECURITY_LABEL = yes;
       NFS_LOCALIO = whenAtLeast "6.12" yes;
@@ -1146,7 +1150,7 @@ let
 
         ACCESSIBILITY = yes; # Accessibility support
         AUXDISPLAY = yes; # Auxiliary Display support
-        HIPPI = yes;
+        HIPPI = whenOlder "7.0" yes;
         MTD_COMPLEX_MAPPINGS = yes; # needed for many devices
 
         SCSI_LOWLEVEL = yes; # enable lots of SCSI devices
@@ -1346,8 +1350,14 @@ let
         HMM_MIRROR = yes;
         DRM_AMDGPU_USERPTR = yes;
 
+        # We want to prefer PREEMPT_LAZY when available, and fall back on PREEMPT_VOLUNTARY.
+        # It just so happens that kconfig asks for PREEMPT_LAZY first, so doing it like this
+        # does what we want.
+        # FIXME: This is stupid and bad.
+        # See: https://github.com/torvalds/linux/commit/7dadeaa6e851e7d67733f3e24fc53ee107781d0f
         PREEMPT = no;
-        PREEMPT_VOLUNTARY = yes;
+        PREEMPT_LAZY = option yes;
+        PREEMPT_VOLUNTARY = option yes;
 
         X86_AMD_PLATFORM_DEVICE = lib.mkIf stdenv.hostPlatform.isx86 yes;
         X86_PLATFORM_DRIVERS_DELL = lib.mkIf stdenv.hostPlatform.isx86 (whenAtLeast "5.12" yes);
