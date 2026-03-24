@@ -83,13 +83,13 @@ in
 
       package = lib.mkPackageOption pkgs "jenkins" { };
 
-      javaPackage = lib.mkPackageOption pkgs "jdk21" { };
+      javaPackage = lib.mkPackageOption pkgs "jdk25" { };
 
       packages = lib.mkOption {
         default = [
           pkgs.stdenv
           pkgs.git
-          pkgs.jdk21
+          pkgs.jdk25
           config.programs.ssh.package
           pkgs.nix
         ];
@@ -275,7 +275,10 @@ in
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
-        ProtectSystem = "full";
+        ProtectSystem = "strict";
+        ReadWritePaths = [
+          cfg.home
+        ];
         RemoveIPC = true;
         RestrictAddressFamilies = [
           "AF_UNIX"

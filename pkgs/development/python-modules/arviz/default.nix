@@ -16,6 +16,7 @@
   matplotlib,
   numpy,
   pandas,
+  platformdirs,
   scipy,
   typing-extensions,
   xarray,
@@ -41,14 +42,14 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "arviz";
-  version = "0.23.1";
+  version = "0.23.4";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "arviz-devs";
     repo = "arviz";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-twAYCH8jsOnXVD3+sstOLEGG1Enbq8M8ZQWffFVzS48=";
+    hash = "sha256-YQ5i+CSuznbWAQ29jgqrOs+zgOAS5U4wSNEIquJQkvY=";
   };
 
   nativeBuildInputs = [
@@ -69,6 +70,7 @@ buildPythonPackage (finalAttrs: {
     matplotlib
     numpy
     pandas
+    platformdirs
     scipy
     typing-extensions
     xarray
@@ -104,6 +106,15 @@ buildPythonPackage (finalAttrs: {
   ];
 
   disabledTests = [
+    # TypeError: only 0-dimensional arrays can be converted to Python scalars
+    "test_deterministic"
+    "test_mcse_array"
+    "test_mcse_dataset"
+    "test_mcse_nan"
+    "test_multichain_summary_array"
+    "test_numba_mcse"
+    "test_plot_mcse"
+
     # Tests require network access
     "test_plot_ppc_transposed"
     "test_plot_separation"

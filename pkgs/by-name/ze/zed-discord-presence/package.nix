@@ -7,17 +7,17 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "zed-discord-presence";
-  version = "0.9.2";
+  version = "0.11.0";
 
   src = fetchFromGitHub {
     owner = "xhyrom";
     repo = "zed-discord-presence";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-BvhAt4tA3efu2XHQLEA0eTNInol0fWRiCtzBplLDzMo=";
+    hash = "sha256-HmSJipRWVB1rXyO5ZK1ksyCLDzSJD820Klo88A7NLx4=";
   };
 
   cargoBuildFlags = [ "--package discord-presence-lsp" ];
-  cargoHash = "sha256-/25WO/zTgQPuctXowRtVF1GxXdmJzsL5HjhLaxcj0Ao=";
+  cargoHash = "sha256-x9sB90jW7v2SGggLILgLbBfFV7DkJazcrUiKAfIroMA=";
 
   passthru.updateScript = nix-update-script { };
 

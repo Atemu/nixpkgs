@@ -31,7 +31,7 @@ jobs:
   commits:
     if: inputs.baseBranch && inputs.headBranch
     permissions:
-      pull-requests: write
+      pull-requests: write # submitting PR reviews
     runs-on: ubuntu-slim
     timeout-minutes: 3
     steps:
@@ -43,7 +43,7 @@ jobs:
             ci/github-script
 
       - name: Install dependencies
-        run: npm install bottleneck
+        run: npm install bottleneck@2.19.5
 
       - name: Log current API rate limits
         env:
@@ -85,9 +85,9 @@ jobs:
           merged-as-untrusted-at: ${{ inputs.mergedSha }}
           target-as-trusted-at: ${{ inputs.targetSha }}
 
-      - uses: cachix/install-nix-action@4e002c8ec80594ecd40e759629461e26c8abed15 # v31
+      - uses: cachix/install-nix-action@1ca7d21a94afc7c957383a2d217460d980de4934 # v31.10.1
 
-      - uses: cachix/cachix-action@3ba601ff5bbb07c7220846facfa2cd81eeee15a1 # v16
+      - uses: cachix/cachix-action@1eb2ef646ac0255473d23a5907ad7b04ce94065c # v17
         continue-on-error: true
         with:
           # The nixpkgs-gha cache should not be trusted or used outside of Nixpkgs and its forks' CI.

@@ -5,6 +5,7 @@
   fetchFromGitHub,
   dotnetCorePackages,
   wrapGAppsHook3,
+  glib,
   glew,
   gtk3,
   libxrandr,
@@ -15,18 +16,20 @@
 
 buildDotnetModule rec {
   pname = "libation";
-  version = "13.1.3";
+  version = "13.3.0";
 
   src = fetchFromGitHub {
     owner = "rmcrackan";
     repo = "Libation";
     tag = "v${version}";
-    hash = "sha256-gK0UZ+3EZGVEiy+O47GhU4wsHmdPIbrHWyHnUOtWrm8=";
+    hash = "sha256-sq3P1naACfZjvgNxNwSK+6ljkqVnVRKHvCgO0Dre1dc=";
   };
 
   sourceRoot = "${src.name}/Source";
 
-  dotnet-sdk = dotnetCorePackages.sdk_10_0;
+  env.AVALONIA_TELEMETRY_OPTOUT = "1";
+
+  dotnet-sdk = dotnetCorePackages.sdk_10_0_1xx;
 
   dotnet-runtime = dotnetCorePackages.runtime_10_0;
 
@@ -54,6 +57,8 @@ buildDotnetModule rec {
     libxcursor
     # For file dialogs
     gtk3
+    # For web view (login dialog); loaded via P/Invoke at runtime
+    glib
   ];
 
   postInstall = ''

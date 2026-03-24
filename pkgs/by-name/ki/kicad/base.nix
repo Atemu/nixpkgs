@@ -7,7 +7,7 @@
   zlib,
   wxGTK,
   gtk3,
-  libX11,
+  libx11,
   gettext,
   glew,
   glm,
@@ -18,9 +18,9 @@
   pkg-config,
   doxygen,
   graphviz,
-  libpthreadstubs,
-  libXdmcp,
-  unixODBC,
+  libpthread-stubs,
+  libxdmcp,
+  unixodbc,
   libgit2,
   libsecret,
   libgcrypt,
@@ -37,7 +37,7 @@
   libepoxy,
   dbus,
   at-spi2-core,
-  libXtst,
+  libxtst,
   pcre2,
   libdeflate,
 
@@ -149,7 +149,7 @@ stdenv.mkDerivation (finalAttrs: {
     libepoxy
     dbus
     at-spi2-core
-    libXtst
+    libxtst
     pcre2
   ];
 
@@ -157,21 +157,21 @@ stdenv.mkDerivation (finalAttrs: {
     libGLU
     libGL
     zlib
-    libX11
+    libx11
     wxGTK
     gtk3
-    libXdmcp
+    libxdmcp
     gettext
     glew
     glm
-    libpthreadstubs
+    libpthread-stubs
     cairo
     curl
     openssl
     boost
     swig
     python
-    unixODBC
+    unixodbc
     libdeflate
     opencascade-occt
     protobuf_29

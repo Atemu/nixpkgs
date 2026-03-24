@@ -22,7 +22,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ccache";
-  version = "4.12.2";
+  version = "4.13.1";
 
   src = fetchFromGitHub {
     owner = "ccache";
@@ -41,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
         exit 1
       fi
     '';
-    hash = "sha256-oWzVCrNgYtOeN4+KJmIynT3jiFZfxrsLkoIm0lK3MBo=";
+    hash = "sha256-8Qw5nkY86wGJ7B2hrNk9jIoz18nJ2FK+EbPH5fS5aEc=";
   };
 
   outputs = [
@@ -62,6 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   postPatch = ''
+    patchShebangs --build doc/scripts
     patchShebangs --build test/fake-compilers
   '';
 
@@ -98,8 +99,9 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   disabledTests = [
-    "test.trim_dir" # flaky on hydra (possibly filesystem-specific?)
+    "test.direct" # https://github.com/ccache/ccache/issues/1699
     "test.fileclone" # flaky on hydra, also seems to fail on zfs
+    "test.trim_dir" # flaky on hydra (possibly filesystem-specific?)
   ]
   ++ lib.optionals stdenv.hostPlatform.isDarwin [
     "test.basedir"

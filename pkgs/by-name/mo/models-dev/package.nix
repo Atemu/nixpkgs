@@ -9,12 +9,12 @@
 }:
 let
   pname = "models-dev";
-  version = "0-unstable-2026-01-24";
+  version = "0-unstable-2026-03-17";
   src = fetchFromGitHub {
     owner = "anomalyco";
     repo = "models.dev";
-    rev = "545bf83089a0d0bc4001b14c485270e10161cdd8";
-    hash = "sha256-iby02kRswqBqBP1pQS7vMMsRTY7VLiccdd7aoanOURw=";
+    rev = "7d3cc61a48f545739f05042b43110ea11147ac03";
+    hash = "sha256-Iyg1IAp3AiqxPqYil/ZhH7dXxkwxW9B3t3LwYMTiRjE=";
   };
 
   node_modules = stdenvNoCC.mkDerivation {
@@ -109,13 +109,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Comprehensive open-source database of AI model specifications, pricing, and capabilities";
-    homepage = "https://github.com/anomalyco/models-dev";
+    homepage = "https://github.com/anomalyco/models.dev";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ delafthi ];
-    badPlatforms = [
-      # error: Invalid DNS result order
-      "x86_64-darwin"
-    ];
   };
 })

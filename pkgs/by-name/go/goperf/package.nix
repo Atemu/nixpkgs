@@ -7,22 +7,22 @@
   sd,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "goperf";
-  version = "0-unstable-2026-01-12";
+  version = "0-unstable-2026-03-11";
 
   src = fetchgit {
     url = "https://go.googlesource.com/perf";
-    rev = "5abaabe9f1bd66f90f8a5c17cb71183db0d81820";
-    hash = "sha256-76fYE6cr2L9nTW9QA79GtHmuDy3bM85glVcy4gN94qk=";
+    rev = "16a31bc5fbd0f58f2e8e2a496d8e035bdc4a2e06";
+    hash = "sha256-be0vWFJUXTPWKapd+rX3Stnzra9LUGNEw+4P+fWzjyk=";
   };
 
-  vendorHash = "sha256-bBL9YUwhnUWBnEykFoSoc7d8wOnEtfiF0aW5cqYzm5U=";
+  vendorHash = "sha256-oBSd0D66BGfanCADtrpyIoUit8c+yHk8Nm6o2GmKoZg=";
 
   passthru.updateScript = writeShellScript "update-goperf" ''
     export UPDATE_NIX_ATTR_PATH=goperf
     ${lib.escapeShellArgs (unstableGitUpdater {
-      inherit (src) url;
+      inherit (finalAttrs.src) url;
     })}
     set -x
     oldhash="$(nix-instantiate . --eval --strict -A "goperf.goModules.drvAttrs.outputHash" | cut -d'"' -f2)"
@@ -38,4 +38,4 @@ buildGoModule rec {
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ pbsds ];
   };
-}
+})

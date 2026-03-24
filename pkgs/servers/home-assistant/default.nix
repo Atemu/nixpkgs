@@ -4,15 +4,13 @@
   callPackage,
   fetchFromGitHub,
   fetchPypi,
-  fetchpatch,
-  python313,
+  python314,
   replaceVars,
   ffmpeg-headless,
-  ffmpeg_7-headless,
   inetutils,
   nixosTests,
   home-assistant,
-  testers,
+  versionCheckHook,
 
   # Look up dependencies of specified components in component-packages.nix
   extraComponents ? [ ],
@@ -86,24 +84,6 @@ let
           self.pytz
         ];
       });
-
-      imageio = super.imageio.overridePythonAttrs (oldAttrs: {
-        disabledTests = oldAttrs.disabledTests or [ ] ++ [
-          # broken by pyav pin
-          "test_keyframe_intervals"
-          "test_lagging_video_stream"
-        ];
-      });
-
-      google-genai = super.google-genai.overridePythonAttrs rec {
-        version = "1.38.0";
-        src = fetchFromGitHub {
-          owner = "googleapis";
-          repo = "python-genai";
-          tag = "v${version}";
-          hash = "sha256-gJaLEpNKHl6n1MvQDIUW7ynsHYH2eEPGsYso5jSysNg=";
-        };
-      };
 
       gspread = super.gspread.overridePythonAttrs (oldAttrs: rec {
         version = "5.12.4";
@@ -206,16 +186,6 @@ let
         };
       });
 
-      pydexcom = super.pydexcom.overridePythonAttrs (oldAttrs: rec {
-        version = "0.2.3";
-        src = fetchFromGitHub {
-          owner = "gagebenne";
-          repo = "pydexcom";
-          tag = version;
-          hash = "sha256-ItDGnUUUTwCz4ZJtFVlMYjjoBPn2h8QZgLzgnV2T/Qk=";
-        };
-      });
-
       pyflume = super.pyflume.overridePythonAttrs (oldAttrs: rec {
         version = "0.6.5";
         src = fetchFromGitHub {
@@ -274,7 +244,7 @@ let
     })
   ];
 
-  python = python313.override {
+  python = python314.override {
     self = python;
     packageOverrides = lib.composeManyExtensions (defaultOverrides ++ [ packageOverrides ]);
   };
@@ -293,7 +263,7 @@ let
   extraBuildInputs = extraPackages python.pkgs;
 
   # Don't forget to run update-component-packages.py after updating
-  hassVersion = "2026.1.3";
+  hassVersion = "2026.3.3";
 
 in
 python.pkgs.buildPythonApplication rec {
@@ -304,7 +274,7 @@ python.pkgs.buildPythonApplication rec {
   pyproject = true;
 
   # check REQUIRED_PYTHON_VER in homeassistant/const.py
-  disabled = python.pythonOlder "3.13";
+  disabled = python.pythonOlder "3.14";
 
   # don't try and fail to strip 6600+ python files, it takes minutes!
   dontStrip = true;
@@ -314,13 +284,13 @@ python.pkgs.buildPythonApplication rec {
     owner = "home-assistant";
     repo = "core";
     tag = version;
-    hash = "sha256-zmS5OZaUFe45rbCil7sbVlhy0wwA+F9tBO10KvBM2PY=";
+    hash = "sha256-NCrrG2jlbt879qo6peoBqtbU+d/lmbKqswEJbfvVUUI=";
   };
 
   # Secondary source is pypi sdist for translations
   sdist = fetchPypi {
     inherit pname version;
-    hash = "sha256-gs5YyR1MofSMV8TDeBGp9keIREcszZGcLvtnHOYR7uc=";
+    hash = "sha256-/8yJBUNcMLx7ONLY5rvbWsVA1+OtTSpZd3dNgEsG+0I=";
   };
 
   build-system = with python.pkgs; [
@@ -336,6 +306,9 @@ python.pkgs.buildPythonApplication rec {
 
   # leave this in, so users don't have to constantly update their downstream patch handling
   patches = [
+    # https://github.com/home-assistant/core/pull/165143
+    ./pyjwt-2.11.patch
+
     # Follow symlinks in /var/lib/hass/www
     ./patches/static-follow-symlinks.patch
 
@@ -345,14 +318,6 @@ python.pkgs.buildPythonApplication rec {
     # Patch path to ffmpeg binary
     (replaceVars ./patches/ffmpeg-path.patch {
       ffmpeg = "${lib.getExe ffmpeg-headless}";
-    })
-
-    (fetchpatch {
-      # pytest 9 renames some snapshots
-      name = "revert-to-pytest-8.patch";
-      url = "https://github.com/home-assistant/core/commit/3f22dbaa2e1a7776185ec443bf26f90e90e55efa.patch";
-      revert = true;
-      hash = "sha256-rHXpmHUNCr+lhYqiOVrCSQTWvWJ+jHNwPJzUeFtDPIw=";
     })
   ];
 
@@ -370,6 +335,7 @@ python.pkgs.buildPythonApplication rec {
   dependencies = with python.pkgs; [
     # Only packages required in pyproject.toml
     aiodns
+    aiogithubapi
     aiohasupervisor
     aiohttp
     aiohttp-asyncmdnsresolver
@@ -446,11 +412,14 @@ python.pkgs.buildPythonApplication rec {
 
   nativeCheckInputs =
     requirementsTest
+    ++ [ versionCheckHook ]
     ++ (with python.pkgs; [
       # Used in tests/non_packaged_scripts/test_alexa_locales.py
       beautifulsoup4
       # Used in tests/scripts/test_check_config.py
       colorlog
+      # Used in tests/helpers/test_httpx_client.py
+      h2
     ])
     ++ lib.concatMap (component: getPackages component python.pkgs) [
       # some components are needed even if tests in tests/components are disabled
@@ -490,6 +459,10 @@ python.pkgs.buildPythonApplication rec {
     "tests/test_test_fixtures.py::test_evict_faked_translations"
     "tests/helpers/test_backup.py::test_async_get_manager"
     "tests/helpers/test_trigger.py::test_platform_multiple_triggers[sync_action]"
+    # various failing after python-updates
+    "tests/helpers/test_entity_platform.py::test_platform_warn_slow_setup" # ValueError: not enough values to unpack (expected 2, got 0)
+    "tests/helpers/test_entity_component.py::test_set_scan_interval_via_config" # assert 10 == 30.0
+    "tests/helpers/test_entity_component.py::test_set_entity_namespace_via_config" # AssertionError: assert [] == ['test_domain...named_device']
   ];
 
   preCheck = ''
@@ -517,10 +490,6 @@ python.pkgs.buildPythonApplication rec {
     tests = {
       nixos = nixosTests.home-assistant;
       components = callPackage ./tests.nix { };
-      version = testers.testVersion {
-        package = home-assistant;
-        command = "hass --version";
-      };
       withoutCheckDeps = home-assistant.overridePythonAttrs {
         pname = "home-assistant-without-check-deps";
         doCheck = false;

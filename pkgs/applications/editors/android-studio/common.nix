@@ -2,6 +2,7 @@
   channel,
   pname,
   version,
+  url,
   sha256Hash,
 }:
 
@@ -34,25 +35,25 @@
   libpng,
   libuuid,
   libsecret,
-  libX11,
+  libx11,
   libxcb,
   libxkbcommon,
   mesa-demos,
-  xcbutilwm,
-  xcbutilrenderutil,
-  xcbutilkeysyms,
-  xcbutilimage,
-  xcbutilcursor,
+  libxcb-wm,
+  libxcb-render-util,
+  libxcb-keysyms,
+  libxcb-image,
+  libxcb-cursor,
   libxkbfile,
-  libXcomposite,
-  libXcursor,
-  libXdamage,
-  libXext,
-  libXfixes,
-  libXi,
-  libXrandr,
-  libXrender,
-  libXtst,
+  libxcomposite,
+  libxcursor,
+  libxdamage,
+  libxext,
+  libxfixes,
+  libxi,
+  libxrandr,
+  libxrender,
+  libxtst,
   makeWrapper,
   ncurses5,
   nspr,
@@ -88,7 +89,7 @@ let
     inherit version;
 
     src = fetchurl {
-      url = "https://dl.google.com/dl/android/studio/ide-zips/${version}/${filename}";
+      url = url;
       sha256 = sha256Hash;
     };
 
@@ -141,10 +142,10 @@ let
             # Crash at startup without these
             fontconfig
             freetype
-            libXext
-            libXi
-            libXrender
-            libXtst
+            libxext
+            libxi
+            libxrender
+            libxtst
             libsecret
 
             # No crash, but attempted to load at startup
@@ -159,7 +160,7 @@ let
             zlib
             pkgsi686Linux.zlib
             # Support multiple monitors
-            libXrandr
+            libxrandr
 
             # For Android emulator
             alsa-lib
@@ -168,21 +169,21 @@ let
             libbsd
             libpulseaudio
             libuuid
-            libX11
+            libx11
             libxcb
             libxkbcommon
-            xcbutilwm
-            xcbutilrenderutil
-            xcbutilkeysyms
-            xcbutilimage
-            xcbutilcursor
+            libxcb-wm
+            libxcb-render-util
+            libxcb-keysyms
+            libxcb-image
+            libxcb-cursor
             libice
             libsm
             libxkbfile
-            libXcomposite
-            libXcursor
-            libXdamage
-            libXfixes
+            libxcomposite
+            libxcursor
+            libxdamage
+            libxfixes
             libGL
             libdrm
             libpng

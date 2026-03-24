@@ -6,25 +6,25 @@
   installShellFiles,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "fly";
-  version = "8.0.0";
+  version = "8.1.0";
 
   src = fetchFromGitHub {
     owner = "concourse";
     repo = "concourse";
-    rev = "v${version}";
-    hash = "sha256-rJpmFO5kpn9It1j8EKb2ZyMnKQ+n4iCuAVFB8nVk6+k=";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-M7TNOVBA30j87VkRJaYlAUE08wnQdB90Ey/u9SX39u4=";
   };
 
-  vendorHash = "sha256-Ymxe64xtstMKISIHHCY5Z8RX3FxoS/8ocSZomcr4NXA=";
+  vendorHash = "sha256-ZZfiRfOkAcF3ItB4tjp8BgurMThxUOoBMyt9PeJpus4=";
 
   subPackages = [ "fly" ];
 
   ldflags = [
     "-s"
     "-w"
-    "-X github.com/concourse/concourse.Version=${version}"
+    "-X github.com/concourse/concourse.Version=${finalAttrs.version}"
   ];
 
   nativeBuildInputs = [ installShellFiles ];
@@ -48,4 +48,4 @@ buildGoModule rec {
       SuperSandro2000
     ];
   };
-}
+})

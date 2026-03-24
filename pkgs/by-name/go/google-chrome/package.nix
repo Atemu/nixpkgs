@@ -25,20 +25,20 @@
   libdrm,
   libglvnd,
   libkrb5,
-  libX11,
+  libx11,
   libxcb,
-  libXcomposite,
-  libXcursor,
-  libXdamage,
-  libXext,
-  libXfixes,
-  libXi,
+  libxcomposite,
+  libxcursor,
+  libxdamage,
+  libxext,
+  libxfixes,
+  libxi,
   libxkbcommon,
-  libXrandr,
-  libXrender,
-  libXScrnSaver,
+  libxrandr,
+  libxrender,
+  libxscrnsaver,
   libxshmfence,
-  libXtst,
+  libxtst,
   libgbm,
   nspr,
   nss,
@@ -78,6 +78,11 @@
   ## Gentoo
   bzip2,
   libcap,
+
+  # Fonts (See issue #463615)
+  makeFontsConf,
+  noto-fonts-cjk-sans,
+  noto-fonts-cjk-serif,
 
   # Necessary for USB audio devices.
   libpulseaudio,
@@ -135,20 +140,20 @@ let
     libglvnd
     libkrb5
     libpng
-    libX11
+    libx11
     libxcb
-    libXcomposite
-    libXcursor
-    libXdamage
-    libXext
-    libXfixes
-    libXi
+    libxcomposite
+    libxcursor
+    libxdamage
+    libxext
+    libxfixes
+    libxi
     libxkbcommon
-    libXrandr
-    libXrender
-    libXScrnSaver
+    libxrandr
+    libxrender
+    libxscrnsaver
     libxshmfence
-    libXtst
+    libxtst
     libgbm
     nspr
     nss
@@ -179,11 +184,11 @@ let
 
   linux = stdenvNoCC.mkDerivation (finalAttrs: {
     inherit pname meta passthru;
-    version = "144.0.7559.96";
+    version = "146.0.7680.153";
 
     src = fetchurl {
       url = "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${finalAttrs.version}-1_amd64.deb";
-      hash = "sha256-tPM+bbT3AreOPZdeHfO2ktBXvFGicH1+oz/a2R+MbEE=";
+      hash = "sha256-b/DLXbvHbjUWFyJTXLoL0I6a/3r1YaVowNqr3oQ0imA=";
     };
 
     # With strictDeps on, some shebangs were not being patched correctly
@@ -214,6 +219,13 @@ let
 
     rpath = lib.makeLibraryPath deps + ":" + lib.makeSearchPathOutput "lib" "lib64" deps;
     binpath = lib.makeBinPath deps;
+
+    fontsConf = makeFontsConf {
+      fontDirectories = [
+        noto-fonts-cjk-sans
+        noto-fonts-cjk-serif
+      ];
+    };
 
     installPhase = ''
       runHook preInstall
@@ -266,6 +278,7 @@ let
         --prefix PATH            : "$binpath" \
         --suffix PATH            : "${lib.makeBinPath [ xdg-utils ]}" \
         --prefix XDG_DATA_DIRS   : "$XDG_ICON_DIRS:$GSETTINGS_SCHEMAS_PATH:${addDriverRunpath.driverLink}/share" \
+        --set FONTCONFIG_FILE "${finalAttrs.fontsConf}" \
         --set CHROME_WRAPPER  "google-chrome-$dist" \
         --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}" \
         --add-flags "--simulate-outdated-no-au='Tue, 31 Dec 2099 23:59:59 GMT'" \
@@ -289,11 +302,11 @@ let
 
   darwin = stdenvNoCC.mkDerivation (finalAttrs: {
     inherit pname meta passthru;
-    version = "144.0.7559.97";
+    version = "146.0.7680.154";
 
     src = fetchurl {
-      url = "http://dl.google.com/release2/chrome/acs3ozv33k7hgpukzi2nuehve3aa_144.0.7559.97/GoogleChrome-144.0.7559.97.dmg";
-      hash = "sha256-uhNWvAnifxbNMPR9QiXSgpDK9tnim39q2bLMCM9Q93w=";
+      url = "http://dl.google.com/release2/chrome/aduhru4wjcwjo2cuql7gnsdev6hq_146.0.7680.154/GoogleChrome-146.0.7680.154.dmg";
+      hash = "sha256-u/i8fYn53BbQGFlBFTEayNpSQoeNPBJEBXr2KFArgW8=";
     };
 
     dontPatch = true;
@@ -336,6 +349,7 @@ let
     homepage = "https://www.google.com/chrome/browser/";
     license = lib.licenses.unfree;
     maintainers = with lib.maintainers; [
+      iedame
       mdaniels5757
     ];
     platforms = lib.platforms.darwin ++ [ "x86_64-linux" ];

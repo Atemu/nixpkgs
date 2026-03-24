@@ -18,6 +18,7 @@
   clangStdenv,
   nixpkgs-review,
   nixpkgs-reviewFull,
+  nil,
   nix-direnv,
   nix-fast-build,
   haskell,
@@ -25,6 +26,7 @@
   colmena,
   nix-update,
   nix-init,
+  nurl,
 
   storeDir ? "/nix/store",
   stateDir ? "/nix/var",
@@ -110,6 +112,10 @@ let
             nixpkgs-review = self.nixpkgs-review;
           };
 
+          nil = nil.override {
+            nix = self.lix;
+          };
+
           nix-direnv = nix-direnv.override {
             nix = self.lix;
           };
@@ -142,6 +148,11 @@ let
           };
 
           nix-init = nix-init.override {
+            nix = self.lix;
+            inherit (self) nurl;
+          };
+
+          nurl = nurl.override {
             nix = self.lix;
           };
         };
@@ -251,27 +262,27 @@ lib.makeExtensible (
       attrName = "git";
 
       lix-args = rec {
-        version = "2.95.0-pre-20260103_${builtins.substring 0 12 src.rev}";
+        version = "2.96.0-pre-20260317_${builtins.substring 0 12 src.rev}";
 
         src = fetchFromGitea {
           domain = "git.lix.systems";
           owner = "lix-project";
           repo = "lix";
-          rev = "d387c9113c73f04bed46dbdd59b6c36de2253d73";
-          hash = "sha256-jYUcmXA4FNwoJtxRgH+Be96wQv8h9Y9dByYf+KmcgK4=";
+          rev = "96db7c79cf2a9a06725360b0d12e5de583bef07d";
+          hash = "sha256-Ixwk38HArs7MZXxdWRkSZFzUhUdlCro+8+M/sO+fE/Y=";
         };
 
         cargoDeps = rustPlatform.fetchCargoVendor {
           name = "lix-${version}";
           inherit src;
-          hash = "sha256-APm8m6SVEAO17BBCka13u85/87Bj+LePP7Y3zHA3Mpg=";
+          hash = "sha256-a5XtutX+NS4wOqxeqbscWZMs99teKick5+cQfbCRGxQ=";
         };
       };
     };
 
     latest = self.lix_2_94;
 
-    stable = self.lix_2_93;
+    stable = self.lix_2_94;
 
     # Previously, `nix-eval-jobs` was not packaged here, so we export an
     # attribute with the previously-expected structure for compatibility. This

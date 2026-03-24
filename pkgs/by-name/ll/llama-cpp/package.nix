@@ -27,6 +27,10 @@
   ],
   blas,
 
+  fetchNpmDeps,
+  nodejs,
+  npmHooks,
+
   pkg-config,
   metalSupport ? stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64 && !openclSupport,
   vulkanSupport ? false,
@@ -74,13 +78,18 @@ let
 in
 effectiveStdenv.mkDerivation (finalAttrs: {
   pname = "llama-cpp";
-  version = "7823";
+  version = "8401";
+
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitHub {
     owner = "ggml-org";
     repo = "llama.cpp";
     tag = "b${finalAttrs.version}";
-    hash = "sha256-3NLIX2bAxaxkpPRMzxWfcEhJDke2q4TWAyWjXIa/Wpk=";
+    hash = "sha256-7moL9T29KfMbzvW3QxnasN0U6jAh8RPD/fEs7WpSP10=";
     leaveDotGit = true;
     postFetch = ''
       git -C "$out" rev-parse --short HEAD > $out/COMMIT
@@ -88,10 +97,18 @@ effectiveStdenv.mkDerivation (finalAttrs: {
     '';
   };
 
+  patches = [ ];
+
+  postPatch = ''
+    rm tools/server/public/index.html.gz
+  '';
+
   nativeBuildInputs = [
     cmake
     installShellFiles
     ninja
+    nodejs
+    npmHooks.npmConfigHook
     pkg-config
   ]
   ++ optionals cudaSupport [
@@ -107,8 +124,22 @@ effectiveStdenv.mkDerivation (finalAttrs: {
     ++ optionals vulkanSupport vulkanBuildInputs
     ++ [ openssl ];
 
+  npmRoot = "tools/server/webui";
+  npmDepsHash = "sha256-DxgUDVr+kwtW55C4b89Pl+j3u2ILmACcQOvOBjKWAKQ=";
+  npmDeps = fetchNpmDeps {
+    name = "${finalAttrs.pname}-${finalAttrs.version}-npm-deps";
+    inherit (finalAttrs) src patches;
+    preBuild = ''
+      pushd ${finalAttrs.npmRoot}
+    '';
+    hash = finalAttrs.npmDepsHash;
+  };
+
   preConfigure = ''
     prependToVar cmakeFlags "-DLLAMA_BUILD_COMMIT:STRING=$(cat COMMIT)"
+    pushd ${finalAttrs.npmRoot}
+    npm run build
+    popd
   '';
 
   cmakeFlags = [

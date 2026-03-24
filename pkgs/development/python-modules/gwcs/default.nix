@@ -7,7 +7,6 @@
   buildPythonPackage,
   fetchFromGitHub,
   numpy,
-  pytest-astropy,
   pytestCheckHook,
   scipy,
   setuptools-scm,
@@ -26,6 +25,10 @@ buildPythonPackage (finalAttrs: {
     hash = "sha256-0iUnapBn8yDCx1tqHD10Ljid15yBuqlICyFuva2LNPk=";
   };
 
+  postPatch = ''
+    sed -i "/--doctest-rst/d" pyproject.toml
+  '';
+
   build-system = [
     setuptools
     setuptools-scm
@@ -40,10 +43,7 @@ buildPythonPackage (finalAttrs: {
     scipy
   ];
 
-  nativeCheckInputs = [
-    pytest-astropy
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "gwcs" ];
 

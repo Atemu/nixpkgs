@@ -52,20 +52,20 @@ let
       ]
       ++ args.nativeBuildInputs or [ ];
 
-      JAVA_HOME = mvnJdk;
+      env.JAVA_HOME = mvnJdk;
 
       impureEnvVars = lib.fetchers.proxyImpureEnvVars;
 
       buildPhase = ''
         runHook preBuild
 
-        MAVEN_EXTRA_ARGS=""
+        MAVEN_EXTRA_ARGS="-B"
 
         # handle proxy
         if [[ -n "''${HTTP_PROXY-}" ]] || [[ -n "''${HTTPS_PROXY-}" ]] || [[ -n "''${NO_PROXY-}" ]];then
           mvnSettingsFile="$(mktemp -d)/settings.xml"
           ${writeProxySettings} $mvnSettingsFile
-          MAVEN_EXTRA_ARGS="-s=$mvnSettingsFile"
+          MAVEN_EXTRA_ARGS="$MAVEN_EXTRA_ARGS -s=$mvnSettingsFile"
         fi
 
         # handle cacert by populating a trust store on the fly
@@ -131,7 +131,7 @@ stdenv.mkDerivation (
       maven
     ];
 
-    JAVA_HOME = mvnJdk;
+    env.JAVA_HOME = mvnJdk;
 
     buildPhase = ''
       runHook preBuild

@@ -20,26 +20,26 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rclone-ui";
-  version = "3.2.2";
+  version = "3.5.0";
 
   src = fetchFromGitHub {
     owner = "rclone-ui";
     repo = "rclone-ui";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-CQnjwbmVpCTvt9FSmQhYmU+0y+jSsR7bFBbeoZu16a4=";
+    hash = "sha256-U2bhhNqw2dWqyd5You1L8vTe30Q81DQd7YwHf6KcdBQ=";
   };
 
   npmDeps = fetchNpmDeps {
     name = "${finalAttrs.pname}-${finalAttrs.version}-npm-deps";
     inherit (finalAttrs) src;
     forceGitDeps = true;
-    hash = "sha256-zGgW/WikSVBE1goJ3zTf0ijBUghb+MlzMI+OxiLvzfY=";
+    hash = "sha256-omZprG5ozCrwkxB7G9n82wvpF7wXz+IWPEI8FEnOJvk=";
   };
 
   cargoRoot = "src-tauri";
   buildAndTestSubdir = finalAttrs.cargoRoot;
 
-  cargoHash = "sha256-nQhZuG3CxoLZwBSbA8I/Ft6HRkdb/5CRrpF6423lsFo=";
+  cargoHash = "sha256-5JlqhhrHyHGTQ+9gYLgSQm+jF8th5UYdnLvXMRPKCTY=";
 
   # Disable tauri bundle updater, can be removed when #389107 is merged
   patches = [ ./remove_updater.patch ];
@@ -48,7 +48,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   postPatch = ''
     substituteInPlace src-tauri/tauri.conf.json \
-      --replace-fail '"mainBinaryName": "Rclone UI"' '"mainBinaryName": "${finalAttrs.pname}"'
+      --replace-fail '"mainBinaryName": "Rclone UI"' '"mainBinaryName": "${finalAttrs.meta.mainProgram}"'
     substituteInPlace src-tauri/Cargo.toml \
        --replace-fail 'name = "app"' 'name = "${finalAttrs.pname}"'
   '';

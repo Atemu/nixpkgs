@@ -1,12 +1,12 @@
 {
   lib,
   stdenv,
-  buildGo125Module,
+  buildGo126Module,
   fetchFromGitHub,
   fetchNpmDeps,
   cacert,
   git,
-  go_1_25,
+  go_1_26,
   gokrazy,
   enumer,
   mockgen,
@@ -17,23 +17,23 @@
 }:
 
 let
-  version = "0.300.5";
+  version = "0.303.1";
 
   src = fetchFromGitHub {
     owner = "evcc-io";
     repo = "evcc";
     tag = version;
-    hash = "sha256-TRd7usz3+a9h8f/waLKqlu6RuF/GsU9LdCx1NRGWIDA=";
+    hash = "sha256-D7Rm+UWAW8/QHJ2BQcvwL+yIYlXENJOrmBXKuoDEoAY=";
   };
 
-  vendorHash = "sha256-IB3DqaUbdrqnYQpyHtnvY37xjbRvTvNOV39b8wciuTA=";
+  vendorHash = "sha256-lcSCMLOijqcug6RZGd2W3wjJxTWRlag3gz5bQoKglWg=";
 
   commonMeta = {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ hexa ];
   };
 
-  decorate = buildGo125Module {
+  decorate = buildGo126Module {
     pname = "evcc-decorate";
     inherit version src vendorHash;
 
@@ -46,13 +46,13 @@ let
   };
 in
 
-buildGo125Module rec {
+buildGo126Module rec {
   pname = "evcc";
   inherit version src vendorHash;
 
   npmDeps = fetchNpmDeps {
     inherit src;
-    hash = "sha256-AXsF0rkaf6giDhJT2f/MMyCd6Ozgepx8do7fpl/CyNs=";
+    hash = "sha256-LvSANb1ehVqYHwIRujR3pgSdEhX4FaRzbji+fW64GtA=";
   };
 
   nativeBuildInputs = [
@@ -64,7 +64,7 @@ buildGo125Module rec {
     nativeBuildInputs = [
       decorate
       enumer
-      go_1_25
+      go_1_26
       gokrazy
       git
       cacert

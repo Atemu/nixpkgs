@@ -12,19 +12,19 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "bumpp";
-  version = "10.3.2";
+  version = "11.0.0";
 
   src = fetchFromGitHub {
     owner = "antfu-collective";
     repo = "bumpp";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-1hGVLPogdeyWh/B2Yxfo/9YbJpFYl8ATh+QCa2VVyyk=";
+    hash = "sha256-opZYlEQSZo6V+McFy6gFMfchLYuu5oEP4XuqEkd18F0=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 2;
-    hash = "sha256-y7uHDtoOjsLnNF47r4aWHYXW0ui8shhn1M0cD2FpaCg=";
+    hash = "sha256-rI0DhnncVWd4Wp5pvTnL8IerXbFDwJzkhC4uIe6WJto=";
   };
 
   nativeBuildInputs = [

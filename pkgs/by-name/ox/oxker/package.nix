@@ -10,19 +10,19 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "oxker";
-  version = "0.12.0";
+  version = "0.13.0";
 
   src = fetchCrate {
     inherit (finalAttrs) pname version;
-    hash = "sha256-cTusvvxr2ec2Qy6iWwGRmPcvGpRMOKxzrAx/qRvj+BE=";
+    hash = "sha256-4rIqZOWYqd7zUrDmEIZTH7iDRzed8on6UeP871M/KAI=";
   };
 
-  cargoHash = "sha256-X5iNAwp0DcXoT82ZLq37geifztvJ/zZgOgM3SycAazA=";
+  cargoHash = "sha256-/Uw8IDVHmWpClAwWol2t10biDD3AGkZQDz5fmRSLlRI=";
 
   checkFlags = lib.optionals stdenv.hostPlatform.isDarwin [
-    "--skip ui::draw_blocks::help::tests::test_draw_blocks_help_custom_keymap_one_definition"
-    "--skip ui::draw_blocks::help::tests::test_draw_blocks_help_custom_keymap_two_definitions"
-    "--skip ui::draw_blocks::help::tests::test_draw_blocks_help_one_and_two_definitions"
+    "--skip=ui::draw_blocks::help::tests::test_draw_blocks_help_custom_keymap_one_definition"
+    "--skip=ui::draw_blocks::help::tests::test_draw_blocks_help_custom_keymap_two_definitions"
+    "--skip=ui::draw_blocks::help::tests::test_draw_blocks_help_one_and_two_definitions"
   ];
 
   passthru.updateScript = nix-update-script { };

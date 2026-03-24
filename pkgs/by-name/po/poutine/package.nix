@@ -8,13 +8,13 @@
 
 buildGoModule (finalAttrs: {
   pname = "poutine";
-  version = "1.0.6";
+  version = "1.0.8";
 
   src = fetchFromGitHub {
     owner = "boostsecurityio";
     repo = "poutine";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-mtlwxqJnNANiONPi5AkgQoeG4Xed56by4JykNme8LqA=";
+    hash = "sha256-YctbFSFSbq/LZiS5WDv7a0NYRjDU/He0OMRG6h1gaqE=";
   };
 
   vendorHash = "sha256-qp3Ko+01kk9AH0oCT2Si/si+74gT5KFtPFslwih/IBE=";

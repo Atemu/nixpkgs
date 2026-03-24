@@ -2,29 +2,31 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
+  gzip,
+  makeBinaryWrapper,
   pkg-config,
   openssl,
-  gzip,
   gitMinimal,
   nix-update-script,
   versionCheckHook,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "fresh";
-  version = "0.1.88";
+  version = "0.2.14";
 
   src = fetchFromGitHub {
     owner = "sinelaw";
     repo = "fresh";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-aGGLqtvJ/kaGZtbpzLUQ40wPMp+g8+WCxXk9t+fQR7M=";
+    hash = "sha256-Vaoa+jcxlHPQy0rn67Va5ZKAegw5dXSL9Kkx/uazir4=";
   };
 
-  cargoHash = "sha256-67XM9j3dZ+4TKVYsM4mTuKHZcxc4EcvlHjxSNRIz9y0=";
+  cargoHash = "sha256-6eYu1XCZL/RBlntEu6Cvynp0PudgjIPvVJ8rdKxYRtw=";
 
   nativeBuildInputs = [
-    pkg-config
     gzip
+    makeBinaryWrapper
+    pkg-config
   ];
 
   nativeCheckInputs = [
@@ -41,6 +43,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
 
   postInstall = ''
+    wrapProgram $out/bin/${finalAttrs.meta.mainProgram} \
+      --add-flags "--no-upgrade-check"
     rm -rf $out/bin/fresh.dSYM
   '';
 
@@ -76,7 +80,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     sourceProvenance = with lib.sourceTypes; [
       fromSource
-      binaryNativeCode # librusty_v8.a
     ];
   };
 })

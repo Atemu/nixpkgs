@@ -10,7 +10,7 @@
   # arguments from default.nix
   lang,
   meta,
-  name,
+  pname,
   src,
   version,
   # dependencies
@@ -41,9 +41,9 @@
   openssl,
   pciutils,
   tre,
-  unixODBC,
-  xcbutilimage,
-  xcbutilkeysyms,
+  unixodbc,
+  libxcb-image,
+  libxcb-keysyms,
   xkeyboard_config,
   libxtst,
   libxscrnsaver,
@@ -89,7 +89,7 @@ in
 stdenv.mkDerivation {
   inherit
     meta
-    name
+    pname
     src
     version
     ;
@@ -126,9 +126,9 @@ stdenv.mkDerivation {
     openssl
     pciutils
     tre
-    unixODBC
-    xcbutilimage
-    xcbutilkeysyms
+    unixodbc
+    libxcb-image
+    libxcb-keysyms
     xkeyboard_config
     libice
     libsm

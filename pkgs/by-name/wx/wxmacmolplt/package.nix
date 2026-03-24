@@ -2,7 +2,7 @@
   stdenv,
   lib,
   fetchFromGitHub,
-  wxGTK32,
+  wxwidgets_3_2,
   libGL,
   libGLU,
   pkg-config,
@@ -11,14 +11,14 @@
   wrapGAppsHook4,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "wxmacmolplt";
   version = "7.7.3";
 
   src = fetchFromGitHub {
     owner = "brettbode";
     repo = "wxmacmolplt";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-gFGstyq9bMmBaIS4QE6N3EIC9GxRvyJYUr8DUvwRQBc=";
   };
 
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
   buildInputs = [
-    wxGTK32
+    wxwidgets_3_2
     libGL
     libGLU
     libx11
@@ -50,4 +50,4 @@ stdenv.mkDerivation rec {
       markuskowa
     ];
   };
-}
+})

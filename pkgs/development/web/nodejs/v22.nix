@@ -6,7 +6,6 @@
   fetchpatch2,
   openssl,
   python3,
-  enableNpm ? true,
 }:
 
 let
@@ -22,9 +21,8 @@ let
       [ ];
 in
 buildNodejs {
-  inherit enableNpm;
-  version = "22.22.0";
-  sha256 = "4c138012bb5352f49822a8f3e6d1db71e00639d0c36d5b6756f91e4c6f30b683";
+  version = "22.22.1";
+  sha256 = "87104b07e7acee748bcc5391e1bc69cf3571caa0fdfb8b1d6b5fd3f9599b7849";
   patches =
     (
       if (stdenv.hostPlatform.emulatorAvailable buildPackages) then
@@ -57,6 +55,13 @@ buildNodejs {
       ./use-correct-env-in-tests.patch
       ./bin-sh-node-run-v22.patch
       ./use-nix-codesign.patch
+
+      # TODO: remove this when included in a next release
+      (fetchpatch2 {
+        url = "https://github.com/nodejs/node/commit/a5e534c21af49ae1b34854846b6913daa7df0808.patch?full_index=1";
+        hash = "sha256-4cr94fsJrq5iCAHOf60wJQQkP/K2YWYY5W7GHs8Sbxg=";
+        includes = [ "test/*" ];
+      })
     ]
     ++ lib.optionals (!stdenv.hostPlatform.isStatic) [
       # Fix builds with shared llhttp

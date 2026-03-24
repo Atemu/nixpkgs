@@ -13,19 +13,19 @@
   lld,
 }:
 let
-  version = "0.34.1";
+  version = "0.34.3";
   pname = "rauthy";
 
   src = fetchFromGitHub {
     owner = "sebadob";
     repo = "rauthy";
     tag = "v${version}";
-    hash = "sha256-6Ddf8ukwEecxBp9hMbWS4odxrRGB/uIXWdTbIU3MAUM=";
+    hash = "sha256-ey6y/EGmz/80s0nbxsk6li9KCJV5IAtBp5QqAj7a6R0=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit src pname version;
-    hash = "sha256-fXe4bQRLscUk7fdAQGwzwBVJIRs8+puWfTeAjby1MmE=";
+    hash = "sha256-mkIHup/6aA9QDPlekhdZiXWryhetsJMxl3HAXsabACQ=";
   };
 
   # Wasm modules are needed to build the frontend and are part of the main Rust repo.
@@ -77,7 +77,7 @@ let
       "-p2"
     ];
 
-    npmDepsHash = "sha256-F8/zbqI7Nmm8GLtkL25QDX222yzhlg7NA32tpBa8b5o=";
+    npmDepsHash = "sha256-N/tFwQNWMudFtetIKfirXDvWH3CfRwjdpBcxkXZsVig=";
 
     preBuild = ''
       mkdir -p ./src/wasm/

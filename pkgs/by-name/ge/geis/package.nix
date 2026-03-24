@@ -18,7 +18,7 @@
   libxext,
   libx11,
   pango,
-  xorgserver,
+  xorg-server,
   testers,
   validatePkgConfig,
 }:
@@ -60,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     libxtst
     pango
     python3Packages.python
-    xorgserver
+    xorg-server
   ];
 
   prePatch = ''
@@ -73,7 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   preFixup = ''
-    buildPythonPath "$out $pythonPath"
+    buildPythonPath "$out ''${pythonPath[*]}"
     gappsWrapperArgs+=(--set PYTHONPATH "$program_PYTHONPATH")
   '';
 

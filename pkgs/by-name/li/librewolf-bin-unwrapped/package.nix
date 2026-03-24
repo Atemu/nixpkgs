@@ -9,7 +9,7 @@
   curl,
   dbus-glib,
   gtk3,
-  libXtst,
+  libxtst,
   libva,
   pciutils,
   pipewire,
@@ -36,7 +36,7 @@ let
 
   pname = "librewolf-bin-unwrapped";
 
-  version = "147.0.1-3";
+  version = "148.0.2-2";
 in
 
 stdenv.mkDerivation {
@@ -46,8 +46,8 @@ stdenv.mkDerivation {
     url = "https://codeberg.org/api/packages/librewolf/generic/librewolf/${version}/librewolf-${version}-${arch}-package.tar.xz";
     hash =
       {
-        x86_64-linux = "sha256-SPGUDTwdEi9ztH9MiFxtiY+xn3258znyu6yw5a9J/YE=";
-        aarch64-linux = "sha256-a6xFoZbBtoFgZFYGmz8IIvBsVP+qKTX32ufmQGdtMBk=";
+        x86_64-linux = "sha256-4FigAIvksbwJ46XqH225woK+inQHUnvyxvQBP/yyagU=";
+        aarch64-linux = "sha256-wp31BZLUgH+pXkaDnlUtXMNuacWEgQbnkxMYt2vhKZY=";
       }
       .${stdenv.hostPlatform.system} or throwSystem;
   };
@@ -63,7 +63,7 @@ stdenv.mkDerivation {
     adwaita-icon-theme
     alsa-lib
     dbus-glib
-    libXtst
+    libxtst
   ];
 
   runtimeDependencies = [

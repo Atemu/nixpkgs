@@ -2,24 +2,24 @@
   stdenv,
   lib,
   fetchFromGitHub,
-  buildGoModule,
+  buildGo126Module,
   installShellFiles,
   versionCheckHook,
   writableTmpDirAsHomeHook,
 }:
 
-buildGoModule (finalAttrs: {
+buildGo126Module (finalAttrs: {
   pname = "scaleway-cli";
-  version = "2.51.0";
+  version = "2.53.0";
 
   src = fetchFromGitHub {
     owner = "scaleway";
     repo = "scaleway-cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-osA8YWvS2KqQtYmCRIAGw+/h3UPocW0sBn5IDhk/wWg=";
+    hash = "sha256-IxnDmmvWH17xd2djroikwrQq0bLexWeN8VHMPiNEBhU=";
   };
 
-  vendorHash = "sha256-s3G7zvTCg3voMur4YjHibqsHKLkB79iDgmMhv0C52yY=";
+  vendorHash = "sha256-/UEE3XSbpwlywF8TMmp90bS537RRZG0yN0oq1sbrcPQ=";
 
   env.CGO_ENABLED = 0;
 

@@ -14,11 +14,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ipscan";
-  version = "3.9.2";
+  version = "3.9.3";
 
   src = fetchurl {
     url = "https://github.com/angryip/ipscan/releases/download/${finalAttrs.version}/ipscan_${finalAttrs.version}_amd64.deb";
-    hash = "sha256-5H6QCT7Z3EOJks/jLBluTCgJbqpRMW5iheds9nl4ktU=";
+    hash = "sha256-RLdlcrtpWcO4z7cKSN+y9UJzMBtnli2mAvuJSXCMoJU=";
   };
 
   nativeBuildInputs = [
@@ -43,12 +43,9 @@ stdenv.mkDerivation (finalAttrs: {
       }" \
       --add-flags "-Xmx256m -cp $out/share/${finalAttrs.pname}-${finalAttrs.version}.jar:${swt}/jars/swt.jar net.azib.ipscan.Main"
 
-    mkdir -p $out/share/applications
-    cp usr/share/applications/ipscan.desktop $out/share/applications/ipscan.desktop
-    substituteInPlace $out/share/applications/ipscan.desktop --replace "/usr/bin" "$out/bin"
-
-    mkdir -p $out/share/pixmaps
-    cp usr/share/pixmaps/ipscan.png $out/share/pixmaps/ipscan.png
+    install -D usr/share/applications/ipscan.desktop -t $out/share/applications/
+    substituteInPlace $out/share/applications/ipscan.desktop --replace-fail "Exec=sh /usr/bin/ipscan" "Exec=ipscan"
+    install -D usr/share/pixmaps/ipscan.png -t $out/share/icons/hicolor/128x128/apps
   '';
 
   meta = {

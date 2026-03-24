@@ -36,14 +36,14 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "plopp";
-  version = "25.11.0";
+  version = "26.3.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "scipp";
     repo = "plopp";
     tag = finalAttrs.version;
-    hash = "sha256-3vmHRPjv7iUd6ky7XzfdChpAI++ELh6vwmtELK7dwaE=";
+    hash = "sha256-A8F2Gd0HmHRlusScFoFulsFaqaXA/HxmtT8ODdRLA+U=";
   };
 
   build-system = [
@@ -77,6 +77,7 @@ buildPythonPackage (finalAttrs: {
   disabledTests = lib.optionals (pythonAtLeast "3.14") [
     # RuntimeError: There is no current event loop in thread 'MainThread'
     "test_move_cut"
+    "test_value_cuts"
   ];
 
   env = {

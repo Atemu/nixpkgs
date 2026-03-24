@@ -168,6 +168,7 @@ in
           ffmpegthumbs
           krdp
           kconfig # required for xdg-terminal from xdg-utils
+          qtbase # for qtpaths which is required for xdg-mime from xdg-utils
         ]
         ++ lib.optionals config.hardware.sensor.iio.enable [
           # This is required for autorotation in Plasma 6
@@ -211,6 +212,7 @@ in
       ++ lib.optional config.services.pipewire.pulse.enable plasma-pa
       ++ lib.optional config.powerManagement.enable powerdevil
       ++ lib.optional config.services.printing.enable print-manager
+      ++ lib.optional config.hardware.sane.enable skanpage
       ++ lib.optional config.services.colord.enable colord-kde
       ++ lib.optional config.services.hardware.bolt.enable plasma-thunderbolt
       ++ lib.optional config.services.samba.enable kdenetwork-filesharing

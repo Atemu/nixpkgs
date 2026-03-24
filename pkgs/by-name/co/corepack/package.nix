@@ -3,13 +3,17 @@
   stdenvNoCC,
   cacert,
   yarn-berry,
-  nodejs,
+  nodejs-slim, # no need for NPM
   fetchFromGitHub,
   nix-update-script,
   versionCheckHook,
   fetchpatch2,
+  writeScriptBin,
 }:
 
+let
+  nodejs = nodejs-slim;
+in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "corepack";
   version = "0.34.6";
@@ -91,6 +95,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   nativeInstallCheckInputs = [
     cacert
     versionCheckHook
+    (writeScriptBin "corepack" "") # Some tests expect to find a `corepack` in the PATH
   ];
   # Built-in SQLite support is only available in Node.js 22+, and required to run the tests.
   preInstallCheck = lib.optional (lib.versionAtLeast nodejs.version "22") ''

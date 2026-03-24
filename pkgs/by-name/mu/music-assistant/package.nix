@@ -47,14 +47,14 @@ assert
 
 python.pkgs.buildPythonApplication rec {
   pname = "music-assistant";
-  version = "2.7.5";
+  version = "2.7.11";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "music-assistant";
     repo = "server";
     tag = version;
-    hash = "sha256-iWdOGdmPJO7Pjdn8UjuSOhWnRGBFjmARFsuHmP6IP58=";
+    hash = "sha256-HLd7PAYdBzpzdfCRPc4elPq3KfzusIXYXTV8fRmo1lU=";
   };
 
   patches = [
@@ -99,14 +99,15 @@ python.pkgs.buildPythonApplication rec {
   ];
 
   pythonRelaxDeps = [
+    "aiofiles"
     "aiohttp"
     "aiosqlite"
-    "aiovban" # PyPi and GitHub versioning is out of sync
     "certifi"
     "colorlog"
     "cryptography"
     "getmac"
     "mashumaro"
+    "numpy"
     "orjson"
     "pillow"
     "podcastparser"
@@ -130,7 +131,6 @@ python.pkgs.buildPythonApplication rec {
     aiortc
     aiorun
     aiosqlite
-    aiovban
     awesomeversion
     brotli
     certifi
@@ -187,6 +187,7 @@ python.pkgs.buildPythonApplication rec {
     "tests/core/test_server_base.py::test_events"
     # provider is missing dependencies
     "tests/providers/nicovideo"
+    "tests/providers/apple_music"
   ];
 
   pythonImportsCheck = [ "music_assistant" ];

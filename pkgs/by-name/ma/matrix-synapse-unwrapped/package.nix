@@ -14,19 +14,19 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "matrix-synapse";
-  version = "1.145.0";
+  version = "1.149.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "element-hq";
     repo = "synapse";
     rev = "v${version}";
-    hash = "sha256-JFMxnp4//Q8t6LZf6L2jJxaShE51r4MY7eJvD9JhhVo=";
+    hash = "sha256-A780cOls5/Xb3rmgOWUZj27Q4MtfTLhBoCPOw5ZOE/4=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit pname version src;
-    hash = "sha256-CnytwGtv/ZoJl03XFLLMTHDiRhWDgWlJD8L/QRiebyM=";
+    hash = "sha256-rF1hCPUnsSpo/9+2oG4z2+qCqSSd5VQ5I3mRHz0uJ2w=";
   };
 
   build-system =
@@ -51,8 +51,6 @@ python3Packages.buildPythonApplication rec {
   ++ lib.optionals stdenv.hostPlatform.isDarwin [
     libiconv
   ];
-
-  pythonRemoveDeps = [ "setuptools-rust" ];
 
   dependencies =
     with python3Packages;

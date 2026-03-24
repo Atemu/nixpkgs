@@ -364,8 +364,8 @@ rec {
   # https://docs.gradle.org/current/userguide/compatibility.html
 
   gradle_9 = mkGradle {
-    version = "9.3.0";
-    hash = "sha256-DVhfadoJH8Wyvs7Yd/6rVaMGTUO4odRq6weZawkV4OA=";
+    version = "9.4.0";
+    hash = "sha256-YOpyM1bYEmPoAC/sD8+eKw7uDAhQx6PXqwpj8szGAfM=";
     defaultJava = jdk21;
   };
   gradle_8 = mkGradle {

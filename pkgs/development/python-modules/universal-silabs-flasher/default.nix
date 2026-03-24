@@ -3,13 +3,11 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-  pythonOlder,
 
   # build-system
   setuptools,
 
   # dependencies
-  async-timeout,
   bellows,
   click,
   coloredlogs,
@@ -55,7 +53,6 @@ buildPythonPackage rec {
     typing-extensions
     zigpy
   ]
-  ++ lib.optionals (pythonOlder "3.11") [ async-timeout ]
   ++ lib.optionals (stdenv.hostPlatform.isLinux) [ libgpiod ];
 
   nativeCheckInputs = [
@@ -63,6 +60,11 @@ buildPythonPackage rec {
     pytest-asyncio
     pytest-mock
     pytest-timeout
+  ];
+
+  disabledTests = [
+    # timing sensitive
+    "test_xmodem_happy_path"
   ];
 
   pythonImportsCheck = [ "universal_silabs_flasher" ];

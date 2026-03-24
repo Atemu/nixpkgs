@@ -204,6 +204,14 @@ in
           ];
         };
 
+        linux_6_19 = callPackage ../os-specific/linux/kernel/mainline.nix {
+          branch = "6.19";
+          kernelPatches = [
+            kernelPatches.bridge_stp_helper
+            kernelPatches.request_key_helper
+          ];
+        };
+
         linux_testing =
           let
             testing = callPackage ../os-specific/linux/kernel/mainline.nix {
@@ -223,20 +231,7 @@ in
 
         linux_latest = packageAliases.linux_latest.kernel;
 
-        # Using zenKernels like this due lqx&zen came from one source, but may have different base kernel version
-        # https://github.com/NixOS/nixpkgs/pull/161773#discussion_r820134708
-        zenKernels = callPackage ../os-specific/linux/kernel/zen-kernels.nix;
-
-        linux_zen = zenKernels {
-          variant = "zen";
-          kernelPatches = [
-            kernelPatches.bridge_stp_helper
-            kernelPatches.request_key_helper
-          ];
-        };
-
-        linux_lqx = zenKernels {
-          variant = "lqx";
+        linux_zen = callPackage ../os-specific/linux/kernel/zen-kernels.nix {
           kernelPatches = [
             kernelPatches.bridge_stp_helper
             kernelPatches.request_key_helper
@@ -270,9 +265,10 @@ in
 
         linux_6_12_hardened = hardenedKernelFor kernels.linux_6_12 { };
 
-        linux_hardened = hardenedKernelFor packageAliases.linux_default.kernel { };
+        linux_hardened = linux_6_12_hardened;
       }
       // lib.optionalAttrs config.allowAliases {
+        linux_lqx = throw "linux_lqx has been removed due to lack of maintenance";
         linux_libre = throw "linux_libre has been removed due to lack of maintenance";
         linux_latest_libre = throw "linux_latest_libre has been removed due to lack of maintenance";
 
@@ -333,7 +329,6 @@ in
           isLTS
           isZen
           isHardened
-          isLibre
           ;
         inherit (kernel) kernelOlder kernelAtLeast;
         kernelModuleMakeFlags = self.kernel.commonMakeFlags ++ [
@@ -463,6 +458,8 @@ in
 
         nct6687d = callPackage ../os-specific/linux/nct6687d { };
 
+        hid-fanatecff = callPackage ../os-specific/linux/hid-fanatecff { };
+
         new-lg4ff = callPackage ../os-specific/linux/new-lg4ff { };
 
         zenergy = callPackage ../os-specific/linux/zenergy { };
@@ -483,8 +480,6 @@ in
         nvidia_x11_production = nvidiaPackages.production;
         nvidia_x11_vulkan_beta = nvidiaPackages.vulkan_beta;
         nvidia_dc = nvidiaPackages.dc;
-        nvidia_dc_535 = nvidiaPackages.dc_535;
-        nvidia_dc_565 = nvidiaPackages.dc_565;
 
         # this is not a replacement for nvidia_x11*
         # only the opensource kernel driver exposed for hydra to build
@@ -714,6 +709,8 @@ in
         tuxedo-keyboard = self.tuxedo-drivers; # Added 2024-09-28
         phc-intel = throw "phc-intel drivers are no longer supported by any kernel >=4.17"; # added 2025-07-18
         prl-tools = throw "Parallel Tools no longer provide any kernel module, please use pkgs.prl-tools instead."; # added 2025-10-04
+        nvidia_dc_565 = throw "nvidiaPackages.dc_565 has reached end of life, see https://endoflife.date/nvidia"; # added 2026-02-10
+        nvidia_dc_535 = throw "nvidiaPackages.dc_535 removed, soon reaches end of life, see https://endoflife.date/nvidia"; # added 2026-03-08
       }
     )).extend
       (lib.fixedPoints.composeManyExtensions kernelPackagesExtensions);
@@ -728,6 +725,7 @@ in
     linux_6_6 = recurseIntoAttrs (packagesFor kernels.linux_6_6);
     linux_6_12 = recurseIntoAttrs (packagesFor kernels.linux_6_12);
     linux_6_18 = recurseIntoAttrs (packagesFor kernels.linux_6_18);
+    linux_6_19 = recurseIntoAttrs (packagesFor kernels.linux_6_19);
   }
   // lib.optionalAttrs config.allowAliases {
     linux_4_19 = throw "linux 4.19 was removed because it will reach its end of life within 24.11"; # Added 2024-09-21
@@ -774,12 +772,12 @@ in
       linux_6_12_hardened = recurseIntoAttrs (packagesFor kernels.linux_6_12_hardened);
 
       linux_zen = recurseIntoAttrs (packagesFor kernels.linux_zen);
-      linux_lqx = recurseIntoAttrs (packagesFor kernels.linux_lqx);
       linux_xanmod = recurseIntoAttrs (packagesFor kernels.linux_xanmod);
       linux_xanmod_stable = recurseIntoAttrs (packagesFor kernels.linux_xanmod_stable);
       linux_xanmod_latest = recurseIntoAttrs (packagesFor kernels.linux_xanmod_latest);
     }
     // lib.optionalAttrs config.allowAliases {
+      linux_lqx = throw "linux_lqx has been removed due to lack of maintenance";
       linux_libre = throw "linux_libre has been removed due to lack of maintenance";
       linux_latest_libre = throw "linux_latest_libre has been removed due to lack of maintenance";
 
@@ -801,9 +799,9 @@ in
   );
 
   packageAliases = {
-    linux_default = packages.linux_6_12;
+    linux_default = packages.linux_6_18;
     # Update this when adding the newest kernel major version!
-    linux_latest = packages.linux_6_18;
+    linux_latest = packages.linux_6_19;
     linux_rt_default = packages.linux_rt_5_15;
     linux_rt_latest = packages.linux_rt_6_6;
   }

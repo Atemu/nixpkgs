@@ -10,22 +10,24 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ferron";
-  version = "2.4.1";
+  version = "2.6.0";
 
   src = fetchFromGitHub {
     owner = "ferronweb";
     repo = "ferron";
     tag = finalAttrs.version;
-    hash = "sha256-darDJYPh0x1o1NHeXK2gyp48Zppbs2ovTXN/xX71eag=";
+    hash = "sha256-pKZ/oWmPzVvnGXTyTQ3VcgISH3hSReR+RdIvD4tzPso=";
   };
 
   # ../../ is cargoDepsCopy, and obviously does not contain monoio's README.md
   postPatch = ''
-    substituteInPlace $cargoDepsCopy/monoio-0.2.4/src/lib.rs \
+    substituteInPlace $cargoDepsCopy/*/monoio-0.2.4/src/lib.rs \
       --replace-fail '#![doc = include_str!("../../README.md")]' ""
   '';
 
-  cargoHash = "sha256-YJ4Ur/4IUiupVE2gZyn0IAYwpIppVKB0hWtmc5Ue7jQ=";
+  strictDeps = true;
+
+  cargoHash = "sha256-FimBeq21JhCSSkkSmSO3i7UEqOzJY2r36GXJFcorRT0=";
 
   nativeBuildInputs = [
     pkg-config

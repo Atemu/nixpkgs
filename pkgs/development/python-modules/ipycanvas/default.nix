@@ -2,7 +2,9 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-  hatchling,
+  hatch,
+  hatch-build-scripts,
+  hatch-nodejs-version,
   ipywidgets,
   numpy,
   pillow,
@@ -10,12 +12,12 @@
 
 buildPythonPackage rec {
   pname = "ipycanvas";
-  version = "0.14.2";
+  version = "0.14.3";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-OFNwRHcRlN2jFjbEEHh4RxZyp6y1hLfotRgrIpsXBtU=";
+    hash = "sha256-xqU6Iu6/TWEbFouPRDQUWIPyenV1UJvZmkv8SMU4Wjk=";
   };
 
   # We relax dependencies here instead of pulling in a patch because upstream
@@ -27,7 +29,11 @@ buildPythonPackage rec {
       --replace-fail '"jupyterlab>=3,<5",' "" \
   '';
 
-  build-system = [ hatchling ];
+  build-system = [
+    hatch
+    hatch-build-scripts
+    hatch-nodejs-version
+  ];
 
   env.HATCH_BUILD_NO_HOOKS = true;
 

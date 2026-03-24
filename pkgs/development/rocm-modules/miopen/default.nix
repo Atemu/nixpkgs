@@ -4,7 +4,7 @@
   callPackage,
   fetchFromGitHub,
   fetchpatch,
-  rocmUpdateScript,
+  fetchurl,
   runCommand,
   pkg-config,
   cmake,
@@ -43,7 +43,7 @@
 let
   # FIXME: cmake files need patched to include this properly
   cFlags = "-Wno-documentation-pedantic --offload-compress -I${hipblas-common}/include -I${hipblas}/include -I${roctracer}/include -I${nlohmann_json}/include -I${sqlite.dev}/include -I${rocrand}/include";
-  version = "7.1.1";
+  version = "7.2.0";
 
   # Targets outside this list will get
   # error: use of undeclared identifier 'CK_BUFFER_RESOURCE_3RD_DWORD'
@@ -69,29 +69,8 @@ let
     owner = "ROCm";
     repo = "MIOpen";
     rev = "rocm-${version}";
-    hash = "sha256-g0AEpuUiwKCu/doiRh9mW34W04m4ynHoarSyl6tR/aE=";
-    fetchLFS = true;
+    hash = "sha256-OwBFzUruHHeJD7n3zLs/NsU5cNEjwkwFgim4m2/1hR0=";
     fetchSubmodules = true;
-    # WORKAROUND: .lfsconfig is incorrectly set to exclude everything upstream
-    leaveDotGit = true;
-    # FIXME: if someone can reduce the level of awful here that would be really nice
-    postFetch = ''
-      export HOME=$(mktemp -d)
-      cd $out
-      git remote add origin $url
-      git fetch origin +refs/tags/rocm-${version}:refs/tags/rocm-${version}
-      git clean -fdx
-      git switch -c rocm-${version} refs/tags/rocm-${version}
-      git config lfs.fetchexclude "none"
-      rm .lfsconfig
-      git lfs install
-      git lfs track "*.kdb.bz2"
-      git lfs fetch --include="src/kernels/**"
-      git lfs pull --include="src/kernels/**"
-      git lfs checkout
-
-      rm -rf .git
-    '';
   };
 
   latex = lib.optionalAttrs buildDocs (
@@ -111,25 +90,28 @@ let
     )
   );
 
-  gfx900 = runCommand "miopen-gfx900.kdb" { preferLocalBuild = true; } ''
-    ${lbzip2}/bin/lbzip2 -ckd ${src}/src/kernels/gfx900.kdb.bz2 > $out
-  '';
+  # Kernel databases moved from Git LFS to DVC (anonymous s3 bucket s3://therock-dvc/rocm-libraries)
+  fetchKdb =
+    name:
+    { url, hash }:
+    runCommand "miopen-${name}.kdb" { preferLocalBuild = true; } ''
+      ${lbzip2}/bin/lbzip2 -ckd ${
+        fetchurl {
+          inherit url hash;
+          name = "${name}.kdb.bz2";
+        }
+      } > $out
+    '';
 
-  gfx906 = runCommand "miopen-gfx906.kdb" { preferLocalBuild = true; } ''
-    ${lbzip2}/bin/lbzip2 -ckd ${src}/src/kernels/gfx906.kdb.bz2 > $out
-  '';
+  kdbs = lib.mapAttrs fetchKdb (import ./kdbs.nix);
 
-  gfx908 = runCommand "miopen-gfx908.kdb" { preferLocalBuild = true; } ''
-    ${lbzip2}/bin/lbzip2 -ckd ${src}/src/kernels/gfx908.kdb.bz2 > $out
-  '';
-
-  gfx90a = runCommand "miopen-gfx90a.kdb" { preferLocalBuild = true; } ''
-    ${lbzip2}/bin/lbzip2 -ckd ${src}/src/kernels/gfx90a.kdb.bz2 > $out
-  '';
-
-  gfx1030 = runCommand "miopen-gfx1030.kdb" { preferLocalBuild = true; } ''
-    ${lbzip2}/bin/lbzip2 -ckd ${src}/src/kernels/gfx1030.kdb.bz2 > $out
-  '';
+  linkKDBsTo =
+    targetPath:
+    lib.concatStringsSep "" (
+      lib.mapAttrsToList (name: kdb: ''
+        ln -sf ${kdb} ${targetPath}/${name}.kdb
+      '') kdbs
+    );
 in
 stdenv.mkDerivation (finalAttrs: {
   inherit version src;
@@ -149,14 +131,13 @@ stdenv.mkDerivation (finalAttrs: {
       url = "https://github.com/ROCm/MIOpen/commit/3413d2daaeb44b7d6eadcc03033a5954a118491e.patch";
       hash = "sha256-ST4snUcTmmSI1Ogx815KEX9GdMnmubsavDzXCGJkiKs=";
     })
-    # FIXME: We need to rebase or drop this arch compat patch
-    # https://github.com/ROCm/MIOpen/issues/3540 suggests that
-    # arch compat patching doesn't work correctly for gfx1031
-    # (fetchpatch {
-    #   name = "Extend-MIOpen-ISA-compatibility.patch";
-    #   url = "https://github.com/GZGavinZhao/MIOpen/commit/416088b534618bd669a765afce59cfc7197064c1.patch";
-    #   hash = "sha256-OwONCA68y8s2GqtQj+OtotXwUXQ5jM8tpeM92iaD4MU=";
-    # })
+    (fetchpatch {
+      # [miopen] Extend HIP ISA compatibility
+      name = "Extend-MIOpen-ISA-compatibility.patch";
+      url = "https://github.com/GZGavinZhao/rocm-libraries/commit/02f0fedffdc197f146dd45f41e10990a00cde3ee.patch";
+      hash = "sha256-My32iZw75rvB4fyvUJJ2kw2bU9/39awGteFGjzijixw=";
+      relative = "projects/miopen";
+    })
   ];
 
   outputs = [
@@ -255,18 +236,14 @@ stdenv.mkDerivation (finalAttrs: {
 
     patchShebangs test src/composable_kernel fin utils install_deps.cmake
 
-    ln -sf ${gfx900} src/kernels/gfx900.kdb
-    ln -sf ${gfx906} src/kernels/gfx906.kdb
-    ln -sf ${gfx908} src/kernels/gfx908.kdb
-    ln -sf ${gfx90a} src/kernels/gfx90a.kdb
-    ln -sf ${gfx1030} src/kernels/gfx1030.kdb
+    substituteInPlace src/comgr.cpp \
+      --replace-fail '"/opt/rocm"' '"${clr}"'
+  ''
+  + linkKDBsTo "src/kernels"
+  + ''
     mkdir -p build/share/miopen/db/
-    ln -sf ${gfx900} build/share/miopen/db/gfx900.kdb
-    ln -sf ${gfx906} build/share/miopen/db/gfx906.kdb
-    ln -sf ${gfx908} build/share/miopen/db/gfx908.kdb
-    ln -sf ${gfx90a} build/share/miopen/db/gfx90a.kdb
-    ln -sf ${gfx1030} build/share/miopen/db/gfx1030.kdb
-  '';
+  ''
+  + linkKDBsTo "build/share/miopen/db";
 
   # Unfortunately, it seems like we have to call make on these manually
   postBuild =
@@ -279,12 +256,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   postInstall = ''
     rm $out/libexec/miopen/install_precompiled_kernels.sh
-    ln -sf ${gfx900} $out/share/miopen/db/gfx900.kdb
-    ln -sf ${gfx906} $out/share/miopen/db/gfx906.kdb
-    ln -sf ${gfx908} $out/share/miopen/db/gfx908.kdb
-    ln -sf ${gfx90a} $out/share/miopen/db/gfx90a.kdb
-    ln -sf ${gfx1030} $out/share/miopen/db/gfx1030.kdb
   ''
+  + linkKDBsTo "$out/share/miopen/db"
   + lib.optionalString buildDocs ''
     mv ../doc/html $out/share/doc/miopen-hip
   ''
@@ -304,6 +277,19 @@ stdenv.mkDerivation (finalAttrs: {
 
   requiredSystemFeatures = [ "big-parallel" ];
 
+  passthru.impureTests = {
+    # bash $(nix-build -A rocmPackages.miopen.passthru.impureTests.conv)
+    conv = callPackage ./test-runtime-compilation.nix {
+      miopen = finalAttrs.finalPackage;
+      name = "conv";
+      testScript = "MIOpenDriver conv -n 1 -c 1 -H 4 -W 4 -k 1 -y 3 -x 3 -p 0 -q 0 -V 0";
+    };
+    pool = callPackage ./test-runtime-compilation.nix {
+      miopen = finalAttrs.finalPackage;
+      name = "pool";
+      testScript = "MIOpenDriver pool -W 1x1x4x4 -y 2 -x 2 -p 0 -q 0 -F 1 -V 0";
+    };
+  };
   passthru.tests = {
     # Ensure all .tn.model files can be loaded by whatever version of frugally-deep we have
     # This is otherwise hard to verify as MIOpen will only use these models on specific,
@@ -315,11 +301,7 @@ stdenv.mkDerivation (finalAttrs: {
       inherit frugally-deep nlohmann_json;
     };
   };
-  passthru.updateScript = rocmUpdateScript {
-    name = finalAttrs.pname;
-    inherit (finalAttrs.src) owner;
-    inherit (finalAttrs.src) repo;
-  };
+  passthru.updateScript = ./update.sh;
 
   meta = {
     description = "Machine intelligence library for ROCm";

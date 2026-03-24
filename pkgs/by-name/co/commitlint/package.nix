@@ -12,18 +12,18 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "commitlint";
-  version = "20.3.1";
+  version = "20.5.0";
 
   src = fetchFromGitHub {
     owner = "conventional-changelog";
     repo = "commitlint";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-0UAIpQdvs9oFsV1xL7bR9fAcmrtaqI/79mmmx+NRK4Q=";
+    hash = "sha256-AVc3uToQ3hvpesWkhIdYfvawoIJmDW+T5pHonujaL/s=";
   };
 
   yarnOfflineCache = fetchYarnDeps {
     inherit (finalAttrs) src;
-    hash = "sha256-ulQLIIWIeVRh5t+IV+980m5vbBG1dmQv9iaxCLznPY8=";
+    hash = "sha256-SOUweX/dvA67E6Vjpq3WLITbh6bevErV0wGZgWQ3U7o=";
   };
 
   nativeBuildInputs = [

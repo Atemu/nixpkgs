@@ -3,23 +3,23 @@
   stdenvNoCC,
   bun,
   fetchFromGitHub,
-  fzf,
   makeBinaryWrapper,
   models-dev,
   nix-update-script,
   ripgrep,
+  sysctl,
   installShellFiles,
   versionCheckHook,
   writableTmpDirAsHomeHook,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "opencode";
-  version = "1.1.30";
+  version = "1.2.27";
   src = fetchFromGitHub {
     owner = "anomalyco";
     repo = "opencode";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-RTj64yrVLTFNpVc8MvPAJISOlBo/j2MnuL5jo4VtKWM=";
+    hash = "sha256-JUlFfILzcUCME3mOxdxDbcCXphNVEfVGIKhwAwtJPl8=";
   };
 
   node_modules = stdenvNoCC.mkDerivation {
@@ -68,7 +68,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     # NOTE: Required else we get errors that our fixed-output derivation references store paths
     dontFixup = true;
 
-    outputHash = "sha256-37pmIiJzPEWeA7+5u5lz39vlFPI+N13Qw9weHrAaGW4=";
+    outputHash = "sha256-byKXLpfvidfKl8PshUsW0grrRYRoVAYYlid0N6/ke2c=";
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
   };
@@ -79,11 +79,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     makeBinaryWrapper
     models-dev
     writableTmpDirAsHomeHook
-  ];
-
-  patches = [
-    # NOTE: Remove special and windows build targes
-    ./remove-special-and-windows-build-targets.patch
   ];
 
   postPatch = ''
@@ -105,16 +100,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   env.OPENCODE_VERSION = finalAttrs.version;
   env.OPENCODE_CHANNEL = "stable";
 
-  preBuild = ''
-    chmod -R u+w ./packages/opencode/node_modules
-    pushd ./packages/opencode/node_modules/@opentui/
-      for pkg in ../../../../node_modules/.bun/@opentui+core-*; do
-        linkName=$(basename "$pkg" | sed 's/@.*+\(.*\)@.*/\1/')
-        ln -sf "$pkg/node_modules/@opentui/$linkName" "$linkName"
-      done
-    popd
-  '';
-
   buildPhase = ''
     runHook preBuild
 
@@ -129,6 +114,18 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook preInstall
 
     install -Dm755 dist/opencode-*/bin/opencode $out/bin/opencode
+    wrapProgram $out/bin/opencode \
+     --prefix PATH : ${
+       lib.makeBinPath (
+         [
+           ripgrep
+         ]
+         ++ lib.optionals stdenvNoCC.hostPlatform.isDarwin [
+           sysctl
+         ]
+       )
+     }
+
     install -Dm644 schema.json $out/share/opencode/schema.json
 
     runHook postInstall
@@ -136,17 +133,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   postInstall = lib.optionalString (stdenvNoCC.buildPlatform.canExecute stdenvNoCC.hostPlatform) ''
     installShellCompletion --cmd opencode \
-      --bash <($out/bin/opencode completion)
-  '';
-
-  postFixup = ''
-    wrapProgram $out/bin/opencode \
-     --prefix PATH : ${
-       lib.makeBinPath [
-         fzf
-         ripgrep
-       ]
-     }
+      --bash <($out/bin/opencode completion) \
+      --zsh <(SHELL=/bin/zsh $out/bin/opencode completion)
   '';
 
   nativeInstallCheckInputs = [
@@ -174,6 +162,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     maintainers = with lib.maintainers; [
       delafthi
       graham33
+      DuskyElf
     ];
     sourceProvenance = with lib.sourceTypes; [ fromSource ];
     platforms = [

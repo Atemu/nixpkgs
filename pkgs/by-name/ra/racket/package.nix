@@ -15,7 +15,7 @@
   libpng,
   makeFontsConf,
   pango,
-  unixODBC,
+  unixodbc,
   wrapGAppsHook3,
 
   disableDocs ? false,
@@ -38,7 +38,7 @@ minimal.overrideAttrs (
     };
 
     buildInputs = prevAttrs.buildInputs ++ [
-      (if isDarwin then libiodbc else unixODBC)
+      (if isDarwin then libiodbc else unixodbc)
       cairo
       fontconfig.lib
       glib
@@ -128,7 +128,6 @@ minimal.overrideAttrs (
         GUIs and charts.
       '';
       platforms = lib.platforms.unix;
-      badPlatforms = lib.platforms.darwin;
     };
   }
 )

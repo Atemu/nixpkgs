@@ -1008,6 +1008,9 @@ let
           # missing optional dependencies
           conda = addPackageRequires super.conda [ self.projectile ];
 
+          # https://github.com/NixOS/nixpkgs/issues/483425
+          consult = addPackageRequires super.consult [ self.flymake ];
+
           # needs network during compilation, also native-ice
           consult-gh = ignoreCompilationError (
             super.consult-gh.overrideAttrs (old: {
@@ -1135,10 +1138,6 @@ let
 
           # depends on later-do which is not on any ELPA
           emms-player-simple-mpv = ignoreCompilationError super.emms-player-simple-mpv;
-
-          # missing optional dependencies
-          # https://github.com/isamert/empv.el/pull/96
-          empv = addPackageRequires super.empv [ self.hydra ];
 
           enotify = ignoreCompilationError super.enotify; # elisp error
 

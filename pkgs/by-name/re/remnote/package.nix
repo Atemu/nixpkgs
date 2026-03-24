@@ -6,10 +6,10 @@
 }:
 let
   pname = "remnote";
-  version = "1.22.67";
+  version = "1.24.7";
   src = fetchurl {
     url = "https://download2.remnote.io/remnote-desktop2/RemNote-${version}.AppImage";
-    hash = "sha256-HKY8ockflFnws8UoREFjaBQUPaVPxlH2fWFcaGTdwhI=";
+    hash = "sha256-W4KM7QgkO+5Rr12IxlTlqp63LAakUJlMOX68JWBet6c=";
   };
   appimageContents = appimageTools.extractType2 { inherit pname version src; };
 in
@@ -20,7 +20,7 @@ appimageTools.wrapType2 {
     install -Dm444 ${appimageContents}/remnote.desktop -t $out/share/applications
     substituteInPlace $out/share/applications/remnote.desktop \
       --replace-fail 'Exec=AppRun --no-sandbox %U' 'Exec=remnote %u'
-    install -Dm444 ${appimageContents}/remnote.png -t $out/share/pixmaps
+    install -Dm444 ${appimageContents}/remnote.png -t $out/share/icons/hicolor/512x512/apps
   '';
 
   passthru.updateScript = writeScript "update.sh" ''

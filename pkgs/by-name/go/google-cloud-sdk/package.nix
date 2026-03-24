@@ -8,6 +8,7 @@
 #
 
 {
+  cacert,
   stdenv,
   lib,
   fetchurl,
@@ -88,7 +89,7 @@ stdenv.mkDerivation rec {
   ];
 
   # Prevent Python from writing bytecode to ensure build determinism
-  PYTHONDONTWRITEBYTECODE = "1";
+  env.PYTHONDONTWRITEBYTECODE = "1";
 
   installPhase = ''
     runHook preInstall
@@ -98,6 +99,13 @@ stdenv.mkDerivation rec {
       rm -r platform/bundledpythonunix
     fi
     cp -R * .install $out/google-cloud-sdk/
+
+    # Resolve readlink noise in shell initialization
+    # We patch the source script before wrapProgram renames it.
+    # This ensures that the resulting .gcloud-wrapped binary contains the fix.
+    substituteInPlace "$out/google-cloud-sdk/bin/gcloud" \
+      --replace-fail 'while _cloudsdk_link=$(readlink "$_cloudsdk_path")' 'while _cloudsdk_link=$(readlink "$_cloudsdk_path" 2>/dev/null)' \
+      --replace-fail 'CLOUDSDK_ROOT_DIR=$(_cloudsdk_root_dir "$0")' 'CLOUDSDK_ROOT_DIR=$(realpath "$(dirname "$0")/..")'
 
     mkdir -p $out/google-cloud-sdk/lib/surface/{alpha,beta}
     cp ${./alpha__init__.py} $out/google-cloud-sdk/lib/surface/alpha/__init__.py
@@ -166,6 +174,16 @@ stdenv.mkDerivation rec {
     export HOME=$(mktemp -d)
     $out/bin/gcloud version --format json | jq '."Google Cloud SDK"' | grep "${version}"
     $out/bin/gsutil version | grep -w "$(cat platform/gsutil/VERSION)"
+  '';
+
+  # Replace all vendored copies of CA bundle with the one used by Nixpkgs.
+  # This search/replace is a bit overzealous and replaces some files used by tests
+  # but it should cause no harm since we're not running those tests.
+  postFixup = ''
+    while IFS= read -rd "" f; do
+      echo "rewriting certificate bundle: $f"
+      ln -sf ${cacert}/etc/ssl/certs/ca-bundle.crt "$f"
+    done < <(find "$out" '(' -name cacert.pem -o -name cacerts.txt ')' -print0)
   '';
 
   passthru = {

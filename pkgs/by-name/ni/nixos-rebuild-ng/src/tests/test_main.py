@@ -97,13 +97,8 @@ def test_parse_args() -> None:
         "foo2",
         "bar2",
     ]
-    assert nr.utils.dict_to_flags(g1.flake_common_flags) == [
-        "--option",
-        "foo1",
-        "bar1",
-        "--option",
-        "foo2",
-        "bar2",
+    # flake_eval_flags contains only eval-specific flags
+    assert nr.utils.dict_to_flags(g1.flake_eval_flags) == [
         "--update-input",
         "input1",
         "--update-input",
@@ -114,6 +109,15 @@ def test_parse_args() -> None:
         "--override-input",
         "override2",
         "input2",
+    ]
+    # flake_build_flags contains common build flags (for remote builds)
+    assert nr.utils.dict_to_flags(g1.flake_build_flags) == [
+        "--option",
+        "foo1",
+        "bar1",
+        "--option",
+        "foo2",
+        "bar2",
     ]
 
     r2, g2 = nr.parse_args(
@@ -244,7 +248,6 @@ def test_execute_nix_boot(mock_run: Mock, tmp_path: Path) -> None:
                     | {
                         "env": {
                             "NIXOS_INSTALL_BOOTLOADER": "0",
-                            "NIXOS_REBUILD_I_UNDERSTAND_THE_CONSEQUENCES_PLEASE_BREAK_MY_SYSTEM": "1",
                         }
                     }
                 ),
@@ -382,6 +385,8 @@ def test_execute_nix_build_image_flake(mock_run: Mock, tmp_path: Path) -> None:
             call(
                 [
                     "nix",
+                    "--extra-experimental-features",
+                    "nix-command flakes",
                     "eval",
                     "--json",
                     '/path/to/config#nixosConfigurations."hostname".config.system.build.images',
@@ -408,6 +413,8 @@ def test_execute_nix_build_image_flake(mock_run: Mock, tmp_path: Path) -> None:
             call(
                 [
                     "nix",
+                    "--extra-experimental-features",
+                    "nix-command flakes",
                     "eval",
                     "--json",
                     '/path/to/config#nixosConfigurations."hostname".config.system.build.images.azure.passthru.filePath',
@@ -496,20 +503,15 @@ def test_execute_nix_switch_flake(mock_run: Mock, tmp_path: Path) -> None:
             call(
                 [
                     "sudo",
+                    "env",
+                    "-i",
+                    "NIXOS_INSTALL_BOOTLOADER=1",
                     *nr.nix.SWITCH_TO_CONFIGURATION_CMD_PREFIX,
                     config_path / "bin/switch-to-configuration",
                     "switch",
                 ],
                 check=True,
-                **(
-                    DEFAULT_RUN_KWARGS
-                    | {
-                        "env": {
-                            "NIXOS_INSTALL_BOOTLOADER": "1",
-                            "NIXOS_REBUILD_I_UNDERSTAND_THE_CONSEQUENCES_PLEASE_BREAK_MY_SYSTEM": "1",
-                        }
-                    }
-                ),
+                **DEFAULT_RUN_KWARGS,
             ),
         ]
     )
@@ -615,6 +617,10 @@ def test_execute_nix_switch_build_target_host(
                     *nr.process.SSH_DEFAULT_OPTS,
                     "user@build-host",
                     "--",
+                    "/bin/sh",
+                    "-c",
+                    """'exec env -i PATH="${PATH-}" "$@"'""",
+                    "sh",
                     "mktemp",
                     "-d",
                     "-t",
@@ -630,6 +636,10 @@ def test_execute_nix_switch_build_target_host(
                     *nr.process.SSH_DEFAULT_OPTS,
                     "user@build-host",
                     "--",
+                    "/bin/sh",
+                    "-c",
+                    """'exec env -i PATH="${PATH-}" "$@"'""",
+                    "sh",
                     "nix-store",
                     "--realise",
                     str(config_path),
@@ -646,6 +656,10 @@ def test_execute_nix_switch_build_target_host(
                     *nr.process.SSH_DEFAULT_OPTS,
                     "user@build-host",
                     "--",
+                    "/bin/sh",
+                    "-c",
+                    """'exec env -i PATH="${PATH-}" "$@"'""",
+                    "sh",
                     "readlink",
                     "-f",
                     "/tmp/tmpdir/config",
@@ -660,6 +674,10 @@ def test_execute_nix_switch_build_target_host(
                     *nr.process.SSH_DEFAULT_OPTS,
                     "user@build-host",
                     "--",
+                    "/bin/sh",
+                    "-c",
+                    """'exec env -i PATH="${PATH-}" "$@"'""",
+                    "sh",
                     "rm",
                     "-rf",
                     "/tmp/tmpdir",
@@ -689,6 +707,10 @@ def test_execute_nix_switch_build_target_host(
                     "user@target-host",
                     "--",
                     "sudo",
+                    "/bin/sh",
+                    "-c",
+                    """'exec env -i PATH="${PATH-}" "$@"'""",
+                    "sh",
                     "nix-env",
                     "-p",
                     "/nix/var/nix/profiles/system",
@@ -704,6 +726,10 @@ def test_execute_nix_switch_build_target_host(
                     *nr.process.SSH_DEFAULT_OPTS,
                     "user@target-host",
                     "--",
+                    "/bin/sh",
+                    "-c",
+                    """'exec env -i PATH="${PATH-}" "$@"'""",
+                    "sh",
                     "test",
                     "-d",
                     "/run/systemd/system",
@@ -718,8 +744,10 @@ def test_execute_nix_switch_build_target_host(
                     "user@target-host",
                     "--",
                     "sudo",
-                    "env",
-                    "NIXOS_INSTALL_BOOTLOADER=0",
+                    "/bin/sh",
+                    "-c",
+                    """'exec env -i PATH="${PATH-}" LOCALE_ARCHIVE="${LOCALE_ARCHIVE-}" NIXOS_NO_CHECK="${NIXOS_NO_CHECK-}" NIXOS_INSTALL_BOOTLOADER=0 "$@"'""",
+                    "sh",
                     *nr.nix.SWITCH_TO_CONFIGURATION_CMD_PREFIX,
                     str(config_path / "bin/switch-to-configuration"),
                     "switch",
@@ -796,6 +824,10 @@ def test_execute_nix_switch_flake_target_host(
                     "user@localhost",
                     "--",
                     "sudo",
+                    "/bin/sh",
+                    "-c",
+                    """'exec env -i PATH="${PATH-}" "$@"'""",
+                    "sh",
                     "nix-env",
                     "-p",
                     "/nix/var/nix/profiles/system",
@@ -811,6 +843,10 @@ def test_execute_nix_switch_flake_target_host(
                     *nr.process.SSH_DEFAULT_OPTS,
                     "user@localhost",
                     "--",
+                    "/bin/sh",
+                    "-c",
+                    """'exec env -i PATH="${PATH-}" "$@"'""",
+                    "sh",
                     "test",
                     "-d",
                     "/run/systemd/system",
@@ -825,8 +861,10 @@ def test_execute_nix_switch_flake_target_host(
                     "user@localhost",
                     "--",
                     "sudo",
-                    "env",
-                    "NIXOS_INSTALL_BOOTLOADER=0",
+                    "/bin/sh",
+                    "-c",
+                    """'exec env -i PATH="${PATH-}" LOCALE_ARCHIVE="${LOCALE_ARCHIVE-}" NIXOS_NO_CHECK="${NIXOS_NO_CHECK-}" NIXOS_INSTALL_BOOTLOADER=0 "$@"'""",
+                    "sh",
                     *nr.nix.SWITCH_TO_CONFIGURATION_CMD_PREFIX,
                     str(config_path / "bin/switch-to-configuration"),
                     "switch",
@@ -902,6 +940,10 @@ def test_execute_nix_switch_flake_build_host(
                     *nr.process.SSH_DEFAULT_OPTS,
                     "user@localhost",
                     "--",
+                    "/bin/sh",
+                    "-c",
+                    """'exec env -i PATH="${PATH-}" "$@"'""",
+                    "sh",
                     "nix",
                     "--extra-experimental-features",
                     "'nix-command flakes'",
@@ -1111,6 +1153,10 @@ def test_execute_build_dry_run_build_and_target_remote(
                     *nr.process.SSH_DEFAULT_OPTS,
                     "user@build-host",
                     "--",
+                    "/bin/sh",
+                    "-c",
+                    """'exec env -i PATH="${PATH-}" "$@"'""",
+                    "sh",
                     "nix",
                     "--extra-experimental-features",
                     "'nix-command flakes'",
@@ -1294,7 +1340,6 @@ def test_execute_switch_store_path(mock_run: Mock, tmp_path: Path) -> None:
                     | {
                         "env": {
                             "NIXOS_INSTALL_BOOTLOADER": "0",
-                            "NIXOS_REBUILD_I_UNDERSTAND_THE_CONSEQUENCES_PLEASE_BREAK_MY_SYSTEM": "1",
                         }
                     }
                 ),
@@ -1344,6 +1389,10 @@ def test_execute_switch_store_path_target_host(
                     *nr.process.SSH_DEFAULT_OPTS,
                     "user@remote-host",
                     "--",
+                    "/bin/sh",
+                    "-c",
+                    """'exec env -i PATH="${PATH-}" "$@"'""",
+                    "sh",
                     "test",
                     "-f",
                     str(config_path / "nixos-version"),
@@ -1358,6 +1407,10 @@ def test_execute_switch_store_path_target_host(
                     "user@remote-host",
                     "--",
                     "sudo",
+                    "/bin/sh",
+                    "-c",
+                    """'exec env -i PATH="${PATH-}" "$@"'""",
+                    "sh",
                     "nix-env",
                     "-p",
                     "/nix/var/nix/profiles/system",
@@ -1373,6 +1426,10 @@ def test_execute_switch_store_path_target_host(
                     *nr.process.SSH_DEFAULT_OPTS,
                     "user@remote-host",
                     "--",
+                    "/bin/sh",
+                    "-c",
+                    """'exec env -i PATH="${PATH-}" "$@"'""",
+                    "sh",
                     "test",
                     "-d",
                     "/run/systemd/system",
@@ -1387,8 +1444,10 @@ def test_execute_switch_store_path_target_host(
                     "user@remote-host",
                     "--",
                     "sudo",
-                    "env",
-                    "NIXOS_INSTALL_BOOTLOADER=0",
+                    "/bin/sh",
+                    "-c",
+                    """'exec env -i PATH="${PATH-}" LOCALE_ARCHIVE="${LOCALE_ARCHIVE-}" NIXOS_NO_CHECK="${NIXOS_NO_CHECK-}" NIXOS_INSTALL_BOOTLOADER=0 "$@"'""",
+                    "sh",
                     *nr.nix.SWITCH_TO_CONFIGURATION_CMD_PREFIX,
                     str(config_path / "bin/switch-to-configuration"),
                     "switch",

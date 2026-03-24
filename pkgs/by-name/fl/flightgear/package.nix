@@ -7,18 +7,18 @@
   freealut,
   libGLU,
   libGL,
-  libICE,
+  libice,
   libjpeg,
   openal,
   plib,
-  libSM,
+  libsm,
   libunwind,
-  libX11,
+  libx11,
   xorgproto,
-  libXext,
-  libXi,
-  libXmu,
-  libXt,
+  libxext,
+  libxi,
+  libxmu,
+  libxt,
   simgear,
   zlib,
   boost,
@@ -30,10 +30,11 @@
   qt5,
   glew,
   curl,
+  nix-update-script,
 }:
 
 let
-  version = "2024.1.3";
+  version = "2024.1.4";
   data = stdenv.mkDerivation rec {
     pname = "flightgear-data";
     inherit version;
@@ -42,7 +43,7 @@ let
       owner = "flightgear";
       repo = "fgdata";
       tag = version;
-      hash = "sha256-LNHO/W8p4b8fYcehdfVecldKQ9uJp1zlg60xdgDC45c=";
+      hash = "sha256-0cIOyQhw/+jqwO1OddBC09ZnvrmtyjSoMhcu1tuwx4k=";
     };
 
     dontUnpack = true;
@@ -63,7 +64,7 @@ stdenv.mkDerivation rec {
     owner = "flightgear";
     repo = "flightgear";
     tag = version;
-    hash = "sha256-m4bbWwMXwKJrMkb6svGrIZhcsPghrTMgFs8JCx3Wn/A=";
+    hash = "sha256-s897bsHsVP0OAcrwDVRTPz3YNJkynyErJpH18oLPl3Y=";
   };
 
   nativeBuildInputs = [
@@ -75,19 +76,19 @@ stdenv.mkDerivation rec {
     freealut
     libGLU
     libGL
-    libICE
+    libice
     libjpeg
     openal
     openscenegraph
     plib
-    libSM
+    libsm
     libunwind
-    libX11
+    libx11
     xorgproto
-    libXext
-    libXi
-    libXmu
-    libXt
+    libxext
+    libxi
+    libxmu
+    libxt
     (simgear.override { openscenegraph = openscenegraph; })
     zlib
     boost
@@ -109,9 +110,14 @@ stdenv.mkDerivation rec {
     rm -rf "$out/appdir"
   '';
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "Flight simulator";
-    maintainers = with lib.maintainers; [ raskin ];
+    maintainers = with lib.maintainers; [
+      raskin
+      kirillrdy
+    ];
     platforms = lib.platforms.linux;
     hydraPlatforms = [ ]; # disabled from hydra because it's so big
     license = lib.licenses.gpl2Plus;

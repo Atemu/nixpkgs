@@ -1,6 +1,7 @@
 {
   fetchFromGitHub,
   gradle_8,
+  jdk17_headless,
   jre,
   lib,
   makeWrapper,
@@ -26,19 +27,14 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "atlauncher";
-  version = "3.4.38.2";
+  version = "3.4.40.3";
 
   src = fetchFromGitHub {
     owner = "ATLauncher";
     repo = "ATLauncher";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-x8ch8BdUckweuwEvsOxYG2M5UmbW4fRjF/jJ6feIjIA=";
+    hash = "sha256-QFPdEH3V9Krwy/cWCbY+IMtW0ydVCqKr/OZfttZGCss=";
   };
-
-  postPatch = ''
-    # exclude UI tests
-    sed -i "/test {/a\    exclude '**/BasicLauncherUiTest.class'" build.gradle
-  '';
 
   nativeBuildInputs = [
     gradle
@@ -55,6 +51,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   gradleBuildTask = "shadowJar";
 
   gradleFlags = [
+    "-Dorg.gradle.java.home=${jdk17_headless.home}"
     "--exclude-task"
     "createExe"
   ];
@@ -95,7 +92,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     ''
       install -D -m444 ${packagingDir}/atlauncher.desktop -t $out/share/applications
       install -D -m444 ${packagingDir}/atlauncher.metainfo.xml -t $out/share/metainfo
-      install -D -m444 ${packagingDir}/atlauncher.png -t $out/share/pixmaps
+      install -D -m444 ${packagingDir}/atlauncher.png -t $out/share/icons/hicolor/128x128/apps
       install -D -m444 ${packagingDir}/atlauncher.svg -t $out/share/icons/hicolor/scalable/apps
     '';
 

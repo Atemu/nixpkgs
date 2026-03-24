@@ -21,9 +21,9 @@
   libsysprof-capture,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "nextcloud-client";
-  version = "4.0.6";
+  version = "4.0.7";
 
   outputs = [
     "out"
@@ -33,8 +33,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "nextcloud-releases";
     repo = "desktop";
-    tag = "v${version}";
-    hash = "sha256-GPNJ2zrHzHQgJvj1ANi6LYsTlkuc5splFAwC5XaR3+0=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-cur50O//LSZwXvbE7qeaNa0BgpdR25NIpCUF5NDDObY=";
   };
 
   patches = [
@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
   passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 
   meta = {
-    changelog = "https://github.com/nextcloud/desktop/releases/tag/v${version}";
+    changelog = "https://github.com/nextcloud/desktop/releases/tag/v${finalAttrs.version}";
     description = "Desktop sync client for Nextcloud";
     homepage = "https://nextcloud.com";
     license = lib.licenses.gpl2Plus;
@@ -105,4 +105,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     mainProgram = "nextcloud";
   };
-}
+})

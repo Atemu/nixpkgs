@@ -1,11 +1,11 @@
 {
   lib,
-  buildGo124Module,
+  buildGoModule,
   fetchFromGitHub,
   nixosTests,
 }:
 
-buildGo124Module rec {
+buildGoModule rec {
   pname = "etcd";
   version = "3.4.39";
 
@@ -44,6 +44,6 @@ buildGo124Module rec {
     downloadPage = "https://github.com/etcd-io/etcd/";
     license = lib.licenses.asl20;
     homepage = "https://etcd.io/";
-    maintainers = [ ];
+    maintainers = with lib.maintainers; [ superherointj ];
   };
 }

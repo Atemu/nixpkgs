@@ -12,7 +12,7 @@
   adwaita-icon-theme,
   dconf,
   gtk3,
-  wxGTK32,
+  wxwidgets_3_2,
   librsvg,
   cups,
   gsettings-desktop-schemas,
@@ -134,7 +134,7 @@ let
     else
       versionsImport.${baseName}.libVersion.version;
 
-  wxGTK = wxGTK32;
+  wxGTK = wxwidgets_3_2;
   python = python3;
   wxPython = python.pkgs.wxpython;
   addonPath = "addon.zip";
@@ -283,7 +283,7 @@ stdenv.mkDerivation rec {
     (concatStringsSep "\n" (flatten [
       "runHook preInstall"
 
-      (optionalString withScripting "buildPythonPath \"${base} $pythonPath\" \n")
+      (optionalString withScripting ''buildPythonPath "${base} ''${pythonPath[*]}"'')
 
       # wrap each of the directly usable tools
       (map (
@@ -332,7 +332,10 @@ stdenv.mkDerivation rec {
       The Programs handle Schematic Capture, and PCB Layout with Gerber output.
     '';
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ korken89 ];
+    maintainers = with lib.maintainers; [
+      korken89
+      ryand56
+    ];
     platforms = lib.platforms.all;
     broken = stdenv.hostPlatform.isDarwin;
     mainProgram = "kicad";

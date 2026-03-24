@@ -40,29 +40,6 @@ let
 
   cudaArchitecturesString = cudaPackages.flags.cmakeCudaArchitecturesString;
 
-  # While onnxruntime suggests using (3 year-old) protobuf 21.12
-  # https://github.com/microsoft/onnxruntime/blob/v1.23.2/cmake/deps.txt#L40, using a newer
-  # protobuf version is possible.
-  # We still need to patch the nixpkgs protobuf (32.1) to address the following test failure that
-  # occurs when cudaSupport is enabled:
-  # [libprotobuf ERROR /build/source/src/google/protobuf/descriptor_database.cc:642] File already exists in database: onnx/onnx-ml.proto
-  # [libprotobuf FATAL /build/source/src/google/protobuf/descriptor.cc:1986] CHECK failed: GeneratedDatabase()->Add(encoded_file_descriptor, size):
-  # terminate called after throwing an instance of 'google::protobuf::FatalException'
-  #   what():  CHECK failed: GeneratedDatabase()->Add(encoded_file_descriptor, size):
-  #
-  #
-  # Caused by: https://github.com/protocolbuffers/protobuf/commit/8f7aab29b21afb89ea0d6e2efeafd17ca71486a9
-  # Reported upstream: https://github.com/protocolbuffers/protobuf/issues/21542
-  protobuf' = protobuf.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [
-      (fetchpatch {
-        name = "Workaround nvcc bug in message_lite.h";
-        url = "https://raw.githubusercontent.com/conda-forge/protobuf-feedstock/737a13ea0680484c08e8e0ab0144dab82c10c1b3/recipe/patches/0010-Workaround-nvcc-bug-in-message_lite.h.patch";
-        hash = "sha256-joK50Il4mrwIc6zuNW9gDIfOx9LuA4FlusJuzUf9kqI=";
-      })
-    ];
-  });
-
   # TODO: update the following dependencies according to:
   # https://github.com/microsoft/onnxruntime/blob/v<VERSION>/cmake/deps.txt
 
@@ -166,13 +143,17 @@ effectiveStdenv.mkDerivation (finalAttrs: {
       url = "https://gitlab.alpinelinux.org/alpine/aports/-/raw/462dfe0eb4b66948fe48de44545cc22bb64fdf9f/community/onnxruntime/0001-Remove-MATH_NO_EXCEPT-macro.patch";
       hash = "sha256-BdeGYevZExWWCuJ1lSw0Roy3h+9EbJgFF8qMwVxSn1A=";
     })
+
+    # Fix build of ignored outputs after Protobuf 34 added `[[nodiscard]]` to
+    # many functions.
+    ./protobuf34-nodiscard.patch
   ];
 
   nativeBuildInputs = [
     cmake
     pkg-config
     python3Packages.python
-    protobuf'
+    protobuf
   ]
   ++ lib.optionals pythonSupport (
     with python3Packages;
@@ -276,6 +257,8 @@ effectiveStdenv.mkDerivation (finalAttrs: {
 
   cmakeFlags = [
     (lib.cmakeBool "ABSL_ENABLE_INSTALL" true)
+    # leads to failing builds, which isn't particularly useful for Nixpkgs
+    (lib.cmakeFeature "CMAKE_CXX_FLAGS" "-Wno-error=unused-variable")
     (lib.cmakeBool "FETCHCONTENT_FULLY_DISCONNECTED" true)
     (lib.cmakeBool "FETCHCONTENT_QUIET" false)
     (lib.cmakeFeature "FETCHCONTENT_SOURCE_DIR_ABSEIL_CPP" "${abseil-cpp_202407.src}")
@@ -287,7 +270,7 @@ effectiveStdenv.mkDerivation (finalAttrs: {
     (lib.cmakeFeature "FETCHCONTENT_SOURCE_DIR_SAFEINT" "${safeint-src}")
     (lib.cmakeFeature "FETCHCONTENT_TRY_FIND_PACKAGE_MODE" "ALWAYS")
     # fails to find protoc on darwin, so specify it
-    (lib.cmakeFeature "ONNX_CUSTOM_PROTOC_EXECUTABLE" (lib.getExe protobuf'))
+    (lib.cmakeFeature "ONNX_CUSTOM_PROTOC_EXECUTABLE" (lib.getExe protobuf))
     (lib.cmakeBool "onnxruntime_BUILD_SHARED_LIB" true)
     (lib.cmakeBool "onnxruntime_BUILD_UNIT_TESTS" finalAttrs.doCheck)
     (lib.cmakeBool "onnxruntime_USE_FULL_PROTOBUF" withFullProtobuf)
@@ -402,7 +385,7 @@ effectiveStdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     inherit cudaSupport cudaPackages ncclSupport; # for the python module
-    protobuf = protobuf';
+    inherit protobuf;
     tests = lib.optionalAttrs pythonSupport {
       python = python3Packages.onnxruntime;
     };

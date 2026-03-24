@@ -8,7 +8,7 @@
   extra-cmake-modules,
   ffmpeg,
   gtk3,
-  libXrandr,
+  libxrandr,
   libaio,
   libbacktrace,
   libpcap,
@@ -49,13 +49,13 @@ let
 in
 llvmPackages.stdenv.mkDerivation (finalAttrs: {
   pname = "pcsx2";
-  version = "2.6.2";
+  version = "2.6.3";
   src = fetchFromGitHub {
     pname = "pcsx2-source";
     owner = "PCSX2";
     repo = "pcsx2";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-cv7En9DgamohWYZPPyL6etaqi/P3yxAuVUQfsZwjIzQ=";
+    hash = "sha256-85PZ7ZDoannmwoFeKM7hm7fQS1X2MPxAwm6k+Sa+bGc=";
   };
 
   patches = [
@@ -91,7 +91,7 @@ llvmPackages.stdenv.mkDerivation (finalAttrs: {
     libbacktrace
     libpcap
     libwebp
-    libXrandr
+    libxrandr
     lz4
     qtbase
     qtsvg
@@ -112,7 +112,7 @@ llvmPackages.stdenv.mkDerivation (finalAttrs: {
   strictDeps = true;
 
   postInstall = ''
-    install -Dm644 $src/pcsx2-qt/resources/icons/AppIcon64.png $out/share/pixmaps/PCSX2.png
+    install -Dm644 $src/pcsx2-qt/resources/icons/AppIcon64.png $out/share/icons/hicolor/64x64/apps/PCSX2.png
     install -Dm644 $src/.github/workflows/scripts/linux/pcsx2-qt.desktop $out/share/applications/PCSX2.desktop
 
     zip -jq $out/share/PCSX2/resources/patches.zip ${pcsx2_patches}/patches/*

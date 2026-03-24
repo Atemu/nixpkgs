@@ -13,13 +13,13 @@
 }:
 php.buildComposerProject2 (finalAttrs: {
   pname = "composer";
-  version = "2.9.4";
+  version = "2.9.5";
 
   src = fetchFromGitHub {
     owner = "composer";
     repo = "composer";
     tag = finalAttrs.version;
-    hash = "sha256-OzruOfYKiNgHx7bj6dVY+QtfSUzLEIqBhwATaWV1YAQ=";
+    hash = "sha256-e9z0H6Bw3yIaLjgEbspgi6skIpUJs1s0KNkcgFqoy34=";
   };
 
   nativeBuildInputs = [
@@ -33,7 +33,7 @@ php.buildComposerProject2 (finalAttrs: {
     inherit (finalAttrs.passthru) pharHash;
   };
 
-  vendorHash = "sha256-EHvZfRL3xM2oG8m/8nHTOSjDIlp1FuMH+eYtbaqMz+Y=";
+  vendorHash = "sha256-Tqtpz/IV4PGOaye0doWZgY9u7SuvS94eH22wM2+myqU=";
 
   postInstall = ''
     wrapProgram $out/bin/composer \
@@ -55,7 +55,7 @@ php.buildComposerProject2 (finalAttrs: {
   # use together with the version from this package to keep the
   # bootstrap phar file up-to-date together with the end user composer
   # package.
-  passthru.pharHash = "sha256-Oz+VA6LUZZAXDkXt0pc0GX55fOpUWzltCygjysjvRkM=";
+  passthru.pharHash = "sha256-yGzmA/6Da/CGGjjJOsVmyPHmmsRLJEXZt6ahfqLplyo=";
 
   meta = {
     changelog = "https://github.com/composer/composer/releases/tag/${finalAttrs.version}";
