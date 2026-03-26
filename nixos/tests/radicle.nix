@@ -65,6 +65,7 @@ in
 
   meta = with pkgs.lib.maintainers; {
     maintainers = [
+      defelo
       julm
       lorenzleutgeb
     ];
@@ -119,6 +120,9 @@ in
       imports = [ commonHostConfig ];
     };
   };
+
+  interactive.sshBackdoor.enable = true;
+  interactive.defaults.virtualisation.graphics = false;
 
   testScript =
     { nodes, ... }@args:
