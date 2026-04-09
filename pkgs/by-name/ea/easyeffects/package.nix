@@ -35,7 +35,7 @@
   webrtc-audio-processing,
   zam-plugins,
   zita-convolver,
-  wrapGAppsNoGuiHook,
+  wrapGAppsHook3,
 }:
 
 let
@@ -59,13 +59,13 @@ in
 
 stdenv.mkDerivation rec {
   pname = "easyeffects";
-  version = "8.0.9";
+  version = "8.1.4";
 
   src = fetchFromGitHub {
     owner = "wwmm";
     repo = "easyeffects";
     tag = "v${version}";
-    hash = "sha256-cFMbeJeEIDP7uiNi+rRKErgHtjP/PbPKASo+M2qogZQ=";
+    hash = "sha256-0/xbvmj7p8JE3aH84SrcEf8kr+0X1KgHMRkBca+2rtY=";
   };
 
   patches = [ ./qmlmodule-fix.patch ];
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
     intltool
     ninja
     pkg-config
-    wrapGAppsNoGuiHook
+    wrapGAppsHook3
     wrapQtAppsHook
   ];
 

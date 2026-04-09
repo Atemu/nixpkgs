@@ -272138,7 +272138,6 @@ self: {
       description = "Wiki using happstack, git or darcs, and pandoc";
       license = "GPL";
       maintainers = [
-        lib.maintainers.Profpatsch
         lib.maintainers.sternenseemann
       ];
     }
