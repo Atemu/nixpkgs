@@ -2,20 +2,25 @@
   lib,
   fetchFromGitHub,
   rustPlatform,
+  pcre2,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rgx";
-  version = "0.9.0";
+  version = "0.10.2";
 
   src = fetchFromGitHub {
     owner = "brevity1swos";
     repo = "rgx";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-04bnNHpIRMyqvRmXDjzGpeEHgwVDSoBtyunlt03nB5Q=";
+    hash = "sha256-lZA8Tfyneg8cnBeCf0abgPr9232a1OGBfOJEBnU2l+s=";
   };
 
-  cargoHash = "sha256-v7dO2TSCKb+E/jLYPw8Q499qFXmSnbv3/WoS+dZhyBM=";
+  cargoHash = "sha256-DOIQaqoUkR1KpQURC89PRds0wJkroSYufbKz62rjSB4=";
+
+  buildInputs = [ pcre2 ];
+
+  buildFeatures = [ "pcre2-engine" ];
 
   meta = {
     homepage = "https://github.com/brevity1swos/rgx";

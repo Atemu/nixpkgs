@@ -1507,10 +1507,6 @@ with pkgs;
 
   asymptote = libsForQt5.callPackage ../tools/graphics/asymptote { };
 
-  authelia = callPackage ../servers/authelia {
-    buildGoModule = buildGo124Module;
-  };
-
   authentik-outposts = recurseIntoAttrs (callPackages ../by-name/au/authentik/outposts.nix { });
 
   autoflake = with python3.pkgs; toPythonApplication autoflake;
@@ -5236,6 +5232,7 @@ with pkgs;
   wrapRustc = rustc-unwrapped: wrapRustcWith { inherit rustc-unwrapped; };
 
   rust_1_91 = callPackage ../development/compilers/rust/1_91.nix { };
+  rust_1_94 = callPackage ../development/compilers/rust/1_94.nix { };
   rust = rust_1_91;
 
   mrustc = callPackage ../development/compilers/mrustc { };
@@ -5243,6 +5240,7 @@ with pkgs;
   mrustc-bootstrap = callPackage ../development/compilers/mrustc/bootstrap.nix { };
 
   rustPackages_1_91 = rust_1_91.packages.stable;
+  rustPackages_1_94 = rust_1_94.packages.stable;
   rustPackages = rustPackages_1_91;
 
   inherit (rustPackages)
@@ -7162,9 +7160,7 @@ with pkgs;
   gecode_6 = qt5.callPackage ../development/libraries/gecode { };
   gecode = gecode_6;
 
-  gegl = callPackage ../development/libraries/gegl {
-    openexr = openexr_2;
-  };
+  gegl = callPackage ../development/libraries/gegl { };
 
   geoclue2-with-demo-agent = geoclue2.override { withDemoAgent = true; };
 
@@ -8221,6 +8217,7 @@ with pkgs;
     openssl_1_1
     openssl_3
     openssl_3_6
+    openssl_4_0
     ;
 
   pcre = callPackage ../development/libraries/pcre { };

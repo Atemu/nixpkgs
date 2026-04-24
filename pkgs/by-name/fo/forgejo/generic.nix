@@ -12,6 +12,7 @@
   bash,
   brotli,
   buildGoModule,
+  fetchpatch,
   forgejo,
   git,
   gzip,
@@ -83,7 +84,6 @@ buildGoModule rec {
   patches = [
     ./static-root-path.patch
   ];
-
   postPatch = ''
     substituteInPlace modules/setting/server.go --subst-var data
   '';

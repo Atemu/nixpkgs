@@ -46,5 +46,12 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://dolibarr.org/";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ GaetanLepage ];
+    knownVulnerabilities = [
+      # https://github.com/NixOS/nixpkgs/issues/505605
+      "CVE-2026-34036"
+
+      # https://github.com/NixOS/nixpkgs/issues/511423
+      "CVE-2026-23500"
+    ];
   };
 })
