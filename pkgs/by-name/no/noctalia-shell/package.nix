@@ -11,7 +11,6 @@
   # runtime deps
   bluez,
   brightnessctl,
-  cava,
   cliphist,
   ddcutil,
   wlsunset,
@@ -33,7 +32,6 @@
 
   bluetoothSupport ? true,
   brightnessctlSupport ? true,
-  cavaSupport ? true,
   cliphistSupport ? true,
   ddcutilSupport ? true,
   wlsunsetSupport ? true,
@@ -51,7 +49,6 @@ let
   ]
   ++ lib.optional bluetoothSupport bluez
   ++ lib.optional brightnessctlSupport brightnessctl
-  ++ lib.optional cavaSupport cava
   ++ lib.optional cliphistSupport cliphist
   ++ lib.optional ddcutilSupport ddcutil
   ++ lib.optional wlsunsetSupport wlsunset
@@ -71,13 +68,13 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "noctalia-shell";
-  version = "4.6.7";
+  version = "4.7.6";
 
   src = fetchFromGitHub {
     owner = "noctalia-dev";
     repo = "noctalia-shell";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-6fuxf185uga/AaeFgN6VUygGE8bUEkzZSA1UQ1FFes4=";
+    hash = "sha256-oGMYWsP0qthxQisirZc/r/vpdGTZrInwkh75AC714AE=";
   };
 
   nativeBuildInputs = [

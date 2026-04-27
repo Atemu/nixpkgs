@@ -5,6 +5,7 @@
   fetchNpmDeps,
   libsecret,
   nodejs,
+  nodejs-slim,
   npmHooks,
   pkg-config,
   clang_20,
@@ -16,19 +17,19 @@ let
   vsix = stdenv.mkDerivation (finalAttrs: {
     name = "prettier-vscode-${finalAttrs.version}.vsix";
     pname = "prettier-vscode-vsix";
-    version = "12.3.0";
+    version = "12.4.0";
 
     src = fetchFromGitHub {
       owner = "prettier";
       repo = "prettier-vscode";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-a6BBWd+K8boLw+0j6etT/KHmdScLr6mBG7T5pslilTo=";
+      hash = "sha256-N++WB0CvqYQTRg3SQFf9QJrwSJXtUd7z/kvWXQqOSC4=";
     };
 
     npmDeps = fetchNpmDeps {
       name = "${finalAttrs.pname}-npm-deps";
       inherit (finalAttrs) src;
-      hash = "sha256-itl/OXjL6co3smccRwRbuGM427YzBsYh2BvkEc+oX5Y=";
+      hash = "sha256-vktxhQA2a+D9Nr4vhbmGCnNdGzt0U89K50g0SgiV5SE=";
     };
 
     buildInputs = lib.optionals stdenv.isLinux [
@@ -37,7 +38,7 @@ let
 
     nativeBuildInputs = [
       nodejs
-      nodejs.python
+      nodejs-slim.python
       npmHooks.npmConfigHook
     ]
     ++ lib.optionals stdenv.isLinux [

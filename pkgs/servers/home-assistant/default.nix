@@ -223,16 +223,6 @@ let
         doCheck = false;
       });
 
-      wolf-comm = super.wolf-comm.overridePythonAttrs rec {
-        version = "0.0.23";
-        src = fetchFromGitHub {
-          owner = "janrothkegel";
-          repo = "wolf-comm";
-          tag = version;
-          hash = "sha256-LpehooW3vmohiyMwOQTFNLiNCsaLKelWQxQk8bl+y1k=";
-        };
-      };
-
       # internal python packages only consumed by home-assistant itself
       hass-web-proxy-lib = self.callPackage ./python-modules/hass-web-proxy-lib { };
       home-assistant-frontend = self.callPackage ./frontend.nix { };
@@ -263,7 +253,7 @@ let
   extraBuildInputs = extraPackages python.pkgs;
 
   # Don't forget to run update-component-packages.py after updating
-  hassVersion = "2026.3.3";
+  hassVersion = "2026.4.3";
 
 in
 python.pkgs.buildPythonApplication rec {
@@ -284,13 +274,13 @@ python.pkgs.buildPythonApplication rec {
     owner = "home-assistant";
     repo = "core";
     tag = version;
-    hash = "sha256-NCrrG2jlbt879qo6peoBqtbU+d/lmbKqswEJbfvVUUI=";
+    hash = "sha256-65LZU4OpvVeV70xujI3kd/8VIzZh723l9F5xe8qEvX4=";
   };
 
   # Secondary source is pypi sdist for translations
   sdist = fetchPypi {
     inherit pname version;
-    hash = "sha256-/8yJBUNcMLx7ONLY5rvbWsVA1+OtTSpZd3dNgEsG+0I=";
+    hash = "sha256-P76HVL5NW8TOpic1kRUXxeMeAtsy+UxkmTvsc0J+6nY=";
   };
 
   build-system = with python.pkgs; [
@@ -359,6 +349,7 @@ python.pkgs.buildPythonApplication rec {
     home-assistant-bluetooth
     httpx
     ifaddr
+    infrared-protocols
     jinja2
     lru-dict
     orjson

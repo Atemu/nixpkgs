@@ -685,6 +685,9 @@ let
       FANOTIFY = yes;
       FANOTIFY_ACCESS_PERMISSIONS = yes;
 
+      # DAX requires 64BIT via ZONE_DEVICE and MEMORY_HOTPLUG.
+      FS_DAX = lib.mkIf stdenv.hostPlatform.is64bit yes;
+
       TMPFS = yes;
       TMPFS_POSIX_ACL = yes;
       FS_ENCRYPTION = yes;
@@ -823,6 +826,8 @@ let
         whenOlder "6.2" yes
       ); # allow RDRAND to seed the RNG
       RANDOM_TRUST_BOOTLOADER = whenOlder "6.2" yes; # allow the bootloader to seed the RNG
+      # only when compiled as yes, TPM 2.0 will automatically seed the kernel RNG
+      HW_RANDOM = yes;
 
       MODULE_SIG = no; # r13y, generates a random key during build and bakes it in
       # Depends on MODULE_SIG and only really helps when you sign your modules
@@ -1226,6 +1231,7 @@ let
         EFI = lib.mkIf stdenv.hostPlatform.isEfi yes;
         EFI_STUB = yes; # EFI bootloader in the bzImage itself
         EFI_GENERIC_STUB_INITRD_CMDLINE_LOADER = whenOlder "6.2" yes; # initrd kernel parameter for EFI
+        EFI_VARS_PSTORE = yes;
 
         # Generic compression support for EFI payloads
         # Add new platforms only after they have been verified to build and boot.

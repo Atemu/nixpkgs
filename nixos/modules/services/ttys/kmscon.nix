@@ -90,7 +90,7 @@ in
 
       package = mkPackageOption pkgs "kmscon" { };
 
-      hwRender = mkEnableOption "hardware acceleration + DRM backend";
+      hwRender = mkEnableOption "3D hardware acceleration to render the console";
 
       fonts = mkOption {
         description = "Fonts used by kmscon, in order of priority.";
@@ -168,15 +168,19 @@ in
             "--"
             loginScript
           ]
-
         ))
       ];
 
       restartIfChanged = false;
+      # logind spawns autovt@ttyN.service on VT switch; point it at kmscon
       aliases = [ "autovt@.service" ];
     };
 
-    systemd.suppressedSystemUnits = [ "autovt@.service" ];
+    # tty1 is special: logind does not spawn autovt@tty1, it expects a static
+    # pull-in via getty.target. With getty@ suppressed, we must replace it.
+    systemd.services."kmsconvt@tty1".wantedBy = [ "getty.target" ];
+
+    systemd.suppressedSystemUnits = [ "getty@.service" ];
 
     services.kmscon.extraConfig =
       let
@@ -194,14 +198,10 @@ in
             ) config.services.xserver.xkb
           )
         );
-        render =
-          if cfg.hwRender then
-            [
-              "drm"
-              "hwaccel"
-            ]
-          else
-            [ "no-drm" ];
+        render = optionals cfg.hwRender [
+          "drm"
+          "hwaccel"
+        ];
         fonts =
           optional (cfg.fonts != null)
             "font-name=${lib.concatMapStringsSep ", " (f: f.name) cfg.fonts}";

@@ -16,14 +16,14 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "griffelib";
-  version = "2.0.0";
+  version = "2.0.2";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "mkdocstrings";
     repo = "griffe";
     tag = finalAttrs.version;
-    hash = "sha256-SiUkgkaHtq2aWraL5BJvItOExTGUQ+e6pQVXEwTM0mk=";
+    hash = "sha256-Fxa9lrBVQ/enVLiU7hUc0d5x9ItI19EGnbxa7MX6Plc=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/packages/griffelib";
@@ -45,6 +45,7 @@ buildPythonPackage (finalAttrs: {
   ];
 
   meta = {
+    changelog = "https://github.com/mkdocstrings/griffe/releases/tag/${finalAttrs.src.tag}";
     description = "Signatures for entire Python programs. Extract the structure, the frame, the skeleton of your project, to generate API documentation or find breaking changes in your API";
     homepage = "https://github.com/mkdocstrings/griffe";
     license = lib.licenses.isc;

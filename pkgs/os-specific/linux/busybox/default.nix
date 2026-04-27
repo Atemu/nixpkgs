@@ -90,6 +90,8 @@ stdenv.mkDerivation rec {
       excludes = [ "networking/httpd_ratelimit_cgi.c" ]; # New since release.
       hash = "sha256-Msm9sDZrVx7ofunnvnTS73SPKUUpR3Tv5xZ/wBd+rts=";
     })
+    # https://lists.busybox.net/pipermail/busybox/2026-March/092010.html
+    ./build-system-buffer-overflow.patch
   ]
   ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) ./clang-cross.patch;
 
@@ -165,6 +167,7 @@ stdenv.mkDerivation rec {
     1 a busybox() { '$out'/bin/busybox "$@"; }\
     logger() { '$out'/bin/logger "$@"; }\
     ' ${debianDispatcherScript} > ${outDispatchPath}
+    sed -i 's|/sbin/resolvconf|"$(busybox which resolvconf)"|g' ${outDispatchPath}
     chmod 555 ${outDispatchPath}
     HOST_PATH=$out/bin patchShebangs --host ${outDispatchPath}
   '';

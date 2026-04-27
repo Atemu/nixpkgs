@@ -12,14 +12,14 @@ let
 in
 python.pkgs.buildPythonApplication rec {
   pname = "canaille";
-  version = "0.2.1";
+  version = "0.2.7";
   pyproject = true;
 
   src = fetchFromGitLab {
     owner = "yaal";
     repo = "canaille";
     tag = version;
-    hash = "sha256-6Ksvl03HgpVQRhHtKWQwTrPBkaXcVWoejGaMFBAykHM=";
+    hash = "sha256-hreEjMrD6mRapgrSDPRWcmqfLxfsOpK7dC8lHJkAY7Y=";
   };
 
   build-system = with python.pkgs; [
@@ -48,7 +48,6 @@ python.pkgs.buildPythonApplication rec {
     [
       pytestCheckHook
       postgresql
-      coverage
       flask-webtest
       pyquery
       pytest-cov-stub
@@ -108,7 +107,10 @@ python.pkgs.buildPythonApplication rec {
       scim2-client
       scim2-models
     ];
-    ldap = [ python-ldap ];
+    ldap = [
+      ldappool
+      python-ldap
+    ];
     sentry = [ sentry-sdk ];
     postgresql = [
       flask-alembic
@@ -147,7 +149,7 @@ python.pkgs.buildPythonApplication rec {
   meta = {
     description = "Lightweight Identity and Authorization Management";
     homepage = "https://canaille.readthedocs.io/en/latest/index.html";
-    changelog = "https://gitlab.com/yaal/canaille/-/blob/${src.rev}/CHANGES.rst";
+    changelog = "https://gitlab.com/yaal/canaille/-/blob/${src.tag}/CHANGES.rst";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ erictapen ];

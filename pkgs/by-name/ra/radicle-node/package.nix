@@ -15,9 +15,9 @@
   xdg-utils,
   versionCheckHook,
 
-  version ? "1.7.1",
-  srcHash ? "sha256-MPanUDVKol7mWVJDrGoGUkKqmcje+MsiK0WfqXQ27iI=",
-  cargoHash ? "sha256-Lru4ps9FYi03NVtRLtwZX9jhozAvBDsJ72ihdIpQcQ8=",
+  version ? "1.8.0",
+  srcHash ? "sha256-QjAdZO5PwJ6FuThzQYnkF+hAeArltXxhEnzIcAePwzA=",
+  cargoHash ? "sha256-m8CqRTJD/1bOqTB2SoUjglZsOWGfv/nBNTOQftNvIqE=",
   updateScript ? ./update.sh,
 }:
 
@@ -149,6 +149,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
           services.radicle.package = finalAttrs.finalPackage;
         };
       };
+      ci-broker = nixosTests.radicle-ci-broker.extendNixOS {
+        module = {
+          services.radicle.package = finalAttrs.finalPackage;
+        };
+      };
     };
   };
 
@@ -166,11 +171,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       mit
     ];
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [
-      amesgen
-      lorenzleutgeb
-      defelo
-    ];
+    teams = [ lib.teams.radicle ];
     mainProgram = "rad";
   };
 })

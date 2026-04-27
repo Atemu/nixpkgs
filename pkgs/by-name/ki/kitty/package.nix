@@ -20,7 +20,7 @@
   libxext,
   wayland-protocols,
   wayland,
-  xxHash,
+  xxhash,
   nerd-fonts,
   lcms2,
   librsync,
@@ -51,14 +51,14 @@
 with python3Packages;
 buildPythonApplication rec {
   pname = "kitty";
-  version = "0.46.1";
+  version = "0.46.2";
   pyproject = false;
 
   src = fetchFromGitHub {
     owner = "kovidgoyal";
     repo = "kitty";
     tag = "v${version}";
-    hash = "sha256-cGMmzddP+YsyEl9IDt4rtChYZeh9n/7RfWJ87Evv6Tc=";
+    hash = "sha256-x+jBQrg3Iaj6PLMF1hIjS46odxv5GxPMcvC9JddYCHo=";
   };
 
   goModules =
@@ -76,7 +76,7 @@ buildPythonApplication rec {
     librsync
     matplotlib
     openssl.dev
-    xxHash
+    xxhash
   ]
   ++ lib.optionals stdenv.hostPlatform.isDarwin [
     libpng

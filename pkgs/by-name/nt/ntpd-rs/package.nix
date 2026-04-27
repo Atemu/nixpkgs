@@ -13,21 +13,23 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ntpd-rs";
-  version = "1.7.1";
+  version = "1.7.2";
 
   src = fetchFromGitHub {
     owner = "pendulum-project";
     repo = "ntpd-rs";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-gOt2X/tqtFrmxkTO/8UFwmyX0vPKHsTu+qe5AfqDtMk=";
+    hash = "sha256-xH9Z/aOfqY51GxbJeTidsEIbbKNaqNa/okIInvPKxp0=";
   };
 
-  cargoHash = "sha256-DXAy/K70sNhVOjDOd6G/juE7JgmewPzGHZDeXAOZ1+s=";
+  cargoHash = "sha256-9NeNBoq8OzSUilZVvYC1jL9Mf3pLKAsFBMWiSO/ky7I=";
 
   nativeBuildInputs = [
     pandoc
     installShellFiles
   ];
+
+  __darwinAllowLocalNetworking = true;
 
   # These fail based on timestamp issues with bundled certificates
   # See https://github.com/NixOS/nixpkgs/issues/497682 & https://github.com/pendulum-project/ntpd-rs/pull/2133

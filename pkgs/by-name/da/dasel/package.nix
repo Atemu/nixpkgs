@@ -7,13 +7,13 @@
 
 buildGoModule (finalAttrs: {
   pname = "dasel";
-  version = "3.3.1";
+  version = "3.4.1";
 
   src = fetchFromGitHub {
     owner = "TomWright";
     repo = "dasel";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-h6AIu1Yavqezpl6yeMwdZ168SV7Rz19Mr7GtNeyDzpk=";
+    hash = "sha256-W/qMrg+B/T19pguKiB4MHZF5OF3LqfH8b+5ke6feZNQ=";
   };
 
   vendorHash = "sha256-hHxEE0xNSP4wnT5B13BAxUPpdIWs8v7KF1MuISfaYBE=";

@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  utils,
   ...
 }@host:
 
@@ -564,7 +565,6 @@ in
                           extraConfig =
                             { options, ... }:
                             {
-                              _file = "module at ${__curPos.file}:${toString __curPos.line}";
                               config = {
                                 nixpkgs =
                                   if options.nixpkgs ? hostPlatform then
@@ -1053,8 +1053,14 @@ in
                 }
                 // (optionalAttrs containerConfig.autoStart {
                   wantedBy = [ "machines.target" ];
-                  wants = [ "network.target" ] ++ (map (i: "sys-subsystem-net-devices-${i}.device") cfg.interfaces);
-                  after = [ "network.target" ] ++ (map (i: "sys-subsystem-net-devices-${i}.device") cfg.interfaces);
+                  wants = [
+                    "network.target"
+                  ]
+                  ++ (map (i: "sys-subsystem-net-devices-${utils.escapeSystemdPath i}.device") cfg.interfaces);
+                  after = [
+                    "network.target"
+                  ]
+                  ++ (map (i: "sys-subsystem-net-devices-${utils.escapeSystemdPath i}.device") cfg.interfaces);
                   restartTriggers = [
                     containerConfig.path
                     config.environment.etc."${configurationDirectoryName}/${name}.conf".source

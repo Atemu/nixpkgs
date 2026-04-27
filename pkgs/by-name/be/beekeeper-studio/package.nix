@@ -39,7 +39,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "beekeeper-studio";
-  version = "5.6.2";
+  version = "5.6.5";
 
   src =
     let
@@ -54,10 +54,10 @@ stdenv.mkDerivation (finalAttrs: {
     fetchurl {
       url = "https://github.com/beekeeper-studio/beekeeper-studio/releases/download/v${finalAttrs.version}/${asset}";
       hash = selectSystem {
-        x86_64-linux = "sha256-s1Smb8du7pZjcVMnLsJ39P28erApDLnf5lqO9rO7asw=";
-        aarch64-linux = "sha256-ZHFiIJ6zYYXjbEGGttvcNxnnKz+/4j8oQ1PsXAdeAUM=";
-        x86_64-darwin = "sha256-NasWIn1OA4LvewLbNzyMXuPXFvbvl41tpEN1xEC6jSk=";
-        aarch64-darwin = "sha256-DZUm7/3/wvyZDV3/HrK1glNo4pMWyt16z5B3FfSYdqw=";
+        x86_64-linux = "sha256-JQs/B2CkwUuVBWgn+eJCokE3wWNrQzl8nj8Rd1UcCgk=";
+        aarch64-linux = "sha256-/yyXvp2x2elVUqDAzB7/jWQi2Z/7b1td8sGBD7WRPDw=";
+        x86_64-darwin = "sha256-0cSsRiFCFVKMkPjUj3bC096ijZu8rAj0GObeLlpvaX8=";
+        aarch64-darwin = "sha256-Mtf0xlEvFcsE7O2IgXFmOzVU7P9WKr5DhJRmf5WCU4E=";
       };
     };
 

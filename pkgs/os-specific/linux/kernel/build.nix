@@ -77,7 +77,6 @@ lib.makeOverridable (
 
     # for module compatibility
     isZen ? false,
-    isHardened ? false,
 
     # Whether to utilize the controversial import-from-derivation feature to parse the config
     allowImportFromDerivation ? false,
@@ -438,6 +437,9 @@ lib.makeOverridable (
       # Keep root and arch-specific Makefiles
       chmod u-w Makefile arch/*/Makefile*
 
+      # Keep rust Makefile
+      ${lib.optionalString withRust "chmod u-w rust/Makefile"}
+
       # Keep whole scripts dir
       chmod u-w -R scripts
 
@@ -527,7 +529,6 @@ lib.makeOverridable (
         ;
       inherit
         isZen
-        isHardened
         withRust
         ;
       baseVersion = lib.head (lib.splitString "-rc" version);

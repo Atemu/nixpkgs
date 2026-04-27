@@ -16,7 +16,7 @@ in
 
 {
   name = "radicle-ci-broker";
-  meta.maintainers = with lib.maintainers; [ defelo ];
+  meta.maintainers = lib.teams.radicle.members;
 
   nodes.seed = {
     virtualisation.credentials = {
@@ -71,6 +71,9 @@ in
         radicle-job
       ];
     };
+
+  interactive.sshBackdoor.enable = true;
+  interactive.defaults.virtualisation.graphics = false;
 
   testScript = ''
     import json

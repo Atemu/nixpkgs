@@ -7,11 +7,11 @@
 
 appimageTools.wrapType2 rec {
   pname = "lunarclient";
-  version = "3.6.0";
+  version = "3.6.6";
 
   src = fetchurl {
     url = "https://launcherupdates.lunarclientcdn.com/Lunar%20Client-${version}-ow.AppImage";
-    hash = "sha512-VlTn3aAzFRmhWBE2Pa5WFJo2M8WxQdsQKxJqByxGPD9R3H9Vr4HwJzMdl5BwZJRZCGnVLEpMYMwpA4Z/I9aILw==";
+    hash = "sha512-9vIR6nNpy2cCtZHQipDJHTIC7qPpxRFmH9LrtwxHyTOJW4BGW6LlEWh+ZEe9FRZyU4iv66iTPlHw53RE9QF+cA==";
   };
 
   nativeBuildInputs = [ makeWrapper ];
@@ -26,7 +26,7 @@ appimageTools.wrapType2 rec {
       install -Dm444 ${contents}/lunarclient.desktop -t $out/share/applications/
       install -Dm444 ${contents}/lunarclient.png -t $out/share/pixmaps/
       substituteInPlace $out/share/applications/lunarclient.desktop \
-        --replace-fail 'Exec=AppRun --no-sandbox %U' 'Exec=lunarclient' \
+        --replace-fail 'Exec=AppRun --no-sandbox %U' 'Exec=lunarclient'
     '';
 
   passthru.updateScript = ./update.sh;

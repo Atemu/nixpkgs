@@ -5,24 +5,38 @@
   nix-update-script,
   openssl,
   perl,
-  zig,
+  zig_0_15,
   pkg-config,
   stdenv,
   vimUtils,
 }:
 let
-  version = "1001eb8-unstable-2026-03-13";
+  version = "0.5.2";
   src = fetchFromGitHub {
     owner = "dmtrKovalenko";
     repo = "fff.nvim";
-    rev = "fcdf4a9172fba824ca6834731b93b74eba51d1c3";
-    hash = "sha256-AYxWrqru0/HCrfTXRqTExiOT6mNzNMk+pT6APRs0BUM=";
+    tag = "v${version}";
+    hash = "sha256-rv33dRf53m9iJwRl56z9oU0EuY1wUChsZyHOi/3gv4A=";
   };
   fff-nvim-lib = rustPlatform.buildRustPackage {
     pname = "fff-nvim-lib";
     inherit version src;
 
-    cargoHash = "sha256-nXtJPE6HNZx5Ra4CwYi/f4EWww//1XwsiwtRG77RPJk=";
+    cargoHash = "sha256-ylQtZa3ZRs38mhge5tLLCRpnUdHYSjuZOwU+/6TO8Cw=";
+
+    cargoBuildFlags = [
+      "-p"
+      "fff-nvim"
+      "--features"
+      "zlob"
+    ];
+
+    cargoCheckFlags = [
+      "-p"
+      "fff-nvim"
+      "--features"
+      "zlob"
+    ];
 
     nativeBuildInputs = [
       pkg-config
@@ -40,14 +54,12 @@ let
     ];
 
     env = {
-      RUSTC_BOOTSTRAP = 1; # We need rust unstable features
-
       OPENSSL_NO_VENDOR = true;
 
       # Allow undefined symbols on Darwin - they will be provided by Neovim's LuaJIT runtime
       RUSTFLAGS = lib.optionalString stdenv.hostPlatform.isDarwin "-C link-arg=-undefined -C link-arg=dynamic_lookup";
 
-      ZIG = lib.getExe zig; # zlob requires zig
+      ZIG = lib.getExe zig_0_15; # zlob requires zig
     };
   };
 in
@@ -69,7 +81,6 @@ vimUtils.buildVimPlugin {
 
   passthru = {
     updateScript = nix-update-script {
-      extraArgs = [ "--version=branch" ];
       attrPath = "vimPlugins.fff-nvim.fff-nvim-lib";
     };
 

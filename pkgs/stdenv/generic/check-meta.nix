@@ -39,7 +39,6 @@ let
   inherit (lib.meta)
     availableOn
     cpeFullVersionWithVendor
-    tryCPEPatchVersionInUpdateWithVendor
     ;
 
   inherit (lib.generators)
@@ -91,6 +90,8 @@ let
       && (
         if isList attrs.meta.license then
           any (l: elem l list) attrs.meta.license
+        else if attrs.meta.license ? "licenseType" then
+          lib.licenses.containsLicenses list attrs.meta.license
         else
           elem attrs.meta.license list
       );
@@ -99,14 +100,14 @@ let
 
   hasBlocklistedLicense = hasListedLicense blocklist;
 
-  allowBroken = config.allowBroken || getEnv "NIXPKGS_ALLOW_BROKEN" == "1";
-
   allowUnsupportedSystem =
     config.allowUnsupportedSystem || getEnv "NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM" == "1";
 
   isUnfree =
     licenses:
-    if isAttrs licenses then
+    if isAttrs licenses && licenses ? "licenseType" then
+      !(lib.licenses.isFree licenses)
+    else if isAttrs licenses then
       !(licenses.free or true)
     # TODO: Returning false in the case of a string is a bug that should be fixed.
     # In a previous implementation of this function the function body
@@ -120,18 +121,6 @@ let
   hasUnfreeLicense = attrs: attrs ? meta.license && isUnfree attrs.meta.license;
 
   isMarkedBroken = attrs: attrs.meta.broken or false;
-
-  # Allow granular checks to allow only some broken packages
-  # Example:
-  # { pkgs, ... }:
-  # {
-  #   allowBroken = false;
-  #   allowBrokenPredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [ "hello" ];
-  # }
-  allowBrokenPredicate = config.allowBrokenPredicate or (x: false);
-
-  hasDeniedBroken =
-    attrs: (attrs.meta.broken or false) && !allowBroken && !allowBrokenPredicate attrs;
 
   hasUnsupportedPlatform = pkg: !(availableOn hostPlatform pkg);
 
@@ -203,7 +192,6 @@ let
     allow_attr:
     {
       Unfree = "NIXPKGS_ALLOW_UNFREE";
-      Broken = "NIXPKGS_ALLOW_BROKEN";
       UnsupportedSystem = "NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM";
       NonSource = "NIXPKGS_ALLOW_NONSOURCE";
     }
@@ -212,7 +200,6 @@ let
     allow_attr:
     {
       Unfree = "unfree packages";
-      Broken = "broken packages";
       UnsupportedSystem = "packages that are unsupported for this system";
       NonSource = "packages not built from source";
     }
@@ -357,6 +344,7 @@ let
       pkgConfigModules = listOf str;
       inherit platforms;
       hydraPlatforms = listOf str;
+      # Automatically turns into meta.problems.broken, see ./problems.nix
       broken = bool;
       unfree = bool;
       unsupported = bool;
@@ -453,12 +441,6 @@ let
         msg = "contains elements not built from source (‘${showSourceType attrs.meta.sourceProvenance}’)";
         remediation = remediate_allowlist "NonSource" (remediate_predicate "allowNonSourcePredicate" attrs);
       }
-    else if hasDeniedBroken attrs then
-      {
-        reason = "broken";
-        msg = "is marked as broken";
-        remediation = remediate_allowlist "Broken" "";
-      }
     else if hasUnsupportedPlatform attrs && !allowUnsupportedSystem then
       let
         toPretty' = toPretty {
@@ -512,7 +494,6 @@ let
       success = true;
       value = cpeFullVersionWithVendor vendor version;
     })
-    tryCPEPatchVersionInUpdateWithVendor
   ];
 
   # The meta attribute is passed in the resulting attribute set,

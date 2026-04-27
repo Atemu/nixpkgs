@@ -7,16 +7,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "runn";
-  version = "1.6.0";
+  version = "1.9.1";
 
   src = fetchFromGitHub {
     owner = "k1LoW";
     repo = "runn";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-zxlPm27RwSXBSq/k7gxY/d4oozU/bpD7AIKZHzGxwh8=";
+    hash = "sha256-zq8clHp0j+lCAIRL5aOKp2k7Z1S52fYhf3Nsgd1h16s=";
   };
 
-  vendorHash = "sha256-RHJkMKCz39M4LEEyicO4SQDL7thcCr93Cj2NrkrkM0c=";
+  vendorHash = "sha256-XR9FulUi9V86Ic140A2pK953+Udm0btBvSIRshsqdAQ=";
 
   subPackages = [ "cmd/runn" ];
 

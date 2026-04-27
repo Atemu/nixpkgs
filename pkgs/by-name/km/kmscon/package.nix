@@ -9,6 +9,9 @@
   libdrm,
   libGLU,
   libGL,
+  freetype,
+  fontconfig,
+  zlib,
   pango,
   pkg-config,
   docbook_xsl,
@@ -26,16 +29,17 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "kmscon";
-  version = "9.3.2";
+  version = "9.3.3";
 
   src = fetchFromGitHub {
     owner = "kmscon";
     repo = "kmscon";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-a1H9/j92Z/vjvFp226Ps9PFy5dAS8yg+RErgJWIb9HQ=";
+    hash = "sha256-U9jDlZb5aBzQ7IErtLsajxcN1W5/8/eNwhGIuz7aUCw=";
   };
 
   strictDeps = true;
+  __structuredAttrs = true;
 
   depsBuildBuild = [
     buildPackages.stdenv.cc
@@ -47,6 +51,9 @@ stdenv.mkDerivation (finalAttrs: {
     libdrm
     libtsm
     libxkbcommon
+    freetype
+    fontconfig
+    zlib
     pango
     systemdLibs
     libgbm
@@ -61,6 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
     docbook_xsl
     pkg-config
     libxslt # xsltproc
+    docbook_xml_dtd_42
   ];
 
   outputs = [
@@ -71,14 +79,6 @@ stdenv.mkDerivation (finalAttrs: {
   patches = [
     ./sandbox.patch # Generate system units where they should be (nix store) instead of /etc/systemd/system
   ];
-
-  postPatch = ''
-    for i in ./docs/man/*.in; do
-      substituteInPlace "''${i}" \
-        --replace-fail "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" \
-                       "${docbook_xml_dtd_42}/xml/dtd/docbook/docbookx.dtd"
-    done
-  '';
 
   postFixup = ''
     substituteInPlace $out/bin/kmscon \

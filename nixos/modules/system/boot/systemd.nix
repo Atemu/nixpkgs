@@ -65,7 +65,6 @@ let
     "systemd-udevd-control.socket"
     "systemd-udevd-kernel.socket"
     "systemd-udevd.service"
-    "systemd-udev-settle.service"
   ]
   ++ (optional (!config.boot.isContainer) "systemd-udev-trigger.service")
   ++ [
@@ -792,10 +791,13 @@ in
       path = [ pkgs.util-linux ];
       overrideStrategy = "asDropin";
     };
+    systemd.services."modprobe@" = {
+      restartIfChanged = false;
+      serviceConfig.ExecSearchPath = lib.makeBinPath [ pkgs.kmod ];
+    };
     systemd.services.systemd-random-seed.restartIfChanged = false;
     systemd.services.systemd-remount-fs.restartIfChanged = false;
     systemd.services.systemd-update-utmp.restartIfChanged = false;
-    systemd.services.systemd-udev-settle.restartIfChanged = false; # Causes long delays in nixos-rebuild
     systemd.targets.local-fs.unitConfig.X-StopOnReconfiguration = true;
     systemd.targets.remote-fs.unitConfig.X-StopOnReconfiguration = true;
     systemd.services.systemd-importd.environment = proxy_env;
@@ -854,16 +856,6 @@ in
       };
     };
 
-    # Remove with systemd 259.4
-    security.polkit.extraConfig = mkIf config.security.polkit.enable ''
-      polkit.addRule(function(action, subject) {
-          if (action.id == "org.freedesktop.machine1.register-machine" &&
-              subject.user != "root") {
-              return polkit.Result.AUTH_ADMIN_KEEP;
-          }
-      });
-    '';
-
     # run0 is supposed to authenticate the user via polkit and then run a command. Without this next
     # part, run0 would fail to run the command even if authentication is successful and the user has
     # permission to run the command. This next part is only enabled if polkit is enabled because the
@@ -875,6 +867,29 @@ in
         setLoginUid = true;
         pamMount = false;
       };
+    };
+
+    # the systemd vmspawn credential dropin executes sshd and expects ExecSearchPath to be set, see:
+    # https://github.com/systemd/systemd/blob/v259.3/src/vmspawn/vmspawn.c#L2662
+    # this service is used, for example, when NixOS is started via systemd-vmspawn
+    systemd.services."sshd-vsock@" = mkIf config.services.openssh.enable {
+      serviceConfig.ExecSearchPath = "${config.services.openssh.package}/bin";
+      overrideStrategy = "asDropin";
+    };
+
+    # Fix paths in sshd-vsock.socket
+    # https://github.com/systemd/systemd/blob/v259.3/src/ssh-generator/ssh-generator.c#L239
+    # this socket is used, for example, when NixOS is started via systemd-vmspawn
+    systemd.sockets.sshd-vsock = mkIf config.services.openssh.enable {
+      overrideStrategy = "asDropin";
+      socketConfig.ExecStartPost = [
+        ""
+        "${config.systemd.package}/lib/systemd/systemd-ssh-issue --make-vsock"
+      ];
+      socketConfig.ExecStopPre = [
+        ""
+        "${config.systemd.package}/lib/systemd/systemd-ssh-issue --rm-vsock"
+      ];
     };
   };
 

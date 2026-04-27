@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   postPatch = ''
     substituteInPlace pyproject.toml \
-      --replace-fail "cffi~=" "cffi>=" \
+      --replace-fail "cffi~=" "cffi>="
   '';
 
   build-system = [
@@ -50,6 +50,6 @@ buildPythonPackage rec {
     description = "Zstandard bindings for Python";
     homepage = "https://github.com/indygreg/python-zstandard";
     license = lib.licenses.bsdOriginal;
-    maintainers = with lib.maintainers; [ arnoldfarkas ];
+    maintainers = [ ];
   };
 }

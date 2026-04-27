@@ -1,27 +1,34 @@
 {
-  lib,
-  stdenv,
-  rustPlatform,
-  pkg-config,
-  cargo-tauri,
   bun,
-  nodejs,
   cargo,
-  rustc,
-  jq,
-  wrapGAppsHook4,
-  makeWrapper,
+  cargo-tauri,
   dbus,
   glib,
-  gtk3,
-  libsoup_3,
-  librsvg,
-  libappindicator-gtk3,
   glib-networking,
-  openssl,
-  webkitgtk_4_1,
+  gst_all_1,
+  gtk4,
+  jq,
+  lib,
+  libappindicator,
+  librsvg,
+  libsoup_3,
+  makeBinaryWrapper,
+  nodejs,
   opencode,
+  openssl,
+  pkg-config,
+  rustPlatform,
+  rustc,
+  stdenvNoCC,
+  webkitgtk_4_1,
+  wrapGAppsHook4,
 }:
+
+let
+  gtk = gtk4;
+  libsoup = libsoup_3;
+  webkitgtk = webkitgtk_4_1;
+in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "opencode-desktop";
   inherit (opencode)
@@ -43,23 +50,28 @@ rustPlatform.buildRustPackage (finalAttrs: {
     cargo
     rustc
     jq
-    makeWrapper
+    makeBinaryWrapper
   ]
-  ++ lib.optionals stdenv.hostPlatform.isLinux [ wrapGAppsHook4 ];
+  ++ lib.optionals stdenvNoCC.hostPlatform.isLinux [ wrapGAppsHook4 ];
 
-  buildInputs = lib.optionals stdenv.isLinux [
-    dbus
-    glib
-    gtk3
-    libsoup_3
-    librsvg
-    libappindicator-gtk3
-    glib-networking
-    openssl
-    webkitgtk_4_1
-  ];
-
-  strictDeps = true;
+  buildInputs = (
+    lib.optionals stdenvNoCC.isLinux [
+      dbus
+      glib
+      glib-networking
+      gtk
+      libappindicator
+      librsvg
+      libsoup
+      openssl
+      webkitgtk
+    ]
+    ++ (with gst_all_1; [
+      gst-plugins-bad # fakevideosink
+      gst-plugins-base # appsink and autoaudiosink
+      gst-plugins-good # autoaudiosink
+    ])
+  );
 
   tauriBuildFlags = [
     "--config"
@@ -72,26 +84,17 @@ rustPlatform.buildRustPackage (finalAttrs: {
   preBuild = ''
     cp -a ${finalAttrs.node_modules}/{node_modules,packages} .
     chmod -R u+w node_modules packages
-    patchShebangs node_modules
-    patchShebangs packages/desktop/node_modules
-
-    mkdir -p packages/desktop/src-tauri/sidecars
-    cp ${opencode}/bin/opencode packages/desktop/src-tauri/sidecars/opencode-cli-${stdenv.hostPlatform.rust.rustcTarget}
+    patchShebangs node_modules packages/desktop/node_modules
+    install -D ${lib.getExe opencode} \
+      packages/desktop/src-tauri/sidecars/opencode-cli-${stdenvNoCC.hostPlatform.rust.rustcTarget}
   '';
 
   meta = {
     description = "AI coding agent desktop client";
     homepage = "https://opencode.ai";
+    inherit (opencode.meta) platforms;
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [
-      xiaoxiangmoe
-    ];
     mainProgram = "OpenCode";
-    platforms = [
-      "aarch64-linux"
-      "x86_64-linux"
-      "aarch64-darwin"
-      "x86_64-darwin"
-    ];
+    maintainers = with lib.maintainers; [ xiaoxiangmoe ];
   };
 })

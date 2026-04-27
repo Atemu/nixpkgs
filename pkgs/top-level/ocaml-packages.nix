@@ -76,6 +76,8 @@ let
 
         atdgen-runtime = callPackage ../development/ocaml-modules/atdgen/runtime.nix { };
 
+        atdml = callPackage ../development/ocaml-modules/atdml { };
+
         augeas = callPackage ../development/ocaml-modules/augeas {
           inherit (pkgs) augeas;
         };
@@ -220,6 +222,8 @@ let
         caqti-eio = callPackage ../development/ocaml-modules/caqti/eio.nix { };
 
         caqti-lwt = callPackage ../development/ocaml-modules/caqti/lwt.nix { };
+
+        caqti-miou = callPackage ../development/ocaml-modules/caqti/miou.nix { };
 
         caqti-type-calendar = callPackage ../development/ocaml-modules/caqti/type-calendar.nix { };
 
@@ -1143,9 +1147,12 @@ let
 
         lutils = callPackage ../development/ocaml-modules/lutils { };
 
-        luv = callPackage ../development/ocaml-modules/luv {
-          inherit (pkgs) file;
-        };
+        inherit
+          (callPackage ../development/ocaml-modules/luv {
+          })
+          luv-0-5-12
+          luv
+          ;
 
         lwd = callPackage ../development/ocaml-modules/lwd { };
 
@@ -1186,6 +1193,8 @@ let
         magic-trace = callPackage ../development/ocaml-modules/magic-trace {
           cohttp = cohttp_5_3; # due to cohttp_static_handler pulling in cohttp_5_3
         };
+
+        malfunction = callPackage ../development/ocaml-modules/malfunction { };
 
         mariadb = callPackage ../development/ocaml-modules/mariadb {
           inherit (pkgs) mariadb;
@@ -1469,8 +1478,6 @@ let
 
         ocaml-monadic = callPackage ../development/ocaml-modules/ocaml-monadic { };
 
-        ocaml_mysql = callPackage ../development/ocaml-modules/mysql { };
-
         ocaml_oasis = callPackage ../development/tools/ocaml/oasis { };
 
         ocaml_pcre = callPackage ../development/ocaml-modules/pcre { };
@@ -1517,6 +1524,7 @@ let
         ocamlformat_0_26_2 = ocamlformat.override { version = "0.26.2"; };
         ocamlformat_0_27_0 = ocamlformat.override { version = "0.27.0"; };
         ocamlformat_0_28_1 = ocamlformat.override { version = "0.28.1"; };
+        ocamlformat_0_29_0 = ocamlformat.override { version = "0.29.0"; };
 
         ocamlformat = callPackage ../development/ocaml-modules/ocamlformat/ocamlformat.nix { };
 
@@ -1746,6 +1754,8 @@ let
 
         posix-base = callPackage ../development/ocaml-modules/posix/base.nix { };
 
+        posix-errno = callPackage ../development/ocaml-modules/posix/errno.nix { };
+
         posix-math2 = callPackage ../development/ocaml-modules/posix/math2.nix { };
 
         posix-socket = callPackage ../development/ocaml-modules/posix/socket.nix { };
@@ -1805,6 +1815,8 @@ let
         ppx_irmin = callPackage ../development/ocaml-modules/irmin/ppx.nix { };
 
         ppx_lun = callPackage ../development/ocaml-modules/lun/ppx.nix { };
+
+        ppx_mikmatch = callPackage ../development/ocaml-modules/ppx_mikmatch { };
 
         ppx_monad = callPackage ../development/ocaml-modules/ppx_monad { };
 
@@ -2099,6 +2111,12 @@ let
 
         terml = callPackage ../development/ocaml-modules/terml { };
 
+        testo = callPackage ../development/ocaml-modules/testo { };
+
+        testo-diff = callPackage ../development/ocaml-modules/testo/diff.nix { };
+
+        testo-util = callPackage ../development/ocaml-modules/testo/util.nix { };
+
         tezos-base58 = callPackage ../development/ocaml-modules/tezos-base58 { };
 
         tezt = callPackage ../development/ocaml-modules/tezt { };
@@ -2267,6 +2285,8 @@ let
 
         yaml-sexp = callPackage ../development/ocaml-modules/yaml/yaml-sexp.nix { };
 
+        yamlx = callPackage ../development/ocaml-modules/yamlx { };
+
         yojson = callPackage ../development/ocaml-modules/yojson { };
 
         yojson_2 = yojson.overrideAttrs (_: {
@@ -2340,6 +2360,7 @@ let
         ocaml-freestanding = throw "ocamlPackages.ocaml-freestanding has been removed due to being broken for more than a year; see RFC 180"; # Added 2026-02-05
         ocaml-vdom = throw "2023-10-09: ocamlPackages.ocaml-vdom was renamed to ocamlPackages.vdom";
         ocaml_lwt = throw "ocamlPackages.ocaml_lwt has been renamed to ocamlPackages.lwt"; # Added 2025-12-05
+        ocaml_mysql = throw "ocamlPackages.ocaml_mysql is not maintained, use ocamlPackages.mariadb instead";
         torch = throw "ocamlPackages.torch has been removed due to being broken for more than a year; see RFC 180"; # Added 2026-02-05
       }
     )).overrideScope

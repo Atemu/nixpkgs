@@ -329,13 +329,9 @@ in
           '';
         };
 
-      videoAcceleration =
-        (lib.mkEnableOption ''
-          Whether video acceleration (VA-API) should be enabled.
-        '')
-        // {
-          default = true;
-        };
+      videoAcceleration = lib.mkEnableOption "video acceleration (VA-API)" // {
+        default = true;
+      };
     };
   };
 
@@ -358,6 +354,13 @@ in
               message = ''
                 You must configure `hardware.nvidia.open` on NVIDIA driver versions >= 560.
                 It is suggested to use the open source kernel modules on Turing or later GPUs (RTX series, GTX 16xx), and the closed source modules otherwise.
+              '';
+            }
+            {
+              assertion = !cfg.open || (nvidia_x11.open != null);
+              message = ''
+                The selected NVIDIA package does not provide open kernel modules.
+                Set hardware.nvidia.open = false or choose a package branch with open module support.
               '';
             }
           ];
@@ -696,7 +699,11 @@ in
                 cfg.powerManagement.enable && cfg.powerManagement.kernelSuspendNotifier
               ) "nvidia.NVreg_UseKernelSuspendNotifiers=1"
               ++ lib.optional cfg.powerManagement.enable "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
-              ++ lib.optional useOpenModules "nvidia.NVreg_OpenRmEnableUnsupportedGpus=1"
+              ++ lib.optional (
+                useOpenModules
+                && lib.versionAtLeast nvidia_x11.version "515.43.04"
+                && lib.versionOlder nvidia_x11.version "545.23.06"
+              ) "nvidia.NVreg_OpenRmEnableUnsupportedGpus=1"
               ++ lib.optional (config.boot.kernelPackages.kernel.kernelAtLeast "6.2" && !ibtSupport) "ibt=off";
 
             # enable finegrained power management

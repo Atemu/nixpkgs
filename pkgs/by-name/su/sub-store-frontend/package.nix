@@ -13,13 +13,13 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "sub-store-frontend";
-  version = "2.16.21";
+  version = "2.16.55";
 
   src = fetchFromGitHub {
     owner = "sub-store-org";
     repo = "Sub-Store-Front-End";
     tag = finalAttrs.version;
-    hash = "sha256-3Ep7V6+vvhwuD4WYP6X8ga3PmPr+ItojCRYwqmVpuKs=";
+    hash = "sha256-9QBgy+5sIvFcbZpxFc9mOowH4dw4rewqLYZfUKwPOjU=";
   };
 
   nativeBuildInputs = [

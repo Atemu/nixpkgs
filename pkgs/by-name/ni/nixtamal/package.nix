@@ -18,7 +18,7 @@
 
 ocamlPackages.buildDunePackage (finalAttrs: {
   pname = "nixtamal";
-  version = "1.1.4";
+  version = "1.4.1";
   release_year = 2026;
 
   minimalOCamlVersion = "5.3";
@@ -27,7 +27,7 @@ ocamlPackages.buildDunePackage (finalAttrs: {
     url = "https://darcs.toastal.in.th/nixtamal/stable/";
     mirrors = [ "https://smeder.ee/~toastal/nixtamal.darcs" ];
     rev = finalAttrs.version;
-    hash = "sha256-iLjVuNS0pgoWoXp/Yr6ovEazXqhe5bflqtuzFupxmw0=";
+    hash = "sha256-0iXSACRjdBkEV+9wfcKJhpzY3oArd66g/Dc30HcCbng=";
   };
 
   nativeBuildInputs = [
@@ -63,6 +63,7 @@ ocamlPackages.buildDunePackage (finalAttrs: {
     saturn
     stdint
     uri
+    xdg
   ];
 
   checkInputs = with ocamlPackages; [
@@ -80,17 +81,32 @@ ocamlPackages.buildDunePackage (finalAttrs: {
 
   outputs = [
     "bin"
+    "data"
+    "doc"
     "lib"
+    "man"
     "out"
   ];
 
   installPhase = ''
     runHook preInstall
-    dune install --prefix="$bin" --libdir="$lib/lib/ocaml/${ocamlPackages.ocaml.version}/site-lib" nixtamal
-    for dep in ${ocamlPackages.ocaml} ${ocamlPackages.camomile}
+
+    dune install \
+       -j "$NIX_BUILD_CORES" \
+       --cache="disabled" \
+       --prefix="$out" \
+       --bindir="$bin/bin" \
+       --datadir="$data/share" \
+       --docdir="$doc/share/doc" \
+       --mandir="$man/share/man" \
+       --libdir="$lib/lib/ocaml/${ocamlPackages.ocaml.version}/site-lib" \
+       nixtamal
+
+    for dep in "${ocamlPackages.ocaml}" "${ocamlPackages.camomile}"
     do
-        remove-references-to -t $dep $bin/bin/nixtamal
+        remove-references-to -t "$dep" "$bin/bin/nixtamal"
     done
+
     wrapProgram "$bin/bin/nixtamal" --prefix PATH : ${
       lib.makeBinPath [
         coreutils
@@ -100,6 +116,7 @@ ocamlPackages.buildDunePackage (finalAttrs: {
         nix-prefetch-pijul
       ]
     }
+
     runHook postInstall
   '';
 
@@ -112,6 +129,12 @@ ocamlPackages.buildDunePackage (finalAttrs: {
     license = with lib.licenses; [ gpl3Plus ];
     platforms = lib.platforms.unix;
     mainProgram = "nixtamal";
+    outputsToInstall = [
+      "bin"
+      "data"
+      "doc"
+      "man"
+    ];
     homepage = "https://nixtamal.toast.al";
     changelog = "https://nixtamal.toast.al/changelog/";
     description = "Fulfilling input pinning for Nix";
@@ -119,7 +142,8 @@ ocamlPackages.buildDunePackage (finalAttrs: {
       Nixtamal’s keys features
 
       • Automate the manual work of input pinning, allowing to lock & refresh inputs
-      • Declaritive KDL manifest file over imperative CLI flags
+      • Declarative KDL manifest file over imperative CLI flags
+      • diff/grep-friendly lockfile
       • Host, forge, VCS-agnostic
       • Choose eval time fetchers (builtins) or build time fetchers (Nixpkgs, default) — which opens up fetching Darcs, Pijul, & Fossil
       • Supports mirrors
