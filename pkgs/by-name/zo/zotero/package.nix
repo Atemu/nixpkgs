@@ -28,14 +28,14 @@ let
   nodejs = nodejs_22;
 
   pname = "zotero";
-  version = "9.0.0";
+  version = "9.0.2";
 
   src = fetchFromGitHub {
     owner = "zotero";
     repo = "zotero";
     tag = version;
     fetchSubmodules = true;
-    hash = "sha256-70kVFnypdF3YDXfrA+BFSoGkBfQAjDVa2pWOmaoetBI=";
+    hash = "sha256-OAPgJBSBHCyuy/VPlIeNwAM87cnyuHBuaMn6QKisTcA=";
   };
 
   pdf-js = buildNpmPackage {

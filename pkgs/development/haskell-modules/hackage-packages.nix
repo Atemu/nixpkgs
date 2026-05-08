@@ -276512,9 +276512,7 @@ self: {
       ];
       description = "Wiki using happstack, git or darcs, and pandoc";
       license = "GPL";
-      maintainers = [
-        lib.maintainers.sternenseemann
-      ];
+      maintainers = [ lib.maintainers.sternenseemann ];
     }
   ) { };
 
@@ -348607,7 +348605,6 @@ self: {
         unordered-containers
       ];
       license = lib.licenses.bsd3;
-      hydraPlatforms = lib.platforms.none;
       mainProgram = "hotel";
     }
   ) { };
@@ -354054,8 +354051,6 @@ self: {
         text
       ];
       license = lib.licenses.bsd3;
-      hydraPlatforms = lib.platforms.none;
-      broken = true;
     }
   ) { };
 
@@ -354078,8 +354073,6 @@ self: {
         unagi-chan
       ];
       license = lib.licenses.bsd3;
-      hydraPlatforms = lib.platforms.none;
-      broken = true;
     }
   ) { };
 
@@ -354208,7 +354201,6 @@ self: {
         wai
       ];
       license = lib.licenses.bsd3;
-      hydraPlatforms = lib.platforms.none;
     }
   ) { };
 
@@ -354231,8 +354223,6 @@ self: {
         text
       ];
       license = lib.licenses.bsd3;
-      hydraPlatforms = lib.platforms.none;
-      broken = true;
     }
   ) { };
 
@@ -354257,8 +354247,6 @@ self: {
         text
       ];
       license = lib.licenses.bsd3;
-      hydraPlatforms = lib.platforms.none;
-      broken = true;
     }
   ) { };
 
@@ -354299,7 +354287,6 @@ self: {
         unordered-containers
       ];
       license = lib.licenses.bsd3;
-      hydraPlatforms = lib.platforms.none;
     }
   ) { };
 
@@ -354369,8 +354356,6 @@ self: {
         vault
       ];
       license = lib.licenses.bsd3;
-      hydraPlatforms = lib.platforms.none;
-      broken = true;
     }
   ) { };
 
@@ -354410,7 +354395,6 @@ self: {
       ];
       description = "OpenTelemetry instrumentation for persistent-mysql";
       license = lib.meta.getLicenseFromSpdxId "BSD-3-Clause";
-      hydraPlatforms = lib.platforms.none;
     }
   ) { };
 
@@ -354445,8 +354429,6 @@ self: {
         unordered-containers
       ];
       license = lib.licenses.bsd3;
-      hydraPlatforms = lib.platforms.none;
-      broken = true;
     }
   ) { };
 
@@ -354485,8 +354467,6 @@ self: {
         text
       ];
       license = lib.licenses.bsd3;
-      hydraPlatforms = lib.platforms.none;
-      broken = true;
     }
   ) { };
 
@@ -354520,8 +354500,6 @@ self: {
       ];
       description = "WAI instrumentation middleware for OpenTelemetry";
       license = lib.licenses.bsd3;
-      hydraPlatforms = lib.platforms.none;
-      broken = true;
     }
   ) { };
 
@@ -354557,7 +354535,6 @@ self: {
       ];
       description = "Yesod middleware for providing OpenTelemetry instrumentation";
       license = lib.licenses.bsd3;
-      hydraPlatforms = lib.platforms.none;
     }
   ) { };
 
@@ -354826,8 +354803,6 @@ self: {
       ];
       testHaskellDepends = [ base ];
       license = lib.licenses.bsd3;
-      hydraPlatforms = lib.platforms.none;
-      broken = true;
     }
   ) { };
 
@@ -507814,7 +507789,7 @@ self: {
       hydraPlatforms = lib.platforms.none;
       broken = true;
     }
-  ) { opus = null; };
+  ) { inherit (pkgs) opus; };
 
   opusfile = callPackage (
     {

@@ -66,11 +66,37 @@ in
 
   config = {
 
-    environment.etc."sysctl.d/60-nixos.conf".text = lib.concatStrings (
-      lib.mapAttrsToList (
-        n: v: lib.optionalString (v != null) "${n}=${if v == false then "0" else toString v}\n"
-      ) config.boot.kernel.sysctl
-    );
+    environment.etc = {
+      "sysctl.d/55-nixos-aslr-entropy.conf".source =
+        pkgs.runCommand "55-nixos-aslr-entropy.conf"
+          {
+            inherit (config.boot.kernelPackages.kernel) configfile;
+          }
+          (
+            ''
+              mmap_rnd_bits_max=$(grep "^CONFIG_ARCH_MMAP_RND_BITS_MAX=" $configfile | grep --only-matching "[0-9]*$")
+              if [[ -z "$mmap_rnd_bits_max" ]]; then
+                echo "Unable to determine mmap_rnd_bits_max. Check your kernel configfile is valid."
+                exit 1
+              fi
+              echo "vm.mmap_rnd_bits=$mmap_rnd_bits_max" >> $out
+            ''
+            # HAVE_ARCH_MMAP_RND_COMPAT_BITS is not defined for LoongArch64
+            + lib.optionalString (!pkgs.stdenv.hostPlatform.isLoongArch64) ''
+              mmap_rnd_compat_bits_max=$(grep "^CONFIG_ARCH_MMAP_RND_COMPAT_BITS_MAX=" $configfile | grep --only-matching "[0-9]*$")
+              if [[ -z "$mmap_rnd_compat_bits_max" ]]; then
+                echo "Unable to determine mmap_rnd_compat_bits_max. Check your kernel configfile is valid."
+                exit 1
+              fi
+              echo "vm.mmap_rnd_compat_bits=$mmap_rnd_compat_bits_max" >> $out
+            ''
+          );
+      "sysctl.d/60-nixos.conf".text = lib.concatStrings (
+        lib.mapAttrsToList (
+          n: v: lib.optionalString (v != null) "${n}=${if v == false then "0" else toString v}\n"
+        ) config.boot.kernel.sysctl
+      );
+    };
 
     systemd.services.systemd-sysctl = {
       wantedBy = [ "multi-user.target" ];
@@ -92,28 +118,6 @@ in
       # the value below is used by default on several other distros.
       "fs.inotify.max_user_instances" = lib.mkDefault 524288;
       "fs.inotify.max_user_watches" = lib.mkDefault 524288;
-
-      # Maximise address space randomisation.
-      "vm.mmap_rnd_bits" = lib.mkMerge [
-        (lib.mkIf pkgs.stdenv.hostPlatform.isAarch64 (
-          let
-            kernel = config.boot.kernelPackages.kernel;
-            isYes = kernel.config.isYes or (_: false);
-          in
-          lib.mkDefault (
-            if isYes "ARM64_64K_PAGES" then
-              29
-            else if isYes "ARM64_16K_PAGES" then
-              31
-            else
-              33
-          )
-        ))
-        (lib.mkIf pkgs.stdenv.hostPlatform.isx86_64 (lib.mkDefault 32))
-      ];
-      "vm.mmap_rnd_compat_bits" = lib.mkIf (
-        pkgs.stdenv.hostPlatform.isx86_64 || pkgs.stdenv.hostPlatform.isAarch64
-      ) (lib.mkDefault 16);
     };
   };
 }

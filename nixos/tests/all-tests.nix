@@ -189,6 +189,7 @@ in
   activation-nix-channel = runTest ./activation/nix-channel.nix;
   activation-nixos-init = runTest ./activation/nixos-init.nix;
   activation-perlless = runTest ./activation/perlless.nix;
+  activation-template-dropin = runTest ./activation/template-dropin.nix;
   activation-var = runTest ./activation/var.nix;
   actual = runTest ./actual.nix;
   adguardhome = runTest ./adguardhome.nix;
@@ -236,6 +237,7 @@ in
   atticd = runTest ./atticd.nix;
   attr = pkgs.callPackage ./attr.nix { };
   atuin = runTest ./atuin.nix;
+  atuin-programs = runTest ./atuin-programs.nix;
   audiobookshelf = runTest ./audiobookshelf.nix;
   audit = runTest ./audit.nix;
   audit-testsuite = runTest ./audit-testsuite.nix;
@@ -386,6 +388,7 @@ in
   containers-hosts = runTest ./containers-hosts.nix;
   containers-imperative = runTest ./containers-imperative.nix;
   containers-ip = runTest ./containers-ip.nix;
+  containers-ipv6-slaac = runTest ./containers-ipv6-slaac.nix;
   containers-macvlans = runTest ./containers-macvlans.nix;
   containers-names = runTest ./containers-names.nix;
   containers-nested = runTest ./containers-nested.nix;
@@ -677,6 +680,7 @@ in
   gotosocial = runTest ./web-apps/gotosocial.nix;
   goupile = runTest ./web-apps/goupile;
   grafana = handleTest ./grafana { };
+  grafana-to-ntfy = runTest ./grafana-to-ntfy.nix;
   graphite = runTest ./graphite.nix;
   grav = runTest ./web-apps/grav.nix;
   graylog = runTest ./graylog.nix;
@@ -1067,6 +1071,7 @@ in
   netbox_4_4 = handleTest ./web-apps/netbox/default.nix { netbox = pkgs.netbox_4_4; };
   netbox_4_5 = handleTest ./web-apps/netbox/default.nix { netbox = pkgs.netbox_4_5; };
   netdata = runTest ./netdata.nix;
+  netfoil = runTest ./netfoil.nix;
   networking.networkd = handleTest ./networking/networkd-and-scripted.nix { networkd = true; };
   networking.networkmanager = handleTest ./networking/networkmanager.nix { };
   networking.scripted = handleTest ./networking/networkd-and-scripted.nix { networkd = false; };
@@ -1138,6 +1143,7 @@ in
     pkgs.callPackage ../../pkgs/stdenv/generic/check-meta-test.nix
       { };
   nixseparatedebuginfod2 = runTest ./nixseparatedebuginfod2.nix;
+  nmtrust = runTest ./nmtrust.nix;
   node-red = runTest ./node-red.nix;
   nohang = runTest ./nohang.nix;
   nomad = runTest ./nomad.nix;
@@ -1251,6 +1257,7 @@ in
     inherit runTest;
   };
   pdns-recursor = runTest ./pdns-recursor.nix;
+  pdudaemon = runTest ./pdudaemon.nix;
   peerflix = runTest ./peerflix.nix;
   peering-manager = runTest ./web-apps/peering-manager.nix;
   peertube = handleTestOn [ "x86_64-linux" ] ./web-apps/peertube.nix { };
@@ -1377,6 +1384,7 @@ in
   qemu-vm-volatile-root = runTest ./qemu-vm-volatile-root.nix;
   qgis = handleTest ./qgis.nix { package = pkgs.qgis; };
   qgis-ltr = handleTest ./qgis.nix { package = pkgs.qgis-ltr; };
+  qlever = runTest ./qlever.nix;
   qownnotes = runTest ./qownnotes.nix;
   qtile = runTestOn [ "x86_64-linux" "aarch64-linux" ] ./qtile/default.nix;
   qtile-extras = runTestOn [ "x86_64-linux" "aarch64-linux" ] ./qtile-extras/default.nix;
@@ -1750,6 +1758,10 @@ in
   victoriametrics = import ./victoriametrics { inherit runTest; };
   victoriatraces = import ./victoriatraces { inherit runTest; };
   vikunja = runTest ./vikunja.nix;
+  vinyl-cache_9 = runTest {
+    imports = [ ./vinyl-cache.nix ];
+    _module.args.package = pkgs.vinyl-cache_9;
+  };
   virtualbox = handleTestOn [ "x86_64-linux" ] ./virtualbox.nix { };
   vm-variant = handleTest ./vm-variant.nix { };
   vscode-remote-ssh = handleTestOn [ "x86_64-linux" ] ./vscode-remote-ssh.nix { };

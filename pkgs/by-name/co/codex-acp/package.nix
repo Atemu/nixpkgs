@@ -1,22 +1,51 @@
 {
   lib,
+  stdenv,
+  callPackage,
   fetchFromGitHub,
   rustPlatform,
   pkg-config,
   openssl,
+  libcap,
+  bubblewrap,
+  librusty_v8 ? callPackage ./librusty_v8.nix { },
 }:
+let
+  # codex-acp 0.12.0 pins openai/codex rust-v0.124.0 in Cargo.lock.
+  codexRev = "e9fb49366c93a1478ec71cc41ecee415a197d036";
+  codexHash = "sha256-YFnzzwCm9/b30qLDMbkf/rEizuTjeqdCgoBZeS0wNBo=";
+  codexSrc = fetchFromGitHub {
+    owner = "openai";
+    repo = "codex";
+    rev = codexRev;
+    hash = codexHash;
+  };
+in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "codex-acp";
-  version = "0.9.2";
+  version = "0.12.0";
 
   src = fetchFromGitHub {
     owner = "zed-industries";
     repo = "codex-acp";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-UtfvuejBnciksytIkTE2yFLTTy5gIB/kbOg7abTBGqQ=";
+    hash = "sha256-qPqg95FpXHBtyHBJtrfJUwu9GokfmOJgKgqLKQ48u+8=";
   };
 
-  cargoHash = "sha256-pCHmYa+5xkON2BoAh7RRe5lQeUqSNgqemt0stHQly6c=";
+  cargoHash = "sha256-/BZ82qiTy/mPwhf5v5CFrNSB6AxCRFdmHB72L0+KjJw=";
+
+  # fetchCargoVendor only keeps the individual git crate subtrees, so restore
+  # the workspace-root file that codex-core includes via ../../../../node-version.txt.
+  postPatch = ''
+    cp ${codexSrc}/codex-rs/node-version.txt "$cargoDepsCopy/source-git-0/node-version.txt"
+  '';
+
+  env = {
+    RUSTY_V8_ARCHIVE = librusty_v8;
+  }
+  // lib.optionalAttrs stdenv.hostPlatform.isLinux {
+    CODEX_BWRAP_SOURCE_DIR = "${bubblewrap.src}";
+  };
 
   nativeBuildInputs = [
     pkg-config
@@ -24,9 +53,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   buildInputs = [
     openssl
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    libcap
   ];
 
   doCheck = false;
+
+  passthru.updateScript = ./update.sh;
 
   meta = {
     description = "An ACP-compatible coding agent powered by Codex";

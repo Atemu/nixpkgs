@@ -70,14 +70,14 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rusty-v8";
-  version = "147.1.0";
+  version = "147.4.0";
 
   src = fetchFromGitHub {
     owner = "denoland";
     repo = "rusty_v8";
     tag = "v${finalAttrs.version}";
     fetchSubmodules = true;
-    hash = "sha256-USCQtK5pJBpU1FTLMQ/bNwJXnVNkdX/EtCWqs2kVL50=";
+    hash = "sha256-cS9oBDY2+9RtdqPuOadNl0Lce89ESpBb1qPiWSHPiCg=";
   };
 
   patches = [
@@ -97,7 +97,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     ./librusty_v8-darwin-fix-__rust_no_alloc_shim_is_unstable_v2.patch
   ];
 
-  cargoHash = "sha256-FKwXdms9j+izRKsm5TKJ8Ct8lvBuG/tYXfNzVsbs8cM=";
+  cargoHash = "sha256-e/G9AevaJwqYdr8022kmv05Mwzi4Cishj9imLproNB0=";
 
   nativeBuildInputs = [
     llvmPackages.clang
@@ -158,6 +158,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
     runHook postInstall
   '';
+
+  requiredSystemFeatures = [ "big-parallel" ];
 
   meta = {
     description = "Rust bindings for the V8 JavaScript engine";

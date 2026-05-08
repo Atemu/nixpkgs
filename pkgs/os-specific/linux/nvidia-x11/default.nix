@@ -6,6 +6,7 @@
   fetchpatch,
   stdenv,
   pkgsi686Linux,
+  kernel,
 }:
 
 let
@@ -18,19 +19,8 @@ let
       lib32 =
         (pkgsi686Linux.callPackage imported {
           libsOnly = true;
-          kernel = null;
         }).out;
     };
-
-  kernel =
-    # a hacky way of extracting parameters from callPackage
-    callPackage (
-      {
-        kernel,
-        libsOnly ? false,
-      }:
-      if libsOnly then { } else kernel
-    ) { };
 
   selectHighestVersion = a: b: if lib.versionOlder a.version b.version then b else a;
 
@@ -76,16 +66,20 @@ rec {
   # Policy: use the highest stable version as the default (on our master).
   stable = if stdenv.hostPlatform.system == "i686-linux" then legacy_390 else production;
 
+  latest = selectHighestVersion production new_feature;
+
+  bleeding_edge = selectHighestVersion latest beta;
+
   production = generic {
-    version = "595.58.03";
-    sha256_64bit = "sha256-jA1Plnt5MsSrVxQnKu6BAzkrCnAskq+lVRdtNiBYKfk=";
-    sha256_aarch64 = "sha256-hzzIKY1Te8QkCBWR+H5k1FB/HK1UgGhai6cl3wEaPT8=";
-    openSha256 = "sha256-6LvJyT0cMXGS290Dh8hd9rc+nYZqBzDIlItOFk8S4n8=";
-    settingsSha256 = "sha256-2vLF5Evl2D6tRQJo0uUyY3tpWqjvJQ0/Rpxan3NOD3c=";
-    persistencedSha256 = "sha256-AtjM/ml/ngZil8DMYNH+P111ohuk9mWw5t4z7CHjPWw=";
+    version = "595.71.05";
+    sha256_64bit = "sha256-NiA7iWC35JyKQva6H1hjzeNKBek9KyS3mK8G3YRva4I=";
+    sha256_aarch64 = "sha256-XzKloS00dFKTd4ATWkTIhm9eG/OzR/Sim6MboNZWPu8=";
+    openSha256 = "sha256-Lfz71QWKM6x/jD2B22SWpUi7/og30HRlXg1kL3EWzEw=";
+    settingsSha256 = "sha256-mXnf3jyvznfB3OfKd657rxv0rYHQb/dX/Riw/+N9EKU=";
+    persistencedSha256 = "sha256-Z/6IvEEa/XfZ5F5qoSIPvXJLGtscYVqjFxHZaN/M2Ts=";
   };
 
-  latest = selectHighestVersion production (generic {
+  new_feature = generic {
     version = "590.48.01";
     sha256_64bit = "sha256-ueL4BpN4FDHMh/TNKRCeEz3Oy1ClDWto1LO/LWlr1ok=";
     sha256_aarch64 = "sha256-FOz7f6pW1NGM2f74kbP6LbNijxKj5ZtZ08bm0aC+/YA=";
@@ -93,25 +87,25 @@ rec {
     settingsSha256 = "sha256-NWsqUciPa4f1ZX6f0By3yScz3pqKJV1ei9GvOF8qIEE=";
     persistencedSha256 = "sha256-wsNeuw7IaY6Qc/i/AzT/4N82lPjkwfrhxidKWUtcwW8=";
     patchesOpen = [ kernel_6_19_patch ];
-  });
+  };
 
-  beta = selectHighestVersion latest (generic {
+  beta = generic {
     version = "595.45.04";
     sha256_64bit = "sha256-zUllSSRsuio7dSkcbBTuxF+dN12d6jEPE0WgGvVOj14=";
     sha256_aarch64 = "sha256-jl6lQWsgF6ya22sAhYPpERJ9r+wjnWzbGnINDpUMzsk=";
     openSha256 = "sha256-uqNfImwTKhK8gncUdP1TPp0D6Gog4MSeIJMZQiJWDoE=";
     settingsSha256 = "sha256-Y45pryyM+6ZTJyRaRF3LMKaiIWxB5gF5gGEEcQVr9nA=";
     persistencedSha256 = "sha256-5FoeUaRRMBIPEWGy4Uo0Aho39KXmjzQsuAD9m/XkNpA=";
-  });
+  };
 
   # Vulkan developer beta driver
   # See here for more information: https://developer.nvidia.com/vulkan-driver
   vulkan_beta = generic rec {
-    version = "595.44.05";
+    version = "595.44.06";
     persistencedVersion = "595.45.04";
     settingsVersion = "595.45.04";
-    sha256_64bit = "sha256-fOUoqTUFXYQyDxj67egK3o4O0Z6hbfNypnSehW24K8Y=";
-    openSha256 = "sha256-jSJqpWMdITf8jdxTSGQHC9jlNbhffAdY8N+Zd7sTHqQ=";
+    sha256_64bit = "sha256-Gq7peoXLeYVuVHBx+2EIx3/bZIVl56c35qS/30Q7208=";
+    openSha256 = "sha256-RSlpdGhYTxxywMQ+0tBkpJG5ohnmJYh8pzedin1sBBs=";
     settingsSha256 = "sha256-Y45pryyM+6ZTJyRaRF3LMKaiIWxB5gF5gGEEcQVr9nA=";
     persistencedSha256 = "sha256-5FoeUaRRMBIPEWGy4Uo0Aho39KXmjzQsuAD9m/XkNpA=";
     url = "https://developer.nvidia.com/downloads/vulkan-beta-${lib.concatStrings (lib.splitVersion version)}-linux";
@@ -133,12 +127,12 @@ rec {
   };
 
   dc_580 = generic rec {
-    version = "580.126.09";
+    version = "580.159.03";
     url = "https://us.download.nvidia.com/tesla/${version}/NVIDIA-Linux-x86_64-${version}.run";
-    sha256_64bit = "sha256-TKxT5I+K3/Zh1HyHiO0kBZokjJ/YCYzq/QiKSYmG7CY=";
-    persistencedSha256 = "sha256-J1UwS0o/fxz45gIbH9uaKxARW+x4uOU1scvAO4rHU5Y=";
-    fabricmanagerSha256 = "sha256-tyCHKIr8nxVfZIqcWKAwRoMLzmGlsOUhDlO5V/9W97Y=";
-    openSha256 = "sha256-ychsaurbQ2KNFr/SAprKI2tlvAigoKoFU1H7+SaxSrY=";
+    sha256_64bit = "sha256-MshdmbD2QMlQH2GzndrSCP0CiNAVxPvF/QQ1wHeD+nc=";
+    persistencedSha256 = "sha256-cQ+qz4aSYeonKviufdQOHo0quun8yPBTSgOvRkdN6og=";
+    fabricmanagerSha256 = "sha256-L/HKInyd0Eqz7F5BhWfcABi83rr7mBxyIBtvRvApeVA=";
+    openSha256 = "sha256-HlGJyfcmXWqKJw1NRjp35clLucQtCIWAxjJvicgI4zM=";
     useSettings = false;
     usePersistenced = true;
     useFabricmanager = true;
