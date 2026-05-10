@@ -9263,23 +9263,29 @@ with pkgs;
       kanidm_1_9 = callPackage ../servers/kanidm/1_9.nix {
         kanidmWithSecretProvisioning = kanidmWithSecretProvisioning_1_9;
       };
+      kanidm_1_10 = callPackage ../servers/kanidm/1_10.nix {
+        kanidmWithSecretProvisioning = kanidmWithSecretProvisioning_1_10;
+      };
 
       kanidmWithSecretProvisioning_1_5 = kanidm_1_5.override { enableSecretProvisioning = true; };
       kanidmWithSecretProvisioning_1_6 = kanidm_1_6.override { enableSecretProvisioning = true; };
       kanidmWithSecretProvisioning_1_7 = kanidm_1_7.override { enableSecretProvisioning = true; };
       kanidmWithSecretProvisioning_1_8 = kanidm_1_8.override { enableSecretProvisioning = true; };
       kanidmWithSecretProvisioning_1_9 = kanidm_1_9.override { enableSecretProvisioning = true; };
+      kanidmWithSecretProvisioning_1_10 = kanidm_1_10.override { enableSecretProvisioning = true; };
     })
     kanidm_1_5
     kanidm_1_6
     kanidm_1_7
     kanidm_1_8
+    kanidm_1_9
+    kanidm_1_10
     kanidmWithSecretProvisioning_1_5
     kanidmWithSecretProvisioning_1_6
-    kanidm_1_9
     kanidmWithSecretProvisioning_1_7
     kanidmWithSecretProvisioning_1_8
     kanidmWithSecretProvisioning_1_9
+    kanidmWithSecretProvisioning_1_10
     ;
 
   leafnode = callPackage ../servers/news/leafnode { };
@@ -12788,12 +12794,16 @@ with pkgs;
 
   bitcoin = qt6Packages.callPackage ../applications/blockchains/bitcoin {
     withGui = true;
+    zeromq = zeromq.override {
+      enableCurve = false;
+      enableDrafts = false;
+      libsodium = null;
+    };
     inherit (darwin) autoSignDarwinBinariesHook;
   };
 
-  bitcoind = callPackage ../applications/blockchains/bitcoin {
+  bitcoind = bitcoin.override {
     withGui = false;
-    inherit (darwin) autoSignDarwinBinariesHook;
   };
 
   bitcoin-knots = libsForQt5.callPackage ../applications/blockchains/bitcoin-knots {
@@ -12815,9 +12825,7 @@ with pkgs;
     inherit (darwin) autoSignDarwinBinariesHook;
   };
 
-  gridcoin-research = libsForQt5.callPackage ../applications/blockchains/gridcoin-research {
-    boost = boost179;
-  };
+  gridcoin-researchd = gridcoin-research.override { withGui = false; };
 
   groestlcoin = libsForQt5.callPackage ../applications/blockchains/groestlcoin {
     withGui = true;

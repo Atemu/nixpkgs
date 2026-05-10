@@ -10,16 +10,24 @@
 
 buildNpmPackage rec {
   pname = "vaultwarden-webvault";
-  version = "2026.2.0+0";
+  version = "2026.4.1+0";
 
   src = fetchFromGitHub {
     owner = "vaultwarden";
     repo = "vw_web_builds";
     tag = "v${version}";
-    hash = "sha256-rXBDv8ecImA6qdM5JVYy5QJHRj0jP7zinj/8gWRREtQ=";
+    hash = "sha256-CIKhdCQwx1zS8rkOtZoG9WDxtweSmrCNL6HfZXi+mM8=";
   };
 
-  npmDepsHash = "sha256-PATpmxIHYSgmuOj8dOoa7ynzkGw5l7z62DiulJmufJY=";
+  # Upstream lockfile is out of sync for @napi-rs/cli (spec 3.5.1, resolved
+  # 3.2.0), which makes offline `npm ci` hit the registry. The desktop
+  # workspace is unused here. https://github.com/bitwarden/clients/pull/20480
+  postPatch = ''
+    substituteInPlace package-lock.json \
+      --replace-fail '"@napi-rs/cli": "3.5.1"' '"@napi-rs/cli": "3.2.0"'
+  '';
+
+  npmDepsHash = "sha256-uWAI7dEdjmX8oJragD6n4nhHW27nhL3ra/ifFtMQLmE=";
 
   nativeBuildInputs = [
     python3
