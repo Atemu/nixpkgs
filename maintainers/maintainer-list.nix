@@ -5327,6 +5327,12 @@
     githubId = 32609395;
     name = "B YI";
   };
+  coolcuber = {
+    email = "rpgeorg@clemson.edu";
+    github = "coolcuber";
+    githubId = 35880825;
+    name = "Ross George";
+  };
   corbanr = {
     email = "corban@raunco.co";
     github = "CorbanR";
@@ -28760,6 +28766,12 @@
     github = "xlambein";
     githubId = 5629059;
     name = "Xavier Lambein";
+  };
+  xmnlz = {
+    name = "xmnlz";
+    github = "xmnlz";
+    githubId = 63904972;
+    email = "lemmeq9+nixos@gmail.com";
   };
   xnaveira = {
     email = "xnaveira@gmail.com";
