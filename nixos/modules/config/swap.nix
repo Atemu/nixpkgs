@@ -278,6 +278,7 @@ in
             # avoid this race condition.
             after = [ "systemd-modules-load.service" ];
             requiredBy = [ "${realDevice'}.swap" ];
+            requires = [ sw.deviceName ];
             before = [
               "${realDevice'}.swap"
               "shutdown.target"
@@ -332,7 +333,6 @@ in
             '';
             enableStrictShellChecks = true;
 
-            unitConfig.RequiresMountsFor = [ "${dirOf sw.device}" ];
             unitConfig.DefaultDependencies = false; # needed to prevent a cycle
             serviceConfig = {
               Type = "oneshot";
