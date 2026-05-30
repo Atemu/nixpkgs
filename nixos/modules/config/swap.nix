@@ -277,8 +277,7 @@ in
             # We add an ordering constraint to run after systemd-modules-load to
             # avoid this race condition.
             after = [ "systemd-modules-load.service" ];
-            wantedBy = [ "${realDevice'}.swap" ];
-            requiredBy = lib.optionals sw.randomEncryption.enable [ "${realDevice'}.swap" ];
+            requiredBy = [ "${realDevice'}.swap" ];
             before = [
               "${realDevice'}.swap"
               "shutdown.target"
