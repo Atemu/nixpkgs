@@ -596,6 +596,7 @@ in
   firezone = runTest ./firezone/firezone.nix;
   fish = runTest ./fish.nix;
   flannel = runTestOn [ "x86_64-linux" ] ./flannel.nix;
+  flap-alerted = runTest ./flap-alerted.nix;
   flaresolverr = runTest ./flaresolverr.nix;
   flood = runTest ./flood.nix;
   fluent-bit = runTest ./fluent-bit.nix;
@@ -938,7 +939,7 @@ in
   lomiri-system-settings = runTest ./lomiri-system-settings.nix;
   lorri = handleTest ./lorri/default.nix { };
   luks = runTest ./luks.nix;
-  lvm2 = handleTest ./lvm2 { };
+  lvm2 = import ./lvm2 { inherit pkgs runTest; };
   lxc = runTestOn [ "x86_64-linux" "aarch64-linux" ] ./lxc;
   lxd-image-server = runTest ./lxd-image-server.nix;
   lxqt = runTest ./lxqt.nix;
@@ -1844,7 +1845,7 @@ in
   zammad = runTest ./zammad.nix;
   zenohd = runTest ./zenohd.nix;
   zeronet-conservancy = runTest ./zeronet-conservancy.nix;
-  zfs = handleTest ./zfs.nix { };
+  zfs = import ./zfs.nix { inherit system pkgs runTest; };
   zigbee2mqtt = runTest ./zigbee2mqtt.nix;
   zipline = runTest ./zipline.nix;
   zoneminder = runTest ./zoneminder.nix;

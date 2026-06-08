@@ -1080,8 +1080,6 @@ self: super: with self; {
 
   aspell-python = callPackage ../development/python-modules/aspell-python { };
 
-  aspy-refactor-imports = callPackage ../development/python-modules/aspy-refactor-imports { };
-
   aspy-yaml = callPackage ../development/python-modules/aspy-yaml { };
 
   assay = callPackage ../development/python-modules/assay { };
@@ -5565,6 +5563,8 @@ self: super: with self; {
 
   fiblary3-fork = callPackage ../development/python-modules/fiblary3-fork { };
 
+  fica = callPackage ../development/python-modules/fica { };
+
   fickling = callPackage ../development/python-modules/fickling { };
 
   fido2 = callPackage ../development/python-modules/fido2 { };
@@ -6081,8 +6081,6 @@ self: super: with self; {
   fuzzywuzzy = callPackage ../development/python-modules/fuzzywuzzy { };
 
   fvcore = callPackage ../development/python-modules/fvcore { };
-
-  fvs = callPackage ../development/python-modules/fvs { };
 
   fx2 = callPackage ../development/python-modules/fx2 { };
 
@@ -8783,8 +8781,6 @@ self: super: with self; {
     inherit (pkgs) libarchive;
   };
 
-  libarcus = callPackage ../development/python-modules/libarcus { protobuf = pkgs.protobuf_21; };
-
   libasyncns = callPackage ../development/python-modules/libasyncns { inherit (pkgs) libasyncns; };
 
   libbs = callPackage ../development/python-modules/libbs { };
@@ -10409,6 +10405,8 @@ self: super: with self; {
 
   mpris-api = callPackage ../development/python-modules/mpris-api { };
 
+  mpris-server = callPackage ../development/python-modules/mpris-server { };
+
   mprisify = callPackage ../development/python-modules/mprisify { };
 
   mpv = callPackage ../development/python-modules/mpv { inherit (pkgs) mpv; };
@@ -11620,10 +11618,6 @@ self: super: with self; {
 
   online-judge-tools = callPackage ../development/python-modules/online-judge-tools { };
 
-  online-judge-verify-helper =
-    callPackage ../development/python-modules/online-judge-verify-helper
-      { };
-
   onlinepayments-sdk-python3 =
     callPackage ../development/python-modules/onlinepayments-sdk-python3
       { };
@@ -12030,7 +12024,9 @@ self: super: with self; {
 
   ormsgpack = callPackage ../development/python-modules/ormsgpack { };
 
-  ortools = (toPythonModule (pkgs.or-tools.override { python3 = self.python; })).python;
+  ortools = callPackage ../development/python-modules/ortools {
+    or-tools = pkgs.or-tools.override { python3 = self.python; };
+  };
 
   oru = callPackage ../development/python-modules/oru { };
 
@@ -12113,6 +12109,8 @@ self: super: with self; {
   otr = callPackage ../development/python-modules/otr { };
 
   ots-python = callPackage ../development/python-modules/ots-python { };
+
+  otter-grader = callPackage ../development/python-modules/otter-grader { };
 
   otxv2 = callPackage ../development/python-modules/otxv2 { };
 
@@ -12795,13 +12793,16 @@ self: super: with self; {
 
   plotpy = callPackage ../development/python-modules/plotpy { };
 
+  # Use Plover 5 as Plover 4 depends on setuptool's pkg_resources to discover plugins,
+  # which the setuptools upstream deprecated at version 81.0.0 and removed at version 82.0.0
+  # Plover 5 has addressed this issue by switching to importlib.meta.distributions()
+  #
+  # NOTE:
   # Plover 5 moves from PyQt5 to PySide6,
-  # which is a backward-incompatible change to praphical plugins.
-  # Use Plover 4 for now (2026-04-26),
-  # as the upstream still warns about this in every Plover 5 release,
+  # which is a backward-incompatible change to graphical plugins.
   # List of unsupported plugins:
   # https://github.com/opensteno/plover_plugins_registry/blob/master/unsupported.json
-  plover = plover_4;
+  plover = plover_5;
 
   plover-dict-commands = callPackage ../development/python-modules/plover-dict-commands { };
 
@@ -18120,6 +18121,8 @@ self: super: with self; {
 
   slob = callPackage ../development/python-modules/slob { };
 
+  slothy = callPackage ../development/python-modules/slothy { };
+
   slovnet = callPackage ../development/python-modules/slovnet { };
 
   slowapi = callPackage ../development/python-modules/slowapi { };
@@ -19018,6 +19021,8 @@ self: super: with self; {
   submitit = callPackage ../development/python-modules/submitit { };
 
   subprocess-tee = callPackage ../development/python-modules/subprocess-tee { };
+
+  subprocess4 = callPackage ../development/python-modules/subprocess4 { };
 
   subunit = callPackage ../development/python-modules/subunit {
     inherit (pkgs) subunit cppunit check;
@@ -20906,8 +20911,6 @@ self: super: with self; {
 
   uqbar = callPackage ../development/python-modules/uqbar { };
 
-  uranium = callPackage ../development/python-modules/uranium { };
-
   uri-template = callPackage ../development/python-modules/uri-template { };
 
   uritemplate = callPackage ../development/python-modules/uritemplate { };
@@ -21100,7 +21103,7 @@ self: super: with self; {
 
   vilfo-api-client = callPackage ../development/python-modules/vilfo-api-client { };
 
-  vina = callPackage ../applications/science/chemistry/autodock-vina/python-bindings.nix { };
+  vina = callPackage ../by-name/au/autodock-vina/python-bindings.nix { };
 
   vincenty = callPackage ../development/python-modules/vincenty { };
 

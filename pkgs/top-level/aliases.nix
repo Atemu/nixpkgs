@@ -400,6 +400,7 @@ mapAliases {
   blueberry = throw "'blueberry' has been removed as it is unmaintained upstream. Consider using blueman instead"; # Added 2026-03-09
   bmap-tools = throw "'bmap-tools' has been renamed to/replaced by 'bmaptool'"; # Converted to throw 2025-10-27
   bob = throw "'bob' has been removed as it is unmaintained upstream and has vulnerable dependencies."; # Added 2025-12-29
+  bodyclose = throw "'bodyclose' has been removed because it was broken for an entire release cycle."; # Added 2026-05-31
   boost177 = throw "Boost 1.77 has been removed as it is obsolete and no longer used by anything in Nixpkgs"; # Added 2026-04-20
   botan2 = throw "botan2 has been removed as it is EOL"; # Added 2025-10-20
   bower2nix = throw "bower2nix has been removed as bower was removed. It is recommended to migrate to yarn."; # Added 2025-09-17
@@ -584,6 +585,9 @@ mapAliases {
   cudaPackages_12_4 = throw "CUDA 12.4 has been removed from Nixpkgs, as it is unmaintained upstream and depends on unsupported compilers"; # Added 2025-08-08
   cudaPackages_12_5 = throw "CUDA 12.5 has been removed from Nixpkgs, as it is unmaintained upstream and depends on unsupported compilers"; # Added 2025-08-08
   cups-kyodialog3 = throw "'cups-kyodialog3' has been renamed to/replaced by 'cups-kyodialog'"; # Converted to throw 2025-10-27
+  cura = throw "'cura' has been removed, as it was unmaintained in nixpkgs"; # Added 2026-05-22
+  curaengine = throw "'curaengine' has been removed, as it was unmaintained in nixpkgs"; # Added 2026-05-22
+  curaPlugins = throw "'curaPlugins' has been removed, as it was unmaintained in nixpkgs"; # Added 2026-05-22
   curl-impersonate-chrome = warnAlias "curl-impersonate-chrome has been renamed to curl-impersonate" curl-impersonate; # Added 2025-11-02
   curl-impersonate-ff = throw "curl-impersonate-ff has been removed because it is unmaintained upstream and has vulnerable dependencies. Use curl-impersonate instead."; # Added 2025-11-02
   curlHTTP3 = warnAlias "'curlHTTP3' has been removed, as 'curl' now has HTTP/3 support enabled by default" curl; # Added 2025-08-22
@@ -1080,6 +1084,7 @@ mapAliases {
   languageMachines.ucto = ucto; # Added 2025-10-7
   languageMachines.uctodata = uctodata; # Added 2025-10-7
   lanzaboote-tool = throw "lanzaboote-tool has been removed due to lack of integration maintenance with nixpkgs. Consider using the Nix expressions provided by https://github.com/nix-community/lanzaboote"; # Added 2025-07-23
+  larswm = throw "'larswm' has been removed, as it is unmaintained upstream"; # Added 2026-05-24
   larynx = throw "'larynx' has been renamed to/replaced by 'piper-tts'"; # Converted to throw 2025-10-27
   lash = throw "'lash' has been removed, as it is unmaintained upstream"; # Added 2026-01-02
   LAStools = lastools; # Added 2026-02-08
@@ -1588,6 +1593,7 @@ mapAliases {
   oguri = throw "'oguri' has been removed from nixpkgs because the upstream repository was archived. Please see https://github.com/vilhalmer/oguri#notice-unmaintained for upstream's suggested replacements."; # Added 2026-05-04
   oil = throw "'oil' has been renamed to/replaced by 'oils-for-unix'"; # Converted to throw 2025-10-27
   olaris-server = throw "'olaris-server' has been removed as it failed to build since 2024"; # Added 2026-01-15
+  olive-editor = throw "'olive-editor' has been removed as it is unmaintained upstream and broken"; # Added 2026-05-22
   oneDNN = onednn; # Added 2026-02-08
   oneDNN_2 = onednn_2; # Added 2026-02-08
   onevpl-intel-gpu = throw "'onevpl-intel-gpu' has been renamed to/replaced by 'vpl-gpu-rt'"; # Converted to throw 2025-10-27
@@ -1727,6 +1733,7 @@ mapAliases {
   poac = throw "'poac' has been renamed to/replaced by 'cabinpkg'"; # Converted to throw 2025-10-27
   pocket-updater-utility = throw "'pocket-updater-utility' has been renamed to/replaced by 'pupdate'"; # Converted to throw 2025-10-27
   podofo010 = throw "'podofo010' has been renamed to/replaced by 'podofo_0_10'"; # Converted to throw 2025-10-27
+  podofo_1_0 = throw "'podofo_1_0' has been deprecated in favour of 'podofo'"; # Added 2026-05-16
   polipo = throw "'polipo' has been removed as it is unmaintained upstream"; # Added 2025-05-18
   polonium = throw "'polonium' has been removed, as Plasma 5 has reached end of life."; # Added 2026-05-01
   polypane = throw "'polypane' has been removed due to lack of maintenance in nixpkgs"; # Added 2025-06-25
@@ -1903,7 +1910,6 @@ mapAliases {
   SDL2_classic_image = throw "'SDL2_classic_image' has been removed as part of the deprecation of 'SDL2_classic'. Consider upgrading to 'SDL2_image' built with 'sdl2-compat'."; # Added 2025-05-20
   SDL2_classic_mixer = throw "'SDL2_classic_mixer' has been removed as part of the deprecation of 'SDL2_classic'. Consider upgrading to 'SDL2_mixer' built with 'sdl2-compat'."; # Added 2025-05-20
   SDL2_classic_ttf = throw "'SDL2_classic_ttf' has been removed as part of the deprecation of 'SDL2_classic'. Consider upgrading to 'SDL2_ttf' built with 'sdl2-compat'."; # Added 2025-05-20
-  sdnotify-wrapper = skawarePackages.sdnotify-wrapper;
   seafile-server = throw "'seafile-server' has been removed as it is unmaintained"; # Added 2025-08-21
   seahub = throw "'seahub' has been removed as it is unmaintained"; # Added 2025-08-21
   semantik = throw "'semantik' has been removed as it depended on EOL qt5 webengine"; # Added 2026-04-17

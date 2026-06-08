@@ -899,6 +899,9 @@
   "var-go-buildTestBinaries": [
     "index.html#var-go-buildTestBinaries"
   ],
+  "var-meta-donationPage": [
+    "index.html#var-meta-donationPage"
+  ],
   "var-meta-identifiers-cpe": [
     "index.html#var-meta-identifiers-cpe"
   ],
@@ -3049,19 +3052,28 @@
   "available-versions-and-deprecations-schedule": [
     "index.html#available-versions-and-deprecations-schedule"
   ],
+  "erlang": [
+    "index.html#erlang"
+  ],
   "elixir": [
     "index.html#elixir"
   ],
   "beam-structure": [
     "index.html#beam-structure"
   ],
-  "build-tools": [
+  "beam-build-tools": [
+    "index.html#beam-build-tools",
     "index.html#build-tools"
   ],
-  "build-tools-rebar3": [
+  "beam-build-tools-rebar3": [
+    "index.html#beam-build-tools-rebar3",
     "index.html#build-tools-rebar3"
   ],
-  "build-tools-other": [
+  "beam-build-tools-erlangmk": [
+    "index.html#beam-build-tools-erlangmk"
+  ],
+  "beam-build-tools-mix": [
+    "index.html#beam-build-tools-mix",
     "index.html#build-tools-other"
   ],
   "how-to-install-beam-packages": [
@@ -3078,6 +3090,9 @@
   ],
   "packaging-erlang-applications": [
     "index.html#packaging-erlang-applications"
+  ],
+  "packaging-elixir-applications": [
+    "index.html#packaging-elixir-applications"
   ],
   "rebar3-packages": [
     "index.html#rebar3-packages"
@@ -4428,11 +4443,9 @@
   "sec-language-texlive": [
     "index.html#sec-language-texlive"
   ],
-  "sec-language-texlive-user-guide-experimental": [
-    "index.html#sec-language-texlive-user-guide-experimental"
-  ],
   "sec-language-texlive-user-guide": [
-    "index.html#sec-language-texlive-user-guide"
+    "index.html#sec-language-texlive-user-guide",
+    "index.html#sec-language-texlive-user-guide-experimental"
   ],
   "sec-language-texlive-custom-packages": [
     "index.html#sec-language-texlive-custom-packages"

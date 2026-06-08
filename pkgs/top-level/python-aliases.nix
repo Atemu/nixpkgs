@@ -87,6 +87,7 @@ mapAliases {
   apkit = throw "apkit was removed because it is unmaintained upstream and different from apkit on PyPI"; # added 2025-09-13
   APScheduler = throw "'APScheduler' has been renamed to/replaced by 'apscheduler'"; # Converted to throw 2025-10-29
   argon2_cffi = throw "'argon2_cffi' has been renamed to/replaced by 'argon2-cffi'"; # Converted to throw 2025-10-29
+  aspy-refactor-imports = throw "'aspy-refactor-imports' has been renamed to/replaced by 'classify-imports'"; # Added 2026-05-22
   astropy-extension-helpers = extension-helpers; # Added 2025-10-15
   asyauth-bad = throw "'asyauth-bad' has been renamed to/replaced by 'badauth'"; # added 2025-11-06
   async-dns = throw "'async-dns' has been removed as it was unmaintained upstream"; # Added 2026-03-23
@@ -231,6 +232,7 @@ mapAliases {
   flufl_i18n = throw "'flufl_i18n' has been renamed to/replaced by 'flufl-i18n'"; # Converted to throw 2025-10-29
   flufl_lock = throw "'flufl_lock' has been renamed to/replaced by 'flufl-lock'"; # Converted to throw 2025-10-29
   FormEncode = throw "'FormEncode' has been renamed to/replaced by 'formencode'"; # Converted to throw 2025-10-29
+  fvs = throw "'fvs' has been removed due to being unused"; # Added 2026-05-23
   garminconnect-ha = throw "'garminconnect-ha' has been renamed to/replaced by 'garminconnect'"; # Converted to throw 2025-10-29
   GeoIP = throw "'GeoIP' has been renamed to/replaced by 'geoip'"; # Converted to throw 2025-10-29
   github3_py = throw "'github3_py' has been renamed to/replaced by 'github3-py'"; # Converted to throw 2025-10-29
@@ -303,6 +305,7 @@ mapAliases {
   lcov_cobertura = throw "'lcov_cobertura' has been renamed to/replaced by 'lcov-cobertura'"; # Converted to throw 2025-10-29
   ldap = throw "'ldap' has been renamed to/replaced by 'python-ldap'"; # Converted to throw 2025-10-29
   ledger_agent = throw "'ledger_agent' has been renamed to/replaced by 'ledger-agent'"; # Converted to throw 2025-10-29
+  libarcus = throw "'libarcus' has been removed, as it was unmaintained in nixpkgs"; # Added 2026-05-22
   libgpiod = gpiod; # added 2026-03-30
   libpyfoscam = throw "libpyfoscam was removed because Home Assistant switched to libpyfoscamcgi"; # added 2025-07-03
   line_profiler = throw "'line_profiler' has been renamed to/replaced by 'line-profiler'"; # Converted to throw 2025-10-29
@@ -347,7 +350,6 @@ mapAliases {
   monarchmoney = throw "'monarchmoney' has been renamed to/replaced by 'monarchmoneycommunity'"; # Added 2026-03-05
   monkeytype = throw "'monkeytype' has been removed as it was unmaintained upstream"; # Added 2026-04-19
   moretools = "'moretools' has been removed because it is unmaintained"; # Added 2026-01-19
-  mpris-server = throw "mpris-server was removed because it is unused"; # added 2025-10-31
   msldap-bad = throw "'msldap-bad' has been renamed to/replaced by 'badldap'"; # added 2025-11-06
   mullvad-closest = throw "'mullvad-closest' has been removed as it was unmaintained. Consider using 'mullvad-compass' instead."; # Added 2026-01-13
   multi_key_dict = throw "'multi_key_dict' has been renamed to/replaced by 'multi-key-dict'"; # Converted to throw 2025-10-29
@@ -619,6 +621,7 @@ mapAliases {
   unifi = throw "'unifi' has been removed as upstream was archived in 2017"; # Added 2025-08-25
   unittest-data-provider = throw "'unittest-data-provider' has been removed as it was unused, unmaintained, and upstream suggests 'pytest parameterize' instead."; # Added 2026-05-22
   update_checker = throw "'update_checker' has been renamed to/replaced by 'update-checker'"; # Converted to throw 2025-10-29
+  uranium = throw "'uranium' has been removed, as it was unmaintained in nixpkgs"; # Added 2026-05-22
   vcver = throw "vcver has been removed, since it was an unused leaf package"; # added 2025-08-25
   vega_datasets = throw "'vega_datasets' has been renamed to/replaced by 'vega-datasets'"; # Converted to throw 2025-10-29
   ViennaRNA = throw "'ViennaRNA' has been renamed to/replaced by 'viennarna'"; # Converted to throw 2025-10-29

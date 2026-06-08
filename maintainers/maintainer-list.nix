@@ -4156,6 +4156,13 @@
     githubId = 30717258;
     name = "bubblepipe";
   };
+  bubylou = {
+    email = "bubylou@pm.me";
+    matrix = "@bubylou:matrix.org";
+    github = "bubylou";
+    githubId = 3878640;
+    name = "Nicholas Malcolm";
+  };
   buckley310 = {
     email = "sean.bck@gmail.com";
     matrix = "@buckley310:matrix.org";
@@ -5057,12 +5064,6 @@
     email = "chris@amplified.ai";
     github = "cigrainger";
     githubId = 3984794;
-  };
-  ciil = {
-    email = "simon@lackerbauer.com";
-    github = "ciil";
-    githubId = 3956062;
-    name = "Simon Lackerbauer";
   };
   cilki = {
     github = "cilki";
@@ -7359,12 +7360,6 @@
     name = "dsee";
     github = "DSeeLP";
     githubId = 46624152;
-  };
-  dsferruzza = {
-    email = "david.sferruzza@gmail.com";
-    github = "dsferruzza";
-    githubId = 1931963;
-    name = "David Sferruzza";
   };
   dsluijk = {
     name = "Dany Sluijk";
@@ -18260,6 +18255,12 @@
     githubId = 16974598;
     name = "Mike Playle";
   };
+  mkannwischer = {
+    email = "matthias@kannwischer.eu";
+    github = "mkannwischer";
+    githubId = 3984960;
+    name = "Matthias Kannwischer";
+  };
   mkez = {
     email = "matias+nix@zwinger.fi";
     github = "mk3z";
@@ -19249,6 +19250,12 @@
     githubId = 8577904;
     name = "Naufal Fikri";
     keys = [ { fingerprint = "1575 D651 E31EC 6117A CF0AA C1A3B 8BBC A515 8835"; } ];
+  };
+  naurissteins = {
+    name = "Nauris Steins";
+    email = "me@naurissteins.com";
+    github = "naurissteins";
+    githubId = 5653746;
   };
   naxdy = {
     name = "Naxdy";
@@ -21386,6 +21393,12 @@
     github = "petertriho";
     githubId = 7420227;
     name = "Peter Tri Ho";
+  };
+  peterwaller-arm = {
+    email = "peter.waller@arm.com";
+    github = "peterwaller-arm";
+    githubId = 52030119;
+    name = "Peter Waller";
   };
   peterwilli = {
     email = "peter@codebuffet.co";

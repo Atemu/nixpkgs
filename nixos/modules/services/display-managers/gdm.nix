@@ -465,16 +465,10 @@ in
                 let
                   env = config.services.displayManager.generic.environment;
                 in
-                pkgs.writeText "gdm-launch-environment-env-conf" (
-                  ''
-                    PATH                    DEFAULT="''${PATH}:${pkgs.gnome-session}/bin"
-                    XDG_DATA_DIRS           DEFAULT="''${XDG_DATA_DIRS}:${env.XDG_DATA_DIRS}"
-                    GDM_X_SERVER_EXTRA_ARGS DEFAULT="${env.GDM_X_SERVER_EXTRA_ARGS}"
-                  ''
-                  + lib.optionalString (xSessionWrapper != null) ''
-                    GDM_X_SESSION_WRAPPER   DEFAULT="${env.GDM_X_SESSION_WRAPPER}"
-                  ''
-                );
+                pkgs.writeText "gdm-launch-environment-env-conf" ''
+                  PATH          DEFAULT="''${PATH}:${pkgs.gnome-session}/bin"
+                  XDG_DATA_DIRS DEFAULT="''${XDG_DATA_DIRS}:${env.XDG_DATA_DIRS}"
+                '';
               settings.readenv = 0;
             }
             {
