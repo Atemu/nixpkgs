@@ -278,6 +278,7 @@ in
             # avoid this race condition.
             after = [ "systemd-modules-load.service" ];
             requiredBy = [ "${realDevice'}.swap" ];
+            requires = [ sw.deviceName ];
             before = [
               "${realDevice'}.swap"
               "shutdown.target"
@@ -332,12 +333,6 @@ in
             '';
             enableStrictShellChecks = true;
 
-            # We want either the device itself or a swapfile's parent path.
-            # RequiresMountsFor= registers all prefixes which covers the latter
-            # even if the swapfile doesn't already exist. With devices, it's
-            # important that we depend on the specific device unit for correct
-            # ordering.
-            unitConfig.RequiresMountsFor = [ sw.device ];
             unitConfig.DefaultDependencies = false; # needed to prevent a cycle
             serviceConfig = {
               Type = "oneshot";
