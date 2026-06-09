@@ -7094,12 +7094,6 @@
     github = "DSeeLP";
     githubId = 46624152;
   };
-  dsferruzza = {
-    email = "david.sferruzza@gmail.com";
-    github = "dsferruzza";
-    githubId = 1931963;
-    name = "David Sferruzza";
-  };
   dsluijk = {
     name = "Dany Sluijk";
     email = "nix@dany.dev";
@@ -20442,6 +20436,12 @@
     githubId = 7420227;
     name = "Peter Tri Ho";
   };
+  peterwaller-arm = {
+    email = "peter.waller@arm.com";
+    github = "peterwaller-arm";
+    githubId = 52030119;
+    name = "Peter Waller";
+  };
   peterwilli = {
     email = "peter@codebuffet.co";
     github = "peterwilli";
@@ -25085,6 +25085,13 @@
     github = "StayBlue";
     githubId = 23127866;
   };
+  stealthybox = {
+    email = "leigh@null.net";
+    github = "stealthybox";
+    githubId = 2754700;
+    name = "Leigh Capili";
+    keys = [ { fingerprint = "05E7 89C9 142C DD05 8261 4EF8 5943 2144 444F B382"; } ];
+  };
   steamwalker = {
     email = "steamwalker@xs4all.nl";
     github = "steamwalker";
@@ -25374,6 +25381,13 @@
     githubId = 36031171;
     name = "Supa";
   };
+  superherointj = {
+    email = "sergiomarcelo@yandex.com";
+    github = "superherointj";
+    githubId = 5861043;
+    matrix = "@superherointj:matrix.org";
+    name = "Sérgio Marcelo";
+  };
   SuperSandro2000 = {
     email = "sandro.jaeckel@gmail.com";
     matrix = "@sandro:supersandro.de";
@@ -25519,12 +25533,6 @@
     github = "sxmair";
     githubId = 127287939;
     name = "Syed Sumairul Hasan";
-  };
-  syberant = {
-    email = "sybrand@neuralcoding.com";
-    github = "syberant";
-    githubId = 20063502;
-    name = "Sybrand Aarnoutse";
   };
   syboxez = {
     email = "syboxez@gmail.com";

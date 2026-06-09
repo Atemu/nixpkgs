@@ -396,7 +396,7 @@ in
   # https://github.com/moby/moby/tree/${mobyRev}/Dockerfile
   docker_25 =
     let
-      version = "25.0.13";
+      version = "25.0.16";
     in
     callPackage dockerGen {
       inherit version;
@@ -405,7 +405,7 @@ in
       cliRev = "43987fca488a535d810c429f75743d8c7b63bf4f";
       cliHash = "sha256-OwufdfuUPbPtgqfPeiKrQVkOOacU2g4ommHb770gV40=";
       mobyRev = "v${version}";
-      mobyHash = "sha256-X+1QG/toJt+VNLktR5vun8sG3PRoTVBAcekFXxocJdU=";
+      mobyHash = "sha256-St5yLoxo8QUTu7PjNcblS/EzZm98T189RPl1y+pAyHA=";
       runcRev = "v1.2.5";
       runcHash = "sha256-J/QmOZxYnMPpzm87HhPTkYdt+fN+yeSUu2sv6aUeTY4=";
       containerdRev = "v1.7.27";
@@ -430,18 +430,21 @@ in
       containerdHash = "sha256-vz7RFJkFkMk2gp7bIMx1kbkDFUMS9s0iH0VoyD9A21s=";
       tiniRev = "369448a167e8b3da4ca5bca0b3307500c3371828";
       tiniHash = "sha256-jCBNfoJAjmcTJBx08kHs+FmbaU82CbQcf0IVjd56Nuw=";
+      knownVulnerabilities = [
+        "docker_28 has been unmaintained since November 2025, use docker_29 or newer instead"
+      ];
     };
 
   docker_29 =
     let
-      version = "29.4.3";
+      version = "29.5.2";
     in
     callPackage dockerGen {
       inherit version;
       cliRev = "v${version}";
-      cliHash = "sha256-jGD+Z3koM0a2Te7cq2HdKFizZj39djvTQUmn815Mn4o=";
+      cliHash = "sha256-kHgDZVr6mAyCtZ6bSG9FWV0GhWDfXLXzHYFrmjFzO9w=";
       mobyRev = "docker-v${version}";
-      mobyHash = "sha256-YWmxJZwjxh0gwqjHHJDpzZy1K1jS82Twmzb+uWtnejk=";
+      mobyHash = "sha256-lux7tTyF6vm5wuIXs+z3Ygd2v4JjgHbRvOXNA4kjNtg=";
       runcRev = "v1.3.5";
       runcHash = "sha256-Swphxbu/OLkUrfRjLMZIVGwYb7AN0xHdyxm0ysAVam0=";
       containerdRev = "v2.2.3";

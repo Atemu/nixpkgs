@@ -1776,10 +1776,10 @@ with self;
 
   ArchiveTar = buildPerlPackage {
     pname = "Archive-Tar";
-    version = "3.02";
+    version = "3.10";
     src = fetchurl {
-      url = "mirror://cpan/authors/id/B/BI/BINGOS/Archive-Tar-3.02.tar.gz";
-      hash = "sha256-gWM8h/c3hGGD01wPTJ1ALalHqEa0iBswzObZ6+PInRk=";
+      url = "mirror://cpan/authors/id/B/BI/BINGOS/Archive-Tar-3.10.tar.gz";
+      hash = "sha256-irvDaMxHIwjiqWDEpOi258pJJFefxGPH+oemplbITlY=";
     };
     meta = {
       description = "Manipulates TAR archives";
@@ -7963,10 +7963,10 @@ with self;
 
   CryptX = buildPerlPackage {
     pname = "CryptX";
-    version = "0.088";
+    version = "0.089";
     src = fetchurl {
-      url = "mirror://cpan/authors/id/M/MI/MIK/CryptX-0.088.tar.gz";
-      hash = "sha256-kUn4t0JjRWbpgbmUn7fZs/Qa7zbvBOziG1HPNRU8SUA=";
+      url = "mirror://cpan/authors/id/M/MI/MIK/CryptX-0.089.tar.gz";
+      hash = "sha256-8Od8few5ZxqFnzjfJdK/8wARvPVfLZ0PIMJrekR8n7Q=";
     };
     meta = {
       description = "Cryptographic toolkit";
@@ -17053,12 +17053,12 @@ with self;
     };
   };
 
-  Imager = buildPerlPackage {
+  Imager = buildPerlPackage rec {
     pname = "Imager";
-    version = "1.025";
+    version = "1.031";
     src = fetchurl {
-      url = "mirror://cpan/authors/id/T/TO/TONYC/Imager-1.025.tar.gz";
-      hash = "sha256-TwJ1y7HgEdfz/sYE3GtgwaxvAt78KYs9A31ur3vqcFg=";
+      url = "mirror://cpan/authors/id/T/TO/TONYC/Imager-${version}.tar.gz";
+      hash = "sha256-kL59G9/F7bfxfPgreeamYUxbAuv+Mm67b2afzaeRNAE=";
     };
     buildInputs = [
       pkgs.freetype
@@ -17075,6 +17075,7 @@ with self;
       "${pkgs.libpng.out}/lib"
     ];
     meta = {
+      changelog = "https://metacpan.org/release/TONYC/Imager-${version}/source/Changes";
       description = "Perl extension for Generating 24 bit Images";
       homepage = "http://imager.perl.org";
       license = with lib.licenses; [

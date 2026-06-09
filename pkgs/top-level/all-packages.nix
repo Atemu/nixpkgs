@@ -5744,7 +5744,6 @@ with pkgs;
   php85Extensions = recurseIntoAttrs php85.extensions;
   php85Packages = recurseIntoAttrs php85.packages;
 
-  polyml = callPackage ../development/compilers/polyml { };
   polyml56 = callPackage ../development/compilers/polyml/5.6.nix { };
   polyml57 = callPackage ../development/compilers/polyml/5.7.nix { };
 
@@ -6112,10 +6111,7 @@ with pkgs;
       {
         electron_37 = electron_37-bin;
         electron_38 = electron_38-bin;
-        electron_39 = getElectronPkg {
-          src = electron-source.electron_39;
-          bin = electron_39-bin;
-        };
+        electron_39 = electron_39-bin;
         electron_40 = getElectronPkg {
           src = electron-source.electron_40;
           bin = electron_40-bin;
@@ -9672,10 +9668,6 @@ with pkgs;
 
   qremotecontrol-server = libsForQt5.callPackage ../servers/misc/qremotecontrol-server { };
 
-  rabbitmq-server = callPackage ../by-name/ra/rabbitmq-server/package.nix {
-    beamPackages = beam27Packages.extend (self: super: { elixir = elixir_1_18; });
-  };
-
   rethinkdb = callPackage ../servers/nosql/rethinkdb {
     stdenv = clangStdenv;
     libtool = cctools;
@@ -11921,8 +11913,6 @@ with pkgs;
 
   plex-mpv-shim = python3Packages.callPackage ../applications/video/plex-mpv-shim { };
 
-  plover = recurseIntoAttrs (libsForQt5.callPackage ../applications/misc/plover { });
-
   pokefinder = qt6Packages.callPackage ../tools/games/pokefinder { };
 
   pothos = libsForQt5.callPackage ../applications/radio/pothos { };
@@ -12328,6 +12318,7 @@ with pkgs;
   thunderbird-bin = thunderbird-latest-bin;
   thunderbird-latest-bin = wrapThunderbird thunderbird-latest-bin-unwrapped {
     pname = "thunderbird-bin";
+    libName = "thunderbird-bin-${thunderbird-latest-bin-unwrapped.version}";
   };
   thunderbird-latest-bin-unwrapped =
     callPackage ../applications/networking/mailreaders/thunderbird-bin
@@ -12336,6 +12327,7 @@ with pkgs;
       };
   thunderbird-esr-bin = wrapThunderbird thunderbird-esr-bin-unwrapped {
     pname = "thunderbird-esr-bin";
+    libName = "thunderbird-bin-${thunderbird-esr-bin-unwrapped.version}";
   };
   thunderbird-esr-bin-unwrapped = callPackage ../applications/networking/mailreaders/thunderbird-bin {
     generated = import ../applications/networking/mailreaders/thunderbird-bin/release_esr_sources.nix;
@@ -13661,7 +13653,7 @@ with pkgs;
     enableUnfree = true;
   };
 
-  inherit (ocamlPackages) hol_light;
+  inherit (ocaml-ng.ocamlPackages_5_3) hol_light;
 
   isabelle = callPackage ../by-name/is/isabelle/package.nix {
     polyml = polyml.overrideAttrs {
