@@ -8,6 +8,7 @@
   setuptools,
 
   flash-attn,
+  flash-linear-attention,
   formatron,
   kbnf,
   marisa-trie,
@@ -28,14 +29,14 @@ let
 in
 buildPythonPackage.override { inherit (torch) stdenv; } (finalAttrs: {
   pname = "exllamav3";
-  version = "0.0.38";
+  version = "0.0.43";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "turboderp-org";
     repo = "exllamav3";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-WlHIbnQX1Jd7y5yQzlqXVgBLQ92rnDSWy4z9bEm3WLA=";
+    hash = "sha256-68v8ptvtOzRTnnRXrgU0emqmbCO0pECidgJ36bwm8/s=";
   };
 
   pythonRelaxDeps = [
@@ -60,6 +61,7 @@ buildPythonPackage.override { inherit (torch) stdenv; } (finalAttrs: {
 
   dependencies = [
     flash-attn
+    flash-linear-attention
     formatron
     kbnf
     marisa-trie

@@ -201,13 +201,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   inherit pname;
-  version = "260.1";
+  version = "260.2";
 
   src = fetchFromGitHub {
     owner = "systemd";
     repo = "systemd";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-FUKj3lvjz8TIsyu8NyJYtiNele+1BhdJPdw7r7nW6as=";
+    hash = "sha256-NXmmSV7/9WIW6C8wjdOwaerCy4v7Zcrd8+XDzcS8rEk=";
   };
 
   # PATCH POLICY
@@ -363,7 +363,14 @@ stdenv.mkDerivation (finalAttrs: {
   ++ lib.optionals (withHomed || withCryptsetup) [ libfido2 ]
   ++ lib.optionals withLibBPF [ libbpf ]
   ++ lib.optional withTpm2Tss tpm2-tss
-  ++ lib.optional withUkify (python3Packages.python.withPackages (ps: with ps; [ pefile ]))
+  ++ lib.optional withUkify (
+    python3Packages.python.withPackages (
+      ps: with ps; [
+        cryptography
+        pefile
+      ]
+    )
+  )
   ++ lib.optionals withPasswordQuality [ libpwquality ]
   ++ lib.optionals withQrencode [ qrencode ]
   ++ lib.optionals withLibarchive [ libarchive ]
