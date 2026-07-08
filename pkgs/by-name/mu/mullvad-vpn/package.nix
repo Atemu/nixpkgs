@@ -40,6 +40,7 @@
   makeWrapper,
   coreutils,
   gnugrep,
+  iproute2,
 
   versionCheckHook,
 }:
@@ -89,14 +90,14 @@ let
   };
 
   hash = selectSystem {
-    x86_64-linux = "sha256-HleajbEbw5Z1ab/E4zSR+GxDOIuvegP4N9yRFZYv7z4=";
-    aarch64-linux = "sha256-Mm2F6PB15pHgRpsw1c1PjmIAcuGaqhfAeZS5HXdoWRQ=";
+    x86_64-linux = "sha256-OMbuc66AhwaIVgkiooUlttDazGLC5BCTiGPXA46TGso=";
+    aarch64-linux = "sha256-pEzb21CSPn/ZflzZGTSJI5Hz3Q+ERFILg8q7V89AN1Q=";
   };
 in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mullvad-vpn";
-  version = "2026.1";
+  version = "2026.3";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -119,6 +120,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   runtimeDependencies = [
     (lib.getLib systemd)
+    iproute2
     libGL
     libnotify
     libappindicator

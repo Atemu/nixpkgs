@@ -40,7 +40,10 @@ buildPythonPackage.override { inherit (nixl) stdenv; } (finalAttrs: {
     substituteInPlace pyproject.toml \
       --replace-fail \
         '"patchelf",' \
-        ""
+        "" \
+      --replace-fail \
+        "torch==2.11.*" \
+        "torch"
   '';
 
   build-system = [
@@ -50,6 +53,7 @@ buildPythonPackage.override { inherit (nixl) stdenv; } (finalAttrs: {
     pytest
     pyyaml
     setuptools
+    torch
     types-pyyaml
   ];
   dontUseMesonConfigure = true;

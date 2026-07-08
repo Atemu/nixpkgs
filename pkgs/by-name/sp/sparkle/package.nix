@@ -3,7 +3,7 @@
   stdenvNoCC,
   buildGoModule,
   fetchFromGitHub,
-  pnpm_10_29_2,
+  pnpm,
   fetchPnpmDeps,
   pnpmConfigHook,
   nodejs,
@@ -37,26 +37,24 @@ let
 
     meta.mainProgram = "sparkle-service";
   };
-
-  pnpm = pnpm_10_29_2;
 in
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "sparkle";
-  version = "1.26.4";
+  version = "1.26.5";
 
   src = fetchFromGitHub {
     owner = "xishang0128";
     repo = "sparkle";
     tag = finalAttrs.version;
-    hash = "sha256-+3MHCy1N1/kOVFYDNvNiP/jkL0HHi2RwfeIqe2Z40O8=";
+    hash = "sha256-b4SidOlMDSi+DdbuF3LmOMlQTSBxd2CAf9oshYGXWrQ=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
     fetcherVersion = 3;
-    hash = "sha256-Us4qsCJdRZKYJQAgcqeStX7MfEqBWr4rKXBqU2K+KZI=";
+    hash = "sha256-UrMzBinZsTfZigkPMOySJ/Yjskh6Csna1M6XpBpq0vI=";
   };
 
   nativeBuildInputs = [

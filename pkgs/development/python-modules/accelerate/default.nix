@@ -44,8 +44,6 @@ buildPythonPackage (finalAttrs: {
     hash = "sha256-IfKePiU38fUd5HefaS7J1s8Mb6hVmldINemxAJY+83o=";
   };
 
-  buildInputs = [ llvmPackages.openmp ];
-
   build-system = [ setuptools ];
 
   dependencies = [
@@ -130,6 +128,11 @@ buildPythonPackage (finalAttrs: {
   ++ lib.optionals stdenv.hostPlatform.isDarwin [
     # RuntimeError: 'accelerate-launch /nix/store/a7vhm7b74a7bmxc35j26s9iy1zfaqjs...
     "test_accelerate_test"
+
+    # torch.mps does not expose a module-level set_device; keep skipped until
+    # the upstream fix lands: https://github.com/huggingface/accelerate/pull/4028
+    "test_env_var_device"
+
     "test_init_trackers"
     "test_init_trackers"
     "test_log"

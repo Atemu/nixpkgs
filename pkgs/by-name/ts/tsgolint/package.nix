@@ -8,13 +8,13 @@
 
 buildGo126Module (finalAttrs: {
   pname = "tsgolint";
-  version = "0.22.1";
+  version = "0.24.0";
 
   src = fetchFromGitHub {
     owner = "oxc-project";
     repo = "tsgolint";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-v6gSUeBcjSx/3/hjBST3ba6N366GQvryVTeAjV5+zEc=";
+    hash = "sha256-6HTVsCz4lh/SM8nlaFT3U+TEOoEajqPr+60fn9PV4+w=";
     fetchSubmodules = true;
   };
 
@@ -41,7 +41,7 @@ buildGo126Module (finalAttrs: {
     '';
 
   proxyVendor = true;
-  vendorHash = "sha256-sdGpBrDie+VSOX4jhobipEN9BY6JjdM7fdmdYKXkb44=";
+  vendorHash = "sha256-FVngoARi1ci/h5nE3CVwxkS6XuMvzpZH5j2Nl7suhFg=";
 
   subPackages = [ "cmd/tsgolint" ];
 

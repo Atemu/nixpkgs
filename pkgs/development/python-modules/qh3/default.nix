@@ -12,21 +12,21 @@
   stdenv,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "qh3";
-  version = "1.7.4";
+  version = "1.9.2";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "jawah";
     repo = "qh3";
-    tag = "v${version}";
-    hash = "sha256-zZQyKQK/zJ58XnCgxk/SvexBF1Z+GBtvulhuhUiIago=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-B1bCh4/KKXMbGb89XTiMaNqabeIdJ2hbDObzuNEj4NE=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
-    inherit pname version src;
-    hash = "sha256-2HwwyHex1SE34dUGtooOf5LCkhkVhLpsoEHBFvLUkLM=";
+    inherit (finalAttrs) pname version src;
+    hash = "sha256-9Bx8K9UwjEN/25+rePzm7ZNZ4nkNOCnwPjlooIA+Cuk=";
   };
 
   nativeBuildInputs = [
@@ -69,10 +69,10 @@ buildPythonPackage rec {
   ];
 
   meta = {
-    changelog = "https://github.com/jawah/qh3/blob/${src.tag}/CHANGELOG.rst";
+    changelog = "https://github.com/jawah/qh3/blob/${finalAttrs.src.tag}/CHANGELOG.rst";
     description = "Lightweight QUIC and HTTP/3 implementation in Python";
     homepage = "https://github.com/jawah/qh3";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ dotlambda ];
   };
-}
+})

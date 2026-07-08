@@ -4,7 +4,6 @@
 {
   lib,
   config,
-  hostPlatform,
 }:
 
 let
@@ -16,12 +15,10 @@ let
     filter
     findFirst
     getName
-    isDerivation
     length
     concatMap
     mutuallyExclusive
     optional
-    optionalString
     isAttrs
     isString
     warn
@@ -52,6 +49,7 @@ let
   inherit (import ./problems.nix { inherit lib; })
     problemsType
     genCheckProblems
+    completeMetaProblems
     ;
   checkProblems = genCheckProblems config;
 
@@ -124,8 +122,13 @@ let
 
   # Logical inversion of meta.availableOn for hostPlatform
   hasUnsupportedPlatform =
+    hostPlatform:
     let
-      anyHostPlatform = any (platformMatch hostPlatform);
+      inherit (hostPlatform) system;
+      # in almost all cases, meta.platforms is a simple list of strings, and we
+      # can just check if it contains the current system. we only run the more
+      # intensive platformMatch if necessary
+      anyHostPlatform = list: elem system list || any (platformMatch hostPlatform) list;
     in
     pkg:
     pkg ? meta.platforms && !(anyHostPlatform pkg.meta.platforms)
@@ -298,21 +301,23 @@ let
 
   metaType =
     let
-      types = import ./meta-types.nix { inherit lib; };
+      types = import ../../../lib/meta-types.nix { inherit lib; };
       inherit (types)
         str
         union
         int
         attrs
-        attrsOf
         any
         listOf
         bool
         record
+        intersection
+        not
+        derivation
         ;
       platforms = listOf (union [
         str
-        (attrsOf any)
+        attrs
       ]); # see lib.meta.platformMatch
     in
     record {
@@ -325,6 +330,7 @@ let
         (listOf str)
         str
       ];
+      donationPage = str;
       downloadPage = str;
       changelog = union [
         (listOf str)
@@ -334,7 +340,10 @@ let
         let
           # TODO disallow `str` licenses, use a module
           licenseType = union [
-            (attrsOf any)
+            (intersection [
+              attrs
+              (not derivation)
+            ])
             str
           ];
         in
@@ -343,9 +352,9 @@ let
           licenseType
         ];
       sourceProvenance = listOf attrs;
-      maintainers = listOf (attrsOf any); # TODO use the maintainer type from lib/tests/maintainer-module.nix
-      nonTeamMaintainers = listOf (attrsOf any); # TODO use the maintainer type from lib/tests/maintainer-module.nix
-      teams = listOf (attrsOf any); # TODO similar to maintainers, use a teams type
+      maintainers = listOf attrs; # TODO use the maintainer type from lib/tests/maintainer-module.nix
+      nonTeamMaintainers = listOf attrs; # TODO use the maintainer type from lib/tests/maintainer-module.nix
+      teams = listOf attrs; # TODO similar to maintainers, use a teams type
       priority = int;
       pkgConfigModules = listOf str;
       inherit platforms;
@@ -408,6 +417,10 @@ let
   # !!! reason strings are hardcoded into OfBorg, make sure to keep them in sync
   # Along with a boolean flag for each reason
   checkValidity =
+    hostPlatform:
+    let
+      hasUnsupportedPlatform' = hasUnsupportedPlatform hostPlatform;
+    in
     attrs:
     if !attrs ? meta then
       null
@@ -450,7 +463,7 @@ let
         msg = "contains elements not built from source (‘${showSourceType attrs.meta.sourceProvenance}’)";
         remediation = remediate_allowlist "NonSource" (remediate_predicate "allowNonSourcePredicate" attrs);
       }
-    else if hasUnsupportedPlatform attrs && !allowUnsupportedSystem then
+    else if hasUnsupportedPlatform' attrs && !allowUnsupportedSystem then
       let
         toPretty' = toPretty {
           allowPrettyValues = true;
@@ -482,7 +495,7 @@ let
     let
       values = attrValues cpeParts;
     in
-    (length values == 11) && !any isNull values;
+    (length values == 11) && !any (v: v == null) values;
   makeCPE =
     {
       part,
@@ -510,9 +523,13 @@ let
   # passed to the builder and is not a dependency.  But since we
   # include it in the result, it *is* available to nix-env for queries.
   # Example:
-  #   meta = checkMeta.commonMeta { inherit validity attrs pos references; };
-  #   validity = checkMeta.assertValidity { inherit meta attrs; };
+  #   meta = checkMeta.commonMeta hostPlatform { inherit validity attrs pos references; };
+  #   validity = checkMeta.assertValidity hostPlatform { inherit meta attrs; };
   commonMeta =
+    hostPlatform:
+    let
+      hasUnsupportedPlatform' = hasUnsupportedPlatform hostPlatform;
+    in
     {
       validity,
       attrs,
@@ -615,21 +632,46 @@ let
                   cpe = makeCPE guessedParts;
                 }
               ) possibleCPEPartsFuns;
+
+          purlParts = attrs.meta.identifiers.purlParts or { };
+          purlPartsFormatted =
+            if purlParts ? type && purlParts ? spec then "pkg:${purlParts.type}/${purlParts.spec}" else null;
+
+          # search for a PURL in the following order:
+          purl =
+            # 1) locally set through API
+            if purlPartsFormatted != null then purlPartsFormatted else null;
+
+          # search for a PURL in the following order:
+          purls =
+            # 1) locally overwritten through meta.identifiers.purls (e.g. extension of list)
+            attrs.meta.identifiers.purls or (
+              # 2) locally set through API
+              if purlPartsFormatted != null then [ purlPartsFormatted ] else [ ]
+            );
+
           v1 = {
-            inherit cpeParts possibleCPEs;
+            inherit
+              cpeParts
+              possibleCPEs
+              purls
+              ;
             ${if cpe != null then "cpe" else null} = cpe;
+            ${if purl != null then "purl" else null} = purl;
           };
         in
         v1
         // {
-          inherit v1;
+          inherit v1 purlParts;
         };
 
       # Expose the result of the checks for everyone to see.
       unfree = hasUnfreeLicense attrs;
       broken = isMarkedBroken attrs;
-      unsupported = hasUnsupportedPlatform attrs;
+      unsupported = hasUnsupportedPlatform' attrs;
       insecure = isMarkedInsecure attrs;
+
+      problems = completeMetaProblems config attrs;
 
       available =
         validity.valid != "no"
@@ -645,7 +687,7 @@ let
     }:
     let
       withError =
-        if isNull error then
+        if error == null then
           true
         else
           let
@@ -674,20 +716,24 @@ let
     builtins.seq (foldl' giveWarning null warnings) withError;
 
   assertValidity =
+    hostPlatform:
+    let
+      checkValidity' = checkValidity hostPlatform;
+    in
     { meta, attrs }:
     let
-      invalid = checkValidity attrs;
+      invalid = checkValidity' attrs;
       problems = checkProblems attrs;
     in
-    if isNull invalid then
-      if isNull problems then
+    if invalid == null then
+      if problems == null then
         {
           valid = "yes";
           handled = true;
         }
       else
         {
-          valid = if isNull problems.error then "warn" else "no";
+          valid = if problems.error == null then "warn" else "no";
           handled = handle {
             inherit attrs meta;
             inherit (problems) error warnings;

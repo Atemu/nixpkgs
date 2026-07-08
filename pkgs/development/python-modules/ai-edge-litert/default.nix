@@ -7,6 +7,9 @@
   pythonAtLeast,
   stdenv,
 
+  # native dependencies
+  openvino-native,
+
   # dependencies
   backports-strenum,
   flatbuffers,
@@ -46,6 +49,10 @@ buildPythonPackage {
 
   nativeBuildInputs = [ autoPatchelfHook ];
 
+  buildInputs = [
+    openvino-native
+  ];
+
   dependencies = [
     backports-strenum
     flatbuffers
@@ -77,7 +84,6 @@ buildPythonPackage {
   passthru.updateScript = ./update.py;
 
   meta = {
-    broken = stdenv.isDarwin; # elftools.common.exceptions.ELFError: Magic number does not match
     changelog = "https://github.com/google-ai-edge/LiteRT/releases/tag/v${release.version}";
     description = "LiteRT is for mobile and embedded devices";
     downloadPage = "https://github.com/google-ai-edge/LiteRT";
@@ -86,5 +92,12 @@ buildPythonPackage {
     platforms = lib.attrNames platforms;
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     maintainers = with lib.maintainers; [ hexa ];
+    badPlatforms = [
+      # elftools.common.exceptions.ELFError: Magic number does not match
+      lib.systems.inspect.patterns.isDarwin
+    ];
+    # Incompatible with the openvino currently shipped in nixpkgs:
+    #   auto-patchelf could not satisfy dependency libopenvino.so.2620
+    broken = true;
   };
 }

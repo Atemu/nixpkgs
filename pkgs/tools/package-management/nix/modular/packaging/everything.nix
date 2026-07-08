@@ -189,7 +189,7 @@ stdenv.mkDerivation (finalAttrs: {
       ln -sT ${nix-manual} $doc
       ln -sT ${nix-manual.man} $man
     ''
-    + lib.optionalString (stdenv.isLinux && lib.versionAtLeast version "2.34pre") ''
+    + lib.optionalString (stdenv.hostPlatform.isLinux && lib.versionAtLeast version "2.34pre") ''
       lndir ${nix-nswrapper} $out
     '';
 
@@ -238,11 +238,17 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     mainProgram = "nix";
     description = "Nix package manager";
-    longDescription = nix-cli.meta.longDescription;
-    homepage = nix-cli.meta.homepage;
-    license = nix-cli.meta.license;
+    inherit (nix-cli.meta)
+      longDescription
+      homepage
+      donationPage
+      license
+      platforms
+      changelog
+      ;
+
     teams = teams;
-    platforms = nix-cli.meta.platforms;
+
     outputsToInstall = [
       "out"
       "man"

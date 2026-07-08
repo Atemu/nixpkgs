@@ -10,16 +10,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "aube";
-  version = "1.8.0";
+  version = "1.9.1";
 
   src = fetchFromGitHub {
-    owner = "endevco";
+    owner = "jdx";
     repo = "aube";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-GiWg0f1LMGH0yEr97w2+p6CpC9zv4ZmP19gMsBlc+8w=";
+    hash = "sha256-uwOEou6DH+bePNupYKmTc82xQV9T08bDmSPG9RU9yBk=";
   };
 
-  cargoHash = "sha256-0L8bPxICB816zjZ6k98gg9isHocbb2oSAtDi8o7rG3U=";
+  cargoHash = "sha256-CBI44O2iMwdMym+ZOO9MvJQ73n+12J6FjzIXAOQTGT0=";
 
   nativeBuildInputs = [ cmake ]; # libz-ng-sys
 
@@ -40,8 +40,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   meta = {
     description = "Fast Node.js package manager";
-    homepage = "https://github.com/endevco/aube";
-    changelog = "https://github.com/endevco/aube/blob/v${finalAttrs.version}/CHANGELOG.md";
+    homepage = "https://github.com/jdx/aube";
+    changelog = "https://github.com/jdx/aube/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ chillcicada ];
     mainProgram = "aube";

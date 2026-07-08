@@ -9,16 +9,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "newt";
-  version = "1.12.3";
+  version = "1.13.0";
 
   src = fetchFromGitHub {
     owner = "fosrl";
     repo = "newt";
     tag = finalAttrs.version;
-    hash = "sha256-Maw0qELlnh0m+NsQGdDC3wGYK8zi8Lbt7zwJqieR4hg=";
+    hash = "sha256-Kt7YCxHQEv1DeASPJtjAwzmAiWBrkf+XNs7aJEZvb+M=";
   };
 
-  vendorHash = "sha256-+zMSzNbqmWm/DXL2xMUd5uPP5tSIybsRokwJ2zd0pf0=";
+  vendorHash = "sha256-QJ70q53k4EvLpiMY+Nm70QqaZk14V0Q1CrwWVSowdUU=";
 
   nativeInstallCheckInputs = [ versionCheckHook ];
 
@@ -29,8 +29,6 @@ buildGoModule (finalAttrs: {
   ];
 
   doInstallCheck = true;
-
-  versionCheckProgramArg = [ "-version" ];
 
   passthru.updateScript = nix-update-script { };
 

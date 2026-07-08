@@ -17,7 +17,7 @@
   withDocumentation ? stdenv.buildPlatform.canExecute stdenv.hostPlatform,
 }:
 let
-  version = "1.50.0";
+  version = "1.55.1";
 in
 rustPlatform.buildRustPackage {
   inherit version;
@@ -30,14 +30,16 @@ rustPlatform.buildRustPackage {
   ]
   ++ lib.optionals withDocumentation [ "doc" ];
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "casey";
     repo = "just";
     tag = version;
-    hash = "sha256-2hq7lgjL4XbcaaWxuDfqU0UcC4DRYKL6WFjdnb5AmjY=";
+    hash = "sha256-yRG4nRaFE1wW0pPi6hj1uhWK+VSlmU5fIbxFtGocoZs=";
   };
 
-  cargoHash = "sha256-tKeVE5BpDvElnpN/CO6lOqDUwhWD1dGm7k51Z3wAviE=";
+  cargoHash = "sha256-m3wXn9uowFs9szYGkuh+pdtwjM39yhhB+OuxRWRcRMw=";
 
   nativeBuildInputs =
     lib.optionals (installShellCompletions || installManPages) [ installShellFiles ]
@@ -112,9 +114,10 @@ rustPlatform.buildRustPackage {
     description = "Handy way to save and run project-specific commands";
     license = lib.licenses.cc0;
     maintainers = with lib.maintainers; [
-      xrelkd
       jk
       ryan4yin
+      xrelkd
+      yvnth
     ];
     mainProgram = "just";
   };
