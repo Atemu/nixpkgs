@@ -1329,9 +1329,6 @@ with pkgs;
 
   wrapRetroArch = retroarch-bare.wrapper;
 
-  ### APPLICATIONS/EMULATORS/YUZU
-  yuzuPackages = callPackage ../applications/emulators/yuzu {};
-
   # Aliases kept here because they are easier to use
   x16-emulator = x16.emulator;
   x16-rom = x16.rom;
