@@ -303,6 +303,9 @@ buildStdenv.mkDerivation {
 
   inherit src unpackPhase;
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   meta =
     meta
     // lib.optionalAttrs stdenv.hostPlatform.isDarwin {
@@ -339,6 +342,11 @@ buildStdenv.mkDerivation {
       # Rust. Vendored bindgen was updated in:
       # https://bugzilla.mozilla.org/show_bug.cgi?id=1985509
       ./140-bindgen-string-view.patch
+    ]
+    ++ lib.optionals (lib.versionAtLeast version "140" && lib.versionOlder version "140.13") [
+      # https://github.com/mozilla/cbindgen/issues/1165
+      # https://bugzilla.mozilla.org/show_bug.cgi?id=2046162
+      ./153-cbindgen-0.29.4-compat.patch
     ]
     ++ extraPatches;
 
