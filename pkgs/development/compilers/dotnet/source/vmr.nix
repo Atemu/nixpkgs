@@ -2,7 +2,7 @@
   llvmPackages_20,
   lib,
   fetchurl,
-  fetchpatch,
+  fetchpatch2,
   dotnetCorePackages,
   jq,
   curl,
@@ -153,7 +153,9 @@ stdenv.mkDerivation {
     ++ lib.optional (
       lib.versionAtLeast version "10" && lib.versionOlder version "11"
     ) ./Prefer-DOTNET_ROOT-over-directory-traversal-when-fin.patch
-    ++ lib.optional (lib.versionAtLeast version "11") ./Prefer-DOTNET_ROOT-over-directory-traversal-when-fin.2.patch
+    ++ lib.optionals (lib.versionAtLeast version "11") [
+      ./Prefer-DOTNET_ROOT-over-directory-traversal-when-fin.2.patch
+    ]
     ++ lib.optional (lib.versionAtLeast version "11" && isDarwin) ./fix-cmake-darwin.patch;
 
   postPatch = ''
