@@ -150,6 +150,11 @@ let
           tag = version;
           hash = "sha256-NwGGNN6LC3gvE8zoVL5meNWMbqZjJ+6PcU2ebJTfJmU=";
         };
+
+        # ancient pinned version requires pkg_resources
+        nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [
+          self.setuptools_80
+        ];
       });
 
       # Pinned due to API changes in 0.1.0
@@ -265,7 +270,7 @@ let
   extraBuildInputs = extraPackages python3Packages;
 
   # Don't forget to run update-component-packages.py after updating
-  hassVersion = "2026.6.4";
+  hassVersion = "2026.7.4";
 
 in
 python3Packages.buildPythonApplication rec {
@@ -286,13 +291,13 @@ python3Packages.buildPythonApplication rec {
     owner = "home-assistant";
     repo = "core";
     tag = version;
-    hash = "sha256-NeqJT2CW8A0VfUJ2yrR+KGmmQMK8q0Wdag43rUBBoWU=";
+    hash = "sha256-EWYJcmjKgWs+JhTLfQ56jpKlTATIsUAeT4XK8XOdh4U=";
   };
 
   # Secondary source is pypi sdist for translations
   sdist = fetchPypi {
     inherit pname version;
-    hash = "sha256-7Y26vN0oskJBgijtm9RZcvHw/xBEH3IsI8hezgsOVr0=";
+    hash = "sha256-i5MzLu22O5bteNwbwp6nct5zcTXpyOYrMW0kuUu/oeQ=";
   };
 
   build-system = with python3Packages; [
@@ -327,6 +332,9 @@ python3Packages.buildPythonApplication rec {
 
     # https://github.com/home-assistant/core/pull/172893
     ./patches/pyjwt-2.13-compat.patch
+
+    # remove is_xdist_controller usage
+    ./patches/syrupy-5.5-compat.patch
   ];
 
   postPatch = ''

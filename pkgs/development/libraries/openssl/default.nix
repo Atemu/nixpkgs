@@ -130,6 +130,9 @@ let
         !stdenv.hostPlatform.isDarwin
         && !stdenv.hostPlatform.isAndroid
         && !(stdenv.hostPlatform.useLLVM or false)
+        # Avoids eager evaluation on isGNU up the chain since Meson uses Python
+        # which uses OpenSSL
+        && stdenv.targetPlatform.libc != "picolibc"
         && stdenv.cc.isGNU;
 
       nativeBuildInputs =
@@ -145,7 +148,6 @@ let
           armv5tel-linux = "./Configure linux-armv4 -march=armv5te";
           armv6l-linux = "./Configure linux-armv4 -march=armv6";
           armv7l-linux = "./Configure linux-armv4 -march=armv7-a";
-          x86_64-darwin = "./Configure darwin64-x86_64-cc";
           aarch64-darwin = "./Configure darwin64-arm64-cc";
           x86_64-linux = "./Configure linux-x86_64";
           x86_64-solaris = "./Configure solaris64-x86_64-gcc";
@@ -385,8 +387,8 @@ let
 
       passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
-      strictDeps = lib.versionAtLeast version "4.0";
-      __structuredAttrs = lib.versionAtLeast version "4.0";
+      strictDeps = true;
+      __structuredAttrs = true;
 
       meta = {
         homepage = "https://www.openssl.org/";
@@ -507,8 +509,8 @@ in
   };
 
   openssl_3_6 = common {
-    version = "3.6.2";
-    hash = "sha256-qvUaH+BkOE+BHa6utOxNznNA7IvYkwJ+7mdq8x6DoE8=";
+    version = "3.6.3";
+    hash = "sha256-JDqGZJz28j7rai/yRW4J5dd92QGKVNPZawxr3Wumx/E=";
 
     patches = [
       # Support for NIX_SSL_CERT_FILE, motivation:

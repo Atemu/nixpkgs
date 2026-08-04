@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-vYjPgvplPaMjFPsikTZAfFyQ+A0XWNj0sJF2eHfY+pY=";
   };
 
-  patches = lib.optionals (stdenv.hostPlatform.isDarwin) [
+  patches = [
     # Fixes test failure on darwin
     (fetchpatch {
       url = "https://github.com/RsyncProject/rsync/commit/e1c5f0e93a75dd45f32f3b92ba221ef158ac2e5f.patch";
@@ -115,6 +115,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Fast incremental file transfer utility";
     homepage = "https://rsync.samba.org/";
+    changelog = "https://download.samba.org/pub/rsync/NEWS#${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
     mainProgram = "rsync";
     maintainers = [

@@ -179,12 +179,26 @@ let
 
   linux = stdenvNoCC.mkDerivation (finalAttrs: {
     inherit pname meta passthru;
-    version = "150.0.7871.46";
+    version = "151.0.7922.71";
 
-    src = fetchurl {
-      url = "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${finalAttrs.version}-1_amd64.deb";
-      hash = "sha256-abQBOftzoCGnSfMvzeCFP7F4G286izyvFzrY9nR/qnw=";
-    };
+    src =
+      let
+        debArch =
+          {
+            aarch64-linux = "arm64";
+            x86_64-linux = "amd64";
+          }
+          .${stdenvNoCC.hostPlatform.system};
+      in
+      fetchurl {
+        url = "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${finalAttrs.version}-1_${debArch}.deb";
+        hash =
+          {
+            amd64 = "sha256-yGyvxpfs24glkxLO9H5GTRJ4ZDYQUAp8kQTmuxrzulw=";
+            arm64 = "sha256-2NPhv8ktOHURVNPTDfy06MiiXmMNilPWCwawNLVemqQ=";
+          }
+          .${debArch};
+      };
 
     # With strictDeps on, some shebangs were not being patched correctly
     # ie, $out/share/google/chrome/google-chrome
@@ -271,9 +285,6 @@ let
         --add-flags "--simulate-outdated-no-au='Tue, 31 Dec 2099 23:59:59 GMT'" \
         --add-flags ${lib.escapeShellArg commandLineArgs}
 
-      # Make sure that libGL and libvulkan are found by ANGLE libGLESv2.so
-      patchelf --set-rpath $rpath $out/share/google/$appname/lib*GL*
-
       for elf in $out/share/google/$appname/{chrome,chrome-sandbox,chrome_crashpad_handler}; do
         patchelf --set-rpath $rpath $elf
         patchelf --set-interpreter ${bintools.dynamicLinker} $elf
@@ -289,11 +300,11 @@ let
 
   darwin = stdenvNoCC.mkDerivation (finalAttrs: {
     inherit pname meta passthru;
-    version = "149.0.7827.201";
+    version = "151.0.7922.72";
 
     src = fetchurl {
-      url = "http://dl.google.com/release2/chrome/ph3mj7mqtvbfhr67ckmjvjj5a4_149.0.7827.201/GoogleChrome-149.0.7827.201.dmg";
-      hash = "sha256-AI5oBE0uB2/YacF9LB4d6rXlAqEuZtlPYNQwLbs1K7E=";
+      url = "http://dl.google.com/release2/chrome/jzy33whkrvxpy4bxsfmxnqtcwi_151.0.7922.72/GoogleChrome-151.0.7922.72.dmg";
+      hash = "sha256-KQybAFcO48waFskPomdFmx8jAsUVAm4jJe7mHAVaSyE=";
     };
 
     dontPatch = true;
@@ -338,7 +349,10 @@ let
       iedame
       mdaniels5757
     ];
-    platforms = lib.platforms.darwin ++ [ "x86_64-linux" ];
+    platforms = lib.platforms.darwin ++ [
+      "aarch64-linux"
+      "x86_64-linux"
+    ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     mainProgram = "google-chrome-stable";
   };

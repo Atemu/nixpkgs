@@ -20,23 +20,17 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cosmic-applets";
-  version = "1.1.0";
+  version = "1.5.0";
 
   # nixpkgs-update: no auto update
   src = fetchFromGitHub {
     owner = "pop-os";
     repo = "cosmic-applets";
     tag = "epoch-${finalAttrs.version}";
-    hash = "sha256-A8Qk9u3Q83Q4AjzTrdptfS9UNoyKq39YihC4d/dNBYc=";
+    hash = "sha256-yZ9mm/FviohT5PhpNDjOxrJcf2Fjn4goTB9zkfgHRek=";
   };
 
-  cargoPatches = [
-    # A different reference to the `cosmic-settings-daemon` crate was added
-    # Remove this patch once upstream fixes their lockfile.
-    ./dedup-cosmic-settings-daemon.patch
-  ];
-
-  cargoHash = "sha256-81BFu13QmqOq43iN+ORQuktisEFYRrK+wd6diFfSufs=";
+  cargoHash = "sha256-xgpsIynrVcN62IQ++ABZqqbP0ak86eQYTc1SCSxy2l4=";
 
   separateDebugInfo = true;
   __structuredAttrs = true;

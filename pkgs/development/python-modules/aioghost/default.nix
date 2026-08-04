@@ -13,14 +13,14 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "aioghost";
-  version = "0.4.18";
+  version = "0.4.21";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "TryGhost";
     repo = "aioghost";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-4YmIsXegv23ZVpvewixJVR6IY8YqQzeLKDAjHTp937k=";
+    hash = "sha256-7m8Ze4PL0d5tCt+Z9pb33sBrKgyafbbXodax1/IsBaQ=";
   };
 
   build-system = [ hatchling ];

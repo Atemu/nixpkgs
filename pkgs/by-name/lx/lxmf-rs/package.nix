@@ -13,17 +13,17 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "lxmf-rs";
-  version = "0.5.1";
+  version = "0.9.7";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "FreeTAKTeam";
     repo = "LXMF-rs";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-ztJHjapogSF1qzyCBsi6mu3ByLdVTBt8y2OVEFyohKk=";
+    hash = "sha256-ZK48G8oDms8GepF+g2SxWalBbSP3yD1IHDVyev/Sc7w=";
   };
 
-  cargoHash = "sha256-g80lnqJ8VxGg0zHqHsQCvJO9AgXFE0ABysSr+XjXBAk=";
+  cargoHash = "sha256-ZqeTA5hbcYO12llZZ9/U1L9vOCxeY3GdT9s2TF7lU0I=";
 
   nativeBuildInputs = [
     pkg-config

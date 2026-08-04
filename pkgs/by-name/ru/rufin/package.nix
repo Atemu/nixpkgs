@@ -3,7 +3,7 @@
   fetchFromGitHub,
   rustPlatform,
   cacert,
-  gdk-pixbuf,
+  glib,
   gettext,
   gst_all_1,
   gtk4,
@@ -14,7 +14,7 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rufin";
-  version = "0.7.13";
+  version = "0.9.0";
 
   __structuredAttrs = true;
 
@@ -22,10 +22,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "screwys";
     repo = "Rufin";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-gY/Y+9D/9VlVrmYH+Cf7uP787yxhTyb0RyFRhiTjynM=";
+    hash = "sha256-VYuM0SAAvoQ/H4dufgoPFNIYwwEjpctqiElrKPi5D+E=";
   };
 
-  cargoHash = "sha256-DQRURA9IvUZC9gTvKIsAmO8uq8DwGGYTySDI7cGSxMU=";
+  cargoHash = "sha256-a0VPqbw2rjOzRjYpk8NoI2mq9LxFd6BBJ/AmE3tyVR4=";
 
   strictDeps = true;
 
@@ -36,8 +36,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   buildInputs = [
-    gdk-pixbuf
-    gettext
+    glib
     gtk4
     libadwaita
   ]
@@ -75,7 +74,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     install -Dm644 -t "$out/share/icons/hicolor/64x64/apps" \
       data/icons/hicolor/64x64/apps/*.png
 
-    for po_file in locales/*.po; do
+    for po_file in crates/localization/locales/*.po; do
       if [ -f "$po_file" ]; then
         lang="$(basename "$po_file" .po)"
         mkdir -p "$out/share/locale/$lang/LC_MESSAGES"

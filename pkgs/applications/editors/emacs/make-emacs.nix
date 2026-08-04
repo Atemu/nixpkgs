@@ -466,9 +466,8 @@ stdenv.mkDerivation (finalAttrs: {
       | xargs -n $((1000/NIX_BUILD_CORES + 1)) -P $NIX_BUILD_CORES \
         $out/bin/emacs --batch -l comp --eval "(while argv \
           (comp-trampoline-compile (intern (pop argv))))"
-    mkdir -p $out/share/emacs/native-lisp
     $out/bin/emacs --batch \
-      --eval "(add-to-list 'native-comp-eln-load-path \"$out/share/emacs/native-lisp\")" \
+      --eval "(add-to-list 'native-comp-eln-load-path \"$out/lib/emacs/$siteVersionDir/native-lisp\")" \
       -f batch-native-compile $out/share/emacs/site-lisp/site-start.el
   '';
 
@@ -486,7 +485,7 @@ stdenv.mkDerivation (finalAttrs: {
     pkgs = lib.recurseIntoAttrs (emacsPackagesFor finalAttrs.finalPackage);
     tests = {
       inherit (nixosTests) emacs-daemon;
-      withPackages = callPackage ./build-support/wrapper-test.nix {
+      withPackages = callPackage ./build-support/wrapper-test {
         emacs = finalAttrs.finalPackage;
       };
     };

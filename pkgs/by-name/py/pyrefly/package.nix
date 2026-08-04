@@ -10,18 +10,18 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "pyrefly";
-  version = "1.2.0-dev.1";
+  version = "1.2.0-dev.3";
 
   src = fetchFromGitHub {
     owner = "facebook";
     repo = "pyrefly";
     tag = finalAttrs.version;
-    hash = "sha256-qi2ImB2fuaDJWlJpPSlopZZmdGplEGm6+31yNOP+b8g=";
+    hash = "sha256-5rNqEIC1xU5fp1CBlcQe61JOeYz2YowmshPai2hBviI=";
   };
 
   buildAndTestSubdir = "pyrefly";
 
-  cargoHash = "sha256-Q/xB79oR0yvXCT1bCPU82LUDrGpTUMt+uy67Si+mWL8=";
+  cargoHash = "sha256-xpWZ/1FI5zWg6r4k9QF76gUnFhDh5rmDPARJypLQ76w=";
 
   buildInputs = [ rust-jemalloc-sys ];
 

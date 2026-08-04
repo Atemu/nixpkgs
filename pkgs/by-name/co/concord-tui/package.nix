@@ -2,39 +2,54 @@
   rustPlatform,
   fetchFromGitHub,
   pkg-config,
+  makeWrapper,
+  nasm,
   alsa-lib,
-  cmake,
   opus,
+  pipewire,
   lib,
   stdenv,
+  nix-update-script,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "concord-tui";
-  version = "2.2.13";
+  version = "2.5.0";
 
   src = fetchFromGitHub {
     owner = "chojs23";
     repo = "concord";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-7Acffg3ExqdcqsMJyv1N74Ff1/NrA1gtw8Tpa3KM4r0=";
+    hash = "sha256-DkbZZlURGwQCajhWmkcYmgFZDLvUOg6aU/JjGRiZY4Y=";
   };
 
-  cargoHash = "sha256-CDU9ajRleP/Hr/9DA+8rr+uzv8V3xR9Ki1qtBHhYSpc=";
+  cargoHash = "sha256-ISWQjHUPoYPgMu+aJUDlLjp5AahauHG9BuOAANMXKRA=";
 
   buildInputs = [
     opus
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [
     alsa-lib
+    pipewire
   ];
   nativeBuildInputs = [
     pkg-config
-    cmake
-  ];
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    rustPlatform.bindgenHook
+    makeWrapper
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isx86_64 [ nasm ];
+
+  postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
+    wrapProgram "$out/bin/concord" \
+      --set-default PIPEWIRE_CONFIG_DIR "${pipewire}/share/pipewire"
+  '';
 
   __darwinAllowLocalNetworking = true;
 
   __structuredAttrs = true;
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Feature-rich TUI client for Discord, written in Rust";
@@ -43,6 +58,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     maintainers = with lib.maintainers; [
       Simon-Weij
       neo
+      Br1ght0ne
     ];
     mainProgram = "concord";
   };

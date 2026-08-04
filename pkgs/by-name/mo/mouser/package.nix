@@ -12,7 +12,7 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "mouser";
-  version = "3.6.0";
+  version = "3.7.3";
   pyproject = false;
 
   __structuredAttrs = true;
@@ -21,7 +21,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     owner = "TomBadash";
     repo = "Mouser";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-ESfkpswENa91wL1WSfDL/Wpu4sjhT8qibJ0wsEYHX+0=";
+    hash = "sha256-eAbaT9Q/dwmd++CXLjnWso8s7FGYKvbm+ja9MmRGq7A=";
   };
 
   nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [

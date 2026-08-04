@@ -18,16 +18,16 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "openmeters";
-  version = "1.9.1";
+  version = "1.11.0-2";
 
   src = fetchFromGitHub {
     owner = "httpsworldview";
     repo = "openmeters";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-b1Nq+eZJ/87bOygIfU+BK7t0xu9HSBhWmFU1Fmv11vo=";
+    hash = "sha256-zkPIHpFN0gfwVXupXIvmF8wiPDeF6uynHfuYH6XyJnY=";
   };
 
-  cargoHash = "sha256-cAYnHeAHEAiovibyKeDB5T74FWfT0ndOI2MtOZC0dVE=";
+  cargoHash = "sha256-u+UtgvgAQ4hWXk5aYSrRp86zaZgO/NmdMmVs+lJYcII=";
 
   nativeBuildInputs = [
     pkg-config

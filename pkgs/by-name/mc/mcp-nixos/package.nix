@@ -1,7 +1,7 @@
 {
   lib,
-  stdenv,
   fetchFromGitHub,
+  fetchpatch,
   python3Packages,
 }:
 
@@ -16,6 +16,13 @@ python3Packages.buildPythonApplication (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-mWq9nnL4IGhUFkXJr8+t6BresOTDFS1caG8NuFqjrJg=";
   };
+
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/utensils/mcp-nixos/commit/86f8936f0c257153f8fba10cf8cba7fede6d2f30.patch";
+      sha256 = "sha256-55rQhE9CfTW1KQzUNM86U4S4Efu4yCN+1tZvdOz12oc=";
+    })
+  ];
 
   build-system = [ python3Packages.hatchling ];
 
@@ -40,9 +47,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
   disabledTests = [
     # Requires network access
     "test_valid_channel"
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    "test_read_text_file"
   ];
 
   pythonImportsCheck = [ "mcp_nixos" ];

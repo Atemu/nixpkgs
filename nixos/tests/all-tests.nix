@@ -63,7 +63,7 @@ let
       - `config.node.pkgs.<name>` or `config.nodes.foo.nixpkgs.pkgs.<name>` to refer
         to the Nixpkgs used on the VM guest(s).
       - `hostPkgs.<name>` when invoking commands on the VM host (e.g. in Python
-        `os.system("foo")`)
+        `subprocess.run(["foo"])`)
     - Since the runTest argument is a module instead of a function, arguments
       must be passed as option definitions.
       You may declare explicit `options` for the test parameter(s), or use the
@@ -153,7 +153,9 @@ in
     console-log = runTest ./nixos-test-driver/console-log.nix;
     containers = runTest ./nixos-test-driver/containers.nix;
     nspawn-daemon-reexec-dbus = runTest ./nspawn-daemon-reexec-dbus.nix;
+    multi-arch-test = runTest ./nixos-test-driver/multi-arch-test.nix;
     skip-typecheck = runTest ./nixos-test-driver/skip-typecheck.nix;
+    console-timeout = runTest ./nixos-test-driver/console-timeout.nix;
     options-doc-regression = import ./nixos-test-driver/options-doc-regression.nix { inherit pkgs; };
     driver-timeout =
       pkgs.runCommand "ensure-timeout-induced-failure"
@@ -168,6 +170,7 @@ in
           [[ 143 = $(cat $failed/testBuildFailure.exit) ]]
           touch $out
         '';
+    efivars = runTestOn [ "x86_64-linux" ] ./nixos-test-driver/efivars.nix;
   };
 
   # NixOS vm tests and non-vm unit tests
@@ -574,6 +577,7 @@ in
   fastnetmon-advanced = runTest ./fastnetmon-advanced.nix;
   fcitx5 = runTest ./fcitx5;
   fedimintd = runTest ./fedimintd.nix;
+  feishin = handleTest ./feishin { };
   ferm = runTest ./ferm.nix;
   ferretdb = import ./ferretdb.nix { inherit pkgs runTest; };
   fider = runTest ./fider.nix;
@@ -601,6 +605,10 @@ in
   firefox-esr-140 = runTest {
     imports = [ ./firefox.nix ];
     _module.args.firefoxPackage = pkgs.firefox-esr-140;
+  };
+  firefox-esr-153 = runTest {
+    imports = [ ./firefox.nix ];
+    _module.args.firefoxPackage = pkgs.firefox-esr-153;
   };
   firefox-syncserver = runTest ./firefox-syncserver.nix;
   firefox_decrypt = runTest ./firefox_decrypt.nix;
@@ -724,7 +732,13 @@ in
   greetd-no-shadow = runTest ./greetd-no-shadow.nix;
   grocy = runTest ./grocy.nix;
   grow-partition = runTest ./grow-partition.nix;
-  grub = runTest ./grub.nix;
+  grub = {
+    basic = runTest ./grub/basic.nix;
+    efi = runTest ./grub/efi.nix;
+    graphical = runTest ./grub/graphical.nix;
+    hashed-password = runTest ./grub/hashed-password.nix;
+    mirrored-boots = runTest ./grub/mirrored-boots.nix;
+  };
   gs1200-exporter = runTest ./gs1200-exporter.nix;
   guacamole-server = runTest ./guacamole-server.nix;
   guix = handleTest ./guix { };
@@ -1003,7 +1017,6 @@ in
   matrix-conduit = runTest ./matrix/conduit.nix;
   matrix-continuwuity = runTest ./matrix/continuwuity.nix;
   matrix-synapse = runTest ./matrix/synapse.nix;
-  matrix-synapse-workers = runTest ./matrix/synapse-workers.nix;
   matrix-tuwunel = runTest ./matrix/tuwunel.nix;
   matter-server = runTest ./matter-server.nix;
   matterjs-server = runTest ./matterjs-server.nix;
@@ -1125,6 +1138,7 @@ in
   netbox_4_5 = handleTest ./web-apps/netbox/default.nix { netbox = pkgs.netbox_4_5; };
   netdata = runTest ./netdata.nix;
   netfoil = runTest ./netfoil.nix;
+  netplan = runTest ./netplan.nix;
   networking.networkd = handleTest ./networking/networkd-and-scripted.nix { networkd = true; };
   networking.networkmanager = handleTest ./networking/networkmanager.nix { };
   networking.scripted = handleTest ./networking/networkd-and-scripted.nix { networkd = false; };
@@ -1204,6 +1218,7 @@ in
   nominatim = runTest ./nominatim.nix;
   non-default-filesystems = handleTest ./non-default-filesystems.nix { };
   non-switchable-system = runTest ./non-switchable-system.nix;
+  nordvpn = runTest ./nordvpn.nix;
   noto-fonts = runTest ./noto-fonts.nix;
   noto-fonts-cjk-qt-default-weight = runTest ./noto-fonts-cjk-qt-default-weight.nix;
   novacomd = handleTestOn [ "x86_64-linux" ] ./novacomd.nix { };
@@ -1214,6 +1229,7 @@ in
   ntfy-sh-migration = handleTest ./ntfy-sh-migration.nix { };
   ntpd = runTest ./ntpd.nix;
   ntpd-rs = runTest ./ntpd-rs.nix;
+  nushell = runTest ./nushell.nix;
   nvidia-container-toolkit = runTest ./nvidia-container-toolkit.nix;
   nvme-rs = runTest ./nvme-rs.nix;
   nvmetcfg = runTest ./nvmetcfg.nix;
@@ -1290,7 +1306,6 @@ in
   osrm-backend = runTest ./osrm-backend.nix;
   outline = runTest ./outline.nix;
   overlayfs = runTest ./overlayfs.nix;
-  overseerr = runTest ./overseerr.nix;
   owi = runTest ./owi.nix;
   owncast = runTest ./owncast.nix;
   oxidized = handleTest ./oxidized.nix { };
@@ -1436,6 +1451,7 @@ in
   pykms = runTest ./pykms.nix;
   qbittorrent = runTest ./qbittorrent.nix;
   qboot = runTestOn [ "x86_64-linux" "i686-linux" ] ./qboot.nix;
+  qemu-firmware = runTestOn [ "x86_64-linux" ] ./qemu-firmware.nix;
   qemu-vm-external-disk-image = runTest ./qemu-vm-external-disk-image.nix;
   qemu-vm-restrictnetwork = handleTest ./qemu-vm-restrictnetwork.nix { };
   qemu-vm-store = runTest ./qemu-vm-store.nix;
@@ -1491,6 +1507,7 @@ in
   };
   rkvm = handleTest ./rkvm { };
   rmfakecloud = runTest ./rmfakecloud.nix;
+  rnsd = runTest ./networking/rnsd.nix;
   robustirc-bridge = runTest ./robustirc-bridge.nix;
   rosenpass = runTest ./rosenpass.nix;
   roundcube = runTest ./roundcube.nix;
@@ -1510,6 +1527,7 @@ in
   rtkit = runTest ./rtkit.nix;
   rtorrent = runTest ./rtorrent.nix;
   rush = runTest ./rush.nix;
+  rustfs = runTest ./rustfs.nix;
   rustical = runTest ./web-apps/rustical.nix;
   rustls-libssl = runTest ./rustls-libssl.nix;
   rxe = runTest ./rxe.nix;
@@ -1537,7 +1555,7 @@ in
   sftpgo = runTest ./sftpgo.nix;
   sfxr-qt = runTest ./sfxr-qt.nix;
   sgt-puzzles = runTest ./sgt-puzzles.nix;
-  shadow = runTest ./shadow.nix;
+  shadow = import ./shadow { inherit runTest; };
   shadowsocks = handleTest ./shadowsocks { };
   shadps4 = runTest ./shadps4.nix;
   sharkey = runTest ./web-apps/sharkey.nix;
@@ -1583,6 +1601,8 @@ in
   sssd-ldap = handleTestOn [ "x86_64-linux" "aarch64-linux" ] ./sssd-ldap.nix { };
   sssd-legacy-config = handleTestOn [ "x86_64-linux" "aarch64-linux" ] ./sssd-legacy-config.nix { };
   stalwart = runTest ./stalwart/stalwart.nix;
+  stardust-xr-atmosphere = runTest ./stardust-xr/atmosphere.nix;
+  stardust-xr-flatland = runTest ./stardust-xr/flatland.nix;
   stargazer = runTest ./web-servers/stargazer.nix;
   starship = runTest ./starship.nix;
   startx = import ./startx.nix { inherit pkgs runTest; };
@@ -1682,6 +1702,7 @@ in
   systemd-journal = runTest ./systemd-journal.nix;
   systemd-journal-gateway = runTest ./systemd-journal-gateway.nix;
   systemd-journal-upload = runTest ./systemd-journal-upload.nix;
+  systemd-localed = runTest ./systemd-localed.nix;
   systemd-lock-handler = runTestOn [ "aarch64-linux" "x86_64-linux" ] ./systemd-lock-handler.nix;
   systemd-machinectl = runTest ./systemd-machinectl.nix;
   systemd-misc = runTest ./systemd-misc.nix;
@@ -1840,6 +1861,7 @@ in
   };
   virtualbox = handleTestOn [ "x86_64-linux" ] ./virtualbox.nix { };
   vm-variant = handleTest ./vm-variant.nix { };
+  vnstat = runTest ./vnstat.nix;
   vscode-remote-ssh = handleTestOn [ "x86_64-linux" ] ./vscode-remote-ssh.nix { };
   vscodium = import ./vscodium.nix { inherit runTest; };
   vsftpd = runTest ./vsftpd.nix;
@@ -1850,6 +1872,7 @@ in
   wasabibackend = runTest ./wasabibackend.nix;
   wastebin = runTest ./wastebin.nix;
   watchdogd = runTest ./watchdogd.nix;
+  watt = runTest ./watt.nix;
   webhook = runTest ./webhook.nix;
   weblate = runTest ./web-apps/weblate.nix;
   wg-access-server = runTest ./wg-access-server.nix;

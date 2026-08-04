@@ -139,6 +139,8 @@ stdenv.mkDerivation (finalAttrs: {
       "pangofc"
       "pangoft2"
       "pangoot"
+    ]
+    ++ lib.optionals x11Support [
       "pangoxft"
     ];
   };

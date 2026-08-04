@@ -13,14 +13,14 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "censor";
-  version = "0.7.2";
+  version = "0.9.1";
   pyproject = false;
 
   src = fetchFromCodeberg {
     owner = "censor";
     repo = "Censor";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-444EGJCNnRRkuTzm4HdapUvwphx9EavxeyAI0Sxh8G8=";
+    hash = "sha256-4eRJetI/BZPBiG7M3TYQ/QOd2+x1MrCLTOcL9RJYYuo=";
   };
 
   nativeBuildInputs = [

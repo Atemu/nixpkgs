@@ -894,6 +894,12 @@ assertNoAdditions {
     };
   });
 
+  cocci-syntax = super.cocci-syntax.overrideAttrs (old: {
+    meta = old.meta // {
+      license = lib.licenses.vim;
+    };
+  });
+
   codecompanion-history-nvim = super.codecompanion-history-nvim.overrideAttrs {
     dependencies = with self; [
       # transitive dependency for codecompanion-nvim
@@ -935,6 +941,7 @@ assertNoAdditions {
     nvimSkipModules = [
       "repro_blink"
       "repro_cmp"
+      "repro_native_completion"
     ];
   };
 
@@ -1020,6 +1027,27 @@ assertNoAdditions {
         url = "https://github.com/zbirenbaum/copilot-cmp/commit/06430ebf99834ebc5d86c63816e409f4cb51fe79.patch";
         sha256 = "sha256-YOJPFC+qbyURFU58tAiAqbamQLmi7ovnJGkOeOTUPH0=";
       })
+    ];
+  };
+
+  copilot-lua = super.copilot-lua.overrideAttrs {
+    # Avoid copying the bundled 500MB language server into the plugin output.
+    preInstall = ''
+      rm -rf copilot/js
+    '';
+
+    postInstall = ''
+      mkdir -p $target/copilot
+      ln -s ${copilot-language-server}/share/copilot-language-server $target/copilot/js
+
+      substituteInPlace $target/lua/copilot/lsp/nodejs.lua \
+        --replace-fail "copilot/js/language-server.js" "copilot/js/main.js"
+      sed -i 's/version = "[^"]*"/version = "${copilot-language-server.version}"/' $target/lua/copilot/util.lua
+    '';
+
+    runtimeDeps = [
+      copilot-language-server
+      nodejs
     ];
   };
 
@@ -3097,6 +3125,10 @@ assertNoAdditions {
     dependencies = [ self.nui-nvim ];
   };
 
+  none-ls-extras-nvim = super.none-ls-extras-nvim.overrideAttrs {
+    dependencies = [ self.none-ls-nvim ];
+  };
+
   none-ls-nvim = super.none-ls-nvim.overrideAttrs {
     dependencies = [ self.plenary-nvim ];
   };
@@ -3315,6 +3347,7 @@ assertNoAdditions {
   };
 
   nvim-jdtls = super.nvim-jdtls.overrideAttrs (old: {
+    runtimeDeps = [ python3 ];
     meta = old.meta // {
       license = lib.licenses.gpl3Only;
     };
@@ -3596,7 +3629,6 @@ assertNoAdditions {
       snacks-nvim
       telescope-nvim
     ];
-    dependencies = [ self.plenary-nvim ];
     nvimSkipModules = [
       # Issue reproduction file
       "minimal"
@@ -5816,22 +5848,6 @@ assertNoAdditions {
   vim-zscript = super.vim-zscript.overrideAttrs (old: {
     meta = old.meta // {
       license = lib.licenses.cc0;
-    };
-  });
-
-  vimacs = super.vimacs.overrideAttrs (old: {
-    buildPhase = ''
-      substituteInPlace bin/vim \
-        --replace-fail '/usr/bin/vim' 'vim' \
-        --replace-fail '/usr/bin/gvim' 'gvim'
-      # remove unnecessary duplicated bin wrapper script
-      rm -r plugin/vimacs
-    '';
-    meta = old.meta // {
-      description = "Vim-Improved eMACS: Emacs emulation plugin for Vim";
-      homepage = "http://algorithm.com.au/code/vimacs";
-      license = lib.licenses.gpl2Plus;
-      maintainers = with lib.maintainers; [ millerjason ];
     };
   });
 
