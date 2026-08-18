@@ -519,7 +519,6 @@ with lib.maintainers;
     members = [
       alejandrosame
       aleksi
-      artturin
       emilytrau
       ericson2314
       jk
@@ -551,6 +550,7 @@ with lib.maintainers;
       dotlambda
       ma27
       provokateurin
+      staticdev
     ];
     scope = "Maintain Nextcloud, its tests and the integration of applications.";
     shortName = "Nextcloud";

@@ -2102,6 +2102,12 @@
     githubId = 8436007;
     name = "Aria Edmonds";
   };
+  ar4m1s = {
+    name = "Aramis";
+    github = "Ar4m1s";
+    githubId = 59250656;
+    matrix = "@vegardbm:matrix.org";
+  };
   arbel-arad = {
     email = "arbel@spacetime.technology";
     github = "arbel-arad";
@@ -4605,7 +4611,6 @@
   cbarrete = {
     github = "cbarrete";
     githubId = 62146989;
-    matrix = "@cedric:cbarrete.com";
     name = "Cédric Barreteau";
   };
   cbleslie = {
@@ -5138,6 +5143,12 @@
     github = "ckauhaus";
     githubId = 1448923;
     name = "Christian Kauhaus";
+  };
+  ckgxrg = {
+    email = "ckgxrg@ckgxrg.io";
+    github = "ckgxrg-salt";
+    githubId = 165614491;
+    name = "ckgxrg";
   };
   cko = {
     email = "christine.koppelt@gmail.com";
@@ -7975,6 +7986,12 @@
     github = "ElvishJerricco";
     githubId = 1365692;
     name = "Will Fancher";
+  };
+  elzorrorebelde = {
+    name = "Jorge Javier Araya Navarro";
+    email = "jorge@esavara.cr";
+    github = "elzorrorebelde";
+    githubId = 1055216;
   };
   emaiax = {
     email = "github@emaiax.dev";
@@ -16071,6 +16088,11 @@
     githubId = 83420438;
     name = "Lewis";
   };
+  lubsch = {
+    github = "lubsch";
+    githubId = 33580245;
+    name = "Benjamin Lohmar";
+  };
   luc65r = {
     email = "lucas@ransan.fr";
     github = "luc65r";
@@ -16986,6 +17008,12 @@
     github = "martinjlowm";
     githubId = 110860;
     name = "Martin Jesper Low Madsen";
+  };
+  martinkontsek = {
+    email = "martinkontsek@gmail.com";
+    github = "martinkontsek";
+    githubId = 9106867;
+    name = "Martin Kontšek";
   };
   martinramm = {
     email = "martin-ramm@gmx.de";
@@ -23348,6 +23376,12 @@
     githubId = 12279531;
     name = "Ricardo Guevara";
   };
+  rharish = {
+    email = "harish.rajagopals@gmail.com";
+    github = "rharish101";
+    githubId = 25344287;
+    name = "Harish Rajagopal";
+  };
   rhelmot = {
     name = "Audrey Dutcher";
     github = "rhelmot";
@@ -25106,12 +25140,6 @@
     github = "sguimmara";
     githubId = 5512096;
     name = "Sébastien Guimmara";
-  };
-  shackra = {
-    name = "Jorge Javier Araya Navarro";
-    email = "jorge@esavara.cr";
-    github = "shackra";
-    githubId = 1055216;
   };
   shadaj = {
     github = "shadaj";
@@ -27003,6 +27031,12 @@
     githubId = 51232929;
     name = "Taito Horiuchi";
   };
+  tallesCoelho = {
+    email = "talles.hoc@gmail.com";
+    github = "tallesCoelho";
+    githubId = 7442204;
+    name = "Talles Coelho";
+  };
   talyz = {
     email = "kim.lindberger@gmail.com";
     matrix = "@talyz:matrix.org";
@@ -28248,6 +28282,12 @@
     github = "traxys";
     githubId = 5623227;
     name = "Quentin Boyer";
+  };
+  tree-sapii = {
+    email = "supersapiiiiii@gmail.com";
+    github = "tree-sapii";
+    githubId = 144389458;
+    name = "sapii";
   };
   treemo = {
     email = "matthieu.chevrier@treemo.fr";
@@ -29864,6 +29904,13 @@
     githubId = 1595132;
     name = "Kranium Gikos Mendoza";
   };
+  WOnder93 = {
+    email = "omosnacek@gmail.com";
+    github = "WOnder93";
+    githubId = 3041388;
+    matrix = "@omos:fedora.im";
+    name = "Ondrej Mosnáček";
+  };
   workflow = {
     email = "4farlion@gmail.com";
     github = "workflow";
@@ -30181,6 +30228,11 @@
     githubId = 106241330;
     name = "Success Kingsley";
   };
+  xqtc161 = {
+    github = "xqtc161";
+    githubId = 65857432;
+    name = "tila";
+  };
   xrelkd = {
     github = "xrelkd";
     githubId = 46590321;
@@ -30290,6 +30342,16 @@
     email = "yarekt+nixpkgs@gmail.com";
     github = "yarektyshchenko";
     githubId = 185304;
+  };
+  yarn = {
+    name = "yarncat";
+    email = "nix@yarncat.moe";
+    github = "yaaaarn";
+    githubId = 30006414;
+    matrix = "@y:mx.yarncat.moe";
+    keys = [
+      { fingerprint = "6611 1CEA 8D78 A13E C6D6 FD13 7900 447A E348 FF4D"; }
+    ];
   };
   yarny = {
     github = "Yarny0";
@@ -30466,6 +30528,13 @@
     keys = [
       { fingerprint = "D2A8 A906 ACA7 B6D6 575E 9A2F 3A49 5054 6EA6 9E5C"; }
     ];
+  };
+  yoquec = {
+    email = "alvaro.viejo@yoquec.com";
+    github = "yoquec";
+    githubId = 59575696;
+    name = "Alvaro Viejo";
+    matrix = "@yoquec.com:matrix.org";
   };
   yorickvp = {
     email = "yorickvanpelt@gmail.com";

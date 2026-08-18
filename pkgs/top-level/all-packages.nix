@@ -4179,6 +4179,8 @@ with pkgs;
       bolt_22 = llvmPackages_22.bolt;
       flang_22 = llvmPackages_22.flang;
 
+      llvmPackages_23 = llvmPackagesSet."23";
+
       mkLLVMPackages = llvmPackagesSet.mkPackage;
     })
     llvmPackages_18
@@ -4213,6 +4215,7 @@ with pkgs;
     llvm_22
     bolt_22
     flang_22
+    llvmPackages_23
     mkLLVMPackages
     ;
 
@@ -5066,6 +5069,17 @@ with pkgs;
 
   ansible-builder = with python3Packages; toPythonApplication ansible-builder;
 
+  gn_0-unstable-2026-05-27 =
+    (gn.override {
+      version = "0-unstable-2026-05-27";
+      rev = "3357c4f51b1a9e676378c695dd9c7e9911c35ee6";
+      hash = "sha256-/1A+DkzAQj2zGPe/A/G0Z3VrYJXUxq4Hd/+d/o5p3G8=";
+    }).overrideAttrs
+      {
+        strictDeps = true;
+        __structuredAttrs = true;
+      };
+
   ### DEVELOPMENT / TOOLS / LANGUAGE-SERVERS
 
   inherit (callPackages ../development/tools/language-servers/nixd { }) nixf nixt nixd;
@@ -5108,6 +5122,7 @@ with pkgs;
     electron_40-bin
     electron_41-bin
     electron_42-bin
+    electron_43-bin
     ;
 
   inherit (callPackages ../development/tools/electron/chromedriver { })
@@ -5116,6 +5131,7 @@ with pkgs;
     electron-chromedriver_40
     electron-chromedriver_41
     electron-chromedriver_42
+    electron-chromedriver_43
     ;
 
   inherit
@@ -5146,6 +5162,10 @@ with pkgs;
           src = electron-source.electron_42;
           bin = electron_42-bin;
         };
+        electron_43 = getElectronPkg {
+          src = electron-source.electron_43;
+          bin = electron_43-bin;
+        };
       }
     )
     electron_38
@@ -5153,6 +5173,7 @@ with pkgs;
     electron_40
     electron_41
     electron_42
+    electron_43
     ;
   electron = electron_41;
   electron-bin = electron_41-bin;
@@ -7303,6 +7324,11 @@ with pkgs;
     go = buildPackages.go_1_26;
   };
 
+  inherit ({ go_1_27 = callPackage ../development/compilers/go/1.27.nix { }; }) go_1_27;
+  buildGo127Module = callPackage ../build-support/go/module.nix {
+    go = buildPackages.go_1_27;
+  };
+
   ### DEVELOPMENT / HARE
 
   hareHook = callPackage ../by-name/ha/hare/hook.nix { };
@@ -7730,17 +7756,23 @@ with pkgs;
       kanidm_1_10 = callPackage ../servers/kanidm/1_10.nix {
         kanidmWithSecretProvisioning = kanidmWithSecretProvisioning_1_10;
       };
+      kanidm_1_11 = callPackage ../servers/kanidm/1_11.nix {
+        kanidmWithSecretProvisioning = kanidmWithSecretProvisioning_1_11;
+      };
 
       kanidmWithSecretProvisioning_1_8 = kanidm_1_8.override { enableSecretProvisioning = true; };
       kanidmWithSecretProvisioning_1_9 = kanidm_1_9.override { enableSecretProvisioning = true; };
       kanidmWithSecretProvisioning_1_10 = kanidm_1_10.override { enableSecretProvisioning = true; };
+      kanidmWithSecretProvisioning_1_11 = kanidm_1_11.override { enableSecretProvisioning = true; };
     })
     kanidm_1_8
     kanidm_1_9
     kanidm_1_10
+    kanidm_1_11
     kanidmWithSecretProvisioning_1_8
     kanidmWithSecretProvisioning_1_9
     kanidmWithSecretProvisioning_1_10
+    kanidmWithSecretProvisioning_1_11
     ;
 
   lemmy-server = callPackage ../servers/web-apps/lemmy/server.nix { };
@@ -9130,7 +9162,6 @@ with pkgs;
     recurseIntoAttrs (
       callPackages ../applications/editors/jetbrains {
         vmopts = config.jetbrains.vmopts or null;
-        jdk = jetbrains.jdk;
       }
     )
     // {
@@ -9907,6 +9938,9 @@ with pkgs;
 
   thunderbird-esr-unwrapped = thunderbirdPackages.thunderbird-esr;
   thunderbird-esr = wrapThunderbird thunderbird-esr-unwrapped { };
+
+  thunderbird-153-unwrapped = thunderbirdPackages.thunderbird-153;
+  thunderbird-153 = wrapThunderbird thunderbirdPackages.thunderbird-153 { };
 
   thunderbird-140-unwrapped = thunderbirdPackages.thunderbird-140;
   thunderbird-140 = wrapThunderbird thunderbirdPackages.thunderbird-140 { };

@@ -8914,8 +8914,21 @@ with self;
       url = "mirror://cpan/authors/id/S/SB/SBECK/Date-Manip-6.98.tar.gz";
       hash = "sha256-rP2KYFGbpM0YHIpnqD1/ApxtmrTosCEtxH5B1iEP2kk=";
     };
+    # Remove when updating to the first release containing both CVE fixes.
+    patches = [
+      (fetchpatch {
+        name = "CVE-2026-60074.patch";
+        url = "https://security.metacpan.org/patches/D/Date-Manip/6.99/CVE-2026-60074-r1.patch";
+        hash = "sha256-leXFfzLyy0yBpBXgT3u3ZyFaIbsbJSFzVkdam9hb3+0=";
+      })
+      (fetchpatch {
+        name = "CVE-2026-60075.patch";
+        url = "https://security.metacpan.org/patches/D/Date-Manip/6.99/CVE-2026-60075-r1.patch";
+        hash = "sha256-vMsOrUhrfn8efKRzfJ+jaypOHER8MlUIob5u88n/TAw=";
+      })
+    ];
     # for some reason, parsing /etc/localtime does not work anymore - make sure that the fallback "/bin/date +%Z" will work
-    patchPhase = ''
+    postPatch = ''
       sed -i "s#/bin/date#${pkgs.coreutils}/bin/date#" lib/Date/Manip/TZ.pm
     '';
     doCheck = !stdenv.hostPlatform.isi686; # build freezes during tests on i686
@@ -25491,10 +25504,10 @@ with self;
 
   NetDNS = buildPerlPackage {
     pname = "Net-DNS";
-    version = "1.48";
+    version = "1.56";
     src = fetchurl {
-      url = "mirror://cpan/authors/id/N/NL/NLNETLABS/Net-DNS-1.48.tar.gz";
-      hash = "sha256-5V8+caMcK4VgJL9QYbEWCwP4edgBNUFPONgiBHaUR1M=";
+      url = "mirror://cpan/authors/id/N/NL/NLNETLABS/Net-DNS-1.56.tar.gz";
+      hash = "sha256-WTDjn3aJWzgMfKEfwINS0VrXHEH+hMEt+2oyLRf2aUY=";
     };
     propagatedBuildInputs = [ DigestHMAC ];
     makeMakerFlags = [ "--noonline-tests" ];
@@ -39340,10 +39353,10 @@ with self;
 
   YAMLSyck = buildPerlPackage {
     pname = "YAML-Syck";
-    version = "1.45";
+    version = "1.47";
     src = fetchurl {
-      url = "mirror://cpan/authors/id/T/TO/TODDR/YAML-Syck-1.45.tar.gz";
-      hash = "sha256-8t4a+08MVsNubVJgqgvSyPGOTYUAnc9YQiBOoqf7w98=";
+      url = "mirror://cpan/authors/id/T/TO/TODDR/YAML-Syck-1.47.tar.gz";
+      hash = "sha256-ZyGWyhwCHjxo9LX3tK7DBa1HG7v0SMU8fkADTW67fh0=";
     };
     env.NIX_CFLAGS_COMPILE = "-std=gnu11";
     meta = {

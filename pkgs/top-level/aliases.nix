@@ -1244,6 +1244,7 @@ mapAliases {
   linux_6_19 = linuxKernel.kernels.linux_6_19;
   linux_7_0 = linuxKernel.kernels.linux_7_0;
   linux_7_1 = linuxKernel.kernels.linux_7_1;
+  linux_7_2 = linuxKernel.kernels.linux_7_2;
   linux_ham = throw "linux_ham has been removed in favour of the standard kernel packages"; # Added 2025-06-24
   linux_hardened = throw "linux_hardened has been removed due to lack of maintenance"; # Added 2026-03-18
   linux_latest-libre = throw "linux_latest_libre has been removed due to lack of maintenance"; # Added 2025-10-01
@@ -1280,6 +1281,7 @@ mapAliases {
   linuxPackages_6_19 = linuxKernel.packages.linux_6_19;
   linuxPackages_7_0 = linuxKernel.packages.linux_7_0;
   linuxPackages_7_1 = linuxKernel.packages.linux_7_1;
+  linuxPackages_7_2 = linuxKernel.packages.linux_7_2;
   linuxPackages_ham = throw "linux_ham has been removed in favour of the standard kernel packages"; # Added 2025-06-24
   linuxPackages_hardened = throw "linuxPackages_hardened has been removed due to lack of maintenance"; # Added 2026-03-18
   linuxPackages_latest-libre = throw "linux_latest_libre has been removed due to lack of maintenance"; # Added 2025-10-01
@@ -1596,6 +1598,7 @@ mapAliases {
   oil = throw "'oil' has been renamed to/replaced by 'oils-for-unix'"; # Converted to throw 2025-10-27
   olaris-server = throw "'olaris-server' has been removed as it failed to build since 2024"; # Added 2026-01-15
   olive-editor = throw "'olive-editor' has been removed as it is unmaintained upstream and broken"; # Added 2026-05-22
+  omxplayer = throw "'omxplayer' has been removed because it depends on a severely outdated upstream, a severely outdated FFmpeg, and the new upstream was deprecated since 2020. Please use 'vlc' instead."; # Added 2026-07-24
   oneDNN = onednn; # Added 2026-02-08
   oneDNN_2 = onednn_2; # Added 2026-02-08
   onevpl-intel-gpu = throw "'onevpl-intel-gpu' has been renamed to/replaced by 'vpl-gpu-rt'"; # Converted to throw 2025-10-27

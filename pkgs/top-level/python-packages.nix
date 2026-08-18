@@ -5545,6 +5545,8 @@ self: super: with self; {
 
   feedparser = callPackage ../development/python-modules/feedparser { };
 
+  feedparser-sgmllib = callPackage ../development/python-modules/feedparser-sgmllib { };
+
   fenics-basix = callPackage ../development/python-modules/fenics-basix { };
 
   fenics-dolfinx = callPackage ../development/python-modules/fenics-dolfinx { };
@@ -7305,6 +7307,8 @@ self: super: with self; {
 
   httpcore = callPackage ../development/python-modules/httpcore { };
 
+  httpcore2 = callPackage ../development/python-modules/httpcore2 { };
+
   httpie = callPackage ../development/python-modules/httpie { };
 
   httpie-ntlm = callPackage ../development/python-modules/httpie-ntlm { };
@@ -7338,6 +7342,8 @@ self: super: with self; {
   httpx-sse = callPackage ../development/python-modules/httpx-sse { };
 
   httpx-ws = callPackage ../development/python-modules/httpx-ws { };
+
+  httpx2 = callPackage ../development/python-modules/httpx2 { };
 
   huawei-lte-api = callPackage ../development/python-modules/huawei-lte-api { };
 
@@ -7410,6 +7416,8 @@ self: super: with self; {
   hypothesis = callPackage ../development/python-modules/hypothesis { };
 
   hypothesis-auto = callPackage ../development/python-modules/hypothesis-auto { };
+
+  hypothesis-jsonschema = callPackage ../development/python-modules/hypothesis-jsonschema { };
 
   hypothesis_6_136 = callPackage ../development/python-modules/hypothesis/hypothesis_6_136.nix { };
 
@@ -12818,6 +12826,8 @@ self: super: with self; {
   # https://github.com/opensteno/plover_plugins_registry/blob/master/unsupported.json
   plover = plover_5;
 
+  plover-combo = callPackage ../development/python-modules/plover-combo { };
+
   plover-dict-commands = callPackage ../development/python-modules/plover-dict-commands { };
 
   plover-lapwing-aio = callPackage ../development/python-modules/plover-lapwing-aio { };
@@ -14477,8 +14487,6 @@ self: super: with self; {
   pymediainfo = callPackage ../development/python-modules/pymediainfo { };
 
   pymediaroom = callPackage ../development/python-modules/pymediaroom { };
-
-  pymedio = callPackage ../development/python-modules/pymedio { };
 
   pymee = callPackage ../development/python-modules/pymee { };
 
@@ -18153,6 +18161,8 @@ self: super: with self; {
 
   smarthab = callPackage ../development/python-modules/smarthab { };
 
+  smartthings-local = callPackage ../development/python-modules/smartthings-local { };
+
   smartypants = callPackage ../development/python-modules/smartypants { };
 
   smbprotocol = callPackage ../development/python-modules/smbprotocol { };
@@ -20738,6 +20748,8 @@ self: super: with self; {
   udapi = callPackage ../development/python-modules/udapi { };
 
   udatetime = callPackage ../development/python-modules/udatetime { };
+
+  udsoncan = callPackage ../development/python-modules/udsoncan { };
 
   udtools = callPackage ../development/python-modules/udtools { };
 

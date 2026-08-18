@@ -560,6 +560,7 @@ in
   fastnetmon-advanced = runTest ./fastnetmon-advanced.nix;
   fcitx5 = runTest ./fcitx5;
   fedimintd = runTest ./fedimintd.nix;
+  feishin = handleTest ./feishin { };
   ferm = runTest ./ferm.nix;
   ferretdb = import ./ferretdb.nix { inherit pkgs runTest; };
   fider = runTest ./fider.nix;
@@ -765,6 +766,7 @@ in
   hitch = handleTest ./hitch { };
   hledger-web = runTest ./hledger-web.nix;
   hockeypuck = runTest ./hockeypuck.nix;
+  holo-daemon-modular-service = runTest ./holo-daemon-modular.nix;
   home-assistant = runTest ./home-assistant.nix;
   homebox = runTest ./homebox.nix;
   homebridge = runTest ./homebridge.nix;
@@ -1779,6 +1781,7 @@ in
   userborn-static = runTest ./userborn-static.nix;
   ustreamer = runTest ./ustreamer.nix;
   utils = import ./utils { inherit runTest; };
+  utmp = runTest ./utmp.nix;
   uwsgi = runTest ./uwsgi.nix;
   v2ray = runTest ./v2ray.nix;
   varnish60 = runTest {
