@@ -8302,6 +8302,12 @@
     github = "eripa";
     githubId = 1429673;
   };
+  ErmitaVulpe = {
+    name = "Emily Wilczek";
+    email = "emily.wilczek@proton.me";
+    github = "ErmitaVulpe";
+    githubId = 34629570;
+  };
   ern775 = {
     email = "eren.demir2479090@gmail.com";
     github = "ern775";
@@ -24454,6 +24460,12 @@
     githubId = 47582;
     name = "Samir Talwar";
   };
+  samiser = {
+    email = "nixos@me.samiser.xyz";
+    github = "samiser";
+    githubId = 32001364;
+    name = "Sam";
+  };
   samlich = {
     email = "nixos@samli.ch";
     github = "samlich";
@@ -25515,6 +25527,12 @@
     githubId = 688044;
     name = "Nikolay Korotkiy";
     keys = [ { fingerprint = "ADF4 C13D 0E36 1240 BD01  9B51 D1DE 6D7F 6936 63A5"; } ];
+  };
+  silicalet = {
+    name = "Mr. why";
+    email = "silicalet@outlook.com";
+    github = "silicalet";
+    githubId = 188071249;
   };
   silky = {
     name = "Noon van der Silk";
@@ -28936,6 +28954,14 @@
     github = "vasissualiyp";
     githubId = 110242808;
     name = "Vasilii Pustovoit";
+  };
+  vavakado = {
+    email = "xor@vavakado.xyz";
+    github = "vavakado";
+    githubId = 80159210;
+    name = "Vladimir Rubin";
+    matrix = "@vavakado:imagisphe.re";
+    keys = [ { fingerprint = "A054 0374 CD37 2C71 FE6D  E0CF CAB7 4472 7F36 B524"; } ];
   };
   vbgl = {
     email = "Vincent.Laporte@gmail.com";

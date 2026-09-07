@@ -28,7 +28,14 @@ let
       extraPatches = [
         # The file to be patched is different from firefox's `no-buildconfig-ffx90.patch`.
         (if lib.versionOlder version "140" then ./no-buildconfig.patch else ./no-buildconfig-tb140.patch)
-      ];
+      ]
+      ++
+        lib.optional (lib.versionAtLeast version "154" && lib.versionOlder version "154.0.1")
+          (fetchpatch2 {
+            # Fix Success macros colliding: https://bugzilla.mozilla.org/show_bug.cgi?id=2065007
+            url = "https://github.com/mozilla-firefox/firefox/commit/f0b76eba072821d62e74ebdbd8da9243a2ce3b84.patch";
+            hash = "sha256-PCTmv1ZO7ce4q5fp+WPmy5Wga5OMY4hNzqIZ7iYCcp4=";
+          });
       # FIXME: let's hope that upstream will fix this soon and we can drop this hack again.
       # https://bugzilla.mozilla.org/show_bug.cgi?id=2040877
       extraPostPatch =
@@ -77,8 +84,8 @@ rec {
   thunderbird = thunderbird-latest;
 
   thunderbird-latest = common {
-    version = "153.0.3";
-    sha512 = "6a9271af8473fa6679d4943a35fab0a335e8eb736aebfab4d79e250578faf6090cda19e80708487bec7c2221242b059072dda9ca817478a6d76556594972202b";
+    version = "155.0";
+    sha512 = "fe0247ac50d2741a49517fabe729dc990a66e7044f450e4fe6871b663096bcd15f22ed83eea0557106d38eee34e464fead5a7567d0906995ff2a945fae64b60c";
 
     updateScript = callPackage ./update.nix {
       attrPath = "thunderbirdPackages.thunderbird-latest";
@@ -86,7 +93,7 @@ rec {
   };
 
   # Eventually, switch to an updateScript without versionPrefix hardcoded...
-  thunderbird-esr = thunderbird-140;
+  thunderbird-esr = thunderbird-153;
 
   thunderbird-153 = common {
     applicationName = "Thunderbird ESR";
@@ -104,8 +111,8 @@ rec {
   thunderbird-140 = common {
     applicationName = "Thunderbird ESR";
 
-    version = "140.13.0esr";
-    sha512 = "778d2fc2837ba367e90c4336f3873da5a0823c182e2f50aa9373cd1ee9ee2b5310372ad9d33e1e11978791b67de4a6952d3036ff7d57b257a06f49c8cd4a830e";
+    version = "140.15.0esr";
+    sha512 = "52f014fb75ac131780aba924dd973a1fb5d6a60be4f800c258dca931e2c6ad75baaad37a5ad52228e91d3d174823b6b4d38ddc2dbbf9c04b8700cc33079448bb";
 
     updateScript = callPackage ./update.nix {
       attrPath = "thunderbirdPackages.thunderbird-140";

@@ -4326,6 +4326,7 @@ with pkgs;
   wrapRustc = rustc-unwrapped: wrapRustcWith { inherit rustc-unwrapped; };
 
   rust_1_95 = callPackage ../development/compilers/rust/1_95.nix { };
+  rust_1_97 = callPackage ../development/compilers/rust/1_97.nix { };
   rust = rust_1_95;
 
   mrustc = callPackage ../development/compilers/mrustc { };
@@ -4333,6 +4334,7 @@ with pkgs;
   mrustc-bootstrap = callPackage ../development/compilers/mrustc/bootstrap.nix { };
 
   rustPackages_1_95 = rust_1_95.packages.stable;
+  rustPackages_1_97 = rust_1_97.packages.stable;
   rustPackages = rustPackages_1_95;
 
   inherit (rustPackages)
@@ -4630,6 +4632,7 @@ with pkgs;
     cpp2a-kernel
     xeus-cling
     ;
+  inherit (callPackage ../applications/editors/jupyter-kernels/xeus-cpp { }) xeus-cpp;
 
   dhall = haskell.lib.compose.justStaticExecutables haskellPackages.dhall;
 

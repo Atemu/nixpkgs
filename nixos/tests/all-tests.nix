@@ -20,8 +20,12 @@ let
     isFunction
     mapAttrs
     elem
+    meta
     recurseIntoAttrs
     ;
+
+  callSupportedTest =
+    test: if meta.availableOn pkgs.stdenv.hostPlatform test then callTest test else { };
 
   # TODO: remove when handleTest is gone (make sure nixosTests and nixos/release.nix#tests are unaffected)
   # TODO: when removing, also deprecate `test` attribute in ../lib/testing/run.nix
@@ -29,7 +33,7 @@ let
     val:
     if isAttrs val then
       if (val ? test) then
-        callTest val
+        callSupportedTest val
       else
         mapAttrs (n: s: if n == "passthru" then s else discoverTests s) val
     else if isFunction val then
@@ -120,7 +124,7 @@ let
         if tree ? recurseForDerivations && tree.recurseForDerivations then
           mapAttrs (k: findTests) (removeAttrs tree [ "recurseForDerivations" ])
         else
-          callTest tree;
+          callSupportedTest tree;
 
       runTest =
         arg:
@@ -667,6 +671,7 @@ in
   geth = runTest ./geth.nix;
   ghostunnel = runTest ./ghostunnel.nix;
   ghostunnel-modular = runTest ./ghostunnel-modular.nix;
+  git-pages-modular = runTest ./git-pages.nix;
   gitdaemon = runTest ./gitdaemon.nix;
   gitea = handleTest ./gitea.nix { giteaPackage = pkgs.gitea; };
   github-runner = runTest ./github-runner.nix;
@@ -749,6 +754,7 @@ in
     imports = [ ./hbase.nix ];
     _module.args.getPackage = pkgs: pkgs.hbase_2_5;
   };
+  hddtemp = runTest ./hddtemp.nix;
   headplane = runTest ./headplane.nix;
   headscale = runTest ./headscale.nix;
   healthchecks = runTest ./web-apps/healthchecks.nix;
@@ -763,6 +769,7 @@ in
   hibernate-systemd-stage-1 = handleTestOn [ "x86_64-linux" ] ./hibernate.nix {
     systemdStage1 = true;
   };
+  hister = runTest ./hister.nix;
   hitch = handleTest ./hitch { };
   hledger-web = runTest ./hledger-web.nix;
   hockeypuck = runTest ./hockeypuck.nix;
