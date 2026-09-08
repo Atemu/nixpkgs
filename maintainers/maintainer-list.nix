@@ -11744,6 +11744,12 @@
     githubId = 157678;
     keys = [ { fingerprint = "E864 BDFA AB55 36FD C905  5195 DBF2 52AF FB26 19FD"; } ];
   };
+  irgendeinwer = {
+    name = "Irgendeinwer";
+    email = "irgendeinwer@proton.me";
+    github = "Irgendeinwer";
+    githubId = 175053643;
+  };
   ironicbadger = {
     email = "alexktz@gmail.com";
     github = "ironicbadger";
@@ -27145,12 +27151,6 @@
     github = "tc-kaluza";
     githubId = 101565936;
     name = "Tautvydas Cerniauskas";
-  };
-  tcbravo = {
-    email = "tomas.bravo@protonmail.ch";
-    github = "tcbravo";
-    githubId = 66133083;
-    name = "Tomas Bravo";
   };
   tchab = {
     email = "dev@chabs.name";
