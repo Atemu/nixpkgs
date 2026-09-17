@@ -185,6 +185,7 @@ let
       X86_INTEL_LPSS = yes;
       X86_INTEL_PSTATE = yes;
       X86_AMD_PSTATE = whenAtLeast "5.17" yes;
+      AMD_PMF_UTIL_SUPPORT = whenAtLeast "7.3" yes;
       # Intel DPTF (Dynamic Platform and Thermal Framework) Support
       ACPI_DPTF = yes;
 
@@ -1497,8 +1498,8 @@ let
             ACPI_HOTPLUG_CPU = yes;
             ACPI_HOTPLUG_MEMORY = yes;
             MEMORY_HOTPLUG = yes;
-            MEMORY_HOTPLUG_DEFAULT_ONLINE = whenOlder "6.14" yes;
-            MHP_DEFAULT_ONLINE_TYPE_ONLINE_AUTO = whenAtLeast "6.14" yes;
+            MEMORY_HOTPLUG_DEFAULT_ONLINE = whenOlder "6.12" yes;
+            MHP_DEFAULT_ONLINE_TYPE_ONLINE_AUTO = whenAtLeast "6.12" yes;
             MEMORY_HOTREMOVE = lib.mkIf (
               with stdenv.hostPlatform;
               isLoongArch64

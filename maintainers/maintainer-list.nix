@@ -7158,6 +7158,13 @@
     githubId = 39825;
     name = "Dominik Honnef";
   };
+  donottellmetonottellyou = {
+    name = "Jade Masker";
+    email = "donottellmetonottellyou@gmail.com";
+    github = "donottellmetonottellyou";
+    githubId = 115233539;
+    keys = [ { fingerprint = "5C8B 7128 4AB3 000D 4AC6  6234 9B81 35A2 4A75 CB86"; } ];
+  };
   donovanglover = {
     github = "donovanglover";
     githubId = 2374245;
@@ -7512,12 +7519,6 @@
     keys = [ { fingerprint = "46FC 889E BC38 100E 51E8  3245 F3EA 503B 360F BD40"; } ];
     matrix = "@dwoffinden:matrix.org";
     name = "Daniel Woffinden";
-  };
-  dwrege = {
-    email = "email@dwrege.de";
-    github = "DominicWrege";
-    githubId = 7389000;
-    name = "Dominic Wrege";
   };
   dwt = {
     email = "spamfaenger@gmx.de";

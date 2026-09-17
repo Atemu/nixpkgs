@@ -5157,10 +5157,7 @@ with pkgs;
         electron_38 = electron_38-bin;
         electron_39 = electron_39-bin;
         electron_40 = electron_40-bin;
-        electron_41 = getElectronPkg {
-          src = electron-source.electron_41;
-          bin = electron_41-bin;
-        };
+        electron_41 = electron_41-bin;
         electron_42 = getElectronPkg {
           src = electron-source.electron_42;
           bin = electron_42-bin;
@@ -6691,6 +6688,7 @@ with pkgs;
       };
 
   nettle = import ../development/libraries/nettle { inherit callPackage fetchurl; };
+  nettle_4 = import ../development/libraries/nettle/4.nix { inherit callPackage fetchurl; };
 
   libnghttp2 = nghttp2.lib;
 
