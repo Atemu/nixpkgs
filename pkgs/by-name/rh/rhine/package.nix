@@ -17,7 +17,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rhine";
-  version = "0.3.0-unstable-2026-08-03";
+  version = "0.4.1";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -26,8 +26,8 @@ stdenv.mkDerivation (finalAttrs: {
     domain = "codeberg.org";
     owner = "sivecano";
     repo = "rhine";
-    rev = "71f1c6eb8878f88f397a3d8fa8bb40af3df63d73";
-    hash = "sha256-C0mD4BLCOFbiD0NwgYs88fu+0RWzxm38fBkwEvwu8g8=";
+    tag = finalAttrs.version;
+    hash = "sha256-wJPwooj1f1xb+DhnxaF6iDD9NASlgQZ1OPgrtCCXtoQ=";
   };
 
   nativeBuildInputs = [
@@ -52,15 +52,12 @@ stdenv.mkDerivation (finalAttrs: {
     "${finalAttrs.deps}"
   ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version=branch"
-    ];
-  };
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Window manager for river supporting multiple layouts and awesome animations";
     homepage = "https://codeberg.org/sivecano/rhine";
+    changelog = "https://codeberg.org/sivecano/rhine/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.agpl3Only;
     maintainers = with lib.maintainers; [
       atemu
