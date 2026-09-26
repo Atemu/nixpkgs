@@ -19,13 +19,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "flycast";
-  version = "2.6";
+  version = "2.7";
 
   src = fetchFromGitHub {
     owner = "flyinghead";
     repo = "flycast";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Lq6Oj+U4mpwNlL/t3ZB9gjE5NAVQyhdvBwLUGu1C+j0=";
+    hash = "sha256-8qGAoMQ7hF1HFx7m+CuhxX+IG7L4fk1XQkKUYZODGmA=";
     fetchSubmodules = true;
   };
 
@@ -62,6 +62,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "flycast";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.unix;
-    maintainers = [ ];
+    maintainers = with lib.maintainers; [ tallesCoelho ];
   };
 })

@@ -2161,8 +2161,6 @@ with pkgs;
     buildProduct = "daemon";
   };
 
-  fpm = callPackage ../tools/package-management/fpm { };
-
   ferdium = callPackage ../applications/networking/instant-messengers/ferdium {
     mkFranzDerivation = callPackage ../applications/networking/instant-messengers/franz/generic.nix { };
   };
@@ -2172,8 +2170,6 @@ with pkgs;
   };
 
   frostwire-bin = callPackage ../applications/networking/p2p/frostwire/frostwire-bin.nix { };
-
-  uniscribe = callPackage ../tools/text/uniscribe { };
 
   inherit (callPackages ../tools/filesystems/garage { })
     garage
@@ -2336,8 +2332,6 @@ with pkgs;
       { };
 
   hassil = with python3Packages; toPythonApplication hassil;
-
-  haste-client = callPackage ../tools/misc/haste-client { };
 
   hareThirdParty = recurseIntoAttrs (callPackage ./hare-third-party.nix { });
 
@@ -2756,11 +2750,13 @@ with pkgs;
     nextcloud32
     nextcloud33
     nextcloud34
+    nextcloud35
     ;
 
   nextcloud32Packages = callPackage ../servers/nextcloud/packages { ncVersion = "32"; };
   nextcloud33Packages = callPackage ../servers/nextcloud/packages { ncVersion = "33"; };
   nextcloud34Packages = callPackage ../servers/nextcloud/packages { ncVersion = "34"; };
+  nextcloud35Packages = callPackage ../servers/nextcloud/packages { ncVersion = "35"; };
 
   nextcloud-notify_push = callPackage ../servers/nextcloud/notify_push.nix { };
 
@@ -2926,8 +2922,6 @@ with pkgs;
     ssh = openssh;
   };
 
-  phosh = callPackage ../applications/window-managers/phosh { };
-
   phosh-mobile-settings =
     callPackage ../applications/window-managers/phosh/phosh-mobile-settings.nix
       { };
@@ -2967,6 +2961,7 @@ with pkgs;
     pnpm_10_29_2
     pnpm_10
     pnpm_11
+    pnpm_12
     ;
   pnpm = pnpm_11;
 
@@ -4327,6 +4322,7 @@ with pkgs;
 
   rust_1_95 = callPackage ../development/compilers/rust/1_95.nix { };
   rust_1_97 = callPackage ../development/compilers/rust/1_97.nix { };
+  rust_1_98 = callPackage ../development/compilers/rust/1_98.nix { };
   rust = rust_1_95;
 
   mrustc = callPackage ../development/compilers/mrustc { };
@@ -4335,6 +4331,7 @@ with pkgs;
 
   rustPackages_1_95 = rust_1_95.packages.stable;
   rustPackages_1_97 = rust_1_97.packages.stable;
+  rustPackages_1_98 = rust_1_98.packages.stable;
   rustPackages = rustPackages_1_95;
 
   inherit (rustPackages)
@@ -5126,6 +5123,7 @@ with pkgs;
     electron_41-bin
     electron_42-bin
     electron_43-bin
+    electron_44-bin
     ;
 
   inherit (callPackages ../development/tools/electron/chromedriver { })
@@ -5135,6 +5133,7 @@ with pkgs;
     electron-chromedriver_41
     electron-chromedriver_42
     electron-chromedriver_43
+    electron-chromedriver_44
     ;
 
   inherit
@@ -5166,6 +5165,10 @@ with pkgs;
           src = electron-source.electron_43;
           bin = electron_43-bin;
         };
+        electron_44 = getElectronPkg {
+          src = electron-source.electron_44;
+          bin = electron_44-bin;
+        };
       }
     )
     electron_38
@@ -5174,6 +5177,7 @@ with pkgs;
     electron_41
     electron_42
     electron_43
+    electron_44
     ;
   electron = electron_43;
   electron-bin = electron_43-bin;
@@ -6827,8 +6831,6 @@ with pkgs;
 
   # pcre32 seems unused
   pcre-cpp = pcre.override { variant = "cpp"; };
-
-  pcre2 = callPackage ../development/libraries/pcre2 { };
 
   inherit
     (callPackage ../development/libraries/physfs {
@@ -11557,6 +11559,7 @@ with pkgs;
     wordpress_6_8
     wordpress_6_9
     wordpress_7_0
+    wordpress_7_1
     ;
 
   wordpressPackages = recurseIntoAttrs (
