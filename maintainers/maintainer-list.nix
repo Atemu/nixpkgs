@@ -13361,6 +13361,12 @@
     github = "jooooscha";
     githubId = 57965027;
   };
+  joseg313 = {
+    name = "Jose Garcia";
+    email = "501jag3@gmail.com";
+    github = "joseg313";
+    githubId = 215610619;
+  };
   josephschmitt = {
     name = "Joseph Schmitt";
     email = "dev@joe.sh";
@@ -20435,6 +20441,12 @@
     github = "nyukuru";
     email = "nyu@nyuku.ru";
     githubId = 97425873;
+  };
+  nyxar77 = {
+    name = "nyxar77";
+    github = "nyxar77";
+    email = "dev@nyxar.space";
+    githubId = 153492661;
   };
   nyxonios = {
     name = "nyxonios";
@@ -30749,6 +30761,14 @@
     github = "YvesStraten";
     githubId = 65394961;
     name = "Yves Straten";
+  };
+  yvnth = {
+    name = "Yashwanth Prasannakumar";
+    github = "yvnth";
+    githubId = 201552597;
+    email = "yashupress@gmail.com";
+    keys = [ { fingerprint = "D9AA B78D 42E1 4B5C 08C0  C2BE 9012 0221 65D9 7825"; } ];
+    matrix = "@yvnth:matrix.org";
   };
   yzx9 = {
     email = "yuan.zx@outlook.com";
