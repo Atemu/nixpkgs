@@ -11,6 +11,7 @@
   grpcio-tools,
   grpclib,
   httpx,
+  installAgentSkills,
   invoke,
   ipython,
   mypy,
@@ -39,7 +40,7 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "modal";
-  version = "1.5.3";
+  version = "1.5.5";
   pyproject = true;
 
   __structuredAttrs = true;
@@ -48,7 +49,7 @@ buildPythonPackage (finalAttrs: {
     owner = "modal-labs";
     repo = "modal-client";
     tag = "py/v${finalAttrs.version}";
-    hash = "sha256-XVY+RzedSMVug+mZ6pioO5qYbR6gUaD5QJIENIPWgx8=";
+    hash = "sha256-KHk7NWfcp+xN2VHU/k6YLxJRKGUeJR5erXC7DBDgSYo=";
   };
   sourceRoot = "${finalAttrs.src.name}/py";
 
@@ -64,6 +65,7 @@ buildPythonPackage (finalAttrs: {
   ];
 
   nativeBuildInputs = [
+    installAgentSkills
     invoke
     ipython
     grpcio-tools
@@ -110,6 +112,10 @@ buildPythonPackage (finalAttrs: {
     six
     versionCheckHook
   ];
+
+  preInstall = ''
+    rm -rf build/lib/modal/skills
+  '';
 
   disabledTestPaths = [
     # Fail due to not finding /bin/bash

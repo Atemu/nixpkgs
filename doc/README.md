@@ -7,24 +7,26 @@ This directory houses the source files for the Nixpkgs manual.
 > We are actively restructuring our documentation to be more beginner friendly.
 >
 
-When writing new docs use **Progressive Disclosure**
+When writing new docs use **Progressive Disclosure:**
 
-Start simple, pick up beginners.
-Use **examples** first to show how to get something done. Keep **Explanation** lean.
+- Start simple, pick up beginners.
+- Use **examples** first to show how to get something done.
+- Keep **explanation** lean.
 
-Use our [styleguide](./styleguide.md) for more in depth guidance on writing good documentation.
+Use our [style guide](./styleguide.md) for more in depth guidance on writing good documentation.
 
-This directory contains **guides** and **reference** documentation for Nixpkgs.
+Documentation about Nixpkgs belongs here.
+This includes getting started guides and onboarding guides for *using* Nixpkgs and the language frameworks it ships.
 
-Borrowing from [Diátaxis framework](https://diataxis.fr/) what suits our needs:
+Write **guides** task-first: lead with a working example, then explain in prose.
+Write **reference** as the specification of functions and attributes.
 
-**Guides** are task-oriented. They can be tutorial-style walkthroughs or how-to sections.
-Explanations appear as prose after examples.
+We are actively working to generate reference documentation from the [doc-comments](https://github.com/NixOS/rfcs/blob/master/rfcs/0145-doc-strings.md) present in code, which also lets you view it locally with the `:doc` command in `nix repl`, e.g.:
 
-**Reference** documentation is the specification of functions and attributes.
-
-We are actively working to generate **all** reference documentation from the [doc-comments](https://github.com/NixOS/rfcs/blob/master/rfcs/0145-doc-strings.md) present in code.
-This also provides the benefit of using `:doc` in the `nix repl` to view reference documentation locally on the fly.
+```
+nix-repl> :l <nixpkgs>
+nix-repl> :doc lib.mapAttrsToList
+```
 
 See [Document structure](#document-structure) for a structural template.
 
@@ -47,23 +49,23 @@ If the build succeeds, the manual will be in `./result/share/doc/nixpkgs/manual.
 
 ### Development environment
 
-To reduce repetition, consider using tools from the provided development environment:
-
-Load it from the Nixpkgs documentation directory with
+To reduce repetition, consider using tools from the documentation development environment:
 
 ```ShellSession
 $ cd /path/to/nixpkgs/doc
 $ nix-shell
 ```
 
-To load the development utilities automatically when entering that directory, [set up `nix-direnv`](https://nix.dev/guides/recipes/direnv).
+To load the documentation development environment automatically when entering that directory:
 
-Make sure that your local files aren't added to Git history by adding the following lines to `.git/info/exclude` at the root of the Nixpkgs repository:
+1. Install [`nix-direnv`](https://search.nixos.org/packages?channel=unstable&query=nix-direnv#show=nix-direnv)
+1. Set up direnv in the documentation directory:
 
-```
-/**/.envrc
-/**/.direnv
-```
+   ```ShellSession
+   $ cd doc
+   $ echo "use nix" > .envrc
+   $ direnv allow
+   ```
 
 #### Live preview
 
@@ -138,13 +140,11 @@ A few markups for other kinds of literals are also available:
 - `` {env}`XDG_DATA_DIRS` ``
 - `` {file}`/etc/passwd` ``
 - `` {option}`networking.useDHCP` ``
-- `` {var}`/etc/passwd` ``
+- `` {var}`pkgs` ``
+
+The values will be formatted as inline `<code>` elements.
 
 These literal kinds are used mostly in NixOS option documentation.
-
-This syntax is taken from [MyST](https://myst-parser.readthedocs.io/en/latest/syntax/syntax.html#roles-an-in-line-extension-point).
-Though, the feature originates from [reStructuredText](https://www.sphinx-doc.org/en/master/usage/restructuredtext/roles.html#role-manpage) with slightly different syntax.
-They are handled by `myst_role` defined per renderer. <!-- reverse references in code -->
 
 #### Admonitions
 
@@ -168,7 +168,7 @@ The following are supported:
 - `example`
 
 Example admonitions require a title to work.
-If you don't provide one, the manual won't be built.
+If you don't provide one, the manual won't build.
 
 ```markdown
 ::: {.example #ex-showing-an-example}
@@ -184,11 +184,11 @@ Text for the example.
 For defining a group of terms:
 
 ```markdown
-pear
-:   green or yellow bulbous fruit
+Pear
+:   Green or yellow bulbous fruit
 
-watermelon
-:   green fruit with red flesh
+Watermelon
+:   Green fruit with red flesh
 ```
 
 ## Commit conventions
@@ -198,15 +198,15 @@ watermelon
 - If creating a commit purely for documentation changes, format the commit message in the following way:
 
   ```
-  doc: (documentation summary)
+  doc/component: (documentation summary)
 
   (Motivation for change, relevant links, additional information.)
   ```
 
   Examples:
 
-  * doc: update the kernel config documentation to use `nix-shell`
-  * doc: add information about `nix-update-script`
+  * doc/stdenv: update the kernel config documentation to use `nix-shell`
+  * doc/getting-started: add information about `nix-update-script`
 
     Closes #216321.
 
@@ -220,7 +220,7 @@ When needed, each convention explains why it exists, so you can make a decision 
 Note that these conventions are about the **structure** of the manual (and its source files), not about the content that goes in it.
 You, as the writer of documentation, are still in charge of its content.
 
-**For prose style, see the [documentation styleguide](./styleguide.md).**
+**For prose style, see the [documentation style guide](./styleguide.md).**
 
 ### Document structure
 
@@ -290,7 +290,7 @@ When changing existing content, update formatting if possible, but avoid excessi
 
 ### Examples first
 
-Put examples before detailed explanations (see the [styleguide](./styleguide.md) for the rationale).
+Put examples before detailed explanations (see the [style guide](./styleguide.md) for the rationale).
 
 Use this structure for each documented item:
 

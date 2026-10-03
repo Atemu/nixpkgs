@@ -87,6 +87,7 @@ LICENSE_NORMALIZATION = {
     "ISC": "lib.licenses.isc",
     "LGPL": "lib.licenses.free",  # Too unspecific
     "LGPL-2.0": "lib.licenses.lgpl2Only",
+    "LGPL-2.0-only": "lib.licenses.lgpl2Only",
     "LGPL-2.1": "lib.licenses.lgpl21Only",
     "LGPL-3.0": "lib.licenses.lgpl3Only",
     "MIT": "lib.licenses.mit",
@@ -259,6 +260,8 @@ class LuaEditor(nixpkgs_plugin_update.Editor):
             )
             f.write(header2)
             for plugin, nix_expr in results:
+                # Preserved packages also need canonical license metadata.
+                nix_expr = normalize_license_metadata(nix_expr)
                 f.write(f"  {plugin.normalized_name} = {nix_expr}")
             f.write(FOOTER)
             f.flush()

@@ -7,14 +7,14 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "fromager";
-  version = "0.91.0";
+  version = "0.97.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "python-wheel-build";
     repo = "fromager";
     tag = finalAttrs.version;
-    hash = "sha256-N+4DbKNUpQdkJAfr0vwlfXJS8FLLBOXxuzkLoJblJM4=";
+    hash = "sha256-u+avrDFOWhpPMXjY5ZlAprjinkUxY1nUqbGtndrbMkY=";
   };
 
   build-system = with python3Packages; [
@@ -55,14 +55,18 @@ python3Packages.buildPythonApplication (finalAttrs: {
     writableTmpDirAsHomeHook
   ];
 
+  # Some tests launch ignored background requests to placeholder URLs. Avoid
+  # backoff retries: https://github.com/python-wheel-build/fromager/pull/1348
+  env.FROMAGER_HTTP_RETRIES = 0;
+
+  # Tests share repository directories and race during setup:
+  # https://github.com/python-wheel-build/fromager/pull/1349
+  dontUsePytestXdist = true;
+  pytestFlags = [ "--numprocesses=0" ];
+
   pythonImportsCheck = [
     "fromager"
   ];
-
-  # Upstream runs pytest with `--log-level DEBUG`, which this test suite
-  # relies on for caplog assertions against INFO records.
-  # Reported: https://github.com/python-wheel-build/fromager/issues/1274
-  pytestFlags = [ "--log-level=DEBUG" ];
 
   meta = {
     description = "Wheel maker";

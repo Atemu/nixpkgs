@@ -1,27 +1,28 @@
 {
   lib,
-  buildGoModule,
+  buildGo127Module,
   fetchFromGitHub,
   gitUpdater,
   versionCheckHook,
 }:
-
-buildGoModule (finalAttrs: {
+# Temporary until buildGoModule updates to 1.27
+buildGo127Module (finalAttrs: {
   pname = "gopodder";
-  version = "1.2.2";
+  version = "1.2.5";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "cbrgm";
     repo = "gopodder";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-e+d2/1yAhUc88Hn8lAACfK3LGhGiPxQX+FjzNQc6Wqk=";
+    hash = "sha256-oKaAiVFQqVB7ArqrUqWg8nWkygtqDjRotfyBDe0q4pY=";
   };
 
-  vendorHash = "sha256-3SJbVflgwhIw2JmWoKUVjVL8fXWHfYXlm7iI3hYbTpE=";
+  vendorHash = "sha256-MHgh84kzztPLETf3O24lNcfVuOKntKYidczqG8qEyzE=";
+
+  dontPatchELF = true;
 
   ldflags = [
-    "-s"
     "-X main.Version=${finalAttrs.version}"
     "-X main.Revision=${finalAttrs.src.tag}"
     "-X main.BuildDate=1970-01-01"

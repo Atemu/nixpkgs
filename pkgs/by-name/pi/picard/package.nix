@@ -16,7 +16,7 @@
 }:
 
 let
-  # A few more tests fail with python314Pacakges, indicating the code isn't
+  # A few more tests fail with python314Packages, indicating the code isn't
   # ready for it yet.
   pythonPackages = python313Packages;
   pyqt5 = if enablePlayback then pythonPackages.pyqt5-multimedia else pythonPackages.pyqt5;
@@ -25,7 +25,6 @@ pythonPackages.buildPythonApplication (finalAttrs: {
   pname = "picard";
   version = "2.13.3";
   pyproject = true;
-  strictDeps = true;
   __structuredAttrs = true;
 
   src = fetchFromGitHub {

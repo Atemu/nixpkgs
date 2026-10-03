@@ -23,6 +23,7 @@ digestif,,,,,5.3,
 dkjson,,,,,,
 enet,,,,,,ulysseszhan
 etlua,,,,,,ulysseszhan
+fallo,,,,,,mrcjkb
 fennel,,,,,,misterio77
 fidget.nvim,,,,,5.1,mrcjkb
 fifo,,,,,,
@@ -51,7 +52,6 @@ lpeg_patterns,,,,,,
 lpeglabel,,,,1.6.0,,
 lrexlib-gnu,,,,,,
 lrexlib-oniguruma,,,,,,junestepp
-lrexlib-pcre,,,,,,
 lrexlib-pcre2,,,,,,wishstudio
 lrexlib-posix,,,,,,
 lsp-progress.nvim,,,,,5.1,gepbird
@@ -119,7 +119,7 @@ lusc_luv,,,,,,
 lush.nvim,,,https://luarocks.org/dev,,,teto
 luuid,,,,20120509-2,,
 lyaml,,,,,,lblasc
-lz.n,,,,,,mrcjkb
+lz.n,,,,,5.1,mrcjkb
 lze,,,,,,birdee
 lzextras,,,,,,birdee
 lzn-auto-require,,,,,,mrcjkb

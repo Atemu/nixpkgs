@@ -6,7 +6,7 @@
 }:
 buildDotnetModule (finalAttrs: {
   pname = "technitium-dns-server-library";
-  version = "15.4.0";
+  version = "15.5.1";
 
   __structuredAttrs = true;
 
@@ -14,7 +14,7 @@ buildDotnetModule (finalAttrs: {
     owner = "TechnitiumSoftware";
     repo = "TechnitiumLibrary";
     tag = "dns-server-v${finalAttrs.version}";
-    hash = "sha256-h6EXPJTlYatT5IiFrIsZC/LJ5exzAAU8H4DZCimkn7Q=";
+    hash = "sha256-GkHHAXfmT1MUSIG8zsPHBxtpKVSV7KMONLHy00lk10Y=";
   };
 
   dotnet-sdk = dotnetCorePackages.sdk_10_0;
@@ -29,7 +29,7 @@ buildDotnetModule (finalAttrs: {
 
   meta = {
     changelog = "https://github.com/TechnitiumSoftware/DnsServer/blob/master/CHANGELOG.md";
-    description = "Library for Authorative and Recursive DNS server for Privacy and Security";
+    description = "Library for Authoritative and Recursive DNS server for Privacy and Security";
     homepage = "https://github.com/TechnitiumSoftware/DnsServer";
     license = lib.licenses.gpl3Only;
     mainProgram = "technitium-dns-server-library";

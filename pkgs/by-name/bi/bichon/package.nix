@@ -3,7 +3,7 @@
   fetchFromGitHub,
   rustPlatform,
   fetchPnpmDeps,
-  pnpm,
+  pnpm_11,
   pnpmConfigHook,
   nodejs,
   openssl,
@@ -11,22 +11,26 @@
   versionCheckHook,
   nix-update-script,
 }:
+let
+  pnpm = pnpm_11;
+in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "bichon";
-  version = "1.6.2";
+  version = "2.0.3";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "rustmailer";
     repo = "bichon";
     tag = finalAttrs.version;
-    hash = "sha256-a8BAO93eI2eiFwmvMqUsgL1KZ11X3qg/r/Iw6ckMSTs=";
+    hash = "sha256-8d2fSiG4hGhrhhRpWD8Z2Q8OPz1PejIwf4DkdvUPbmU=";
   };
 
-  cargoHash = "sha256-GC/2bswme76bAFRCsBHFi3lWnYx5x5H58emCmkiyKfE=";
+  cargoHash = "sha256-FWGtGHyJU5Z9lRZ/MiIroYHtKiwO38bV2ypLR+U1TeI=";
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
+    inherit pnpm;
     sourceRoot = "${finalAttrs.src.name}/web";
     fetcherVersion = 4;
     hash = "sha256-Ax8z1sjt8v6XOenhw7eRuEEo0huPv9fbcfzqc8RxJEc=";

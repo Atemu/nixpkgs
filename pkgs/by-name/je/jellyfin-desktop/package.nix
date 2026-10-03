@@ -63,14 +63,12 @@ stdenv.mkDerivation (finalAttrs: {
   qtWrapperArgs = [
     "--set QT_STYLE_OVERRIDE Fusion"
     "--set NIX_SSL_CERT_FILE ${cacert}/etc/ssl/certs/ca-bundle.crt"
-    # Disable hardware acceleration to fix severe flickering in video playback.
-    "--set-default QTWEBENGINE_FORCE_USE_GBM 0"
   ];
 
   postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
     mkdir -p $out/bin $out/Applications
     mv "$out/Jellyfin Desktop.app" $out/Applications
-    ln -s "$out/Applications/Jellyfin Desktop.app/Contents/MacOS/Jellyfin Desktop" $out/bin/jellyfindesktop
+    ln -s "$out/Applications/Jellyfin Desktop.app/Contents/MacOS/Jellyfin Desktop" $out/bin/jellyfin-desktop
   '';
 
   passthru.updateScript = nix-update-script { };

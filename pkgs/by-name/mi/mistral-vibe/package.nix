@@ -13,7 +13,7 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "mistral-vibe";
-  version = "2.23.1";
+  version = "2.25.0";
   pyproject = true;
   __structuredAttrs = true;
 
@@ -21,7 +21,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     owner = "mistralai";
     repo = "mistral-vibe";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-WEyzBhkqh/B4NZD8tKoRkQGrw/85xVCftFyRamlMaYg=";
+    hash = "sha256-vwlN4VdyVhaALT8Ob233Lcc7261teCD7jyfn8uiH0MA=";
   };
 
   build-system = with python3Packages; [
@@ -101,9 +101,11 @@ python3Packages.buildPythonApplication (finalAttrs: {
       pyyaml
       referencing
       requests
+      rfc8785
       rich
       rpds-py
       sentry-sdk
+      setproctitle
       six
       smmap
       sounddevice
@@ -149,12 +151,16 @@ python3Packages.buildPythonApplication (finalAttrs: {
   versionCheckKeepEnvironment = [ "HOME" ];
 
   disabledTests = [
+    # The finite stdio input closes before all responses are flushed in the sandbox.
+    "test_stdio_server_uses_the_same_json_rpc_lifecycle"
+
+    # AssertionError: assert <MCPSourceStatus.UNAVAILABLE: 'unavailable'> is <MCPSourceStatus.ENABLED: 'enabled'>
+    "test_mcp_catalog_read_refresh_toggle_remove_and_compatibility_aliases"
+
     # vibe is spawned in a sub-process and fails to import `mcp`
     # ModuleNotFoundError: No module named 'mcp'
-    "TestMCPConnectionPoolIntegration"
-
-    # AssertionError: assert '32:2617357:1782120467963161870:7' != '32:2617357:1782120467963161870:7'
-    "test_changes_when_file_changes"
+    "test_aclose_terminates_real_subprocess"
+    "test_persists_real_subprocess_state_across_calls"
 
     # vibe.core.llm.exceptions.BackendError: LLM backend error [mock-provider]
     # reason: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Missing Authority Key Identifier (_ssl.c:1032)
@@ -165,47 +171,10 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
     # TypeError: cannot pickle 'itertools.count' object (Python 3.14 compatibility)
     "test_orchestrator_deepcopies_and_stays_functional"
-
-    # Fail in the sandbox
-    # vibe.core.audio_recorder.audio_recorder_port.NoAudioInputDeviceError: No audio input device available
-    "test_audio_stream_yields_chunks"
-    "test_auto_stops_after_max_duration"
-    "test_buffer_mode_audio_stream_yields_nothing"
-    "test_callback_feeds_audio_data"
-    "test_callback_pads_silence_at_end"
-    "test_can_play_multiple_times"
-    "test_can_record_multiple_times"
-    "test_cancel_discards_audio"
-    "test_creates_stream_with_correct_params"
-    "test_finished_callback_resets_state"
-    "test_manual_stop_prevents_on_expire"
-    "test_on_expire_receives_audio"
-    "test_on_finished_called_after_natural_completion"
-    "test_peak_clamps_to_one"
-    "test_peak_updates_from_callback"
-    "test_play_sets_playing_state"
-    "test_play_when_already_playing_raises"
-    "test_silent_audio_has_zero_peak"
-    "test_start_sets_recording_state"
-    "test_start_when_already_recording_raises"
-    "test_stop_closes_stream"
-    "test_stop_from_event_loop_does_not_block"
-    "test_stop_returns_empty_data_in_stream_mode"
-    "test_stop_returns_positive_duration"
-    "test_stop_returns_valid_wav"
-    "test_stop_triggers_on_finished_via_callback"
-    "test_stop_without_drain_returns_promptly"
-    "test_stream_audio_does_not_leak_into_buffer_recording"
-    "test_unsupported_format_raises"
-
-    # AssertionError: assert True is False
-    #  +  where True = VibeApp(title='VibeApp', ...)._rewind_mode
-    "test_rewind_confirm_edits_message_and_prefills_input"
-    "test_rewind_option_selection_with_number_keys"
-
-    # AssertionError: assert 3 == 1
-    # +  where 3 = len([UserMessage(classes='user-message'), UserMessage(classes='...
-    "test_rewind_removes_messages_after_selected"
+  ]
+  ++ lib.optionals (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64) [
+    # AssertionError: Timed out waiting for UI state
+    "test_rewind_preview_error_does_not_fail_worker"
   ]
   ++ lib.optionals stdenv.hostPlatform.isDarwin [
     # AssertionError
@@ -219,14 +188,21 @@ python3Packages.buildPythonApplication (finalAttrs: {
   ];
 
   disabledTestPaths = [
-    # This tests the install_script and fails. This is not relevant for nixpkgs.
-    "tests/test_install_script.py"
-
-    # All snapshot tests fail with AssertionError
+    # All snapshot tests use syrupy 4.8.0, which is not packaged here.
     "tests/snapshots/"
 
-    # Try to invoke `uv run vibe`
-    "tests/e2e/"
+    # These tests invoke uv run and fail to import the packaged pydantic extension.
+    "tests/e2e/agent_loop_characterization/test_resume.py"
+    "tests/e2e/agent_loop_characterization/test_subagents.py"
+    "tests/e2e/agent_loop_characterization/test_tool_execution.py"
+    "tests/e2e/agent_loop_characterization/test_tool_permissions.py"
+    "tests/e2e/agent_loop_characterization/test_user_interaction.py"
+    "tests/e2e/test_cli_tui_fresh_install.py"
+    "tests/e2e/test_cli_tui_hooks.py"
+    "tests/e2e/test_cli_tui_onboarding.py"
+    "tests/e2e/test_cli_tui_session_exit.py"
+    "tests/e2e/test_cli_tui_streaming.py"
+    "tests/e2e/test_cli_tui_tool_approval.py"
 
     # ACP tests require network access
     "tests/acp/test_acp_entrypoint_smoke.py"

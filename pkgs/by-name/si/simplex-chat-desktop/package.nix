@@ -7,16 +7,16 @@
 
 let
   pname = "simplex-chat-desktop";
-  version = "6.5.6";
+  version = "7.0.2";
 
   sources = {
     "aarch64-linux" = fetchurl {
       url = "https://github.com/simplex-chat/simplex-chat/releases/download/v${version}/simplex-desktop-aarch64.AppImage";
-      hash = "sha256-2RFBH4o9Y/zaLQg8eHzDOzQDE6zXnYKLaesJol5lgh4=";
+      hash = "sha256-VNQaDtd32pFIkSILxuUKFjsfns5SLOqpY0W4bWK7iKs=";
     };
     "x86_64-linux" = fetchurl {
       url = "https://github.com/simplex-chat/simplex-chat/releases/download/v${version}/simplex-desktop-x86_64.AppImage";
-      hash = "sha256-p4Wa/IP0+8O11meRt3ZSUeh040fhKLMVjDhqtxXOneU=";
+      hash = "sha256-hYf5f1F4u4fvxWsmHAHJhSh5QdTNzfdADptotlsXEcE=";
     };
   };
 

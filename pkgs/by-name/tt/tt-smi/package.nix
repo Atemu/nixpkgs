@@ -8,7 +8,7 @@
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "tt-smi";
-  version = "6.1.0";
+  version = "6.6.0";
   pyproject = true;
   __structuredAttrs = true;
 
@@ -16,12 +16,10 @@ python3Packages.buildPythonApplication (finalAttrs: {
     owner = "tenstorrent";
     repo = "tt-smi";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-6dh0f2Unlmmk5IOWlf7hKIrENRvubqfVTLmBIwPfI28=";
+    hash = "sha256-EQqfjMQXU3TVigc6lGPNbI5uF3oP585Us/HXI/VzY1o=";
   };
 
-  build-system = with python3Packages; [
-    setuptools
-  ];
+  build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
     distro
@@ -40,9 +38,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   pythonRelaxDeps = [ "tt-umd" ];
 
-  nativeCheckInputs = [
-    versionCheckHook
-  ];
+  nativeCheckInputs = [ versionCheckHook ];
 
   # Fails due to having no tests
   dontUsePytestCheck = true;

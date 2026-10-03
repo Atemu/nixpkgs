@@ -1,6 +1,7 @@
 # do not add pkgs, it messes up splicing
 {
   stdenv,
+  config,
   cargo,
   cmake,
 
@@ -44,7 +45,6 @@
   oniguruma,
   openldap,
   openssl,
-  pcre,
   pcre2,
   pkg-config,
   readline,
@@ -97,6 +97,12 @@ in
   });
 
   cjson = prev.lua-cjson;
+
+  cosmo = prev.cosmo.overrideAttrs (old: {
+    meta = (old.meta or { }) // {
+      homepage = "https://github.com/mascarenhas/cosmo";
+    };
+  });
 
   cqueues = prev.cqueues.overrideAttrs (old: {
     # Parse out a version number without the Lua version inserted
@@ -274,6 +280,10 @@ in
       final.bustedCheckHook
       writableTmpDirAsHomeHook
     ];
+
+    preCheck = ''
+      LUA_PATH="${vimPlugins.nvim-dap}/lua/?.lua;${vimPlugins.nvim-dap}/lua/?/init.lua;$LUA_PATH"
+    '';
   };
 
   ldbus = prev.ldbus.overrideAttrs (old: {
@@ -344,6 +354,7 @@ in
     '';
     meta = (old.meta or { }) // {
       broken = luaOlder "5.1" || luaAtLeast "5.3";
+      homepage = "https://github.com/justincormack/ljsyscall";
     };
 
     propagatedBuildInputs = old.propagatedBuildInputs ++ lib.optional (!isLuaJIT) final.luaffi;
@@ -423,15 +434,6 @@ in
       {
         name = "ONIG";
         dep = oniguruma;
-      }
-    ];
-  };
-
-  lrexlib-pcre = prev.lrexlib-pcre.overrideAttrs {
-    externalDeps = [
-      {
-        name = "PCRE";
-        dep = pcre;
       }
     ];
   };
@@ -716,7 +718,6 @@ in
     ];
     propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [
       final.bit32
-      final.std-normalize
     ];
   });
 
@@ -948,8 +949,12 @@ in
 
     # patchShebang removes the nvim in nlua's shebang so we hardcode one
     postFixup = ''
-      sed -i -e "1 s|.*|#\!${coreutils}/bin/env -S ${neovim-unwrapped}/bin/nvim -l|" "$out/bin/nlua"
+      substituteInPlace "$out/bin/nlua" \
+        --replace-fail \
+        "#!/usr/bin/env -S nvim" \
+        "#!${coreutils}/bin/env -S ${neovim-unwrapped}/bin/nvim"
     '';
+
     dontPatchShebangs = true;
   };
 
@@ -1312,6 +1317,7 @@ in
 
   vicious = prev.vicious.overrideAttrs (old: {
     meta = (old.meta or { }) // {
+      homepage = "https://vicious.readthedocs.io/";
       changelog = "https://github.com/vicious-widgets/vicious/blob/v${old.version}/CHANGELOG.rst";
       maintainers = with lib.maintainers; [
         makefu
@@ -1343,4 +1349,7 @@ in
   });
 
   # keep-sorted end
+}
+// lib.optionalAttrs config.allowAliases {
+  lrexlib-pcre = throw "lrexlib-pcre was removed as the PCRE library is end-of-life"; # added 2026-08-03
 }

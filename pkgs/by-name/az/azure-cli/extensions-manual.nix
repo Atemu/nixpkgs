@@ -125,9 +125,9 @@
 
   azure-devops = mkAzExtension rec {
     pname = "azure-devops";
-    version = "1.0.6";
+    version = "1.0.8";
     url = "https://github.com/Azure/azure-cli-extensions/releases/download/azure-devops-${version}/azure_devops-${version}-py2.py3-none-any.whl";
-    hash = "sha256-+neeH9bm4bcmw2VrahloU3wggEHGr1TSp0dnctiWs0s=";
+    hash = "sha256-uQzJx2TLZrBj6LXUBxY/PnqUS7UM9d18SC9K4Zj5Nk4=";
     description = "Tools for managing Azure DevOps";
     propagatedBuildInputs = with python3Packages; [ distro ];
     meta.maintainers = with lib.maintainers; [ katexochen ];
@@ -174,9 +174,9 @@
 
   confcom = mkAzExtension rec {
     pname = "confcom";
-    version = "2.1.0";
+    version = "2.1.1";
     url = "https://azcliprod.blob.core.windows.net/cli-extensions/confcom-${version}-py3-none-any.whl";
-    hash = "sha256-mcUYTxpjounvP2500nFgXF+WKERJdLuYXb6zt31v4NA=";
+    hash = "sha256-e8nZmjSoEuU3mjQdFfQlHjHuglNk/YTgVmj40+A40E8=";
     description = "Microsoft Azure Command-Line Tools Confidential Container Security Policy Generator Extension";
     nativeBuildInputs = [ autoPatchelfHook ];
     buildInputs = [ openssl ];
@@ -345,9 +345,9 @@
 
   vm-repair = mkAzExtension rec {
     pname = "vm-repair";
-    version = "2.2.1";
+    version = "2.2.4";
     url = "https://azcliprod.blob.core.windows.net/cli-extensions/vm_repair-${version}-py2.py3-none-any.whl";
-    hash = "sha256-k/6ATtYT2YXaHm5nbb0Tf7xE98Oz9svRlbjodCOOuo8=";
+    hash = "sha256-djy5dRspJAn2Rh684RYgnmKXy3RYNe2dbvsLShgvaVc=";
     description = "Support for repairing Azure Virtual Machines";
     propagatedBuildInputs = with python3Packages; [ opencensus ];
     meta.maintainers = [ ];

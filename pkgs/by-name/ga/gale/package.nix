@@ -38,13 +38,13 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "gale";
-  version = "1.19.2";
+  version = "1.22.3";
 
   src = fetchFromGitHub {
     owner = "Kesomannen";
     repo = "gale";
     tag = finalAttrs.version;
-    hash = "sha256-L3w9XKIeZik2+ezdNk1DDch6c613qiXhxNHqgU6lZoQ=";
+    hash = "sha256-RaRImkh9lxNYVEjZVGY2iAwhk85qKVZzKg4GnffWDWo=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -56,7 +56,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       ;
     pnpm = pnpm_10;
     fetcherVersion = 3;
-    hash = "sha256-/IR+34cdnCt9WpYdMaT92YIC/2JjEe/mZdeQewdWTek=";
+    hash = "sha256-Duwy8cKOnMT8s0SWrxiBvkK/v1s9En0i+7z4NuY/m9E=";
   };
 
   postPatch = ''
@@ -70,7 +70,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoRoot = "src-tauri";
   buildAndTestSubdir = finalAttrs.cargoRoot;
 
-  cargoHash = "sha256-qZCKaVcmgFZJ2s/fyGKqgLJS5kGziaBjrTa3QIvjkPM=";
+  cargoHash = "sha256-oyRZ+gVcvu2clCIgntYrOtW36iz3jnylot8LHC2h/OA=";
 
   checkFlags = [
     "--skip=config::bepinex::tests::check_from_string" # Fails a left == right check, even with left and right data being identical

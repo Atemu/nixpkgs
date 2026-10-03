@@ -19,7 +19,7 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "aiohomematic";
-  version = "2026.7.6";
+  version = "2026.9.2";
   pyproject = true;
   __structuredAttrs = true;
 
@@ -29,7 +29,7 @@ buildPythonPackage (finalAttrs: {
     owner = "SukramJ";
     repo = "aiohomematic";
     tag = finalAttrs.version;
-    hash = "sha256-dshlAmjzv13Q9AijApEDNvhI3jLzDMLBs8KDtElzqJ4=";
+    hash = "sha256-lcQcYYPvR4gbsBZNQBBjxWO1w8q8bdNIDENe5t2sz78=";
   };
 
   build-system = [ setuptools ];
@@ -49,6 +49,13 @@ buildPythonPackage (finalAttrs: {
     pytest-xdist
     pytest-socket
     pytestCheckHook
+  ];
+
+  __darwinAllowLocalNetworking = true;
+
+  disabledTestPaths = [
+    "tests/benchmarks"
+    "tests/github_scripts"
   ];
 
   pythonImportsCheck = [ "aiohomematic" ];

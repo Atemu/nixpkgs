@@ -19,7 +19,6 @@
   python3,
   util-linux,
   which,
-  whoami,
 
   # run-time
   boost,
@@ -98,7 +97,6 @@ stdenv.mkDerivation (finalAttrs: {
     perl
     pkg-config
     which
-    whoami
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [
     util-linux # rev, and possibly others
@@ -135,6 +133,7 @@ stdenv.mkDerivation (finalAttrs: {
     NIX_CFLAGS_COMPILE = toString [
       "-Wno-error=stringop-overflow"
       "-Wno-error=unterminated-string-initialization"
+      "-Wno-error=discarded-qualifiers"
     ];
   };
 

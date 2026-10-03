@@ -94,6 +94,7 @@
   pytest-factoryboy,
   pytest-flask,
   mock,
+  py7zr,
   rarfile,
   responses,
   requests-mock,
@@ -114,12 +115,12 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "beets";
-  version = "2.13.1";
+  version = "2.14.1";
   src = fetchFromGitHub {
     owner = "beetbox";
     repo = "beets";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-f25Uv7PRKBFUWah6pvEwwTFjxXKQfmAP2fyTNFJyWB0=";
+    hash = "sha256-elKifMiy0uYPkoIVedqpL7QSjLBKIHz5CIEylVmsTxk=";
   };
   pyproject = true;
 
@@ -185,6 +186,7 @@ buildPythonPackage (finalAttrs: {
     pytest-factoryboy
     pytest-flask
     mock
+    py7zr
     rarfile
     responses
     requests-mock
@@ -198,15 +200,13 @@ buildPythonPackage (finalAttrs: {
 
   __darwinAllowLocalNetworking = true;
 
-  disabledTestPaths =
-    finalAttrs.finalPackage.passthru.plugins.disabledTestPaths
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      # Flaky: several tests fail randomly with:
-      # if not self._poll(timeout):
-      #   raise Empty
-      #   _queue.Empty
-      "test/plugins/test_bpd.py"
-    ];
+  disabledTestPaths = finalAttrs.finalPackage.passthru.plugins.disabledTestPaths ++ [
+    # Flaky: several tests fail randomly with:
+    # if not self._poll(timeout):
+    #   raise Empty
+    #   _queue.Empty
+    "test/plugins/test_bpd.py"
+  ];
   disabledTests = extraDisabledTests ++ [
     # touches network
     "test_merge_duplicate_album"

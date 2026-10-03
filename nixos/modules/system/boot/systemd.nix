@@ -259,27 +259,7 @@ in
 
   options.systemd = {
 
-    package = mkPackageOption pkgs "systemd" { } // {
-      # audit 4.2 rejects overlong values (max 15 bytes) for the kernel comm.
-      # systemd attempts to send the full 19 bytes of "systemd-update-utmp",
-      # and the systemd-update-utmp service fails to start. this patch shortens
-      # the kernel comm entry to "update-utmp".
-      # TODO: revert on staging when updating to audit 4.2.1
-      # original commit: https://github.com/linux-audit/audit-userspace/commit/d7ea98263ebdb974b383a4057856a5ec339776fc
-      # switch to truncate: https://github.com/linux-audit/audit-userspace/commit/d7ea98263ebdb974b383a4057856a5ec339776fc
-      # systemd pr: https://github.com/systemd/systemd/pull/43144
-      apply =
-        pkg:
-        pkg.overrideAttrs (prevAttrs: {
-          patches = prevAttrs.patches or [ ] ++ [
-            (pkgs.fetchpatch {
-              name = "systemd-update-utmp-shorten-comm.patch";
-              url = "https://github.com/systemd/systemd/commit/b8968c492108506952ab2748c4a44ce32fc9477c.patch";
-              hash = "sha256-d0rMssj1+cDw3+KOk8ecjqIIuBhjDixIH+7MJfC+I+M=";
-            })
-          ];
-        });
-    };
+    package = mkPackageOption pkgs "systemd" { };
 
     enableStrictShellChecks = mkEnableOption "" // {
       description = ''
@@ -840,6 +820,10 @@ in
     systemd.services.systemd-random-seed.restartIfChanged = false;
     systemd.services.systemd-remount-fs.restartIfChanged = false;
     systemd.services.systemd-update-utmp.restartIfChanged = false;
+    # `systemd-bless-boot good` fails once the current boot has been blessed.
+    systemd.services.systemd-bless-boot = lib.mkIf cfg.package.withBootloader {
+      restartIfChanged = false;
+    };
     systemd.targets.local-fs.unitConfig.X-StopOnReconfiguration = true;
     systemd.targets.remote-fs.unitConfig.X-StopOnReconfiguration = true;
     systemd.services.systemd-importd = lib.mkIf cfg.package.withImportd {

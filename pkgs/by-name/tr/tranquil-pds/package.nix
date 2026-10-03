@@ -1,6 +1,6 @@
 {
   lib,
-  fetchgit,
+  fetchFromTangled,
   rustPlatform,
   pkg-config,
   openssl,
@@ -10,15 +10,15 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "tranquil-pds";
-  version = "0.6.6";
+  version = "0.6.7";
 
-  src = fetchgit {
-    url = "https://tangled.org/tranquil.farm/tranquil-pds";
+  src = fetchFromTangled {
+    did = "did:plc:jj6ajj6duxnlthwtnob4qyuv";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-cfTsjmK/IMqT5kMKOGpwwWbBlvtrCDOerUJJ8AVI3kY=";
+    hash = "sha256-bhG5ydQZ9nHXQSlrM2jZaUpEP8ZW3Xx6r5O83vLDf8k=";
   };
 
-  cargoHash = "sha256-5TcKzwcElPweuWqVh7qWvCkzA021AYRuRafNDlXbffw=";
+  cargoHash = "sha256-kdmWV4O8iP6TLwZYH8oQvndQsB9nOlkLzYAgertiXOw=";
 
   __structuredAttrs = true;
 

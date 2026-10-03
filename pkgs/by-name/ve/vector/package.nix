@@ -28,16 +28,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "vector";
-  version = "0.57.0";
+  version = "0.58.0";
 
   src = fetchFromGitHub {
     owner = "vectordotdev";
     repo = "vector";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-x4yfC/qAMRM7X19usonsp8GSJHwIsn0zoX0owLn2EXs=";
+    hash = "sha256-H/bSlSWdNN94uCP0tpjyf/VEdoCb/PUALTknT/UNdfg=";
   };
 
-  cargoHash = "sha256-H26tUF+i/79t7W2BVjh2bVRCGZK8rgazHzlTF4L2jyA=";
+  cargoHash = "sha256-HRf4sBVx8vVkDfxeVsI2Z4J6OurIolqX0oCB+nxShRs=";
 
   nativeBuildInputs = [
     pkg-config
@@ -86,6 +86,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
     CARGO_PROFILE_RELEASE_CODEGEN_UNITS = "1";
   };
 
+  # Fix rust 1.98 compatibility
+  postPatch = ''
+    substituteInPlace src/trace.rs --replace-fail 'use futures::StreamExt as _;' ""
+  '';
+
   doCheck = true;
   checkType = "debug";
 
@@ -120,7 +125,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=sources::journald::tests::parses_string_sequences"
     "--skip=sources::journald::tests::reads_journal"
 
-    # No multicast access avaiable in sandbox
+    # No multicast access available in sandbox
     "--skip=sources::socket::test::multicast_and_unicast_udp_message"
     "--skip=sources::socket::test::multicast_udp_message"
     "--skip=sources::socket::test::multiple_multicast_addresses_udp_message"

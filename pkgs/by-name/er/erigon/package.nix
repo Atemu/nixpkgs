@@ -8,17 +8,17 @@
 
 buildGoModule (finalAttrs: {
   pname = "erigon";
-  version = "3.5.0";
+  version = "3.6.1";
 
   src = fetchFromGitHub {
     owner = "erigontech";
     repo = "erigon";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Fpu7+E5g4U0lVQ33upHPe2AFCz9Y0h+MZyJMUHzISGs=";
+    hash = "sha256-54ME/ssXM/wi8UQu08q0phDq9n2/wozKV7qgVHozuT8=";
     fetchSubmodules = true;
   };
 
-  vendorHash = "sha256-+FF4L6o8gPhbFF7EXumalmz/qVQOzNcIgfek9QEYEdA=";
+  vendorHash = "sha256-kedZWMfpI33SQQvfv+HsonxkD9OBKqG1vtCDQec1Crg=";
   proxyVendor = true;
 
   subPackages = [
@@ -38,15 +38,15 @@ buildGoModule (finalAttrs: {
     # > Some binaries contain forbidden references to /build/.
     #
     # If we need it in the future, we should consider packaging silkworm and silkworm-go
-    # as depenedencies explicitly.
+    # as dependencies explicitly.
     "nosilkworm"
   ];
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
-      # avoid testing‐releases
+      # avoid testing‐releases; erigon tags are v-prefixed
       "--version-regex"
-      "^(\\d+\\.\\d+\\.\\d+)$"
+      "^v?(\\d+\\.\\d+\\.\\d+)$"
     ];
   };
 

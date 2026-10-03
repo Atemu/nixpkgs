@@ -15,16 +15,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "sequoia-sq";
-  version = "1.4.0";
+  version = "1.4.1";
 
   src = fetchFromGitLab {
     owner = "sequoia-pgp";
     repo = "sequoia-sq";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-+6QVRp0zDJIIv23YlAI/cspHuGc+YcWdPfJZIOxQRW8=";
+    hash = "sha256-sBmaSIzeDj5LHyS6zb46TXHH1mGidWFIs/RH6iu+TRY=";
   };
 
-  cargoHash = "sha256-I6hPpRpILV+iU9erfVBQOXuICx4IvWvGyHWdep7jRm4=";
+  cargoHash = "sha256-OLlQFm+uLjL13+2NZjXVB8htl7FzRPDbrB5D4uH1AY4=";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -76,7 +76,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     changelog = "https://gitlab.com/sequoia-pgp/sequoia-sq/-/blob/v${finalAttrs.version}/NEWS";
     license = lib.licenses.lgpl2Plus;
     maintainers = with lib.maintainers; [
-      minijackson
       doronbehar
       dvn0
       anish

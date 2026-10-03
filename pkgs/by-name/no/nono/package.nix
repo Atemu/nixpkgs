@@ -15,7 +15,7 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "nono";
-  version = "0.68.0";
+  version = "0.74.0";
 
   __darwinAllowLocalNetworking = true; # required for tests
 
@@ -23,9 +23,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "nolabs-ai";
     repo = "nono";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-RxVYatzKjv6LJ+M4Js+sTvg0hMnovXxtr6WxwFYF16Y=";
+    hash = "sha256-Njfs0kkoNj3VjLd6ziz5WAgI+HLMZ+djqxjbXabEdzg=";
   };
-  cargoHash = "sha256-9gMhW2qt5gbf6x/uPLc4vl3rn6UdneoxRmWpeRqI4V0=";
+  cargoHash = "sha256-+JLE0hBmsxqDnTwkFRVxphA6HdA/EgkWHIAJiExsxp4=";
 
   nativeBuildInputs = [
     pkg-config
@@ -46,17 +46,26 @@ rustPlatform.buildRustPackage (finalAttrs: {
       "test_all_profiles_signal_mode_resolves"
       "test_restrict_execute_does_not_break_rename_into_new_subdir"
       # panic
-      "build_run_profile_patch_adds_override_deny_for_sensitive_file"
       "build_run_profile_patch_merges_read_and_write_to_allow_file"
       "prepare_profile_save_from_patch_updates_existing_user_profile"
-      "would_shadow_builtin_allows_update_of_existing_user_override"
-      "would_shadow_builtin_flags_known_builtin_names"
       "create_audit_state_creates_session_when_enabled"
 
       # audit_attestation
       # needs /bin/pwd
       "audit_verify_reports_signed_attestation_with_pinned_public_key"
       "rollback_signed_session_verifies_from_audit_dir_bundle"
+
+      # audit_ledger
+      # needs /bin/pwd
+      "corrupt_audit_ledger_downgrades_only_a_clean_exit"
+      "corrupt_audit_ledger_is_reported_on_every_run_and_left_untouched"
+
+      # execution_strategy_run
+      # needs /usr/bin/env
+      "direct_workdir_overrides_untrusted_host_pwd"
+      "direct_workdir_sets_child_pwd_from_uncovered_launch_dir"
+      "supervised_workdir_overrides_untrusted_host_pwd"
+      "supervised_workdir_sets_child_pwd_from_uncovered_launch_dir"
 
       # nono-cli
       # wants a script `scripts/test-list-aliases.sh`, `git`, and `.git` history
@@ -95,6 +104,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
       "server::tests::reactive_proxy_auth_retry_answered_after_407"
       "server::tests::test_oauth_capture_routes_activate_intercept"
       "server::tests::test_route_diagnostics_groups_credential_and_endpoint_routes"
+
+      # nono's ELF dependency resolution cannot find `libc.so.6` for libgcc_s.so.1
+      # command_policies are broken on nixos without this support
+      "command_policies_allows_compiled_binary_exec_in_writable_grant_dir"
+      "command_policies_allows_script_exec_in_writable_grant_dir"
     ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       # panics with "exact-path fallback must not recursively cover descendants"
@@ -104,15 +118,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
       # wants access to /var/folders
       "sandbox_state::cap_file_validation_tests::test_acceptable_temp_roots_includes_var_folders_on_macos"
       "sandbox_state::cap_file_validation_tests::test_validate_rejects_path_outside_temp"
-      # don't work inside of the /nix dir
-      # unsure why home is still under /nix with writableTmpDirAsHomeHook
+      # doesn't work inside of the /nix dir, which build-dir is under
       "deprecated_override_deny_flag_emits_single_warning_on_stderr"
       "deprecated_override_deny_flag_warning_is_emitted_once_for_multiple_uses"
       "override_deny_alias_and_bypass_protection_merge_in_argv_order"
+      "shell_dry_run_rejects_block_net_with_upstream_proxy"
+      "run_launch_plan_rejects_block_net_with_upstream_proxy"
+      "why_self_reports_active_profile_deny_before_covering_allow"
 
       # env_vars
-      # don't work inside of the /nix dir
-      # unsure why home is still under /nix with writableTmpDirAsHomeHook
+      # doesn't work inside of the /nix dir, which build-dir is under
       # Sandbox initialization failed: Refusing to grant '/nix' (source: group:system_read_macos) because it overlaps protected nono state root '/nix/build/nix-<ID>/.home/.nono'.
       "allow_net_overrides_profile_external_proxy"
       "cli_flag_overrides_env_var"
@@ -131,11 +146,19 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
       "tool_sandbox::macos::tests::executable_shape_baseline_grants_env_shebang_target_interpreter"
       "tool_sandbox::macos::tests::macos_runtime_baseline_does_not_grant_system_volumes_data"
+      "tool_sandbox::macos::tests::daemon_pid_lineage_attributes_when_helper_names_the_daemon"
+      "tool_sandbox::macos::tests::daemon_pid_lineage_cache_prunes_dead_entries"
+      "tool_sandbox::macos::tests::daemon_pid_lineage_denies_when_helper_names_a_different_pid"
+      "tool_sandbox::macos::tests::run_daemon_pid_source_verify_mode_round_trips_candidate_pid"
       "env_nono_capability_elevation_accepts_truthy"
       "env_nono_trust_override_accepts_truthy"
       "env_nono_trust_proxy_ca_accepts_truthy"
       "dry_run_does_not_modify_workspace"
       "rollback_restores_file_after_write"
+
+      # `git init` intermittently fails with ENOENT, most likely because a
+      # concurrent test mutates PATH under the shared env lock
+      "tool_sandbox::dynamic_providers::tests::git_read_main_worktree_returns_main_repo_root_in_linked_worktree"
     ]
   );
 

@@ -5,22 +5,24 @@
   rustPlatform,
   gitMinimal,
   installShellFiles,
+  installAgentSkills,
   versionCheckHook,
+  writableTmpDirAsHomeHook,
   nix-update-script,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "worktrunk";
-  version = "0.68.0";
+  version = "0.74.0";
 
   src = fetchFromGitHub {
     owner = "max-sixty";
     repo = "worktrunk";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-4mxWRNNrpM5Fo49Xm8ypzBS15Y8kPPFd1iPod1RwxjA=";
+    hash = "sha256-uSGGnQ8VmkbSuy8RrdRXEc4thNTlXfdsIolp2wWrGAk=";
   };
 
-  cargoHash = "sha256-ZEv3peP/mjDDWYw4LNuhIt8I806W/yfUKtEA7e3t7rA=";
+  cargoHash = "sha256-Py/zcsUHT9IGjRDbTntwTaQ9G60auZKVD9G/16bRFuI=";
 
   cargoBuildFlags = [ "--package=worktrunk" ];
 
@@ -30,21 +32,23 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   nativeBuildInputs = [
     installShellFiles
+    installAgentSkills
+    # wt reads config from $HOME when generating completions
+    writableTmpDirAsHomeHook
   ];
 
-  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-    # wt reads config from $HOME; provide a throwaway dir so it doesn't fail.
-    export HOME="$(mktemp -d)"
+  dontInstallAgentSkills = true;
 
+  postInstall = ''
+    installSkill skills/worktrunk worktrunk
+    installSkill skills/wt-switch-create worktrunk
+  ''
+  + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd wt \
       --bash <($out/bin/wt config shell completions bash) \
       --fish <($out/bin/wt config shell completions fish) \
       --nushell <($out/bin/wt config shell completions nu) \
       --zsh <($out/bin/wt config shell completions zsh)
-
-    # -L dereferences symlinks (e.g. skills/worktrunk/reference/README.md → repo
-    # root), so no dangling symlinks end up in $out.
-    cp -RL ${finalAttrs.src}/skills $out/
   '';
 
   nativeCheckInputs = [ gitMinimal ];

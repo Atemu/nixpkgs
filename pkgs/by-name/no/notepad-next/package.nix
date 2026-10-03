@@ -37,13 +37,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "notepad-next";
-  version = "0.14";
+  version = "0.15";
 
   src = fetchFromGitHub {
     owner = "dail8859";
     repo = "NotepadNext";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-XVwB8y3SrVmw0/PhvkpUDirm4QZ4ltKjDcyJOdS+1CU=";
+    hash = "sha256-FqmeB8hEL4STgOoaJD7uZOXNAwiuk/PK+0+UW8eBNAM=";
     # External dependencies - https://github.com/dail8859/NotepadNext/issues/135
     fetchSubmodules = true;
   };
@@ -115,7 +115,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
     maintainers = with lib.maintainers; [ Holiu618 ];
-    broken = stdenv.hostPlatform.isAarch64;
     mainProgram = "NotepadNext";
   };
 })

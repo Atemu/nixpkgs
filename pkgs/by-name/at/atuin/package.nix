@@ -1,39 +1,49 @@
 {
   lib,
-  stdenv,
   fetchFromGitHub,
   installShellFiles,
-  rustPlatform,
-  nixosTests,
   nix-update-script,
+  nixosTests,
+  openssl,
+  pkg-config,
+  rustPlatform,
+  stdenv,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "atuin";
-  version = "18.18.1";
+  version = "18.21.0";
 
   src = fetchFromGitHub {
     owner = "atuinsh";
     repo = "atuin";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-dPdD9U1CwuGbd1K/ljYwgTlAl9sSzt+dSuxLijLlyBQ=";
+    hash = "sha256-kz8qdgxg79jX3hfPi7EY9c9SmFqUK6lWnMTLb3TKDQQ=";
   };
 
-  cargoHash = "sha256-t8UK0/WBGleU1qbTUITl+hj1wXsEqIyreZJFBGxAMkg=";
+  cargoHash = "sha256-chuGpLq8XAZrCCtx2L/tVQSXNLrTgG2rnBGcCEvDjFg=";
 
   # atuin's default features include 'check-updates', which do not make sense
   # for distribution builds. List all other default features.
+  # see https://github.com/atuinsh/atuin/blob/main/crates/atuin/Cargo.toml#L42
   buildNoDefaultFeatures = true;
   buildFeatures = [
     "ai"
     "client"
     "clipboard"
     "daemon"
-    "hex"
+    "pty-proxy"
     "sync"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [
+    installShellFiles
+    pkg-config
+  ];
+
+  buildInputs = [
+    openssl
+  ];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd atuin \
@@ -56,6 +66,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   preCheck = ''
     export HOME=$(mktemp -d)
   '';
+
+  __darwinAllowLocalNetworking = true;
 
   passthru = {
     tests = {

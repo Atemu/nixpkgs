@@ -2082,15 +2082,15 @@ in
     systemd.services.grafana = {
       description = "Grafana Service Daemon";
       wantedBy = [ "multi-user.target" ];
+      wants = [ "network-online.target" ];
       after = [
-        "network.target"
+        "network-online.target"
       ]
       ++ lib.optional usePostgresql "postgresql.target"
       ++ lib.optional useMysql "mysql.service";
       serviceConfig = {
         ExecStartPre = [
           "${lib.getExe' pkgs.coreutils "ln"} -fs ${cfg.package}/share/grafana/conf ${cfg.dataDir}"
-          "${lib.getExe' pkgs.coreutils "ln"} -fs ${cfg.package}/share/grafana/tools ${cfg.dataDir}"
         ];
         ExecStart = "${lib.getExe cfg.package} server -homepath ${cfg.dataDir} -config ${configFile}";
 

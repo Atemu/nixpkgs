@@ -174,7 +174,19 @@ stdenv.mkDerivation (finalAttrs: {
     install -D ${tree_h} $dev/include/sys/tree.h
   '';
 
-  passthru.linuxHeaders = linuxHeaders;
+  passthru = {
+    linuxHeaders = linuxHeaders;
+
+    # musl's threads are POSIX threads.
+    #
+    # See the comment on `threadModel` in
+    # pkgs/development/compilers/gcc/ng/common/libgcc/default.nix for further
+    # details.
+    threadModel = "posix";
+  };
+
+  strictDeps = true;
+  __structuredAttrs = true;
 
   meta = {
     description = "Efficient, small, quality libc implementation";

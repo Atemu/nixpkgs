@@ -15,14 +15,14 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "aiovodafone";
-  version = "3.3.1";
+  version = "3.3.4";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "chemelli74";
     repo = "aiovodafone";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-ubXJyHCUOWV1xXzfuEZ2DRe90OWycsSolr4fVQMbXu8=";
+    hash = "sha256-JtfSesz81sZ4Cx8sEmUceHyF4TSCV7D/Xk5UM13DFc4=";
   };
 
   build-system = [ setuptools ];

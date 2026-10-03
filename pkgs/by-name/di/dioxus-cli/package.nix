@@ -9,7 +9,7 @@
   installShellFiles,
   makeWrapper,
   esbuild,
-  wasm-bindgen-cli_0_2_126,
+  wasm-bindgen-cli_0_2_127,
   testers,
   dioxus-cli,
   withTelemetry ? false,
@@ -81,7 +81,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --suffix PATH : ${
         lib.makeBinPath [
           esbuild
-          wasm-bindgen-cli_0_2_126
+          wasm-bindgen-cli_0_2_127
         ]
       }
   '';
@@ -95,8 +95,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
       asl20
     ];
     maintainers = with lib.maintainers; [
-      cathalmullan
       anish
+      hackcraft_
     ];
     platforms = lib.platforms.all;
     mainProgram = "dx";

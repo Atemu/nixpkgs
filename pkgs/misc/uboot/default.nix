@@ -82,6 +82,13 @@ let
           '') (builtins.attrNames pythonScriptsToInstall)}
           patchShebangs tools
           patchShebangs scripts
+        ''
+        # This warning got removed in
+        # https://git.kernel.org/pub/scm/utils/dtc/dtc.git/commit/?id=cba90ce82064ad1e6d25f20d8eaa940bd2fc97ed
+        + ''
+          for f in scripts/Makefile.lib dts/upstream/Makefile; do
+            substituteInPlace "$f" --replace-fail -Wno-graph_child_address ""
+          done
         '';
 
         nativeBuildInputs = [
@@ -364,14 +371,7 @@ in
       '';
     };
 
-  ubootNanoPCT4 = buildUBoot rec {
-    rkbin = fetchFromGitHub {
-      owner = "armbian";
-      repo = "rkbin";
-      rev = "3bd0321cae5ef881a6005fb470009ad5a5d1462d";
-      sha256 = "09r4dzxsbs3pff4sh70qnyp30s3rc7pkc46v1m3152s7jqjasp31";
-    };
-
+  ubootNanoPCT4 = buildUBoot {
     defconfig = "nanopc-t4-rk3399_defconfig";
 
     extraMeta = {
@@ -383,10 +383,6 @@ in
       "u-boot.itb"
       "idbloader.img"
     ];
-    postBuild = ''
-      ./tools/mkimage -n rk3399 -T rksd -d ${rkbin}/rk33/rk3399_ddr_800MHz_v1.24.bin idbloader.img
-      cat ${rkbin}/rk33/rk3399_miniloader_v1.19.bin >> idbloader.img
-    '';
   };
 
   ubootNanoPCT6 = buildUBoot {

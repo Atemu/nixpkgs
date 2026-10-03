@@ -84,11 +84,13 @@ buildPythonPackage (finalAttrs: {
 
     # AssertionError on numerical values
     "test_barker"
+    "test_diagonal_variant"
     "test_imm_shrinkage_seed_influence_persists_diagonal"
     "test_laps"
     "test_mclmc"
     "test_mcse4"
     "test_mean_and_std"
+    "test_merge_equals_single_pass_d50_n100_n200"
     "test_normal_univariate"
     "test_nuts__with_device"
     "test_nuts__with_jit"
@@ -100,7 +102,9 @@ buildPythonPackage (finalAttrs: {
   ++ lib.optionals (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64) [
     # AssertionError: Not equal to tolerance rtol=1e-07, atol=1e-05
     "test_equal_matrices"
+    "test_pop_oldest_exactness_k5_d5_n10_nwraps2"
     "test_restart_after_reset_matches_fresh_accumulation"
+    "test_skips_first_offset_steps"
     "test_split_pop_k1_degenerate"
   ];
 

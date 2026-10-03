@@ -2,12 +2,13 @@
   lib,
   fetchFromGitHub,
   kingfisher,
+  nix-update-script,
   python3Packages,
 }:
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "prowler";
-  version = "5.36.0";
+  version = "5.43.0";
   pyproject = true;
 
   __structuredAttrs = true;
@@ -16,8 +17,13 @@ python3Packages.buildPythonApplication (finalAttrs: {
     owner = "prowler-cloud";
     repo = "prowler";
     tag = finalAttrs.version;
-    hash = "sha256-eIpmAwyJSw4/MAQdNpbeHKsheqALVbUbe8cAt71yobE=";
+    hash = "sha256-eh3LitCEVqd60rZ+C9yh+3vnTNYlEziQzj7on/rTkIU=";
   };
+
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace-fail "hatchling==1.32.0" "hatchling"
+  '';
 
   pythonRelaxDeps = true;
 
@@ -80,6 +86,18 @@ python3Packages.buildPythonApplication (finalAttrs: {
     google-api-python-client
     google-auth-httplib2
     h2
+    huaweicloudsdkcore
+    huaweicloudsdkcts
+    huaweicloudsdkecs
+    huaweicloudsdkelb
+    huaweicloudsdkevs
+    huaweicloudsdkiam
+    huaweicloudsdkkms
+    huaweicloudsdkobs
+    huaweicloudsdkrds
+    huaweicloudsdksmn
+    huaweicloudsdkvpc
+    huaweicloudsdkwaf
     jsonschema
     kubernetes
     linode-api4
@@ -105,9 +123,12 @@ python3Packages.buildPythonApplication (finalAttrs: {
     stackit-iaas
     stackit-objectstorage
     stackit-resourcemanager
+    stackit-ske
     tabulate
+    truststore
     tzlocal
     uuid6
+    zstandard
   ];
 
   postFixup = ''
@@ -115,6 +136,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   '';
 
   pythonImportsCheck = [ "prowler" ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Security tool to perform Cloud Security best practices assessments";

@@ -13,6 +13,7 @@
   buildPythonPackage,
   click,
   cryptography,
+  expression,
   fastapi,
   fastapi-sso,
   fastuuid,
@@ -24,9 +25,11 @@
   gunicorn,
   httpx,
   importlib-metadata,
+  inquirerpy,
   jinja2,
   jsonschema,
   langfuse,
+  maturin,
   mcp,
   openai,
   opentelemetry-api,
@@ -36,7 +39,9 @@
   polars,
   prisma,
   prometheus-client,
+  psycopg,
   pydantic,
+  pydantic-settings,
   pyjwt,
   pynacl,
   pypdf,
@@ -47,11 +52,12 @@
   restrictedpython,
   rich,
   rq,
+  rustPlatform,
   sentry-sdk,
   soundfile,
   tiktoken,
   tokenizers,
-  uv-build,
+  tomlkit,
   uvicorn,
   uvloop,
   websockets,
@@ -61,25 +67,41 @@
 
 buildPythonPackage rec {
   pname = "litellm";
-  version = "1.89.0";
+  version = "1.102.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "BerriAI";
     repo = "litellm";
     tag = "v${version}";
-    hash = "sha256-tPw4cDqCQgyC8EoB5EPfui2gT+frjlSMOv95ntUXTWk=";
+    hash = "sha256-Mb5K0AmvS8N+Bya+i3BZTQtu4BWYcdgk3UieJ8xET7w=";
+  };
+
+  nativeBuildInputs = with rustPlatform; [
+    cargoSetupHook
+    maturinBuildHook
+  ];
+
+  cargoRoot = "litellm-rust";
+
+  cargoDeps = rustPlatform.fetchCargoVendor {
+    inherit
+      pname
+      version
+      src
+      cargoRoot
+      ;
+    hash = "sha256-zbDWVIg0ly+VP9t9eA/md0CxUKCKBJWHLgG13EUZ4rY=";
   };
 
   postPatch = ''
     substituteInPlace pyproject.toml \
-      --replace-fail "uv_build==0.11.8" "uv_build"
+      --replace-fail "maturin==1.15.0" "maturin==${maturin.version}"
   '';
-
-  build-system = [ uv-build ];
 
   dependencies = [
     aiohttp
+    boto3
     click
     fastuuid
     httpx
@@ -88,6 +110,7 @@ buildPythonPackage rec {
     jsonschema
     openai
     pydantic
+    pydantic-settings
     python-dotenv
     tiktoken
     tokenizers
@@ -99,11 +122,12 @@ buildPythonPackage rec {
       azure-identity
       azure-storage-blob
       backoff
-      boto3
       cryptography
+      expression
       fastapi
       fastapi-sso
       gunicorn
+      inquirerpy
       # FIXME package litellm-enterprise
       # FIXME package litellm-proxy-extras
       mcp
@@ -117,6 +141,7 @@ buildPythonPackage rec {
       rich
       rq
       soundfile
+      tomlkit
       uvloop
       uvicorn
       websockets
@@ -129,6 +154,7 @@ buildPythonPackage rec {
       google-cloud-iam
       google-cloud-kms
       prisma
+      psycopg
       # FIXME package redisvl
       resend
     ];
@@ -158,6 +184,7 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = [
     "aiohttp"
+    "boto3"
     "click"
     "importlib-metadata"
     "jsonschema"
@@ -174,7 +201,7 @@ buildPythonPackage rec {
     updateScript = nix-update-script {
       extraArgs = [
         "--version-regex"
-        "v([0-9]+\\.[0-9]+\\.[0-9]+)"
+        "v([0-9]+\\.[0-9]+\\.[0-9]+)$"
       ];
     };
   };

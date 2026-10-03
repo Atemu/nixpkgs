@@ -11,16 +11,16 @@
   websockets,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "python-pooldose";
-  version = "0.9.6";
+  version = "0.9.14";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "lmaertin";
     repo = "python-pooldose";
-    tag = version;
-    hash = "sha256-eSFe3PRKhVMuwJ7XUHRec8nPilSxGUQ1T2k2loLubUg=";
+    tag = finalAttrs.version;
+    hash = "sha256-P/pINGef0bQJ+147/heOf4l/12Vdwd6F67vany9vFZY=";
   };
 
   build-system = [ setuptools ];
@@ -40,10 +40,10 @@ buildPythonPackage rec {
   ];
 
   meta = {
-    changelog = "https://github.com/lmaertin/python-pooldose/blob/${src.tag}/CHANGELOG.md";
-    description = "Unoffical async Python client for SEKO PoolDose devices";
+    changelog = "https://github.com/lmaertin/python-pooldose/blob/${finalAttrs.src.tag}/CHANGELOG.md";
+    description = "Unofficial async Python client for SEKO PoolDose devices";
     homepage = "https://github.com/lmaertin/python-pooldose";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ dotlambda ];
   };
-}
+})

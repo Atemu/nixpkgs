@@ -42,7 +42,7 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "django";
-  version = "6.0.7";
+  version = "6.1.1";
   pyproject = true;
 
   disabled = pythonOlder "3.12";
@@ -51,7 +51,7 @@ buildPythonPackage (finalAttrs: {
     owner = "django";
     repo = "django";
     tag = finalAttrs.version;
-    hash = "sha256-B28twwEGLcXV0TlQxgRhNBiKhwJd+5f7sL35SkHAkRY=";
+    hash = "sha256-jOshsS3ceWEJoxOuyUSEJvIPE5LLMrzMXEhVgX6wDPQ=";
   };
 
   patches = [
@@ -127,8 +127,7 @@ buildPythonPackage (finalAttrs: {
     runHook preCheck
 
     pushd tests
-    # without --parallel=1, tests fail with an "unexpected error due to a database lock" on Darwin
-    ${python.interpreter} runtests.py --settings=test_sqlite ${lib.optionalString stdenv.hostPlatform.isDarwin "--parallel=1"}
+    ${python.interpreter} runtests.py --settings=test_sqlite --parallel=$NIX_BUILD_CORES
     popd
 
     runHook postCheck
@@ -140,6 +139,18 @@ buildPythonPackage (finalAttrs: {
     changelog = "https://docs.djangoproject.com/en/${lib.versions.majorMinor finalAttrs.version}/releases/${finalAttrs.version}/";
     description = "High-level Python Web framework that encourages rapid development and clean, pragmatic design";
     homepage = "https://www.djangoproject.com";
+    identifiers = {
+      cpeParts = {
+        inherit (finalAttrs) version;
+        product = "django";
+        update = "*";
+        vendor = "djangoproject";
+      };
+      purlParts = {
+        type = "pypi";
+        spec = "django@${finalAttrs.version}";
+      };
+    };
     license = licenses.bsd3;
     maintainers = with maintainers; [ hexa ];
   };

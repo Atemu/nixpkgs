@@ -472,12 +472,13 @@ let
       };
 
     fail2ban =
-      { ... }:
+      { pkgs, ... }:
       {
-        testBackend = "nodes"; # setfacl
         exporterConfig = {
           enable = true;
           exitOnError = true;
+          username = "fail2ban-web";
+          passwordFile = pkgs.writeText "fail2ban-password" "hunter2";
         };
         metricProvider = {
           services.fail2ban.enable = true;
@@ -486,7 +487,9 @@ let
           wait_for_unit("fail2ban.service")
           wait_for_unit("prometheus-fail2ban-exporter.service")
           wait_for_open_port(9191)
-          succeed("curl -sSf http://localhost:9191/metrics | grep 'f2b_errors'")
+
+          fail("curl -sSf http://localhost:9191/metrics")
+          succeed("curl -sSf --user fail2ban-web:hunter2 http://localhost:9191/metrics | grep 'f2b_errors'")
         '';
       };
 
@@ -803,6 +806,22 @@ let
           succeed(
               "curl -sS --write-out '%{http_code}' -o /dev/null http://localhost:9288/metrics?target=nosuchdevice | grep '500'"
           )
+        '';
+      };
+
+    kvrocks =
+      { ... }:
+      {
+        exporterConfig = {
+          enable = true;
+        };
+        metricProvider.services.kvrocks.enable = true;
+        exporterTest = ''
+          wait_for_unit("kvrocks.service")
+          wait_for_unit("prometheus-kvrocks-exporter.service")
+          wait_for_open_port(6666)
+          wait_for_open_port(9121)
+          wait_until_succeeds("curl -sSf localhost:9121/metrics | grep 'kvrocks_up 1'")
         '';
       };
 
@@ -1384,26 +1403,23 @@ let
           settings = {
             targets = [
               {
-                "localhost" = {
-                  alias = "local machine";
-                  env = "prod";
-                  type = "domain";
-                };
+                host = "localhost";
+                alias = "local machine";
+                env = "prod";
+                type = "domain";
               }
               {
-                "127.0.0.1" = {
-                  alias = "local machine";
-                  type = "v4";
-                };
+                host = "127.0.0.1";
+                alias = "local machine";
+                type = "v4";
               }
               {
-                "::1" = {
-                  alias = "local machine";
-                  type = "v6";
-                };
+                host = "::1";
+                alias = "local machine";
+                type = "v6";
               }
               {
-                "google.com" = { };
+                host = "google.com";
               }
             ];
             dns = { };
@@ -1787,6 +1803,34 @@ let
         '';
       };
 
+    snowflake =
+      { pkgs, ... }:
+      {
+        exporterConfig = {
+          enable = true;
+          account = "dummy";
+          username = "dummy";
+          warehouse = "dummy";
+          # key-pair auth: exercises the LoadCredential + `%d` wiring. The key is
+          # never parsed until a scrape, so a dummy file is enough to boot.
+          privateKeyFile = pkgs.writeText "snowflake-key.p8" "dummy";
+          environmentFile = pkgs.writeText "snowflake-exporter.env" ''
+            SNOWFLAKE_EXPORTER_PRIVATE_KEY_PASSWORD=dummy
+          '';
+        };
+        # Only the landing page is checked. Scraping `/metrics` would run the
+        # collector, which synchronously queries Snowflake and blocks until the
+        # driver's login timeout (~45s) with no reachable server. Booting with
+        # key-pair auth already exercises config validation and the
+        # LoadCredential/environmentFile wiring; the landing page confirms the
+        # exporter booted and is serving.
+        exporterTest = ''
+          wait_for_unit("prometheus-snowflake-exporter.service")
+          wait_for_open_port(9975)
+          succeed("curl -sSf http://localhost:9975/ | grep -i 'Snowflake exporter'")
+        '';
+      };
+
     sql =
       { ... }:
       {
@@ -2122,6 +2166,30 @@ let
           wait_until_succeeds(
               "curl -sSf http://localhost:9586/metrics | grep '${publicKeyWithoutNewlines}'"
           )
+        '';
+      };
+
+    yace =
+      { pkgs, ... }:
+      {
+        exporterConfig = {
+          enable = true;
+          configFile = pkgs.writeText "yace-config.yml" ''
+            apiVersion: v1alpha1
+            sts-region: us-east-1
+            discovery:
+              jobs:
+                - type: AWS/EC2
+                  regions: [us-east-1]
+                  metrics:
+                    - name: CPUUtilization
+                      statistics: [Average]
+          '';
+        };
+        exporterTest = ''
+          wait_for_unit("prometheus-yace-exporter.service")
+          wait_for_open_port(5000)
+          succeed("curl -sSf http://localhost:5000/metrics")
         '';
       };
 

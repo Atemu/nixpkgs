@@ -17,7 +17,7 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "mullvad";
-  version = "2026.3";
+  version = "2026.5";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -27,10 +27,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     repo = "mullvadvpn-app";
     tag = finalAttrs.version;
     fetchSubmodules = true;
-    hash = "sha256-1Q+i7W0T0Qst5ziO9St6Pcg0GgHQC+NGtRNmyA3A33g=";
+    hash = "sha256-ZhXOzoAPIftwvdMskwC0kbwfjPTK3b+0pP9ZI/rNn4E=";
   };
 
-  cargoHash = "sha256-zcZjjAPiIfkbU1nKhjdxyWP6PvkLEUCNYwFzIzRXArE=";
+  cargoHash = "sha256-qOBCfswWGwP7pWvd0ZAKTX7kYSJTMeJ5z1jHYjHyWZs=";
 
   cargoBuildFlags =
     let

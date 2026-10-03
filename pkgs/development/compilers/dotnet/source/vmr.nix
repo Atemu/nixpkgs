@@ -16,8 +16,8 @@
   glibcLocales,
   ensureNewerSourcesForZipFilesHook,
   darwin,
+  swift,
   xcbuild,
-  swiftPackages,
   openssl,
   getconf,
   python3,
@@ -43,12 +43,10 @@ let
   stdenv = llvmPackages.stdenv;
 
   inherit (stdenv)
-    isLinux
-    isDarwin
     buildPlatform
     targetPlatform
     ;
-  inherit (swiftPackages) swift;
+  inherit (stdenv.hostPlatform) isLinux isDarwin;
 
   releaseManifest = lib.importJSON releaseManifestFile;
   inherit (releaseManifest) sourceRepository tag;
@@ -68,6 +66,9 @@ stdenv.mkDerivation {
   pname = "${baseName}-vmr";
   inherit version;
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   # TODO: fix this in the binary sdk packages
   preHook = lib.optionalString stdenv.hostPlatform.isDarwin ''
     addToSearchPath DYLD_LIBRARY_PATH "${_icu}/lib"
@@ -80,6 +81,10 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [
+    # this gets copied into the tree, but we still need the sandbox profile
+    bootstrapSdk
+    # the propagated build inputs in llvm.dev break swift compilation
+    llvmPackages.llvm.out
     ensureNewerSourcesForZipFilesHook
     jq
     curl.bin
@@ -103,13 +108,12 @@ stdenv.mkDerivation {
   ]
   ++ lib.optionals isDarwin [
     getconf
+    xcbuild
+    swift
+    sigtool
   ];
 
   buildInputs = [
-    # this gets copied into the tree, but we still need the sandbox profile
-    bootstrapSdk
-    # the propagated build inputs in llvm.dev break swift compilation
-    llvmPackages.llvm.out
     zlib
     _icu
     openssl
@@ -119,10 +123,7 @@ stdenv.mkDerivation {
     lttng-ust_2_12
   ]
   ++ lib.optionals isDarwin [
-    xcbuild
-    swift
     krb5
-    sigtool
   ];
 
   # This is required to fix the error:
@@ -160,9 +161,10 @@ stdenv.mkDerivation {
 
   postPatch = ''
     # set the sdk version in global.json to match the bootstrap sdk
+    # we purposely rename global.json first, because it can break dotnet --version
+    mv global.json{,~}
     sdk_version=$(${bootstrapSdk}/bin/dotnet --version)
-    jq '(.tools.dotnet=$dotnet)' global.json --arg dotnet "$sdk_version" > global.json~
-    mv global.json{~,}
+    jq '.tools.dotnet=$dotnet | .sdk.version=$dotnet' global.json~ --arg dotnet "$sdk_version" > global.json
 
     patchShebangs $(find -name \*.sh -type f -executable)
 
@@ -384,7 +386,7 @@ stdenv.mkDerivation {
       dotnet nuget add source "${bootstrapSdk.artifacts}"
     ''
     + ''
-      ${prepScript} $prepFlags
+      ${prepScript} "''${prepFlags[@]}"
     ''
     + lib.optionalString (!hasRuntime) ''
       mkdir .shared-components
@@ -392,7 +394,7 @@ stdenv.mkDerivation {
       chmod +w -R .shared-components/
       # zip dependencies unzipped in bootstrap installPhase, so they can be found
       find .shared-components/assets . -name \*.tar -exec gzip -f --fast {} \;
-      buildFlags+=\ --with-shared-components\ "$PWD"/.shared-components
+      buildFlags+=(--with-shared-components "$PWD"/.shared-components)
     ''
     + ''
 
@@ -418,6 +420,10 @@ stdenv.mkDerivation {
     # '-Wa,--compress-debug-sections' [-Werror,-Wunused-command-line-argument]
     # caused by separateDebugInfo
     NIX_CFLAGS_COMPILE = "-Wno-unused-command-line-argument";
+  }
+  // lib.optionalAttrs (stdenv.hostPlatform.isDarwin && lib.versionAtLeast version "11") {
+    # error : supplying the --target arm64-apple-macos14.0 != arm64-apple-darwin argument to a nix-wrapped compiler may not work correctly
+    NIX_CC_WRAPPER_SUPPRESS_TARGET_WARNING = "1";
   };
 
   buildFlags = [
@@ -453,7 +459,7 @@ stdenv.mkDerivation {
     version= \
     CLR_CC=$(command -v clang) \
     CLR_CXX=$(command -v clang++) \
-      ./build.sh $buildFlags
+      ./build.sh "''${buildFlags[@]}"
 
     runHook postBuild
   '';

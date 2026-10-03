@@ -7,32 +7,36 @@
   numpy,
 
   # tests
-  home-assistant,
-  pytestCheckHook,
-  pytest-homeassistant-custom-component,
-  pytest-freezegun,
   aioresponses,
+  gitpython,
+  home-assistant,
+  jsonschema,
+  pytest-freezegun,
+  pytest-homeassistant-custom-component,
+  pytestCheckHook,
 }:
 
 buildHomeAssistantComponent rec {
   owner = "bramstroker";
   domain = "powercalc";
-  version = "1.23.2";
+  version = "1.26.0";
 
   src = fetchFromGitHub {
     inherit owner;
     repo = "homeassistant-powercalc";
     tag = "v${version}";
-    hash = "sha256-JOZLVQhT3MhYbq6wuS7PM6H5fKVvf1ZhAYR5LZoRWAA=";
+    hash = "sha256-XUHQYHZ4PMkxobENb3xo2W7MGju/vN+iJfI6NVaP+RM=";
   };
 
   dependencies = [ numpy ];
 
   nativeCheckInputs = [
+    aioresponses
+    gitpython
+    jsonschema
+    pytest-freezegun
     pytest-homeassistant-custom-component
     pytestCheckHook
-    aioresponses
-    pytest-freezegun
   ]
   ++ home-assistant.getPackages "camera" home-assistant.python3Packages;
 
@@ -40,11 +44,6 @@ buildHomeAssistantComponent rec {
     patchShebangs --build tests/setup.sh
     tests/setup.sh
   '';
-
-  disabledTests = [
-    # test contacts api.powercalc.nl
-    "test_exception_is_raised_on_github_resource_unavailable"
-  ];
 
   meta = {
     changelog = "https://github.com/bramstroker/homeassistant-powercalc/releases/tag/${src.tag}";
