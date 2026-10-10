@@ -22,11 +22,15 @@
   pkg-config,
   rdkafka,
   sqlite,
-  systemd,
+  systemdLibs,
   versionCheckHook,
   zstd,
 }:
 
+let
+  # TODO: remove when https://github.com/NixOS/nixpkgs/pull/571072 hits master
+  systemdLibs' = systemdLibs.override { withCompression = true; };
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "fluent-bit";
   version = "5.1.0";
@@ -78,7 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
   ++ lib.optionals stdenv.hostPlatform.isLinux [
     # libbpf doesn't build for Darwin yet.
     libbpf
-    systemd
+    systemdLibs'
   ];
 
   cmakeFlags = [

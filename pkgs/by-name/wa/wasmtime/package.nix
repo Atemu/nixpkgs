@@ -17,14 +17,14 @@
 let
   sources = {
     lts-36 = {
-      version = "36.0.16";
-      hash = "sha256-M1887OSDP31s1MVrlcchnzlkfzteXIn5f+BWxa1RG68=";
-      cargoHash = "sha256-T7ci14LlPWYJ41moizwzsR4bH5AU1GdqRJRL8Iks3q8=";
+      version = "36.0.17";
+      hash = "sha256-+zwOVdidbJs8IWL1vwghkwvWwaYOQ5LvVlY2BGs0Lbg=";
+      cargoHash = "sha256-V64KmH4M/biKmMZh/kT8nd4v8xOlHjOoWEO9RCWyX1c=";
     };
     main = {
-      version = "48.0.1";
-      hash = "sha256-nvDiKIyo0/BmwjPTfNGIX1kSVVJQbmjjT4qed0dr8cc=";
-      cargoHash = "sha256-NVea5PiuFTr1NrIcyEJSq0gFf2XkDZj/VKubHwO34U4=";
+      version = "49.0.2";
+      hash = "sha256-XwJOxAswT93KPPe1/Vv2DHHeNRUhfq68x2giRDQmK9o=";
+      cargoHash = "sha256-TjVJ0M5LFAsxHUFF88fHvSAzKqq7ZqPT2zOSnQ8X16o=";
     };
   };
   source = sources.${variant};

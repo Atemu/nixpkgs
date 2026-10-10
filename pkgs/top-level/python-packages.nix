@@ -2764,6 +2764,10 @@ self: super: with self; {
 
   buildstream-plugins = callPackage ../development/python-modules/buildstream-plugins { };
 
+  buildstream-plugins-community =
+    callPackage ../development/python-modules/buildstream-plugins-community
+      { };
+
   bumble = callPackage ../development/python-modules/bumble { };
 
   bump-my-version = callPackage ../development/python-modules/bump-my-version { };
@@ -8694,8 +8698,6 @@ self: super: with self; {
 
   ixia = callPackage ../development/python-modules/ixia { };
 
-  j2cli = callPackage ../development/python-modules/j2cli { };
-
   j2lint = callPackage ../development/python-modules/j2lint { };
 
   jaconv = callPackage ../development/python-modules/jaconv { };
@@ -9211,6 +9213,10 @@ self: super: with self; {
   kgb = callPackage ../development/python-modules/kgb { };
 
   khanaa = callPackage ../development/python-modules/khanaa { };
+
+  kiauto = callPackage ../development/python-modules/kiauto {
+    kicadPkg = pkgs.kicad;
+  };
 
   kicad = toPythonModule (pkgs.kicad.override { python3 = python; }).src;
 
@@ -10537,6 +10543,8 @@ self: super: with self; {
 
   marko = callPackage ../development/python-modules/marko { };
 
+  markovify = callPackage ../development/python-modules/markovify { };
+
   markuppy = callPackage ../development/python-modules/markuppy { };
 
   markups = callPackage ../development/python-modules/markups { };
@@ -11860,6 +11868,8 @@ self: super: with self; {
 
   nanobind = callPackage ../development/python-modules/nanobind { };
 
+  nanobind_3 = callPackage ../development/python-modules/nanobind_3 { };
+
   nanoeigenpy = callPackage ../development/python-modules/nanoeigenpy { };
 
   nanoemoji = callPackage ../development/python-modules/nanoemoji { };
@@ -12303,7 +12313,7 @@ self: super: with self; {
 
   numkong = callPackage ../development/python-modules/numkong { };
 
-  numpy = numpy_2;
+  numpy = callPackage ../development/python-modules/numpy { };
 
   numpy-financial = callPackage ../development/python-modules/numpy-financial { };
 
@@ -12314,10 +12324,6 @@ self: super: with self; {
   numpy-stl = callPackage ../development/python-modules/numpy-stl { };
 
   numpy-typing-compat = callPackage ../development/python-modules/numpy-typing-compat { };
-
-  numpy_1 = callPackage ../development/python-modules/numpy/1.nix { };
-
-  numpy_2 = callPackage ../development/python-modules/numpy/2.nix { };
 
   numpydoc = callPackage ../development/python-modules/numpydoc { };
 
@@ -14255,6 +14261,8 @@ self: super: with self; {
 
   pvextractor = callPackage ../development/python-modules/pvextractor { };
 
+  pvl = callPackage ../development/python-modules/pvl { };
+
   pvlib = callPackage ../development/python-modules/pvlib { };
 
   pvo = callPackage ../development/python-modules/pvo { };
@@ -14980,6 +14988,8 @@ self: super: with self; {
 
   pyfastnoiselite = callPackage ../development/python-modules/pyfastnoiselite { };
 
+  pyfastnoiselite-ledfx = callPackage ../development/python-modules/pyfastnoiselite-ledfx { };
+
   pyfatfs = callPackage ../development/python-modules/pyfatfs { };
 
   pyfaup-rs = callPackage ../development/python-modules/pyfaup-rs { };
@@ -15678,6 +15688,10 @@ self: super: with self; {
 
   pyobjc-core = callPackage ../development/python-modules/pyobjc-core { };
 
+  pyobjc-framework-AVFoundation =
+    callPackage ../development/python-modules/pyobjc-framework-AVFoundation
+      { };
+
   pyobjc-framework-ApplicationServices =
     callPackage ../development/python-modules/pyobjc-framework-ApplicationServices
       { };
@@ -15692,7 +15706,15 @@ self: super: with self; {
     callPackage ../development/python-modules/pyobjc-framework-CoreBluetooth
       { };
 
+  pyobjc-framework-CoreMedia =
+    callPackage ../development/python-modules/pyobjc-framework-CoreMedia
+      { };
+
   pyobjc-framework-CoreText = callPackage ../development/python-modules/pyobjc-framework-CoreText { };
+
+  pyobjc-framework-MediaPlayer =
+    callPackage ../development/python-modules/pyobjc-framework-MediaPlayer
+      { };
 
   pyobjc-framework-Quartz = callPackage ../development/python-modules/pyobjc-framework-Quartz { };
 
@@ -16042,6 +16064,8 @@ self: super: with self; {
   pyrect = callPackage ../development/python-modules/pyrect { };
 
   pyregion = callPackage ../development/python-modules/pyregion { };
+
+  pyregrws = callPackage ../development/python-modules/pyregrws { };
 
   pyrender = callPackage ../development/python-modules/pyrender {
     inherit (pkgs) mesa;
@@ -17560,6 +17584,8 @@ self: super: with self; {
   pywidevine = callPackage ../development/python-modules/pywidevine {
     protobuf = protobuf6;
   };
+
+  pywiim = callPackage ../development/python-modules/pywiim { };
 
   pywikibot = callPackage ../development/python-modules/pywikibot { };
 
@@ -20037,7 +20063,7 @@ self: super: with self; {
 
   steampy = callPackage ../development/python-modules/steampy { };
 
-  steamworkspy = callPackage ../development/python-modules/steamworkspy { };
+  steamworks = callPackage ../development/python-modules/steamworks { };
 
   stem = callPackage ../development/python-modules/stem { };
 
@@ -20068,8 +20094,6 @@ self: super: with self; {
   stookwijzer = callPackage ../development/python-modules/stookwijzer { };
 
   stop-words = callPackage ../development/python-modules/stop-words { };
-
-  stopit = callPackage ../development/python-modules/stopit { };
 
   storage3 = callPackage ../development/python-modules/storage3 { };
 
@@ -20518,63 +20542,6 @@ self: super: with self; {
   tensorflow-bin = callPackage ../development/python-modules/tensorflow/bin.nix {
     inherit (pkgs.config) cudaSupport;
   };
-
-  tensorflow-build =
-    let
-      compat = rec {
-        #protobufTF = pkgs.protobuf_21.override { abseil-cpp = pkgs.abseil-cpp_202301; };
-        protobufTF = pkgs.protobuf;
-        # https://www.tensorflow.org/install/source#gpu
-        #cudaPackagesTF = pkgs.cudaPackages_11;
-        cudaPackagesTF = pkgs.cudaPackages;
-        grpcTF =
-          (pkgs.grpc.overrideAttrs (oldAttrs: rec {
-            # nvcc fails on recent grpc versions, so we use the latest patch level
-            #  of the grpc version bundled by upstream tensorflow to allow CUDA
-            #  support
-            version = "1.27.3";
-            src = pkgs.fetchFromGitHub {
-              owner = "grpc";
-              repo = "grpc";
-              rev = "v${version}";
-              hash = "sha256-PpiOT4ZJe1uMp5j+ReQulC9jpT0xoR2sAl6vRYKA0AA=";
-              fetchSubmodules = true;
-            };
-            patches = [ ];
-            postPatch = ''
-              sed -i "s/-std=c++11/-std=c++17/" CMakeLists.txt
-              echo "set(CMAKE_CXX_STANDARD 17)" >> CMakeLists.txt
-            '';
-          })).override
-            { protobuf = protobufTF; };
-        protobuf-pythonTF = self.protobuf4.override { protobuf = protobufTF; };
-        grpcioTF = self.grpcio.override { protobuf = protobufTF; };
-        tensorboardTF = self.tensorboard.override {
-          grpcio = grpcioTF;
-          protobuf = protobuf-pythonTF;
-        };
-      };
-    in
-    callPackage ../development/python-modules/tensorflow {
-      inherit (pkgs.config) cudaSupport;
-      flatbuffers-core = pkgs.flatbuffers;
-      flatbuffers-python = self.flatbuffers;
-      cudaPackages = compat.cudaPackagesTF;
-      protobuf-core = compat.protobufTF;
-      protobuf-python = compat.protobuf-pythonTF;
-      grpc = compat.grpcTF;
-      grpcio = compat.grpcioTF;
-      tensorboard = compat.tensorboardTF;
-      #abseil-cpp = pkgs.abseil-cpp_202301;
-      snappy-cpp = pkgs.snappy;
-
-      # Tensorflow 2.13 doesn't support gcc13:
-      # https://github.com/tensorflow/tensorflow/issues/61289
-      #
-      # We use the nixpkgs' default libstdc++ to stay compatible with other
-      # python modules
-      #stdenv = pkgs.stdenvAdapters.useLibsFrom stdenv pkgs.gcc12Stdenv;
-    };
 
   tensorflow-datasets = callPackage ../development/python-modules/tensorflow-datasets { };
 
@@ -21320,6 +21287,8 @@ self: super: with self; {
   tunigo = callPackage ../development/python-modules/tunigo { };
 
   tunit = callPackage ../development/python-modules/tunit { };
+
+  turbohtml = callPackage ../development/python-modules/turbohtml { };
 
   turnt = callPackage ../development/python-modules/turnt { };
 
@@ -22514,7 +22483,7 @@ self: super: with self; {
 
   wasmerPackages = lib.recurseIntoAttrs (callPackage ../development/python-modules/wasmer { });
 
-  wasmtime = callPackage ../development/python-modules/wasmtime { };
+  wasmtime = callPackage ../by-name/wa/wasmtime/python.nix { };
 
   wasserstein = callPackage ../development/python-modules/wasserstein { };
 
@@ -23112,6 +23081,8 @@ self: super: with self; {
   zenlog = callPackage ../development/python-modules/zenlog { };
 
   zenoh = callPackage ../development/python-modules/zenoh { };
+
+  zensical = callPackage ../development/python-modules/zensical { };
 
   zephyr-python-api = callPackage ../development/python-modules/zephyr-python-api { };
 

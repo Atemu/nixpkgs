@@ -23,8 +23,8 @@ let
       [ ];
 in
 buildNodejs {
-  version = "26.10.0";
-  sha256 = "7b3a546d33cb7e15a43bdd7a57e0be5d5fd5ffc553e6e4c120033e66f0ba20c5";
+  version = "26.11.1";
+  sha256 = "2c79a3c1095c7da4c549c84e90b2d28df5479315ab6d0aff9bc71dcf4c9df1e0";
   patches =
     (lib.optional (!(stdenv.hostPlatform.emulatorAvailable buildPackages)) (fetchpatch2 {
       url = "https://raw.githubusercontent.com/buildroot/buildroot/2f0c31bffdb59fb224387e35134a6d5e09a81d57/package/nodejs/nodejs-src/0003-include-obj-name-in-shared-intermediate.patch";
@@ -48,7 +48,8 @@ buildNodejs {
       ./bin-sh-node-run-v22.patch
       ./use-nix-codesign.patch
 
-      ./fix-temporal-integration-with-shared-icu.patch
+      # https://github.com/NixOS/nixpkgs/issues/568974
+      ./memcpy-climits.patch
     ]
     ++ gypPatches;
 }

@@ -13,14 +13,14 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "zennotes-desktop";
-  version = "2.57.0";
-  npmDepsHash = "sha256-mblscdXgrIV2D3MjIqR+uqHh304mGnEKDDqsiFZZrB4=";
+  version = "2.63.0";
+  npmDepsHash = "sha256-QpCWA7hLKT1EB5WQ0Alz7fia10+5Lv7lkiexBTU0jq8=";
 
   src = fetchFromGitHub {
     owner = "ZenNotes";
     repo = "zennotes";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-ECRkAs8QhwCp2wEyqGzZ6F9sG9hXaomVEShKXO34tEg=";
+    hash = "sha256-cK8+muk0QZbyoOl9cnK8wLYO6sEg2CAybOqlHALDFtw=";
   };
 
   npmWorkspace = "apps/desktop";
@@ -43,9 +43,10 @@ buildNpmPackage (finalAttrs: {
   configurePhase = ''
     runHook preConfigure
 
-    # Allow getting information about latest releases
+    # Allow getting information about latest releases, change app state from development to managed
     substituteInPlace apps/desktop/src/main/updater.ts \
-    --replace-fail "let managedInstall = false" "let managedInstall = true"
+    --replace-fail "let managedInstall = false" "let managedInstall = true" \
+    --replace-fail "isPackaged: app.isPackaged," "isPackaged: true,"
 
     runHook postConfigure
   '';

@@ -23,13 +23,13 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "readest";
-  version = "0.12.8";
+  version = "0.12.12";
 
   src = fetchFromGitHub {
     owner = "readest";
     repo = "readest";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-QPYqbmj3Gn7ghGyFfnaMx5g+ogi/Zs3eL8DmmwpwUNs=";
+    hash = "sha256-nOqLdbBy/9tii5D8Qx1+DapHspkH/tBRlkApKiuKAZE=";
     fetchSubmodules = true;
   };
 
@@ -46,7 +46,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     inherit (finalAttrs) pname version src;
     pnpm = pnpm_11;
     fetcherVersion = 4;
-    hash = "sha256-E6z6mXT4fO5TueLiJ03xHTM0CN3u+zXiSfdioi8R85Q=";
+    hash = "sha256-ZLCcnhA/QPJ/dmgXErF59vdfrKD5FFddtZ+148TvINM=";
     pnpmInstallFlags = [
       # Increase number of fetch attempts to work around timeout issues on slow
       # networks: "TimeoutError: The operation was aborted due to timeout".
@@ -59,7 +59,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoRoot = "../..";
-  cargoHash = "sha256-+SDs/Da3ssM59ydJHCjr90gxYTHBYwik+mKS85ZqfCI=";
+  cargoHash = "sha256-8wiIf4MFgOUPvljgLN7kbx3H/r57jjiqsxN5P5rZCAA=";
 
   buildAndTestSubdir = "src-tauri";
 

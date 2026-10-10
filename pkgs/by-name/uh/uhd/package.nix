@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchurl,
+  fetchpatch2,
   fetchFromGitHub,
   cmake,
   pkg-config,
@@ -192,6 +193,15 @@ stdenv.mkDerivation (finalAttrs: {
 
   doInstallCheck = true;
 
+  # Add missing log_add_impl.hpp to the installed headers.
+  # https://github.com/EttusResearch/uhd/pull/945
+  patches = [
+    (fetchpatch2 {
+      url = "https://github.com/EttusResearch/uhd/commit/6bc1d4d011825b2dca6d60b1cfb327dc07c63414.patch?full_index=1";
+      hash = "sha256-Rx1B3za4sFbX3d6Vj8bVaPvPunNwc4Ir0WiXjLDgoQk=";
+    })
+  ];
+
   # Build only the host software
   preConfigure = "cd host";
 
@@ -240,7 +250,7 @@ stdenv.mkDerivation (finalAttrs: {
       USRP devices are designed and sold by Ettus Research, LLC and its parent
       company, National Instruments.
     '';
-    homepage = "https://uhd.ettus.com/";
+    homepage = "https://uhd.readthedocs.io";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     maintainers = with lib.maintainers; [

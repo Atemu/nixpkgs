@@ -332,6 +332,7 @@ mapAliases {
   iotawattpy = ha-iotawattpy; # added 2025-07-06
   ipython_genutils = throw "'ipython_genutils' has been renamed to/replaced by 'ipython-genutils'"; # Converted to throw 2025-10-29
   itanium_demangler = throw "'itanium_demangler' has been renamed to/replaced by 'itanium-demangler'"; # Converted to throw 2025-10-29
+  j2cli = throw "'j2cli' has been removed as it is unmaintained upstream"; # Added 2026-05-24
   jaraco_classes = throw "'jaraco_classes' has been renamed to/replaced by 'jaraco-classes'"; # Converted to throw 2025-10-29
   jaraco_collections = throw "'jaraco_collections' has been renamed to/replaced by 'jaraco-collections'"; # Converted to throw 2025-10-29
   jaraco_functools = throw "'jaraco_functools' has been renamed to/replaced by 'jaraco-functools'"; # Converted to throw 2025-10-29
@@ -457,6 +458,8 @@ mapAliases {
   nonbloat-db = throw "nonbloat-db has been removed because the upstream project was archived."; # added 2025-05-16
   nptyping = throw "nptyping has been removed because it was broken, unmaintained upstream, and unused."; # added 2025-08-29
   Nuitka = throw "'Nuitka' has been renamed to/replaced by 'nuitka'"; # Converted to throw 2025-10-29
+  numpy_1 = throw "'numpy_1' has been deprecated in favor of 'numpy', as an old unmaintained version."; # added 2026-10-06
+  numpy_2 = warnAlias "'numpy_2' has been renamed to 'numpy'"; # added 2026-10-06
   oauth2 = throw "oauth2 has been removed as it is unmaintained"; # added 2025-05-16
   oauth = throw "oauth has been removed as it is unmaintained"; # added 2025-05-16
   objax = throw "objax has been removed because the upstream project was archived."; # Added 2025-10-04
@@ -731,7 +734,9 @@ mapAliases {
   sqlalchemy_1_3 = throw "'sqlalchemy_1_3' has been removed because it was actually version 1.4.54"; # added 2026-07-20
   sqlalchemy_migrate = throw "'sqlalchemy_migrate' has been renamed to/replaced by 'sqlalchemy-migrate'"; # Converted to throw 2025-10-29
   steamship = throw "'steamship' has been removed because it is broken and unmaintained upstream"; # Added 2026-05-06
+  steamworkspy = warnAlias "'steamworkspy' has been renamed to 'steamworks' to match the upstream distribution name" steamworks; # Added 2026-09-19
   stookalert = throw "'stookalert' has been removed because it is unmaintained upstream"; # Added 2026-08-04
+  stopit = throw "'stopit' has been removed because it is unused and broken"; # Added 2026-08-28
   strawberry-django = strawberry-graphql-django; # Added 2026-07-14
   subunit2sql = throw "subunit2sql has been removed because it has been marked as broken since at least November 2024."; # Added 2025-10-04
   subunit = python-subunit; # added 2026-06-21
@@ -747,7 +752,8 @@ mapAliases {
   tbats = throw "'tbats' has been removed due to lack of upstream maintenance"; # Added 2026-05-11
   tbm-utils = throw "'tbm-utils' has been removed as it is unmaintained since 2020"; # Added 2026-03-12
   tensorflow-bin_2 = throw "'tensorflow-bin_2' has been renamed to/replaced by 'tensorflow-bin'"; # Converted to throw 2025-10-29
-  tensorflow-build_2 = throw "'tensorflow-build_2' has been renamed to/replaced by 'tensorflow-build'"; # Converted to throw 2025-10-29
+  tensorflow-build = throw "'tensorflow-build' has been removed as it was broken for years and unmaintained. Use 'tensorflow-bin' instead"; # Added 2026-10-07
+  tensorflow-build_2 = throw "'tensorflow-build_2' has been removed as it was broken for years and unmaintained. Use 'tensorflow-bin' instead"; # Converted to throw 2025-10-29
   tensorflow-estimator = throw "'tensorflow-estimator' has been renamed to/replaced by 'tensorflow-estimator-bin'"; # Converted to throw 2025-10-29
   tensorflow-estimator_2 = throw "'tensorflow-estimator_2' has been renamed to/replaced by 'tensorflow-estimator'"; # Converted to throw 2025-10-29
   tensorflow-tensorboard = throw "'tensorflow-tensorboard' has been renamed to/replaced by 'tensorboard'"; # Converted to throw 2025-10-29

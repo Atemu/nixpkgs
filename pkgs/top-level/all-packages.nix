@@ -1047,41 +1047,6 @@ with pkgs;
 
   ### APPLICATIONS/VERSION-MANAGEMENT
 
-  # The full-featured Git.
-  gitFull = git.override {
-    svnSupport = stdenv.buildPlatform == stdenv.hostPlatform;
-    guiSupport = true;
-    sendEmailSupport = stdenv.buildPlatform == stdenv.hostPlatform;
-    withSsh = true;
-    withLibsecret = !stdenv.hostPlatform.isDarwin;
-  };
-
-  # Git with SVN support, but without GUI.
-  gitSVN = lowPrio (git.override { svnSupport = true; });
-
-  git-doc =
-    # doc attribute is not present at least for pkgsLLVM
-    if (gitFull ? doc) then
-      lib.addMetaAttrs {
-        description = "Additional documentation for Git";
-        longDescription = ''
-          This package contains additional documentation (HTML and text files) that
-          is referenced in the man pages of Git.
-        '';
-      } gitFull.doc
-    else
-      throw "'git-doc' can't be evaluated as 'gitFull' does not expose 'doc' attribute";
-
-  gitMinimal = git.override {
-    withManual = false;
-    osxkeychainSupport = false;
-    pythonSupport = false;
-    perlSupport = false;
-    rustSupport = false; # Needed for bootstrap
-    withpcre2 = false;
-    curl = if stdenv.hostPlatform.isFreeBSD then curlMinimal else curl; # Needed for FreeBSD bootstrap
-  };
-
   bump2version = with python3Packages; toPythonApplication bump2version;
 
   datalad = with python3Packages; toPythonApplication datalad;
@@ -1111,8 +1076,6 @@ with pkgs;
   git-protonmail = callPackage ../by-name/gi/git-credential-email/git-protonmail { };
 
   gitRepo = git-repo;
-
-  svn-all-fast-export = callPackage ../applications/version-management/svn-all-fast-export { };
 
   inherit (haskellPackages) git-annex;
 
@@ -1377,8 +1340,6 @@ with pkgs;
 
   hwi = with python3Packages; toPythonApplication hwi;
 
-  pass = callPackage ../tools/security/pass { };
-
   pass-nodmenu = pass.override {
     dmenuSupport = false;
     pass = pass-nodmenu;
@@ -1444,8 +1405,6 @@ with pkgs;
     charles4
     charles5
     ;
-
-  libtensorflow = python3.pkgs.tensorflow-build.libtensorflow;
 
   libtorch-bin = callPackage ../development/libraries/science/math/libtorch/bin.nix { };
 
@@ -1562,10 +1521,6 @@ with pkgs;
 
   ### TOOLS/TYPESETTING/TEX
 
-  advi = callPackage ../tools/typesetting/tex/advi {
-    ocamlPackages = ocaml-ng.ocamlPackages_4_14;
-  };
-
   dblatexFull = dblatex.override { enableAllFeatures = true; };
 
   latex2mathml = with python3Packages; toPythonApplication latex2mathml;
@@ -1621,8 +1576,6 @@ with pkgs;
   intensity-normalization = with python3Packages; toPythonApplication intensity-normalization;
 
   klaus = with python3Packages; toPythonApplication klaus;
-
-  klipper = callPackage ../servers/klipper { };
 
   klipper-firmware = callPackage ../servers/klipper/klipper-firmware.nix { };
 
@@ -1930,6 +1883,11 @@ with pkgs;
     tracy_0_11
     tracy_0_12
     tracy_0_13
+    ;
+
+  inherit (callPackages ../by-name/so/solana-platform-tools/package-versions.nix { })
+    solana-platform-tools_154
+    solana-platform-tools_157
     ;
 
   uusi = haskell.lib.compose.justStaticExecutables haskellPackages.uusi;
@@ -3128,7 +3086,7 @@ with pkgs;
     ocamlPackages = ocaml-ng.ocamlPackages_4_14;
   };
 
-  inherit (coqPackages_9_0) compcert;
+  inherit (coqPackages_9_2) compcert;
 
   corretto11 = javaPackages.compiler.corretto11;
   corretto17 = javaPackages.compiler.corretto17;
@@ -4611,8 +4569,16 @@ with pkgs;
   };
 
   tcl = tcl-8_6;
-  tcl-8_6 = callPackage ../development/interpreters/tcl/8.6.nix { };
-  tcl-9_0 = callPackage ../development/interpreters/tcl/9.0.nix { };
+  inherit
+    ({
+      tcl-8_6 = callPackage ../development/interpreters/tcl/8.6.nix { };
+      tcl-9_0 = callPackage ../development/interpreters/tcl/9.0.nix { };
+      tcl-9_1 = callPackage ../development/interpreters/tcl/9.1.nix { };
+    })
+    tcl-8_6
+    tcl-9_0
+    tcl-9_1
+    ;
 
   tclPackages = dontRecurseIntoAttrs tcl8Packages;
   # We don't need minor-versioned package sets thanks to the tcl stubs mechanism.
@@ -5052,8 +5018,6 @@ with pkgs;
 
   doxygen_gui = lowPrio (doxygen.override { withGui = true; });
 
-  drake = callPackage ../development/tools/build-managers/drake { };
-
   # NOTE: Override and set useIcon = false to use Awk instead of Icon.
   fffuu = haskell.lib.compose.justStaticExecutables (
     haskellPackages.callPackage ../tools/misc/fffuu { }
@@ -5081,10 +5045,6 @@ with pkgs;
   iaca_2_1 = callPackage ../development/tools/iaca/2.1.nix { };
   iaca_3_0 = callPackage ../development/tools/iaca/3.0.nix { };
   iaca = iaca_3_0;
-
-  include-what-you-use = callPackage ../development/tools/analysis/include-what-you-use {
-    llvmPackages = llvmPackages_22;
-  };
 
   inherit (callPackage ../applications/misc/inochi2d { })
     inochi-creator
@@ -5318,8 +5278,6 @@ with pkgs;
     vulkanSupport = true;
   };
 
-  watson-ruby = callPackage ../development/tools/misc/watson-ruby { };
-
   xcbuildHook = makeSetupHook {
     name = "xcbuild-hook";
     propagatedBuildInputs = [ xcbuild ];
@@ -5398,6 +5356,7 @@ with pkgs;
     boost189
     boost190
     boost191
+    boost192
     ;
 
   boost = boost191;
@@ -6633,9 +6592,16 @@ with pkgs;
   tinyxml = callPackage ../development/libraries/tinyxml/2.6.2.nix { };
 
   tk = tk-8_6;
-
-  tk-9_0 = callPackage ../development/libraries/tk/9.0.nix { tcl = tcl-9_0; };
-  tk-8_6 = callPackage ../development/libraries/tk/8.6.nix { };
+  inherit
+    ({
+      tk-8_6 = callPackage ../development/libraries/tk/8.6.nix { };
+      tk-9_0 = callPackage ../development/libraries/tk/9.0.nix { tcl = tcl-9_0; };
+      tk-9_1 = callPackage ../development/libraries/tk/9.1.nix { tcl = tcl-9_1; };
+    })
+    tk-8_6
+    tk-9_0
+    tk-9_1
+    ;
 
   tpm2-tss = callPackage ../development/libraries/tpm2-tss {
     autoreconfHook = buildPackages.autoreconfHook269;
@@ -6713,12 +6679,14 @@ with pkgs;
       zig_0_14 = zigPackages."0.14";
       zig_0_15 = zigPackages."0.15";
       zig_0_16 = zigPackages."0.16";
+      zig_0_17 = zigPackages."0.17";
     })
     zigPackages
     zig_0_13
     zig_0_14
     zig_0_15
     zig_0_16
+    zig_0_17
     ;
 
   # If this is updated, the default zls version should also be updated to match the default zig version.
@@ -7096,7 +7064,8 @@ with pkgs;
   cassandra_4 = callPackage ../servers/nosql/cassandra/4.nix {
     # Effective Cassandra 4.0.2 there is full Java 11 support
     #  -- https://cassandra.apache.org/doc/latest/cassandra/new/java11.html
-    jre = pkgs.jdk11_headless;
+    # JDK 11 has no riscv64 port.
+    jre = if stdenv.hostPlatform.isRiscV64 then pkgs.jdk17_headless else pkgs.jdk11_headless;
   };
   cassandra = cassandra_4;
 
@@ -7267,8 +7236,6 @@ with pkgs;
       xclip
     ];
   };
-
-  moodle = callPackage ../servers/web-apps/moodle { };
 
   moodle-utils = callPackage ../servers/web-apps/moodle/moodle-utils.nix { };
 
@@ -7500,6 +7467,8 @@ with pkgs;
 
   virtualenv-clone = with python3Packages; toPythonApplication virtualenv-clone;
 
+  whisparr = whisparr_2;
+
   mkfontdir = mkfontscale;
   xcbproto = xcb-proto;
 
@@ -7524,8 +7493,6 @@ with pkgs;
       mongodb =
         (callPackages ../servers/monitoring/zabbix/zabbix-agent2-plugins/mongodb.nix { }).${version};
       mssql = (callPackages ../servers/monitoring/zabbix/zabbix-agent2-plugins/mssql.nix { }).${version};
-      nvidia-gpu =
-        (callPackages ../servers/monitoring/zabbix/zabbix-agent2-plugins/nvidia-gpu.nix { }).${version};
       postgresql =
         (callPackages ../servers/monitoring/zabbix/zabbix-agent2-plugins/postgresql.nix { }).${version};
     };
@@ -8924,7 +8891,9 @@ with pkgs;
 
   obs-studio = qt6Packages.callPackage ../applications/video/obs-studio { };
 
-  obs-studio-plugins = recurseIntoAttrs (callPackage ../applications/video/obs-studio/plugins { });
+  obs-studio-plugins = recurseIntoAttrs (
+    callPackage ../applications/video/obs-studio/plugins.nix { }
+  );
   wrapOBS = callPackage ../applications/video/obs-studio/wrapper.nix { };
 
   open-music-kontrollers = recurseIntoAttrs {
@@ -8992,13 +8961,14 @@ with pkgs;
   quasselClient = quassel.override {
     monolithic = false;
     client = true;
-    tag = "-client-qt5";
+    tag = "-client";
   };
 
   quasselDaemon = quassel.override {
     monolithic = false;
     enableDaemon = true;
-    tag = "-daemon-qt5";
+    withKDE = false;
+    tag = "-daemon";
   };
 
   quodlibet = callPackage ../applications/audio/quodlibet {
@@ -9135,12 +9105,6 @@ with pkgs;
   };
 
   synergyWithoutGUI = synergy.override { withGUI = false; };
-
-  tabbed = callPackage ../applications/window-managers/tabbed {
-    # if you prefer a custom config, write the config.h in tabbed.config.h
-    # and enable
-    # customConfig = builtins.readFile ./tabbed.config.h;
-  };
 
   taffybar = callPackage ../applications/window-managers/taffybar {
     inherit (haskellPackages) ghcWithPackages taffybar;
@@ -9315,10 +9279,6 @@ with pkgs;
 
   gnvim = callPackage ../applications/editors/neovim/gnvim/wrapper.nix { };
 
-  virt-top = callPackage ../applications/virtualization/virt-top {
-    ocamlPackages = ocaml-ng.ocamlPackages_4_14;
-  };
-
   virtualbox = callPackage ../applications/virtualization/virtualbox {
     stdenv = stdenv_32bit;
 
@@ -9473,18 +9433,33 @@ with pkgs;
 
   kodi = callPackage ../applications/video/kodi {
     ffmpeg = ffmpeg_6;
-    jre_headless = buildPackages.jdk11_headless;
+    # JDK 11 has no riscv64 port.
+    jre_headless =
+      if lib.meta.availableOn stdenv.buildPlatform jdk11_headless then
+        buildPackages.jdk11_headless
+      else
+        buildPackages.jdk17_headless;
   };
 
   kodi-wayland = callPackage ../applications/video/kodi {
     ffmpeg = ffmpeg_6;
-    jre_headless = buildPackages.jdk11_headless;
+    # JDK 11 has no riscv64 port.
+    jre_headless =
+      if lib.meta.availableOn stdenv.buildPlatform jdk11_headless then
+        buildPackages.jdk11_headless
+      else
+        buildPackages.jdk17_headless;
     waylandSupport = true;
   };
 
   kodi-gbm = callPackage ../applications/video/kodi {
     ffmpeg = ffmpeg_6;
-    jre_headless = buildPackages.jdk11_headless;
+    # JDK 11 has no riscv64 port.
+    jre_headless =
+      if lib.meta.availableOn stdenv.buildPlatform jdk11_headless then
+        buildPackages.jdk11_headless
+      else
+        buildPackages.jdk17_headless;
     gbmSupport = true;
   };
 
@@ -9824,6 +9799,8 @@ with pkgs;
   ultrastar-creator = callPackage ../tools/misc/ultrastar-creator { };
 
   ultrastar-manager = callPackage ../tools/misc/ultrastar-manager { };
+
+  ut2004Packages = recurseIntoAttrs (callPackage ../by-name/ut/ut2004/packages.nix { });
 
   # To ensure vdrift's code is built on hydra
   vdrift-bin = vdrift.bin;
@@ -10305,8 +10282,6 @@ with pkgs;
   libjack2 = jack2.override { prefix = "lib"; };
 
   jack_autoconnect = jack-autoconnect;
-
-  j2cli = with python311Packages; toPythonApplication j2cli;
 
   j2lint = with python3Packages; toPythonApplication j2lint;
 
