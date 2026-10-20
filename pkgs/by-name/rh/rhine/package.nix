@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  fetchFromGitea,
+  fetchFromCodeberg,
   zig,
   pkg-config,
   wayland,
@@ -11,23 +11,21 @@
   libxkbcommon,
   libnotify,
   dbus,
-  callPackage,
   nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rhine";
-  version = "0.4.1";
+  version = "0.4.1-unstable-2026-10-18";
 
   __structuredAttrs = true;
   strictDeps = true;
 
-  src = fetchFromGitea {
-    domain = "codeberg.org";
+  src = fetchFromCodeberg {
     owner = "sivecano";
     repo = "rhine";
-    tag = finalAttrs.version;
-    hash = "sha256-wJPwooj1f1xb+DhnxaF6iDD9NASlgQZ1OPgrtCCXtoQ=";
+    rev = "ff499d004ed283ca784d2494e40cfc17ebc8f77a";
+    hash = "sha256-HLGWjJOqbvVn9R35TimqaxcX0e2nWlDKersDmD3viUY=";
   };
 
   nativeBuildInputs = [
@@ -46,18 +44,23 @@ stdenv.mkDerivation (finalAttrs: {
     dbus
   ];
 
-  deps = callPackage ./build.zig.zon.nix { };
-  zigBuildFlags = [
-    "--system"
-    "${finalAttrs.deps}"
-  ];
+  zigDeps = zig.fetchDeps {
+    inherit (finalAttrs) src pname version;
+    hash = "sha256-nvM2DcFnVkGXBUQ/XGsIJXr0sJWlqJaoTiTUOyU7u9k=";
+  };
+  postConfigure = ''
+    ln -s ${finalAttrs.zigDeps} $ZIG_GLOBAL_CACHE_DIR/p
+  '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version=branch=main"
+    ];
+  };
 
   meta = {
     description = "Window manager for river supporting multiple layouts and awesome animations";
     homepage = "https://codeberg.org/sivecano/rhine";
-    changelog = "https://codeberg.org/sivecano/rhine/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.agpl3Only;
     maintainers = with lib.maintainers; [
       atemu
