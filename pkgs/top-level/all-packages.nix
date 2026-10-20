@@ -2960,6 +2960,7 @@ with pkgs;
     pnpm_9
     pnpm_10_29_2
     pnpm_10
+    pnpm_10_latest
     pnpm_11
     pnpm_12
     ;
@@ -7840,6 +7841,7 @@ with pkgs;
   };
 
   nginxMainline = callPackage ../servers/http/nginx/mainline.nix {
+    openssl = openssl_4_0;
     zlib-ng = zlib-ng.override { withZlibCompat = true; };
     withKTLS = true;
     withPerl = false;
@@ -8026,6 +8028,8 @@ with pkgs;
   virtualenv = with python3Packages; toPythonApplication virtualenv;
 
   virtualenv-clone = with python3Packages; toPythonApplication virtualenv-clone;
+
+  whisparr = whisparr_2;
 
   mkfontdir = mkfontscale;
   xcbproto = xcb-proto;
@@ -9944,9 +9948,6 @@ with pkgs;
 
   thunderbird-153-unwrapped = thunderbirdPackages.thunderbird-153;
   thunderbird-153 = wrapThunderbird thunderbirdPackages.thunderbird-153 { };
-
-  thunderbird-140-unwrapped = thunderbirdPackages.thunderbird-140;
-  thunderbird-140 = wrapThunderbird thunderbirdPackages.thunderbird-140 { };
 
   thunderbird-bin = thunderbird-latest-bin;
   thunderbird-latest-bin = wrapThunderbird thunderbird-latest-bin-unwrapped {

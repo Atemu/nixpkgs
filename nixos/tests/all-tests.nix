@@ -320,6 +320,7 @@ in
   budgie = runTest ./budgie.nix;
   buildbot = runTest ./buildbot.nix;
   buildkite-agents = runTest ./buildkite-agents.nix;
+  buildstream-plugins-community = runTest ./buildstream-plugins-community.nix;
   c2fmzq = runTest ./c2fmzq.nix;
   caddy = runTest ./caddy.nix;
   cadvisor = runTestOn [ "x86_64-linux" ] ./cadvisor.nix;
@@ -1247,6 +1248,7 @@ in
   openldap = runTest ./openldap.nix;
   openresty-lua = runTest ./openresty-lua.nix;
   opensearch = discoverTests (import ./opensearch.nix);
+  opensearch-dashboards = handleTest ./opensearch-dashboards.nix { };
   opensmtpd = handleTest ./opensmtpd.nix { };
   opensmtpd-rspamd = handleTest ./opensmtpd-rspamd.nix { };
   opensnitch = runTest ./opensnitch.nix;
@@ -1477,6 +1479,7 @@ in
   rkvm = handleTest ./rkvm { };
   rmfakecloud = runTest ./rmfakecloud.nix;
   robustirc-bridge = runTest ./robustirc-bridge.nix;
+  romm = runTest ./romm.nix;
   rosenpass = runTest ./rosenpass.nix;
   roundcube = runTest ./roundcube.nix;
   routinator = handleTest ./routinator.nix { };
@@ -1823,7 +1826,14 @@ in
   webhook = runTest ./webhook.nix;
   weblate = runTest ./web-apps/weblate.nix;
   wg-access-server = runTest ./wg-access-server.nix;
-  whisparr = runTest ./whisparr.nix;
+  whisparr_2 = runTest {
+    imports = [ ./whisparr.nix ];
+    _module.args.getPackage = pkgs: pkgs.whisparr_2;
+  };
+  whisparr_3 = runTest {
+    imports = [ ./whisparr.nix ];
+    _module.args.getPackage = pkgs: pkgs.whisparr_3;
+  };
   whoami = runTest ./whoami.nix;
   whois = runTest ./whois.nix;
   whoogle-search = runTest ./whoogle-search.nix;

@@ -3,14 +3,15 @@
   stdenv,
   lib,
   nodejs_24,
-  pnpm_10,
+  pnpm_10_latest,
   pnpm_11,
   node-gyp,
   fetchPnpmDeps,
   pnpmConfigHook,
   pnpmBuildHook,
-  electron_43,
+  electron_44,
   python3,
+  rustPackages_1_97,
   makeWrapper,
   callPackage,
   fetchFromGitHub,
@@ -34,24 +35,25 @@ assert lib.warnIf (commandLineArgs != "")
 let
   nodejs = nodejs_24;
   pnpm = pnpm_11;
-  electron = electron_43;
+  electron = electron_44;
 
   libsignal-node = callPackage ./libsignal-node.nix { inherit nodejs; };
   signal-sqlcipher = callPackage ./signal-sqlcipher.nix {
-    pnpm = pnpm_10;
+    pnpm = pnpm_10_latest;
+    inherit (rustPackages_1_97) cargo rustPlatform;
     inherit nodejs;
   };
 
   webrtc = callPackage ./webrtc.nix { };
   ringrtc = callPackage ./ringrtc.nix { inherit webrtc; };
 
-  version = "8.25.0";
+  version = "8.29.0";
 
   src = fetchFromGitHub {
     owner = "signalapp";
     repo = "Signal-Desktop";
     tag = "v${version}";
-    hash = "sha256-eP6EsTUnKgSh1QcAged/rr0Y/9I2P2fJnSQ1666Ddic=";
+    hash = "sha256-QwI3OzZc1octWZZ7G4SNlG1Ohi7w2BManPFFN5gTorQ=";
     # Emoji font files will be added in `postFetch` if `withAppleEmojis` is enabled. They
     # are fetched separately below.
     postFetch = ''
@@ -84,7 +86,7 @@ let
         pnpm config set fetch-timeout 300000
       '';
       fetcherVersion = 4;
-      hash = "sha256-y3OVpWiWIUsq4mfjZqar88LCEzu0d2isTT+9DowzTFY=";
+      hash = "sha256-tDyhLzyG5Vo00nH/WAdVABLFn+SZVPs/WRjqReNDIZM=";
     };
 
     strictDeps = true;
@@ -191,7 +193,7 @@ stdenv.mkDerivation (finalAttrs: {
       pnpm config set fetch-timeout 300000
     '';
     fetcherVersion = 4;
-    hash = "sha256-y3OVpWiWIUsq4mfjZqar88LCEzu0d2isTT+9DowzTFY=";
+    hash = "sha256-tDyhLzyG5Vo00nH/WAdVABLFn+SZVPs/WRjqReNDIZM=";
   };
 
   env = {
@@ -199,7 +201,12 @@ stdenv.mkDerivation (finalAttrs: {
     SIGNAL_ENV = "production";
     # Signal enforces that builds expire 90 days after the last source code change to disallow sending messages from older versions.
     # We set the source-changed date to match the corresponding upstream release date.
-    SOURCE_DATE_EPOCH = 1787765339;
+    SOURCE_DATE_EPOCH = 1790889255;
+  }
+  // lib.optionalAttrs (stdenv.hostPlatform.system == "x86_64-darwin") {
+    # Test Node's legacy async-context implementation for the Rolldown
+    # async-hook stack corruption on Intel Darwin. Keep integrity checks enabled.
+    NODE_OPTIONS = "--no-async-context-frame";
   };
 
   preBuild = ''

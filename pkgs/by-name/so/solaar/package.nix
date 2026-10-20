@@ -8,9 +8,11 @@
   gdk-pixbuf,
   libappindicator,
   librsvg,
+  libnotify,
   upower,
   udevCheckHook,
   acl,
+  xvfb,
 }:
 
 # Although we copy in the udev rules here, you probably just want to use
@@ -18,14 +20,14 @@
 # instead of adding this to `services.udev.packages` on NixOS,
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "solaar";
-  version = "1.1.19";
+  version = "1.1.20";
   format = "setuptools";
 
   src = fetchFromGitHub {
     owner = "pwr-Solaar";
     repo = "Solaar";
     tag = finalAttrs.version;
-    hash = "sha256-Z3rWGmFQmfJvsWiPgxQmfXMPHXAAiFneBaoSVIXnAV8=";
+    hash = "sha256-h/uiy0TtMicKch2cdXHur5DkvQun2sAw2HpFI7Qstqg=";
   };
 
   outputs = [
@@ -44,6 +46,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     libappindicator
     librsvg
     upower
+    libnotify
   ];
 
   propagatedBuildInputs = with python3Packages; [
@@ -63,6 +66,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
     pytestCheckHook
     pytest-mock
     pytest-cov-stub
+    pytest-xvfb
+    xvfb
   ];
 
   preConfigure = ''

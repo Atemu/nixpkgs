@@ -4239,6 +4239,13 @@
     githubId = 8891115;
     name = "Brian Choy";
   };
+  byteflavour = {
+    email = "synapse@byteflavour.dev";
+    github = "byteflavour";
+    githubId = 131113314;
+    matrix = "@synapse:byteflavour.dev";
+    name = "Byte Flavour";
+  };
   ByteSudoer = {
     email = "bytesudoer@gmail.com";
     github = "ByteSudoer";
@@ -6666,6 +6673,12 @@
     githubId = 27348469;
     name = "Cat";
   };
+  denzonl = {
+    email = "dennis@bogers.xyz";
+    github = "DenzoNL";
+    githubId = 7504556;
+    name = "Dennis Bogers";
+  };
   derchris = {
     email = "derchris@me.com";
     github = "derchrisuk";
@@ -6695,6 +6708,13 @@
     github = "DerHalbGrieche";
     githubId = 77843198;
     name = "Vasilis Manetas";
+  };
+  Deric-W = {
+    email = "robo-eric@gmx.de";
+    github = "Deric-W";
+    githubId = 42873573;
+    name = "Eric Wolf";
+    keys = [ { fingerprint = "ADAA B6F3 A955 5589 D66C  CE61 80D2 DA42 8A4A 537F"; } ];
   };
   DerickEddington = {
     email = "derick.eddington@pm.me";
@@ -8079,6 +8099,12 @@
     github = "emmanuelrosa";
     githubId = 13485450;
     name = "Emmanuel Rosa";
+  };
+  emp = {
+    name = "Heinz Deinhart";
+    email = "dev_nixpkgs@a.nix.at";
+    github = "atemp";
+    githubId = 4732807;
   };
   emptyflask = {
     email = "jon@emptyflask.dev";

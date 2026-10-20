@@ -2393,6 +2393,10 @@ self: super: with self; {
 
   buildstream-plugins = callPackage ../development/python-modules/buildstream-plugins { };
 
+  buildstream-plugins-community =
+    callPackage ../development/python-modules/buildstream-plugins-community
+      { };
+
   bumble = callPackage ../development/python-modules/bumble { };
 
   bump-my-version = callPackage ../development/python-modules/bump-my-version { };
@@ -10934,7 +10938,7 @@ self: super: with self; {
 
   mypyllant = callPackage ../development/python-modules/mypyllant { };
 
-  mysql-connector = callPackage ../development/python-modules/mysql-connector { };
+  mysql-connector-python = callPackage ../development/python-modules/mysql-connector-python { };
 
   mysqlclient = callPackage ../development/python-modules/mysqlclient { };
 
@@ -12289,6 +12293,8 @@ self: super: with self; {
   parquet = callPackage ../development/python-modules/parquet { };
 
   parse = callPackage ../development/python-modules/parse { };
+
+  parse-crontab = callPackage ../development/python-modules/parse-crontab { };
 
   parse-type = callPackage ../development/python-modules/parse-type { };
 
@@ -16674,7 +16680,7 @@ self: super: with self; {
 
   qtconsole = callPackage ../development/python-modules/qtconsole { };
 
-  qtile = callPackage ../development/python-modules/qtile { wlroots = pkgs.wlroots_0_19; };
+  qtile = callPackage ../development/python-modules/qtile { wlroots = pkgs.wlroots_0_20; };
 
   qtile-bonsai = callPackage ../development/python-modules/qtile-bonsai { };
 
@@ -17347,6 +17353,8 @@ self: super: with self; {
   rpyc = callPackage ../development/python-modules/rpyc { };
 
   rq = callPackage ../development/python-modules/rq { };
+
+  rq-scheduler = callPackage ../development/python-modules/rq-scheduler { };
 
   rrdtool = callPackage ../development/python-modules/rrdtool { };
 
@@ -19017,6 +19025,8 @@ self: super: with self; {
   striprtf = callPackage ../development/python-modules/striprtf { };
 
   strpdatetime = callPackage ../development/python-modules/strpdatetime { };
+
+  strsimpy = callPackage ../development/python-modules/strsimpy { };
 
   structlog = callPackage ../development/python-modules/structlog { };
 
@@ -21942,6 +21952,8 @@ self: super: with self; {
   zimports = callPackage ../development/python-modules/zimports { };
 
   zinvolt = callPackage ../development/python-modules/zinvolt { };
+
+  zipfile-inflate64 = callPackage ../development/python-modules/zipfile-inflate64 { };
 
   zipfile2 = callPackage ../development/python-modules/zipfile2 { };
 
