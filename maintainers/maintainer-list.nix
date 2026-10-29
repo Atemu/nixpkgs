@@ -26550,6 +26550,16 @@
     githubId = 1181362;
     name = "Stefan Junker";
   };
+  stevelr = {
+    email = "stevelr.git@pm.me";
+    github = "stevelr";
+    githubId = 15311467;
+    name = "Steve Schoettler";
+    keys = [
+      { fingerprint = "57C9 E8E1 274D 713E FEF3  1B89 407A A4E4 3349 35ED"; }
+      { fingerprint = "8379 6FAD CB03 18D6 513B  4CBB D39C B4E4 FD6B C844"; }
+    ];
+  };
   stevenroose = {
     email = "github@stevenroose.org";
     github = "stevenroose";
@@ -29269,6 +29279,14 @@
     github = "vlaci";
     githubId = 1771332;
     name = "László Vaskó";
+  };
+  VlaDexa = {
+    name = "Vladislav Grechannik";
+    email = "nixpkgs@vladexa.xyz";
+    keys = [ { fingerprint = "1E21 85DA D156 B08C 2740  D301 D58B FE42 A558 7A72"; } ];
+    github = "VlaDexa";
+    githubId = 52157081;
+    matrix = "@vladexa:vladexa.xyz";
   };
   vlinkz = {
     email = "vmfuentes64@gmail.com";
