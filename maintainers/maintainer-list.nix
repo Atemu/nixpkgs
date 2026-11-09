@@ -5202,6 +5202,12 @@
       }
     ];
   };
+  cleboost = {
+    email = "clement.balarot@gmail.com";
+    github = "Cleboost";
+    githubId = 61158869;
+    name = "Clément Balarot";
+  };
   clebs = {
     email = "borja.clemente@gmail.com";
     github = "clebs";
@@ -12004,6 +12010,12 @@
     email = "johannes.arnold@stud.uni-hannover.de";
     github = "j0hax";
     githubId = 3802620;
+  };
+  j0schu = {
+    name = "Jonas";
+    email = "Joschu2015@t-online.de";
+    github = "J0schu";
+    githubId = 56407950;
   };
   j0xaf = {
     email = "j0xaf@j0xaf.de";

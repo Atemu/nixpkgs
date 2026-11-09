@@ -4539,12 +4539,14 @@ with pkgs;
       zulu17 = callPackage ../development/compilers/zulu/17.nix { };
       zulu21 = callPackage ../development/compilers/zulu/21.nix { };
       zulu25 = callPackage ../development/compilers/zulu/25.nix { };
+      zulu27 = callPackage ../development/compilers/zulu/27.nix { };
     })
     zulu8
     zulu11
     zulu17
     zulu21
     zulu25
+    zulu27
     ;
   zulu = zulu21;
 
@@ -5158,10 +5160,7 @@ with pkgs;
         electron_39 = electron_39-bin;
         electron_40 = electron_40-bin;
         electron_41 = electron_41-bin;
-        electron_42 = getElectronPkg {
-          src = electron-source.electron_42;
-          bin = electron_42-bin;
-        };
+        electron_42 = electron_42-bin;
         electron_43 = getElectronPkg {
           src = electron-source.electron_43;
           bin = electron_43-bin;
@@ -7764,25 +7763,27 @@ with pkgs;
       kanidm_1_11 = callPackage ../servers/kanidm/1_11.nix {
         kanidmWithSecretProvisioning = kanidmWithSecretProvisioning_1_11;
       };
+      kanidm_1_12 = callPackage ../servers/kanidm/1_12.nix {
+        kanidmWithSecretProvisioning = kanidmWithSecretProvisioning_1_12;
+      };
 
       kanidmWithSecretProvisioning_1_8 = kanidm_1_8.override { enableSecretProvisioning = true; };
       kanidmWithSecretProvisioning_1_9 = kanidm_1_9.override { enableSecretProvisioning = true; };
       kanidmWithSecretProvisioning_1_10 = kanidm_1_10.override { enableSecretProvisioning = true; };
       kanidmWithSecretProvisioning_1_11 = kanidm_1_11.override { enableSecretProvisioning = true; };
+      kanidmWithSecretProvisioning_1_12 = kanidm_1_12.override { enableSecretProvisioning = true; };
     })
     kanidm_1_8
     kanidm_1_9
     kanidm_1_10
     kanidm_1_11
+    kanidm_1_12
     kanidmWithSecretProvisioning_1_8
     kanidmWithSecretProvisioning_1_9
     kanidmWithSecretProvisioning_1_10
     kanidmWithSecretProvisioning_1_11
+    kanidmWithSecretProvisioning_1_12
     ;
-
-  lemmy-server = callPackage ../servers/web-apps/lemmy/server.nix { };
-
-  lemmy-ui = callPackage ../servers/web-apps/lemmy/ui.nix { };
 
   mailmanPackages = recurseIntoAttrs (callPackage ../servers/mail/mailman { });
   inherit (mailmanPackages) mailman mailman-hyperkitty;
@@ -8913,7 +8914,6 @@ with pkgs;
     callPackage ../applications/networking/cluster/docker-machine/hyperkit.nix
       { };
   docker-buildx = callPackage ../applications/virtualization/docker/buildx.nix { };
-  docker-compose = callPackage ../applications/virtualization/docker/compose.nix { };
   docker-sbom = callPackage ../applications/virtualization/docker/sbom.nix { };
 
   drawpile-server-headless = drawpile.override {
