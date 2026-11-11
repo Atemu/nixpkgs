@@ -1,71 +1,83 @@
 {
-  lib,
-  stdenv,
-  fetchFromCodeberg,
-  zig,
-  pkg-config,
-  wayland,
-  wayland-scanner,
-  wayland-protocols,
-  river,
-  libxkbcommon,
-  libnotify,
   dbus,
+  fetchFromCodeberg,
+  lib,
+  libxkbcommon,
   nix-update-script,
+  pkg-config,
+  river,
+  river-channel,
+  stdenv,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
+  zig_0_17,
+  withStripDebug ? true,
 }:
 
+let
+  inherit (lib.trivial)
+    boolToString
+    ;
+  zig = zig_0_17;
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "rhine";
-  version = "0.4.1-unstable-2026-10-18";
-
-  __structuredAttrs = true;
+  version = "0.5.0";
   strictDeps = true;
+  __structuredAttrs = true;
 
   src = fetchFromCodeberg {
-    owner = "sivecano";
+    owner = "Sivecano";
     repo = "rhine";
-    rev = "ff499d004ed283ca784d2494e40cfc17ebc8f77a";
-    hash = "sha256-HLGWjJOqbvVn9R35TimqaxcX0e2nWlDKersDmD3viUY=";
+    tag = finalAttrs.version;
+    hash = "sha256-BwNMQe6aVUmTyRzkAnwubgYmyXZksxJOjDrfew9xZXI=";
   };
 
   nativeBuildInputs = [
-    zig
     pkg-config
-    wayland-scanner
+    zig
   ];
 
   buildInputs = [
-    wayland-scanner
-    wayland-protocols
-    wayland
-    river
     libxkbcommon
-    libnotify
+    wayland
+    # wayland-scanner must be placed in buildInputs in order for build to succeed
+    wayland-scanner
+    river
+    wayland-protocols
+    river-channel
     dbus
   ];
 
   zigDeps = zig.fetchDeps {
     inherit (finalAttrs) src pname version;
-    hash = "sha256-nvM2DcFnVkGXBUQ/XGsIJXr0sJWlqJaoTiTUOyU7u9k=";
+    hash = "sha256-ScevH+3LjMCuYZqwufO6+XdipkDB1WGNIUexUERSdqY=";
   };
+
+  zigBuildFlags = [
+    "-Dstrip=${boolToString withStripDebug}"
+  ];
+
   postConfigure = ''
     ln -s ${finalAttrs.zigDeps} $ZIG_GLOBAL_CACHE_DIR/p
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version=branch=main"
-    ];
+  passthru = {
+    providedSessions = [ "rhine" ];
+    updateScript = nix-update-script { };
   };
 
   meta = {
-    description = "Window manager for river supporting multiple layouts and awesome animations";
     homepage = "https://codeberg.org/sivecano/rhine";
-    license = lib.licenses.agpl3Only;
+    description = "window manager for river supporting multiple layouts and awesome animations";
     maintainers = with lib.maintainers; [
+      OulipianSummer
       atemu
     ];
+    license = with lib.licenses; [
+      gpl3Only
+    ];
     mainProgram = "rhine";
-    inherit (zig.meta) platforms;
   };
 })
