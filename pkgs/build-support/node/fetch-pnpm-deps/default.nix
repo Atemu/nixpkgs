@@ -16,6 +16,9 @@
 let
   pnpmLatest = pnpm;
 
+  # Pinned SQLite to keep hashes stable, see ./sqlite.nix
+  sqlite' = callPackage ./sqlite.nix { };
+
   supportedFetcherVersions = [
     1 # First version. Here to preserve backwards compatibility
     2 # Ensure consistent permissions. See https://github.com/NixOS/nixpkgs/pull/422975
@@ -52,8 +55,38 @@ in
 
       filterFlags = lib.map (package: "--filter=${package}") pnpmWorkspaces;
 
+      # pnpm 11 writes its store index through `node:sqlite`, which links against the system SQLite.
+      # Rebuild Node with the pinned SQLite for pnpm and pnpm-fixup-state-db.
+      withPinnedSqlite =
+        nodejs:
+        if lib.functionArgs nodejs.override ? callPackage then
+          # if its called with with `nodejs-slim = nodejs-slim_*`
+          nodejs.override {
+            callPackage =
+              fn: fnArgs:
+              callPackage fn (
+                lib.optionalAttrs (lib.functionArgs (if lib.isFunction fn then fn else import fn) ? sqlite) {
+                  sqlite = sqlite';
+                }
+                // fnArgs
+              );
+          }
+        else
+          # if its called with with `nodejs-slim = nodejs_*`
+          nodejs.override (old: {
+            nodejs-slim = withPinnedSqlite old.nodejs-slim;
+          });
+
+      pnpm' =
+        if lib.versionAtLeast pnpm.version "11" then
+          pnpm.override {
+            nodejs-slim = withPinnedSqlite pnpm.nodejs-slim;
+          }
+        else
+          pnpm;
+
       pnpm-fixup-state-db' = pnpm-fixup-state-db.override {
-        inherit (pnpm) nodejs-slim;
+        inherit (pnpm') nodejs-slim;
       };
     in
     # pnpmWorkspace was deprecated, so throw if it's used.
@@ -84,10 +117,10 @@ in
               cacert
               jq
               moreutils
-              pnpm # from args
-              pnpm.nodejs-slim
+              pnpm' # from args
+              pnpm'.nodejs-slim
               pnpm-fixup-state-db'
-              sqlite
+              sqlite'
               writableTmpDirAsHomeHook
               yq
               zstd

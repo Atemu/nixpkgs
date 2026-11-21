@@ -19,16 +19,16 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "lockbook-desktop";
-  version = "26.10.30";
+  version = "26.11.12";
 
   src = fetchFromGitHub {
     owner = "lockbook";
     repo = "lockbook";
     tag = finalAttrs.version;
-    hash = "sha256-97zEZcZocX/NkeNx1gg9ZDyhKUd0eqZ+NGohAjPccJk=";
+    hash = "sha256-/PXx03z42IXdhpMsowN3InRPltCSjuEO/YlyqFuFHng=";
   };
 
-  cargoHash = "sha256-8WuXXfFff6+Fu2xeR4QYClHUgXaO6uIZqE+0sTwF+VI=";
+  cargoHash = "sha256-+6LaZ8FvhHXB+Fs/xYipxxbt7RiF/AWjGqyaMMPVL0A=";
 
   nativeBuildInputs = [
     pkg-config
@@ -60,7 +60,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     name = "lockbook-desktop";
     comment = desc;
     icon = "lockbook";
-    exec = "lockbook-desktop";
+    exec = "lockbook-desktop %u";
+    mimeTypes = [ "x-scheme-handler/lb" ];
     categories = [
       "Office"
       "Documentation"

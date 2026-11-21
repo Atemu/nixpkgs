@@ -399,20 +399,20 @@ in
   mkRuby = generic;
 
   ruby_3_3 = generic {
-    version = rubyVersion "3" "3" "13" "";
-    hash = "sha256-TK5y6XG9HNsgyofSmRERgkF8UnbBYt6OrQqwUxQmzWE=";
+    version = rubyVersion "3" "3" "14" "";
+    hash = "sha256-0EOO4pGwysr5fHpx30yTnX8yZcjC0bj/4nMR9x/GgLA=";
     cargoHash = "sha256-xE7Cv+NVmOHOlXa/Mg72CTSaZRb72lOja98JBvxPvSs=";
   };
 
   ruby_3_4 = generic {
-    version = rubyVersion "3" "4" "11" "";
-    hash = "sha256-XCK+RFJDErPUM9aHObzFMGM7HaXvi6CvoKN2gNoX094=";
+    version = rubyVersion "3" "4" "12" "";
+    hash = "sha256-Xl2FrZOwrczLrUdzNoD0iSvQB44zQkN/e6vOAcGHJHk=";
     cargoHash = "sha256-5Tp8Kth0yO89/LIcU8K01z6DdZRr8MAA0DPKqDEjIt0=";
   };
 
   ruby_4_0 = generic {
-    version = rubyVersion "4" "0" "9" "";
-    hash = "sha256-w1NQaC/wULeXAtV63kUW5zNgY/UQFV0Z+y+1s/OQlRE=";
+    version = rubyVersion "4" "0" "10" "";
+    hash = "sha256-tT7vM3H6XT47dDQO3NAV8G1diFOWjU5TmlJk/OQe2fE=";
     cargoHash = "sha256-z7NwWc4TaR042hNx0xgRkh/BQEpEJtE53cfrN0qNiE0=";
   };
 

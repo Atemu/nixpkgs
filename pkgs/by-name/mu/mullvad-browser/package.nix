@@ -97,7 +97,7 @@ let
     ++ lib.optionals mediaSupport [ ffmpeg_8 ]
   );
 
-  version = "16.0";
+  version = "16.0.2";
 
   sources = {
     x86_64-linux = fetchurl {
@@ -109,7 +109,7 @@ let
         "https://tor.eff.org/dist/mullvadbrowser/${version}/mullvad-browser-linux-x86_64-${version}.tar.xz"
         "https://tor.calyxinstitute.org/dist/mullvadbrowser/${version}/mullvad-browser-linux-x86_64-${version}.tar.xz"
       ];
-      hash = "sha256-qlccbcAKrSFK+akuQU86a9nhITm0gZ9a8vOqqj2fSqM=";
+      hash = "sha256-wDvqADFOs0RigMqFH3GnY7AMfA0d1H1CXQSVBjrmyf4=";
     };
 
     aarch64-linux = fetchurl {
@@ -121,7 +121,7 @@ let
         "https://tor.eff.org/dist/mullvadbrowser/${version}/mullvad-browser-linux-aarch64-${version}.tar.xz"
         "https://tor.calyxinstitute.org/dist/mullvadbrowser/${version}/mullvad-browser-linux-aarch64-${version}.tar.xz"
       ];
-      hash = "sha256-f9pB/+TC1zKlRPVQku9IMSjCJKKqRoDYY+eTx14Ds9k=";
+      hash = "sha256-VWZDItDlywpx1A6uSOQEl7QXrL/7sLke3K7L6LkCPp0=";
     };
   };
 
